@@ -1,0 +1,24 @@
+generated: '2026-07-18'
+method: searched
+source: openapi/delphix-continuous-compliance-openapi.yml, openapi/delphix-continuous-data-openapi.yml
+docs: https://dct.delphix.com/docs/latest/api-requests-and-reporting
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+  token_prefix: apk
+  note: >-
+    Data Control Tower authenticates every API request with a static API key sent in
+    the Authorization header, prefixed with "apk" (e.g. "Authorization: apk 1.abc...").
+    API keys are minted per DCT account; DCT accounts themselves can be created
+    manually or federated via LDAP/AD or SSO/SAML.
+schemes:
+- name: ApiKeyAuth
+  type: apiKey
+  in: header
+  parameter: Authorization
+  token_prefix: apk
+  sources:
+  - openapi/delphix-continuous-compliance-openapi.yml
+  - openapi/delphix-continuous-data-openapi.yml
