@@ -1,0 +1,1029 @@
+openapi: 3.0.0
+info:
+  title: Delphix DCT Algorithms StagingSources API
+  version: 3.28.0
+  description: Delphix DCT API
+  contact:
+    name: Delphix Support
+    url: https://portal.perforce.com/s/
+    email: support@delphix.com
+servers:
+- url: /dct/v3
+security:
+- ApiKeyAuth: []
+tags:
+- name: StagingSources
+paths:
+  /staging-sources:
+    get:
+      summary: List all staging sources.
+      operationId: get_staging_sources
+      tags:
+      - StagingSources
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/stagingSourcesSortParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ListStagingSourcesResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/StagingSource'
+                  errors:
+                    $ref: '#/components/schemas/Errors'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /staging-sources/search:
+    post:
+      summary: Search for Staging Sources.
+      operationId: search_staging_sources
+      tags:
+      - StagingSources
+      x-filterable:
+        fields:
+          id:
+            type: string
+          name:
+            type: string
+          database_type:
+            type: string
+          database_name:
+            type: string
+          database_version:
+            type: string
+          environment_id:
+            type: string
+          data_uuid:
+            type: string
+          ip_address:
+            type: string
+          fqdn:
+            type: string
+          repository:
+            type: string
+          oracle_config_type:
+            type: string
+          cdb_type:
+            type: string
+          dsource_id:
+            type: string
+          environment_user_ref:
+            type: string
+          recovery_model:
+            type: string
+          mount_base:
+            type: string
+          data_connection_id:
+            type: string
+          datafile_mount_path:
+            type: string
+          archive_mount_path:
+            type: string
+          database_unique_name:
+            type: string
+          size:
+            type: integer
+            format: int64
+          nfs_version:
+            type: integer
+            format: int32
+          nfs_version_reason:
+            type: string
+          nfs_encryption_enabled:
+            type: boolean
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/stagingSourcesSortParam'
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: SearchStagingSourcesResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/StagingSource'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /staging-sources/{stagingSourceId}:
+    parameters:
+    - $ref: '#/components/parameters/stagingSourceIdParam'
+    get:
+      summary: Get a staging source by ID.
+      operationId: get_staging_source_by_id
+      tags:
+      - StagingSources
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StagingSource'
+  /staging-sources/{stagingSourceId}/update:
+    parameters:
+    - $ref: '#/components/parameters/stagingSourceIdParam'
+    patch:
+      summary: Update a Staging Source.
+      tags:
+      - StagingSources
+      operationId: update_staging_source_by_id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: update_source_staging_parameter
+              $ref: '#/components/schemas/UpdateStagingSourceParameters'
+        description: The parameters to update a Staging Source.
+      responses:
+        '200':
+          description: Staging Source update initiated.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: UpdateStagingSourceResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+  /staging-sources/{stagingSourceId}/tags:
+    parameters:
+    - $ref: '#/components/parameters/stagingSourceIdParam'
+    post:
+      tags:
+      - StagingSources
+      summary: Create tags for a Staging Source.
+      operationId: create_staging_source_tags
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: staging_source_tags
+              $ref: '#/components/schemas/TagsRequest'
+        description: Tags information for Staging Source.
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+    get:
+      tags:
+      - StagingSources
+      summary: Get tags for a Staging Source.
+      operationId: get_staging_source_tags
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+  /staging-sources/{stagingSourceId}/tags/delete:
+    parameters:
+    - $ref: '#/components/parameters/stagingSourceIdParam'
+    post:
+      tags:
+      - StagingSources
+      summary: Delete tags for a Staging Source.
+      operationId: delete_staging_source_tags
+      requestBody:
+        $ref: '#/components/requestBodies/DeleteTags'
+      responses:
+        '204':
+          description: No Content
+components:
+  schemas:
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    DeleteTag:
+      type: object
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        tags:
+          description: List of tags to be deleted
+          type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          readOnly: true
+          description: Message providing more detail about the error that occurred, if available.
+        object_name:
+          type: string
+          readOnly: true
+          description: Name of the object affected by the error.
+    OracleCustomEnvVar:
+      type: object
+      properties:
+        cluster_node:
+          type: string
+          description: The cluster node on which the environment variable is relevant.
+        path_parameters:
+          type: string
+          description: A string of whitespace-separated parameters to be passed to the source command. The first parameter must be an absolute path to a file that exists on the target environment. Every subsequent parameter will be treated as an argument interpreted by the environment file.
+        var_name:
+          type: string
+          description: The name of the environment variable.
+        var_value:
+          description: The value of the environment variable.
+          type: string
+    OracleService:
+      properties:
+        discovered:
+          description: Represents whether this jdbc connection string is auto discovered or not.
+          type: boolean
+        jdbc_connection_string:
+          description: The jdbc connection string used to connect with the database.
+          type: string
+          example: jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.110.230.197)(PORT=1521))(CONNECT_DATA=(UR=A)(SERVICE_NAME=VDBOMSRBBDC6C_UJG)))
+    Errors:
+      description: Sadly, sometimes requests to the API are not successful. Failures can occur for a wide range of reasons. The Errors object contains information about full or partial failures which might have occurred during the request.
+      type: array
+      items:
+        $ref: '#/components/schemas/Error'
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    VirtualizationTask:
+      deprecated: true
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    OracleConfigTypeEnum:
+      type: string
+      enum:
+      - OracleRACConfig
+      - OracleSIConfig
+      - OraclePDBConfig
+      example: OracleSIConfig
+    StagingSource:
+      description: The Delphix representation of the staging source database (not typically managed by Delphix).
+      type: object
+      properties:
+        id:
+          description: The Staging Source object entity ID.
+          type: string
+        name:
+          description: The name of this staging source database.
+          type: string
+          nullable: true
+        database_type:
+          description: The type of this staging source database.
+          type: string
+          nullable: true
+        database_name:
+          description: The name of container database of associated with this staging source database.
+          type: string
+          nullable: true
+        database_version:
+          description: The version of container database associated with this staging source database.
+          type: string
+          nullable: true
+        environment_id:
+          description: A reference to the Environment that hosts this staging source database.
+          type: string
+          nullable: true
+        data_uuid:
+          description: A universal ID that uniquely identifies this staging source database.
+          type: string
+          nullable: true
+        ip_address:
+          description: The IP address of the staging source's host.
+          type: string
+          nullable: true
+        fqdn:
+          description: The FQDN of the staging source's host.
+          type: string
+          nullable: true
+        repository:
+          description: The repository id for this staging source.
+          type: string
+        type:
+          description: The type of source configuration for this staging source.
+          type: string
+        oracle_config_type:
+          description: The type of oracle source configuration for this staging source. (Oracle only)
+          $ref: '#/components/schemas/OracleConfigTypeEnum'
+        cdb_type:
+          description: The cdb type for this staging source. (Oracle only)
+          type: string
+        dsource_id:
+          description: The dsource_id associated with this staging source.
+          type: string
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        oracle_services:
+          type: array
+          items:
+            $ref: '#/components/schemas/OracleService'
+        environment_user_ref:
+          description: The environment user reference.
+          type: string
+        recovery_model:
+          description: Recovery model of the source database.
+          type: string
+        mount_base:
+          description: The base mount point for the NFS or iSCSI LUN mounts.
+          type: string
+        data_connection_id:
+          description: The ID of the associated DataConnection.
+          type: string
+        datafile_mount_path:
+          description: The datafile mount point to use for the NFS mounts.
+          type: string
+        archive_mount_path:
+          description: The archive mount point to use for the NFS mounts.
+          type: string
+        database_unique_name:
+          description: The unique name of the database.
+          type: string
+        instance_name:
+          description: The instance name of this staging database.
+          type: string
+        size:
+          description: The total size of this Staging database, in bytes.
+          type: integer
+          format: int64
+          example: 339292672
+        custom_env_vars:
+          type: array
+          items:
+            $ref: '#/components/schemas/OracleCustomEnvVar'
+        nfs_version:
+          description: The NFS version that was last used to mount this source."
+          type: integer
+          format: int32
+        nfs_version_reason:
+          description: The reason why the source is being mounted with nfsVersion.
+          $ref: '#/components/schemas/NfsVersionReasonEnum'
+          example: DEFAULT
+        nfs_encryption_enabled:
+          description: Flag indicating whether the data transfer is encrypted or not.
+          type: boolean
+      example:
+        id: staging-source-123
+        name: production01
+        database_type: Oracle
+        database_name: CDOM-EX1
+        database_version: 11.1.0.7.0
+        environment_id: environment-123
+        data_uuid: 1734315df891991101eb96963535afa0
+        ip_address: 192.0.2.0
+        fqdn: prod01.myhost.com
+        repository: 1-REPO-1
+        type: OracleSIConfig
+        oracle_config_type: OraclePDBConfig
+        cdb_type: ROOT_CDB
+        dsource_id: 1-CONTAINER-1
+        tags:
+        - key: key1
+          value: value1
+        - key: key2
+          value: value2
+        oracle_services:
+        - discovered: 'true'
+          jdbc_connection_string: jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.110.230.197)(PORT=1521))(CONNECT_DATA=(UR=A)(SERVICE_NAME=VDBOMSRBBDC6C_UJG)))
+        - discovered: 'false'
+          jdbc_connection_string: jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.110.230.197)(PORT=1522))(CONNECT_DATA=(UR=A)(SERVICE_NAME=VDBOMSRBBDC6C_UJG)))
+        recovery_model: FULL
+        mount_base: C:\Program Files\Delphix\DelphixConnector\ec2f5d5f-a2e0-3902-5097-62d348ae63a8-staging-24
+        data_connection_id: data-connection-1
+        datafile_mount_path: /mnt/staging/DBOMSRBBDC6C/datafile
+        archive_mount_path: /mnt/staging/DBOMSRBBDC6C/archive
+        database_unique_name: DBOMSRBBDC6C
+        instance_name: DBOMSRBBDC6C
+        nfs_version: 3
+        nfs_version_reason: DEFAULT
+        nfs_encryption_enabled: true
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    UpdateStagingSourceParameters:
+      type: object
+      description: Parameters to update a Staging Source.
+      properties:
+        oracle_services:
+          type: array
+          items:
+            type: string
+          description: List of jdbc connection strings which are used to connect with the database.
+          example:
+          - jdbc:oracle:thin:@hostname:port/service_name
+          - jdbc:oracle:thin:@hostname:port:SID
+    NfsVersionReasonEnum:
+      type: string
+      description: The reason why the source is being mounted with nfsVersion.
+      enum:
+      - DEFAULT
+      - OLD_REDHAT
+      - UNSUPPORTED_OS
+      - DNFS
+      - TUNABLE_OVERRIDE
+      - NO_RECOVER_LOST_LOCKS
+      - UNSUPPORTED_DATA_PLATFORM
+      - INCOMPLETE_V4_CONFIG
+      - DNFS_UNSUPPORTED_ORACLE_VERSIONS_1912_1915
+      - DNFS_UNSUPPORTED_ORACLE_VERSIONS_211_216
+      - DNFS_UNSUPPORTED_ORACLE_VERSIONS_LESS_THAN_12C
+    Job:
+      description: An asynchronous task.
+      type: object
+      properties:
+        id:
+          description: The Job entity ID.
+          type: string
+          example: job-123
+        status:
+          description: The status of the job.
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+          example: RUNNING
+        is_waiting_for_telemetry:
+          description: Indicates that the operations performed by this Job have completed successfully, but the object changes are not yet reflected. This is only set when when the JOB is in STARTED status, with the guarantee that the job will not transition to the FAILED status. Note that this flag will likely be replaced with a new status in future API versions and be deprecated.
+          type: boolean
+        type:
+          description: The type of job being done.
+          type: string
+          example: DB_REFRESH
+        localized_type:
+          description: The i18n translated type of job being done.
+          type: string
+          example: DB Refresh
+        error_details:
+          description: Details about the failure for FAILED jobs.
+          type: string
+          example: Unable to connect to the engine.
+        warning_message:
+          description: Warnings for the job.
+          type: string
+          example: 'Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.'
+        target_id:
+          description: A reference to the job's target.
+          type: string
+          example: vdb-123
+        target_name:
+          description: A reference to the job's target name.
+          type: string
+          example: vdb
+        start_time:
+          description: The time the job started executing.
+          type: string
+          format: date-time
+          example: '2022-01-02T05:11:24.148000+00:00'
+        update_time:
+          description: The time the job was last updated.
+          type: string
+          format: date-time
+          example: '2022-01-02T06:11:24.148000+00:00'
+        trace_id:
+          description: traceId of the request which created this Job
+          type: string
+        engine_ids:
+          description: IDs of the engines this Job is executing on.
+          type: array
+          items:
+            type: string
+          deprecated: true
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        engines:
+          type: array
+          items:
+            $ref: '#/components/schemas/Engine'
+        account_id:
+          description: The ID of the account who initiated this job.
+          type: integer
+          example: 1
+        account_name:
+          description: The account name which initiated this job. It can be either firstname and lastname combination or firstname or lastname or username or email address or Account-<id>.
+          type: string
+          example: User 1
+        compliance_node_id:
+          description: The ID of the associated compliance node, if applicable.
+          type: string
+          nullable: true
+        compliance_node_name:
+          description: The name of the associated compliance node, if applicable.
+          type: string
+          nullable: true
+        percent_complete:
+          description: Completion percentage of the Job.
+          type: integer
+          minimum: 0
+          maximum: 100
+          example: '50'
+        virtualization_tasks:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTask'
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTask'
+        execution_id:
+          description: The ID of the associated masking execution, if any.
+          type: string
+          nullable: true
+        result_type:
+          description: The type of the job result. This is the type of the object present in the result.
+          type: string
+        result:
+          description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
+          type: object
+      discriminator:
+        propertyName: class_type
+  parameters:
+    stagingSourcesSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: id
+      required: false
+      schema:
+        type: string
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - database_type
+        - -database_type
+        - database_name
+        - -database_name
+        - database_version
+        - -database_version
+        - environment_id
+        - -environment_id
+        - data_uuid
+        - -data_uuid
+        - ip_address
+        - -ip_address
+        - fqdn
+        - -fqdn
+        - repository
+        - -repository
+        - oracle_config_type
+        - -oracle_config_type
+        - cdb_type
+        - -cdb_type
+        - dsource_id
+        - -dsource_id
+        - type
+        - -type
+        - environment_user_ref
+        - -environment_user_ref
+        - recovery_model
+        - -recovery_model
+        - mount_base
+        - -mount_base
+        - data_connection_id
+        - -data_connection_id
+        - datafile_mount_path
+        - -datafile_mount_path
+        - archive_mount_path
+        - -archive_mount_path
+        - database_unique_name
+        - -database_unique_name
+        - size
+        - -size
+        - nfs_version
+        - -nfs_version
+        - nfs_version_reason
+        - -nfs_version_reason
+        - nfs_encryption_enabled
+        - -nfs_encryption_enabled
+        nullable: true
+        example: name
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+    stagingSourceIdParam:
+      in: path
+      name: stagingSourceId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the staging Source.
+  requestBodies:
+    SearchBody:
+      x-skip-codegen-attr: description
+      description: 'A request body containing a filter expression. This enables searching
+
+        for items matching arbitrarily complex conditions. The list of
+
+        attributes which can be used in filter expressions is available
+
+        in the x-filterable vendor extension.
+
+
+        # Filter Expression Overview
+
+        **Note: All keywords are case-insensitive**
+
+
+        ## Comparison Operators
+
+        | Operator | Description | Example |
+
+        | --- | --- | --- |
+
+        | CONTAINS | Substring or membership testing for string and list attributes respectively. | field3 CONTAINS ''foobar'', field4 CONTAINS TRUE  |
+
+        | IN | Tests if field is a member of a list literal. List can contain a maximum of 100 values | field2 IN [''Goku'', ''Vegeta''] |
+
+        | GE | Tests if a field is greater than or equal to a literal value | field1 GE 1.2e-2 |
+
+        | GT | Tests if a field is greater than a literal value | field1 GT 1.2e-2 |
+
+        | LE | Tests if a field is less than or equal to a literal value | field1 LE 9000 |
+
+        | LT | Tests if a field is less than a literal value | field1 LT 9.02 |
+
+        | NE | Tests if a field is not equal to a literal value | field1 NE 42 |
+
+        | EQ | Tests if a field is equal to a literal value | field1 EQ 42 |
+
+
+        ## Search Operator
+
+        The SEARCH operator filters for items which have any filterable
+
+        attribute that contains the input string as a substring, comparison
+
+        is done case-insensitively. This is not restricted to attributes with
+
+        string values. Specifically `SEARCH ''12''` would match an item with an
+
+        attribute with an integer value of `123`.
+
+
+        ## Logical Operators
+
+        Ordered by precedence.
+
+        | Operator | Description | Example |
+
+        | --- | --- | --- |
+
+        | NOT | Logical NOT (Right associative) | NOT field1 LE 9000 |
+
+        | AND | Logical AND (Left Associative) | field1 GT 9000 AND field2 EQ ''Goku'' |
+
+        | OR | Logical OR (Left Associative) | field1 GT 9000 OR field2 EQ ''Goku'' |
+
+
+        ## Grouping
+
+        Parenthesis `()` can be used to override operator precedence.
+
+
+        For example:
+
+        NOT (field1 LT 1234 AND field2 CONTAINS ''foo'')
+
+
+        ## Literal Values
+
+        | Literal      | Description | Examples |
+
+        | --- | --- | --- |
+
+        | Nil | Represents the absence of a value | nil, Nil, nIl, NIL |
+
+        | Boolean | true/false boolean | true, false, True, False, TRUE, FALSE |
+
+        | Number | Signed integer and floating point numbers. Also supports scientific notation. | 0, 1, -1, 1.2, 0.35, 1.2e-2, -1.2e+2 |
+
+        | String | Single or double quoted | "foo", "bar", "foo bar", ''foo'', ''bar'', ''foo bar'' |
+
+        | Datetime | Formatted according to [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) | 2018-04-27T18:39:26.397237+00:00 |
+
+        | List | Comma-separated literals wrapped in square brackets | [0], [0, 1], [''foo'', "bar"] |
+
+
+        ## Limitations
+
+        - A maximum of 8 unique identifiers may be used inside a filter expression.
+
+        '
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SearchBody'
+          examples:
+            nested:
+              description: 'An example of a nested Object comparison testing that at least one repository has a
+
+                version which is equal to 19.0.0.
+
+                '
+              summary: Nested Object Comparison
+              value:
+                filter_expression: repositories CONTAINS {version eq '19.0.0'}
+            relative:
+              description: 'An example of a relative comparison testing that field1 has a
+
+                value which is less than 123.
+
+                '
+              summary: Relative comparison
+              value:
+                filter_expression: field1 LE 123
+            nil:
+              description: 'An example of using nil to test for the absence of a value for field2.
+
+                '
+              summary: Absence of an attribute value
+              value:
+                filter_expression: field2 EQ NIL
+            non-nil:
+              description: 'An example of using nil to test for the existence of a value for field2.
+
+                '
+              summary: Existence of an attribute value
+              value:
+                filter_expression: field2 NE NIL
+            contains:
+              description: 'An example of using the ''CONTAINS'' operator to check if
+
+                field2 contains the string ''foo''. If field2 is string valued
+
+                then this is checking if ''foo'' is a substring of field2. If
+
+                field2 is a list of strings then this is checking if ''foo''
+
+                is a member of the list.
+
+                '
+              summary: Use of the CONTAINS operator
+              value:
+                filter_expression: field2 CONTAINS 'foo'
+            in:
+              description: 'An example of using the ''IN'' operator to check if field1
+
+                is an element of a list literal.
+
+                '
+              summary: Use of the IN operator
+              value:
+                filter_expression: field1 IN [1, 2, 3]
+            search:
+              description: 'An example of using the ''SEARCH'' operator to retrieve all elements
+
+                for which ''foo'' is a substring of a filterable attribute.
+
+                '
+              summary: Use of the SEARCH operator
+              value:
+                filter_expression: SEARCH 'foo'
+            parenthesis:
+              description: 'An example of parenthesis being used to group operators & override
+
+                operator precedence.
+
+                '
+              summary: Overriding operator precedence
+              value:
+                filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
+    DeleteTags:
+      description: The parameters to delete tags
+      content:
+        application/json:
+          schema:
+            x-body-name: environment
+            $ref: '#/components/schemas/DeleteTag'
+          examples:
+            delete_all_tags:
+              description: Delete all tags for given object - No request body required
+              summary: Delete all tags
+              value: {}
+            delete_tags_by_key:
+              description: Delete all tags for given object with matching key
+              summary: Delete tags by key
+              value:
+                key: key-1
+            delete_tags_by_key_value:
+              description: Delete tag for given object with matching key and value
+              summary: Delete a tag by key & value
+              value:
+                key: key-1
+                value: value-1
+            delete_multiple_tags_by_key_value:
+              description: Delete tags for given list of tags with matching key and value
+              summary: Delete multiple tags by key & value
+              value:
+                tags:
+                - key: key-1
+                  value: value-1
+                - key: key-2
+                  value: value-2
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization

@@ -1,0 +1,1857 @@
+openapi: 3.0.0
+info:
+  title: Delphix DCT Algorithms MaskingJobs API
+  version: 3.28.0
+  description: Delphix DCT API
+  contact:
+    name: Delphix Support
+    url: https://portal.perforce.com/s/
+    email: support@delphix.com
+servers:
+- url: /dct/v3
+security:
+- ApiKeyAuth: []
+tags:
+- name: MaskingJobs
+paths:
+  /masking-jobs:
+    get:
+      deprecated: true
+      tags:
+      - MaskingJobs
+      summary: Retrieve the list of masking jobs.
+      operationId: get_masking_jobs
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/maskingJobsSortParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ListMaskingJobsResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MaskingJob'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+    post:
+      tags:
+      - MaskingJobs
+      summary: Create a Masking Job.
+      operationId: create_masking_job
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: create_job_request
+              $ref: '#/components/schemas/CreateMaskingJobRequest'
+        description: Input params to create a masking job.
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: CreateMaskingJobResponse
+                properties:
+                  id:
+                    type: string
+                    description: The ID of the created masking job.
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated DCT job.
+  /masking-jobs/search:
+    post:
+      deprecated: true
+      tags:
+      - MaskingJobs
+      summary: Search masking jobs.
+      operationId: search_masking_jobs
+      x-filterable:
+        fields:
+          id:
+            type: string
+          name:
+            type: string
+          is_on_the_fly_masking:
+            type: boolean
+          creation_date:
+            type: string
+          last_completed_execution_date:
+            type: string
+          last_execution_status:
+            type: string
+          last_execution_id:
+            type: string
+          connector_username:
+            type: string
+          on_the_fly_source_connector_username:
+            type: string
+          rule_set_id:
+            type: string
+          rule_set_name:
+            type: string
+          ruleset.connector_id:
+            type: string
+          ruleset.type:
+            type: string
+          ruleset.name:
+            type: string
+          ruleset.refresh_drops_table:
+            type: boolean
+          ruleset.algorithms:
+            type: array[string]
+          hyperscale_instance_id:
+            type: string
+          description:
+            type: string
+          dataset_id:
+            type: string
+          retain_execution_data:
+            type: string
+          max_memory:
+            type: integer
+          min_memory:
+            type: integer
+          feedback_size:
+            type: integer
+          stream_row_limit:
+            type: integer
+          num_input_streams:
+            type: integer
+          max_concurrent_source_connections:
+            type: integer
+          max_concurrent_target_connections:
+            type: integer
+          parallelism_degree:
+            type: integer
+          tags:
+            type: array[object]
+            fields:
+              key:
+                type: string
+              value:
+                type: string
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/maskingJobsSortParam'
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: SearchMaskingJobsResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MaskingJob'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /masking-jobs/source-engines:
+    get:
+      tags:
+      - MaskingJobs
+      summary: Retrieve the list of masking jobs along with their source engine.
+      operationId: get_masking_job_source_engines
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/maskingJobSourceEnginesSortParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ListMaskingJobSourceEnginesResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MaskingJobSourceEngine'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /masking-jobs/source-engines/search:
+    post:
+      tags:
+      - MaskingJobs
+      summary: Search the list of masking jobs along with their source engine.
+      operationId: search_masking_job_source_engines
+      x-filterable:
+        fields:
+          masking_job_id:
+            type: string
+          source_engine_id:
+            type: string
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/maskingJobSourceEnginesSortParam'
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: SearchMaskingJobSourceEnginesResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MaskingJobSourceEngine'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /masking-jobs/{maskingJobId}:
+    parameters:
+    - $ref: '#/components/parameters/maskingJobIdParam'
+    delete:
+      tags:
+      - MaskingJobs
+      summary: Delete a masking job.
+      operationId: delete_masking_job
+      parameters:
+      - $ref: '#/components/parameters/maskingJobDeleteForceParam'
+      responses:
+        '200':
+          description: Masking job delete initiated.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: DeleteMaskingJobResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+    get:
+      deprecated: true
+      summary: Retrieve a MaskingJob by ID.
+      operationId: get_masking_job_by_id
+      tags:
+      - MaskingJobs
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MaskingJob'
+    patch:
+      summary: Update values of a MaskingJob.
+      operationId: update_masking_job_by_id
+      tags:
+      - MaskingJobs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMaskingJobParameters'
+        description: The new data to update a Masking Job.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MaskingJob'
+  /masking-jobs/{maskingJobId}/copy:
+    parameters:
+    - $ref: '#/components/parameters/maskingJobIdParam'
+    post:
+      deprecated: true
+      tags:
+      - MaskingJobs
+      summary: Copies the masking job to another engine.
+      operationId: copy_masking_job
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: copy_masking_job_params
+              $ref: '#/components/schemas/CopyMaskingJobParameters'
+      responses:
+        '200':
+          description: Copy masking job initiated.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: CopyMaskingJobResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+                  masking_job_id:
+                    type: string
+  /masking-jobs/{maskingJobId}/migrate:
+    parameters:
+    - $ref: '#/components/parameters/maskingJobIdParam'
+    post:
+      deprecated: true
+      tags:
+      - MaskingJobs
+      summary: Migrates the masking job from its current source engine to another engine.
+      operationId: migrate_masking_job
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: migrate_masking_job_params
+              $ref: '#/components/schemas/MigrateMaskingJobParameters'
+      responses:
+        '200':
+          description: Migrate masking job initiated.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: MigrateMaskingJobResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+  /masking-jobs/{maskingJobId}/connectors:
+    parameters:
+    - $ref: '#/components/parameters/maskingJobIdParam'
+    get:
+      deprecated: true
+      tags:
+      - MaskingJobs
+      summary: Get connectors for a Masking Job by ID.
+      operationId: get_masking_job_connectors
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MaskingJobConnectorsResponse'
+  /masking-jobs/{maskingJobId}/execute:
+    parameters:
+    - $ref: '#/components/parameters/maskingJobIdParam'
+    post:
+      deprecated: true
+      summary: Execute a MaskingJob.
+      operationId: execute_masking_job
+      tags:
+      - MaskingJobs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExecuteMaskingJobParameters'
+      responses:
+        '200':
+          description: Masking job execute initiated.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ExecuteMaskingJobResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+  /masking-jobs/{maskingJobId}/re-import:
+    parameters:
+    - $ref: '#/components/parameters/maskingJobIdParam'
+    post:
+      tags:
+      - MaskingJobs
+      summary: Re-import the dataset from the source MaskingJob (Hyperscale Job only).
+      operationId: re_import_masking_job
+      responses:
+        '200':
+          description: Masking job re-import initiated.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ReImportMaskingJobResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+  /masking-jobs/{maskingJobId}/tags:
+    parameters:
+    - $ref: '#/components/parameters/maskingJobIdParam'
+    post:
+      deprecated: true
+      tags:
+      - MaskingJobs
+      summary: Create tags for a Masking Job.
+      operationId: create_masking_job_tag
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: masking_job_tags
+              $ref: '#/components/schemas/TagsRequest'
+        description: Tags information for Masking Job.
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+    get:
+      deprecated: true
+      tags:
+      - MaskingJobs
+      summary: Get tags for a Masking Job.
+      operationId: get_masking_job_tag
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+  /masking-jobs/{maskingJobId}/tags/delete:
+    parameters:
+    - $ref: '#/components/parameters/maskingJobIdParam'
+    post:
+      deprecated: true
+      tags:
+      - MaskingJobs
+      summary: Delete tags for a Masking Job.
+      operationId: delete_masking_job_tag
+      requestBody:
+        $ref: '#/components/requestBodies/DeleteTags'
+        required: false
+      responses:
+        '204':
+          description: No Content
+  /masking-jobs/{maskingJobId}/add-engine:
+    parameters:
+    - $ref: '#/components/parameters/maskingJobIdParam'
+    post:
+      tags:
+      - MaskingJobs
+      summary: Add an engine to a Masking Job (Hyperscale Job only).
+      operationId: add_engine_to_masking_job
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: engine_id
+              $ref: '#/components/schemas/EngineIdBody'
+        description: Body containing the ID of the registered engine.
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: AddEngineToJobResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+  /masking-jobs/{maskingJobId}/remove-engine:
+    parameters:
+    - $ref: '#/components/parameters/maskingJobIdParam'
+    post:
+      tags:
+      - MaskingJobs
+      summary: Remove an engine from a Masking Job (Hyperscale Job only).
+      operationId: remove_engine_from_masking_job
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: engine_id
+              $ref: '#/components/schemas/EngineIdBody'
+        description: Body containing the ID of the registered engine.
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: RemoveEngineFromJobResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+components:
+  schemas:
+    ConnectorTypeEnum:
+      type: string
+      enum:
+      - DATABASE
+      - FILE
+      - MAINFRAME_DATASET
+      example: DATABASE
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    ExecuteMaskingJobParameters:
+      type: object
+      description: Parameters to execute a MaskingJob.
+      properties:
+        engine_id:
+          type: string
+          description: The ID of the Engine to execute this MaskingJob on (Standard job only).
+          minLength: 1
+          example: engine-123
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    MaskingRuleset:
+      description: A masking ruleset.
+      type: object
+      properties:
+        type:
+          description: The Ruleset type.
+          type: string
+          enum:
+          - FILE
+          - DATABASE
+          - MAINFRAME_DATASET
+          nullable: true
+        name:
+          description: The name of this Ruleset.
+          type: string
+        refresh_drops_tables:
+          description: Whether refresh drops tables. Only applicable to database ruleset type.
+          type: boolean
+          nullable: true
+        algorithms:
+          description: The list of algorithms for this Ruleset.
+          type: array
+          items:
+            type: string
+            minLength: 1
+      example:
+        type: DATABASE
+        name: The best Ruleset
+        refresh_drops_tables: true
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    Connector:
+      description: Connectors are the way users define the data sources to which the Masking Engine should connect.
+      type: object
+      properties:
+        id:
+          description: The Connector entity ID.
+          type: string
+          example: 1-database-123
+        name:
+          description: The Connector name.
+          type: string
+          example: connector-name
+        engine_id:
+          description: The id of the Compliance Engine that this Connector belongs to.
+          type: string
+          example: '123'
+        engine_name:
+          description: The name of the Compliance Engine that this Connector belongs to.
+          type: string
+          example: my-compliance-engine-1
+        type:
+          description: The type of Connector. One of Database, File, or Mainframe.
+          $ref: '#/components/schemas/ConnectorTypeEnum'
+        hostname:
+          description: The network hostname or IP address of the database server.
+          type: string
+          example: database_server.mycompany.co
+        port:
+          description: The TCP port of the server.
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 65535
+          example: 9100
+        username:
+          description: The username this Connector will use to connect to the database.
+          type: string
+        password:
+          x-dct-toolkit-credential-field: true
+          description: The password this Connector will use to connect to the database.
+          type: string
+        auth_present:
+          description: Whether this connector has authentication credentials set
+          type: boolean
+        database_type:
+          description: The database variant, such as Oracle or MSSQL Server
+          type: string
+          enum:
+          - AURORA_POSTGRES
+          - DB2
+          - DB2_ISERIES
+          - DB2_MAINFRAME
+          - EXTENDED
+          - GENERIC
+          - MARIADB
+          - MSSQL
+          - MYSQL
+          - ORACLE
+          - POSTGRES
+          - RDS_POSTGRES
+          - SYBASE
+          - YUGABYTEDB_POSTGRES
+          - COCKROACHDB_POSTGRES
+          example: ORACLE
+        custom_driver_name:
+          description: The name of the custom JDBC driver for this connector
+          type: string
+        database_name:
+          description: The database name for this connector
+          type: string
+        instance_name:
+          description: The instance name for this connector
+          type: string
+        jdbc:
+          description: The jdbc URL for this connector
+          type: string
+        schema_name:
+          description: The schema name for this connector
+          type: string
+        sid:
+          description: The SID value for this connector. This field is specific to Oracle database connectors
+          type: string
+        kerberos_auth:
+          description: Whether kerberos authentication is enabled for this connector
+          type: boolean
+        service_principal:
+          description: The service principal to use for kerberos authentication
+          type: string
+        enable_logger:
+          description: Whether the logger is enable for this connector
+          type: boolean
+        file_type:
+          description: The type of file this connector is configured to access. Immutable after creation.
+          type: string
+          enum:
+          - DELIMITED
+          - FIXED_WIDTH
+          - XML
+          - JSON
+          - PARQUET
+          example: DELIMITED
+        connection_mode:
+          description: The connection mode for file connectors.
+          type: string
+          enum:
+          - FTP
+          - FTPS
+          - SFTP
+          - MOUNT
+          - AWS_S3
+          - S3_COMPATIBLE
+          - AZURE_BLOB_STORAGE
+          example: SFTP
+        path:
+          description: The path on the remote server for file connections.
+          type: string
+        ssh_key:
+          description: 'The DCT SSH key UUID (from POST /ssh-keys) to use for SFTP connections. DCT pushes the key bytes to the engine filesystem before connector sync.
+
+            '
+          type: string
+        user_dir_is_root:
+          description: For SFTP connections only, whether the user dir is set to root.
+          type: boolean
+          default: false
+        mount_information_id:
+          description: The DCT UUID of the mount information record (MOUNT mode only).
+          type: string
+        bucket_name:
+          description: The storage bucket name (AWS_S3 and S3_COMPATIBLE modes).
+          type: string
+        region:
+          description: The cloud storage region (AWS_S3 and S3_COMPATIBLE modes).
+          type: string
+        access_key:
+          x-dct-toolkit-credential-field: true
+          description: The access key for cloud storage authentication (AWS and AZURE modes).
+          type: string
+        secret_key:
+          x-dct-toolkit-credential-field: true
+          description: The secret key for AWS storage authentication.
+          type: string
+        auth_type:
+          description: 'The authentication type for cloud storage. For AWS_S3: AWS_ROLE or AWS_SECRET. For AZURE_BLOB_STORAGE: AZURE_MANAGED_IDENTITY or AZURE_SECRET.
+
+            '
+          type: string
+          enum:
+          - AWS_ROLE
+          - AWS_SECRET
+          - AZURE_MANAGED_IDENTITY
+          - AZURE_SECRET
+        prefix:
+          description: The key prefix for cloud storage (AWS and AZURE modes).
+          type: string
+        delimiter:
+          description: The key delimiter for cloud storage (AWS and AZURE modes).
+          type: string
+        service_endpoint:
+          description: The service endpoint URL for S3_COMPATIBLE mode.
+          type: string
+        azure_account_name:
+          description: The Azure storage account name (AZURE_BLOB_STORAGE mode).
+          type: string
+        azure_container_name:
+          description: The Azure blob container name (AZURE_BLOB_STORAGE mode).
+          type: string
+        is_mvs_storage:
+          description: Whether the mainframe connector uses MVS storage. Read-only.
+          type: boolean
+          readOnly: true
+        password_vault_auth:
+          description: Whether the connector uses password vault authentication. Read-only.
+          type: boolean
+          readOnly: true
+        credential_path_id:
+          description: The DCT UUID of the credential path record for password vault auth.
+          type: string
+        platform:
+          description: This database or file connection type associated with the connector
+          type: string
+          example: ORACLE
+        data_connection_id:
+          description: The ID of the associated DataConnection.
+          type: string
+          example: data-connection-1
+        account_id:
+          description: The ID of the account who created this connector.
+          type: integer
+          format: int64
+          readOnly: true
+          example: 1
+        account_name:
+          description: The account name of the DCT user who created this connector.
+          type: string
+          readOnly: true
+          example: John Doe
+        dct_managed:
+          description: Whether this connector is managed by DCT or not.
+          type: boolean
+          readOnly: true
+        job_orchestrator_id:
+          description: The ID of the job orchestrator that is associated with this connector.
+          type: string
+        job_orchestrator_name:
+          description: The name of the job orchestrator that is associated with this connector.
+          type: string
+        file_reference_id:
+          description: The reference uri/id of the connection-properties file used by the connector.
+          type: string
+        owning_entity_id:
+          description: The ID of the owning entity, if any.
+          type: string
+          readOnly: true
+        owning_entity_name:
+          description: The name of the owning entity, if any.
+          type: string
+          readOnly: true
+        owning_entity_type:
+          description: The type of the owning entity, if any.
+          type: string
+          enum:
+          - PAAS_INSTANCE
+          readOnly: true
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+      example:
+        id: 1-database-123
+        name: connector-name
+        engine_id: 123
+        type: DATABASE
+        hostname: database_server.example.com
+        database_type: POSTGRES
+        schema_name: public
+        database_name: public
+        port: 5432
+        username: user-123
+        kerberos_auth: false
+        service_principal: krbuser
+    DeleteTag:
+      type: object
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        tags:
+          description: List of tags to be deleted
+          type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+    CreateMaskingJobRequest:
+      title: CreateMaskingJobRequest
+      type: object
+      description: Parameters to create a MaskingJob.
+      properties:
+        name:
+          description: The name to give the Masking Job.
+          type: string
+          example: My favorite MaskingJob
+        description:
+          description: The description of the Job (Hyperscale Job only).
+          type: string
+          example: Job for app finance DB
+        job_type:
+          type: string
+          description: The type of Job.
+          enum:
+          - HYPERSCALE
+          example: HYPERSCALE
+        hyperscale_instance_id:
+          description: The ID of the HyperscaleInstance to create this Job on (Hyperscale Job only).
+          type: string
+          example: hyperscale-123
+        source_masking_job_id:
+          description: The ID of the Masking Job to use as the source (Hyperscale Job only).
+          type: string
+          example: masking-job-123
+        hyperscale_source_connector_username:
+          description: The username to set for the Source Connector that will be imported (Hyperscale Job only).
+          type: string
+          example: db-user-123
+        hyperscale_source_connector_password:
+          x-dct-toolkit-credential-field: true
+          description: The password to set for the Source Connector that will be imported (Hyperscale Job only).
+          type: string
+          example: dp-pass-123
+        hyperscale_target_connector_username:
+          description: The username to set for the Target Connector that will be imported (Hyperscale Job only).
+          type: string
+          example: db-user-123
+        hyperscale_target_connector_password:
+          x-dct-toolkit-credential-field: true
+          description: The password to set for the Target Connector that will be imported (Hyperscale Job only).
+          type: string
+          example: dp-pass-123
+        mount_point_id:
+          description: The ID of the MountPoint to use for the resulting dataset (Hyperscale Job only).
+          type: string
+          example: mount-point-123
+        unload_split:
+          description: The number of unloaded files to be generated from the source database (Hyperscale Job only).
+          type: integer
+          format: int64
+          example: 4
+        stream_size:
+          description: The stream size to be used by the sqlldr oracle utility which specifies the size (in bytes) of the data stream sent from the client to the server (Hyperscale Job only).
+          type: integer
+          format: int64
+          example: 65536
+        retain_execution_data:
+          description: Defines whether execution data will be stored after execution is complete (Hyperscale Job only).
+          type: string
+          enum:
+          - 'NO'
+          - ON_ERROR
+          - ALWAYS
+          example: false
+        max_memory:
+          description: Maximum memory, in MB, to be allocated for each Masking job (Hyperscale Job only).
+          type: integer
+          format: int32
+          example: 1024
+        min_memory:
+          description: Minimum memory, in MB, to be allocated for each Masking job (Hyperscale Job only).
+          type: integer
+          format: int32
+          example: 1024
+        feedback_size:
+          description: The granularity with which the masking engine provides updates on the progress of the masking job. For instance, a feedbackSize of 50000 results in log updates whenever 50000 rows are processed during the masking phase (Hyperscale Job only).
+          type: integer
+          format: int32
+          example: 10000
+        stream_row_limit:
+          description: The stream row limit constrains the total number of rows that may enter the job for each masking stream. Setting this value to 0 allows unlimited rows into each stream, while leaving it blank will select a default limit based on job type (Hyperscale Job only).
+          type: integer
+          format: int32
+          example: 0
+        num_input_streams:
+          description: Number of input streams to be configured for Masking Job (Hyperscale Job only).
+          type: integer
+          format: int32
+          example: 4
+        max_concurrent_source_connections:
+          description: Maximum number of parallel connection that the Hyperscale instance can have with the source datasource (Hyperscale Job only).
+          type: integer
+          format: int32
+          example: 32
+        max_concurrent_target_connections:
+          description: Maximum number of parallel connection that the Hyperscale instance can have with the target datasource (Hyperscale Job only).
+          type: integer
+          format: int32
+          example: 32
+        parallelism_degree:
+          description: The degree of parallelism (DOP) per Oracle job to recreate the index in the post-load process (Hyperscale Job only).
+          type: integer
+          format: int32
+          example: 4
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        make_current_account_owner:
+          type: boolean
+          default: true
+          description: Whether the account creating this Masking job must be configured as owner of it (Hyperscale Job only).
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    ExecutionStatus:
+      description: The status of a masking or discovery job.
+      type: string
+      enum:
+      - PENDING
+      - QUEUED
+      - RUNNING
+      - CANCELLED
+      - FAILED
+      - SUCCEEDED
+      - WARNING
+      - WAITING
+      example: RUNNING
+    MaskingJobSourceEngine:
+      description: A masking job's source engine.
+      type: object
+      properties:
+        masking_job_id:
+          description: The MaskingJob entity ID.
+          type: string
+          example: masking-job-1
+        source_engine_id:
+          description: The ID of the Engine serving as the source for the MaskingJob.
+          type: string
+          example: engine-123
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    VirtualizationTask:
+      deprecated: true
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    MaskingJobConnectorsResponse:
+      description: Connector(s) for a masking job.
+      type: object
+      properties:
+        connector:
+          $ref: '#/components/schemas/Connector'
+        on_the_fly_connector:
+          $ref: '#/components/schemas/Connector'
+    MigrateMaskingJobParameters:
+      type: object
+      description: Parameters to migrate a masking job.
+      required:
+      - target_engine_id
+      properties:
+        target_engine_id:
+          type: string
+          description: The ID of the engine to migrate the job to.
+          minLength: 1
+          maxLength: 256
+          example: '1'
+        source_environment_id:
+          type: string
+          description: The ID or name of the source environment on the target engine. This only applies to On-The-Fly jobs.
+          minLength: 1
+          maxLength: 256
+          example: test-on-the-fly-mask1
+        target_environment_id:
+          type: string
+          description: The ID or name of the target environment on the target engine to migrate the job into.
+          minLength: 1
+          maxLength: 256
+          example: prod-in-place-mask1
+        force_overwrite:
+          type: boolean
+          default: false
+          description: Whether to overwrite objects that already exist on the target engine.
+    EngineIdBody:
+      description: The ID of the registered engine.
+      type: object
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          example: '1'
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    CopyMaskingJobParameters:
+      type: object
+      description: Parameters to copy a masking job.
+      required:
+      - target_engine_id
+      properties:
+        target_engine_id:
+          type: string
+          description: The ID of the engine to copy the job to.
+          minLength: 1
+          maxLength: 256
+          example: '1'
+        source_environment_id:
+          type: string
+          description: The ID or name of the source environment on the target engine. This only applies to On-The-Fly jobs.
+          minLength: 1
+          maxLength: 256
+          example: test-on-the-fly-mask1
+        target_environment_id:
+          type: string
+          description: The ID or name of the target environment on the target engine to copy the job into.
+          minLength: 1
+          maxLength: 256
+          example: prod-in-place-mask1
+        force_overwrite:
+          type: boolean
+          default: false
+          description: Whether to overwrite objects that already exist on the target engine.
+    UpdateMaskingJobParameters:
+      type: object
+      description: Parameters to update a MaskingJob.
+      properties:
+        name:
+          type: string
+          description: The name of the MaskingJob.
+          minLength: 1
+          maxLength: 1024
+          example: My favorite MaskingJob
+        connector_username:
+          type: string
+          description: The username of the Connector used by the MaskingJob. (Standard Job only).
+          minLength: 1
+          maxLength: 256
+          example: user123
+        connector_password:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: The password of the Connector used by the MaskingJob. (Standard Job only).
+          minLength: 1
+          maxLength: 4096
+          example: password123
+        on_the_fly_source_connector_username:
+          type: string
+          description: The username of the source Connector used by the on-the-fly MaskingJob. (Standard Job only).
+          minLength: 1
+          maxLength: 256
+          example: user123
+        on_the_fly_source_connector_password:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: The password of the source Connector used by the on-the-fly MaskingJob. (Standard Job only).
+          minLength: 1
+          maxLength: 4096
+          example: password123
+        description:
+          description: Description of the Job (Hyperscale Job only).
+          type: string
+          example: Job for app finance
+        dataset_id:
+          description: Dataset of the Hyperscale Job (Hyperscale Job only).
+          type: string
+          example: dataset-123
+        retain_execution_data:
+          description: Defines whether execution data will be stored after execution is complete (Hyperscale Job only).
+          type: string
+          enum:
+          - 'NO'
+          - ON_ERROR
+          - ALWAYS
+          example: false
+        max_memory:
+          description: Maximum memory to be allocated for each Masking job (Hyperscale Job only).
+          type: integer
+          format: int32
+          example: 1024
+        min_memory:
+          description: Minimum memory to be allocated for each Masking job (Hyperscale Job only).
+          type: integer
+          format: int32
+          example: 1024
+        feedback_size:
+          description: Feedback Size for each Masking job (Hyperscale Job only).
+          type: integer
+          format: int32
+          example: 32
+        stream_row_limit:
+          description: Stream Row Limit for each Masking job (Hyperscale Job only).
+          type: integer
+          format: int32
+          example: 4
+        num_input_streams:
+          description: Number of input streams to be configured for Masking Job (Hyperscale Job only).
+          type: integer
+          format: int32
+          example: 4
+        max_concurrent_source_connections:
+          description: Maximum number of parallel connection that the Hyperscale instance can have with the source datasource (Hyperscale Job only).
+          type: integer
+          format: int32
+          example: 32
+        max_concurrent_target_connections:
+          description: Maximum number of parallel connection that the Hyperscale instance can have with the target datasource (Hyperscale Job only).
+          type: integer
+          format: int32
+          example: 32
+        parallelism_degree:
+          description: The degree of parallelism (DOP) per Oracle job to recreate the index in the post-load process (Hyperscale Job only).
+          type: integer
+          format: int32
+          example: 4
+    Job:
+      description: An asynchronous task.
+      type: object
+      properties:
+        id:
+          description: The Job entity ID.
+          type: string
+          example: job-123
+        status:
+          description: The status of the job.
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+          example: RUNNING
+        is_waiting_for_telemetry:
+          description: Indicates that the operations performed by this Job have completed successfully, but the object changes are not yet reflected. This is only set when when the JOB is in STARTED status, with the guarantee that the job will not transition to the FAILED status. Note that this flag will likely be replaced with a new status in future API versions and be deprecated.
+          type: boolean
+        type:
+          description: The type of job being done.
+          type: string
+          example: DB_REFRESH
+        localized_type:
+          description: The i18n translated type of job being done.
+          type: string
+          example: DB Refresh
+        error_details:
+          description: Details about the failure for FAILED jobs.
+          type: string
+          example: Unable to connect to the engine.
+        warning_message:
+          description: Warnings for the job.
+          type: string
+          example: 'Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.'
+        target_id:
+          description: A reference to the job's target.
+          type: string
+          example: vdb-123
+        target_name:
+          description: A reference to the job's target name.
+          type: string
+          example: vdb
+        start_time:
+          description: The time the job started executing.
+          type: string
+          format: date-time
+          example: '2022-01-02T05:11:24.148000+00:00'
+        update_time:
+          description: The time the job was last updated.
+          type: string
+          format: date-time
+          example: '2022-01-02T06:11:24.148000+00:00'
+        trace_id:
+          description: traceId of the request which created this Job
+          type: string
+        engine_ids:
+          description: IDs of the engines this Job is executing on.
+          type: array
+          items:
+            type: string
+          deprecated: true
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        engines:
+          type: array
+          items:
+            $ref: '#/components/schemas/Engine'
+        account_id:
+          description: The ID of the account who initiated this job.
+          type: integer
+          example: 1
+        account_name:
+          description: The account name which initiated this job. It can be either firstname and lastname combination or firstname or lastname or username or email address or Account-<id>.
+          type: string
+          example: User 1
+        compliance_node_id:
+          type: string
+          description: The ID of the associated compliance node, if applicable.
+          nullable: true
+        compliance_node_name:
+          type: string
+          description: The name of the associated compliance node, if applicable.
+          nullable: true
+        percent_complete:
+          description: Completion percentage of the Job.
+          type: integer
+          minimum: 0
+          maximum: 100
+          example: '50'
+        virtualization_tasks:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTask'
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTask'
+        execution_id:
+          description: The ID of the associated masking execution, if any.
+          type: string
+          nullable: true
+        result_type:
+          description: The type of the job result. This is the type of the object present in the result.
+          type: string
+        result:
+          description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
+          type: object
+    MaskingJob:
+      description: A masking job.
+      type: object
+      properties:
+        id:
+          description: The Masking Job entity ID.
+          type: string
+          readOnly: true
+          example: masking-job-1
+        name:
+          description: The name of this Masking Job.
+          type: string
+          example: My favorite MaskingJob
+        rule_set_id:
+          description: The ID of the Rule Set used by this Masking Job (Standard Job only). For hyperscale jobs, see dataset_id.
+          type: string
+          example: uuid
+        rule_set_name:
+          description: The name of the Rule Set used by this Masking Job (Standard Job only). For hyperscale jobs, see dataset_id.
+          type: string
+          example: my rule set
+        ruleset:
+          deprecated: true
+          description: The ruleset of this Masking job (Standard Job only). For hyperscale jobs, see dataset_id.
+          $ref: '#/components/schemas/MaskingRuleset'
+        connector_type:
+          type: string
+          description: The type of data being masked by this Job. If the Masking Job is masking a database this is the type of the database (Standard Job only).
+          example: MARIADB
+        is_on_the_fly_masking:
+          description: Whether this is an on-the-fly masking job (Standard Job only).
+          type: boolean
+          example: true
+        creation_date:
+          description: The date this MaskingJob was created (Standard Job only).
+          type: string
+          format: date-time
+          example: '2022-11-30T08:51:34.148000+00:00'
+        last_completed_execution_date:
+          description: The date this MaskingJob was last executed to completion.
+          type: string
+          format: date-time
+          example: '2022-11-30T09:51:34.148000+00:00'
+        last_execution_status:
+          $ref: '#/components/schemas/ExecutionStatus'
+        last_execution_id:
+          description: The ID of this MaskingJob's last execution.
+          type: string
+          example: 00e38996-7da2-4827-8f3e-0503234de537
+        connector_username:
+          type: string
+          description: The username of the Connector used by the MaskingJob (Standard Job only). For hyperscale jobs, see the connector of the dataset.
+          nullable: true
+          example: user123
+        connector_password:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: The password of the Connector used by the MaskingJob (Standard Job only). For hyperscale jobs, see the connector of the dataset.
+          nullable: true
+          example: '*****'
+        on_the_fly_source_connector_username:
+          type: string
+          description: The username of the source Connector used by the on-the-fly MaskingJob (Standard Job only).
+          nullable: true
+          example: user123
+        on_the_fly_source_connector_password:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: The password of the source Connector used by the on-the-fly MaskingJob (Standard Job only).
+          nullable: true
+          example: '*****'
+        job_type:
+          type: string
+          description: The engine type of this Job. This field is present for API backward compatibility.
+          deprecated: true
+          enum:
+          - STANDARD
+          - HYPERSCALE
+          example: STANDARD
+        hyperscale_instance_id:
+          description: The ID of the Hyperscale instance of this Job (Hyperscale Job only).
+          type: string
+          example: abc
+        description:
+          description: Description of the Job (Hyperscale Job only).
+          type: string
+          example: Job for app finance
+        dataset_id:
+          description: Dataset of the Hyperscale Job (Hyperscale Job only).
+          type: string
+          example: dataset-123
+        retain_execution_data:
+          description: Defines whether execution data will be stored after execution is complete (Hyperscale Job only).
+          type: string
+          enum:
+          - 'NO'
+          - ON_ERROR
+          - ALWAYS
+          example: false
+        max_memory:
+          description: Maximum memory to be allocated for each Masking job (Hyperscale Job only).
+          type: integer
+          format: int32
+          example: 1024
+        min_memory:
+          description: Minimum memory to be allocated for each Masking job (Hyperscale Job only).
+          type: integer
+          format: int32
+          example: 1024
+        feedback_size:
+          description: Feedback Size for each Masking job (Hyperscale Job only).
+          type: integer
+          format: int32
+          example: 32
+        stream_row_limit:
+          description: Stream Row Limit for each Masking job (Hyperscale Job only).
+          type: integer
+          format: int32
+          example: 4
+        num_input_streams:
+          description: Number of input streams to be configured for Masking Job (Hyperscale Job only).
+          type: integer
+          format: int32
+          example: 4
+        max_concurrent_source_connections:
+          description: Maximum number of parallel connection that the Hyperscale instance can have with the source datasource (Hyperscale Job only).
+          type: integer
+          format: int32
+          example: 32
+        max_concurrent_target_connections:
+          description: Maximum number of parallel connection that the Hyperscale instance can have with the target datasource (Hyperscale Job only).
+          type: integer
+          format: int32
+          example: 32
+        parallelism_degree:
+          description: The degree of parallelism (DOP) per Oracle job to recreate the index in the post-load process (Hyperscale Job only).
+          type: integer
+          format: int32
+          example: 4
+        source_masking_job_id:
+          description: The ID of the MaskingJob that was used as the source to create this job (Hyperscale Job only).
+          type: string
+          example: masking-job-0
+        engine_ids:
+          description: List of engines that this job can run on (Hyperscale Job only).
+          type: array
+          items:
+            type: string
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+  parameters:
+    maskingJobDeleteForceParam:
+      name: force
+      in: query
+      description: If true, ignores any failures to remove a masking job on an engine.
+      example: true
+      schema:
+        type: boolean
+        default: false
+    maskingJobSourceEnginesSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: id
+      required: false
+      schema:
+        type: string
+        enum:
+        - masking_job_id
+        - -masking_job_id
+        - source_engine_id
+        - -source_engine_id
+        nullable: true
+        example: name
+    maskingJobIdParam:
+      in: path
+      name: maskingJobId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the Masking Job.
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+    maskingJobsSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: id
+      required: false
+      schema:
+        type: string
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - is_on_the_fly_masking
+        - -is_on_the_fly_masking
+        - creation_date
+        - -creation_date
+        - last_completed_execution_date
+        - -last_completed_execution_date
+        - last_execution_status
+        - -last_execution_status
+        - last_execution_id
+        - -last_execution_id
+        - rule_set_id
+        - -rule_set_id
+        - rule_set_name
+        - -rule_set_name
+        - ruleset.name
+        - -ruleset.name
+        - connector_type
+        - -connector_type
+        - description
+        - -description
+        - dataset_id
+        - -dataset_id
+        - retain_execution_data
+        - -retain_execution_data
+        - parallelism_degree
+        - -parallelism_degree
+        - max_concurrent_target_connections
+        - -max_concurrent_target_connections
+        - max_concurrent_source_connections
+        - -max_concurrent_source_connections
+        - num_input_streams
+        - -num_input_streams
+        - stream_row_limit
+        - -stream_row_limit
+        - feedback_size
+        - -feedback_size
+        - min_memory
+        - -min_memory
+        - max_memory
+        - -max_memory
+        nullable: true
+        example: name
+  requestBodies:
+    SearchBody:
+      x-skip-codegen-attr: description
+      description: 'A request body containing a filter expression. This enables searching
+
+        for items matching arbitrarily complex conditions. The list of
+
+        attributes which can be used in filter expressions is available
+
+        in the x-filterable vendor extension.
+
+
+        # Filter Expression Overview
+
+        **Note: All keywords are case-insensitive**
+
+
+        ## Comparison Operators
+
+        | Operator | Description | Example |
+
+        | --- | --- | --- |
+
+        | CONTAINS | Substring or membership testing for string and list attributes respectively. | field3 CONTAINS ''foobar'', field4 CONTAINS TRUE  |
+
+        | IN | Tests if field is a member of a list literal. List can contain a maximum of 100 values | field2 IN [''Goku'', ''Vegeta''] |
+
+        | GE | Tests if a field is greater than or equal to a literal value | field1 GE 1.2e-2 |
+
+        | GT | Tests if a field is greater than a literal value | field1 GT 1.2e-2 |
+
+        | LE | Tests if a field is less than or equal to a literal value | field1 LE 9000 |
+
+        | LT | Tests if a field is less than a literal value | field1 LT 9.02 |
+
+        | NE | Tests if a field is not equal to a literal value | field1 NE 42 |
+
+        | EQ | Tests if a field is equal to a literal value | field1 EQ 42 |
+
+
+        ## Search Operator
+
+        The SEARCH operator filters for items which have any filterable
+
+        attribute that contains the input string as a substring, comparison
+
+        is done case-insensitively. This is not restricted to attributes with
+
+        string values. Specifically `SEARCH ''12''` would match an item with an
+
+        attribute with an integer value of `123`.
+
+
+        ## Logical Operators
+
+        Ordered by precedence.
+
+        | Operator | Description | Example |
+
+        | --- | --- | --- |
+
+        | NOT | Logical NOT (Right associative) | NOT field1 LE 9000 |
+
+        | AND | Logical AND (Left Associative) | field1 GT 9000 AND field2 EQ ''Goku'' |
+
+        | OR | Logical OR (Left Associative) | field1 GT 9000 OR field2 EQ ''Goku'' |
+
+
+        ## Grouping
+
+        Parenthesis `()` can be used to override operator precedence.
+
+
+        For example:
+
+        NOT (field1 LT 1234 AND field2 CONTAINS ''foo'')
+
+
+        ## Literal Values
+
+        | Literal      | Description | Examples |
+
+        | --- | --- | --- |
+
+        | Nil | Represents the absence of a value | nil, Nil, nIl, NIL |
+
+        | Boolean | true/false boolean | true, false, True, False, TRUE, FALSE |
+
+        | Number | Signed integer and floating point numbers. Also supports scientific notation. | 0, 1, -1, 1.2, 0.35, 1.2e-2, -1.2e+2 |
+
+        | String | Single or double quoted | "foo", "bar", "foo bar", ''foo'', ''bar'', ''foo bar'' |
+
+        | Datetime | Formatted according to [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) | 2018-04-27T18:39:26.397237+00:00 |
+
+        | List | Comma-separated literals wrapped in square brackets | [0], [0, 1], [''foo'', "bar"] |
+
+
+        ## Limitations
+
+        - A maximum of 8 unique identifiers may be used inside a filter expression.
+
+        '
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SearchBody'
+          examples:
+            nested:
+              description: 'An example of a nested Object comparison testing that at least one repository has a
+
+                version which is equal to 19.0.0.
+
+                '
+              summary: Nested Object Comparison
+              value:
+                filter_expression: repositories CONTAINS {version eq '19.0.0'}
+            relative:
+              description: 'An example of a relative comparison testing that field1 has a
+
+                value which is less than 123.
+
+                '
+              summary: Relative comparison
+              value:
+                filter_expression: field1 LE 123
+            nil:
+              description: 'An example of using nil to test for the absence of a value for field2.
+
+                '
+              summary: Absence of an attribute value
+              value:
+                filter_expression: field2 EQ NIL
+            non-nil:
+              description: 'An example of using nil to test for the existence of a value for field2.
+
+                '
+              summary: Existence of an attribute value
+              value:
+                filter_expression: field2 NE NIL
+            contains:
+              description: 'An example of using the ''CONTAINS'' operator to check if
+
+                field2 contains the string ''foo''. If field2 is string valued
+
+                then this is checking if ''foo'' is a substring of field2. If
+
+                field2 is a list of strings then this is checking if ''foo''
+
+                is a member of the list.
+
+                '
+              summary: Use of the CONTAINS operator
+              value:
+                filter_expression: field2 CONTAINS 'foo'
+            in:
+              description: 'An example of using the ''IN'' operator to check if field1
+
+                is an element of a list literal.
+
+                '
+              summary: Use of the IN operator
+              value:
+                filter_expression: field1 IN [1, 2, 3]
+            search:
+              description: 'An example of using the ''SEARCH'' operator to retrieve all elements
+
+                for which ''foo'' is a substring of a filterable attribute.
+
+                '
+              summary: Use of the SEARCH operator
+              value:
+                filter_expression: SEARCH 'foo'
+            parenthesis:
+              description: 'An example of parenthesis being used to group operators & override
+
+                operator precedence.
+
+                '
+              summary: Overriding operator precedence
+              value:
+                filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
+    DeleteTags:
+      description: The parameters to delete tags
+      content:
+        application/json:
+          schema:
+            x-body-name: environment
+            $ref: '#/components/schemas/DeleteTag'
+          examples:
+            delete_all_tags:
+              description: Delete all tags for given object - No request body required
+              summary: Delete all tags
+              value: {}
+            delete_tags_by_key:
+              description: Delete all tags for given object with matching key
+              summary: Delete tags by key
+              value:
+                key: key-1
+            delete_tags_by_key_value:
+              description: Delete tag for given object with matching key and value
+              summary: Delete a tag by key & value
+              value:
+                key: key-1
+                value: value-1
+            delete_multiple_tags_by_key_value:
+              description: Delete tags for given list of tags with matching key and value
+              summary: Delete multiple tags by key & value
+              value:
+                tags:
+                - key: key-1
+                  value: value-1
+                - key: key-2
+                  value: value-2
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization

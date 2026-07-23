@@ -1,0 +1,1469 @@
+openapi: 3.0.0
+info:
+  title: Delphix DCT Algorithms VirtualizationPolicies API
+  version: 3.28.0
+  description: Delphix DCT API
+  contact:
+    name: Delphix Support
+    url: https://portal.perforce.com/s/
+    email: support@delphix.com
+servers:
+- url: /dct/v3
+security:
+- ApiKeyAuth: []
+tags:
+- name: VirtualizationPolicies
+paths:
+  /virtualization-policies:
+    get:
+      tags:
+      - VirtualizationPolicies
+      summary: Fetch a list of all virtualization policies
+      operationId: list_virtualization_policies
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/virtualizationPoliciesSortParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ListVirtualizationPoliciesResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/VirtualizationPolicy'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+    post:
+      summary: Create a VirtualizationPolicy.
+      operationId: create_virtualization_policy
+      tags:
+      - VirtualizationPolicies
+      requestBody:
+        $ref: '#/components/requestBodies/CreateVirtualizationPolicy'
+      responses:
+        '201':
+          description: VirtualizationPolicy created
+          content:
+            application/json:
+              schema:
+                type: object
+                title: CreateVirtualizationPolicyResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+                  virtualization_policy:
+                    $ref: '#/components/schemas/VirtualizationPolicy'
+                    description: The policy that was created.
+  /virtualization-policies/search:
+    post:
+      tags:
+      - VirtualizationPolicies
+      summary: Search Virtualization Policies.
+      operationId: search_virtualization_policies
+      x-filterable:
+        fields:
+          id:
+            type: string
+          name:
+            type: string
+          dct_managed:
+            type: boolean
+          create_user:
+            type: string
+          create_timestamp:
+            type: string
+            format: date-time
+          namespace:
+            type: string
+          engine_id:
+            type: string
+          engine_name:
+            type: string
+          policy_type:
+            type: string
+          timezone_id:
+            type: string
+          namespace_id:
+            type: string
+          namespace_name:
+            type: string
+          is_replica:
+            type: boolean
+          default_policy:
+            type: boolean
+          effective_type:
+            type: string
+          data_duration:
+            type: integer
+          data_unit:
+            type: string
+          log_duration:
+            type: integer
+          log_unit:
+            type: string
+          num_of_daily:
+            type: integer
+          num_of_weekly:
+            type: integer
+          day_of_week:
+            type: string
+          num_of_monthly:
+            type: integer
+          day_of_month:
+            type: integer
+          num_of_yearly:
+            type: integer
+          day_of_year:
+            type: string
+          size:
+            type: integer
+          customized:
+            type: boolean
+          schedules:
+            type: array[object]
+            fields:
+              cron_string:
+                type: string
+              cutoff_time:
+                type: integer
+          tags:
+            type: array[object]
+            fields:
+              key:
+                type: string
+              value:
+                type: string
+          num_targets:
+            type: integer
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/virtualizationPoliciesSortParam'
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: SearchVirtualizationPoliciesResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/VirtualizationPolicy'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /virtualization-policies/targets/search:
+    post:
+      tags:
+      - VirtualizationPolicies
+      summary: Search Virtualization Policy Target Objects.
+      operationId: search_virtualization_policy_targets
+      x-filterable:
+        fields:
+          policy_id:
+            type: string
+          target_id:
+            type: string
+          engine_id:
+            type: string
+          policy_type:
+            type: string
+          target_type:
+            type: string
+          target_name:
+            type: string
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/virtualizationPolicyTargetsSortParam'
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: SearchVirtualizationPolicyTargetsResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/VirtualizationPolicyTarget'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /virtualization-policies/{policyId}:
+    parameters:
+    - $ref: '#/components/parameters/virtualizationPolicyIdParam'
+    get:
+      tags:
+      - VirtualizationPolicies
+      summary: Fetch a virtualization policy by Id.
+      operationId: get_virtualization_policy_by_id
+      responses:
+        '200':
+          description: Returns a single virtualization policy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VirtualizationPolicy'
+        '404':
+          description: Virtualization policy not found
+    delete:
+      summary: Delete a VirtualizationPolicy.
+      operationId: delete_virtualization_policy
+      tags:
+      - VirtualizationPolicies
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: VirtualizationPolicyDeleteJobResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+    patch:
+      summary: Update a VirtualizationPolicy.
+      operationId: update_virtualization_policy
+      tags:
+      - VirtualizationPolicies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateVirtualizationPolicyParameters'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: VirtualizationPolicyUpdateJobResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+                  virtualization_policy:
+                    $ref: '#/components/schemas/VirtualizationPolicy'
+                    description: The policy that was updated.
+  /virtualization-policies/{policyId}/convert:
+    parameters:
+    - $ref: '#/components/parameters/virtualizationPolicyIdParam'
+    post:
+      summary: Convert a virtualization policy to a DCT-managed policy.
+      operationId: convert_virtualization_policy
+      tags:
+      - VirtualizationPolicies
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: VirtualizationPolicyConvertJobResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                  virtualization_policy:
+                    $ref: '#/components/schemas/VirtualizationPolicy'
+                    description: The policy that was converted.
+  /virtualization-policies/{policyId}/tags:
+    parameters:
+    - $ref: '#/components/parameters/virtualizationPolicyIdParam'
+    post:
+      tags:
+      - VirtualizationPolicies
+      summary: Create tags for a VirtualizationPolicy.
+      operationId: create_virtualization_policy_tags
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagsRequest'
+        description: Tags information for VirtualizationPolicies.
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+    get:
+      tags:
+      - VirtualizationPolicies
+      summary: Get tags for a VirtualizationPolicy.
+      operationId: get_virtualization_policy_tags
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+  /virtualization-policies/{policyId}/tags/delete:
+    parameters:
+    - $ref: '#/components/parameters/virtualizationPolicyIdParam'
+    post:
+      tags:
+      - VirtualizationPolicies
+      summary: Delete tags for a VirtualizationPolicy.
+      operationId: delete_virtualization_policy_tags
+      requestBody:
+        $ref: '#/components/requestBodies/DeleteTags'
+      responses:
+        '204':
+          description: No Content
+  /virtualization-policies/{policyId}/apply:
+    parameters:
+    - $ref: '#/components/parameters/virtualizationPolicyIdParam'
+    post:
+      tags:
+      - VirtualizationPolicies
+      summary: Apply a virtualization policy to the given list of objects.
+      operationId: apply_virtualization_policy_by_id_or_name
+      requestBody:
+        $ref: '#/components/requestBodies/VirtualizationPolicyApplyBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: VirtualizationPolicyApplyResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+  /virtualization-policies/{policyId}/unapply:
+    parameters:
+    - $ref: '#/components/parameters/virtualizationPolicyIdParam'
+    post:
+      tags:
+      - VirtualizationPolicies
+      summary: Unapply a virtualization policy to the given list of objects.
+      operationId: unapply_virtualization_policy_by_id_or_name
+      requestBody:
+        $ref: '#/components/requestBodies/VirtualizationPolicyApplyBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: VirtualizationPolicyUnapplyResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+components:
+  schemas:
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    VirtualizationPolicyApplyParams:
+      description: Params to apply virtualization policy to given policy objects.
+      type: array
+      items:
+        $ref: '#/components/schemas/PolicyTargetObject'
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    DeleteTag:
+      type: object
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        tags:
+          description: List of tags to be deleted
+          type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    UpdateVirtualizationPolicyParameters:
+      properties:
+        name:
+          description: The name of the virtualization policy.
+          type: string
+          minLength: 1
+          maxLength: 256
+          example: my-policy
+        timezone_id:
+          description: The timezone to use for scheduling.
+          type: string
+          minLength: 1
+          maxLength: 256
+          example: America/Los_Angeles
+        data_duration:
+          description: Amount of time to keep source data [Retention Policy].
+          type: integer
+          format: int32
+          example: 1
+        data_unit:
+          description: Time unit for data_duration [Retention Policy].
+          type: string
+          enum:
+          - DAY
+          - WEEK
+          - MONTH
+          - QUARTER
+          - YEAR
+          example: DAY
+        log_duration:
+          description: Amount of time to keep log data [Retention Policy].
+          type: integer
+          format: int32
+          example: 1
+        log_unit:
+          description: Time unit for log_duration [Retention Policy].
+          type: string
+          enum:
+          - DAY
+          - WEEK
+          - MONTH
+          - QUARTER
+          - YEAR
+          example: DAY
+        num_of_daily:
+          description: Number of daily snapshots to keep [Retention Policy].
+          type: integer
+          format: int32
+          example: 1
+        num_of_weekly:
+          description: Number of weekly snapshots to keep [Retention Policy].
+          type: integer
+          format: int32
+          example: 1
+        day_of_week:
+          description: Day of week upon which to enforce weekly snapshot retention [Retention Policy].
+          type: string
+          enum:
+          - MONDAY
+          - TUESDAY
+          - WEDNESDAY
+          - THURSDAY
+          - FRIDAY
+          - SATURDAY
+          - SUNDAY
+          example: MONDAY
+        num_of_monthly:
+          description: Number of monthly snapshots to keep [Retention Policy].
+          type: integer
+          format: int32
+          example: 1
+        day_of_month:
+          description: Day of month upon which to enforce monthly snapshot retention [Retention Policy].
+          type: integer
+          format: int32
+          example: 1
+        num_of_yearly:
+          description: Number of yearly snapshots to keep [Retention Policy].
+          type: integer
+          format: int32
+          example: 1
+        day_of_year:
+          description: Day of year upon which to enforce yearly snapshot retention, expressed a month / day string (e.g., "Jan 1") [Retention Policy].
+          type: string
+          example: Jan 1
+        schedules:
+          description: The schedules for this policy.
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationSchedule'
+        size:
+          description: Size of the quota, in bytes. (QUOTA_POLICY only).
+          type: integer
+          format: int64
+          example: 1
+        provision_source:
+          description: The source of the data to provision from [Refresh Policy].
+          type: string
+          $ref: '#/components/schemas/ProvisionSource'
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    TargetPolicyObjectType:
+      description: A DCT specific target policy object type.
+      type: string
+      enum:
+      - CDB
+      - DSOURCE
+      - VCDB
+      - VDB
+      - DATASET_GROUP
+      - REPLICATION_PROFILE
+      - NAMESPACE
+      - STAGING_CDB
+    VirtualizationTask:
+      deprecated: true
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    VirtualizationSchedule:
+      required:
+      - cron_string
+      properties:
+        cron_string:
+          type: string
+        cutoff_time:
+          type: integer
+          format: int64
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    VirtualizationPolicy:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        dct_managed:
+          description: Whether this virtualization policy is managed by DCT or by an individual Delphix Engine.
+          type: boolean
+        create_user:
+          description: The user who created this virtualization policy.
+          type: string
+        create_timestamp:
+          description: The time this virtualization policy was created.
+          type: string
+          format: date-time
+        namespace:
+          type: string
+        namespace_id:
+          description: The namespace id of this virtualization policy.
+          type: string
+        namespace_name:
+          description: The namespace name of this virtualization policy.
+          type: string
+        is_replica:
+          description: Is this a replicated object.
+          type: boolean
+        engine_id:
+          type: string
+        engine_name:
+          description: The name of the engine the policy belongs to.
+          type: string
+        policy_type:
+          type: string
+          $ref: '#/components/schemas/PolicyType'
+        timezone_id:
+          type: string
+        default_policy:
+          description: True if this is the default policy created when the system is setup.
+          type: boolean
+          default: false
+        effective_type:
+          description: Whether this policy has been directly applied or inherited. See the effectivePolicies parameter of the list call for details.
+          type: string
+          enum:
+          - DIRECT_APPLIED
+          - INHERITED
+        data_duration:
+          description: Amount of time to keep source data [Retention Policy].
+          type: integer
+        data_unit:
+          description: Time unit for data_duration [Retention Policy].
+          type: string
+          enum:
+          - DAY
+          - WEEK
+          - MONTH
+          - QUARTER
+          - YEAR
+        log_duration:
+          description: Amount of time to keep log data [Retention Policy].
+          type: integer
+        log_unit:
+          description: Time unit for log_duration [Retention Policy].
+          type: string
+          enum:
+          - DAY
+          - WEEK
+          - MONTH
+          - QUARTER
+          - YEAR
+        num_of_daily:
+          description: Number of daily snapshots to keep [Retention Policy].
+          type: integer
+        num_of_weekly:
+          description: Number of weekly snapshots to keep [Retention Policy].
+          type: integer
+        day_of_week:
+          description: Day of week upon which to enforce weekly snapshot retention [Retention Policy].
+          type: string
+          enum:
+          - MONDAY
+          - TUESDAY
+          - WEDNESDAY
+          - THURSDAY
+          - FRIDAY
+          - SATURDAY
+          - SUNDAY
+        num_of_monthly:
+          description: Number of monthly snapshots to keep [Retention Policy].
+          type: integer
+        day_of_month:
+          description: Day of month upon which to enforce monthly snapshot retention [Retention Policy].
+          type: integer
+        num_of_yearly:
+          description: Number of yearly snapshots to keep [Retention Policy].
+          type: integer
+        day_of_year:
+          description: Day of year upon which to enforce yearly snapshot retention, expressed a month / day string (e.g., "Jan 1") [Retention Policy].
+          type: string
+        schedules:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationSchedule'
+        provision_source:
+          type: string
+          $ref: '#/components/schemas/ProvisionSource'
+        size:
+          description: Size of the quota, in bytes. (QUOTA_POLICY only).
+          type: integer
+          format: int64
+          nullable: true
+        tags:
+          description: The tags that are applied to this VirtualizationPolicy.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        num_targets:
+          description: The number of target dSources or VDBs to which this policy has been applied.
+          type: integer
+        customized:
+          description: True if this policy is customized specifically for one object. Customized policies cannot be shared between objects.
+          type: boolean
+          default: false
+    ProvisionSource:
+      description: The source of the data to provision from [Refresh Policy].
+      type: string
+      enum:
+      - LATEST_SNAPSHOT
+      - LATEST_TIME_FLOW_LOG
+    PolicyTargetObject:
+      description: A policy target object to apply policy to.This contains values for which translation logic is in place and for which users can query virtualization-jobs history.
+      type: object
+      properties:
+        object_type:
+          type: string
+          $ref: '#/components/schemas/TargetPolicyObjectType'
+        object_id:
+          description: The ID of the object, the policy to be applied to.
+          type: string
+    VirtualizationPolicyTarget:
+      properties:
+        id:
+          description: A unique ID for this VirtualizationPolicyTarget.
+          type: string
+        policy_id:
+          description: The DCT ID of the policy.
+          type: string
+        target_id:
+          description: The DCT ID of the target the policy is applied to.
+          type: string
+        engine_id:
+          description: The ID of the engine hosting the policy and target.
+          type: string
+        policy_type:
+          description: The type of the policy.
+          type: string
+          $ref: '#/components/schemas/PolicyType'
+        target_type:
+          description: The object type of the target.
+          type: string
+          $ref: '#/components/schemas/TargetPolicyObjectType'
+        target_name:
+          description: The name of the target object.
+          type: string
+    CreateVirtualizationPolicyParameters:
+      required:
+      - name
+      - policy_type
+      properties:
+        name:
+          description: The name of the virtualization policy.
+          type: string
+          minLength: 1
+          maxLength: 256
+          example: my-policy
+        policy_type:
+          description: The type of the virtualization policy.
+          type: string
+          $ref: '#/components/schemas/PolicyType'
+        policy_targets:
+          description: The target objects that will have this policy applied to them upon creation of the policy.
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyTargetObject'
+        provision_source:
+          description: The source of the data to provision from [Refresh Policy].
+          type: string
+          $ref: '#/components/schemas/ProvisionSource'
+        timezone_id:
+          description: The timezone to use for scheduling.
+          type: string
+          minLength: 1
+          maxLength: 256
+          example: America/Los_Angeles
+        data_duration:
+          description: Amount of time to keep source data [Retention Policy].
+          type: integer
+          format: int32
+          example: 1
+        data_unit:
+          description: Time unit for data_duration [Retention Policy].
+          type: string
+          enum:
+          - DAY
+          - WEEK
+          - MONTH
+          - QUARTER
+          - YEAR
+          example: DAY
+        log_duration:
+          description: Amount of time to keep log data [Retention Policy].
+          type: integer
+          format: int32
+          example: 1
+        log_unit:
+          description: Time unit for log_duration [Retention Policy].
+          type: string
+          enum:
+          - DAY
+          - WEEK
+          - MONTH
+          - QUARTER
+          - YEAR
+          example: DAY
+        num_of_daily:
+          description: Number of daily snapshots to keep [Retention Policy].
+          type: integer
+          format: int32
+          example: 1
+        num_of_weekly:
+          description: Number of weekly snapshots to keep [Retention Policy].
+          type: integer
+          format: int32
+          example: 1
+        day_of_week:
+          description: Day of week upon which to enforce weekly snapshot retention [Retention Policy].
+          type: string
+          enum:
+          - MONDAY
+          - TUESDAY
+          - WEDNESDAY
+          - THURSDAY
+          - FRIDAY
+          - SATURDAY
+          - SUNDAY
+          example: MONDAY
+        num_of_monthly:
+          description: Number of monthly snapshots to keep [Retention Policy].
+          type: integer
+          format: int32
+          example: 1
+        day_of_month:
+          description: Day of month upon which to enforce monthly snapshot retention [Retention Policy].
+          type: integer
+          format: int32
+          example: 1
+        num_of_yearly:
+          description: Number of yearly snapshots to keep [Retention Policy].
+          type: integer
+          format: int32
+          example: 1
+        day_of_year:
+          description: Day of year upon which to enforce yearly snapshot retention, expressed a month / day string (e.g., "Jan 1") [Retention Policy].
+          type: string
+          example: Jan 1
+        schedules:
+          description: The schedules for this policy.
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationSchedule'
+        size:
+          description: Size of the quota, in bytes. [Quota Policy].
+          type: integer
+          format: int64
+          example: 1
+        tags:
+          description: The tags to be created for the policy.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    Job:
+      description: An asynchronous task.
+      type: object
+      properties:
+        id:
+          description: The Job entity ID.
+          type: string
+          example: job-123
+        status:
+          description: The status of the job.
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+          example: RUNNING
+        is_waiting_for_telemetry:
+          description: Indicates that the operations performed by this Job have completed successfully, but the object changes are not yet reflected. This is only set when when the JOB is in STARTED status, with the guarantee that the job will not transition to the FAILED status. Note that this flag will likely be replaced with a new status in future API versions and be deprecated.
+          type: boolean
+        type:
+          description: The type of job being done.
+          type: string
+          example: DB_REFRESH
+        localized_type:
+          description: The i18n translated type of job being done.
+          type: string
+          example: DB Refresh
+        error_details:
+          description: Details about the failure for FAILED jobs.
+          type: string
+          example: Unable to connect to the engine.
+        warning_message:
+          description: Warnings for the job.
+          type: string
+          example: 'Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.'
+        target_id:
+          description: A reference to the job's target.
+          type: string
+          example: vdb-123
+        target_name:
+          description: A reference to the job's target name.
+          type: string
+          example: vdb
+        start_time:
+          description: The time the job started executing.
+          type: string
+          format: date-time
+          example: '2022-01-02T05:11:24.148000+00:00'
+        update_time:
+          description: The time the job was last updated.
+          type: string
+          format: date-time
+          example: '2022-01-02T06:11:24.148000+00:00'
+        trace_id:
+          description: traceId of the request which created this Job
+          type: string
+        engine_ids:
+          description: IDs of the engines this Job is executing on.
+          type: array
+          items:
+            type: string
+          deprecated: true
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        engines:
+          type: array
+          items:
+            $ref: '#/components/schemas/Engine'
+        account_id:
+          description: The ID of the account who initiated this job.
+          type: integer
+          example: 1
+        account_name:
+          description: The account name which initiated this job. It can be either firstname and lastname combination or firstname or lastname or username or email address or Account-<id>.
+          type: string
+          example: User 1
+        compliance_node_id:
+          description: The ID of the associated compliance node, if applicable.
+          type: string
+          nullable: true
+        compliance_node_name:
+          description: The name of the associated compliance node, if applicable.
+          type: string
+          nullable: true
+        percent_complete:
+          description: Completion percentage of the Job.
+          type: integer
+          minimum: 0
+          maximum: 100
+          example: '50'
+        virtualization_tasks:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTask'
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTask'
+        execution_id:
+          description: The ID of the associated masking execution, if any.
+          type: string
+          nullable: true
+        result_type:
+          description: The type of the job result. This is the type of the object present in the result.
+          type: string
+        result:
+          description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
+          type: object
+      discriminator:
+        propertyName: class_type
+    PolicyType:
+      description: The type of a virtualization policy.
+      type: string
+      enum:
+      - REFRESH_POLICY
+      - SNAPSHOT_POLICY
+      - SYNC_POLICY
+      - RETENTION_POLICY
+      - REPLICA_RETENTION_POLICY
+      - QUOTA_POLICY
+  parameters:
+    virtualizationPolicyTargetsSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: id
+      required: false
+      schema:
+        type: string
+        enum:
+        - policy_id
+        - -policy_id
+        - target_id
+        - -target_id
+        - engine_id
+        - -engine_id
+        - policy_type
+        - -policy_type
+        - target_type
+        - -target_type
+        - target_name
+        - -target_name
+        nullable: true
+        example: name
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+    virtualizationPoliciesSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: id
+      required: false
+      schema:
+        type: string
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - dct_managed
+        - -dct_managed
+        - create_user
+        - -create_user
+        - create_timestamp
+        - -create_timestamp
+        - engine_id
+        - -engine_id
+        - engine_name
+        - -engine_name
+        - policy_type
+        - -policy_type
+        - timezone_id
+        - -timezone_id
+        - default_policy
+        - -default_policy
+        - effective_type
+        - -effective_type
+        - data_duration
+        - -data_duration
+        - data_unit
+        - -data_unit
+        - log_duration
+        - -log_duration
+        - log_unit
+        - -log_unit
+        - num_of_daily
+        - -num_of_daily
+        - num_of_weekly
+        - -num_of_weekly
+        - day_of_week
+        - -day_of_week
+        - num_of_monthly
+        - -num_of_monthly
+        - day_of_month
+        - -day_of_month
+        - num_of_yearly
+        - -num_of_yearly
+        - day_of_year
+        - -day_of_year
+        - size
+        - -size
+        - provision_source
+        - -provision_source
+        - num_targets
+        - -num_targets
+        - customized
+        - -customized
+        nullable: true
+        example: name
+    virtualizationPolicyIdParam:
+      in: path
+      name: policyId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the Virtualization Policy.
+  requestBodies:
+    VirtualizationPolicyApplyBody:
+      description: The parameters to apply virtualization policy to a target.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/VirtualizationPolicyApplyParams'
+    SearchBody:
+      x-skip-codegen-attr: description
+      description: 'A request body containing a filter expression. This enables searching
+
+        for items matching arbitrarily complex conditions. The list of
+
+        attributes which can be used in filter expressions is available
+
+        in the x-filterable vendor extension.
+
+
+        # Filter Expression Overview
+
+        **Note: All keywords are case-insensitive**
+
+
+        ## Comparison Operators
+
+        | Operator | Description | Example |
+
+        | --- | --- | --- |
+
+        | CONTAINS | Substring or membership testing for string and list attributes respectively. | field3 CONTAINS ''foobar'', field4 CONTAINS TRUE  |
+
+        | IN | Tests if field is a member of a list literal. List can contain a maximum of 100 values | field2 IN [''Goku'', ''Vegeta''] |
+
+        | GE | Tests if a field is greater than or equal to a literal value | field1 GE 1.2e-2 |
+
+        | GT | Tests if a field is greater than a literal value | field1 GT 1.2e-2 |
+
+        | LE | Tests if a field is less than or equal to a literal value | field1 LE 9000 |
+
+        | LT | Tests if a field is less than a literal value | field1 LT 9.02 |
+
+        | NE | Tests if a field is not equal to a literal value | field1 NE 42 |
+
+        | EQ | Tests if a field is equal to a literal value | field1 EQ 42 |
+
+
+        ## Search Operator
+
+        The SEARCH operator filters for items which have any filterable
+
+        attribute that contains the input string as a substring, comparison
+
+        is done case-insensitively. This is not restricted to attributes with
+
+        string values. Specifically `SEARCH ''12''` would match an item with an
+
+        attribute with an integer value of `123`.
+
+
+        ## Logical Operators
+
+        Ordered by precedence.
+
+        | Operator | Description | Example |
+
+        | --- | --- | --- |
+
+        | NOT | Logical NOT (Right associative) | NOT field1 LE 9000 |
+
+        | AND | Logical AND (Left Associative) | field1 GT 9000 AND field2 EQ ''Goku'' |
+
+        | OR | Logical OR (Left Associative) | field1 GT 9000 OR field2 EQ ''Goku'' |
+
+
+        ## Grouping
+
+        Parenthesis `()` can be used to override operator precedence.
+
+
+        For example:
+
+        NOT (field1 LT 1234 AND field2 CONTAINS ''foo'')
+
+
+        ## Literal Values
+
+        | Literal      | Description | Examples |
+
+        | --- | --- | --- |
+
+        | Nil | Represents the absence of a value | nil, Nil, nIl, NIL |
+
+        | Boolean | true/false boolean | true, false, True, False, TRUE, FALSE |
+
+        | Number | Signed integer and floating point numbers. Also supports scientific notation. | 0, 1, -1, 1.2, 0.35, 1.2e-2, -1.2e+2 |
+
+        | String | Single or double quoted | "foo", "bar", "foo bar", ''foo'', ''bar'', ''foo bar'' |
+
+        | Datetime | Formatted according to [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) | 2018-04-27T18:39:26.397237+00:00 |
+
+        | List | Comma-separated literals wrapped in square brackets | [0], [0, 1], [''foo'', "bar"] |
+
+
+        ## Limitations
+
+        - A maximum of 8 unique identifiers may be used inside a filter expression.
+
+        '
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SearchBody'
+          examples:
+            nested:
+              description: 'An example of a nested Object comparison testing that at least one repository has a
+
+                version which is equal to 19.0.0.
+
+                '
+              summary: Nested Object Comparison
+              value:
+                filter_expression: repositories CONTAINS {version eq '19.0.0'}
+            relative:
+              description: 'An example of a relative comparison testing that field1 has a
+
+                value which is less than 123.
+
+                '
+              summary: Relative comparison
+              value:
+                filter_expression: field1 LE 123
+            nil:
+              description: 'An example of using nil to test for the absence of a value for field2.
+
+                '
+              summary: Absence of an attribute value
+              value:
+                filter_expression: field2 EQ NIL
+            non-nil:
+              description: 'An example of using nil to test for the existence of a value for field2.
+
+                '
+              summary: Existence of an attribute value
+              value:
+                filter_expression: field2 NE NIL
+            contains:
+              description: 'An example of using the ''CONTAINS'' operator to check if
+
+                field2 contains the string ''foo''. If field2 is string valued
+
+                then this is checking if ''foo'' is a substring of field2. If
+
+                field2 is a list of strings then this is checking if ''foo''
+
+                is a member of the list.
+
+                '
+              summary: Use of the CONTAINS operator
+              value:
+                filter_expression: field2 CONTAINS 'foo'
+            in:
+              description: 'An example of using the ''IN'' operator to check if field1
+
+                is an element of a list literal.
+
+                '
+              summary: Use of the IN operator
+              value:
+                filter_expression: field1 IN [1, 2, 3]
+            search:
+              description: 'An example of using the ''SEARCH'' operator to retrieve all elements
+
+                for which ''foo'' is a substring of a filterable attribute.
+
+                '
+              summary: Use of the SEARCH operator
+              value:
+                filter_expression: SEARCH 'foo'
+            parenthesis:
+              description: 'An example of parenthesis being used to group operators & override
+
+                operator precedence.
+
+                '
+              summary: Overriding operator precedence
+              value:
+                filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
+    DeleteTags:
+      description: The parameters to delete tags
+      content:
+        application/json:
+          schema:
+            x-body-name: environment
+            $ref: '#/components/schemas/DeleteTag'
+          examples:
+            delete_all_tags:
+              description: Delete all tags for given object - No request body required
+              summary: Delete all tags
+              value: {}
+            delete_tags_by_key:
+              description: Delete all tags for given object with matching key
+              summary: Delete tags by key
+              value:
+                key: key-1
+            delete_tags_by_key_value:
+              description: Delete tag for given object with matching key and value
+              summary: Delete a tag by key & value
+              value:
+                key: key-1
+                value: value-1
+            delete_multiple_tags_by_key_value:
+              description: Delete tags for given list of tags with matching key and value
+              summary: Delete multiple tags by key & value
+              value:
+                tags:
+                - key: key-1
+                  value: value-1
+                - key: key-2
+                  value: value-2
+    CreateVirtualizationPolicy:
+      description: The parameters to create a DCT-managed VirtualizationPolicy.
+      content:
+        application/json:
+          schema:
+            x-body-name: virtualization_policy
+            $ref: '#/components/schemas/CreateVirtualizationPolicyParameters'
+          examples:
+            VirtualizationPolicyCreate:
+              description: 'The request example is intended for creating a VirtualizationPolicy.
+
+                '
+              summary: VirtualizationPolicy create
+              value:
+                name: policy name
+                policy_type: SYNC_POLICY
+                policy_targets:
+                - object_type: DSOURCE
+                  object_id: 1-ORACLE_DB_CONTAINER-1
+                provision_source: LATEST_SNAPSHOT
+                timezone_id: America/Los_Angeles
+                data_duration: 1
+                data_unit: DAY
+                log_duration: 1
+                log_unit: DAY
+                num_of_daily: 1
+                num_of_weekly: 0
+                day_of_week: MONDAY
+                num_of_monthly: 0
+                day_of_month: 1
+                num_of_yearly: 0
+                day_of_year: Jan 1
+                schedules:
+                - cron_string: 0 30 3 ? * 1
+                  cutoff_time: 14400
+                size: 1
+                tags:
+                - key: key1
+                  value: value1
+                - key: key2
+                  value: value2
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization

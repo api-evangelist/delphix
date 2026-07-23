@@ -1,0 +1,1907 @@
+openapi: 3.0.0
+info:
+  title: Delphix DCT Algorithms PaaSInstances API
+  version: 3.28.0
+  description: Delphix DCT API
+  contact:
+    name: Delphix Support
+    url: https://portal.perforce.com/s/
+    email: support@delphix.com
+servers:
+- url: /dct/v3
+security:
+- ApiKeyAuth: []
+tags:
+- name: PaaSInstances
+paths:
+  /paas-instances:
+    get:
+      summary: List all PaaS Instances.
+      operationId: get_paas_instances
+      tags:
+      - PaaSInstances
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/paaSInstanceSortParam'
+      - $ref: '#/components/parameters/permission'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ListPaaSInstancesResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PaaSInstance'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+    post:
+      summary: Provision a new PaaS Instance
+      operationId: provision_paas_instance
+      tags:
+      - PaaSInstances
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: provision_paas_instance_parameter
+              $ref: '#/components/schemas/ProvisionPaaSInstanceParameters'
+        description: The parameters to provision a PaaS Instance.
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ProvisionPaaSInstanceResponse
+                properties:
+                  instance_id:
+                    type: string
+                    description: The ID of the provisioned PaaS Instance.
+                  job:
+                    $ref: '#/components/schemas/Job'
+  /paas-instances/search:
+    post:
+      summary: Search for PaaS Instances.
+      operationId: search_paas_instances
+      tags:
+      - PaaSInstances
+      x-filterable:
+        fields:
+          id:
+            type: string
+          name:
+            type: string
+          plugin_id:
+            type: string
+          cloud_account_id:
+            type: string
+          cloud_account_name:
+            type: string
+          database_engine:
+            type: string
+          database_engine_version:
+            type: string
+          status:
+            type: string
+          runtime_status:
+            type: string
+          parent_instance_id:
+            type: string
+          parent_snapshot_id:
+            type: string
+          is_encrypted:
+            type: boolean
+          database_type:
+            type: string
+          owner:
+            type: string
+          region:
+            type: string
+          availability_zone:
+            type: string
+          instance_type:
+            type: string
+          total_allocated_storage_gb:
+            type: integer
+          max_allocated_storage_gb:
+            type: integer
+          auto_scaling_enabled:
+            type: boolean
+          backup_window:
+            type: string
+          created_time:
+            type: string
+          root_instance_id:
+            type: string
+          size_bytes:
+            type: integer
+          size_measurement_time:
+            type: string
+          size_measurement_source:
+            type: string
+          compliance_profile_job_collection_id:
+            type: string
+          compliance_masking_job_collection_id:
+            type: string
+          masked_by_execution_id:
+            type: string
+          masked_by_collection_id:
+            type: string
+          tags:
+            type: array[object]
+            fields:
+              key:
+                type: string
+              value:
+                type: string
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/paaSInstanceSortParam'
+      - $ref: '#/components/parameters/permission'
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: SearchPaaSInstancesResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PaaSInstance'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /paas-instances/{paaSInstanceId}:
+    parameters:
+    - $ref: '#/components/parameters/paaSInstanceIdParam'
+    get:
+      summary: Get a PaaS Instance by ID.
+      operationId: get_paas_instance_by_id
+      tags:
+      - PaaSInstances
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaaSInstance'
+    patch:
+      summary: Update a PaaS Instance.
+      operationId: update_paas_instance
+      tags:
+      - PaaSInstances
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: update_paas_instance_parameter
+              $ref: '#/components/schemas/UpdatePaaSInstanceParameters'
+        description: The parameters to update a PaaS Instance.
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: UpdatePaaSInstanceResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+  /paas-instances/{paaSInstanceId}/delete:
+    post:
+      summary: Delete a PaaS Instance
+      operationId: delete_paas_instance
+      tags:
+      - PaaSInstances
+      parameters:
+      - $ref: '#/components/parameters/paaSInstanceIdParam'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: delete_paas_instance_parameter
+              $ref: '#/components/schemas/DeletePaaSInstanceParameters'
+        description: The parameters to delete a PaaS Instance.
+        required: false
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                title: DeletePaaSInstanceResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+  /paas-instances/{paaSInstanceId}/refresh:
+    parameters:
+    - $ref: '#/components/parameters/paaSInstanceIdParam'
+    post:
+      summary: Refresh a PaaS Instance
+      operationId: refresh_paas_instance
+      tags:
+      - PaaSInstances
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: refresh_paas_instance_parameter
+              $ref: '#/components/schemas/RefreshPaaSInstanceParameters'
+        description: The parameters to refresh a PaaS Instance.
+        required: true
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                title: RefreshPaaSInstanceResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+  /paas-instances/{paaSInstanceId}/tags:
+    parameters:
+    - $ref: '#/components/parameters/paaSInstanceIdParam'
+    post:
+      tags:
+      - PaaSInstances
+      summary: Create tags for a PaaS Instance.
+      operationId: create_paas_instance_tags
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CloudTagsRequest'
+        description: Tags information for PaaS Instance.
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CloudTagsResponse'
+    get:
+      tags:
+      - PaaSInstances
+      summary: Get tags for a PaaS Instance.
+      operationId: get_paas_instance_tags
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CloudTagsResponse'
+  /paas-instances/{paaSInstanceId}/tags/delete:
+    parameters:
+    - $ref: '#/components/parameters/paaSInstanceIdParam'
+    post:
+      tags:
+      - PaaSInstances
+      summary: Delete tags for a PaaS Instance.
+      operationId: delete_paas_instance_tags
+      requestBody:
+        $ref: '#/components/requestBodies/DeleteCloudTags'
+      responses:
+        '204':
+          description: No Content
+  /paas-instances/provision_from_bookmark:
+    post:
+      summary: Provision a new PaaS Instance from a bookmark
+      operationId: provision_paas_instance_from_bookmark
+      tags:
+      - PaaSInstances
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: provision_paas_instance_from_bookmark_parameter
+              $ref: '#/components/schemas/ProvisionPaaSInstanceFromBookmarkParameters'
+        description: The parameters to provision a PaaS Instance from a bookmark.
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ProvisionPaaSInstanceFromBookmarkResponse
+                properties:
+                  paas_instance_id:
+                    type: string
+                    description: The ID of the provisioned PaaS Instance.
+                  job:
+                    type: object
+                    $ref: '#/components/schemas/Job'
+  /paas-instances/{paaSInstanceId}/bookmarks:
+    parameters:
+    - $ref: '#/components/parameters/paaSInstanceIdParam'
+    get:
+      summary: List Bookmarks compatible with this PaaS Instance.
+      operationId: get_bookmarks_by_paas_instance
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/bookmarksSortParam'
+      tags:
+      - PaaSInstances
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ListBookmarksByPaaSInstanceResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Bookmark'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /paas-instances/{paaSInstanceId}/bookmarks/search:
+    parameters:
+    - $ref: '#/components/parameters/paaSInstanceIdParam'
+    post:
+      summary: Search Bookmarks compatible with this PaaS Instance.
+      operationId: search_bookmarks_by_paas_instance
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/bookmarksSortParam'
+      tags:
+      - PaaSInstances
+      x-filterable:
+        fields:
+          id:
+            type: string
+          name:
+            type: string
+          paas_instances:
+            type: array[object]
+            fields:
+              paas_instance_id:
+                type: string
+              paas_instance_name:
+                type: string
+              paas_snapshot_id:
+                type: string
+              data_timestamp:
+                type: date-time
+          creation_date:
+            type: date-time
+          retention:
+            type: integer
+          expiration:
+            type: date
+          data_timestamp:
+            type: date-time
+          tags:
+            type: array[object]
+            fields:
+              key:
+                type: string
+              value:
+                type: string
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: SearchBookmarksByPaaSInstanceResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Bookmark'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /paas-instances/{paaSInstanceId}/refresh_from_bookmark:
+    parameters:
+    - $ref: '#/components/parameters/paaSInstanceIdParam'
+    post:
+      summary: Refresh a PaaS Instance from a bookmark
+      operationId: refresh_paas_instance_from_bookmark
+      tags:
+      - PaaSInstances
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: refresh_paas_instance_from_bookmark_parameter
+              $ref: '#/components/schemas/RefreshPaaSInstanceFromBookmarkParameters'
+        description: The parameters to refresh a PaaS Instance from a bookmark.
+        required: true
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                title: RefreshPaaSInstanceFromBookmarkResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+  /paas-instances/{paaSInstanceId}/de-provision:
+    parameters:
+    - $ref: '#/components/parameters/paaSInstanceIdParam'
+    post:
+      summary: De-provision a PaaS Instance, meaning that the instance object will remain in DCT, along with its permissions, tags, snapshots, ... but the instance will no longer be running. If the current instance data must be preserved, take a snapshot before de-provisioning.
+      operationId: deprovision_paas_instance
+      tags:
+      - PaaSInstances
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                title: DeprovisionPaaSInstanceResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+  /paas-instances/{paaSInstanceId}/re-provision:
+    parameters:
+    - $ref: '#/components/parameters/paaSInstanceIdParam'
+    post:
+      summary: Re-provision a PaaS Instance which has previously been de-provisioned. The provision parameters specified at provisioning time will be respected, with the exception of the timestamp or snapshot id to re-provision from.
+      operationId: reprovision_paas_instance
+      tags:
+      - PaaSInstances
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: reprovision_paas_instance_parameter
+              $ref: '#/components/schemas/ReProvisionPaaSInstanceParameters'
+        description: The parameters to re-provision a PaaS Instance.
+        required: true
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ReprovisionPaaSInstanceResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+  /paas-instances/{paaSInstanceId}/start:
+    parameters:
+    - $ref: '#/components/parameters/paaSInstanceIdParam'
+    post:
+      summary: Start a PaaS Instance
+      operationId: start_paas_instance
+      tags:
+      - PaaSInstances
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                title: StartPaaSInstanceResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+  /paas-instances/{paaSInstanceId}/stop:
+    parameters:
+    - $ref: '#/components/parameters/paaSInstanceIdParam'
+    post:
+      summary: Stop a PaaS Instance
+      operationId: stop_paas_instance
+      tags:
+      - PaaSInstances
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                title: StopPaaSInstanceResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+components:
+  schemas:
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    BookmarkPaaSDatabases:
+      description: PaaS Database id and name associated with bookmark.
+      type: object
+      properties:
+        paas_database_id:
+          description: The PaaS Database id.
+          type: string
+          example: paas-database-id-1
+        paas_database_name:
+          description: The PaaS Database name.
+          type: string
+          example: paas-database-name
+        root_parent_id:
+          description: The root of the PaaS Database.
+          type: string
+          example: paas-instance-id-1
+        paas_snapshot_id:
+          description: The PaaS Snapshot id.
+          type: string
+          example: 1-SNAP-1
+        data_timestamp:
+          description: The timestamp of the PaaS Snapshot.
+          type: string
+          format: date-time
+          example: '2021-05-01T08:51:34.148000+00:00'
+    RefreshPaaSInstanceParameters:
+      description: Parameters to refresh a PaaS Instance.
+      type: object
+      properties:
+        source_instance_id:
+          description: The ID of the PaaS Instance to refresh from.
+          type: string
+          example: db-123
+        source_snapshot_id:
+          description: The ID of the PaaS Instance snapshot to refresh from. This is optional, and mutually exclusive with the source_instance_id and timestamp.
+          type: string
+          example: snapshot-123
+        timestamp:
+          type: string
+          format: date-time
+          description: The point in time to refresh from. If the timestamp is not set, selects the latest point.
+          example: '2021-05-01T08:51:34.148000+00:00'
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    BookmarkVDBs:
+      description: VDB id and name associated with bookmark.
+      type: object
+      properties:
+        vdb_id:
+          description: The VDB id.
+          type: string
+          example: vdb-id-1
+        vdb_name:
+          description: The VDB name.
+          type: string
+          example: vdb-name
+        snapshot_id:
+          description: The snapshot id.
+          type: string
+          example: 1-SNAP-1
+        source_data_timestamp:
+          description: The timestamp of origin timeline location.
+          type: string
+          format: date-time
+          example: '2021-05-01T08:51:34.148000+00:00'
+        root_parent_id:
+          description: The root of the VDB.
+          type: string
+          example: 1-DBCONTAINER-1
+        timeflow_id:
+          description: The timeflow id of the snapshot.
+          type: string
+        data_timestamp:
+          description: The bookmark timestamp of the VDB.
+          type: string
+          format: date-time
+    CloudTagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/CloudTag'
+    CloudTag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        mirror_on_cloud:
+          description: Whether this tag is mirrored from/to the Cloud Provider account hosting the PaaS Database or Instance. Not applicable to non PaaS objects.
+          type: boolean
+          default: false
+    DeletePaaSInstanceParameters:
+      description: Parameters to delete a PaaS Instance.
+      type: object
+      properties:
+        delete_parameters:
+          description: The parameters specified by the plugin schema for PaaS Instance delete
+          type: object
+          nullable: true
+          additionalProperties: true
+          example:
+            foo: bar
+        force_delete:
+          type: boolean
+          description: Whether to delete the Instance from DCT even if snapshots are present and the database deletion in the Cloud Account fails.
+          default: false
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    ProvisionPaaSInstanceParameters:
+      description: Parameters to provision a PaaS Instance.
+      allOf:
+      - $ref: '#/components/schemas/ProvisionPaaSInstanceBaseParameters'
+      - type: object
+        required:
+        - name
+        properties:
+          source_instance_id:
+            type: string
+            description: ID of the PaaS Instance to provision from.
+          source_snapshot_id:
+            type: string
+            description: The ID of the PaaS Instance snapshot to provision from. Mutually exclusive with source_instance_id and timestamp.
+          timestamp:
+            type: string
+            format: date-time
+            description: The point in time from which to provision. Needs to be set along with source_instance_id. If not set, selects latest point.
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    BookmarkPaaSInstances:
+      description: PaaS Instance id and name associated with bookmark.
+      type: object
+      properties:
+        paas_instance_id:
+          description: The PaaS Instance id.
+          type: string
+          example: paas-instance-id-1
+        paas_instance_name:
+          description: The PaaS Instance name.
+          type: string
+          example: paas-instance-name
+        root_parent_id:
+          description: The root of the PaaS Instance.
+          type: string
+          example: paas-instance-root-id-1
+        paas_snapshot_id:
+          description: The PaaS Instance snapshot id.
+          type: string
+          example: 1-SNAP-1
+        data_timestamp:
+          description: The timestamp of the PaaS Instance snapshot.
+          type: string
+          format: date-time
+          example: '2021-05-01T08:51:34.148000+00:00'
+    RefreshPaaSInstanceFromBookmarkParameters:
+      type: object
+      description: Parameters to refresh a PaaS Instance from bookmark.
+      required:
+      - bookmark_id
+      properties:
+        bookmark_id:
+          description: The ID of the PaaS Instance bookmark to refresh from.
+          type: string
+          example: bookmark-123
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    PaaSConnectionEndpoint:
+      description: A structured connection endpoint discovered from a PaaS Instance.
+      type: object
+      properties:
+        host:
+          description: The network hostname or IP address.
+          type: string
+        port:
+          description: The TCP port.
+          type: integer
+          format: int32
+        database_type:
+          description: The type of database.
+          type: string
+          enum:
+          - AURORA_POSTGRES
+          - DB2
+          - DB2_ISERIES
+          - DB2_MAINFRAME
+          - EXTENDED
+          - GENERIC
+          - MARIADB
+          - MSSQL
+          - MYSQL
+          - ORACLE
+          - POSTGRES
+          - RDS_POSTGRES
+          - SYBASE
+          - YUGABYTEDB_POSTGRES
+          - COCKROACHDB_POSTGRES
+        database_name:
+          description: The database or service name.
+          type: string
+        jdbc_url:
+          description: The JDBC connection URL.
+          type: string
+    PaaSInstance:
+      description: A database instance running in a cloud environment managed by a PaaS service.
+      type: object
+      properties:
+        id:
+          description: The PaaS Instance object entity ID.
+          type: string
+          example: instance-123
+        name:
+          description: The PaaS Instance name.
+          type: string
+          example: my-db-123
+        plugin_id:
+          description: Id of the PaaS plugin which manages this Instance.
+          type: string
+          example: plugin-123
+        is_snapshot_operation_target:
+          description: Whether this PaaS Instance can be the target of DCT snapshot operation.
+          type: boolean
+        cloud_account_id:
+          description: Id of the Cloud Account to which this Instance belongs.
+          type: string
+          example: environment-123
+        cloud_account_name:
+          description: Name of the Cloud Account to which this Instance belongs.
+          type: string
+          example: AWS-US-EAST-1
+        database_engine:
+          description: Name of the database engine.
+          type: string
+          example: Azure SQL Server
+        database_engine_version:
+          description: Version of the database engine.
+          type: string
+          example: 19.1.2
+        status:
+          description: The management status of this PaaS Instance. DISCOVERED means the instance has been found by DCT but is not yet under DCT management. DCT_MANAGED means the instance is actively managed by DCT. ROOT means the instance serves as the root source for DCT-managed child instances.
+          type: string
+          enum:
+          - DISCOVERED
+          - DCT_MANAGED
+          - ROOT
+        runtime_status:
+          description: Instance status.
+          type: string
+          enum:
+          - CREATING
+          - FAILED
+          - RUNNING
+          - DEPROVISIONED
+          - STOPPED
+          - DELETED_ROOT_SOURCE
+          - REFRESHING
+        connection_strings:
+          description: Connection strings (such as JDBC URLs) for applications to connect to the instance.
+          type: array
+          items:
+            type: string
+        parent_instance_id:
+          description: The ID of the parent PaaS Instance, if this is a child Instance.
+          type: string
+          example: my-db-123
+        parent_instance_name:
+          description: The name of the parent PaaS Instance, if this is a child Instance.
+          type: string
+          example: my-parent-instance
+        root_instance_id:
+          description: The ID of the root PaaS Instance, if this is a managed Instance.
+          type: string
+          example: my-root-123
+        root_instance_name:
+          description: The name of the root PaaS Instance, if this is a managed Instance.
+          type: string
+          example: my-root-instance
+        parent_snapshot_id:
+          description: The ID of the parent PaaS Instance snapshot, if this is a child Instance.
+          type: string
+          example: my-snapshot-123
+        is_encrypted:
+          description: Whether this Instance is encrypted or not.
+          type: boolean
+          example: true
+        database_type:
+          description: The type of database.
+          type: string
+          enum:
+          - ORACLE
+          - RDS_POSTGRES
+          - MSSQL
+        owner:
+          description: The owner or responsible party for this Instance, typically derived from metadata or tags.
+          type: string
+        region:
+          description: The geographic region or location where the database is hosted.
+          type: string
+        availability_zone:
+          description: The specific availability zone, fault domain, or equivalent infrastructure location where the database resides.
+          type: string
+        instance_type:
+          description: The compute or service tier of the Instance (for example, "Standard_D4s_v3" or "db.m5.large").
+          type: string
+        total_allocated_storage_gb:
+          description: The total amount of storage (in gigabytes) currently allocated to the database.
+          type: integer
+        max_allocated_storage_gb:
+          description: The maximum storage capacity (in gigabytes) that the database can automatically scale up to.
+          type: integer
+        auto_scaling_enabled:
+          description: Indicates whether storage auto-scaling is enabled for this database.
+          type: boolean
+        backup_window:
+          description: The preferred time window during which automated backups are performed, expressed as a time range.
+          type: string
+        created_time:
+          description: The timestamp when the database instance was created, in ISO 8601 date-time format.
+          type: string
+          format: date-time
+        size_bytes:
+          description: The size of the instance in bytes.
+          type: integer
+          format: int64
+        size_measurement_time:
+          description: The timestamp when the size of the instance was retrieved, in ISO 8601 date-time format.
+          type: string
+          format: date-time
+        size_measurement_source:
+          description: The source from where the size was retrieved.
+          type: string
+        admin_username:
+          description: The admin username for the PaaS Instance.
+          type: string
+        admin_password:
+          x-dct-toolkit-credential-field: true
+          description: The admin password for the PaaS Instance.
+          type: string
+        job_orchestrator_id:
+          description: The ID of the job orchestrator associated with this PaaS Instance.
+          type: string
+        job_orchestrator_name:
+          description: The name of the job orchestrator associated with this PaaS Instance.
+          type: string
+          readOnly: true
+        connection_endpoints:
+          description: Structured connection endpoints discovered from the PaaS Instance.
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/PaaSConnectionEndpoint'
+        compliance_profile_job_collection_id:
+          description: The ID of the profiling compliance job collection associated with this PaaS Instance.
+          type: string
+        compliance_masking_job_collection_id:
+          description: The ID of the masking compliance job collection associated with this PaaS Instance.
+          type: string
+        masked_by_execution_id:
+          description: The ID of the compliance job collection execution that masked the active timeflow of this PaaS Instance, if any.
+          type: string
+          readOnly: true
+        masked_by_collection_id:
+          description: The ID of the compliance job collection that masked the active timeflow of this PaaS Instance, if any.
+          type: string
+          readOnly: true
+        current_timeflow_id:
+          description: The ID of the current active PaaS Timeflow for this Instance, if the instance is live.
+          type: string
+          example: paas-timeflow-abc123
+        instance_parameters:
+          description: 'The plugin-specific parameters for this PaaS Instance. Sensitive fields (marked x-sensitive in the plugin schema) are masked with ******.
+
+            '
+          type: object
+          nullable: true
+          additionalProperties: true
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/CloudTag'
+    Replica:
+      properties:
+        replica_id:
+          description: The ID of the replicated object.
+          type: string
+          example: replica-1
+        replica_engine_id:
+          description: The ID of the replicated object's engine.
+          type: string
+          example: '1'
+        replica_engine_name:
+          description: The name of the replicated object's engine.
+          type: string
+          example: replica-e1
+        replica_namespace_id:
+          description: The namespace id of the replicated object.
+          type: string
+          example: namespace-1
+    CloudTagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/CloudTag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    VirtualizationTask:
+      deprecated: true
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    DeleteCloudTag:
+      type: object
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        tags:
+          description: List of tags to be deleted
+          type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/CloudTag'
+    Bookmark:
+      description: A Data Control Tower object that references points in time for one or more datasets.
+      type: object
+      properties:
+        id:
+          description: The Bookmark object entity ID.
+          type: string
+          readOnly: true
+          example: bookmark-123
+        name:
+          description: The user-defined name of this bookmark.
+          type: string
+          minLength: 1
+          maxLength: 256
+          example: my-bookmark-123
+        creation_date:
+          description: The date and time that this bookmark was created.
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2021-07-04T08:51:34.148000+00:00'
+        data_timestamp:
+          description: The timestamp for the data that the bookmark refers to.
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2021-06-03T08:51:34.148000+00:00'
+        timeflow_id:
+          description: The timeflow for the snapshot that the bookmark was created of.
+          example: 1-TIMEFLOW-1
+          type: string
+        location:
+          description: The location for the data that the bookmark refers to.
+          type: string
+          example: '200000'
+        vdb_ids:
+          description: The list of VDB IDs associated with this bookmark.
+          type: array
+          items:
+            type: string
+          example:
+          - vdb-123
+          - vdb-456
+        dsource_ids:
+          description: The list of dSource IDs associated with this bookmark.
+          type: array
+          items:
+            type: string
+          example:
+          - dsource-123
+          - dsource-456
+        vdb_group_id:
+          description: The ID of the VDB group on which bookmark is created.
+          type: string
+          example: vdb-group-123
+        vdb_group_name:
+          description: The name of the VDB group on which bookmark is created.
+          type: string
+          example: my-vdb-group
+        vdbs:
+          description: The list of VDB IDs and VDB names associated with this bookmark.
+          type: array
+          items:
+            $ref: '#/components/schemas/BookmarkVDBs'
+        dsources:
+          description: The list of dSource IDs and dSource names associated with this bookmark.
+          type: array
+          items:
+            $ref: '#/components/schemas/BookmarkDSources'
+        paas_databases:
+          description: The list of PaaS Database IDs and PaaS Database names associated with this bookmark.
+          type: array
+          items:
+            $ref: '#/components/schemas/BookmarkPaaSDatabases'
+        paas_instances:
+          description: The list of PaaS Instance IDs and PaaS Instance names associated with this bookmark.
+          type: array
+          items:
+            $ref: '#/components/schemas/BookmarkPaaSInstances'
+        retention:
+          description: The retention policy for this bookmark, in days. A value of -1 indicates the bookmark should be kept forever. Deprecated in favor of expiration.
+          type: integer
+          format: int64
+          example: 365
+          deprecated: true
+        expiration:
+          description: The expiration for this bookmark. When unset, indicates the bookmark is kept forever except for bookmarks of replicated datasets. Expiration cannot be set for bookmarks of replicated datasets.
+          type: string
+          format: date
+          example: '2021-07-04'
+        status:
+          description: A message with details about operation progress or state of this bookmark.
+          type: string
+          nullable: true
+          readOnly: true
+          example: RESTORED
+        replicated_dataset:
+          description: Whether this bookmark is created from a replicated dataset or not.
+          type: boolean
+        bookmark_source:
+          description: Source of the bookmark, default is DCT. In case of self-service bookmarks, this value would be ENGINE.
+          type: string
+          enum:
+          - DCT
+          - ENGINE
+        bookmark_status:
+          description: Status of the bookmark. It can have INACTIVE value for engine bookmarks only. If this value is INACTIVE then ss_bookmark_errors would have the list of associated errors.
+          type: string
+          enum:
+          - ACTIVE
+          - INACTIVE
+          - CREATING
+          - DELETING
+        ss_data_layout_id:
+          description: Data-layout Id for engine-managed bookmarks.
+          type: string
+        ss_bookmark_reference:
+          description: Engine reference of the self-service bookmark.
+          type: string
+        ss_bookmark_errors:
+          description: List of errors if any, during bookmark creation in DCT from self-service.
+          type: array
+          items:
+            type: string
+          example:
+          - No snapshots found for JS_BOOKMARK-1 at timestamp 2021-07-04T08:51:34.148
+        bookmark_type:
+          description: Type of the bookmark, either PUBLIC or PRIVATE.
+          type: string
+          enum:
+          - PUBLIC
+          - PRIVATE
+          default: PRIVATE
+          example: PRIVATE
+        namespace_id:
+          description: The namespace id of this bookmark.
+          type: string
+          example: 1-NAMESPACE-1
+        namespace_name:
+          description: The namespace name of this bookmark.
+          type: string
+          example: test-engine-1
+        is_replica:
+          description: Is this a replicated bookmark.
+          type: boolean
+          example: true
+        primary_object_id:
+          description: Id of the parent bookmark from which this bookmark was replicated.
+          type: string
+        primary_engine_id:
+          description: The ID of the parent engine from which replication was done.
+          type: string
+        primary_engine_name:
+          description: The name of the parent engine from which replication was done.
+          type: string
+        primary_bookmark_expiration:
+          description: The expiration for the primary bookmark.
+          type: string
+          format: date
+          example: '2021-07-04'
+        replicas:
+          description: The list of replicas replicated from this object.
+          type: array
+          items:
+            $ref: '#/components/schemas/Replica'
+        tags:
+          description: The tags to be created for this Bookmark.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          example:
+          - key: key-1
+            value: value-1
+          - key: key-2
+            value: value-2
+    UpdatePaaSInstanceParameters:
+      description: Parameters to set, update, or unset PaaS Instance parameters.
+      type: object
+      properties:
+        instance_parameters:
+          description: The parameters specified by the plugin schema for Instances
+          type: object
+          nullable: true
+          additionalProperties: true
+        admin_username:
+          description: The admin username for the PaaS Instance. Send an empty string to clear.
+          type: string
+        admin_password:
+          x-dct-toolkit-credential-field: true
+          description: The admin password for the PaaS Instance. Send an empty string to clear.
+          type: string
+        job_orchestrator_id:
+          description: The ID of the job orchestrator to associate with this PaaS Instance. Send an empty string to clear.
+          type: string
+        compliance_profile_job_collection_id:
+          description: The ID of the profiling compliance job collection to associate with this PaaS Instance. Send an empty string to clear.
+          type: string
+        compliance_masking_job_collection_id:
+          description: The ID of the masking compliance job collection to associate with this PaaS Instance. Send an empty string to clear.
+          type: string
+    BookmarkDSources:
+      description: dSource id and name associated with bookmark.
+      type: object
+      properties:
+        dsource_id:
+          description: The dSource id.
+          type: string
+          example: dsource-id-1
+        dsource_name:
+          description: The dSource name.
+          type: string
+          example: dsource-name
+        snapshot_id:
+          description: The snapshot id.
+          type: string
+          example: 1-SNAP-1
+        timeflow_id:
+          description: The timeflow id.
+          type: string
+          example: 1-ORACLE-TIMEFLOW-1
+        data_timestamp:
+          description: The bookmark timestamp of the dSource.
+          type: string
+          format: date-time
+    ProvisionPaaSInstanceFromBookmarkParameters:
+      description: Parameters to provision a PaaS Instance from bookmark.
+      allOf:
+      - $ref: '#/components/schemas/ProvisionPaaSInstanceBaseParameters'
+      - type: object
+        required:
+        - name
+        - bookmark_id
+        properties:
+          bookmark_id:
+            description: The ID of the PaaS Instance bookmark to provision from.
+            type: string
+            example: bookmark-123
+    ProvisionPaaSInstanceBaseParameters:
+      description: Base parameters to provision a PaaS Instance.
+      type: object
+      properties:
+        make_current_account_owner:
+          type: boolean
+          default: true
+          description: Whether the account creating this PaaS Database must be configured as owner of the PaaS Database.
+        target_cloud_account_id:
+          type: string
+          description: The ID of the Cloud Account to provision the instance into. If not set, uses same environment as source.
+        name:
+          type: string
+          description: The provisioned PaaS Instance name.
+        provision_parameters:
+          description: The parameters specified by the plugin schema for provisioning
+          type: object
+          nullable: true
+          additionalProperties: true
+        tags:
+          type: array
+          maxItems: 1000
+          description: The tags to be created for PaaS Database.
+          items:
+            $ref: '#/components/schemas/CloudTag'
+          minItems: 1
+    Job:
+      description: An asynchronous task.
+      type: object
+      properties:
+        id:
+          description: The Job entity ID.
+          type: string
+          example: job-123
+        status:
+          description: The status of the job.
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+          example: RUNNING
+        is_waiting_for_telemetry:
+          description: Indicates that the operations performed by this Job have completed successfully, but the object changes are not yet reflected. This is only set when when the JOB is in STARTED status, with the guarantee that the job will not transition to the FAILED status. Note that this flag will likely be replaced with a new status in future API versions and be deprecated.
+          type: boolean
+        type:
+          description: The type of job being done.
+          type: string
+          example: DB_REFRESH
+        localized_type:
+          description: The i18n translated type of job being done.
+          type: string
+          example: DB Refresh
+        error_details:
+          description: Details about the failure for FAILED jobs.
+          type: string
+          example: Unable to connect to the engine.
+        warning_message:
+          description: Warnings for the job.
+          type: string
+          example: 'Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.'
+        target_id:
+          description: A reference to the job's target.
+          type: string
+          example: vdb-123
+        target_name:
+          description: A reference to the job's target name.
+          type: string
+          example: vdb
+        start_time:
+          description: The time the job started executing.
+          type: string
+          format: date-time
+          example: '2022-01-02T05:11:24.148000+00:00'
+        update_time:
+          description: The time the job was last updated.
+          type: string
+          format: date-time
+          example: '2022-01-02T06:11:24.148000+00:00'
+        trace_id:
+          description: traceId of the request which created this Job
+          type: string
+        engine_ids:
+          description: IDs of the engines this Job is executing on.
+          type: array
+          items:
+            type: string
+          deprecated: true
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        engines:
+          type: array
+          items:
+            $ref: '#/components/schemas/Engine'
+        account_id:
+          description: The ID of the account who initiated this job.
+          type: integer
+          example: 1
+        account_name:
+          description: The account name which initiated this job. It can be either firstname and lastname combination or firstname or lastname or username or email address or Account-<id>.
+          type: string
+          example: User 1
+        compliance_node_id:
+          description: The ID of the associated compliance node, if applicable.
+          type: string
+          nullable: true
+        compliance_node_name:
+          description: The name of the associated compliance node, if applicable.
+          type: string
+          nullable: true
+        percent_complete:
+          description: Completion percentage of the Job.
+          type: integer
+          minimum: 0
+          maximum: 100
+          example: '50'
+        virtualization_tasks:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTask'
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTask'
+        execution_id:
+          description: The ID of the associated masking execution, if any.
+          type: string
+          nullable: true
+        result_type:
+          description: The type of the job result. This is the type of the object present in the result.
+          type: string
+        result:
+          description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
+          type: object
+      discriminator:
+        propertyName: class_type
+    ReProvisionPaaSInstanceParameters:
+      description: Parameters to re-provision a PaaS Instance.
+      type: object
+      properties:
+        source_instance_id:
+          description: ID of the PaaS Instance to re-provision from. If unset, falls back to the source Instance of the original provisioning.
+          type: string
+          example: db-123
+        source_snapshot_id:
+          description: The ID of the PaaS Instance snapshot to re-provision from. This is optional, and mutually exclusive with the source_instance_id and timestamp.
+          type: string
+          example: snapshot-123
+        timestamp:
+          type: string
+          format: date-time
+          description: The point in time from which to re-provision. If the timestamp is not set, selects the latest point.
+          example: '2021-05-01T08:51:34.148000+00:00'
+    PermissionEnum:
+      description: Type of the permission on DCT object.
+      type: string
+      enum:
+      - READ
+      - UPDATE
+      - DELETE
+      - EXECUTE
+      - CANCEL
+      - MIGRATE
+      - REFRESH
+      - DISABLE
+      - ENABLE
+      - ABANDON
+      - VALIDATE
+      - START
+      - STOP
+      - SNAPSHOT
+      - COPY
+      - REMOVE_JOB
+      - PASSWORD_RESET
+      - UNDO_IMPORT
+      - IMPORT
+      - PROVISION_FROM_BOOKMARK
+      - PROVISION
+      - REFRESH_FROM_BOOKMARK
+      - REFRESH_FROM_SNAPSHOT
+      - REFRESH_FROM_TIMESTAMP
+      - REFRESH_FROM_LOCATION
+      - CREATE_ENVIRONMENT
+      - CREATE_BOOKMARK
+      - CREATE_VDBGROUP
+      - MANAGE_TAGS
+      - LINK
+      - REPLICATE
+      - REPLICATE_TO
+      - CONVERT_AND_DROP
+      - IMPORT_BOOKMARKS
+      - FAILOVER
+      - COMMIT_FAILOVER
+      - FAILBACK
+      - DISCARD
+      - LOCK
+      - UNLOCK
+      - FORCE_UNLOCK
+      - LOCK_FOR_OTHER_ACCOUNT
+      - UPDATE_TIMEFLOW
+      - SNAPSHOT_DELETE
+      - SWITCH_TIMEFLOW
+      - DELETE_TIMEFLOW
+      - SNAPSHOT_UPDATE
+      - IMPORT_ACCOUNTS
+      - DETACH_SOURCE
+      - ATTACH_SOURCE
+      - RESOLVE
+      - RESOLVE_ALL
+      - RESOLVE_OR_IGNORE
+      - API_KEY_RESET
+      - API_KEY_DELETE
+      - READ_STORAGE_CAPACITY_DATA
+      - READ_DATASET_PERF_ANALYTICS
+      - CREATE_TOOLKIT
+      example: READ
+  parameters:
+    paaSInstanceSortParam:
+      name: sort
+      in: query
+      description: 'The field to sort results by. A property name with a prepended ''-'' signifies descending order.
+
+        '
+      required: false
+      schema:
+        type: string
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - plugin_id
+        - -plugin_id
+        - cloud_account_id
+        - -cloud_account_id
+        - cloud_account_name
+        - -cloud_account_name
+        - status
+        - -status
+        - runtime_status
+        - -runtime_status
+        - database_engine
+        - -database_engine
+        - database_engine_version
+        - -database_engine_version
+        - size_bytes
+        - -size_bytes
+        - size_measurement_time
+        - -size_measurement_time
+        - size_measurement_source
+        - -size_measurement_source
+        - root_instance_id
+        - -root_instance_id
+        nullable: true
+        example: name
+    bookmarksSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: id
+      required: false
+      schema:
+        type: string
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - creation_date
+        - -creation_date
+        - vdb_ids
+        - -vdb_ids
+        - retention
+        - -retention
+        - expiration
+        - -expiration
+        - data_timestamp
+        - -data_timestamp
+        - timeflow_id
+        - -timeflow_id
+        - location
+        - -location
+        - vdb_group_name
+        - -vdb_group_name
+        - namespace_id
+        - -namespace_id
+        - namespace_name
+        - -namespace_name
+        - primary_object_id
+        - -primary_object_id
+        - primary_engine_id
+        - -primary_engine_id
+        - primary_engine_name
+        - -primary_engine_name
+        - primary_bookmark_expiration
+        - -primary_bookmark_expiration
+        nullable: true
+        example: name
+    paaSInstanceIdParam:
+      in: path
+      name: paaSInstanceId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the PaaS Instance.
+    permission:
+      name: permission
+      in: query
+      description: Restrict the objects, which are allowed.
+      example: READ
+      schema:
+        type: array
+        items:
+          $ref: '#/components/schemas/PermissionEnum'
+      style: form
+      explode: true
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+  requestBodies:
+    SearchBody:
+      x-skip-codegen-attr: description
+      description: 'A request body containing a filter expression. This enables searching
+
+        for items matching arbitrarily complex conditions. The list of
+
+        attributes which can be used in filter expressions is available
+
+        in the x-filterable vendor extension.
+
+
+        # Filter Expression Overview
+
+        **Note: All keywords are case-insensitive**
+
+
+        ## Comparison Operators
+
+        | Operator | Description | Example |
+
+        | --- | --- | --- |
+
+        | CONTAINS | Substring or membership testing for string and list attributes respectively. | field3 CONTAINS ''foobar'', field4 CONTAINS TRUE  |
+
+        | IN | Tests if field is a member of a list literal. List can contain a maximum of 100 values | field2 IN [''Goku'', ''Vegeta''] |
+
+        | GE | Tests if a field is greater than or equal to a literal value | field1 GE 1.2e-2 |
+
+        | GT | Tests if a field is greater than a literal value | field1 GT 1.2e-2 |
+
+        | LE | Tests if a field is less than or equal to a literal value | field1 LE 9000 |
+
+        | LT | Tests if a field is less than a literal value | field1 LT 9.02 |
+
+        | NE | Tests if a field is not equal to a literal value | field1 NE 42 |
+
+        | EQ | Tests if a field is equal to a literal value | field1 EQ 42 |
+
+
+        ## Search Operator
+
+        The SEARCH operator filters for items which have any filterable
+
+        attribute that contains the input string as a substring, comparison
+
+        is done case-insensitively. This is not restricted to attributes with
+
+        string values. Specifically `SEARCH ''12''` would match an item with an
+
+        attribute with an integer value of `123`.
+
+
+        ## Logical Operators
+
+        Ordered by precedence.
+
+        | Operator | Description | Example |
+
+        | --- | --- | --- |
+
+        | NOT | Logical NOT (Right associative) | NOT field1 LE 9000 |
+
+        | AND | Logical AND (Left Associative) | field1 GT 9000 AND field2 EQ ''Goku'' |
+
+        | OR | Logical OR (Left Associative) | field1 GT 9000 OR field2 EQ ''Goku'' |
+
+
+        ## Grouping
+
+        Parenthesis `()` can be used to override operator precedence.
+
+
+        For example:
+
+        NOT (field1 LT 1234 AND field2 CONTAINS ''foo'')
+
+
+        ## Literal Values
+
+        | Literal      | Description | Examples |
+
+        | --- | --- | --- |
+
+        | Nil | Represents the absence of a value | nil, Nil, nIl, NIL |
+
+        | Boolean | true/false boolean | true, false, True, False, TRUE, FALSE |
+
+        | Number | Signed integer and floating point numbers. Also supports scientific notation. | 0, 1, -1, 1.2, 0.35, 1.2e-2, -1.2e+2 |
+
+        | String | Single or double quoted | "foo", "bar", "foo bar", ''foo'', ''bar'', ''foo bar'' |
+
+        | Datetime | Formatted according to [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) | 2018-04-27T18:39:26.397237+00:00 |
+
+        | List | Comma-separated literals wrapped in square brackets | [0], [0, 1], [''foo'', "bar"] |
+
+
+        ## Limitations
+
+        - A maximum of 8 unique identifiers may be used inside a filter expression.
+
+        '
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SearchBody'
+          examples:
+            nested:
+              description: 'An example of a nested Object comparison testing that at least one repository has a
+
+                version which is equal to 19.0.0.
+
+                '
+              summary: Nested Object Comparison
+              value:
+                filter_expression: repositories CONTAINS {version eq '19.0.0'}
+            relative:
+              description: 'An example of a relative comparison testing that field1 has a
+
+                value which is less than 123.
+
+                '
+              summary: Relative comparison
+              value:
+                filter_expression: field1 LE 123
+            nil:
+              description: 'An example of using nil to test for the absence of a value for field2.
+
+                '
+              summary: Absence of an attribute value
+              value:
+                filter_expression: field2 EQ NIL
+            non-nil:
+              description: 'An example of using nil to test for the existence of a value for field2.
+
+                '
+              summary: Existence of an attribute value
+              value:
+                filter_expression: field2 NE NIL
+            contains:
+              description: 'An example of using the ''CONTAINS'' operator to check if
+
+                field2 contains the string ''foo''. If field2 is string valued
+
+                then this is checking if ''foo'' is a substring of field2. If
+
+                field2 is a list of strings then this is checking if ''foo''
+
+                is a member of the list.
+
+                '
+              summary: Use of the CONTAINS operator
+              value:
+                filter_expression: field2 CONTAINS 'foo'
+            in:
+              description: 'An example of using the ''IN'' operator to check if field1
+
+                is an element of a list literal.
+
+                '
+              summary: Use of the IN operator
+              value:
+                filter_expression: field1 IN [1, 2, 3]
+            search:
+              description: 'An example of using the ''SEARCH'' operator to retrieve all elements
+
+                for which ''foo'' is a substring of a filterable attribute.
+
+                '
+              summary: Use of the SEARCH operator
+              value:
+                filter_expression: SEARCH 'foo'
+            parenthesis:
+              description: 'An example of parenthesis being used to group operators & override
+
+                operator precedence.
+
+                '
+              summary: Overriding operator precedence
+              value:
+                filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
+    DeleteCloudTags:
+      description: The parameters to delete cloud tags
+      content:
+        application/json:
+          schema:
+            x-body-name: deleteCloudTag
+            $ref: '#/components/schemas/DeleteCloudTag'
+          examples:
+            delete_all_tags:
+              description: Delete all tags for given object - No request body required
+              summary: Delete all tags
+              value: {}
+            delete_tags_by_key:
+              description: Delete all tags for given object with matching key
+              summary: Delete tags by key
+              value:
+                key: key-1
+            delete_tags_by_key_value:
+              description: Delete tag for given object with matching key and value
+              summary: Delete a tag by key & value
+              value:
+                key: key-1
+                value: value-1
+            delete_multiple_tags_by_key_value:
+              description: Delete tags for given list of tags with matching key and value
+              summary: Delete multiple tags by key & value
+              value:
+                tags:
+                - key: key-1
+                  value: value-1
+                  mirror_on_cloud: true
+                - key: key-2
+                  value: value-2
+                  mirror_on_cloud: false
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization

@@ -1,0 +1,2623 @@
+openapi: 3.0.0
+info:
+  title: Delphix DCT Algorithms Sources API
+  version: 3.28.0
+  description: Delphix DCT API
+  contact:
+    name: Delphix Support
+    url: https://portal.perforce.com/s/
+    email: support@delphix.com
+servers:
+- url: /dct/v3
+security:
+- ApiKeyAuth: []
+tags:
+- name: Sources
+paths:
+  /sources:
+    get:
+      summary: List all sources.
+      operationId: get_sources
+      tags:
+      - Sources
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/sourcesSortParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ListSourcesResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Source'
+                  errors:
+                    $ref: '#/components/schemas/Errors'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /sources/oracle:
+    post:
+      tags:
+      - Sources
+      summary: Create an Oracle Source.
+      operationId: create_oracle_source
+      requestBody:
+        $ref: '#/components/requestBodies/CreateOracleSourceBody'
+      responses:
+        '201':
+          description: Oracle Source creation initiated
+          content:
+            application/json:
+              schema:
+                type: object
+                title: CreateOracleSourceResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+                  source_id:
+                    type: string
+                    description: The id of the created source.
+                    example: 1-ORACLE_SINGLE_CONFIG-32
+  /sources/oracle/{sourceId}:
+    parameters:
+    - $ref: '#/components/parameters/sourceIdParam'
+    patch:
+      summary: Update an Oracle source by ID.
+      operationId: update_oracle_source_by_id
+      tags:
+      - Sources
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateOracleSourceBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: UpdateOracleSourceResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+  /sources/{sourceId}/jdbc-check:
+    parameters:
+    - $ref: '#/components/parameters/sourceIdParam'
+    post:
+      tags:
+      - Sources
+      summary: Verify JDBC connection string for a source.
+      operationId: verify_source_jdbc_connection_string
+      requestBody:
+        $ref: '#/components/requestBodies/OracleVerifyJdbcConnectionStringBody'
+      responses:
+        '200':
+          description: Success or Failure.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectivityCheckResponse'
+  /sources/postgres:
+    post:
+      summary: Create a PostgreSQL source.
+      operationId: create_postgres_source
+      tags:
+      - Sources
+      requestBody:
+        $ref: '#/components/requestBodies/CreatePostgresSource'
+      responses:
+        '201':
+          description: PostgreSQL Source creation initiated
+          content:
+            application/json:
+              schema:
+                type: object
+                title: CreatePostgresSourceResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+                  source_id:
+                    type: string
+                    description: The id of the created source.
+                    example: source-1
+  /sources/appdata:
+    post:
+      summary: Create an AppData source.
+      operationId: create_app_data_source
+      tags:
+      - Sources
+      requestBody:
+        $ref: '#/components/requestBodies/CreateAppDataSource'
+      responses:
+        '201':
+          description: AppData Source creation initiated
+          content:
+            application/json:
+              schema:
+                type: object
+                title: CreateAppDataSourceResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+                  source_id:
+                    type: string
+                    description: The id of the created source.
+                    example: source-1
+  /sources/appdata/{sourceId}:
+    parameters:
+    - $ref: '#/components/parameters/sourceIdParam'
+    patch:
+      summary: Update a AppData source by ID.
+      operationId: update_appdata_source_by_id
+      tags:
+      - Sources
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateAppDataSource'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: UpdateAppDataSourceResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+  /sources/postgres/{sourceId}:
+    parameters:
+    - $ref: '#/components/parameters/sourceIdParam'
+    patch:
+      summary: Update a PostgreSQL source by ID.
+      operationId: update_postgres_source_by_id
+      tags:
+      - Sources
+      requestBody:
+        $ref: '#/components/requestBodies/UpdatePostgresSource'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: UpdatePostgresSourceResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+  /sources/ase:
+    post:
+      summary: Create an ASE source.
+      operationId: create_ase_source
+      tags:
+      - Sources
+      requestBody:
+        $ref: '#/components/requestBodies/CreateAseSourceBody'
+      responses:
+        '201':
+          description: Sybase ASE Source creation initiated
+          content:
+            application/json:
+              schema:
+                type: object
+                title: CreateAseSourceResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+                  source_id:
+                    type: string
+                    description: The id of the created source.
+                    example: 1-source-3
+  /sources/mssql:
+    post:
+      summary: Create an MSSQL source.
+      operationId: create_mssql_source
+      tags:
+      - Sources
+      requestBody:
+        $ref: '#/components/requestBodies/CreateMssqlSourceBody'
+      responses:
+        '201':
+          description: MSSQL Source creation initiated
+          content:
+            application/json:
+              schema:
+                type: object
+                title: CreateMssqlSourceResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+                  source_id:
+                    type: string
+                    description: The id of the created source.
+                    example: 1-source-3
+  /sources/ase/{sourceId}:
+    parameters:
+    - $ref: '#/components/parameters/sourceIdParam'
+    patch:
+      summary: Update an ASE source by ID.
+      operationId: update_ase_source_by_id
+      tags:
+      - Sources
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateAseSourceBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: UpdateAseSourceResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+  /sources/mssql/{sourceId}:
+    parameters:
+    - $ref: '#/components/parameters/sourceIdParam'
+    patch:
+      summary: Update an MSSQL source by ID.
+      operationId: update_mssql_source_by_id
+      tags:
+      - Sources
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateMssqlSourceBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: UpdateMssqlSourceResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+  /sources/search:
+    post:
+      summary: Search for Sources.
+      operationId: search_sources
+      tags:
+      - Sources
+      x-filterable:
+        fields:
+          id:
+            type: string
+          database_type:
+            type: string
+          name:
+            type: string
+          database_version:
+            type: string
+          environment_id:
+            type: string
+          environment_name:
+            type: string
+          data_uuid:
+            type: string
+          ip_address:
+            type: string
+          fqdn:
+            type: string
+          size:
+            type: integer
+          jdbc_connection_string:
+            type: string
+          plugin_version:
+            type: string
+          is_dsource:
+            type: boolean
+          namespace_id:
+            type: string
+          namespace_name:
+            type: string
+          is_replica:
+            type: boolean
+          recovery_model:
+            type: string
+          mssql_source_type:
+            type: string
+          appdata_source_type:
+            type: string
+          is_pdb:
+            type: boolean
+          instance_name:
+            type: string
+          instance_number:
+            type: integer
+          user:
+            type: string
+          environment_user_ref:
+            type: string
+          non_sys_user:
+            type: string
+          discovered:
+            type: boolean
+          linking_enabled:
+            type: boolean
+          repository:
+            type: string
+          cdb_type:
+            type: string
+          data_connection_id:
+            type: string
+          database_name:
+            type: string
+          database_unique_name:
+            type: string
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/sourcesSortParam'
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: SearchSourcesResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Source'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /sources/{sourceId}:
+    parameters:
+    - $ref: '#/components/parameters/sourceIdParam'
+    get:
+      summary: Get a source by ID.
+      operationId: get_source_by_id
+      tags:
+      - Sources
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Source'
+    delete:
+      summary: Delete a source by ID.
+      operationId: delete_source
+      tags:
+      - Sources
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: DeleteSourceResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+  /sources/{sourceId}/update:
+    parameters:
+    - $ref: '#/components/parameters/sourceIdParam'
+    patch:
+      deprecated: true
+      summary: Update a Source.
+      tags:
+      - Sources
+      operationId: update_source_by_id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: update_source_parameter
+              $ref: '#/components/schemas/UpdateSourceParameters'
+        description: The parameters to update a Source.
+      responses:
+        '200':
+          description: Source update initiated.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: UpdateSourceResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+  /sources/{sourceId}/tags:
+    parameters:
+    - $ref: '#/components/parameters/sourceIdParam'
+    post:
+      tags:
+      - Sources
+      summary: Create tags for a Source.
+      operationId: create_source_tags
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: vdb_tags
+              $ref: '#/components/schemas/TagsRequest'
+        description: Tags information for Source.
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+    get:
+      tags:
+      - Sources
+      summary: Get tags for a Source.
+      operationId: get_source_tags
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+  /sources/{sourceId}/staging_compatible_repositories:
+    parameters:
+    - $ref: '#/components/parameters/sourceIdParam'
+    get:
+      tags:
+      - Sources
+      summary: Returns a list of repositories that match the specified source.
+      operationId: get_source_compatible_repo
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: StagingCompatibleEnvironmentsResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Environment'
+  /sources/{sourceId}/tags/delete:
+    parameters:
+    - $ref: '#/components/parameters/sourceIdParam'
+    post:
+      tags:
+      - Sources
+      summary: Delete tags for a Source.
+      operationId: delete_source_tags
+      requestBody:
+        $ref: '#/components/requestBodies/DeleteTags'
+      responses:
+        '204':
+          description: No Content
+components:
+  requestBodies:
+    UpdateAseSourceBody:
+      description: The parameters to update an ASE source.
+      content:
+        application/json:
+          schema:
+            x-body-name: source
+            $ref: '#/components/schemas/AseSourceUpdateParameters'
+          examples:
+            ASE:
+              description: 'The request example is intended for updating a ASE source.
+
+                '
+              summary: ASE source update
+              value:
+                database_name: testDb
+                repository_id: 1-ASE_INSTANCE-10
+      required: true
+    UpdateOracleSourceBody:
+      description: The parameters to update a Oracle source
+      content:
+        application/json:
+          schema:
+            x-body-name: oracle_source_update_parameters
+            $ref: '#/components/schemas/OracleSourceUpdateParameters'
+          examples:
+            oracle:
+              description: 'The request example is intended for updating an Oracle source.
+
+                '
+              summary: Oracle source update
+              value:
+                user: myuser
+                password: mypwd
+                oracle_services:
+                - jdbc:oracle:thin:@hostname:port/service_name
+                - jdbc:oracle:thin:@hostname:port:SID
+                linking_enabled: true
+    UpdateMssqlSourceBody:
+      description: The parameters to update an MSSQL source.
+      content:
+        application/json:
+          schema:
+            x-body-name: source
+            $ref: '#/components/schemas/MSSQLSourceUpdateParameters'
+          examples:
+            MSSQL:
+              description: 'The request example is intended for updating an MSSQL source.
+
+                '
+              summary: MSSQL source update
+              value:
+                database_name: testDb
+                repository_id: 1-MSSQL_INSTANCE-2
+      required: true
+    CreatePostgresSource:
+      description: The parameters to create a PostgreSQL source.
+      content:
+        application/json:
+          schema:
+            x-body-name: source
+            $ref: '#/components/schemas/PostgresSourceCreateParameters'
+          examples:
+            Postgres:
+              description: 'The request example is intended for creating a PostgreSQL source.
+
+                '
+              summary: PostgreSQL source create
+              value:
+                name: postgres-source
+                repository_id: APPDATA_REPOSITORY-10
+                engine_id: '1'
+                environment_id: UNIX_HOST_ENVIRONMENT-3
+      required: true
+    OracleVerifyJdbcConnectionStringBody:
+      description: The parameters to verify oracle jdbc connection string.
+      content:
+        application/json:
+          schema:
+            x-body-name: oracle_verify_jdbc_connection_parameters
+            $ref: '#/components/schemas/OracleVerifyJdbcConnectionStringParams'
+    SearchBody:
+      x-skip-codegen-attr: description
+      description: 'A request body containing a filter expression. This enables searching
+
+        for items matching arbitrarily complex conditions. The list of
+
+        attributes which can be used in filter expressions is available
+
+        in the x-filterable vendor extension.
+
+
+        # Filter Expression Overview
+
+        **Note: All keywords are case-insensitive**
+
+
+        ## Comparison Operators
+
+        | Operator | Description | Example |
+
+        | --- | --- | --- |
+
+        | CONTAINS | Substring or membership testing for string and list attributes respectively. | field3 CONTAINS ''foobar'', field4 CONTAINS TRUE  |
+
+        | IN | Tests if field is a member of a list literal. List can contain a maximum of 100 values | field2 IN [''Goku'', ''Vegeta''] |
+
+        | GE | Tests if a field is greater than or equal to a literal value | field1 GE 1.2e-2 |
+
+        | GT | Tests if a field is greater than a literal value | field1 GT 1.2e-2 |
+
+        | LE | Tests if a field is less than or equal to a literal value | field1 LE 9000 |
+
+        | LT | Tests if a field is less than a literal value | field1 LT 9.02 |
+
+        | NE | Tests if a field is not equal to a literal value | field1 NE 42 |
+
+        | EQ | Tests if a field is equal to a literal value | field1 EQ 42 |
+
+
+        ## Search Operator
+
+        The SEARCH operator filters for items which have any filterable
+
+        attribute that contains the input string as a substring, comparison
+
+        is done case-insensitively. This is not restricted to attributes with
+
+        string values. Specifically `SEARCH ''12''` would match an item with an
+
+        attribute with an integer value of `123`.
+
+
+        ## Logical Operators
+
+        Ordered by precedence.
+
+        | Operator | Description | Example |
+
+        | --- | --- | --- |
+
+        | NOT | Logical NOT (Right associative) | NOT field1 LE 9000 |
+
+        | AND | Logical AND (Left Associative) | field1 GT 9000 AND field2 EQ ''Goku'' |
+
+        | OR | Logical OR (Left Associative) | field1 GT 9000 OR field2 EQ ''Goku'' |
+
+
+        ## Grouping
+
+        Parenthesis `()` can be used to override operator precedence.
+
+
+        For example:
+
+        NOT (field1 LT 1234 AND field2 CONTAINS ''foo'')
+
+
+        ## Literal Values
+
+        | Literal      | Description | Examples |
+
+        | --- | --- | --- |
+
+        | Nil | Represents the absence of a value | nil, Nil, nIl, NIL |
+
+        | Boolean | true/false boolean | true, false, True, False, TRUE, FALSE |
+
+        | Number | Signed integer and floating point numbers. Also supports scientific notation. | 0, 1, -1, 1.2, 0.35, 1.2e-2, -1.2e+2 |
+
+        | String | Single or double quoted | "foo", "bar", "foo bar", ''foo'', ''bar'', ''foo bar'' |
+
+        | Datetime | Formatted according to [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) | 2018-04-27T18:39:26.397237+00:00 |
+
+        | List | Comma-separated literals wrapped in square brackets | [0], [0, 1], [''foo'', "bar"] |
+
+
+        ## Limitations
+
+        - A maximum of 8 unique identifiers may be used inside a filter expression.
+
+        '
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SearchBody'
+          examples:
+            nested:
+              description: 'An example of a nested Object comparison testing that at least one repository has a
+
+                version which is equal to 19.0.0.
+
+                '
+              summary: Nested Object Comparison
+              value:
+                filter_expression: repositories CONTAINS {version eq '19.0.0'}
+            relative:
+              description: 'An example of a relative comparison testing that field1 has a
+
+                value which is less than 123.
+
+                '
+              summary: Relative comparison
+              value:
+                filter_expression: field1 LE 123
+            nil:
+              description: 'An example of using nil to test for the absence of a value for field2.
+
+                '
+              summary: Absence of an attribute value
+              value:
+                filter_expression: field2 EQ NIL
+            non-nil:
+              description: 'An example of using nil to test for the existence of a value for field2.
+
+                '
+              summary: Existence of an attribute value
+              value:
+                filter_expression: field2 NE NIL
+            contains:
+              description: 'An example of using the ''CONTAINS'' operator to check if
+
+                field2 contains the string ''foo''. If field2 is string valued
+
+                then this is checking if ''foo'' is a substring of field2. If
+
+                field2 is a list of strings then this is checking if ''foo''
+
+                is a member of the list.
+
+                '
+              summary: Use of the CONTAINS operator
+              value:
+                filter_expression: field2 CONTAINS 'foo'
+            in:
+              description: 'An example of using the ''IN'' operator to check if field1
+
+                is an element of a list literal.
+
+                '
+              summary: Use of the IN operator
+              value:
+                filter_expression: field1 IN [1, 2, 3]
+            search:
+              description: 'An example of using the ''SEARCH'' operator to retrieve all elements
+
+                for which ''foo'' is a substring of a filterable attribute.
+
+                '
+              summary: Use of the SEARCH operator
+              value:
+                filter_expression: SEARCH 'foo'
+            parenthesis:
+              description: 'An example of parenthesis being used to group operators & override
+
+                operator precedence.
+
+                '
+              summary: Overriding operator precedence
+              value:
+                filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
+    UpdatePostgresSource:
+      description: The parameters to update a PostgreSQL source
+      content:
+        application/json:
+          schema:
+            x-body-name: source
+            $ref: '#/components/schemas/PostgresSourceUpdateParameters'
+          examples:
+            postgres:
+              description: 'The request example is intended for updating a PostgreSQL source.
+
+                '
+              summary: PostgreSQL source update
+              value:
+                name: postgres-source-update
+    DeleteTags:
+      description: The parameters to delete tags
+      content:
+        application/json:
+          schema:
+            x-body-name: environment
+            $ref: '#/components/schemas/DeleteTag'
+          examples:
+            delete_all_tags:
+              description: Delete all tags for given object - No request body required
+              summary: Delete all tags
+              value: {}
+            delete_tags_by_key:
+              description: Delete all tags for given object with matching key
+              summary: Delete tags by key
+              value:
+                key: key-1
+            delete_tags_by_key_value:
+              description: Delete tag for given object with matching key and value
+              summary: Delete a tag by key & value
+              value:
+                key: key-1
+                value: value-1
+            delete_multiple_tags_by_key_value:
+              description: Delete tags for given list of tags with matching key and value
+              summary: Delete multiple tags by key & value
+              value:
+                tags:
+                - key: key-1
+                  value: value-1
+                - key: key-2
+                  value: value-2
+    CreateAseSourceBody:
+      description: The parameters to create an ASE source.
+      content:
+        application/json:
+          schema:
+            x-body-name: source
+            $ref: '#/components/schemas/AseSourceCreateParameters'
+          examples:
+            Create ASE Source With Required Params:
+              description: 'The request example is intended for creating an ASE source with required params only.
+
+                '
+              summary: Create ASE source with required params only
+              value:
+                database_name: testDb
+                repository_id: 1-ASE_INSTANCE-10
+                engine_id: '1'
+            Create ASE Source With Optional Params:
+              description: 'The request example is intended for creating an ASE source including optional params.
+
+                '
+              summary: Create ASE source with including optional params
+              value:
+                database_name: testDb
+                repository_id: 1-ASE_INSTANCE-10
+                engine_id: '1'
+      required: true
+    CreateMssqlSourceBody:
+      description: The parameters to create an MSSQL source.
+      content:
+        application/json:
+          schema:
+            x-body-name: source
+            $ref: '#/components/schemas/MssqlSourceCreateParameters'
+          examples:
+            Create MSSQL Source With Required Params:
+              description: 'The request example is intended for creating an MSSQL source with required params only.
+
+                '
+              summary: Create MSSQL source with required params only
+              value:
+                mssql_config_type: MSSqlSIConfig
+                database_name: testDb
+                repository_id: 1-MSSQL_INSTANCE-13
+            Create MSSQL Source With Optional Params:
+              description: 'The request example is intended for creating an MSSQL source including optional params.
+
+                '
+              summary: Create MSSQL source including optional params
+              value:
+                mssql_config_type: MSSqlSIConfig
+                database_name: testDb
+                repository_id: 1-MSSQL_INSTANCE-13
+                engine_id: 1
+      required: true
+    UpdateAppDataSource:
+      description: The parameters to update an AppData source.
+      content:
+        application/json:
+          schema:
+            x-body-name: source
+            $ref: '#/components/schemas/AppDataSourceUpdateParameters'
+          examples:
+            AppData:
+              description: 'The request example is intended for updating a AppData source.
+
+                '
+              summary: AppData source update
+              value:
+                name: appdata-source
+                repository_id: 1-APPDATA_REPOSITORY-10
+      required: true
+    CreateAppDataSource:
+      description: The parameters to create a AppData source.
+      content:
+        application/json:
+          schema:
+            x-body-name: source
+            $ref: '#/components/schemas/AppDataSourceCreateParameters'
+          examples:
+            AppData:
+              description: 'The request example is intended for creating a AppData source.
+
+                '
+              summary: AppData source create
+              value:
+                name: appdata-source
+                type: STAGED
+                repository_id: 1-APPDATA_REPOSITORY-10
+                engine_id: '1'
+      required: true
+    CreateOracleSourceBody:
+      description: The parameters to create an Oracle source.
+      content:
+        application/json:
+          schema:
+            x-body-name: create_oracle_source_params
+            $ref: '#/components/schemas/OracleSourceCreateParameters'
+          examples:
+            Oracle Single Instance Source:
+              description: This example can be used for creating an Oracle single instance source.
+              summary: Oracle single instance source create
+              value:
+                oracle_config_type: OracleSIConfig
+                engine_id: 1
+                environment_id: 1-UNIX_HOST_ENVIRONMENT-17
+                database_name: MYSIDB
+                repository_id: 1-ORACLE_INSTALL-3
+                unique_name: MYSIDB
+                instance_name: MYSIDB
+            Oracle RAC Source:
+              description: This example can be used for creating an Oracle RAC source.
+              summary: Oracle RAC source create
+              value:
+                oracle_config_type: OracleRACConfig
+                engine_id: 1
+                environment_id: 1-UNIX_HOST_ENVIRONMENT-17
+                database_name: MYRACDB
+                repository_id: 1-ORACLE_INSTALL-3
+                unique_name: MYRACDB
+                instances:
+                - node_reference: ORACLE_CLUSTER_NODE-1
+                  instance_number: 1
+                  instance_name: MYRACDB1
+                - node_reference: ORACLE_CLUSTER_NODE-2
+                  instance_number: 2
+                  instance_name: MYRACDB2
+  schemas:
+    Host:
+      description: A physical/virtual server.
+      type: object
+      properties:
+        id:
+          description: The entity ID of this Host.
+          type: string
+          minLength: 1
+          maxLength: 256
+          example: 3-UNIX_HOST-5
+        reference:
+          description: Delphix engine equivalent constant
+          type: string
+          example: UNIX_HOST-5
+        hostname:
+          description: The hostname or IP address of this host.
+          type: string
+          example: linux.dev.delphix.com
+        os_name:
+          description: The name of the OS on this host.
+          type: string
+          example: Linux
+        os_version:
+          description: The version of the OS on this host.
+          type: string
+          example: Red Hat Enterprise Linux Server release 7.3 (Maipo)
+        distribution:
+          description: The name of the OS distribution on this host.
+          type: string
+          example: RedHat
+        memory_size:
+          description: The total amount of memory on this host in bytes.
+          type: integer
+          format: int64
+          example: 8382160896
+        available:
+          description: True if the host is up and a connection can be established from the engine.
+          type: boolean
+          example: false
+        available_timestamp:
+          description: The last time the available property was updated.
+          type: string
+          format: date-time
+          example: '2022-06-02T17:49:11.457Z'
+        not_available_reason:
+          description: The reason why the host is not available.
+          type: string
+          example: Failed to connect to host
+        oracle_cluster_node_reference:
+          description: The reference to the associated OracleClusterNode.
+          type: string
+          example: ORACLE_CLUSTER_NODE-1
+        oracle_cluster_node_name:
+          description: The name of the associated OracleClusterNode.
+          type: string
+          example: my-favorite-cluster-node
+        oracle_cluster_node_enabled:
+          description: Whether the associated OracleClusterNode is enabled.
+          type: boolean
+          example: true
+        oracle_cluster_node_discovered:
+          description: Whether the associated OracleClusterNode was discovered.
+          type: boolean
+          example: true
+        oracle_cluster_node_virtual_ips:
+          description: The Virtual IP addresses associated with the OracleClusterNode.
+          type: array
+          items:
+            $ref: '#/components/schemas/OracleVirtualIP'
+        oracle_cluster_node_instances:
+          description: The instances associated with the OracleClusterNode.
+          type: array
+          items:
+            $ref: '#/components/schemas/OracleClusterNodeInstance'
+        windows_cluster_node_reference:
+          description: The reference to the associated WindowsClusterNode.
+          type: string
+          example: WINDOWS_CLUSTER_NODE-1
+        windows_cluster_node_name:
+          description: The name of the associated WindowsClusterNode.
+          type: string
+          example: my-favorite-cluster-node
+        windows_cluster_node_discovered:
+          description: Whether the associated Windows cluster node was discovered.
+          type: boolean
+          example: true
+        nfs_addresses:
+          description: The list of host/IP addresses to use for NFS export.
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+          example:
+          - 192.168.10.2
+        dsp_keystore_alias:
+          description: The lowercase alias to use inside the user managed DSP keystore.
+          type: string
+          minLength: 1
+          example: oracle-env
+        dsp_keystore_path:
+          description: The path to the user managed DSP keystore.
+          type: string
+          minLength: 1
+          example: /tmp/keystore.keystore
+        dsp_truststore_path:
+          description: The path to the user managed DSP truststore.
+          type: string
+          minLength: 1
+          example: /tmp/truststore.keystore
+        java_home:
+          description: The path to the user managed Java Development Kit (JDK). If not specified, then the OpenJDK will be used.
+          type: string
+          minLength: 1
+          example: /Library/Java/JavaVirtualMachines/jdk/Contents/Home
+        ssh_port:
+          description: The port number used to connect to the host via SSH.
+          type: integer
+          example: 22
+        toolkit_path:
+          description: The path for the toolkit that resides on the host.
+          type: string
+          minLength: 1
+          example: /work
+        connector_port:
+          description: The port that the Windows Connector connects on.
+          type: integer
+          example: 9100
+        connector_version:
+          description: The Windows Connector version that is installed on the provided host.
+          type: string
+          example: 1.17.0
+        connector_dot_net_framework_version:
+          description: The .NET Framework version used for Windows Connector Service.
+          type: string
+          example: '3.5'
+        oracle_tde_keystores_root_path:
+          description: The path to the root of the Oracle TDE keystores artifact directories.
+          type: string
+          minLength: 1
+          example: /keystore/root/path
+        oracle_tde_okv_home_path:
+          description: The path to the Oracle Key Vault library installation on the database node.
+          type: string
+          minLength: 1
+          example: /work/okv
+        processor_type:
+          description: The platform for the host machine.
+          type: string
+          example: x86_64
+        timezone:
+          description: The OS timezone.
+          type: string
+          example: America/New_York,EST-0500
+        powershell_version:
+          description: The PowerShell version installed on the windows target host.
+          type: string
+          example: 5.1.17763.134
+        release:
+          description: The OS release.
+          type: string
+          example: '6.3'
+        trace_route_info:
+          description: Traceroute network hops from host to Delphix Engine.
+          type: string
+          example: 1 <1 ms <1 ms <1 ms 10.110.232.122
+        is_tde_external_key_manager_password_set:
+          description: True if Oracle TDE External key Manager password is set.
+          type: boolean
+          example: true
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    MssqlSourceCreateParameters:
+      type: object
+      required:
+      - mssql_config_type
+      - database_name
+      - repository_id
+      properties:
+        mssql_config_type:
+          description: Type of this database source config.
+          $ref: '#/components/schemas/MssqlConfigTypeEnum'
+        database_name:
+          type: string
+          description: The database name of the source.
+          minLength: 1
+          maxLength: 128
+          pattern: ^[a-zA-Z0-9_]+$
+          example: testdb
+        repository_id:
+          type: string
+          description: The ID of the Repository onto which the source will be created.
+          minLength: 1
+          maxLength: 256
+          example: 1-MSSQL_INSTANCE-13
+        linking_enabled:
+          type: boolean
+          description: Whether this source should be used for linking.
+        environment_user:
+          type: string
+          description: The environment user reference.
+          minLength: 1
+          maxLength: 256
+        engine_id:
+          type: string
+          description: The ID of the engine to create the source on.
+          example: '1'
+        mirroring_state:
+          type: string
+          description: Mirroring state of the database.
+          enum:
+          - SUSPENDED
+          - DISCONNECTED
+          - SYNCHRONIZING
+          - PENDING_FAILOVER
+          - SYNCHRONIZED
+          - NOT_SYNCHRONIZED
+          - FAILOVER_POSSIBLE
+          - NONE
+          default: NONE
+          example: SUSPENDED
+        recovery_model:
+          type: string
+          description: Recovery model of the database.
+          enum:
+          - FULL
+          - SIMPLE
+          - BULK_LOGGED
+          default: SIMPLE
+          example: FULL
+        mssql_failover_drive_letter:
+          type: string
+          description: Base drive letter location for mount points. (For MSSqlFailoverClusterDBConfig source type only).
+          minLength: 1
+          maxLength: 1
+    EnvironmentUser:
+      type: object
+      properties:
+        user_ref:
+          description: Environment user reference
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: user-ref-1
+        username:
+          description: Username of environment user.
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: username-1
+        primary_user:
+          description: This indicates if this user is primary or not
+          type: boolean
+          example: false
+        auth_type:
+          description: Authentication type of this user. PasswordCredential indicates username and password are used, SystemKeyCredential indicates public key based security credential, KeyPairCredential indicates public key based security credential consisting of a user specified key pair, KerberosCredential indicates Kerberos authentication, CyberArkVaultCredential indicates CyberArk Vault is used and HashiCorpVaultCredential indicates that Hashicorp vault is used for authentication
+          type: string
+          enum:
+          - PasswordCredential
+          - SystemKeyCredential
+          - KeyPairCredential
+          - KerberosCredential
+          - CyberArkVaultCredential
+          - HashiCorpVaultCredential
+          - AzureVaultCredential
+        vault:
+          type: string
+          description: The name or reference of the vault from which to read the host credentials.
+          minLength: 1
+          maxLength: 256
+          example: my-vault
+        hashicorp_vault_engine:
+          type: string
+          description: Vault engine name where the credential is stored.
+          minLength: 1
+          maxLength: 256
+          example: kv
+        hashicorp_vault_secret_path:
+          type: string
+          description: Path in the vault engine where the credential is stored.
+          minLength: 1
+          maxLength: 256
+          example: oracle-env
+        hashicorp_vault_username_key:
+          type: string
+          description: Key for the username in the key-value store.
+          minLength: 1
+          maxLength: 256
+          example: username-key
+        hashicorp_vault_secret_key:
+          type: string
+          description: Key for the password in the key-value store.
+          minLength: 1
+          maxLength: 256
+          example: secret-key
+        cyberark_vault_query_string:
+          type: string
+          description: Query to find a credential in the CyberArk vault.
+          minLength: 1
+          maxLength: 256
+          example: Safe=Test;Folder=Test;Object=Test
+        azure_vault_name:
+          type: string
+          description: Azure key vault name.
+          minLength: 1
+          maxLength: 256
+          example: azure_vault
+        azure_vault_username_key:
+          type: string
+          description: Azure vault key for the username in the key-value store.
+          minLength: 1
+          maxLength: 256
+          example: username-key
+        azure_vault_secret_key:
+          type: string
+          description: Azure vault key for the password in the key-value store.
+          minLength: 1
+          maxLength: 256
+          example: secret-key
+        custom_public_key:
+          type: string
+          description: Public key to be used for authentication
+          minLength: 1
+          maxLength: 6000
+    MSSQLListenerTypeEnum:
+      type: string
+      enum:
+      - MSSqlAvailabilityGroupListener
+      - MSSqlFailoverClusterListener
+      example: MSSqlAvailabilityGroupListener
+    Source:
+      description: The Delphix representation of the source database (not typically managed by Delphix).
+      type: object
+      properties:
+        id:
+          description: The Source object entity ID.
+          type: string
+        database_type:
+          description: The type of this source database.
+          type: string
+          nullable: true
+        name:
+          description: The name of this source database.
+          type: string
+          nullable: true
+        namespace_id:
+          description: The namespace id of this source database.
+          type: string
+          nullable: true
+        namespace_name:
+          description: The namespace name of this source database.
+          type: string
+          nullable: true
+        is_replica:
+          description: Is this a replicated object.
+          type: boolean
+          nullable: true
+        database_version:
+          description: The version of this source database.
+          type: string
+          nullable: true
+        environment_id:
+          description: A reference to the Environment that hosts this source database.
+          type: string
+          nullable: true
+        environment_name:
+          description: name of environment that hosts this source database.
+          type: string
+          nullable: true
+        data_uuid:
+          description: A universal ID that uniquely identifies this source database.
+          type: string
+          nullable: true
+        ip_address:
+          description: The IP address of the source's host.
+          type: string
+          nullable: true
+        fqdn:
+          description: The FQDN of the source's host.
+          type: string
+          nullable: true
+        size:
+          description: The total size of this source database, in bytes.
+          type: integer
+          format: int64
+          nullable: true
+        jdbc_connection_string:
+          description: The JDBC connection URL for this source database.
+          type: string
+          nullable: true
+          deprecated: true
+        plugin_version:
+          description: The version of the plugin associated with this source database.
+          type: string
+          nullable: true
+        toolkit_id:
+          description: The ID of the toolkit associated with this source database(AppData only).
+          type: string
+        is_dsource:
+          type: boolean
+        repository:
+          description: The repository id for this source
+          type: string
+        recovery_model:
+          description: Recovery model of the source database (MSSql Only).
+          example: FULL
+          type: string
+          nullable: true
+        mssql_source_type:
+          description: The type of this mssql source database (MSSql Only).
+          example: MSSqlSIConfig
+          type: string
+          nullable: true
+        appdata_source_type:
+          description: The type of this appdata source database (Appdata Only).
+          type: string
+          nullable: true
+        is_pdb:
+          description: If this source is of PDB type (Oracle Only).
+          type: boolean
+          nullable: true
+        mount_base:
+          description: The base mount point for the NFS or iSCSI LUN mounts.
+          type: string
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        instance_name:
+          description: The instance name of this single instance database source.
+          type: string
+        instance_number:
+          description: The instance number of this single instance database source.
+          type: integer
+        instances:
+          type: array
+          items:
+            $ref: '#/components/schemas/OracleRACDatabaseInstance'
+        oracle_services:
+          type: array
+          items:
+            $ref: '#/components/schemas/OracleService'
+        user:
+          description: The username of the database user.
+          type: string
+        environment_user_ref:
+          description: The environment user reference.
+          type: string
+        non_sys_user:
+          description: The username of a database user that does not have administrative privileges.
+          type: string
+        discovered:
+          description: Whether this source was discovered.
+          type: boolean
+        linking_enabled:
+          description: Whether this source should be used for linking.
+          type: boolean
+        cdb_type:
+          description: The cdb type for this source. (Oracle only)
+          type: string
+        data_connection_id:
+          description: The ID of the associated DataConnection.
+          type: string
+        database_name:
+          description: The name of this source database.
+          type: string
+        database_unique_name:
+          description: The unique name of the database.
+          type: string
+        config_params:
+          description: The parameters specified by the source config schema in the toolkit
+          type: object
+          nullable: true
+          additionalProperties: true
+          example:
+            foo: bar
+      example:
+        id: source-123
+        database_type: Oracle
+        name: production01
+        database_version: 11.1.0.7.0
+        environment_id: environment-123
+        data_uuid: 1734315df891991101eb96963535afa0
+        ip_address: 192.0.2.0
+        fqdn: prod01.myhost.com
+        size: 856981504
+        jdbc_connection_string: jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.43.47.94)(PORT=1521))(CONNECT_DATA=(UR=A)(SID=production01)))
+        plugin_version: '1.0'
+        repository: 1-REPOSITORY-1
+        appdata_source_type: AppDataDirectSourceConfig
+        is_pdb: false
+        tags:
+        - key: key1
+          value: value1
+        - key: key2
+          value: value2
+        oracle_services:
+        - discovered: 'true'
+          jdbc_connection_string: jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.110.230.197)(PORT=1521))(CONNECT_DATA=(UR=A)(SERVICE_NAME=VDBOMSRBBDC6C_UJG)))
+        - discovered: 'false'
+          jdbc_connection_string: jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.110.230.197)(PORT=1522))(CONNECT_DATA=(UR=A)(SERVICE_NAME=VDBOMSRBBDC6C_UJG)))
+        instance_name: DBSID
+        instance_number: 1
+        user: ORACLE
+        non_sys_user: TESTER
+        discovered: true
+        linking_enabled: true
+        cdb_type: ROOT_CDB
+        data_connection_id: data-connection-1
+        database_name: production01
+        database_unique_name: DBOMSRBBDC6C
+    AseSourceCreateParameters:
+      type: object
+      required:
+      - database_name
+      - repository_id
+      properties:
+        database_name:
+          type: string
+          description: The database name of the source.
+          minLength: 1
+          maxLength: 30
+          pattern: ^[a-zA-Z0-9_]+$
+          example: test-db
+        repository_id:
+          type: string
+          description: The ID of the Repository onto which the source will be created.
+          minLength: 1
+          maxLength: 256
+          example: 1-APPDATA_REPOSITORY-10
+        linking_enabled:
+          type: boolean
+          description: Whether this source should be used for linking.
+          default: true
+        environment_id:
+          type: string
+          description: The ID of the environment to create the source on.
+          minLength: 1
+          maxLength: 256
+          example: 7-UNIX_HOST_ENVIRONMENT-3
+        environment_user:
+          type: string
+          description: The environment user reference.
+          minLength: 1
+          maxLength: 256
+        engine_id:
+          type: string
+          description: The ID of the engine to create the source on.
+          example: '1'
+    OracleListenerTypeEnum:
+      type: string
+      enum:
+      - NODE
+      - SCAN
+      example: NODE
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    Environment:
+      description: A grouping of a single host or a cluster of hosts.
+      type: object
+      properties:
+        id:
+          description: The Environment object entity ID.
+          type: string
+          example: environment-123
+        name:
+          description: The name of this environment.
+          type: string
+          example: Linux Test Host
+        namespace_id:
+          description: The namespace id of this environment.
+          type: string
+          example: 1-NAMESPACE-1
+        namespace_name:
+          description: The namespace name of this environment.
+          type: string
+          example: test-engine-1
+        is_replica:
+          description: Is this a replicated object.
+          type: boolean
+          example: true
+        namespace:
+          description: The namespace of this environment for replicated and restored objects.
+          type: string
+          nullable: true
+          example: NAMESPACE-1
+        engine_id:
+          description: A reference to the Engine that this Environment connection is associated with.
+          type: string
+          example: engine-123
+        engine_name:
+          description: A reference to the Engine that this Environment connection is associated with.
+          type: string
+          example: engine-123
+        address:
+          description: The address of this environment. For a standalone environment, this is the address of the host itself; for a clustered environment, it is the address used to perform cluster discovery.
+          type: string
+          example: winsrc1201.dlpxdc.co
+        enabled:
+          description: True if this environment is enabled.
+          type: boolean
+          example: true
+        encryption_enabled:
+          type: boolean
+          description: Flag indicating whether the data transfer is encrypted or not.
+          example: false
+        description:
+          type: string
+          description: The environment description.
+          example: Windows source host
+        is_cluster:
+          description: True if this environment is a cluster of hosts.
+          type: boolean
+          example: false
+        cluster_home:
+          description: Cluster home for RAC environment.
+          type: string
+          example: /u01/app/12.2.0.1/grid
+        cluster_name:
+          description: Cluster name for Oracle RAC environment.
+          type: string
+          example: abc-19990src
+        cluster_user:
+          description: Cluster user for Oracle RAC environment.
+          type: string
+          example: HOST_USER-4
+        scan:
+          description: The Single Client Access Name of the cluster (11.2 and greater clusters only).
+          type: string
+          example: abc-scan.xyz.com
+        remote_listener:
+          description: The default remote_listener parameter to be used for databases on the cluster.
+          type: string
+          example: remote-listener.xyz.com
+        is_windows_target:
+          description: True if this windows environment is a target environment.
+          type: boolean
+          example: false
+        staging_environment:
+          description: ID of the staging environment.
+          type: string
+          example: 1-WINDOWS_HOST-8
+        hosts:
+          description: The hosts that are part of this environment.
+          type: array
+          items:
+            $ref: '#/components/schemas/Host'
+        tags:
+          description: The tags to be created for this environment.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        repositories:
+          description: Repositories associated with this environment. A Repository typically corresponds to a database installation.
+          type: array
+          items:
+            $ref: '#/components/schemas/Repository'
+        listeners:
+          description: Oracle listeners associated with this environment.
+          type: array
+          items:
+            $ref: '#/components/schemas/OracleListener'
+        os_type:
+          description: The operating system type of this environment.
+          type: string
+          enum:
+          - UNIX
+          - WINDOWS
+        env_users:
+          description: Environment users associated with this environment.
+          type: array
+          items:
+            $ref: '#/components/schemas/EnvironmentUser'
+        ase_db_user_name:
+          description: The username of the SAP ASE database user.
+          type: string
+        ase_db_credential_type:
+          description: The credential type used for the SAP ASE database user.
+          type: string
+          enum:
+          - PasswordCredential
+          - SystemKeyCredential
+          - KeyPairCredential
+          - KerberosCredential
+          - CyberArkVaultCredential
+          - HashiCorpVaultCredential
+          - AzureVaultCredential
+        ase_enable_tls:
+          description: True if SAP ASE environment configured with TLS/SSL to discover the SAP ASE instances.
+          type: boolean
+          example: false
+        ase_skip_server_certificate_validation:
+          description: If True, ASE database connection will skip the server certificate validation during the TLS/SSL handshake.
+          type: boolean
+    MSSQLClusterListener:
+      properties:
+        type:
+          description: Type of this listener.
+          $ref: '#/components/schemas/MSSQLListenerTypeEnum'
+          example: MSSqlAvailabilityGroupListener
+        address:
+          description: The address of the listener.
+          type: string
+          example: ag-w16-tgt-agl.qa-ad.delphix.com
+        name:
+          description: The name of the listener.
+          type: string
+          example: ag-w16-tgt-agl
+        port:
+          description: The port for the listener.
+          type: integer
+          example: 1433
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    OracleVirtualIP:
+      description: A virtual IP address.
+      type: object
+      properties:
+        domain_name:
+          description: The domain name for the VirtualIP.
+          type: string
+          minLength: 1
+          example: virtual.domain.com
+        ip:
+          description: The IP address for this VirtualIP.
+          type: string
+          format: ipv4
+          example: 192.168.0.1
+        discovered:
+          description: Whether this VirtualIP was discovered.
+          type: boolean
+          example: true
+    MssqlConfigTypeEnum:
+      type: string
+      enum:
+      - MSSqlSIConfig
+      - MSSqlAvailabilityGroupDBConfig
+      - MSSqlFailoverClusterDBConfig
+      example: MSSqlSIConfig
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    DeleteTag:
+      type: object
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        tags:
+          description: List of tags to be deleted
+          type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    OracleListener:
+      properties:
+        id:
+          description: Id of this listener.
+          type: string
+          example: 1-ORACLE_NODE_LISTENER-11
+        name:
+          description: Name of this listener.
+          type: string
+          example: my-listener
+        type:
+          description: Type of this listener.
+          $ref: '#/components/schemas/OracleListenerTypeEnum'
+          example: NODE
+        protocol_addresses:
+          description: The list of protocol addresses for this listener.
+          type: array
+          items:
+            type: string
+          example:
+          - (ADDRESS=(PROTOCOL=tcp)(HOST=10.75.59.184)(PORT=4567))
+          - (ADDRESS=(PROTOCOL=ipc)(KEY=LISTENER))
+        client_endpoints:
+          description: The list of client endpoints for this listener.
+          type: array
+          items:
+            type: string
+          example:
+          - (ADDRESS=(PROTOCOL=tcp)(HOST=10.75.59.184)(PORT=4567))
+        is_discovered:
+          description: Whether this listener was automatically discovered or not.
+          type: boolean
+        host_id:
+          description: Id to the host this listener is associated with.
+          type: string
+          example: 1-UNIX_HOST-14
+    OracleRACDatabaseInstance:
+      type: object
+      required:
+      - instance_name
+      - instance_number
+      - node_reference
+      properties:
+        instance_name:
+          type: string
+          description: The name of this instance. Must contain at least one non-whitespace character.
+          minLength: 1
+          pattern: .*\S.*
+        instance_number:
+          type: integer
+          description: The number of this instance.
+          minimum: 1
+        node_reference:
+          type: string
+          description: The reference to the cluster node which the instance is running on. Must contain at least one non-whitespace character.
+          minLength: 1
+          pattern: .*\S.*
+        okv_client_id:
+          description: The id of the OKV client used for TDE keystore access. If provided, it must include at least one non-whitespace character; if omitted, the existing OKV client will be cleared.
+          type: string
+          minLength: 1
+          pattern: .*\S.*
+          example: 1-ORACLE_OKV_CLIENT-1
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          readOnly: true
+          description: Message providing more detail about the error that occurred, if available.
+        object_name:
+          type: string
+          readOnly: true
+          description: Name of the object affected by the error.
+    ConnectivityCheckResponse:
+      title: ConnectivityResponse
+      type: object
+      description: The result of the connectivity check.
+      required:
+      - message
+      properties:
+        message:
+          description: A message describing the result of the connectivity check.
+          type: string
+          example: Success!
+        status:
+          description: A status describing the status of the connectivity check.
+          type: string
+          enum:
+          - SUCCESS
+          - FAILED
+          example: SUCCESS
+    UpdateSourceParameters:
+      deprecated: true
+      type: object
+      description: Parameters to update a Source.
+      properties:
+        oracle_services:
+          type: array
+          items:
+            type: string
+          description: List of jdbc connection strings which are used to connect with the database.
+          example:
+          - jdbc:oracle:thin:@hostname:port/service_name
+          - jdbc:oracle:thin:@hostname:port:SID
+    OracleService:
+      properties:
+        discovered:
+          description: Represents whether this jdbc connection string is auto discovered or not.
+          type: boolean
+        jdbc_connection_string:
+          description: The jdbc connection string used to connect with the database.
+          type: string
+          example: jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.110.230.197)(PORT=1521))(CONNECT_DATA=(UR=A)(SERVICE_NAME=VDBOMSRBBDC6C_UJG)))
+    Errors:
+      description: Sadly, sometimes requests to the API are not successful. Failures can occur for a wide range of reasons. The Errors object contains information about full or partial failures which might have occurred during the request.
+      type: array
+      items:
+        $ref: '#/components/schemas/Error'
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    Repository:
+      properties:
+        id:
+          description: Entity id of the repository.
+          type: string
+        name:
+          description: Name of the repository.
+          type: string
+        database_type:
+          description: The database type of this repository.
+          type: string
+        allow_provisioning:
+          description: Flag indicating whether the repository should be used for provisioning.
+          type: boolean
+        is_staging:
+          description: Flag indicating whether this repository can be used by the Delphix Engine for internal processing.
+          type: boolean
+        oracle_base:
+          description: The Oracle base where database binaries are located.
+          type: string
+        version:
+          description: Version of the repository.
+          type: string
+        bits:
+          description: 32 or 64 bits.
+          type: integer
+        install_group:
+          description: Group name of the user that owns the install.
+          type: string
+        install_user:
+          description: User name of the user that owns the install.
+          type: string
+        rac:
+          description: Flag indicating whether the install supports Oracle RAC.
+          type: boolean
+        ports:
+          description: The network ports for connecting to the database instance.
+          type: array
+          items:
+            type: integer
+            format: int64
+        port:
+          description: The network port for connecting to the SQL Server instance.
+          type: integer
+          format: int64
+        dump_history_file:
+          description: Fully qualified name of the dump history file.
+          type: string
+        page_size:
+          description: Database page size for the SAP ASE instance.
+          type: integer
+          format: int64
+        owner:
+          description: Account the database server instance is running as.
+          type: string
+        installation_path:
+          description: Directory path where the installation is located.
+          type: string
+        fulltext_installed:
+          description: This property determines if the full-text search and semantic search is installed or not.
+          type: boolean
+        internal_version:
+          description: The internal version is tied to the data format of a database and is used to detect compatibility.
+          type: integer
+          format: int64
+        mssql_cluster_instances_name:
+          description: MSSQL cluster instances name.
+          type: array
+          items:
+            type: string
+        mssql_cluster_instances_version:
+          description: MSSQL cluster instances version.
+          type: array
+          items:
+            type: string
+        mssql_cluster_instances_owners:
+          description: MSSQL cluster instance owners.
+          type: array
+          items:
+            type: string
+        mssql_cluster_instances_ports:
+          description: MSSQL cluster instances ports.
+          type: array
+          items:
+            type: integer
+            format: int64
+        mssql_cluster_instances_server_names:
+          description: MSSQL cluster instances server names.
+          type: array
+          items:
+            type: string
+        mssql_cluster_instances_nodes:
+          description: MSSQL cluster instances nodes.
+          type: array
+          items:
+            type: string
+        installation_home:
+          description: Directory where the installation home is located.
+          type: string
+        drive_letter:
+          description: MSSQL failover cluster drive letter.
+          type: array
+          items:
+            type: string
+        discovered:
+          description: Flag indicating whether the repository was automatically discovered.
+          readOnly: true
+          type: boolean
+        mssql_listeners:
+          description: The list of listeners belonging to this repository.
+          type: array
+          items:
+            $ref: '#/components/schemas/MSSQLClusterListener'
+        database_username:
+          type: string
+          description: The username of the ASE instance database.
+        service_principal_name:
+          type: string
+          description: The Kerberos Service Principal Name (SPN) of the database.
+        isql_path:
+          type: string
+          description: The path to the isql binary to use for this SAP ASE instance.
+        ase_tls_enabled:
+          description: True if SAP ASE instance is TLS/SSL enabled.
+          type: boolean
+        credential_type:
+          description: The credential type used for this repository.
+          type: string
+          enum:
+          - PasswordCredential
+          - SystemKeyCredential
+          - KeyPairCredential
+          - KerberosCredential
+          - CyberArkVaultCredential
+          - HashiCorpVaultCredential
+          - AzureVaultCredential
+        toolkit_id:
+          description: The ID of the toolkit associated with this repository(AppData only).
+          type: string
+      discriminator:
+        propertyName: class_type
+    VirtualizationTask:
+      deprecated: true
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    AppDataSourceCreateParameters:
+      type: object
+      required:
+      - name
+      - repository_id
+      - type
+      properties:
+        type:
+          description: The type of source to create. Default is DIRECT.
+          type: string
+          enum:
+          - DIRECT
+          - STAGED
+          default: DIRECT
+        name:
+          type: string
+          description: The name of the source.
+          minLength: 1
+          maxLength: 256
+          example: postgres-test
+        repository_id:
+          type: string
+          description: The ID of the Repository onto which the source will be created.
+          minLength: 1
+          example: 1-APPDATA_REPOSITORY-10
+        linking_enabled:
+          type: boolean
+          description: Whether this source should be used for linking.
+          default: true
+        environment_user:
+          type: string
+          description: The environment user reference.
+          minLength: 1
+          maxLength: 256
+        parameters:
+          description: The JSON payload conforming to the DraftV4 schema based on the type of application data being manipulated.
+          type: object
+          additionalProperties: true
+        path:
+          description: The path to the data to be synced. This should only be passed for type=DIRECT.
+          type: string
+          minLength: 1
+          maxLength: 1024
+          example: /usr/home
+        environment_id:
+          type: string
+          description: The ID of the environment to create the source on.
+          example: 7-UNIX_HOST_ENVIRONMENT-3
+        engine_id:
+          type: string
+          description: The ID of the engine to create the source on.
+          example: '1'
+    PostgresSourceCreateParameters:
+      type: object
+      required:
+      - name
+      - repository
+      properties:
+        name:
+          type: string
+          description: The name of the source.
+          minLength: 1
+          maxLength: 256
+          example: postgres-test
+        repository_id:
+          type: string
+          description: The ID of the Repository onto which the source will be created.
+          minLength: 1
+          example: 1-APPDATA_REPOSITORY-10
+        engine_id:
+          type: string
+          description: The ID of the engine to create the source on.
+          example: '1'
+        environment_id:
+          type: string
+          description: The ID of the environment to create the source on.
+          example: 7-UNIX_HOST_ENVIRONMENT-3
+    AppDataSourceUpdateParameters:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the source.
+          minLength: 1
+          maxLength: 256
+          example: postgres-test
+        repository_id:
+          type: string
+          description: The ID of the Repository onto which the source will be created.
+          minLength: 1
+          example: APPDATA_REPOSITORY-10
+        environment_id:
+          type: string
+          description: The ID of the environment to create the source on.
+          example: UNIX_HOST_ENVIRONMENT-3
+        linking_enabled:
+          type: boolean
+          description: Whether this source should be used for linking.
+        environment_user:
+          type: string
+          description: The environment user reference.
+          minLength: 1
+          maxLength: 256
+        parameters:
+          description: The JSON payload conforming to the DraftV4 schema based on the type of application data being manipulated.
+          type: object
+          additionalProperties: true
+        path:
+          description: The path to the data to be synced. This should only be passed for type=DIRECT.
+          type: string
+          minLength: 1
+          maxLength: 1024
+          example: /usr/home
+    OracleSourceCreateParameters:
+      type: object
+      required:
+      - oracle_config_type
+      - repository_id
+      properties:
+        oracle_config_type:
+          description: Type of this database source config.
+          $ref: '#/components/schemas/OracleConfigTypeEnum'
+        engine_id:
+          type: string
+          description: The ID of the engine to create the source on.
+        environment_id:
+          type: string
+          description: The ID of the environment to create the source on.
+        database_name:
+          type: string
+          description: The name of the database.
+        repository_id:
+          type: string
+          description: The id of the containing repository where this database is created.
+        instances:
+          type: array
+          description: The instances of this RAC database.
+          items:
+            $ref: '#/components/schemas/OracleRACDatabaseInstance'
+        unique_name:
+          type: string
+          description: The unique name of this database.
+        instance_name:
+          description: The instance name of this single instance database.
+          type: string
+        oracle_services:
+          type: array
+          items:
+            type: string
+          description: List of jdbc connection strings which are used to connect with the database.
+          example:
+          - jdbc:oracle:thin:@hostname:port/service_name
+          - jdbc:oracle:thin:@hostname:port:SID
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    OracleConfigTypeEnum:
+      type: string
+      enum:
+      - OracleRACConfig
+      - OracleSIConfig
+      - OraclePDBConfig
+      example: OracleSIConfig
+    OracleVerifyJdbcConnectionStringParams:
+      type: object
+      required:
+      - database_username
+      - database_password
+      - jdbc_connection_string
+      properties:
+        database_username:
+          type: string
+          description: oracle database username.
+          example: oracle
+        database_password:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: oracle database password.
+          example: oracle
+        jdbc_connection_string:
+          type: string
+          description: Oracle jdbc connection string to validate.
+          example: jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.110.219.71)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=CDOMLOSR25E9PDB1)))
+    MSSQLSourceUpdateParameters:
+      type: object
+      properties:
+        database_name:
+          type: string
+          description: The database name of the source.
+          minLength: 1
+          maxLength: 128
+          example: test-db
+        repository_id:
+          type: string
+          description: The ID of the repository to which the source will be relocated.
+          minLength: 1
+          maxLength: 256
+          example: 1-MSSQL_INSTANCE-2
+        linking_enabled:
+          type: boolean
+          description: Whether this source can be used for linking.
+        environment_user:
+          type: string
+          description: The environment user reference.
+          minLength: 1
+          maxLength: 256
+    OracleClusterNodeInstance:
+      description: An oracle cluster node instance.
+      type: object
+      properties:
+        instance_name:
+          description: The name of this instance.
+          type: string
+        instance_number:
+          type: integer
+          description: The number of this instance.
+        source_id:
+          type: string
+          description: The id of Source this instance belongs to.
+    AseSourceUpdateParameters:
+      type: object
+      properties:
+        database_name:
+          type: string
+          description: The database name of the source.
+          minLength: 1
+          maxLength: 30
+          pattern: ^[a-zA-Z0-9_]+$
+          example: test-db
+        repository_id:
+          type: string
+          description: The ID of the Repository onto which the source will be created.
+          minLength: 1
+          maxLength: 256
+          example: 1-APPDATA_REPOSITORY-10
+        linking_enabled:
+          type: boolean
+          description: Whether this source should be used for linking.
+          default: true
+        environment_id:
+          type: string
+          description: The ID of the environment to create the source on.
+          minLength: 1
+          maxLength: 256
+          example: 7-UNIX_HOST_ENVIRONMENT-3
+        environment_user:
+          type: string
+          description: The environment user reference.
+          minLength: 1
+          maxLength: 256
+        database_username:
+          type: string
+          description: The username of the ASE instance database.
+          minLength: 1
+          maxLength: 256
+          example: sybase
+        database_password:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: The credentials of the ASE instance database user.
+          minLength: 1
+          maxLength: 256
+          example: sybase
+    PostgresSourceUpdateParameters:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the source.
+          minLength: 1
+          maxLength: 256
+          example: postgres_test_update
+    OracleSourceUpdateParameters:
+      type: object
+      description: Parameters to update an Oracle source.
+      properties:
+        oracle_services:
+          type: array
+          items:
+            type: string
+          description: List of jdbc connection strings which are used to connect with the database.
+          example:
+          - jdbc:oracle:thin:@hostname:port/service_name
+          - jdbc:oracle:thin:@hostname:port:SID
+        user:
+          type: string
+          description: Database user for accessing this source.
+          minLength: 1
+          maxLength: 30
+          example: user
+        password:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: Password for the database user.
+          minLength: 1
+          example: password
+        linking_enabled:
+          description: Whether this source should be used for linking.
+          type: boolean
+          example: true
+    Job:
+      description: An asynchronous task.
+      type: object
+      properties:
+        id:
+          description: The Job entity ID.
+          type: string
+          example: job-123
+        status:
+          description: The status of the job.
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+          example: RUNNING
+        is_waiting_for_telemetry:
+          description: Indicates that the operations performed by this Job have completed successfully, but the object changes are not yet reflected. This is only set when when the JOB is in STARTED status, with the guarantee that the job will not transition to the FAILED status. Note that this flag will likely be replaced with a new status in future API versions and be deprecated.
+          type: boolean
+        type:
+          description: The type of job being done.
+          type: string
+          example: DB_REFRESH
+        localized_type:
+          description: The i18n translated type of job being done.
+          type: string
+          example: DB Refresh
+        error_details:
+          description: Details about the failure for FAILED jobs.
+          type: string
+          example: Unable to connect to the engine.
+        warning_message:
+          description: Warnings for the job.
+          type: string
+          example: 'Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.'
+        target_id:
+          description: A reference to the job's target.
+          type: string
+          example: vdb-123
+        target_name:
+          description: A reference to the job's target name.
+          type: string
+          example: vdb
+        start_time:
+          description: The time the job started executing.
+          type: string
+          format: date-time
+          example: '2022-01-02T05:11:24.148000+00:00'
+        update_time:
+          description: The time the job was last updated.
+          type: string
+          format: date-time
+          example: '2022-01-02T06:11:24.148000+00:00'
+        trace_id:
+          description: traceId of the request which created this Job
+          type: string
+        engine_ids:
+          description: IDs of the engines this Job is executing on.
+          type: array
+          items:
+            type: string
+          deprecated: true
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        engines:
+          type: array
+          items:
+            $ref: '#/components/schemas/Engine'
+        account_id:
+          description: The ID of the account who initiated this job.
+          type: integer
+          example: 1
+        account_name:
+          description: The account name which initiated this job. It can be either firstname and lastname combination or firstname or lastname or username or email address or Account-<id>.
+          type: string
+          example: User 1
+        compliance_node_id:
+          description: The ID of the associated compliance node, if applicable.
+          type: string
+          nullable: true
+        compliance_node_name:
+          description: The name of the associated compliance node, if applicable.
+          type: string
+          nullable: true
+        percent_complete:
+          description: Completion percentage of the Job.
+          type: integer
+          minimum: 0
+          maximum: 100
+          example: '50'
+        virtualization_tasks:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTask'
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTask'
+        execution_id:
+          description: The ID of the associated masking execution, if any.
+          type: string
+          nullable: true
+        result_type:
+          description: The type of the job result. This is the type of the object present in the result.
+          type: string
+        result:
+          description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
+          type: object
+      discriminator:
+        propertyName: class_type
+  parameters:
+    sourcesSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: id
+      required: false
+      schema:
+        type: string
+        enum:
+        - id
+        - -id
+        - database_type
+        - -database_type
+        - name
+        - -name
+        - database_version
+        - -database_version
+        - environment_id
+        - -environment_id
+        - data_uuid
+        - -data_uuid
+        - ip_address
+        - -ip_address
+        - fqdn
+        - -fqdn
+        - size
+        - -size
+        - jdbc_connection_string
+        - -jdbc_connection_string
+        - plugin_version
+        - -plugin_version
+        - is_dsource
+        - -is_dsource
+        - instance_name
+        - -instance_name
+        - instance_number
+        - -instance_number
+        - user
+        - -user
+        - non_sys_user
+        - -non_sys_user
+        - discovered
+        - -discovered
+        - linking_enabled
+        - -linking_enabled
+        - repository
+        - -repository
+        - cdb_type
+        - -cdb_type
+        - environment_user_ref
+        - -environment_user_ref
+        - data_connection_id
+        - -data_connection_id
+        - database_name
+        - -database_name
+        - database_unique_name
+        - -database_unique_name
+        nullable: true
+        example: name
+    sourceIdParam:
+      in: path
+      name: sourceId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the Source.
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization

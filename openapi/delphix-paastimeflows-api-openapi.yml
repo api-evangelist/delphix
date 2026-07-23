@@ -1,0 +1,408 @@
+openapi: 3.0.0
+info:
+  title: Delphix DCT Algorithms PaaSTimeflows API
+  version: 3.28.0
+  description: Delphix DCT API
+  contact:
+    name: Delphix Support
+    url: https://portal.perforce.com/s/
+    email: support@delphix.com
+servers:
+- url: /dct/v3
+security:
+- ApiKeyAuth: []
+tags:
+- name: PaaSTimeflows
+paths:
+  /paas-timeflows:
+    get:
+      summary: List all PaaS Timeflows
+      operationId: list_all_paas_timeflows
+      tags:
+      - PaaSTimeflows
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/PaaSTimeflowSortParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ListPaaSTimeflowsResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PaaSTimeflow'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /paas-timeflows/search:
+    post:
+      summary: Search PaaS Timeflows
+      operationId: search_paas_timeflows
+      tags:
+      - PaaSTimeflows
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/PaaSTimeflowSortParam'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: search_body
+              $ref: '#/components/schemas/SearchBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: SearchPaaSTimeflowsResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PaaSTimeflow'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /paas-timeflows/{paaSTimeflowId}:
+    parameters:
+    - $ref: '#/components/parameters/paaSTimeflowIdParam'
+    get:
+      summary: Get PaaS Timeflow by ID
+      operationId: get_paas_timeflow_by_id
+      tags:
+      - PaaSTimeflows
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaaSTimeflow'
+  /paas-timeflows/{paaSTimeflowId}/tags:
+    parameters:
+    - $ref: '#/components/parameters/paaSTimeflowIdParam'
+    post:
+      tags:
+      - PaaSTimeflows
+      summary: Create tags for a PaaS Timeflow.
+      operationId: create_paas_timeflow_tags
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: paas_timeflow_tags
+              $ref: '#/components/schemas/TagsRequest'
+        description: Tags information for PaaS Timeflow.
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+    get:
+      tags:
+      - PaaSTimeflows
+      summary: Get tags for a PaaS Timeflow.
+      operationId: get_paas_timeflow_tags
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+  /paas-timeflows/{paaSTimeflowId}/tags/delete:
+    parameters:
+    - $ref: '#/components/parameters/paaSTimeflowIdParam'
+    post:
+      tags:
+      - PaaSTimeflows
+      summary: Delete tags for a PaaS Timeflow.
+      operationId: delete_paas_timeflow_tags
+      requestBody:
+        $ref: '#/components/requestBodies/DeleteTags'
+      responses:
+        '204':
+          description: No Content
+  /paas-instances/{paaSInstanceId}/timeflows:
+    get:
+      summary: List all timeflows for a PaaS Instance
+      operationId: get_paas_instance_timeflows
+      tags:
+      - PaaSTimeflows
+      parameters:
+      - $ref: '#/components/parameters/paaSInstanceIdParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ListPaaSInstanceTimeflowsResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PaaSTimeflow'
+  /paas-databases/{paaSDatabaseId}/timeflows:
+    get:
+      summary: List all timeflows for a PaaS Database
+      operationId: get_paas_database_timeflows
+      tags:
+      - PaaSTimeflows
+      parameters:
+      - $ref: '#/components/parameters/paaSDatabaseIdParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ListPaaSDatabaseTimeflowsResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PaaSTimeflow'
+components:
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    paaSTimeflowIdParam:
+      in: path
+      name: paaSTimeflowId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the PaaS Timeflow.
+    paaSInstanceIdParam:
+      in: path
+      name: paaSInstanceId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the PaaS Instance.
+    PaaSTimeflowSortParam:
+      name: sort
+      in: query
+      description: The field to sort timeflow results by. A field prefixed with `-` indicates descending order.
+      required: false
+      schema:
+        type: string
+        enum:
+        - id
+        - -id
+        - instance_id
+        - -instance_id
+        - database_id
+        - -database_id
+        - is_active
+        - -is_active
+        - creation_timestamp
+        - -creation_timestamp
+        - deactivation_timestamp
+        - -deactivation_timestamp
+        nullable: true
+        example: -creation_timestamp
+    paaSDatabaseIdParam:
+      in: path
+      name: paaSDatabaseId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the PaaS Database.
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+  schemas:
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    DeleteTag:
+      type: object
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        tags:
+          description: List of tags to be deleted
+          type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    PaaSTimeflow:
+      description: A PaaS Timeflow represents a single continuous cloud existence of a PaaS Instance or PaaS Database. Each time an instance/database is provisioned or reprovisioned, a new timeflow is created. Deprovisioning deactivates the current timeflow. Historical timeflows retain their snapshots, which can be used for historical auditing.
+      type: object
+      properties:
+        id:
+          description: The PaaS Timeflow object entity ID.
+          type: string
+          example: paas-timeflow-abc123
+        instance_id:
+          description: The ID of the PaaS Instance this timeflow belongs to. Null for database timeflows.
+          type: string
+          example: instance-123
+        database_id:
+          description: The ID of the PaaS Database this timeflow belongs to. Null for instance timeflows.
+          type: string
+          example: db-123
+        is_active:
+          description: Whether this timeflow is currently active. Only one timeflow per instance or database can be active at a time.
+          type: boolean
+          example: true
+        creation_timestamp:
+          description: The timestamp when this timeflow was created (when the instance or database was provisioned).
+          type: string
+          format: date-time
+          example: '2025-01-01T00:00:00.000000+00:00'
+        deactivation_timestamp:
+          description: The timestamp when this timeflow was deactivated (when the instance or database was deprovisioned). Null for active timeflows.
+          type: string
+          format: date-time
+          example: '2025-06-01T00:00:00.000000+00:00'
+        masked_by_execution_id:
+          description: The ID of the compliance job collection execution that masked this timeflow, if any.
+          type: string
+          readOnly: true
+        masked_by_collection_id:
+          description: The ID of the compliance job collection that masked this timeflow, if any.
+          type: string
+          readOnly: true
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+  requestBodies:
+    DeleteTags:
+      description: The parameters to delete tags
+      content:
+        application/json:
+          schema:
+            x-body-name: environment
+            $ref: '#/components/schemas/DeleteTag'
+          examples:
+            delete_all_tags:
+              description: Delete all tags for given object - No request body required
+              summary: Delete all tags
+              value: {}
+            delete_tags_by_key:
+              description: Delete all tags for given object with matching key
+              summary: Delete tags by key
+              value:
+                key: key-1
+            delete_tags_by_key_value:
+              description: Delete tag for given object with matching key and value
+              summary: Delete a tag by key & value
+              value:
+                key: key-1
+                value: value-1
+            delete_multiple_tags_by_key_value:
+              description: Delete tags for given list of tags with matching key and value
+              summary: Delete multiple tags by key & value
+              value:
+                tags:
+                - key: key-1
+                  value: value-1
+                - key: key-2
+                  value: value-2
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization

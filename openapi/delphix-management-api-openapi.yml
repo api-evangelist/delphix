@@ -1,0 +1,157 @@
+openapi: 3.0.0
+info:
+  title: Delphix DCT Algorithms Management API
+  version: 3.28.0
+  description: Delphix DCT API
+  contact:
+    name: Delphix Support
+    url: https://portal.perforce.com/s/
+    email: support@delphix.com
+servers:
+- url: /dct/v3
+security:
+- ApiKeyAuth: []
+tags:
+- name: Management
+paths:
+  /management/engines/{engineId}/validate/java-path:
+    parameters:
+    - $ref: '#/components/parameters/engineIdParam'
+    post:
+      tags:
+      - Management
+      summary: Validate java path for the remote host machine.
+      operationId: validate_java_path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: validate_java_path
+              $ref: '#/components/schemas/ValidateJavaParameters'
+        description: The api to check connectivity of engine and a remote host on given port.
+        required: true
+      responses:
+        '200':
+          description: OK
+components:
+  schemas:
+    ValidateJavaParameters:
+      title: ValidateJavaParameters
+      type: object
+      description: Parameters to validate java path for the remote host.
+      required:
+      - java_home
+      - port
+      - host_name
+      properties:
+        java_home:
+          description: Path pointing to java home on the remote machine.
+          type: string
+          example: home/jdk/
+        port:
+          description: SSH port of the remote host machine that will be used to establish SSH connection.
+          type: integer
+          minimum: 0
+          maximum: 65535
+          nullable: true
+          example: 22
+        username:
+          description: The username of the user that will be used to connect to the remote host machine.
+          type: string
+          minLength: 1
+          maxLength: 255
+          example: username
+        password:
+          x-dct-toolkit-credential-field: true
+          description: The password of the user that will be used to connect to the remote host machine.
+          type: string
+          minLength: 1
+          maxLength: 255
+          example: password
+        host_name:
+          description: Hostname of the remote host machine that will be used to establish connection.
+          type: string
+          example: test.host.com
+        use_engine_public_key:
+          type: boolean
+          description: Whether to use public key authentication.
+          example: true
+        vault_id:
+          type: string
+          description: The DCT id or name of the vault from which to read the host credentials.
+          minLength: 1
+          maxLength: 256
+          example: my-vault
+        hashicorp_vault_engine:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: Vault engine name where the credential is stored.
+          minLength: 1
+          maxLength: 256
+          example: kv
+        hashicorp_vault_secret_path:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: Path in the vault engine where the credential is stored.
+          minLength: 1
+          maxLength: 256
+          example: oracle-env
+        hashicorp_vault_username_key:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: Key for the username in the key-value store.
+          minLength: 1
+          maxLength: 256
+          example: username
+        hashicorp_vault_secret_key:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: Key for the password in the key-value store.
+          minLength: 1
+          maxLength: 256
+          example: secret
+        azure_vault_name:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: Azure key vault name (ORACLE, ASE and MSSQL_DOMAIN_USER only).
+          minLength: 1
+          maxLength: 256
+          example: azure_vault
+        azure_vault_username_key:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: Azure vault key for the username in the key-value store (ORACLE, ASE and MSSQL_DOMAIN_USER only).
+          minLength: 1
+          maxLength: 256
+          example: username
+        azure_vault_secret_key:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: Azure vault key for the password in the key-value store (ORACLE, ASE and MSSQL_DOMAIN_USER only).
+          minLength: 1
+          maxLength: 256
+          example: secret
+        cyberark_vault_query_string:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: Query to find a credential in the CyberArk vault.
+          minLength: 1
+          maxLength: 256
+          example: Safe=Test;Folder=Test;Object=Test
+        use_kerberos_authentication:
+          type: boolean
+          description: Whether to use kerberos authentication.
+          example: true
+  parameters:
+    engineIdParam:
+      in: path
+      name: engineId
+      schema:
+        type: string
+      required: true
+      description: The ID of the registered engine.
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization

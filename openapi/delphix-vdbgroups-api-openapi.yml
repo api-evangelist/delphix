@@ -1,0 +1,3134 @@
+openapi: 3.0.0
+info:
+  title: Delphix DCT Algorithms VDBGroups API
+  version: 3.28.0
+  description: Delphix DCT API
+  contact:
+    name: Delphix Support
+    url: https://portal.perforce.com/s/
+    email: support@delphix.com
+servers:
+- url: /dct/v3
+security:
+- ApiKeyAuth: []
+tags:
+- name: VDBGroups
+paths:
+  /vdb-groups:
+    get:
+      summary: List all VDBGroups.
+      operationId: get_vdb_groups
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/vdbGroupsSortParam'
+      tags:
+      - VDBGroups
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ListVDBGroupsResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/VDBGroup'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+    post:
+      summary: Create a new VDB Group.
+      tags:
+      - VDBGroups
+      operationId: create_vdb_group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              title: CreateVDBGroupRequest
+              required:
+              - name
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  maxLength: 256
+                vdb_ids:
+                  type: array
+                  items:
+                    type: string
+                    minLength: 1
+                    maxLength: 256
+                  minItems: 1
+                vdbs:
+                  type: array
+                  maxItems: 256
+                  description: Dictates order of operations on VDBs. Operations can be performed in parallel <br> for all VDBs or sequentially. Below are possible valid and invalid orderings given an example <br> VDB group with 3 vdbs (A, B, and C).<br> Valid:<br> {"vdb_id":"vdb-1", "order":"1"} {"vdb_id":"vdb-2", order:"1"} {vdb_id:"vdb-3", order:"1"} (parallel)<br> {vdb_id:"vdb-1", order:"1"} {vdb_id:"vdb-2", order:"2"} {vdb_id:"vdb-3", order:"3"} (sequential)<br> Invalid:<br> {vdb_id:"vdb-1", order:"A"} {vdb_id:"vdb-2", order:"B"} {vdb_id:"vdb-3", order:"C"} (sequential)<br><br> In the sequential case the vdbs with priority 1 is the first to be started and the last to<br> be stopped. This value is set on creation of VDB groups.
+                  items:
+                    $ref: '#/components/schemas/CreateVDBGroupOrder'
+                  minItems: 1
+                tags:
+                  type: array
+                  maxItems: 1000
+                  description: The tags to be created for VDB Group.
+                  items:
+                    $ref: '#/components/schemas/Tag'
+                  minItems: 1
+                make_current_account_owner:
+                  type: boolean
+                  default: true
+                  description: Whether the account creating this VDB group must be configured as owner of the VDB group.
+                refresh_immediately:
+                  type: boolean
+                  default: false
+                  description: If true, VDB Group will be refreshed immediately after creation.
+        description: The parameters to create a VDB Group.
+        required: true
+      responses:
+        '201':
+          description: VDB Group Created.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: CreateVDBGroupResponse
+                properties:
+                  vdb_group:
+                    $ref: '#/components/schemas/VDBGroup'
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: Initiated refresh job.
+  /vdb-groups/provision_from_bookmark:
+    post:
+      summary: Provision a new VDB Group from a Bookmark.
+      tags:
+      - VDBGroups
+      operationId: provision_vdb_group_from_bookmark
+      requestBody:
+        $ref: '#/components/requestBodies/ProvisionVDBGroupFromBookmark'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ProvisionVDBGroupFromBookmarkResponse
+                properties:
+                  vdb_group:
+                    $ref: '#/components/schemas/VDBGroup'
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: Initiated job.
+  /vdb-groups/search:
+    post:
+      summary: Search for VDB Groups.
+      operationId: search_vdb_groups
+      tags:
+      - VDBGroups
+      x-filterable:
+        fields:
+          id:
+            type: string
+          name:
+            type: string
+          is_locked:
+            type: boolean
+          locked_by:
+            type: integer
+            format: int64
+          locked_by_name:
+            type: string
+          vdb_group_source:
+            type: string
+          ss_data_layout_id:
+            type: string
+          vdb_ids:
+            type: array[string]
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/vdbGroupsSortParam'
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: SearchVDBGroupResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/VDBGroup'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /vdb-groups/{vdbGroupId}:
+    parameters:
+    - $ref: '#/components/parameters/vdbGroupIdParam'
+    get:
+      summary: Get a VDB Group by name.
+      operationId: get_vdb_group
+      tags:
+      - VDBGroups
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VDBGroup'
+    patch:
+      tags:
+      - VDBGroups
+      summary: Update values of a VDB group.
+      operationId: update_vdb_group_by_id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: update_vdb_group_parameter
+              $ref: '#/components/schemas/UpdateVDBGroupParameters'
+        description: The new data to update a VDB group.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: UpdateVDBGroupResponse
+                allOf:
+                - $ref: '#/components/schemas/VDBGroup'
+                - type: object
+                  properties:
+                    job:
+                      $ref: '#/components/schemas/Job'
+                      description: The initiated job.
+    delete:
+      summary: Delete a VDBGoup.
+      operationId: delete_vdb_group
+      tags:
+      - VDBGroups
+      responses:
+        '204':
+          description: No Content
+  /vdb-groups/{vdbGroupId}/latest-snapshots:
+    parameters:
+    - $ref: '#/components/parameters/vdbGroupIdParam'
+    get:
+      tags:
+      - VDBGroups
+      summary: Get latest snapshot of all the vdbs in VDB Group.
+      operationId: get_vdb_group_vdbs_latest_snapshots
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: LatestSnapshotsResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Snapshot'
+  /vdb-groups/{vdbGroupId}/timestamp-summary:
+    parameters:
+    - $ref: '#/components/parameters/vdbGroupIdParam'
+    post:
+      tags:
+      - VDBGroups
+      summary: Get timestamp summary of all the vdbs in VDB Group.
+      operationId: get_vdb_group_timestamp_summary
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: VDBGroupTimestampSummaryRequest
+              type: object
+              properties:
+                timestamp:
+                  type: string
+                  format: date-time
+                  description: The timestamp to get the summary for.
+                vdb_ids:
+                  type: array
+                  items:
+                    type: string
+                  minItems: 1
+                  uniqueItems: true
+                  description: vdb ids for which summary is needed.
+                mode:
+                  $ref: '#/components/schemas/RefreshModeEnum'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: VdbGroupTimestampSummaryResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: Initiated job.
+  /vdb-groups/{vdbGroupId}/tags:
+    parameters:
+    - $ref: '#/components/parameters/vdbGroupIdParam'
+    post:
+      tags:
+      - VDBGroups
+      summary: Create tags for a VDB Group.
+      operationId: create_vdb_groups_tags
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: vdb_tags
+              $ref: '#/components/schemas/TagsRequest'
+        description: Tags information for VDB Group.
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+    get:
+      tags:
+      - VDBGroups
+      summary: Get tags for a VDB Group.
+      operationId: get_vdb_group_tags
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+  /vdb-groups/{vdbGroupId}/tags/delete:
+    parameters:
+    - $ref: '#/components/parameters/vdbGroupIdParam'
+    post:
+      tags:
+      - VDBGroups
+      summary: Delete tags for a VDB Group.
+      operationId: delete_vdb_group_tags
+      requestBody:
+        $ref: '#/components/requestBodies/DeleteTags'
+      responses:
+        '204':
+          description: No Content
+  /vdb-groups/{vdbGroupId}/refresh:
+    parameters:
+    - $ref: '#/components/parameters/vdbGroupIdParam'
+    post:
+      deprecated: true
+      summary: Refresh a VDB Group from bookmark.
+      description: This API is marked as deprecated in favour of renamed API '/vdb-groups/{vdbGroupId}/refresh_from_bookmark'
+      tags:
+      - VDBGroups
+      operationId: refresh_vdb_group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: refresh_vdb_group_parameters
+              $ref: '#/components/schemas/RefreshVDBGroupParameters'
+        description: The parameters to refresh a VDB Group.
+      responses:
+        '200':
+          description: VDB Group refresh initiated.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: RefreshVDBGroupResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+  /vdb-groups/{vdbGroupId}/refresh_from_bookmark:
+    parameters:
+    - $ref: '#/components/parameters/vdbGroupIdParam'
+    post:
+      summary: Refresh a VDB Group from bookmark.
+      tags:
+      - VDBGroups
+      operationId: refresh_vdb_group_from_bookmark
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: refresh_vdb_group_parameters
+              $ref: '#/components/schemas/RefreshVDBGroupParameters'
+        description: The parameters to refresh a VDB Group.
+      responses:
+        '200':
+          description: VDB Group refresh initiated.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: RefreshVDBGroupResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+  /vdb-groups/{vdbGroupId}/refresh_by_snapshot:
+    parameters:
+    - $ref: '#/components/parameters/vdbGroupIdParam'
+    post:
+      summary: Refresh a VDB Group by snapshot.
+      tags:
+      - VDBGroups
+      operationId: refresh_vdb_group_by_snapshot
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: refresh_vdb_group_by_snapshot_params
+              $ref: '#/components/schemas/RefreshVDBGroupBySnapshotParameters'
+        description: The parameters to refresh a VDB Group by snapshot.
+      responses:
+        '200':
+          description: VDB Group refresh initiated.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: RefreshVDBGroupResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+  /vdb-groups/{vdbGroupId}/refresh_by_timestamp:
+    parameters:
+    - $ref: '#/components/parameters/vdbGroupIdParam'
+    post:
+      summary: Refresh a VDB Group by timestamp.
+      tags:
+      - VDBGroups
+      operationId: refresh_vdb_group_by_timestamp
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: refresh_vdb_group_by_timestamp
+              $ref: '#/components/schemas/RefreshVDBGroupByTimestampParameters'
+        description: The parameters to refresh a VDB Group by timestamp.
+      responses:
+        '200':
+          description: VDB Group refresh initiated.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: RefreshVDBGroupResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+  /vdb-groups/{vdbGroupId}/rollback:
+    parameters:
+    - $ref: '#/components/parameters/vdbGroupIdParam'
+    post:
+      deprecated: true
+      summary: Rollback a VDB Group from a bookmark.
+      description: This API is marked as deprecated in favour of API '/vdb-groups/{vdbGroupId}/refresh_from_bookmark'
+      tags:
+      - VDBGroups
+      operationId: rollback_vdb_group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: rollback_vdb_group_parameters
+              $ref: '#/components/schemas/RollbackVDBGroupParameters'
+        description: The parameters to rollback a VDB Group.
+      responses:
+        '200':
+          description: VDB Group rollback initiated.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: RollbackVDBGroupResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+  /vdb-groups/{vdbGroupId}/bookmarks:
+    parameters:
+    - $ref: '#/components/parameters/vdbGroupIdParam'
+    get:
+      summary: List bookmarks compatible with this VDB Group.
+      operationId: get_bookmarks_by_vdb_group
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/bookmarksSortParam'
+      tags:
+      - VDBGroups
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ListBookmarksByVDBGroupsResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Bookmark'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /vdb-groups/{vdbGroupId}/bookmarks/search:
+    parameters:
+    - $ref: '#/components/parameters/vdbGroupIdParam'
+    post:
+      tags:
+      - VDBGroups
+      summary: Search for bookmarks compatible with this VDB Group.
+      operationId: search_bookmarks_by_vdb_group
+      x-filterable:
+        fields:
+          id:
+            type: string
+          name:
+            type: string
+          vdb_group_name:
+            type: string
+          creation_date:
+            type: string
+          vdb_ids:
+            type: array[string]
+          retention:
+            type: integer
+          expiration:
+            type: string
+          ss_data_layout_id:
+            type: string
+          ss_bookmark_reference:
+            type: string
+          ss_bookmark_errors:
+            type: array[string]
+          vdbs:
+            type: array[object]
+            fields:
+              vdb_id:
+                type: string
+              vdb_name:
+                type: string
+          tags:
+            type: array[object]
+            fields:
+              key:
+                type: string
+              value:
+                type: string
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/bookmarksSortParam'
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: SearchBookmarksByVDBGroupsResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Bookmark'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /vdb-groups/{vdbGroupId}/lock:
+    parameters:
+    - $ref: '#/components/parameters/vdbGroupIdParam'
+    post:
+      summary: Lock a VDB Group.
+      tags:
+      - VDBGroups
+      operationId: lock_vdb_group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              title: LockVDBGroupParameters
+              properties:
+                account_id:
+                  description: Id of the account on whose behalf this request is being made. Only accounts having LOCK_FOR_OTHER_ACCOUNT permission can lock VDB Groups on behalf of other accounts. If this property is not specified then the account id of the authenticated user making the request is used.
+                  type: integer
+                  format: int64
+        description: The parameters to lock a VDB Group.
+        required: true
+      responses:
+        '200':
+          description: VDB Group is locked.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VDBGroup'
+  /vdb-groups/{vdbGroupId}/unlock:
+    parameters:
+    - $ref: '#/components/parameters/vdbGroupIdParam'
+    post:
+      summary: Unlock a VDB Group.
+      tags:
+      - VDBGroups
+      operationId: unlock_vdb_group
+      responses:
+        '200':
+          description: VDB Group is unlocked.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VDBGroup'
+  /vdb-groups/{vdbGroupId}/start:
+    parameters:
+    - $ref: '#/components/parameters/vdbGroupIdParam'
+    post:
+      summary: Start a VDB Group.
+      tags:
+      - VDBGroups
+      operationId: start_vdb_group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: start_vdb_group_params
+              $ref: '#/components/schemas/StartVDBGroupParameters'
+        description: The parameters to start a VDB Group.
+      responses:
+        '200':
+          description: VDB Group start is initiated.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: StartVDBGroupResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+  /vdb-groups/{vdbGroupId}/stop:
+    parameters:
+    - $ref: '#/components/parameters/vdbGroupIdParam'
+    post:
+      summary: Stop a VDB Group.
+      tags:
+      - VDBGroups
+      operationId: stop_vdb_group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: stop_vdb_group_params
+              $ref: '#/components/schemas/StopVDBGroupParameters'
+        description: The parameters to stop a VDB Group.
+      responses:
+        '200':
+          description: VDB Group stop is initiated.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: StopVDBGroupResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+  /vdb-groups/{vdbGroupId}/enable:
+    parameters:
+    - $ref: '#/components/parameters/vdbGroupIdParam'
+    post:
+      summary: Enable a VDB Group.
+      tags:
+      - VDBGroups
+      operationId: enable_vdb_group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: enable_vdb_group_params
+              $ref: '#/components/schemas/EnableVDBGroupParameters'
+        description: The parameters to enable a VDB Group.
+      responses:
+        '200':
+          description: VDB Group enable is initiated.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: EnableVDBGroupResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+  /vdb-groups/{vdbGroupId}/disable:
+    parameters:
+    - $ref: '#/components/parameters/vdbGroupIdParam'
+    post:
+      summary: Disable a VDB Group.
+      tags:
+      - VDBGroups
+      operationId: disable_vdb_group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: disable_vdb_group_params
+              $ref: '#/components/schemas/DisableVDBGroupParameters'
+        description: The parameters to disable a VDB Group.
+      responses:
+        '200':
+          description: VDB Group disable is initiated.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: DisableVDBGroupResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+components:
+  schemas:
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    BookmarkPaaSDatabases:
+      description: PaaS Database id and name associated with bookmark.
+      type: object
+      properties:
+        paas_database_id:
+          description: The PaaS Database id.
+          type: string
+          example: paas-database-id-1
+        paas_database_name:
+          description: The PaaS Database name.
+          type: string
+          example: paas-database-name
+        root_parent_id:
+          description: The root of the PaaS Database.
+          type: string
+          example: paas-instance-id-1
+        paas_snapshot_id:
+          description: The PaaS Snapshot id.
+          type: string
+          example: 1-SNAP-1
+        data_timestamp:
+          description: The timestamp of the PaaS Snapshot.
+          type: string
+          format: date-time
+          example: '2021-05-01T08:51:34.148000+00:00'
+    StartVDBParameters:
+      type: object
+      description: Parameters to start a VDB.
+      properties:
+        instances:
+          type: array
+          items:
+            type: integer
+          description: List of specific Oracle Virtual Database Instances to start.
+      discriminator:
+        propertyName: class_type
+    CreateVDBGroupOrder:
+      properties:
+        vdb_id:
+          description: Vdb id
+          type: string
+        order:
+          description: Dictates order of operations on VDBs. Operations can be performed in parallel <br> for all VDBs or sequentially. Below are possible valid and invalid orderings given an example <br> VDB group with 3 vdbs (A, B, and C).<br> Valid:<br> {"vdb_id":"vdb-1", "order":"1"} {"vdb_id":"vdb-2", order:"1"} {vdb_id:"vdb-3", order:"1"} (parallel)<br> {vdb_id:"vdb-1", order:"1"} {vdb_id:"vdb-2", order:"2"} {vdb_id:"vdb-3", order:"3"} (sequential)<br> Invalid:<br> {vdb_id:"vdb-1", order:"A"} {vdb_id:"vdb-2", order:"B"} {vdb_id:"vdb-3", order:"C"} (sequential)<br><br> In the sequential case the vdbs with priority 1 is the first to be started and the last to<br> be stopped. This value is set on creation of VDB groups.
+          type: integer
+          format: int32
+          default: 0
+      discriminator:
+        propertyName: class_type
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    BookmarkVDBs:
+      description: VDB id and name associated with bookmark.
+      type: object
+      properties:
+        vdb_id:
+          description: The VDB id.
+          type: string
+          example: vdb-id-1
+        vdb_name:
+          description: The VDB name.
+          type: string
+          example: vdb-name
+        snapshot_id:
+          description: The snapshot id.
+          type: string
+          example: 1-SNAP-1
+        source_data_timestamp:
+          description: The timestamp of origin timeline location.
+          type: string
+          format: date-time
+          example: '2021-05-01T08:51:34.148000+00:00'
+        root_parent_id:
+          description: The root of the VDB.
+          type: string
+          example: 1-DBCONTAINER-1
+        timeflow_id:
+          description: The timeflow id of the snapshot.
+          type: string
+        data_timestamp:
+          description: The bookmark timestamp of the VDB.
+          type: string
+          format: date-time
+    VDBGroupRefreshByTimestamp:
+      type: object
+      description: Parameters to refresh a VDB Group by timestamp.
+      required:
+      - vdb_id
+      properties:
+        vdb_id:
+          type: string
+          minLength: 1
+          maxLength: 256
+          description: ID of the VDB present in the VDB Group.
+        timestamp:
+          type: string
+          format: date-time
+          description: The point in time from which to execute the operation. Mutually exclusive with timestamp_in_database_timezone. If the timestamp is not set, selects the latest point.
+          example: '2021-05-01T08:51:34.148000+00:00'
+        timestamp_in_database_timezone:
+          description: The point in time from which to execute the operation, expressed as a date-time in the timezone of the source database. Mutually exclusive with timestamp.
+          type: string
+          pattern: '[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(.[0-9]{0,3})?'
+          example: '2021-08-14T14:55:20.507'
+        timeflow_id:
+          description: The Timeflow ID.
+          type: string
+          example: timeflow-123
+        mode:
+          $ref: '#/components/schemas/RefreshModeEnum'
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    VDBEnableParametersMapping:
+      description: Parameters to enable a VDB.
+      allOf:
+      - $ref: '#/components/schemas/EnableVDBParameters'
+      - type: object
+        required:
+        - vdb_id
+        properties:
+          vdb_id:
+            type: string
+            description: ID of the VDB to enable.
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    VirtualDatasetHooks:
+      description: VDB operation hooks.
+      type: object
+      properties:
+        pre_refresh:
+          type: array
+          maxItems: 100
+          description: The commands to execute on the target environment before refreshing the VDB.
+          items:
+            $ref: '#/components/schemas/Hook'
+        post_refresh:
+          type: array
+          maxItems: 100
+          description: The commands to execute on the target environment after refreshing the VDB.
+          items:
+            $ref: '#/components/schemas/Hook'
+            deprecated: true
+        pre_self_refresh:
+          type: array
+          maxItems: 100
+          description: The commands to execute on the target environment before refreshing the VDB with data from itself.
+          items:
+            $ref: '#/components/schemas/Hook'
+        post_self_refresh:
+          type: array
+          maxItems: 100
+          description: The commands to execute on the target environment after refreshing the VDB with data from itself.
+          items:
+            $ref: '#/components/schemas/Hook'
+        pre_rollback:
+          deprecated: true
+          type: array
+          maxItems: 100
+          description: The commands to execute on the target environment before rewinding the VDB.
+          items:
+            $ref: '#/components/schemas/Hook'
+        post_rollback:
+          deprecated: true
+          type: array
+          maxItems: 100
+          description: The commands to execute on the target environment after rewinding the VDB.
+          items:
+            $ref: '#/components/schemas/Hook'
+        configure_clone:
+          type: array
+          maxItems: 100
+          description: The commands to execute on the target environment when the VDB is created or refreshed.
+          items:
+            $ref: '#/components/schemas/Hook'
+        pre_snapshot:
+          type: array
+          maxItems: 100
+          description: The commands to execute on the target environment before snapshotting a virtual source. These commands can quiesce any data prior to snapshotting.
+          items:
+            $ref: '#/components/schemas/Hook'
+        post_snapshot:
+          type: array
+          maxItems: 100
+          description: The commands to execute on the target environment after snapshotting a virtual source.
+          items:
+            $ref: '#/components/schemas/Hook'
+        pre_start:
+          type: array
+          maxItems: 100
+          description: The commands to execute on the target environment before starting a virtual source.
+          items:
+            $ref: '#/components/schemas/Hook'
+        post_start:
+          type: array
+          maxItems: 100
+          description: The commands to execute on the target environment after starting a virtual source.
+          items:
+            $ref: '#/components/schemas/Hook'
+        pre_stop:
+          type: array
+          maxItems: 100
+          description: The commands to execute on the target environment before stopping a virtual source.
+          items:
+            $ref: '#/components/schemas/Hook'
+        post_stop:
+          type: array
+          maxItems: 100
+          description: The commands to execute on the target environment after stopping a virtual source.
+          items:
+            $ref: '#/components/schemas/Hook'
+      discriminator:
+        propertyName: class_type
+    RefreshModeEnum:
+      description: Refresh Mode either self or parent, if PARENT then VDB Group is refreshed from parent of each VDB, else refreshed from self.
+      type: string
+      enum:
+      - PARENT
+      - SELF
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    VDBDisableParametersMapping:
+      description: Parameters to disable a VDB.
+      allOf:
+      - $ref: '#/components/schemas/DisableVDBParameters'
+      - type: object
+        required:
+        - vdb_id
+        properties:
+          vdb_id:
+            type: string
+            description: ID of the VDB to disable.
+    DeleteTag:
+      type: object
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        tags:
+          description: List of tags to be deleted
+          type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+    EnableVDBParameters:
+      type: object
+      description: Parameters to enable a VDB.
+      properties:
+        attempt_start:
+          type: boolean
+          description: Whether to attempt a startup of the VDB after the enable.
+          default: true
+        container_mode:
+          type: boolean
+          description: Whether the database is running inside a container.
+        ownership_spec:
+          type: string
+          description: The uid:gid string that NFS mounts should belong to.
+          maxLength: 1024
+      discriminator:
+        propertyName: class_type
+    UpdateVDBGroupParameters:
+      type: object
+      description: Parameters to update a VDB group.
+      properties:
+        name:
+          type: string
+          description: The name of the VDB group.
+          minLength: 1
+          maxLength: 256
+          example: my-vdb-group
+        vdb_ids:
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 256
+          minItems: 1
+          example:
+          - vdb-1
+          - vdb-2
+        vdbs:
+          type: array
+          maxItems: 256
+          description: Dictates order of operations on VDBs. Operations can be performed in parallel <br> for all VDBs or sequentially. Below are possible valid and invalid orderings given an example <br> VDB group with 3 vdbs (A, B, and C).<br> Valid:<br> {"vdb_id":"vdb-1", "order":"1"} {"vdb_id":"vdb-2", order:"1"} {vdb_id:"vdb-3", order:"1"} (parallel)<br> {vdb_id:"vdb-1", order:"1"} {vdb_id:"vdb-2", order:"2"} {vdb_id:"vdb-3", order:"3"} (sequential)<br> Invalid:<br> {vdb_id:"vdb-1", order:"A"} {vdb_id:"vdb-2", order:"B"} {vdb_id:"vdb-3", order:"C"} (sequential)<br><br> In the sequential case the vdbs with priority 1 is the first to be started and the last to<br> be stopped. This value is set on creation of VDB groups.
+          items:
+            $ref: '#/components/schemas/CreateVDBGroupOrder'
+          minItems: 1
+        refresh_immediately:
+          type: boolean
+          default: false
+          description: If true, the VDB Group will be refreshed immediately after the update.
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    StopVDBParameters:
+      type: object
+      description: Parameters to stop a VDB.
+      properties:
+        instances:
+          type: array
+          items:
+            type: integer
+          description: List of specific Oracle Virtual Database Instances to stop.
+        abort:
+          type: boolean
+          description: Whether to issue 'shutdown abort' to shutdown Oracle Virtual DB instances.
+          default: false
+      discriminator:
+        propertyName: class_type
+    BookmarkPaaSInstances:
+      description: PaaS Instance id and name associated with bookmark.
+      type: object
+      properties:
+        paas_instance_id:
+          description: The PaaS Instance id.
+          type: string
+          example: paas-instance-id-1
+        paas_instance_name:
+          description: The PaaS Instance name.
+          type: string
+          example: paas-instance-name
+        root_parent_id:
+          description: The root of the PaaS Instance.
+          type: string
+          example: paas-instance-root-id-1
+        paas_snapshot_id:
+          description: The PaaS Instance snapshot id.
+          type: string
+          example: 1-SNAP-1
+        data_timestamp:
+          description: The timestamp of the PaaS Instance snapshot.
+          type: string
+          format: date-time
+          example: '2021-05-01T08:51:34.148000+00:00'
+    VDBOrder:
+      allOf:
+      - $ref: '#/components/schemas/CreateVDBGroupOrder'
+      - type: object
+        properties:
+          vdb_name:
+            type: string
+          last_refresh_time_with_group_refresh:
+            description: The last time the VDB was successfully refreshed as a part of VDB Group refresh operation in UTC timezone.
+            type: string
+            format: date-time
+            example: '2022-05-29T15:00:00Z'
+          in_sync:
+            description: Indicates if the VDB is in sync with the VDB Group or not. If this VDB is was last refreshed as part of the VDB Group then this value will be true.
+            type: boolean
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    DisableVDBParameters:
+      type: object
+      description: Parameters to disable a VDB.
+      properties:
+        attempt_cleanup:
+          type: boolean
+          description: Whether to attempt a cleanup of the VDB before the disable.
+          default: true
+        container_mode:
+          type: boolean
+          description: Whether the database is running inside a container.
+      discriminator:
+        propertyName: class_type
+    VDBGroupRefreshBySnapshot:
+      type: object
+      description: Parameters to refresh a VDB Group by snapshot.
+      required:
+      - vdb_id
+      - snapshot_id
+      properties:
+        vdb_id:
+          type: string
+          minLength: 1
+          maxLength: 256
+          description: ID of the VDB present in the VDB Group.
+        snapshot_id:
+          type: string
+          minLength: 1
+          maxLength: 256
+          description: ID of the snapshot to refresh from.
+    Replica:
+      properties:
+        replica_id:
+          description: The ID of the replicated object.
+          type: string
+          example: replica-1
+        replica_engine_id:
+          description: The ID of the replicated object's engine.
+          type: string
+          example: '1'
+        replica_engine_name:
+          description: The name of the replicated object's engine.
+          type: string
+          example: replica-e1
+        replica_namespace_id:
+          description: The namespace id of the replicated object.
+          type: string
+          example: namespace-1
+    OracleRacCustomEnvFile:
+      type: object
+      properties:
+        node_id:
+          type: string
+          minLength: 1
+          maxLength: 256
+        path_parameters:
+          type: string
+    VirtualizationTask:
+      deprecated: true
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    AdditionalMountPoint:
+      description: Specifies an additional location on which to mount a subdirectory of an AppData container.
+      type: object
+      properties:
+        shared_path:
+          description: Relative path within the container of the directory that should be mounted.
+          type: string
+          minLength: 1
+          maxLength: 2048
+          example: /
+        mount_path:
+          description: Absolute path on the target environment were the filesystem should be mounted
+          type: string
+          minLength: 1
+          maxLength: 2048
+          example: /work/ws1
+        environment_id:
+          description: The entity ID of the environment on which the file system will be mounted.
+          type: string
+          minLength: 1
+          maxLength: 256
+          example: environment-123
+    RefreshVDBGroupByTimestampParameters:
+      type: object
+      description: Parameters to refresh a VDB Group by timestamp.
+      properties:
+        vdb_timestamp_mappings:
+          description: List of the pair of VDB and timestamp to refresh from. If this is not set, all VDBs will be refreshed from latest timestamp of their parent.
+          type: array
+          maxItems: 256
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/VDBGroupRefreshByTimestamp'
+        is_refresh_to_nearest:
+          type: boolean
+          description: If true, and the provided timestamp is not found for the VDB mapping, the system will attempt to find the nearest previous refresh point.
+          default: false
+          example: false
+    Bookmark:
+      description: A Data Control Tower object that references points in time for one or more datasets.
+      type: object
+      properties:
+        id:
+          description: The Bookmark object entity ID.
+          type: string
+          readOnly: true
+          example: bookmark-123
+        name:
+          description: The user-defined name of this bookmark.
+          type: string
+          minLength: 1
+          maxLength: 256
+          example: my-bookmark-123
+        creation_date:
+          description: The date and time that this bookmark was created.
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2021-07-04T08:51:34.148000+00:00'
+        data_timestamp:
+          description: The timestamp for the data that the bookmark refers to.
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2021-06-03T08:51:34.148000+00:00'
+        timeflow_id:
+          description: The timeflow for the snapshot that the bookmark was created of.
+          example: 1-TIMEFLOW-1
+          type: string
+        location:
+          description: The location for the data that the bookmark refers to.
+          type: string
+          example: '200000'
+        vdb_ids:
+          description: The list of VDB IDs associated with this bookmark.
+          type: array
+          items:
+            type: string
+          example:
+          - vdb-123
+          - vdb-456
+        dsource_ids:
+          description: The list of dSource IDs associated with this bookmark.
+          type: array
+          items:
+            type: string
+          example:
+          - dsource-123
+          - dsource-456
+        vdb_group_id:
+          description: The ID of the VDB group on which bookmark is created.
+          type: string
+          example: vdb-group-123
+        vdb_group_name:
+          description: The name of the VDB group on which bookmark is created.
+          type: string
+          example: my-vdb-group
+        vdbs:
+          description: The list of VDB IDs and VDB names associated with this bookmark.
+          type: array
+          items:
+            $ref: '#/components/schemas/BookmarkVDBs'
+        dsources:
+          description: The list of dSource IDs and dSource names associated with this bookmark.
+          type: array
+          items:
+            $ref: '#/components/schemas/BookmarkDSources'
+        paas_databases:
+          description: The list of PaaS Database IDs and PaaS Database names associated with this bookmark.
+          type: array
+          items:
+            $ref: '#/components/schemas/BookmarkPaaSDatabases'
+        paas_instances:
+          description: The list of PaaS Instance IDs and PaaS Instance names associated with this bookmark.
+          type: array
+          items:
+            $ref: '#/components/schemas/BookmarkPaaSInstances'
+        retention:
+          description: The retention policy for this bookmark, in days. A value of -1 indicates the bookmark should be kept forever. Deprecated in favor of expiration.
+          type: integer
+          format: int64
+          example: 365
+          deprecated: true
+        expiration:
+          description: The expiration for this bookmark. When unset, indicates the bookmark is kept forever except for bookmarks of replicated datasets. Expiration cannot be set for bookmarks of replicated datasets.
+          type: string
+          format: date
+          example: '2021-07-04'
+        status:
+          description: A message with details about operation progress or state of this bookmark.
+          type: string
+          nullable: true
+          readOnly: true
+          example: RESTORED
+        replicated_dataset:
+          description: Whether this bookmark is created from a replicated dataset or not.
+          type: boolean
+        bookmark_source:
+          description: Source of the bookmark, default is DCT. In case of self-service bookmarks, this value would be ENGINE.
+          type: string
+          enum:
+          - DCT
+          - ENGINE
+        bookmark_status:
+          description: Status of the bookmark. It can have INACTIVE value for engine bookmarks only. If this value is INACTIVE then ss_bookmark_errors would have the list of associated errors.
+          type: string
+          enum:
+          - ACTIVE
+          - INACTIVE
+          - CREATING
+          - DELETING
+        ss_data_layout_id:
+          description: Data-layout Id for engine-managed bookmarks.
+          type: string
+        ss_bookmark_reference:
+          description: Engine reference of the self-service bookmark.
+          type: string
+        ss_bookmark_errors:
+          description: List of errors if any, during bookmark creation in DCT from self-service.
+          type: array
+          items:
+            type: string
+          example:
+          - No snapshots found for JS_BOOKMARK-1 at timestamp 2021-07-04T08:51:34.148
+        bookmark_type:
+          description: Type of the bookmark, either PUBLIC or PRIVATE.
+          type: string
+          enum:
+          - PUBLIC
+          - PRIVATE
+          default: PRIVATE
+          example: PRIVATE
+        namespace_id:
+          description: The namespace id of this bookmark.
+          type: string
+          example: 1-NAMESPACE-1
+        namespace_name:
+          description: The namespace name of this bookmark.
+          type: string
+          example: test-engine-1
+        is_replica:
+          description: Is this a replicated bookmark.
+          type: boolean
+          example: true
+        primary_object_id:
+          description: Id of the parent bookmark from which this bookmark was replicated.
+          type: string
+        primary_engine_id:
+          description: The ID of the parent engine from which replication was done.
+          type: string
+        primary_engine_name:
+          description: The name of the parent engine from which replication was done.
+          type: string
+        primary_bookmark_expiration:
+          description: The expiration for the primary bookmark.
+          type: string
+          format: date
+          example: '2021-07-04'
+        replicas:
+          description: The list of replicas replicated from this object.
+          type: array
+          items:
+            $ref: '#/components/schemas/Replica'
+        tags:
+          description: The tags to be created for this Bookmark.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          example:
+          - key: key-1
+            value: value-1
+          - key: key-2
+            value: value-2
+    ConfigSettingsStg:
+      description: Custom Database-Level config settings.
+      type: object
+      properties:
+        property_name:
+          description: Name of the property.
+          type: string
+          pattern: ^$|^[_a-zA-Z0-9]*$
+          maxLength: 40
+        value:
+          type: string
+          description: Value of the property.
+          pattern: ^$|^''$|^[/_.:%@'+!*a-zA-Z0-9\[\]\- ]*$
+          maxLength: 40
+        comment_property:
+          type: boolean
+          description: Select this option to comment out the provided property name in the configuration file.
+    VDBStartParametersMapping:
+      description: Parameters to start a VDB.
+      allOf:
+      - $ref: '#/components/schemas/StartVDBParameters'
+      - type: object
+        required:
+        - vdb_id
+        properties:
+          vdb_id:
+            type: string
+            description: ID of the VDB to start.
+    OracleTdeKeystoreConfigTypeEnum:
+      type: string
+      description: Oracle TDE keystore configuration type.
+      enum:
+      - FILE
+      - OKV
+      - HSM
+      - OKV|FILE
+      - FILE|OKV
+      - HSM|FILE
+      - FILE|HSM
+      - OCI_VAULT
+      - UNSET
+    BookmarkDSources:
+      description: dSource id and name associated with bookmark.
+      type: object
+      properties:
+        dsource_id:
+          description: The dSource id.
+          type: string
+          example: dsource-id-1
+        dsource_name:
+          description: The dSource name.
+          type: string
+          example: dsource-name
+        snapshot_id:
+          description: The snapshot id.
+          type: string
+          example: 1-SNAP-1
+        timeflow_id:
+          description: The timeflow id.
+          type: string
+          example: 1-ORACLE-TIMEFLOW-1
+        data_timestamp:
+          description: The bookmark timestamp of the dSource.
+          type: string
+          format: date-time
+    ClusterNodeInstance:
+      type: object
+      required:
+      - node_reference
+      - instance_number
+      - instance_name
+      properties:
+        node_reference:
+          type: string
+          minLength: 1
+          maxLength: 256
+          minItems: 1
+          description: The cluster node id, name or addresses for this provision operation
+        instance_number:
+          type: integer
+          description: The instance number for this provision operation
+        instance_name:
+          type: string
+          minLength: 1
+          maxLength: 256
+          description: The instance name for this provision operation
+        okv_client_id:
+          description: The id of the OKV client used for TDE keystore access. If provided, it must include at least one non-whitespace character.
+          type: string
+          minLength: 1
+          pattern: .*\S.*
+          example: 1-ORACLE_OKV_CLIENT-1
+    BaseProvisionVDBParameters:
+      allOf:
+      - $ref: '#/components/schemas/VirtualDatasetHooks'
+      - type: object
+        properties:
+          target_group_id:
+            type: string
+            description: The ID of the group into which the VDB will be provisioned. This field must be explicitly set when marked as mandatory; otherwise, a group is selected randomly on the Engine.
+            minLength: 1
+            maxLength: 256
+            example: group-123
+          name:
+            type: string
+            description: The unique name of the provisioned VDB within a group. This field must be explicitly set when marked as mandatory; otherwise, a name will be randomly generated.
+            minLength: 1
+            maxLength: 256
+            example: my-test-vdb
+          database_name:
+            type: string
+            description: The name of the database on the target environment. Defaults to the value of the name property.
+            minLength: 1
+            maxLength: 256
+            example: my-test-database
+          cdb_id:
+            x-dct-toolkit-subcommand: oracle
+            type: string
+            description: The ID of the container database (CDB) to provision an Oracle Multitenant database into. This corresponds to a CDB or VCDB API object. When this is not set, a new vCDB will be provisioned.
+            minLength: 1
+            maxLength: 256
+            example: ORACLE_SINGLE_CONFIG-376
+          cluster_node_ids:
+            x-dct-toolkit-subcommand: oracle
+            type: array
+            items:
+              type: string
+              minLength: 1
+              maxLength: 256
+            minItems: 1
+            description: The cluster node ids, name or addresses for this provision operation (Oracle RAC Only).
+            example:
+            - ORACLE_CLUSTER_NODE-1
+          cluster_node_instances:
+            x-dct-toolkit-subcommand: oracle
+            type: array
+            items:
+              $ref: '#/components/schemas/ClusterNodeInstance'
+            minItems: 1
+            description: The cluster node instances details for this provision operation(Oracle RAC Only).This property is mutually exclusive with cluster_node_ids.
+            example:
+            - node_reference: ORACLE_CLUSTER_NODE-1
+              instance_number: 1
+              instance_name: cluster_instance1
+              okv_client_id: 1-ORACLE_OKV_CLIENT-1
+          truncate_log_on_checkpoint:
+            x-dct-toolkit-subcommand: sybase
+            type: boolean
+            description: Whether to truncate log on checkpoint (ASE only).
+            example: true
+          os_username:
+            x-dct-toolkit-subcommand: oracle
+            type: string
+            description: The name of the privileged user to run the provision operation (Oracle Only).
+            minLength: 1
+            maxLength: 256
+            example: os-user-x
+          os_password:
+            x-dct-toolkit-credential-field: true
+            x-dct-toolkit-subcommand: oracle
+            type: string
+            description: The password of the privileged user to run the provision operation (Oracle Only).
+            minLength: 1
+            maxLength: 256
+            example: os-user-secret-password
+          environment_id:
+            type: string
+            description: The ID of the target environment where to provision the VDB. If repository_id unambigously identifies a repository, this is unnecessary and ignored. Otherwise, a compatible repository is randomly selected on the environment.
+            minLength: 1
+            maxLength: 256
+            example: environment-123
+          environment_user_id:
+            type: string
+            description: The environment user ID to use to connect to the target environment.
+            minLength: 1
+            maxLength: 256
+            example: environment-user-123
+          repository_id:
+            type: string
+            description: The ID of the target repository where to provision the VDB. A repository typically corresponds to a database installation (Oracle home, database instance, ...). Setting this attribute implicitly determines the environment where to provision the VDB.
+            minLength: 1
+            maxLength: 256
+            example: oracle-home-123
+          auto_select_repository:
+            type: boolean
+            description: Option to automatically select a compatible environment and repository. Mutually exclusive with repository_id.
+            example: true
+          vdb_restart:
+            type: boolean
+            description: Indicates whether the Engine should automatically restart this virtual source when target host reboot is detected.
+            example: true
+          template_id:
+            type: string
+            description: The ID of the target VDB Template (Oracle and MSSql Only).
+            minLength: 1
+            maxLength: 256
+            example: template-123
+          auxiliary_template_id:
+            x-dct-toolkit-subcommand: oracle
+            type: string
+            description: The ID of the configuration template to apply to the auxiliary container database. This is only relevant when provisioning a Multitenant pluggable database into an existing CDB, i.e when the cdb_id property is set.(Oracle Only)
+            minLength: 1
+            maxLength: 256
+            example: aux-template-123
+          file_mapping_rules:
+            x-dct-toolkit-subcommand: oracle
+            type: string
+            description: Target VDB file mapping rules (Oracle Only). Rules must be line separated (\n or \r) and each line must have the format "pattern:replacement". Lines are applied in order.
+            minLength: 1
+            maxLength: 131072
+            example: '/datafile/dbdhcp3/oradata/dbdhcp3:/data
+
+              /u03/app/ora11202/product/11.2.0/dbhome_1/dbs/dbv_R2V4.dbf:/data/dbv_R2V4.dbf'
+          oracle_instance_name:
+            x-dct-toolkit-subcommand: oracle
+            type: string
+            description: Target VDB SID name (Oracle Only).
+            pattern: ^[a-zA-Z0-9_]+$
+            minLength: 1
+            maxLength: 15
+            example: dbdhcp2
+          unique_name:
+            x-dct-toolkit-subcommand: oracle
+            type: string
+            description: Target VDB db_unique_name (Oracle Only).
+            pattern: ^[a-zA-Z0-9_\$#]+$
+            minLength: 1
+            maxLength: 30
+            example: dbdhcp2
+          vcdb_name:
+            x-dct-toolkit-subcommand: oracle
+            type: string
+            description: When provisioning an Oracle Multitenant vCDB (when the cdb_id property is not set), the name of the provisioned vCDB (Oracle Multitenant Only).
+            pattern: ^[a-zA-Z0-9_]+$
+            minLength: 1
+            maxLength: 256
+            example: VCCD_6QQ
+          vcdb_database_name:
+            x-dct-toolkit-subcommand: oracle
+            type: string
+            description: When provisioning an Oracle Multitenant vCDB (when the cdb_id property is not set), the database name of the provisioned vCDB. Defaults to the value of the vcdb_name property. (Oracle Multitenant Only).
+            minLength: 1
+            maxLength: 8
+            example: VCCD_6QQ
+          mount_point:
+            type: string
+            description: Mount point for the VDB (Oracle, ASE, AppData).
+            minLength: 1
+            maxLength: 256
+            example: /var/mnt
+          open_reset_logs:
+            x-dct-toolkit-subcommand: oracle
+            type: boolean
+            description: Whether to open the database after provision (Oracle Only).
+            example: true
+          snapshot_policy_id:
+            type: string
+            description: The ID of the snapshot policy for the VDB.
+            minLength: 1
+            maxLength: 256
+            example: snapshot-123
+          retention_policy_id:
+            type: string
+            description: The ID of the retention policy for the VDB.
+            minLength: 1
+            maxLength: 256
+            example: retention-policy-123
+          recovery_model:
+            x-dct-toolkit-subcommand: mssql
+            type: string
+            description: Recovery model of the source database (MSSql Only).
+            enum:
+            - FULL
+            - SIMPLE
+            - BULK_LOGGED
+            example: FULL
+          pre_script:
+            x-dct-toolkit-subcommand: mssql
+            type: string
+            description: PowerShell script or executable to run prior to provisioning (MSSql Only).
+            minLength: 1
+            maxLength: 1024
+            example: C:\Program Files\Delphix\scripts\myscript.ps1
+          post_script:
+            x-dct-toolkit-subcommand: mssql
+            type: string
+            description: PowerShell script or executable to run after provisioning (MSSql Only).
+            minLength: 1
+            maxLength: 1024
+            example: C:\Program Files\Delphix\scripts\myscript.ps1
+          cdc_on_provision:
+            x-dct-toolkit-subcommand: mssql
+            type: boolean
+            description: Option to enable change data capture (CDC) on both the provisioned VDB and subsequent snapshot-related operations (e.g. refresh, rewind) (MSSql Only).
+            example: true
+          online_log_size:
+            x-dct-toolkit-subcommand: oracle
+            description: Online log size in MB (Oracle Only).
+            type: integer
+            minimum: 4
+            example: 4
+          online_log_groups:
+            x-dct-toolkit-subcommand: oracle
+            description: Number of online log groups (Oracle Only).
+            type: integer
+            minimum: 2
+            example: 2
+          archive_log:
+            x-dct-toolkit-subcommand: oracle
+            description: Option to create a VDB in archivelog mode (Oracle Only).
+            type: boolean
+            example: true
+          new_dbid:
+            x-dct-toolkit-subcommand: oracle
+            description: Option to generate a new DB ID for the created VDB (Oracle Only).
+            type: boolean
+            example: true
+          masked:
+            description: Indicates whether to mark this VDB as a masked VDB.
+            type: boolean
+            example: true
+          listener_ids:
+            x-dct-toolkit-subcommand: oracle
+            description: The listener IDs for this provision operation (Oracle Only).
+            type: array
+            items:
+              type: string
+              minLength: 1
+              maxLength: 256
+            example:
+            - listener-123
+            - listener-456
+          custom_env_vars:
+            description: Environment variable to be set when the engine creates a VDB. See the Engine documentation for the list of allowed/denied environment variables and rules about substitution.
+            type: object
+            additionalProperties:
+              type: string
+              minLength: 1
+              maxLength: 4096
+            example:
+              MY_ENV_VAR1: $ORACLE_HOME
+              MY_ENV_VAR2: $CRS_HOME/after
+          custom_env_files:
+            description: Environment files to be sourced when the Engine creates a VDB. This path can be followed by parameters. Paths and parameters are separated by spaces.
+            type: array
+            items:
+              type: string
+              minLength: 1
+              maxLength: 4096
+            example:
+            - /export/home/env_file_1
+            - /export/home/env_file_2
+          oracle_rac_custom_env_files:
+            x-dct-toolkit-subcommand: oracle
+            description: Environment files to be sourced when the Engine creates an Oracle RAC VDB. This path can be followed by parameters. Paths and parameters are separated by spaces.
+            type: array
+            items:
+              $ref: '#/components/schemas/OracleRacCustomEnvFile'
+            example:
+            - node_id: ORACLE_CLUSTER_NODE-1
+              path_parameters: /export/home/env_file_1
+          oracle_rac_custom_env_vars:
+            x-dct-toolkit-subcommand: oracle
+            description: Environment variable to be set when the engine creates an Oracle RAC VDB. See the Engine documentation for the list of allowed/denied environment variables and rules about substitution.
+            type: array
+            items:
+              $ref: '#/components/schemas/OracleRacCustomEnvVar'
+            example:
+            - node_id: ORACLE_CLUSTER_NODE-1
+              name: MY_ENV_VAR1
+              value: $CRS_HOME/after
+          parentTdeKeystorePath:
+            x-dct-toolkit-subcommand: oracle
+            description: Path to a copy of the parent's Oracle transparent data encryption keystore on the target host. Required to provision from snapshots containing encrypted database files. (Oracle Multitenant Only)
+            type: string
+            minLength: 1
+            maxLength: 1024
+            example: /foo/bar/tde
+          parent_tde_keystore_password:
+            x-dct-toolkit-credential-field: true
+            x-dct-toolkit-subcommand: oracle
+            description: The password of the keystore specified in parentTdeKeystorePath. (Oracle Multitenant Only)
+            type: string
+            minLength: 1
+            maxLength: 1024
+            example: password
+          parent_pdb_tde_keystore_path:
+            x-dct-toolkit-subcommand: oracle
+            description: 'Path to a copy of the parent PDB''s Oracle transparent data encryption keystore on the target host.
+
+              Required to provision from snapshots of PDB containing encrypted database files with isolated mode keystore.
+
+              (Oracle Multitenant Only)
+
+              '
+            type: string
+            minLength: 1
+            maxLength: 512
+            example: /work/MYCDB/0FE1C5BBC29D9B20E06379CB6E0A1EFC/tde
+          parent_pdb_tde_keystore_password:
+            x-dct-toolkit-credential-field: true
+            x-dct-toolkit-subcommand: oracle
+            description: The password of the parent PDB keystore. (Oracle Multitenant Only)
+            type: string
+            minLength: 1
+            maxLength: 128
+            example: password
+          target_pdb_tde_keystore_password:
+            x-dct-toolkit-credential-field: true
+            x-dct-toolkit-subcommand: oracle
+            description: The password for the isolated mode TDE keystore of the target virtual PDB. (Oracle Multitenant Only)
+            type: string
+            minLength: 1
+            maxLength: 128
+            example: password
+          tde_exported_key_file_secret:
+            x-dct-toolkit-subcommand: oracle
+            description: Secret to be used while exporting and importing vPDB encryption keys if Transparent Data Encryption is enabled on the vPDB. (Oracle Multitenant Only)
+            type: string
+            minLength: 1
+            maxLength: 1024
+            example: secret
+          tde_key_identifier:
+            x-dct-toolkit-subcommand: oracle
+            description: ID of the key created by Delphix. (Oracle Multitenant Only)
+            type: string
+            minLength: 1
+            maxLength: 256
+            example: tde-indentifier
+          target_vcdb_tde_keystore_path:
+            x-dct-toolkit-subcommand: oracle
+            description: Path to the keystore of the target vCDB. (Oracle Multitenant Only)
+            type: string
+            minLength: 1
+            maxLength: 1024
+            example: /foo/cdb/tde
+          cdb_tde_keystore_password:
+            x-dct-toolkit-credential-field: true
+            x-dct-toolkit-subcommand: oracle
+            description: The password for the Transparent Data Encryption keystore associated with the CDB. (Oracle Multitenant Only)
+            type: string
+            minLength: 1
+            maxLength: 1024
+            example: cdb-password
+          vcdb_tde_key_identifier:
+            x-dct-toolkit-subcommand: oracle
+            description: ID of the key created by Delphix. (Oracle Multitenant Only)
+            type: string
+            minLength: 1
+            maxLength: 256
+            example: vcdb-identifier
+          tde_keystore_config_type:
+            x-dct-toolkit-subcommand: oracle
+            description: The TDE keystore configuration type of the target new vCDB.
+            $ref: '#/components/schemas/OracleTdeKeystoreConfigTypeEnum'
+            example: OKV
+          okv_client_id:
+            x-dct-toolkit-subcommand: oracle
+            description: The id of the OKV client used by the target new vCDB for TDE keystore access. If provided, it must include at least one non-whitespace character.
+            type: string
+            minLength: 1
+            pattern: .*\S.*
+            example: 1-ORACLE_OKV_CLIENT-1
+          appdata_source_params:
+            x-dct-toolkit-subcommand: appdata
+            description: The JSON payload conforming to the DraftV4 schema based on the type of application data being manipulated.
+            type: object
+            additionalProperties: true
+            example:
+              param: value
+          additional_mount_points:
+            x-dct-toolkit-subcommand: appdata
+            description: Specifies additional locations on which to mount a subdirectory of an AppData container.
+            type: array
+            items:
+              $ref: '#/components/schemas/AdditionalMountPoint'
+            nullable: true
+            example:
+            - shared_path: /
+              mount_path: /work
+              environment_id: environment-123
+          appdata_config_params:
+            x-dct-toolkit-subcommand: appdata
+            description: The list of parameters specified by the source config schema in the toolkit
+            type: object
+            additionalProperties: true
+            nullable: true
+            example:
+              option: value
+          config_params:
+            description: Database configuration parameter overrides.
+            type: object
+            additionalProperties: true
+            nullable: true
+            example:
+              processes: 150
+          privileged_os_user:
+            x-dct-toolkit-subcommand: postgres
+            type: string
+            description: This privileged unix username will be used to create the VDB. Leave this field blank if you do not want to use privilege elevation. The unix privileged username should begin with a letter or an underscore, followed by letters, digits, underscores, or dashes. They can end with a dollar sign (postgres only).
+            pattern: ^$|^[a-zA-Z_][a-zA-Z0-9_\-]+[$]?$
+            maxLength: 32
+          postgres_port:
+            x-dct-toolkit-subcommand: postgres
+            type: integer
+            description: Port number for Postgres target database (postgres only).
+            minimum: 1
+            maximum: 65536
+          config_settings_stg:
+            x-dct-toolkit-subcommand: postgres
+            type: array
+            description: Custom Database-Level config settings (postgres only).
+            items:
+              $ref: '#/components/schemas/ConfigSettingsStg'
+          vcdb_restart:
+            x-dct-toolkit-subcommand: oracle
+            type: boolean
+            description: Indicates whether the Engine should automatically restart this vCDB when target host reboot is detected. If vdb_restart property value is not explicitly set and vcdb_restart is set as false - the vdb_restart property is defaulted to false.
+            example: true
+          mssql_failover_drive_letter:
+            x-dct-toolkit-subcommand: mssql
+            type: string
+            description: Base drive letter location for mount points. (MSSql Only).
+            minLength: 1
+            maxLength: 1
+          tags:
+            type: array
+            maxItems: 1000
+            description: The tags to be created for VDB.
+            items:
+              $ref: '#/components/schemas/Tag'
+            minItems: 1
+          invoke_datapatch:
+            x-dct-toolkit-subcommand: oracle
+            type: boolean
+            description: Whether to invoke datapatch during provisioning (Oracle Only).
+            example: false
+          container_mode:
+            x-dct-toolkit-subcommand: oracle
+            type: boolean
+            description: Whether the virtual database will be provisioned for a containerized environment, such as Linux containers.
+            example: false
+          mssql_ag_backup_location:
+            x-dct-toolkit-subcommand: mssql
+            type: string
+            description: Shared backup location to be used for VDB provision on AG Cluster.
+            example: shared_backup_location/location1
+          mssql_ag_backup_based:
+            x-dct-toolkit-subcommand: mssql
+            type: boolean
+            description: Indicates whether to do fast operations for VDB on AG which will use a healthy secondary replica to recreate the AG or backup based operations which will use the primary replica to recreate the AG using backup and restore process.
+            example: true
+          cache_priority:
+            description: When set to a value other than NORMAL (valid only for object storage engines) the engine will aggressively cache required data to ensure improved performance.
+            type: string
+            enum:
+            - NORMAL
+            - HIGH
+            example: HIGH
+          mssql_incremental_export_backup_frequency_minutes:
+            x-dct-toolkit-subcommand: mssql
+            type: integer
+            description: Frequency in minutes for incremental export backups for VDBs.
+            minimum: 10
+            example: 30
+      discriminator:
+        propertyName: class_type
+    VDBGroup:
+      description: A collection of virtual databases and datesets.
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          description: A unique identifier for the entity.
+          type: string
+          minLength: 1
+          maxLength: 256
+          readOnly: true
+          example: '123'
+        name:
+          description: A unique name for the entity.
+          type: string
+          minLength: 1
+          maxLength: 256
+          example: my-first-vdb-group
+        vdb_ids:
+          description: The list of VDB IDs in this VDB Group.
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 256
+          example:
+          - vdb-123
+          - vdb-456
+        is_locked:
+          description: Indicates whether the VDB Group is locked.
+          type: boolean
+          example: false
+        locked_by:
+          description: The Id of the account that locked the VDB Group.
+          type: integer
+          format: int64
+          example: 1
+        locked_by_name:
+          description: The name of the account that locked the VDB Group.
+          type: string
+          example: admin
+        vdb_group_source:
+          description: Source of the vdb group, default is DCT. In case of self-service container, this value would be ENGINE.
+          type: string
+          enum:
+          - DCT
+          - ENGINE
+        ss_data_layout_id:
+          description: Data-layout Id for engine-managed vdb groups.
+          type: string
+        vdbs:
+          type: array
+          description: Dictates order of operations on VDBs. Operations can be performed in parallel <br> for all VDBs or sequentially. Below are possible valid and invalid orderings given an example <br> VDB group with 3 vdbs (A, B, and C).<br> Valid:<br> {"vdb_id":"vdb-1", "order":"1"} {"vdb_id":"vdb-2", order:"1"} {vdb_id:"vdb-3", order:"1"} (parallel)<br> {vdb_id:"vdb-1", order:"1"} {vdb_id:"vdb-2", order:"2"} {vdb_id:"vdb-3", order:"3"} (sequential)<br> Invalid:<br> {vdb_id:"vdb-1", order:"A"} {vdb_id:"vdb-2", order:"B"} {vdb_id:"vdb-3", order:"C"} (sequential)<br><br> In the sequential case the vdbs with priority 1 is the first to be started and the last to<br> be stopped. This value is set on creation of VDB groups.
+          items:
+            $ref: '#/components/schemas/VDBOrder'
+        database_type:
+          description: The database type of the VDB Group. If all VDBs in the group are of the same database_type, this field will be set to that type. If the VDBs are of different database_type, this field will be set to 'Mixed'.
+          type: string
+          example: Oracle
+        status:
+          description: The status of the VDB Group. If all VDBs in the VDB Group have the same status, this field will be set to that status. If the VDBs have different statuses, this field will be set to 'Mixed'.
+          type: string
+          example: RUNNING
+        last_successful_refresh_to_bookmark_id:
+          description: The bookmark ID to which the VDB Group was last successfully refreshed.
+          type: string
+          example: bookmark-123
+        last_successful_refresh_time:
+          description: The time at which the VDB Group was last successfully refreshed.
+          type: string
+          format: date-time
+          example: '2021-05-01T08:51:34.148000Z'
+        logsync_enabled:
+          x-internal: true
+          description: True if LogSync is enabled for all of the VDBs.
+          type: boolean
+          example: true
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+      discriminator:
+        propertyName: class_type
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    RollbackVDBGroupParameters:
+      type: object
+      description: Parameters to rollback a VDB Group.
+      required:
+      - bookmark_id
+      properties:
+        bookmark_id:
+          type: string
+          minLength: 1
+          maxLength: 256
+          description: ID of a bookmark to rollback this VDB Group to.
+    EnableVDBGroupParameters:
+      type: object
+      description: Parameters to enable a VDB Group.
+      properties:
+        vdb_enable_param_mappings:
+          type: array
+          items:
+            $ref: '#/components/schemas/VDBEnableParametersMapping'
+    Hook:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 256
+          example: Print the current user
+        command:
+          type: string
+          minLength: 1
+          example: whoami
+        shell:
+          type: string
+          enum:
+          - bash
+          - shell
+          - expect
+          - ps
+          - psd
+          example: bash
+        element_id:
+          type: string
+          minLength: 1
+          maxLength: 256
+          example: '3'
+          description: Pass the element_id only when updating an existing hook, omit to create a new one.
+        has_credentials:
+          type: boolean
+          example: false
+        credentials_env_vars:
+          type: array
+          items:
+            $ref: '#/components/schemas/CredentialsEnvVariable'
+        hook_template_id:
+          type: string
+          example: Hook Template 1
+    RefreshVDBGroupParameters:
+      type: object
+      description: Parameters to refresh a VDB Group.
+      required:
+      - bookmark_id
+      properties:
+        bookmark_id:
+          type: string
+          minLength: 1
+          maxLength: 256
+          description: ID of a bookmark to refresh this VDB Group to.
+    OracleRacCustomEnvVar:
+      type: object
+      properties:
+        node_id:
+          type: string
+          minLength: 1
+          maxLength: 256
+        name:
+          type: string
+          minLength: 1
+          maxLength: 4096
+        value:
+          type: string
+          minLength: 1
+          maxLength: 4096
+    RefreshVDBGroupBySnapshotParameters:
+      type: object
+      description: Parameters to refresh a VDB Group by snapshot.
+      properties:
+        vdb_snapshot_mappings:
+          description: List of the pair of VDB and snapshot to refresh from. If this is not set, all VDBs will be refreshed from latest snapshot of their parent.
+          type: array
+          maxItems: 256
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/VDBGroupRefreshBySnapshot'
+    ProvisionVDBGroupFromBookmarkParameters:
+      required:
+      - name
+      - bookmark_id
+      - provision_parameters
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 256
+          description: Name of the created VDB group name.
+        bookmark_id:
+          type: string
+          minLength: 1
+          maxLength: 256
+          description: ID of a bookmark to provision this VDB Group from.
+        provision_parameters:
+          type: object
+          description: Provision parameters for each of the VDBs which will need to be provisioned. The key must be the vdb_id of the corresponding entry from the bookmark, and the value the provision parameters for the VDB which will be cloned from the bookmark.
+          additionalProperties:
+            $ref: '#/components/schemas/BaseProvisionVDBParameters'
+          example:
+            vdb_id1:
+              auto_select_repository: true
+            vdb_id2:
+              auto_select_repository: true
+        tags:
+          type: array
+          maxItems: 1000
+          description: The tags to be created for VDB Group.
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+        make_current_account_owner:
+          type: boolean
+          default: true
+          description: Whether the account provisioning this VDB group must be configured as owner of the VDB group.
+    DisableVDBGroupParameters:
+      type: object
+      description: Parameters to disable a VDB Group.
+      properties:
+        vdb_disable_param_mappings:
+          type: array
+          items:
+            $ref: '#/components/schemas/VDBDisableParametersMapping'
+    Snapshot:
+      description: Virtualization Engine Snapshot of a dSource or VDB.
+      type: object
+      properties:
+        id:
+          description: The Snapshot ID.
+          type: string
+          example: snapshot-123
+        engine_id:
+          description: The id of the engine the snapshot belongs to.
+          type: string
+          example: 1
+        namespace:
+          description: Alternate namespace for this object, for replicated and restored snapshots.
+          type: string
+          nullable: true
+          example: NAMESPACE-1
+        name:
+          description: The snapshot's name.
+          type: string
+          example: '@2023-02-02T14:30:00.589'
+        namespace_id:
+          description: The namespace id of this snapshot.
+          type: string
+          example: 1-NAMESPACE-1
+        namespace_name:
+          description: The namespace name of this snapshot.
+          type: string
+          example: test-engine-1
+        is_replica:
+          description: Is this a replicated object.
+          type: boolean
+          example: true
+        consistency:
+          description: Indicates what type of recovery strategies must be invoked when provisioning from this snapshot.
+          type: string
+          enum:
+          - CONSISTENT
+          - INCONSISTENT
+          - CRASH_CONSISTENT
+          - PLUGGABLE
+          example: CONSISTENT
+        missing_non_logged_data:
+          description: Indicates if a virtual database provisioned from this snapshot will be missing nologging changes.
+          type: boolean
+          example: false
+        dataset_id:
+          type: string
+          description: The ID of the Snapshot's dSource or VDB.
+          example: dataset-123
+        creation_time:
+          description: The time when the snapshot was created.
+          type: string
+          format: date-time
+          example: '2023-02-02T19:30:00.589Z'
+        start_timestamp:
+          description: 'The timestamp within the parent TimeFlow at which this snapshot was initiated. \
+
+            No recovery earlier than this point needs to be applied in order to provision a database from \
+
+            this snapshot. If start_timestamp equals timestamp, then no recovery needs to be \
+
+            applied in order to provision a database.
+
+            '
+          type: string
+          format: date-time
+          example: '2021-05-01T08:51:34.148000+00:00'
+        start_location:
+          description: 'The database specific indentifier within the parent TimeFlow at which this snapshot was initiated. \
+
+            No recovery earlier than this point needs to be applied in order to provision a database from \
+
+            this snapshot. If start_location equals location, then no recovery needs to be \
+
+            applied in order to provision a database.
+
+            '
+          type: string
+          example: '1178883'
+        timestamp:
+          description: The logical time of the data contained in this Snapshot.
+          type: string
+          format: date-time
+          example: '2021-05-01T08:51:34.148000+00:00'
+        location:
+          description: Database specific identifier for the data contained in this Snapshot, such as the Log Sequence Number (LSN) for MSsql databases, System Change Number (SCN) for Oracle databases.
+          type: string
+          example: '1178883'
+        retention:
+          description: Retention policy, in days. A value of -1 indicates the snapshot should be kept forever. Deprecated in favor of expiration and retain_forever.
+          deprecated: true
+          type: integer
+          format: int64
+          example: -1
+        expiration:
+          description: The expiration date of this snapshot. If this is unset and retain_forever is false, and the snapshot is not included in a Bookmark, the snapshot is subject to the retention policy of its dataset.
+          type: string
+          format: date
+          example: '2021-07-04'
+        retain_forever:
+          description: Indicates that the snapshot is protected from retention, i.e it will be kept forever. If false, see expiration.
+          type: boolean
+          example: false
+        effective_expiration:
+          description: The effective expiration is that max of the snapshot expiration and the expiration of any Bookmark which includes this snapshot.
+          type: string
+          format: date
+          example: '2021-07-04'
+        effective_retain_forever:
+          description: True if retain_forever is set or a Bookmark retains this snapshot forever.
+          type: boolean
+          example: false
+        timeflow_id:
+          description: The TimeFlow this snapshot was taken on.
+          type: string
+          example: 1-ORACLE_TIMEFLOW-1
+        timezone:
+          description: Time zone of the source database at the time the snapshot was taken.
+          type: string
+          example: America/New_York,EST-0500
+        version:
+          description: Version of database source repository at the time the snapshot was taken.
+          type: string
+          example: 11.2.0.4.0
+          nullable: true
+        temporary:
+          description: Indicates that this snapshot is in a transient state and should not be user visible.
+          type: boolean
+          example: false
+        appdata_toolkit:
+          description: The toolkit associated with this snapshot.
+          type: string
+          example: APPDATA_TOOLKIT-1
+        appdata_metadata:
+          description: The JSON payload conforming to the DraftV4 schema based on the type of application data being manipulated.
+          type: string
+          example: {}
+        ase_db_encryption_key:
+          description: Database encryption key present for this snapshot.
+          type: string
+          example: keyname
+        mssql_internal_version:
+          description: Internal version of the source database at the time the snapshot was taken.
+          type: integer
+          format: int32
+          example: 706
+        mssql_backup_set_uuid:
+          description: UUID of the source database backup that was restored for this snapshot.
+          type: string
+          example: 54290b71-58cd-463d-bd62-7219d4c4d2d5
+        mssql_backup_software_type:
+          description: Backup software used to restore the source database backup for this snapshot
+          type: string
+          enum:
+          - AZURE_NATIVE
+          - NATIVE
+          - LITESPEED
+          - REDGATE
+          - NETBACKUP
+          - COMMVAULT
+          example: NATIVE
+        mssql_backup_location_type:
+          description: Backup software used to restore the source database backup for this snapshot
+          type: string
+          enum:
+          - DISK
+          - AZURE
+          - BACKUP_SERVER
+          example: BACKUP_SERVER
+        mssql_empty_snapshot:
+          description: True if the staging push dSource snapshot is empty.
+          type: boolean
+          example: true
+        mssql_incremental_export_source_snapshot:
+          description: True if this snapshot belongs to Incremental VDB and can be used for Incremental V2P.
+          type: boolean
+          example: false
+        oracle_from_physical_standby_vdb:
+          description: True if this snapshot was taken of a standby database.
+          type: boolean
+          example: false
+        oracle_redo_log_size_in_bytes:
+          description: Online redo log size in bytes when this snapshot was taken.
+          type: integer
+          format: int64
+          example: 314572800
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    StartVDBGroupParameters:
+      type: object
+      description: Parameters to start a VDB Group.
+      properties:
+        vdb_start_param_mappings:
+          type: array
+          items:
+            $ref: '#/components/schemas/VDBStartParametersMapping'
+    StopVDBGroupParameters:
+      type: object
+      description: Parameters to stop a VDB Group.
+      properties:
+        vdb_stop_param_mappings:
+          type: array
+          items:
+            $ref: '#/components/schemas/VDBStopParametersMapping'
+    Job:
+      description: An asynchronous task.
+      type: object
+      properties:
+        id:
+          description: The Job entity ID.
+          type: string
+          example: job-123
+        status:
+          description: The status of the job.
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+          example: RUNNING
+        is_waiting_for_telemetry:
+          description: Indicates that the operations performed by this Job have completed successfully, but the object changes are not yet reflected. This is only set when when the JOB is in STARTED status, with the guarantee that the job will not transition to the FAILED status. Note that this flag will likely be replaced with a new status in future API versions and be deprecated.
+          type: boolean
+        type:
+          description: The type of job being done.
+          type: string
+          example: DB_REFRESH
+        localized_type:
+          description: The i18n translated type of job being done.
+          type: string
+          example: DB Refresh
+        error_details:
+          description: Details about the failure for FAILED jobs.
+          type: string
+          example: Unable to connect to the engine.
+        warning_message:
+          description: Warnings for the job.
+          type: string
+          example: 'Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.'
+        target_id:
+          description: A reference to the job's target.
+          type: string
+          example: vdb-123
+        target_name:
+          description: A reference to the job's target name.
+          type: string
+          example: vdb
+        start_time:
+          description: The time the job started executing.
+          type: string
+          format: date-time
+          example: '2022-01-02T05:11:24.148000+00:00'
+        update_time:
+          description: The time the job was last updated.
+          type: string
+          format: date-time
+          example: '2022-01-02T06:11:24.148000+00:00'
+        trace_id:
+          description: traceId of the request which created this Job
+          type: string
+        engine_ids:
+          description: IDs of the engines this Job is executing on.
+          type: array
+          items:
+            type: string
+          deprecated: true
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        engines:
+          type: array
+          items:
+            $ref: '#/components/schemas/Engine'
+        account_id:
+          description: The ID of the account who initiated this job.
+          type: integer
+          example: 1
+        account_name:
+          description: The account name which initiated this job. It can be either firstname and lastname combination or firstname or lastname or username or email address or Account-<id>.
+          type: string
+          example: User 1
+        compliance_node_id:
+          description: The ID of the associated compliance node, if applicable.
+          type: string
+          nullable: true
+        compliance_node_name:
+          description: The name of the associated compliance node, if applicable.
+          type: string
+          nullable: true
+        percent_complete:
+          description: Completion percentage of the Job.
+          type: integer
+          minimum: 0
+          maximum: 100
+          example: '50'
+        virtualization_tasks:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTask'
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTask'
+        execution_id:
+          description: The ID of the associated masking execution, if any.
+          type: string
+          nullable: true
+        result_type:
+          description: The type of the job result. This is the type of the object present in the result.
+          type: string
+        result:
+          description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
+          type: object
+      discriminator:
+        propertyName: class_type
+    VDBStopParametersMapping:
+      description: Parameters to stop a VDB.
+      allOf:
+      - $ref: '#/components/schemas/StopVDBParameters'
+      - type: object
+        required:
+        - vdb_id
+        properties:
+          vdb_id:
+            type: string
+            description: ID of the VDB to stop.
+    CredentialsEnvVariable:
+      required:
+      - base_var_name
+      properties:
+        base_var_name:
+          type: string
+          description: Base name of the environment variables. Variables are named by appending '_USER', '_PASSWORD', '_PUBKEY' and '_PRIVKEY' to this base name, respectively. Variables whose values are not entered or are not present in the type of credential or vault selected, will not be set.
+          minLength: 1
+          maxLength: 256
+        password:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: Password to assign to the environment variables.
+          minLength: 1
+          maxLength: 256
+          example: password
+        vault_username:
+          type: string
+          description: Delphix display name for the vault user.
+          minLength: 1
+          maxLength: 256
+          example: my-vault
+        vault:
+          type: string
+          description: The name or reference of the vault to assign to the environment variables.
+          minLength: 1
+          maxLength: 256
+          example: 1-VAULT-1
+        hashicorp_vault_engine:
+          type: string
+          description: Vault engine name where the credential is stored.
+          minLength: 1
+          maxLength: 256
+          example: kv
+        hashicorp_vault_secret_path:
+          type: string
+          description: Path in the vault engine where the credential is stored.
+          minLength: 1
+          maxLength: 256
+          example: oracle-env
+        hashicorp_vault_username_key:
+          type: string
+          description: Hashicorp vault key for the username in the key-value store.
+          minLength: 1
+          maxLength: 256
+          example: username
+        hashicorp_vault_secret_key:
+          type: string
+          description: Hashicorp vault key for the password in the key-value store.
+          minLength: 1
+          maxLength: 256
+          example: secret
+        azure_vault_name:
+          type: string
+          description: Azure key vault name.
+          minLength: 1
+          maxLength: 256
+          example: azure_vault
+        azure_vault_username_key:
+          type: string
+          description: Azure vault key in the key-value store.
+          minLength: 1
+          maxLength: 256
+          example: username
+        azure_vault_secret_key:
+          type: string
+          description: Azure vault key in the key-value store.
+          minLength: 1
+          maxLength: 256
+          example: secret
+        cyberark_vault_query_string:
+          type: string
+          description: Query to find a credential in the CyberArk vault.
+          minLength: 1
+          maxLength: 256
+          example: Safe=Test;Folder=Test;Object=Test
+        credential_type:
+          type: string
+          description: Credential type of the credential environment variable
+          minLength: 1
+          maxLength: 256
+          example: PasswordCredential
+        element_id:
+          type: string
+          description: Element ID of the credential environment variable. Omit to create a new credential. Include an existing element_id to update that credential. Any existing credential whose element_id is omitted from the request will be deleted. An element_id that does not match any existing credential is silently ignored.
+          minLength: 1
+          maxLength: 256
+          example: 35
+        type:
+          type: string
+          description: Type of the credential environment variable
+          minLength: 1
+          maxLength: 256
+          example: CredentialsEnvVars
+  parameters:
+    bookmarksSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: id
+      required: false
+      schema:
+        type: string
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - creation_date
+        - -creation_date
+        - vdb_ids
+        - -vdb_ids
+        - retention
+        - -retention
+        - expiration
+        - -expiration
+        - data_timestamp
+        - -data_timestamp
+        - timeflow_id
+        - -timeflow_id
+        - location
+        - -location
+        - vdb_group_name
+        - -vdb_group_name
+        - namespace_id
+        - -namespace_id
+        - namespace_name
+        - -namespace_name
+        - primary_object_id
+        - -primary_object_id
+        - primary_engine_id
+        - -primary_engine_id
+        - primary_engine_name
+        - -primary_engine_name
+        - primary_bookmark_expiration
+        - -primary_bookmark_expiration
+        nullable: true
+        example: name
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    vdbGroupIdParam:
+      in: path
+      name: vdbGroupId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 256
+      description: The ID or name of the VDB Group.
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+    vdbGroupsSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: id
+      required: false
+      schema:
+        type: string
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - locked_by
+        - -locked_by
+        - locked_by_name
+        - -locked_by_name
+        - database_type
+        - -database_type
+        - status
+        - -status
+        - last_successful_refresh_to_bookmark_id
+        - -last_successful_refresh_to_bookmark_id
+        - last_successful_refresh_time
+        - -last_successful_refresh_time
+        nullable: true
+        example: name
+  requestBodies:
+    ProvisionVDBGroupFromBookmark:
+      description: The parameters to provision a VDB group from a Bookmark.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ProvisionVDBGroupFromBookmarkParameters'
+          examples:
+            generic_minimum_request:
+              description: The above request example contains bare minimum properties needed to provision VdbGroup from a Bookmark
+              summary: Minimal Request
+              value:
+                name: vdb-group-1
+                bookmark_id: bookmark-id-1
+                provision_parameters:
+                  vdb_id1:
+                    auto_select_repository: true
+                  vdb_id2:
+                    auto_select_repository: true
+                tags:
+                - key: key1
+                  value: configValue1
+                make_current_account_owner: true
+            full_request:
+              description: The above request example contains all possible properties (across all dataplatforms)
+              summary: Full Request (all possible properties across all dataplatforms)
+              value:
+                name: vdb-group-1
+                bookmark_id: bookmark-id-1
+                provision_parameters:
+                  vdb_id1:
+                    target_group_id: group-123
+                    name: my-test-vdb
+                    database_name: my-test-database
+                    cdb_id: ORACLE_SINGLE_CONFIG-376
+                    cluster_node_ids:
+                    - ORACLE_CLUSTER_NODE-1
+                    cluster_node_instances:
+                    - node_reference: ORACLE_CLUSTER_NODE-1
+                      instance_number: 1
+                      instance_name: cluster_instance1
+                    truncate_log_on_checkpoint: true
+                    os_username: os-user-x
+                    os_password: os-user-secret-password
+                    environment_id: environment-123
+                    environment_user_id: environment-user-123
+                    repository_id: oracle-home-123
+                    auto_select_repository: true
+                    vdb_restart: true
+                    template_id: template-123
+                    auxiliary_template_id: aux-template-123
+                    file_mapping_rules: /datafile/dbdhcp3/oradata/dbdhcp3:/data\n/u03/app/ora11202/product/11.2.0/dbhome_1/dbs/dbv_R2V4.dbf:/data/dbv_R2V4.dbf
+                    oracle_instance_name: dbdhcp2
+                    unique_name: dbdhcp2
+                    vcdb_name: VCCD_6QQ
+                    vcdb_database_name: VCCD_6QQ
+                    mount_point: /var/mnt
+                    open_reset_logs: true
+                    snapshot_policy_id: snapshot-123
+                    retention_policy_id: retention-policy-123
+                    recovery_model: FULL
+                    pre_script: C:\\Program Files\\Delphix\\scripts\\myscript.ps1
+                    post_script: C:\\Program Files\\Delphix\\scripts\\myscript.ps1
+                    cdc_on_provision: true
+                    online_log_size: 4
+                    online_log_groups: 2
+                    archive_log: true
+                    new_dbid: true
+                    masked: true
+                    listener_ids:
+                    - listener-123
+                    - listener-456
+                    custom_env_vars:
+                      MY_ENV_VAR1: $ORACLE_HOME
+                      MY_ENV_VAR2: $CRS_HOME/after
+                    custom_env_files:
+                    - /export/home/env_file_1
+                    - /export/home/env_file_2
+                    oracle_rac_custom_env_files:
+                    - node_id: ORACLE_CLUSTER_NODE-1
+                      path_parameters: /export/home/env_file_1
+                    oracle_rac_custom_env_vars:
+                    - node_id: ORACLE_CLUSTER_NODE-1
+                      name: MY_ENV_VAR1
+                      value: $CRS_HOME/after
+                    parentTdeKeystorePath: /foo/bar/tde
+                    parent_tde_keystore_password: password
+                    tde_exported_key_file_secret: secret
+                    tde_key_identifier: tde-indentifier
+                    target_vcdb_tde_keystore_path: /foo/cdb/tde
+                    cdb_tde_keystore_password: cdb-password
+                    vcdb_tde_key_identifier: vcdb-identifier
+                    appdata_source_params:
+                      param: value
+                    additional_mount_points:
+                    - shared_path: /
+                      mount_path: /work
+                      environment_id: environment-123
+                    appdata_config_params:
+                      option: value
+                    config_params:
+                      processes: 150
+                    privileged_os_user: user-1
+                    postgres_port: 65536
+                    config_settings_stg:
+                    - property_name: null
+                      value: oYA@5GZTCxW*bO!8gqH*Xa_Z-xN.mZWu40u7xf0-
+                      comment_property: true
+                    vcdb_restart: true
+                    mssql_failover_drive_letter: s
+                tags:
+                - key: key1
+                  value: configValue1
+                make_current_account_owner: true
+    SearchBody:
+      x-skip-codegen-attr: description
+      description: 'A request body containing a filter expression. This enables searching
+
+        for items matching arbitrarily complex conditions. The list of
+
+        attributes which can be used in filter expressions is available
+
+        in the x-filterable vendor extension.
+
+
+        # Filter Expression Overview
+
+        **Note: All keywords are case-insensitive**
+
+
+        ## Comparison Operators
+
+        | Operator | Description | Example |
+
+        | --- | --- | --- |
+
+        | CONTAINS | Substring or membership testing for string and list attributes respectively. | field3 CONTAINS ''foobar'', field4 CONTAINS TRUE  |
+
+        | IN | Tests if field is a member of a list literal. List can contain a maximum of 100 values | field2 IN [''Goku'', ''Vegeta''] |
+
+        | GE | Tests if a field is greater than or equal to a literal value | field1 GE 1.2e-2 |
+
+        | GT | Tests if a field is greater than a literal value | field1 GT 1.2e-2 |
+
+        | LE | Tests if a field is less than or equal to a literal value | field1 LE 9000 |
+
+        | LT | Tests if a field is less than a literal value | field1 LT 9.02 |
+
+        | NE | Tests if a field is not equal to a literal value | field1 NE 42 |
+
+        | EQ | Tests if a field is equal to a literal value | field1 EQ 42 |
+
+
+        ## Search Operator
+
+        The SEARCH operator filters for items which have any filterable
+
+        attribute that contains the input string as a substring, comparison
+
+        is done case-insensitively. This is not restricted to attributes with
+
+        string values. Specifically `SEARCH ''12''` would match an item with an
+
+        attribute with an integer value of `123`.
+
+
+        ## Logical Operators
+
+        Ordered by precedence.
+
+        | Operator | Description | Example |
+
+        | --- | --- | --- |
+
+        | NOT | Logical NOT (Right associative) | NOT field1 LE 9000 |
+
+        | AND | Logical AND (Left Associative) | field1 GT 9000 AND field2 EQ ''Goku'' |
+
+        | OR | Logical OR (Left Associative) | field1 GT 9000 OR field2 EQ ''Goku'' |
+
+
+        ## Grouping
+
+        Parenthesis `()` can be used to override operator precedence.
+
+
+        For example:
+
+        NOT (field1 LT 1234 AND field2 CONTAINS ''foo'')
+
+
+        ## Literal Values
+
+        | Literal      | Description | Examples |
+
+        | --- | --- | --- |
+
+        | Nil | Represents the absence of a value | nil, Nil, nIl, NIL |
+
+        | Boolean | true/false boolean | true, false, True, False, TRUE, FALSE |
+
+        | Number | Signed integer and floating point numbers. Also supports scientific notation. | 0, 1, -1, 1.2, 0.35, 1.2e-2, -1.2e+2 |
+
+        | String | Single or double quoted | "foo", "bar", "foo bar", ''foo'', ''bar'', ''foo bar'' |
+
+        | Datetime | Formatted according to [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) | 2018-04-27T18:39:26.397237+00:00 |
+
+        | List | Comma-separated literals wrapped in square brackets | [0], [0, 1], [''foo'', "bar"] |
+
+
+        ## Limitations
+
+        - A maximum of 8 unique identifiers may be used inside a filter expression.
+
+        '
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SearchBody'
+          examples:
+            nested:
+              description: 'An example of a nested Object comparison testing that at least one repository has a
+
+                version which is equal to 19.0.0.
+
+                '
+              summary: Nested Object Comparison
+              value:
+                filter_expression: repositories CONTAINS {version eq '19.0.0'}
+            relative:
+              description: 'An example of a relative comparison testing that field1 has a
+
+                value which is less than 123.
+
+                '
+              summary: Relative comparison
+              value:
+                filter_expression: field1 LE 123
+            nil:
+              description: 'An example of using nil to test for the absence of a value for field2.
+
+                '
+              summary: Absence of an attribute value
+              value:
+                filter_expression: field2 EQ NIL
+            non-nil:
+              description: 'An example of using nil to test for the existence of a value for field2.
+
+                '
+              summary: Existence of an attribute value
+              value:
+                filter_expression: field2 NE NIL
+            contains:
+              description: 'An example of using the ''CONTAINS'' operator to check if
+
+                field2 contains the string ''foo''. If field2 is string valued
+
+                then this is checking if ''foo'' is a substring of field2. If
+
+                field2 is a list of strings then this is checking if ''foo''
+
+                is a member of the list.
+
+                '
+              summary: Use of the CONTAINS operator
+              value:
+                filter_expression: field2 CONTAINS 'foo'
+            in:
+              description: 'An example of using the ''IN'' operator to check if field1
+
+                is an element of a list literal.
+
+                '
+              summary: Use of the IN operator
+              value:
+                filter_expression: field1 IN [1, 2, 3]
+            search:
+              description: 'An example of using the ''SEARCH'' operator to retrieve all elements
+
+                for which ''foo'' is a substring of a filterable attribute.
+
+                '
+              summary: Use of the SEARCH operator
+              value:
+                filter_expression: SEARCH 'foo'
+            parenthesis:
+              description: 'An example of parenthesis being used to group operators & override
+
+                operator precedence.
+
+                '
+              summary: Overriding operator precedence
+              value:
+                filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
+    DeleteTags:
+      description: The parameters to delete tags
+      content:
+        application/json:
+          schema:
+            x-body-name: environment
+            $ref: '#/components/schemas/DeleteTag'
+          examples:
+            delete_all_tags:
+              description: Delete all tags for given object - No request body required
+              summary: Delete all tags
+              value: {}
+            delete_tags_by_key:
+              description: Delete all tags for given object with matching key
+              summary: Delete tags by key
+              value:
+                key: key-1
+            delete_tags_by_key_value:
+              description: Delete tag for given object with matching key and value
+              summary: Delete a tag by key & value
+              value:
+                key: key-1
+                value: value-1
+            delete_multiple_tags_by_key_value:
+              description: Delete tags for given list of tags with matching key and value
+              summary: Delete multiple tags by key & value
+              value:
+                tags:
+                - key: key-1
+                  value: value-1
+                - key: key-2
+                  value: value-2
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization

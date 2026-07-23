@@ -1,0 +1,1641 @@
+openapi: 3.0.0
+info:
+  title: Delphix DCT Algorithms Bookmarks API
+  version: 3.28.0
+  description: Delphix DCT API
+  contact:
+    name: Delphix Support
+    url: https://portal.perforce.com/s/
+    email: support@delphix.com
+servers:
+- url: /dct/v3
+security:
+- ApiKeyAuth: []
+tags:
+- name: Bookmarks
+paths:
+  /bookmarks:
+    get:
+      summary: List all bookmarks.
+      operationId: get_bookmarks
+      tags:
+      - Bookmarks
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/bookmarksSortParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ListBookmarksResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Bookmark'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+    post:
+      tags:
+      - Bookmarks
+      summary: Create a bookmark at the current time.
+      operationId: create_bookmark
+      requestBody:
+        $ref: '#/components/requestBodies/CreateBookmark'
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: CreateBookmarkResponse
+                properties:
+                  bookmark:
+                    $ref: '#/components/schemas/Bookmark'
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+  /bookmarks/search:
+    post:
+      summary: Search for bookmarks.
+      operationId: search_bookmarks
+      tags:
+      - Bookmarks
+      x-filterable:
+        fields:
+          id:
+            type: string
+          name:
+            type: string
+          creation_date:
+            type: date-time
+          data_timestamp:
+            type: date-time
+          vdb_ids:
+            type: array[string]
+          dsource_ids:
+            type: array[string]
+          retention:
+            type: integer
+          expiration:
+            type: date
+          bookmark_source:
+            type: string
+          bookmark_status:
+            type: string
+          ss_data_layout_id:
+            type: string
+          ss_bookmark_reference:
+            type: string
+          ss_bookmark_errors:
+            type: array[string]
+          bookmark_type:
+            type: string
+          timeflow_id:
+            type: date-time
+          location:
+            type: string
+          vdb_group_id:
+            type: string
+          vdb_group_name:
+            type: string
+          namespace_id:
+            type: string
+          namespace_name:
+            type: string
+          is_replica:
+            type: boolean
+          primary_object_id:
+            type: string
+          primary_engine_id:
+            type: string
+          primary_engine_name:
+            type: string
+          primary_bookmark_expiration:
+            type: date
+          replicas:
+            type: array[object]
+            fields:
+              replica_id:
+                type: string
+              replica_engine_id:
+                type: string
+              replica_engine_name:
+                type: string
+              replica_namespace_id:
+                type: string
+          vdbs:
+            type: array[object]
+            fields:
+              vdb_id:
+                type: string
+              vdb_name:
+                type: string
+              root_parent_id:
+                type: string
+              snapshot_id:
+                type: string
+              timeflow_id:
+                type: string
+              data_timestamp:
+                type: date-time
+          dsources:
+            type: array[object]
+            fields:
+              dsource_id:
+                type: string
+              dsource_name:
+                type: string
+              snapshot_id:
+                type: string
+              timeflow_id:
+                type: string
+              data_timestamp:
+                type: date-time
+          paas_databases:
+            type: array[object]
+            fields:
+              paas_database_id:
+                type: string
+              paas_database_name:
+                type: string
+              root_parent_id:
+                type: string
+              paas_snapshot_id:
+                type: string
+              data_timestamp:
+                type: date-time
+          paas_instances:
+            type: array[object]
+            fields:
+              paas_instance_id:
+                type: string
+              paas_instance_name:
+                type: string
+              root_parent_id:
+                type: string
+              paas_snapshot_id:
+                type: string
+              data_timestamp:
+                type: date-time
+          tags:
+            type: array[object]
+            fields:
+              key:
+                type: string
+              value:
+                type: string
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/bookmarksSortParam'
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: SearchBookmarksResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Bookmark'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /bookmarks/{bookmarkId}:
+    parameters:
+    - $ref: '#/components/parameters/bookmarkIdParam'
+    get:
+      summary: Get a bookmark by ID.
+      operationId: get_bookmark_by_id
+      tags:
+      - Bookmarks
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bookmark'
+    patch:
+      summary: Update a bookmark
+      operationId: update_bookmark
+      tags:
+      - Bookmarks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: update_bookmark_parameter
+              $ref: '#/components/schemas/UpdateBookmarkParameters'
+        description: The new data to update a Bookmark.
+      responses:
+        '200':
+          description: Bookmark update initiated.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: UpdateBookmarkResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+    delete:
+      summary: Delete a bookmark.
+      operationId: delete_bookmark
+      tags:
+      - Bookmarks
+      responses:
+        '200':
+          description: Bookmark deleted.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: DeleteBookmarkResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+  /bookmarks/{bookmarkId}/vdb-groups:
+    parameters:
+    - $ref: '#/components/parameters/bookmarkIdParam'
+    get:
+      summary: List VDB Groups compatible with this bookmark.
+      operationId: get_vdb_groups_by_bookmark
+      tags:
+      - Bookmarks
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/vdbGroupsSortParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ListVDBGroupsByBookmarkResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/VDBGroup'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /bookmarks/{bookmarkId}/vdb-groups/search:
+    parameters:
+    - $ref: '#/components/parameters/bookmarkIdParam'
+    post:
+      summary: Search for VDB Groups compatible with this bookmark.
+      operationId: search_vdb_groups_by_bookmark
+      tags:
+      - Bookmarks
+      x-filterable:
+        fields:
+          id:
+            type: string
+          name:
+            type: string
+          database_type:
+            type: string
+          status:
+            type: string
+          last_successful_refresh_to_bookmark_id:
+            type: string
+          last_successful_refresh_time:
+            type: string
+          vdb_ids:
+            type: array[string]
+          logsync_enabled:
+            x-internal: true
+            type: boolean
+          tags:
+            type: array[object]
+            fields:
+              key:
+                type: string
+              value:
+                type: string
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/vdbGroupsSortParam'
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: SearchVDBGroupsByBookmarkResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/VDBGroup'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /bookmarks/{bookmarkId}/tags:
+    parameters:
+    - $ref: '#/components/parameters/bookmarkIdParam'
+    post:
+      tags:
+      - Bookmarks
+      summary: Create tags for a Bookmark.
+      operationId: create_bookmark_tags
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: bookmark_tags
+              $ref: '#/components/schemas/TagsRequest'
+        description: Tags information for Bookmark.
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+    get:
+      tags:
+      - Bookmarks
+      summary: Get tags for a Bookmark.
+      operationId: get_bookmark_tags
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+  /bookmarks/{bookmarkId}/tags/delete:
+    parameters:
+    - $ref: '#/components/parameters/bookmarkIdParam'
+    post:
+      tags:
+      - Bookmarks
+      summary: Delete tags for a Bookmark.
+      operationId: delete_bookmark_tags
+      requestBody:
+        $ref: '#/components/requestBodies/DeleteTags'
+      responses:
+        '204':
+          description: No Content
+  /bookmarks/import-engine-bookmarks/{engineId}:
+    parameters:
+    - $ref: '#/components/parameters/engineIdParam'
+    post:
+      summary: Import engine bookmarks to DCT.
+      operationId: import_engine_bookmarks
+      tags:
+      - Bookmarks
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportEngineBookmarkResponse'
+components:
+  schemas:
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    BookmarkPaaSDatabases:
+      description: PaaS Database id and name associated with bookmark.
+      type: object
+      properties:
+        paas_database_id:
+          description: The PaaS Database id.
+          type: string
+          example: paas-database-id-1
+        paas_database_name:
+          description: The PaaS Database name.
+          type: string
+          example: paas-database-name
+        root_parent_id:
+          description: The root of the PaaS Database.
+          type: string
+          example: paas-instance-id-1
+        paas_snapshot_id:
+          description: The PaaS Snapshot id.
+          type: string
+          example: 1-SNAP-1
+        data_timestamp:
+          description: The timestamp of the PaaS Snapshot.
+          type: string
+          format: date-time
+          example: '2021-05-01T08:51:34.148000+00:00'
+    CreateVDBGroupOrder:
+      properties:
+        vdb_id:
+          description: Vdb id
+          type: string
+        order:
+          description: Dictates order of operations on VDBs. Operations can be performed in parallel <br> for all VDBs or sequentially. Below are possible valid and invalid orderings given an example <br> VDB group with 3 vdbs (A, B, and C).<br> Valid:<br> {"vdb_id":"vdb-1", "order":"1"} {"vdb_id":"vdb-2", order:"1"} {vdb_id:"vdb-3", order:"1"} (parallel)<br> {vdb_id:"vdb-1", order:"1"} {vdb_id:"vdb-2", order:"2"} {vdb_id:"vdb-3", order:"3"} (sequential)<br> Invalid:<br> {vdb_id:"vdb-1", order:"A"} {vdb_id:"vdb-2", order:"B"} {vdb_id:"vdb-3", order:"C"} (sequential)<br><br> In the sequential case the vdbs with priority 1 is the first to be started and the last to<br> be stopped. This value is set on creation of VDB groups.
+          type: integer
+          format: int32
+          default: 0
+      discriminator:
+        propertyName: class_type
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    BookmarkVDBs:
+      description: VDB id and name associated with bookmark.
+      type: object
+      properties:
+        vdb_id:
+          description: The VDB id.
+          type: string
+          example: vdb-id-1
+        vdb_name:
+          description: The VDB name.
+          type: string
+          example: vdb-name
+        snapshot_id:
+          description: The snapshot id.
+          type: string
+          example: 1-SNAP-1
+        source_data_timestamp:
+          description: The timestamp of origin timeline location.
+          type: string
+          format: date-time
+          example: '2021-05-01T08:51:34.148000+00:00'
+        root_parent_id:
+          description: The root of the VDB.
+          type: string
+          example: 1-DBCONTAINER-1
+        timeflow_id:
+          description: The timeflow id of the snapshot.
+          type: string
+        data_timestamp:
+          description: The bookmark timestamp of the VDB.
+          type: string
+          format: date-time
+    BookmarkCreateParameters:
+      description: A Data Control Tower object that references points in time for one or more datasets.
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          description: The user-defined name of this bookmark.
+          type: string
+          minLength: 1
+          maxLength: 256
+          example: my-bookmark-123
+        vdb_ids:
+          description: The IDs of the VDBs to create the Bookmark on. This parameter is mutually exclusive with snapshot_ids and timeflow_ids.
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+          example:
+          - vdb-123
+          - vdb-456
+        vdb_group_id:
+          description: The ID of the VDB group to create the Bookmark on. This parameter is mutually exclusive with vdb_ids.
+          type: string
+          minLength: 1
+          maxLength: 256
+          example: vdb-group-123
+        snapshot_ids:
+          description: 'The IDs of the snapshots that will be part of the Bookmark. This parameter is mutually exclusive with vdb_ids, timestamp, timestamp_in_database_timezone, location and timeflow_ids.
+
+            '
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+          example:
+          - snapshot-1
+          - snapshot-2
+        timeflow_ids:
+          description: The array of timeflow Id. Only allowed to set when timestamp, timestamp_in_database_timezone or location is provided.
+          items:
+            type: string
+          uniqueItems: true
+          example:
+          - timeflow-1
+          - timeflow-2
+        timestamp:
+          type: string
+          format: date-time
+          description: The point in time from which to execute the operation. Mutually exclusive with snapshot_ids, timestamp_in_database_timezone and location.
+          example: '2021-05-01T08:51:34.148000+00:00'
+        timestamp_in_database_timezone:
+          description: The point in time from which to execute the operation, expressed as a date-time in the timezone of the source database. Mutually exclusive with snapshot_ids, timestamp and location.
+          type: string
+          pattern: '[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(.[0-9]{0,3})?'
+          example: '2021-08-14T14:55:20.507'
+        location:
+          type: string
+          description: The location to create bookmark from. Mutually exclusive with snapshot_ids, timestamp, and timestamp_in_database_timezone.
+          minLength: 1
+          maxLength: 256
+          example: 112233
+        paas_snapshot_ids:
+          description: The IDs of the PaaS snapshot to create the Bookmark on. This parameter is mutually exclusive with vdb_ids, snapshot_ids and timeflow_ids.
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+          example:
+          - pass-snapshot-123
+        paas_database_ids:
+          description: The IDs of the PaaS Database associated with the PaaS snapshot. This parameter is mutually exclusive with vdb_ids, snapshot_ids, timeflow_ids and paas_snapshot_ids.
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+          example:
+          - paas-database-123
+        paas_instance_ids:
+          description: The IDs of the PaaS Instance associated with the PaaS Database. This parameter is mutually exclusive with vdb_ids, snapshot_ids, timeflow_ids, paas_snapshot_ids and paas_database_ids.
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+          example:
+          - paas-instance-123
+        retention:
+          description: The retention policy for this bookmark, in days. A value of -1 indicates the bookmark should be kept forever. Deprecated in favor of expiration and retain_forever.
+          type: integer
+          format: int64
+          example: 365
+          deprecated: true
+        expiration:
+          description: The expiration for this bookmark. Mutually exclusive with retention and retain_forever.
+          type: string
+          format: date
+          example: '2021-07-04'
+        retain_forever:
+          description: Indicates that the bookmark should be retained forever.
+          type: boolean
+          example: false
+        tags:
+          description: The tags to be created for this Bookmark.
+          type: array
+          items:
+            $ref: '#/components/schemas/CloudTag'
+          example:
+          - key: key-1
+            value: value-1
+          - key: key-2
+            value: value-2
+        bookmark_type:
+          description: Type of the bookmark, either PUBLIC or PRIVATE.
+          type: string
+          enum:
+          - PUBLIC
+          - PRIVATE
+          default: PRIVATE
+          example: PUBLIC
+        make_current_account_owner:
+          type: boolean
+          default: true
+          description: Whether the account creating this bookmark must be configured as owner of the bookmark.
+        inherit_parent_vdb_tags:
+          type: boolean
+          deprecated: true
+          default: false
+          description: This field has been deprecated in favour of new field 'inherit_parent_tags'.
+        inherit_parent_tags:
+          type: boolean
+          default: false
+          description: Whether this bookmark should inherit tags from the parent dataset.
+    CloudTag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        mirror_on_cloud:
+          description: Whether this tag is mirrored from/to the Cloud Provider account hosting the PaaS Database or Instance. Not applicable to non PaaS objects.
+          type: boolean
+          default: false
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    DeleteTag:
+      type: object
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        tags:
+          description: List of tags to be deleted
+          type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    BookmarkPaaSInstances:
+      description: PaaS Instance id and name associated with bookmark.
+      type: object
+      properties:
+        paas_instance_id:
+          description: The PaaS Instance id.
+          type: string
+          example: paas-instance-id-1
+        paas_instance_name:
+          description: The PaaS Instance name.
+          type: string
+          example: paas-instance-name
+        root_parent_id:
+          description: The root of the PaaS Instance.
+          type: string
+          example: paas-instance-root-id-1
+        paas_snapshot_id:
+          description: The PaaS Instance snapshot id.
+          type: string
+          example: 1-SNAP-1
+        data_timestamp:
+          description: The timestamp of the PaaS Instance snapshot.
+          type: string
+          format: date-time
+          example: '2021-05-01T08:51:34.148000+00:00'
+    VDBOrder:
+      allOf:
+      - $ref: '#/components/schemas/CreateVDBGroupOrder'
+      - type: object
+        properties:
+          vdb_name:
+            type: string
+          last_refresh_time_with_group_refresh:
+            description: The last time the VDB was successfully refreshed as a part of VDB Group refresh operation in UTC timezone.
+            type: string
+            format: date-time
+            example: '2022-05-29T15:00:00Z'
+          in_sync:
+            description: Indicates if the VDB is in sync with the VDB Group or not. If this VDB is was last refreshed as part of the VDB Group then this value will be true.
+            type: boolean
+    ImportEngineBookmarkResponse:
+      type: object
+      properties:
+        job_id:
+          deprecated: true
+          description: DCT job-id of the job that import the engine bookmarks to DCT.
+          type: string
+          example: job-1
+        job:
+          description: The job object.
+          $ref: '#/components/schemas/Job'
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    Replica:
+      properties:
+        replica_id:
+          description: The ID of the replicated object.
+          type: string
+          example: replica-1
+        replica_engine_id:
+          description: The ID of the replicated object's engine.
+          type: string
+          example: '1'
+        replica_engine_name:
+          description: The name of the replicated object's engine.
+          type: string
+          example: replica-e1
+        replica_namespace_id:
+          description: The namespace id of the replicated object.
+          type: string
+          example: namespace-1
+    VirtualizationTask:
+      deprecated: true
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    Bookmark:
+      description: A Data Control Tower object that references points in time for one or more datasets.
+      type: object
+      properties:
+        id:
+          description: The Bookmark object entity ID.
+          type: string
+          readOnly: true
+          example: bookmark-123
+        name:
+          description: The user-defined name of this bookmark.
+          type: string
+          minLength: 1
+          maxLength: 256
+          example: my-bookmark-123
+        creation_date:
+          description: The date and time that this bookmark was created.
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2021-07-04T08:51:34.148000+00:00'
+        data_timestamp:
+          description: The timestamp for the data that the bookmark refers to.
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2021-06-03T08:51:34.148000+00:00'
+        timeflow_id:
+          description: The timeflow for the snapshot that the bookmark was created of.
+          example: 1-TIMEFLOW-1
+          type: string
+        location:
+          description: The location for the data that the bookmark refers to.
+          type: string
+          example: '200000'
+        vdb_ids:
+          description: The list of VDB IDs associated with this bookmark.
+          type: array
+          items:
+            type: string
+          example:
+          - vdb-123
+          - vdb-456
+        dsource_ids:
+          description: The list of dSource IDs associated with this bookmark.
+          type: array
+          items:
+            type: string
+          example:
+          - dsource-123
+          - dsource-456
+        vdb_group_id:
+          description: The ID of the VDB group on which bookmark is created.
+          type: string
+          example: vdb-group-123
+        vdb_group_name:
+          description: The name of the VDB group on which bookmark is created.
+          type: string
+          example: my-vdb-group
+        vdbs:
+          description: The list of VDB IDs and VDB names associated with this bookmark.
+          type: array
+          items:
+            $ref: '#/components/schemas/BookmarkVDBs'
+        dsources:
+          description: The list of dSource IDs and dSource names associated with this bookmark.
+          type: array
+          items:
+            $ref: '#/components/schemas/BookmarkDSources'
+        paas_databases:
+          description: The list of PaaS Database IDs and PaaS Database names associated with this bookmark.
+          type: array
+          items:
+            $ref: '#/components/schemas/BookmarkPaaSDatabases'
+        paas_instances:
+          description: The list of PaaS Instance IDs and PaaS Instance names associated with this bookmark.
+          type: array
+          items:
+            $ref: '#/components/schemas/BookmarkPaaSInstances'
+        retention:
+          description: The retention policy for this bookmark, in days. A value of -1 indicates the bookmark should be kept forever. Deprecated in favor of expiration.
+          type: integer
+          format: int64
+          example: 365
+          deprecated: true
+        expiration:
+          description: The expiration for this bookmark. When unset, indicates the bookmark is kept forever except for bookmarks of replicated datasets. Expiration cannot be set for bookmarks of replicated datasets.
+          type: string
+          format: date
+          example: '2021-07-04'
+        status:
+          description: A message with details about operation progress or state of this bookmark.
+          type: string
+          nullable: true
+          readOnly: true
+          example: RESTORED
+        replicated_dataset:
+          description: Whether this bookmark is created from a replicated dataset or not.
+          type: boolean
+        bookmark_source:
+          description: Source of the bookmark, default is DCT. In case of self-service bookmarks, this value would be ENGINE.
+          type: string
+          enum:
+          - DCT
+          - ENGINE
+        bookmark_status:
+          description: Status of the bookmark. It can have INACTIVE value for engine bookmarks only. If this value is INACTIVE then ss_bookmark_errors would have the list of associated errors.
+          type: string
+          enum:
+          - ACTIVE
+          - INACTIVE
+          - CREATING
+          - DELETING
+        ss_data_layout_id:
+          description: Data-layout Id for engine-managed bookmarks.
+          type: string
+        ss_bookmark_reference:
+          description: Engine reference of the self-service bookmark.
+          type: string
+        ss_bookmark_errors:
+          description: List of errors if any, during bookmark creation in DCT from self-service.
+          type: array
+          items:
+            type: string
+          example:
+          - No snapshots found for JS_BOOKMARK-1 at timestamp 2021-07-04T08:51:34.148
+        bookmark_type:
+          description: Type of the bookmark, either PUBLIC or PRIVATE.
+          type: string
+          enum:
+          - PUBLIC
+          - PRIVATE
+          default: PRIVATE
+          example: PRIVATE
+        namespace_id:
+          description: The namespace id of this bookmark.
+          type: string
+          example: 1-NAMESPACE-1
+        namespace_name:
+          description: The namespace name of this bookmark.
+          type: string
+          example: test-engine-1
+        is_replica:
+          description: Is this a replicated bookmark.
+          type: boolean
+          example: true
+        primary_object_id:
+          description: Id of the parent bookmark from which this bookmark was replicated.
+          type: string
+        primary_engine_id:
+          description: The ID of the parent engine from which replication was done.
+          type: string
+        primary_engine_name:
+          description: The name of the parent engine from which replication was done.
+          type: string
+        primary_bookmark_expiration:
+          description: The expiration for the primary bookmark.
+          type: string
+          format: date
+          example: '2021-07-04'
+        replicas:
+          description: The list of replicas replicated from this object.
+          type: array
+          items:
+            $ref: '#/components/schemas/Replica'
+        tags:
+          description: The tags to be created for this Bookmark.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          example:
+          - key: key-1
+            value: value-1
+          - key: key-2
+            value: value-2
+    BookmarkDSources:
+      description: dSource id and name associated with bookmark.
+      type: object
+      properties:
+        dsource_id:
+          description: The dSource id.
+          type: string
+          example: dsource-id-1
+        dsource_name:
+          description: The dSource name.
+          type: string
+          example: dsource-name
+        snapshot_id:
+          description: The snapshot id.
+          type: string
+          example: 1-SNAP-1
+        timeflow_id:
+          description: The timeflow id.
+          type: string
+          example: 1-ORACLE-TIMEFLOW-1
+        data_timestamp:
+          description: The bookmark timestamp of the dSource.
+          type: string
+          format: date-time
+    VDBGroup:
+      description: A collection of virtual databases and datesets.
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          description: A unique identifier for the entity.
+          type: string
+          minLength: 1
+          maxLength: 256
+          readOnly: true
+          example: '123'
+        name:
+          description: A unique name for the entity.
+          type: string
+          minLength: 1
+          maxLength: 256
+          example: my-first-vdb-group
+        vdb_ids:
+          description: The list of VDB IDs in this VDB Group.
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 256
+          example:
+          - vdb-123
+          - vdb-456
+        is_locked:
+          description: Indicates whether the VDB Group is locked.
+          type: boolean
+          example: false
+        locked_by:
+          description: The Id of the account that locked the VDB Group.
+          type: integer
+          format: int64
+          example: 1
+        locked_by_name:
+          description: The name of the account that locked the VDB Group.
+          type: string
+          example: admin
+        vdb_group_source:
+          description: Source of the vdb group, default is DCT. In case of self-service container, this value would be ENGINE.
+          type: string
+          enum:
+          - DCT
+          - ENGINE
+        ss_data_layout_id:
+          description: Data-layout Id for engine-managed vdb groups.
+          type: string
+        vdbs:
+          type: array
+          description: Dictates order of operations on VDBs. Operations can be performed in parallel <br> for all VDBs or sequentially. Below are possible valid and invalid orderings given an example <br> VDB group with 3 vdbs (A, B, and C).<br> Valid:<br> {"vdb_id":"vdb-1", "order":"1"} {"vdb_id":"vdb-2", order:"1"} {vdb_id:"vdb-3", order:"1"} (parallel)<br> {vdb_id:"vdb-1", order:"1"} {vdb_id:"vdb-2", order:"2"} {vdb_id:"vdb-3", order:"3"} (sequential)<br> Invalid:<br> {vdb_id:"vdb-1", order:"A"} {vdb_id:"vdb-2", order:"B"} {vdb_id:"vdb-3", order:"C"} (sequential)<br><br> In the sequential case the vdbs with priority 1 is the first to be started and the last to<br> be stopped. This value is set on creation of VDB groups.
+          items:
+            $ref: '#/components/schemas/VDBOrder'
+        database_type:
+          description: The database type of the VDB Group. If all VDBs in the group are of the same database_type, this field will be set to that type. If the VDBs are of different database_type, this field will be set to 'Mixed'.
+          type: string
+          example: Oracle
+        status:
+          description: The status of the VDB Group. If all VDBs in the VDB Group have the same status, this field will be set to that status. If the VDBs have different statuses, this field will be set to 'Mixed'.
+          type: string
+          example: RUNNING
+        last_successful_refresh_to_bookmark_id:
+          description: The bookmark ID to which the VDB Group was last successfully refreshed.
+          type: string
+          example: bookmark-123
+        last_successful_refresh_time:
+          description: The time at which the VDB Group was last successfully refreshed.
+          type: string
+          format: date-time
+          example: '2021-05-01T08:51:34.148000Z'
+        logsync_enabled:
+          x-internal: true
+          description: True if LogSync is enabled for all of the VDBs.
+          type: boolean
+          example: true
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+      discriminator:
+        propertyName: class_type
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    UpdateBookmarkParameters:
+      type: object
+      description: Parameters to update a Bookmark.
+      properties:
+        name:
+          description: The user-defined name of this bookmark.
+          type: string
+          minLength: 1
+          maxLength: 256
+          example: my-bookmark-123
+        expiration:
+          description: The expiration for this Bookmark. Mutually exclusive with retain_forever.
+          type: string
+          format: date
+          example: '2021-07-04'
+        retain_forever:
+          description: Indicates that the Bookmark should be retained forever.
+          type: boolean
+          example: false
+        bookmark_type:
+          description: Type of the bookmark, either PUBLIC or PRIVATE.
+          type: string
+          enum:
+          - PUBLIC
+          - PRIVATE
+    Job:
+      description: An asynchronous task.
+      type: object
+      properties:
+        id:
+          description: The Job entity ID.
+          type: string
+          example: job-123
+        status:
+          description: The status of the job.
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+          example: RUNNING
+        is_waiting_for_telemetry:
+          description: Indicates that the operations performed by this Job have completed successfully, but the object changes are not yet reflected. This is only set when when the JOB is in STARTED status, with the guarantee that the job will not transition to the FAILED status. Note that this flag will likely be replaced with a new status in future API versions and be deprecated.
+          type: boolean
+        type:
+          description: The type of job being done.
+          type: string
+          example: DB_REFRESH
+        localized_type:
+          description: The i18n translated type of job being done.
+          type: string
+          example: DB Refresh
+        error_details:
+          description: Details about the failure for FAILED jobs.
+          type: string
+          example: Unable to connect to the engine.
+        warning_message:
+          description: Warnings for the job.
+          type: string
+          example: 'Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.'
+        target_id:
+          description: A reference to the job's target.
+          type: string
+          example: vdb-123
+        target_name:
+          description: A reference to the job's target name.
+          type: string
+          example: vdb
+        start_time:
+          description: The time the job started executing.
+          type: string
+          format: date-time
+          example: '2022-01-02T05:11:24.148000+00:00'
+        update_time:
+          description: The time the job was last updated.
+          type: string
+          format: date-time
+          example: '2022-01-02T06:11:24.148000+00:00'
+        trace_id:
+          description: traceId of the request which created this Job
+          type: string
+        engine_ids:
+          description: IDs of the engines this Job is executing on.
+          type: array
+          items:
+            type: string
+          deprecated: true
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        engines:
+          type: array
+          items:
+            $ref: '#/components/schemas/Engine'
+        account_id:
+          description: The ID of the account who initiated this job.
+          type: integer
+          example: 1
+        account_name:
+          description: The account name which initiated this job. It can be either firstname and lastname combination or firstname or lastname or username or email address or Account-<id>.
+          type: string
+          example: User 1
+        compliance_node_id:
+          description: The ID of the associated compliance node, if applicable.
+          type: string
+          nullable: true
+        compliance_node_name:
+          description: The name of the associated compliance node, if applicable.
+          type: string
+          nullable: true
+        percent_complete:
+          description: Completion percentage of the Job.
+          type: integer
+          minimum: 0
+          maximum: 100
+          example: '50'
+        virtualization_tasks:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTask'
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTask'
+        execution_id:
+          description: The ID of the associated masking execution, if any.
+          type: string
+          nullable: true
+        result_type:
+          description: The type of the job result. This is the type of the object present in the result.
+          type: string
+        result:
+          description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
+          type: object
+      discriminator:
+        propertyName: class_type
+  parameters:
+    bookmarkIdParam:
+      in: path
+      name: bookmarkId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the Bookmark.
+    engineIdParam:
+      in: path
+      name: engineId
+      schema:
+        type: string
+      required: true
+      description: The ID of the registered engine.
+    bookmarksSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: id
+      required: false
+      schema:
+        type: string
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - creation_date
+        - -creation_date
+        - vdb_ids
+        - -vdb_ids
+        - retention
+        - -retention
+        - expiration
+        - -expiration
+        - data_timestamp
+        - -data_timestamp
+        - timeflow_id
+        - -timeflow_id
+        - location
+        - -location
+        - vdb_group_name
+        - -vdb_group_name
+        - namespace_id
+        - -namespace_id
+        - namespace_name
+        - -namespace_name
+        - primary_object_id
+        - -primary_object_id
+        - primary_engine_id
+        - -primary_engine_id
+        - primary_engine_name
+        - -primary_engine_name
+        - primary_bookmark_expiration
+        - -primary_bookmark_expiration
+        nullable: true
+        example: name
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+    vdbGroupsSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: id
+      required: false
+      schema:
+        type: string
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - locked_by
+        - -locked_by
+        - locked_by_name
+        - -locked_by_name
+        - database_type
+        - -database_type
+        - status
+        - -status
+        - last_successful_refresh_to_bookmark_id
+        - -last_successful_refresh_to_bookmark_id
+        - last_successful_refresh_time
+        - -last_successful_refresh_time
+        nullable: true
+        example: name
+  requestBodies:
+    SearchBody:
+      x-skip-codegen-attr: description
+      description: 'A request body containing a filter expression. This enables searching
+
+        for items matching arbitrarily complex conditions. The list of
+
+        attributes which can be used in filter expressions is available
+
+        in the x-filterable vendor extension.
+
+
+        # Filter Expression Overview
+
+        **Note: All keywords are case-insensitive**
+
+
+        ## Comparison Operators
+
+        | Operator | Description | Example |
+
+        | --- | --- | --- |
+
+        | CONTAINS | Substring or membership testing for string and list attributes respectively. | field3 CONTAINS ''foobar'', field4 CONTAINS TRUE  |
+
+        | IN | Tests if field is a member of a list literal. List can contain a maximum of 100 values | field2 IN [''Goku'', ''Vegeta''] |
+
+        | GE | Tests if a field is greater than or equal to a literal value | field1 GE 1.2e-2 |
+
+        | GT | Tests if a field is greater than a literal value | field1 GT 1.2e-2 |
+
+        | LE | Tests if a field is less than or equal to a literal value | field1 LE 9000 |
+
+        | LT | Tests if a field is less than a literal value | field1 LT 9.02 |
+
+        | NE | Tests if a field is not equal to a literal value | field1 NE 42 |
+
+        | EQ | Tests if a field is equal to a literal value | field1 EQ 42 |
+
+
+        ## Search Operator
+
+        The SEARCH operator filters for items which have any filterable
+
+        attribute that contains the input string as a substring, comparison
+
+        is done case-insensitively. This is not restricted to attributes with
+
+        string values. Specifically `SEARCH ''12''` would match an item with an
+
+        attribute with an integer value of `123`.
+
+
+        ## Logical Operators
+
+        Ordered by precedence.
+
+        | Operator | Description | Example |
+
+        | --- | --- | --- |
+
+        | NOT | Logical NOT (Right associative) | NOT field1 LE 9000 |
+
+        | AND | Logical AND (Left Associative) | field1 GT 9000 AND field2 EQ ''Goku'' |
+
+        | OR | Logical OR (Left Associative) | field1 GT 9000 OR field2 EQ ''Goku'' |
+
+
+        ## Grouping
+
+        Parenthesis `()` can be used to override operator precedence.
+
+
+        For example:
+
+        NOT (field1 LT 1234 AND field2 CONTAINS ''foo'')
+
+
+        ## Literal Values
+
+        | Literal      | Description | Examples |
+
+        | --- | --- | --- |
+
+        | Nil | Represents the absence of a value | nil, Nil, nIl, NIL |
+
+        | Boolean | true/false boolean | true, false, True, False, TRUE, FALSE |
+
+        | Number | Signed integer and floating point numbers. Also supports scientific notation. | 0, 1, -1, 1.2, 0.35, 1.2e-2, -1.2e+2 |
+
+        | String | Single or double quoted | "foo", "bar", "foo bar", ''foo'', ''bar'', ''foo bar'' |
+
+        | Datetime | Formatted according to [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) | 2018-04-27T18:39:26.397237+00:00 |
+
+        | List | Comma-separated literals wrapped in square brackets | [0], [0, 1], [''foo'', "bar"] |
+
+
+        ## Limitations
+
+        - A maximum of 8 unique identifiers may be used inside a filter expression.
+
+        '
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SearchBody'
+          examples:
+            nested:
+              description: 'An example of a nested Object comparison testing that at least one repository has a
+
+                version which is equal to 19.0.0.
+
+                '
+              summary: Nested Object Comparison
+              value:
+                filter_expression: repositories CONTAINS {version eq '19.0.0'}
+            relative:
+              description: 'An example of a relative comparison testing that field1 has a
+
+                value which is less than 123.
+
+                '
+              summary: Relative comparison
+              value:
+                filter_expression: field1 LE 123
+            nil:
+              description: 'An example of using nil to test for the absence of a value for field2.
+
+                '
+              summary: Absence of an attribute value
+              value:
+                filter_expression: field2 EQ NIL
+            non-nil:
+              description: 'An example of using nil to test for the existence of a value for field2.
+
+                '
+              summary: Existence of an attribute value
+              value:
+                filter_expression: field2 NE NIL
+            contains:
+              description: 'An example of using the ''CONTAINS'' operator to check if
+
+                field2 contains the string ''foo''. If field2 is string valued
+
+                then this is checking if ''foo'' is a substring of field2. If
+
+                field2 is a list of strings then this is checking if ''foo''
+
+                is a member of the list.
+
+                '
+              summary: Use of the CONTAINS operator
+              value:
+                filter_expression: field2 CONTAINS 'foo'
+            in:
+              description: 'An example of using the ''IN'' operator to check if field1
+
+                is an element of a list literal.
+
+                '
+              summary: Use of the IN operator
+              value:
+                filter_expression: field1 IN [1, 2, 3]
+            search:
+              description: 'An example of using the ''SEARCH'' operator to retrieve all elements
+
+                for which ''foo'' is a substring of a filterable attribute.
+
+                '
+              summary: Use of the SEARCH operator
+              value:
+                filter_expression: SEARCH 'foo'
+            parenthesis:
+              description: 'An example of parenthesis being used to group operators & override
+
+                operator precedence.
+
+                '
+              summary: Overriding operator precedence
+              value:
+                filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
+    DeleteTags:
+      description: The parameters to delete tags
+      content:
+        application/json:
+          schema:
+            x-body-name: environment
+            $ref: '#/components/schemas/DeleteTag'
+          examples:
+            delete_all_tags:
+              description: Delete all tags for given object - No request body required
+              summary: Delete all tags
+              value: {}
+            delete_tags_by_key:
+              description: Delete all tags for given object with matching key
+              summary: Delete tags by key
+              value:
+                key: key-1
+            delete_tags_by_key_value:
+              description: Delete tag for given object with matching key and value
+              summary: Delete a tag by key & value
+              value:
+                key: key-1
+                value: value-1
+            delete_multiple_tags_by_key_value:
+              description: Delete tags for given list of tags with matching key and value
+              summary: Delete multiple tags by key & value
+              value:
+                tags:
+                - key: key-1
+                  value: value-1
+                - key: key-2
+                  value: value-2
+    CreateBookmark:
+      description: The parameters to create a bookmark.
+      content:
+        application/json:
+          schema:
+            x-body-name: bookmark
+            $ref: '#/components/schemas/BookmarkCreateParameters'
+      required: true
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization

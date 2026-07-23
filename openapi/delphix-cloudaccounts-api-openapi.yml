@@ -1,0 +1,722 @@
+openapi: 3.0.0
+info:
+  title: Delphix DCT Algorithms CloudAccounts API
+  version: 3.28.0
+  description: Delphix DCT API
+  contact:
+    name: Delphix Support
+    url: https://portal.perforce.com/s/
+    email: support@delphix.com
+servers:
+- url: /dct/v3
+security:
+- ApiKeyAuth: []
+tags:
+- name: CloudAccounts
+paths:
+  /cloud-accounts:
+    get:
+      summary: List all Cloud Accounts.
+      operationId: get_cloud_accounts
+      tags:
+      - CloudAccounts
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/cloudAccountSortParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ListCloudAccountsResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CloudAccount'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+    post:
+      summary: Create a new Cloud Account
+      operationId: create_cloud_account
+      tags:
+      - CloudAccounts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: create_cloud_account_parameter
+              $ref: '#/components/schemas/CreateCloudAccountParameters'
+        description: The parameters to create a Cloud Account.
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: CreateCloudAccountResponse
+                properties:
+                  cloud_account:
+                    $ref: '#/components/schemas/CloudAccount'
+  /cloud-accounts/{cloudAccountId}:
+    parameters:
+    - $ref: '#/components/parameters/cloudAccountIdParam'
+    patch:
+      summary: Update an existing Cloud Account
+      operationId: update_cloud_account
+      tags:
+      - CloudAccounts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: update_cloud_account_parameter
+              $ref: '#/components/schemas/UpdateCloudAccountParameters'
+        description: The parameters to update an Cloud Account.
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: UpdateCloudAccountResponse
+                properties:
+                  cloud_account:
+                    $ref: '#/components/schemas/CloudAccount'
+  /cloud-accounts/{cloudAccountId}/metadata:
+    parameters:
+    - $ref: '#/components/parameters/cloudAccountIdParam'
+    post:
+      summary: Cloud Account metadata
+      operationId: get_cloud_account_metadata
+      tags:
+      - CloudAccounts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: discover_paas_db_parameter
+              $ref: '#/components/schemas/CloudAccountMetadataParameters'
+        description: The parameters to get operation specific metadata.
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CloudAccountMetadata'
+  /cloud-accounts/{cloudAccountId}/tags:
+    parameters:
+    - $ref: '#/components/parameters/cloudAccountIdParam'
+    post:
+      tags:
+      - CloudAccounts
+      summary: Create tags for a Cloud Account.
+      operationId: create_cloud_account_tags
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: cloud_account_tags
+              $ref: '#/components/schemas/TagsRequest'
+        description: Tags information for Cloud Account.
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+    get:
+      tags:
+      - CloudAccounts
+      summary: Get tags for a Cloud Account.
+      operationId: get_cloud_account_tags
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+  /cloud-accounts/{cloudAccountId}/tags/delete:
+    parameters:
+    - $ref: '#/components/parameters/cloudAccountIdParam'
+    post:
+      tags:
+      - CloudAccounts
+      summary: Delete tags for a Cloud Account.
+      operationId: delete_cloud_account_tags
+      requestBody:
+        $ref: '#/components/requestBodies/DeleteTags'
+      responses:
+        '204':
+          description: No Content
+  /cloud-accounts/search:
+    post:
+      summary: Search for Cloud Accounts.
+      operationId: search_cloud_accounts
+      tags:
+      - CloudAccounts
+      x-filterable:
+        fields:
+          id:
+            type: string
+          name:
+            type: string
+          region:
+            type: string
+          plugin_id:
+            type: string
+          plugin_name:
+            type: string
+          connection_status:
+            type: string
+          connection_status_details:
+            type: string
+          tags:
+            type: array[object]
+            fields:
+              key:
+                type: string
+              value:
+                type: string
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/cloudAccountSortParam'
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: SearchCloudAccountsResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CloudAccount'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /cloud-accounts/{cloudAccountId}/delete:
+    post:
+      parameters:
+      - $ref: '#/components/parameters/cloudAccountIdParam'
+      operationId: delete_cloud_account
+      tags:
+      - CloudAccounts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: cloud_account_delete_parameters
+              $ref: '#/components/schemas/CloudAccountDeleteParameters'
+        description: Optional parameters to delete a Cloud Account.
+        required: false
+      responses:
+        '204':
+          description: No Content
+components:
+  schemas:
+    CloudAccountMetadataParameters:
+      description: Parameters to get metadata for a Cloud Account.
+      type: object
+      required:
+      - source_instance_id
+      properties:
+        target_cloud_account_id:
+          type: string
+          description: The ID of the Cloud Account to provision or refresh the instance into.
+        source_instance_id:
+          type: string
+          description: The ID of the source instance used to filter metadata.
+        operation_type:
+          description: optional operation type to filter the result for that operation only.
+          type: string
+          enum:
+          - PROVISION
+          - REFRESH
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    CloudAccount:
+      description: A Cloud Account.
+      type: object
+      properties:
+        id:
+          description: The Cloud Account object entity ID.
+          type: string
+          example: db-123
+        name:
+          description: The Cloud Account name.
+          type: string
+          example: my-db-123
+        region:
+          description: The PaaS provider region of the Cloud Account.
+          type: string
+          example: us-west-2
+        plugin_id:
+          description: Id of the PaaS plugin which manages this Environment.
+          type: string
+          example: my-db-123
+        plugin_name:
+          description: Name of the plugin.
+          type: string
+          example: AWS
+        connection_status:
+          description: The state of the connection to the Cloud Account.
+          type: string
+          enum:
+          - ONLINE
+          - CONNECTION_ERROR
+        connection_status_details:
+          description: If set, details about the status of the connection to the Cloud Account.
+          type: string
+        account_parameters:
+          description: 'The plugin parameters for this Cloud Account. Sensitive fields (marked x-sensitive in the plugin schema) are masked with ******.
+
+            '
+          type: object
+          nullable: true
+          additionalProperties: true
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    CloudAccountDeleteParameters:
+      description: Parameters to delete a Cloud Account.
+      type: object
+      properties:
+        force_delete:
+          description: Whether to force delete the Cloud Account. Allows a Cloud Account to be deleted even in the presence of managed objects by not trying to delete them, at the risk of leaving the PaaS Databases and Instances orphaned.
+          type: boolean
+          default: false
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    DeleteTag:
+      type: object
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        tags:
+          description: List of tags to be deleted
+          type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    CloudAccountParameters:
+      description: Parameters to create a Cloud Account.
+      type: object
+      properties:
+        region:
+          description: The PaaS provider region of the environment. Each environment is restricted to managing PaaS Databases and snapshots in a single region.
+          type: string
+          example: us-west-2
+          minLength: 1
+          maxLength: 1024
+        name:
+          description: The Environment name.
+          type: string
+          example: my-env-123
+          minLength: 1
+          maxLength: 256
+        account_parameters:
+          description: The parameters specified by the plugin schema for Cloud Accounts.
+          type: object
+          nullable: true
+          additionalProperties: true
+          example:
+            foo: bar
+    UpdateCloudAccountParameters:
+      description: Parameters to update a Cloud Account.
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/CloudAccountParameters'
+    CreateCloudAccountParameters:
+      description: Parameters to create a Cloud Account.
+      type: object
+      required:
+      - name
+      - plugin_id
+      - account_parameters
+      - region
+      allOf:
+      - $ref: '#/components/schemas/CloudAccountParameters'
+      - type: object
+        properties:
+          make_current_account_owner:
+            type: boolean
+            default: true
+            description: Whether the account creating this environment must be configured as owner of the environment.
+          plugin_id:
+            description: The ID of the plugin for which to create the Environment.
+            type: string
+            example: plugin-123
+            minLength: 1
+            maxLength: 256
+          tags:
+            type: array
+            maxItems: 1000
+            description: The tags to be created for Cloud Account.
+            items:
+              $ref: '#/components/schemas/Tag'
+            minItems: 1
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    CloudAccountMetadata:
+      description: Cloud Account metadata parameters.
+      type: object
+      properties:
+        metadata:
+          description: metadata of Cloud Account.
+          type: string
+  requestBodies:
+    SearchBody:
+      x-skip-codegen-attr: description
+      description: 'A request body containing a filter expression. This enables searching
+
+        for items matching arbitrarily complex conditions. The list of
+
+        attributes which can be used in filter expressions is available
+
+        in the x-filterable vendor extension.
+
+
+        # Filter Expression Overview
+
+        **Note: All keywords are case-insensitive**
+
+
+        ## Comparison Operators
+
+        | Operator | Description | Example |
+
+        | --- | --- | --- |
+
+        | CONTAINS | Substring or membership testing for string and list attributes respectively. | field3 CONTAINS ''foobar'', field4 CONTAINS TRUE  |
+
+        | IN | Tests if field is a member of a list literal. List can contain a maximum of 100 values | field2 IN [''Goku'', ''Vegeta''] |
+
+        | GE | Tests if a field is greater than or equal to a literal value | field1 GE 1.2e-2 |
+
+        | GT | Tests if a field is greater than a literal value | field1 GT 1.2e-2 |
+
+        | LE | Tests if a field is less than or equal to a literal value | field1 LE 9000 |
+
+        | LT | Tests if a field is less than a literal value | field1 LT 9.02 |
+
+        | NE | Tests if a field is not equal to a literal value | field1 NE 42 |
+
+        | EQ | Tests if a field is equal to a literal value | field1 EQ 42 |
+
+
+        ## Search Operator
+
+        The SEARCH operator filters for items which have any filterable
+
+        attribute that contains the input string as a substring, comparison
+
+        is done case-insensitively. This is not restricted to attributes with
+
+        string values. Specifically `SEARCH ''12''` would match an item with an
+
+        attribute with an integer value of `123`.
+
+
+        ## Logical Operators
+
+        Ordered by precedence.
+
+        | Operator | Description | Example |
+
+        | --- | --- | --- |
+
+        | NOT | Logical NOT (Right associative) | NOT field1 LE 9000 |
+
+        | AND | Logical AND (Left Associative) | field1 GT 9000 AND field2 EQ ''Goku'' |
+
+        | OR | Logical OR (Left Associative) | field1 GT 9000 OR field2 EQ ''Goku'' |
+
+
+        ## Grouping
+
+        Parenthesis `()` can be used to override operator precedence.
+
+
+        For example:
+
+        NOT (field1 LT 1234 AND field2 CONTAINS ''foo'')
+
+
+        ## Literal Values
+
+        | Literal      | Description | Examples |
+
+        | --- | --- | --- |
+
+        | Nil | Represents the absence of a value | nil, Nil, nIl, NIL |
+
+        | Boolean | true/false boolean | true, false, True, False, TRUE, FALSE |
+
+        | Number | Signed integer and floating point numbers. Also supports scientific notation. | 0, 1, -1, 1.2, 0.35, 1.2e-2, -1.2e+2 |
+
+        | String | Single or double quoted | "foo", "bar", "foo bar", ''foo'', ''bar'', ''foo bar'' |
+
+        | Datetime | Formatted according to [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) | 2018-04-27T18:39:26.397237+00:00 |
+
+        | List | Comma-separated literals wrapped in square brackets | [0], [0, 1], [''foo'', "bar"] |
+
+
+        ## Limitations
+
+        - A maximum of 8 unique identifiers may be used inside a filter expression.
+
+        '
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SearchBody'
+          examples:
+            nested:
+              description: 'An example of a nested Object comparison testing that at least one repository has a
+
+                version which is equal to 19.0.0.
+
+                '
+              summary: Nested Object Comparison
+              value:
+                filter_expression: repositories CONTAINS {version eq '19.0.0'}
+            relative:
+              description: 'An example of a relative comparison testing that field1 has a
+
+                value which is less than 123.
+
+                '
+              summary: Relative comparison
+              value:
+                filter_expression: field1 LE 123
+            nil:
+              description: 'An example of using nil to test for the absence of a value for field2.
+
+                '
+              summary: Absence of an attribute value
+              value:
+                filter_expression: field2 EQ NIL
+            non-nil:
+              description: 'An example of using nil to test for the existence of a value for field2.
+
+                '
+              summary: Existence of an attribute value
+              value:
+                filter_expression: field2 NE NIL
+            contains:
+              description: 'An example of using the ''CONTAINS'' operator to check if
+
+                field2 contains the string ''foo''. If field2 is string valued
+
+                then this is checking if ''foo'' is a substring of field2. If
+
+                field2 is a list of strings then this is checking if ''foo''
+
+                is a member of the list.
+
+                '
+              summary: Use of the CONTAINS operator
+              value:
+                filter_expression: field2 CONTAINS 'foo'
+            in:
+              description: 'An example of using the ''IN'' operator to check if field1
+
+                is an element of a list literal.
+
+                '
+              summary: Use of the IN operator
+              value:
+                filter_expression: field1 IN [1, 2, 3]
+            search:
+              description: 'An example of using the ''SEARCH'' operator to retrieve all elements
+
+                for which ''foo'' is a substring of a filterable attribute.
+
+                '
+              summary: Use of the SEARCH operator
+              value:
+                filter_expression: SEARCH 'foo'
+            parenthesis:
+              description: 'An example of parenthesis being used to group operators & override
+
+                operator precedence.
+
+                '
+              summary: Overriding operator precedence
+              value:
+                filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
+    DeleteTags:
+      description: The parameters to delete tags
+      content:
+        application/json:
+          schema:
+            x-body-name: environment
+            $ref: '#/components/schemas/DeleteTag'
+          examples:
+            delete_all_tags:
+              description: Delete all tags for given object - No request body required
+              summary: Delete all tags
+              value: {}
+            delete_tags_by_key:
+              description: Delete all tags for given object with matching key
+              summary: Delete tags by key
+              value:
+                key: key-1
+            delete_tags_by_key_value:
+              description: Delete tag for given object with matching key and value
+              summary: Delete a tag by key & value
+              value:
+                key: key-1
+                value: value-1
+            delete_multiple_tags_by_key_value:
+              description: Delete tags for given list of tags with matching key and value
+              summary: Delete multiple tags by key & value
+              value:
+                tags:
+                - key: key-1
+                  value: value-1
+                - key: key-2
+                  value: value-2
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    cloudAccountIdParam:
+      in: path
+      name: cloudAccountId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the Cloud Account.
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+    cloudAccountSortParam:
+      name: sort
+      in: query
+      description: 'The field to sort results by. A property name with a prepended ''-'' signifies descending order.
+
+        '
+      required: false
+      schema:
+        type: string
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - plugin_id
+        - -plugin_id
+        - plugin_name
+        - -plugin_name
+        - region
+        - -region
+        - connection_status
+        - -connection_status
+        - connection_status_details
+        - -connection_status_details
+        nullable: true
+        example: name
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization

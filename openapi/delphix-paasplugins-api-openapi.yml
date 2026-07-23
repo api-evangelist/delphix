@@ -1,0 +1,309 @@
+openapi: 3.0.0
+info:
+  title: Delphix DCT Algorithms PaaSPlugins API
+  version: 3.28.0
+  description: Delphix DCT API
+  contact:
+    name: Delphix Support
+    url: https://portal.perforce.com/s/
+    email: support@delphix.com
+servers:
+- url: /dct/v3
+security:
+- ApiKeyAuth: []
+tags:
+- name: PaaSPlugins
+paths:
+  /paas-plugins:
+    get:
+      summary: List all registered PaaS plugins.
+      operationId: get_paas_plugins
+      tags:
+      - PaaSPlugins
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/paasPluginSortParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ListPaaSPluginsResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PaaSPlugin'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /paas-plugins/{paaSPluginId}/tags:
+    parameters:
+    - $ref: '#/components/parameters/paaSPluginIdParam'
+    post:
+      tags:
+      - PaaSPlugins
+      summary: Create tags for a PaaS plugin.
+      operationId: create_paas_plugin_tags
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: paas_plugin_tags
+              $ref: '#/components/schemas/TagsRequest'
+        description: Tags information for PaaS Plugin.
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+    get:
+      tags:
+      - PaaSPlugins
+      summary: Get tags for a PaaS Plugin.
+      operationId: get_paas_plugin_tags
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+  /paas-plugins/{paaSPluginId}/tags/delete:
+    parameters:
+    - $ref: '#/components/parameters/paaSPluginIdParam'
+    post:
+      tags:
+      - PaaSPlugins
+      summary: Delete tags for a PaaS Plugin.
+      operationId: delete_paas_plugin_tags
+      requestBody:
+        $ref: '#/components/requestBodies/DeleteTags'
+      responses:
+        '204':
+          description: No Content
+components:
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    paaSPluginIdParam:
+      in: path
+      name: paaSPluginId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the PaaS Plugin.
+    paasPluginSortParam:
+      name: sort
+      in: query
+      description: 'The field to sort results by. A property name with a prepended ''-'' signifies descending order.
+
+        '
+      required: false
+      schema:
+        type: string
+        enum:
+        - id
+        - -id
+        - unique_identifier
+        - -unique_identifier
+        - name
+        - -name
+        - version
+        - -version
+        nullable: true
+        example: name
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+  schemas:
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    DeleteTag:
+      type: object
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        tags:
+          description: List of tags to be deleted
+          type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+    PaaSPlugin:
+      description: A plugin to manage PaaS Databases.
+      type: object
+      properties:
+        id:
+          description: The PaaS Plugin object entity ID.
+          type: string
+          example: db-123
+        unique_identifier:
+          description: A unique identifier for this plugin type.
+          type: string
+          example: my-db-123
+        name:
+          description: A user friendly name describing this plugin type.
+          type: string
+          example: my-db-123
+        schema:
+          description: The JSON schema of this plugin optional parameters and properties.
+          type: string
+          example: my-db-123
+        version:
+          description: The version of the currently installed instance of this plugin.
+          type: string
+          example: my-db-123
+        operation_target:
+          description: Whether this Instance's PaaS plugin operates at the instance or database level for operations such as snapshotting, provisioning and refresh.
+          type: string
+          enum:
+          - PAAS_INSTANCE
+          - PAAS_DATABASE
+        regions:
+          description: The list of cloud regions where this plugin can operate.
+          type: array
+          items:
+            $ref: '#/components/schemas/PluginRegion'
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    PluginRegion:
+      description: A cloud region where a PaaS plugin can operate.
+      type: object
+      required:
+      - value
+      - label
+      properties:
+        value:
+          description: The unique identifier for the region (e.g., "us-west-2", "eastus").
+          type: string
+          minLength: 1
+          maxLength: 256
+          example: us-west-2
+        label:
+          description: The human-readable label for the region (e.g., "US West Oregon", "East US").
+          type: string
+          minLength: 1
+          maxLength: 256
+          example: US West Oregon
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+  requestBodies:
+    DeleteTags:
+      description: The parameters to delete tags
+      content:
+        application/json:
+          schema:
+            x-body-name: environment
+            $ref: '#/components/schemas/DeleteTag'
+          examples:
+            delete_all_tags:
+              description: Delete all tags for given object - No request body required
+              summary: Delete all tags
+              value: {}
+            delete_tags_by_key:
+              description: Delete all tags for given object with matching key
+              summary: Delete tags by key
+              value:
+                key: key-1
+            delete_tags_by_key_value:
+              description: Delete tag for given object with matching key and value
+              summary: Delete a tag by key & value
+              value:
+                key: key-1
+                value: value-1
+            delete_multiple_tags_by_key_value:
+              description: Delete tags for given list of tags with matching key and value
+              summary: Delete multiple tags by key & value
+              value:
+                tags:
+                - key: key-1
+                  value: value-1
+                - key: key-2
+                  value: value-2
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization

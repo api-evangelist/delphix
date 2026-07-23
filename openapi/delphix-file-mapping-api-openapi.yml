@@ -1,0 +1,250 @@
+openapi: 3.0.0
+info:
+  title: Delphix DCT Algorithms File Mapping API
+  version: 3.28.0
+  description: Delphix DCT API
+  contact:
+    name: Delphix Support
+    url: https://portal.perforce.com/s/
+    email: support@delphix.com
+servers:
+- url: /dct/v3
+security:
+- ApiKeyAuth: []
+tags:
+- name: File Mapping
+paths:
+  /file-mapping/validate-file-mapping-by-snapshot:
+    post:
+      summary: Validate file mapping using snapshots
+      tags:
+      - File Mapping
+      operationId: get_file_mapping_by_snapshot
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FileMappingSnapshotParameters'
+      responses:
+        '200':
+          description: Database file mapping validation result by snapshot
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileMappingResult'
+  /file-mapping/validate-file-mapping-by-location:
+    post:
+      summary: Validate file mapping using location
+      tags:
+      - File Mapping
+      operationId: get_file_mapping_by_location
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FileMappingLocationParameters'
+      responses:
+        '200':
+          description: Database file mapping validation result by location
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileMappingResult'
+  /file-mapping/validate-file-mapping-by-timestamp:
+    post:
+      summary: Validate file mapping using timestamp
+      tags:
+      - File Mapping
+      operationId: get_file_mapping_by_timestamp
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FileMappingTimestampParameters'
+      responses:
+        '200':
+          description: Database file mapping validation result by timestamp
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileMappingResult'
+  /file-mapping/validate-file-mapping-by-bookmark:
+    post:
+      summary: Validate file mapping using bookmark
+      tags:
+      - File Mapping
+      operationId: get_file_mapping_by_bookmark
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FileMappingBookmarkParameters'
+      responses:
+        '200':
+          description: Database file mapping validation result by bookmark
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileMappingResult'
+components:
+  schemas:
+    FileMappingSnapshotParameters:
+      description: Parameters to validate file mapping using VDB snapshot.
+      type: object
+      required:
+      - file_mapping_rules
+      - snapshot_ids
+      properties:
+        snapshot_ids:
+          description: The list of snapshots to use for source files to be mapped.
+          type: array
+          items:
+            type: string
+          minItems: 1
+        file_mapping_rules:
+          type: string
+          description: File mapping rules for the VDB provisioning.
+          minLength: 1
+        file_system_layout:
+          $ref: '#/components/schemas/FilesystemLayoutParameters'
+          description: The filesystem configuration of the MSSQL database.
+          x-dct-toolkit-subcommand: mssql
+    FilesystemLayoutParameters:
+      type: object
+      properties:
+        type:
+          x-internal: true
+          type: string
+          description: The type of the filesystem layout.
+          example: OracleFilesystemLayout
+        targetDirectory:
+          type: string
+          description: The base directory to use for the exported database.
+          example: /work/v2pdb
+        dataDirectory:
+          type: string
+          description: The directory for data files.
+          example: /work/v2pdb/data
+        archiveDirectory:
+          type: string
+          description: The directory for archive files.
+          example: /work/v2pdb/archive
+        externalDirectory:
+          type: string
+          description: The directory for external files.
+          example: /work/v2pdb/external
+        tempDirectory:
+          type: string
+          description: The directory for temporary files.
+          example: /work/v2pdb/temp
+        scriptDirectory:
+          type: string
+          description: The directory for script files.
+          example: /work/v2pdb/script
+        useAbsolutePathForDataFiles:
+          type: boolean
+          description: Whether to use absolute path for data files (Oracle only).
+          example: false
+      discriminator:
+        propertyName: class_type
+    FileMappingResult:
+      description: Contains the file mapping information for database files.
+      type: object
+      properties:
+        mapped_files:
+          type: object
+          description: A mapping of source file paths to destination file paths.
+          additionalProperties:
+            type: string
+    FileMappingTimestampParameters:
+      description: Parameters to validate file mapping using timestamp.
+      type: object
+      required:
+      - source_data_id
+      - file_mapping_rules
+      - timestamps
+      properties:
+        source_data_id:
+          type: string
+          description: The ID of the source object (dSource or VDB) to provision from.
+          minLength: 1
+          maxLength: 256
+          example: 1-source-123
+        timestamps:
+          description: The list of timestamps to use for source files to be mapped.
+          type: array
+          items:
+            type: string
+            format: date-time
+            description: The timestamp for the timeflow point.
+            example: '2025-08-19T22:01:44.000Z'
+          minItems: 1
+        file_mapping_rules:
+          type: string
+          description: File mapping rules for the VDB provisioning.
+          minLength: 1
+        file_system_layout:
+          $ref: '#/components/schemas/FilesystemLayoutParameters'
+          description: The filesystem configuration of the MSSQL database.
+          x-dct-toolkit-subcommand: mssql
+    FileMappingLocationParameters:
+      description: Parameters to validate file mapping using location.
+      type: object
+      required:
+      - source_data_id
+      - file_mapping_rules
+      - locations
+      properties:
+        source_data_id:
+          type: string
+          description: The ID of the source object (dSource or VDB) to provision from.
+          minLength: 1
+          maxLength: 256
+          example: 1-source-123
+        locations:
+          description: The list of locations to use for source files to be mapped.
+          type: array
+          items:
+            type: string
+          minItems: 1
+        file_mapping_rules:
+          type: string
+          description: File mapping rules for the VDB provisioning.
+          minLength: 1
+        file_system_layout:
+          $ref: '#/components/schemas/FilesystemLayoutParameters'
+          description: The filesystem configuration of the MSSQL database.
+          x-dct-toolkit-subcommand: mssql
+    FileMappingBookmarkParameters:
+      description: Parameters to validate file mapping using bookmark.
+      type: object
+      required:
+      - bookmark_ids
+      - file_mapping_rules
+      properties:
+        bookmark_ids:
+          description: The list of bookmark IDs to use for file mapping.
+          type: array
+          items:
+            type: string
+          minItems: 1
+          example:
+          - 1-bookmark-123
+          - 1-bookmark-456
+        file_mapping_rules:
+          type: string
+          description: File mapping rules for the VDB provisioning.
+          minLength: 1
+        file_system_layout:
+          $ref: '#/components/schemas/FilesystemLayoutParameters'
+          description: The filesystem configuration of the MSSQL database.
+          x-dct-toolkit-subcommand: mssql
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization

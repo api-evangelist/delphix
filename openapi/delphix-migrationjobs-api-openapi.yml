@@ -1,0 +1,54 @@
+openapi: 3.0.0
+info:
+  title: Delphix DCT Algorithms MigrationJobs API
+  version: 3.28.0
+  description: Delphix DCT API
+  contact:
+    name: Delphix Support
+    url: https://portal.perforce.com/s/
+    email: support@delphix.com
+servers:
+- url: /dct/v3
+security:
+- ApiKeyAuth: []
+tags:
+- name: MigrationJobs
+paths:
+  /migrate-job/re-run:
+    x-internal: true
+    post:
+      tags:
+      - MigrationJobs
+      summary: Re-run the migration job manually.
+      operationId: migrate_rerun
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: migrate_rerun_request
+              $ref: '#/components/schemas/MigrateJobRerunRequest'
+        description: The api to rerun the migration job manually.
+        required: true
+      responses:
+        '200':
+          description: OK
+components:
+  schemas:
+    MigrateJobRerunRequest:
+      title: MigrateJobRerunRequest
+      type: object
+      description: Parameter to re-run the migration job
+      required:
+      - job_type
+      properties:
+        job_type:
+          description: Job name to rerun.
+          type: string
+          enum:
+          - MIGRATE_BOOKMARK_SNAPSHOTS
+          example: MIGRATE_BOOKMARK_SNAPSHOTS
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization

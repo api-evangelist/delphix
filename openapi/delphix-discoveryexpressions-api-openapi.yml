@@ -1,0 +1,610 @@
+openapi: 3.0.0
+info:
+  title: Delphix DCT Algorithms DiscoveryExpressions API
+  version: 3.28.0
+  description: Delphix DCT API
+  contact:
+    name: Delphix Support
+    url: https://portal.perforce.com/s/
+    email: support@delphix.com
+servers:
+- url: /dct/v3
+security:
+- ApiKeyAuth: []
+tags:
+- name: DiscoveryExpressions
+paths:
+  /discovery-expressions:
+    get:
+      tags:
+      - DiscoveryExpressions
+      summary: Retrieve discovery expressions.
+      operationId: get_discovery_expressions
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/discoveryExpressionsSortParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: DiscoveryExpressionsListResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DiscoveryExpression'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /discovery-expressions/search:
+    post:
+      tags:
+      - DiscoveryExpressions
+      summary: Search discovery expressions.
+      operationId: search_discovery_expressions
+      x-filterable:
+        fields:
+          id:
+            type: string
+          name:
+            type: string
+          regular_expression:
+            type: string
+          data_level_profiling:
+            type: boolean
+          min_data_length:
+            type: integer
+          engine_id:
+            type: string
+          engine_name:
+            type: string
+          data_class_id:
+            type: string
+          data_class_name:
+            type: string
+          data_type:
+            type: string
+            enum:
+            - String
+            - Number
+            - Date
+            - Binary
+          expression_type:
+            type: string
+            enum:
+            - SEARCH
+            - TYPE
+          level:
+            type: string
+            enum:
+            - DATA
+            - COLUMN
+            - TYPE
+          tags:
+            type: array[object]
+            fields:
+              key:
+                type: string
+              value:
+                type: string
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/discoveryExpressionsSortParam'
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: DiscoveryExpressionsSearchResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DiscoveryExpression'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /discovery-expressions/{expressionId}:
+    parameters:
+    - $ref: '#/components/parameters/discoveryExpressionIdParam'
+    get:
+      tags:
+      - DiscoveryExpressions
+      summary: Get a discovery expression by ID.
+      operationId: get_discovery_expression_by_id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscoveryExpression'
+  /discovery-expressions/{expressionId}/tags:
+    parameters:
+    - $ref: '#/components/parameters/discoveryExpressionIdParam'
+    get:
+      tags:
+      - DiscoveryExpressions
+      summary: Get tags for a discovery expression.
+      operationId: get_discovery_expression_tags
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+    post:
+      tags:
+      - DiscoveryExpressions
+      summary: Create tags for a discovery expression.
+      operationId: create_discovery_expression_tags
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: discovery_expression_tags
+              $ref: '#/components/schemas/TagsRequest'
+        description: Tags information for discovery expression.
+        required: true
+      responses:
+        '201':
+          description: Discovery expression tags created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+  /discovery-expressions/{expressionId}/tags/delete:
+    parameters:
+    - $ref: '#/components/parameters/discoveryExpressionIdParam'
+    post:
+      tags:
+      - DiscoveryExpressions
+      summary: Delete tags for a discovery expression.
+      operationId: delete_discovery_expression_tags
+      requestBody:
+        $ref: '#/components/requestBodies/DeleteTags'
+      responses:
+        '204':
+          description: No Content
+components:
+  schemas:
+    DiscoveryExpression:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The id of the discovery expression.
+          example: 5ff0dab4-368c-4d57-8b61-9a09b6e80f42
+        name:
+          type: string
+          description: The name of the discovery expression.
+          example: my expression
+        regular_expression:
+          type: string
+          description: The regular expression that will be used to match against column/field names or data values during the execution of a discovery job. Only applicable for SEARCH expressions.
+          example: .*
+        data_level_profiling:
+          type: boolean
+          description: This field determines whether the discovery expression will be targeted at the underlying data in a data source (e.g. row values in the database column / field values in the file), or whether the discovery expression will be targeted at the schema of the data source (e.g. column names in a database table or field names in a file). Data-Level profiling consumes more memory than Column-Name-Level/Field-Name-Level profiling due to the fact that the discovery expression must be checked against a larger number of data values (e.g. hundreds) than column/field names (i.e. one). Only applicable for SEARCH expressions.
+          example: true
+        min_data_length:
+          type: integer
+          description: Minimum length of the value for string types. Only applicable for TYPE expressions.
+          example: 1
+        engine_id:
+          type: string
+          description: The id of the engine associated with this discovery expression.
+          example: 5ff0dab4-368c-4d57-8b61-9a09b6e80f42
+        engine_name:
+          type: string
+          description: The name of the engine associated with this discovery expression.
+          example: my engine
+        data_class_id:
+          type: string
+          description: The id of the data class associated with this discovery expression.
+          example: 6b5c4d3e-2a1b-4c3d-5e6f-7a8b9c0d1e2f
+        data_class_name:
+          type: string
+          description: The name of the data class associated with this discovery expression.
+          example: My Domain
+        data_type:
+          type: string
+          enum:
+          - String
+          - Number
+          - Date
+          - Binary
+          description: Data type to apply a constraint to. Only applicable for TYPE expressions.
+          example: String
+        expression_type:
+          type: string
+          enum:
+          - SEARCH
+          - TYPE
+          description: The type of the discovery expression.
+          example: SEARCH
+        level:
+          type: string
+          enum:
+          - DATA
+          - COLUMN
+          - TYPE
+          description: The level of data sources this discovery expression will be targeted.
+          example: DATA
+        tags:
+          description: The tags of this discovery expression.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    DeleteTag:
+      type: object
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        tags:
+          description: List of tags to be deleted
+          type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+  parameters:
+    discoveryExpressionIdParam:
+      in: path
+      name: expressionId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the discovery expression.
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    discoveryExpressionsSortParam:
+      name: sort
+      in: query
+      description: The
+      example: id
+      required: false
+      schema:
+        type: string
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - regular_expression
+        - -regular_expression
+        - data_level_profiling
+        - -data_level_profiling
+        - min_data_length
+        - -min_data_length
+        - engine_id
+        - -engine_id
+        - engine_name
+        - -engine_name
+        - data_class_id
+        - -data_class_id
+        - data_class_name
+        - -data_class_name
+        - data_type
+        - -data_type
+        - expression_type
+        - -expression_type
+        - level
+        - -level
+        nullable: true
+        example: name
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+  requestBodies:
+    SearchBody:
+      x-skip-codegen-attr: description
+      description: 'A request body containing a filter expression. This enables searching
+
+        for items matching arbitrarily complex conditions. The list of
+
+        attributes which can be used in filter expressions is available
+
+        in the x-filterable vendor extension.
+
+
+        # Filter Expression Overview
+
+        **Note: All keywords are case-insensitive**
+
+
+        ## Comparison Operators
+
+        | Operator | Description | Example |
+
+        | --- | --- | --- |
+
+        | CONTAINS | Substring or membership testing for string and list attributes respectively. | field3 CONTAINS ''foobar'', field4 CONTAINS TRUE  |
+
+        | IN | Tests if field is a member of a list literal. List can contain a maximum of 100 values | field2 IN [''Goku'', ''Vegeta''] |
+
+        | GE | Tests if a field is greater than or equal to a literal value | field1 GE 1.2e-2 |
+
+        | GT | Tests if a field is greater than a literal value | field1 GT 1.2e-2 |
+
+        | LE | Tests if a field is less than or equal to a literal value | field1 LE 9000 |
+
+        | LT | Tests if a field is less than a literal value | field1 LT 9.02 |
+
+        | NE | Tests if a field is not equal to a literal value | field1 NE 42 |
+
+        | EQ | Tests if a field is equal to a literal value | field1 EQ 42 |
+
+
+        ## Search Operator
+
+        The SEARCH operator filters for items which have any filterable
+
+        attribute that contains the input string as a substring, comparison
+
+        is done case-insensitively. This is not restricted to attributes with
+
+        string values. Specifically `SEARCH ''12''` would match an item with an
+
+        attribute with an integer value of `123`.
+
+
+        ## Logical Operators
+
+        Ordered by precedence.
+
+        | Operator | Description | Example |
+
+        | --- | --- | --- |
+
+        | NOT | Logical NOT (Right associative) | NOT field1 LE 9000 |
+
+        | AND | Logical AND (Left Associative) | field1 GT 9000 AND field2 EQ ''Goku'' |
+
+        | OR | Logical OR (Left Associative) | field1 GT 9000 OR field2 EQ ''Goku'' |
+
+
+        ## Grouping
+
+        Parenthesis `()` can be used to override operator precedence.
+
+
+        For example:
+
+        NOT (field1 LT 1234 AND field2 CONTAINS ''foo'')
+
+
+        ## Literal Values
+
+        | Literal      | Description | Examples |
+
+        | --- | --- | --- |
+
+        | Nil | Represents the absence of a value | nil, Nil, nIl, NIL |
+
+        | Boolean | true/false boolean | true, false, True, False, TRUE, FALSE |
+
+        | Number | Signed integer and floating point numbers. Also supports scientific notation. | 0, 1, -1, 1.2, 0.35, 1.2e-2, -1.2e+2 |
+
+        | String | Single or double quoted | "foo", "bar", "foo bar", ''foo'', ''bar'', ''foo bar'' |
+
+        | Datetime | Formatted according to [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) | 2018-04-27T18:39:26.397237+00:00 |
+
+        | List | Comma-separated literals wrapped in square brackets | [0], [0, 1], [''foo'', "bar"] |
+
+
+        ## Limitations
+
+        - A maximum of 8 unique identifiers may be used inside a filter expression.
+
+        '
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SearchBody'
+          examples:
+            nested:
+              description: 'An example of a nested Object comparison testing that at least one repository has a
+
+                version which is equal to 19.0.0.
+
+                '
+              summary: Nested Object Comparison
+              value:
+                filter_expression: repositories CONTAINS {version eq '19.0.0'}
+            relative:
+              description: 'An example of a relative comparison testing that field1 has a
+
+                value which is less than 123.
+
+                '
+              summary: Relative comparison
+              value:
+                filter_expression: field1 LE 123
+            nil:
+              description: 'An example of using nil to test for the absence of a value for field2.
+
+                '
+              summary: Absence of an attribute value
+              value:
+                filter_expression: field2 EQ NIL
+            non-nil:
+              description: 'An example of using nil to test for the existence of a value for field2.
+
+                '
+              summary: Existence of an attribute value
+              value:
+                filter_expression: field2 NE NIL
+            contains:
+              description: 'An example of using the ''CONTAINS'' operator to check if
+
+                field2 contains the string ''foo''. If field2 is string valued
+
+                then this is checking if ''foo'' is a substring of field2. If
+
+                field2 is a list of strings then this is checking if ''foo''
+
+                is a member of the list.
+
+                '
+              summary: Use of the CONTAINS operator
+              value:
+                filter_expression: field2 CONTAINS 'foo'
+            in:
+              description: 'An example of using the ''IN'' operator to check if field1
+
+                is an element of a list literal.
+
+                '
+              summary: Use of the IN operator
+              value:
+                filter_expression: field1 IN [1, 2, 3]
+            search:
+              description: 'An example of using the ''SEARCH'' operator to retrieve all elements
+
+                for which ''foo'' is a substring of a filterable attribute.
+
+                '
+              summary: Use of the SEARCH operator
+              value:
+                filter_expression: SEARCH 'foo'
+            parenthesis:
+              description: 'An example of parenthesis being used to group operators & override
+
+                operator precedence.
+
+                '
+              summary: Overriding operator precedence
+              value:
+                filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
+    DeleteTags:
+      description: The parameters to delete tags
+      content:
+        application/json:
+          schema:
+            x-body-name: environment
+            $ref: '#/components/schemas/DeleteTag'
+          examples:
+            delete_all_tags:
+              description: Delete all tags for given object - No request body required
+              summary: Delete all tags
+              value: {}
+            delete_tags_by_key:
+              description: Delete all tags for given object with matching key
+              summary: Delete tags by key
+              value:
+                key: key-1
+            delete_tags_by_key_value:
+              description: Delete tag for given object with matching key and value
+              summary: Delete a tag by key & value
+              value:
+                key: key-1
+                value: value-1
+            delete_multiple_tags_by_key_value:
+              description: Delete tags for given list of tags with matching key and value
+              summary: Delete multiple tags by key & value
+              value:
+                tags:
+                - key: key-1
+                  value: value-1
+                - key: key-2
+                  value: value-2
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization

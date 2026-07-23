@@ -1,0 +1,535 @@
+openapi: 3.0.0
+info:
+  title: Delphix DCT Algorithms VirtualizationJobs API
+  version: 3.28.0
+  description: Delphix DCT API
+  contact:
+    name: Delphix Support
+    url: https://portal.perforce.com/s/
+    email: support@delphix.com
+servers:
+- url: /dct/v3
+security:
+- ApiKeyAuth: []
+tags:
+- name: VirtualizationJobs
+paths:
+  /virtualization-jobs/history:
+    get:
+      tags:
+      - VirtualizationJobs
+      summary: Fetch a list of all virtualization jobs
+      operationId: get_virtualization_job_history
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/virtualizationJobsSortParam'
+      - $ref: '#/components/parameters/ObjectIdParam'
+      - $ref: '#/components/parameters/ObjectTypeParam'
+      - $ref: '#/components/parameters/JobTypeParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ListVirtualizationJobsResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/VirtualizationJob'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /virtualization-jobs/history/search:
+    post:
+      summary: Search virtualization jobs
+      operationId: search_virtualization_job_history
+      tags:
+      - VirtualizationJobs
+      x-filterable:
+        fields:
+          engine_job_id:
+            type: string
+          engine_id:
+            type: string
+          legacy_job_type:
+            type: string
+          job_type:
+            type: string
+          target_object_id:
+            type: string
+          legacy_target_object_type:
+            type: string
+          target_object_type:
+            type: string
+          job_state:
+            type: string
+          start_time:
+            type: date-time
+          update_time:
+            type: date-time
+          suspendable:
+            type: boolean
+          cancelable:
+            type: boolean
+          queued:
+            type: boolean
+          title:
+            type: string
+          cancel_reason:
+            type: string
+          percent_complete:
+            type: integer
+          run_duration:
+            type: integer
+          events:
+            type: array[object]
+            fields:
+              event_type:
+                type: string
+              event_timestamp:
+                type: date-time
+              event_state:
+                type: string
+              percent_complete:
+                type: integer
+              message_code:
+                type: string
+              message_details:
+                type: string
+              message_action:
+                type: string
+              message_command_output:
+                type: string
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/virtualizationJobsSortParam'
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: SearchVirtualizationJobsResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/VirtualizationJob'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+components:
+  parameters:
+    JobTypeParam:
+      name: job_type
+      in: query
+      description: The job type to filter by.
+      required: false
+      schema:
+        $ref: '#/components/schemas/TargetJobType'
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    ObjectIdParam:
+      name: object_id
+      in: query
+      description: The object id to filter by.
+      required: false
+      schema:
+        type: string
+    virtualizationJobsSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: engine_job_id
+      required: false
+      schema:
+        type: string
+        enum:
+        - engine_job_id
+        - -engine_job_id
+        - engine_id
+        - -engine_id
+        - job_state
+        - -job_state
+        - legacy_job_type
+        - -legacy_job_type
+        - job_type
+        - -job_type
+        - target_object_id
+        - -target_object_id
+        - legacy_target_object_type
+        - -legacy_target_object_type
+        - target_object_type
+        - -target_object_type
+        - job_state
+        - -job_state
+        - start_time
+        - -start_time
+        - update_time
+        - -update_time
+        - percent_complete
+        - -percent_complete
+        - run_duration
+        - -run_duration
+        nullable: true
+        example: engine_id
+    ObjectTypeParam:
+      name: object_type
+      in: query
+      description: The object type to filter by.
+      required: false
+      schema:
+        $ref: '#/components/schemas/TargetObjectType'
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+  schemas:
+    VirtualizationJobEvent:
+      description: An event associated with a virtualization engine job.
+      type: object
+      properties:
+        event_type:
+          description: The type of the event.
+          type: string
+          enum:
+          - INFO
+          - WARNING
+          - ERROR
+        event_timestamp:
+          description: The time the event occurred.
+          type: string
+          format: date-time
+        event_state:
+          description: The state of the event.
+          type: string
+          enum:
+          - INITIAL
+          - RUNNING
+          - SUSPENDED
+          - CANCELED
+          - COMPLETED
+          - RETRYABLE
+          - FAILED
+        percent_complete:
+          description: The percentage of the event that is complete.
+          type: integer
+          format: int32
+        message_code:
+          description: Message ID associated with the event.
+          type: string
+        message_details:
+          description: Localized message details.
+          type: string
+        message_action:
+          description: Localized message action.
+          type: string
+        message_command_output:
+          description: Command output associated with the event, if applicable.
+          type: string
+    VirtualizationJob:
+      description: A virtualization engine job.
+      type: object
+      properties:
+        engine_job_id:
+          description: ID of the virtualization engine job.
+          type: string
+        engine_id:
+          description: ID of the RegisteredEngine.
+          type: string
+        legacy_job_type:
+          description: Legacy type of the job.
+          type: string
+        job_type:
+          description: Type of the job in DCT.
+          $ref: '#/components/schemas/TargetJobType'
+        target_object_id:
+          description: ID of the target object.
+          type: string
+        legacy_target_object_type:
+          description: Legacy type of the target object.
+          type: string
+        target_object_type:
+          description: Type of the target object in DCT.
+          $ref: '#/components/schemas/TargetObjectType'
+        job_state:
+          type: string
+          enum:
+          - RUNNING
+          - COMPLETED
+          - SUSPENDED
+          - CANCELED
+          - FAILED
+        start_time:
+          description: The time the job started.
+          type: string
+          format: date-time
+        update_time:
+          description: The time the job was last updated.
+          type: string
+          format: date-time
+        suspendable:
+          description: Indicates whether the job can be suspended.
+          type: boolean
+        cancelable:
+          description: Indicates whether the job can be canceled.
+          type: boolean
+        queued:
+          description: Indicates whether the job is queued.
+          type: boolean
+        title:
+          description: The title of the job.
+          type: string
+        cancel_reason:
+          description: The reason the job was canceled.
+          type: string
+        percent_complete:
+          description: The percentage of the job that is complete.
+          type: integer
+          format: int32
+        run_duration:
+          description: The time this job took to complete in milliseconds.
+          type: integer
+          format: int64
+        events:
+          description: The events associated with this job.
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationJobEvent'
+    TargetJobType:
+      description: A DCT specific job type
+      type: string
+      enum:
+      - REPLICATION_PROFILE_EXECUTE
+      - OFFLINE_REPLICATION_RECEIVE
+    TargetObjectType:
+      description: A DCT specific object type.
+      type: string
+      enum:
+      - REPLICATION_PROFILE
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+  requestBodies:
+    SearchBody:
+      x-skip-codegen-attr: description
+      description: 'A request body containing a filter expression. This enables searching
+
+        for items matching arbitrarily complex conditions. The list of
+
+        attributes which can be used in filter expressions is available
+
+        in the x-filterable vendor extension.
+
+
+        # Filter Expression Overview
+
+        **Note: All keywords are case-insensitive**
+
+
+        ## Comparison Operators
+
+        | Operator | Description | Example |
+
+        | --- | --- | --- |
+
+        | CONTAINS | Substring or membership testing for string and list attributes respectively. | field3 CONTAINS ''foobar'', field4 CONTAINS TRUE  |
+
+        | IN | Tests if field is a member of a list literal. List can contain a maximum of 100 values | field2 IN [''Goku'', ''Vegeta''] |
+
+        | GE | Tests if a field is greater than or equal to a literal value | field1 GE 1.2e-2 |
+
+        | GT | Tests if a field is greater than a literal value | field1 GT 1.2e-2 |
+
+        | LE | Tests if a field is less than or equal to a literal value | field1 LE 9000 |
+
+        | LT | Tests if a field is less than a literal value | field1 LT 9.02 |
+
+        | NE | Tests if a field is not equal to a literal value | field1 NE 42 |
+
+        | EQ | Tests if a field is equal to a literal value | field1 EQ 42 |
+
+
+        ## Search Operator
+
+        The SEARCH operator filters for items which have any filterable
+
+        attribute that contains the input string as a substring, comparison
+
+        is done case-insensitively. This is not restricted to attributes with
+
+        string values. Specifically `SEARCH ''12''` would match an item with an
+
+        attribute with an integer value of `123`.
+
+
+        ## Logical Operators
+
+        Ordered by precedence.
+
+        | Operator | Description | Example |
+
+        | --- | --- | --- |
+
+        | NOT | Logical NOT (Right associative) | NOT field1 LE 9000 |
+
+        | AND | Logical AND (Left Associative) | field1 GT 9000 AND field2 EQ ''Goku'' |
+
+        | OR | Logical OR (Left Associative) | field1 GT 9000 OR field2 EQ ''Goku'' |
+
+
+        ## Grouping
+
+        Parenthesis `()` can be used to override operator precedence.
+
+
+        For example:
+
+        NOT (field1 LT 1234 AND field2 CONTAINS ''foo'')
+
+
+        ## Literal Values
+
+        | Literal      | Description | Examples |
+
+        | --- | --- | --- |
+
+        | Nil | Represents the absence of a value | nil, Nil, nIl, NIL |
+
+        | Boolean | true/false boolean | true, false, True, False, TRUE, FALSE |
+
+        | Number | Signed integer and floating point numbers. Also supports scientific notation. | 0, 1, -1, 1.2, 0.35, 1.2e-2, -1.2e+2 |
+
+        | String | Single or double quoted | "foo", "bar", "foo bar", ''foo'', ''bar'', ''foo bar'' |
+
+        | Datetime | Formatted according to [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) | 2018-04-27T18:39:26.397237+00:00 |
+
+        | List | Comma-separated literals wrapped in square brackets | [0], [0, 1], [''foo'', "bar"] |
+
+
+        ## Limitations
+
+        - A maximum of 8 unique identifiers may be used inside a filter expression.
+
+        '
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SearchBody'
+          examples:
+            nested:
+              description: 'An example of a nested Object comparison testing that at least one repository has a
+
+                version which is equal to 19.0.0.
+
+                '
+              summary: Nested Object Comparison
+              value:
+                filter_expression: repositories CONTAINS {version eq '19.0.0'}
+            relative:
+              description: 'An example of a relative comparison testing that field1 has a
+
+                value which is less than 123.
+
+                '
+              summary: Relative comparison
+              value:
+                filter_expression: field1 LE 123
+            nil:
+              description: 'An example of using nil to test for the absence of a value for field2.
+
+                '
+              summary: Absence of an attribute value
+              value:
+                filter_expression: field2 EQ NIL
+            non-nil:
+              description: 'An example of using nil to test for the existence of a value for field2.
+
+                '
+              summary: Existence of an attribute value
+              value:
+                filter_expression: field2 NE NIL
+            contains:
+              description: 'An example of using the ''CONTAINS'' operator to check if
+
+                field2 contains the string ''foo''. If field2 is string valued
+
+                then this is checking if ''foo'' is a substring of field2. If
+
+                field2 is a list of strings then this is checking if ''foo''
+
+                is a member of the list.
+
+                '
+              summary: Use of the CONTAINS operator
+              value:
+                filter_expression: field2 CONTAINS 'foo'
+            in:
+              description: 'An example of using the ''IN'' operator to check if field1
+
+                is an element of a list literal.
+
+                '
+              summary: Use of the IN operator
+              value:
+                filter_expression: field1 IN [1, 2, 3]
+            search:
+              description: 'An example of using the ''SEARCH'' operator to retrieve all elements
+
+                for which ''foo'' is a substring of a filterable attribute.
+
+                '
+              summary: Use of the SEARCH operator
+              value:
+                filter_expression: SEARCH 'foo'
+            parenthesis:
+              description: 'An example of parenthesis being used to group operators & override
+
+                operator precedence.
+
+                '
+              summary: Overriding operator precedence
+              value:
+                filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization

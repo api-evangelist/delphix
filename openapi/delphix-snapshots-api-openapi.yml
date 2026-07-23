@@ -1,0 +1,1594 @@
+openapi: 3.0.0
+info:
+  title: Delphix DCT Algorithms Snapshots API
+  version: 3.28.0
+  description: Delphix DCT API
+  contact:
+    name: Delphix Support
+    url: https://portal.perforce.com/s/
+    email: support@delphix.com
+servers:
+- url: /dct/v3
+security:
+- ApiKeyAuth: []
+tags:
+- name: Snapshots
+paths:
+  /snapshots:
+    get:
+      tags:
+      - Snapshots
+      summary: Retrieve the list of snapshots.
+      operationId: get_snapshots
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/snapshotsSortParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListSnapshotsResponse'
+  /snapshots/{snapshotId}:
+    parameters:
+    - $ref: '#/components/parameters/snapshotIdParam'
+    get:
+      summary: Get a Snapshot by ID.
+      operationId: get_snapshot_by_id
+      tags:
+      - Snapshots
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Snapshot'
+    patch:
+      tags:
+      - Snapshots
+      summary: Update values of a Snapshot.
+      operationId: update_snapshot
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: update_snapshot_parameter
+              $ref: '#/components/schemas/UpdateSnapshotParameters'
+        description: The new data to update a Snapshot.
+      responses:
+        '200':
+          description: Snapshot update initiated.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: UpdateSnapshotResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+    delete:
+      deprecated: true
+      summary: Delete a Snapshot.
+      operationId: delete_snapshot
+      tags:
+      - Snapshots
+      responses:
+        '200':
+          description: Snapshot delete initiated.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: DeleteSnapshotResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+  /snapshots/{snapshotId}/delete:
+    parameters:
+    - $ref: '#/components/parameters/snapshotIdParam'
+    post:
+      summary: Delete a Snapshot.
+      operationId: delete_snapshot_by_id
+      tags:
+      - Snapshots
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: delete_snapshot_parameter
+              $ref: '#/components/schemas/DeleteSnapshotParameters'
+        description: The parameters to delete a Snapshot.
+      responses:
+        '200':
+          description: Snapshot delete initiated.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: DeleteSnapshotResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+  /snapshots/{snapshotId}/unset_expiration:
+    parameters:
+    - $ref: '#/components/parameters/snapshotIdParam'
+    post:
+      summary: Unset a Snapshot's expiration, removing expiration and retain_forever values for the snapshot.
+      operationId: unset_snapshot_retention
+      tags:
+      - Snapshots
+      responses:
+        '200':
+          description: Snapshot unset retention initiated.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: UnsetSnapshotRetentionResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+  /snapshots/{snapshotId}/tags:
+    parameters:
+    - $ref: '#/components/parameters/snapshotIdParam'
+    post:
+      tags:
+      - Snapshots
+      summary: Create tags for a Snapshot.
+      operationId: create_snapshot_tags
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: snapshot_tags
+              $ref: '#/components/schemas/TagsRequest'
+        description: Tags information for Snapshot.
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+    get:
+      tags:
+      - Snapshots
+      summary: Get tags for a Snapshot.
+      operationId: get_snapshot_tags
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+  /snapshots/{snapshotId}/tags/delete:
+    parameters:
+    - $ref: '#/components/parameters/snapshotIdParam'
+    post:
+      tags:
+      - Snapshots
+      summary: Delete tags for a Snapshot.
+      operationId: delete_snapshot_tags
+      requestBody:
+        $ref: '#/components/requestBodies/DeleteTags'
+      responses:
+        '204':
+          description: No Content
+  /snapshots/search:
+    post:
+      tags:
+      - Snapshots
+      summary: Search snapshots.
+      operationId: search_snapshots
+      x-filterable:
+        fields:
+          id:
+            type: string
+          engine_id:
+            type: string
+          namespace:
+            type: string
+          name:
+            type: string
+          namespace_id:
+            type: string
+          namespace_name:
+            type: string
+          is_replica:
+            type: boolean
+          consistency:
+            type: string
+          missing_non_logged_data:
+            type: boolean
+          dataset_id:
+            type: string
+          creation_time:
+            type: string
+          start_timestamp:
+            type: string
+          start_location:
+            type: string
+          timestamp:
+            type: string
+          location:
+            type: string
+          expiration:
+            type: date
+          retain_forever:
+            type: boolean
+          effective_expiration:
+            type: date
+          effective_retain_forever:
+            type: boolean
+          timeflow_id:
+            type: string
+          timezone:
+            type: string
+          version:
+            type: string
+          temporary:
+            type: boolean
+          appdata_toolkit:
+            type: string
+          appdata_metadata:
+            type: string
+          ase_db_encryption_key:
+            type: string
+          mssql_internal_version:
+            type: integer
+          mssql_backup_set_uuid:
+            type: string
+          mssql_backup_software_type:
+            type: string
+          mssql_backup_location_type:
+            type: string
+          mssql_empty_snapshot:
+            type: boolean
+          oracle_from_physical_standby_vdb:
+            type: boolean
+          oracle_redo_log_size_in_bytes:
+            type: integer
+          mssql_incremental_export_source_snapshot:
+            type: boolean
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/snapshotsSortParam'
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: SearchSnapshotsResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Snapshot'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /snapshots/find_by_location:
+    parameters:
+    - $ref: '#/components/parameters/datasetIdQueryParam'
+    - in: query
+      required: true
+      name: location
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 256
+      description: The location
+      example: 2332584
+    get:
+      summary: Get the snapshots at this location for a dataset.
+      operationId: find_by_location
+      tags:
+      - Snapshots
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: FindByLocationResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Snapshot'
+  /snapshots/find_by_timestamp:
+    parameters:
+    - $ref: '#/components/parameters/datasetIdQueryParam'
+    - in: query
+      required: true
+      name: timestamp
+      schema:
+        type: string
+        format: date-time
+      description: The desired point in time.
+      example: '2021-05-01T08:51:34.148000+00:00'
+    get:
+      summary: Get the snapshots at this timestamp for a dataset.
+      operationId: find_by_timestamp
+      tags:
+      - Snapshots
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: FindByTimestampResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Snapshot'
+  /snapshots/{snapshotId}/timeflow_range:
+    parameters:
+    - $ref: '#/components/parameters/snapshotIdParam'
+    get:
+      summary: Return the provisionable timeflow range based on a specific snapshot.
+      operationId: get_snapshot_timeflow_range
+      tags:
+      - Snapshots
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeflowRange'
+  /snapshots/{snapshotId}/runtime:
+    parameters:
+    - $ref: '#/components/parameters/snapshotIdParam'
+    get:
+      summary: Get a runtime object of a snapshot by id
+      operationId: get_snapshot_runtime_by_id
+      tags:
+      - Snapshots
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapshotRuntime'
+  /snapshots/capacity:
+    parameters:
+    - $ref: '#/components/parameters/engineIdQueryParam'
+    - in: query
+      required: false
+      name: dataset_id
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the dSource or VDB.
+      example: dataset-123
+    - $ref: '#/components/parameters/limit'
+    - $ref: '#/components/parameters/cursor'
+    get:
+      tags:
+      - Snapshots
+      summary: Lists capacity metrics for all snapshots of dataset or the engine.
+      operationId: get_snapshots_capacity_data
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapshotCapacityResponse'
+  /snapshots/shared-space:
+    parameters:
+    - $ref: '#/components/parameters/datasetIdQueryParam'
+    get:
+      tags:
+      - Snapshots
+      summary: API to fetch the shared snapshot space.
+      operationId: get_shared_snapshot_space
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: SharedSnapshotSpaceResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: Initiated job.
+  /snapshots/{snapshotId}/deletion-dependencies:
+    parameters:
+    - $ref: '#/components/parameters/snapshotIdParam'
+    get:
+      tags:
+      - Snapshots
+      summary: Get deletion dependencies for a snapshot.
+      operationId: get_snapshot_deletion_dependencies
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetSnapshotDeletionDependenciesResponse'
+components:
+  schemas:
+    SnapshotMissingLog:
+      description: Missing Log information
+      type: object
+      properties:
+        type:
+          description: Type of the log
+          type: string
+          example: OracleLog
+        instanceNum:
+          description: Instance Number
+          type: integer
+          format: int32
+          example: 1
+        sequence:
+          description: Sequence number of the log file.
+          type: integer
+          format: int64
+          example: 217
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    SnapshotRuntime:
+      description: Snapshot Runtime information
+      type: object
+      properties:
+        provisionable:
+          description: Is the snapshot provisionable
+          type: boolean
+          example: true
+        type:
+          description: Type of the runtime object
+          type: string
+          example: OracleSnapshotRuntime
+        missing_logs:
+          description: List of missing logs
+          type: array
+          items:
+            $ref: '#/components/schemas/SnapshotMissingLog'
+        mssql_backup_type:
+          description: The type of the MSSQL backup set associated with this snapshot.
+          type: string
+          enum:
+          - DATABASE_FULL
+          - DATABASE_DIFFERENTIAL
+          - TRANSACTION_LOG
+          example: DATABASE_FULL
+        mssql_first_lsn:
+          description: The starting Log Sequence Number (LSN) of the MSSQL backup set.
+          type: string
+          example: '34000000446700001'
+        mssql_last_lsn:
+          description: The ending Log Sequence Number (LSN) of the MSSQL backup set.
+          type: string
+          example: '34000000447000001'
+        mssql_backup_start_time:
+          description: The start time of the MSSQL backup operation.
+          type: string
+          format: date-time
+          example: '2026-03-13T08:57:31.000Z'
+        mssql_backup_end_time:
+          description: The end time of the MSSQL backup operation.
+          type: string
+          format: date-time
+          example: '2026-03-13T08:58:00.000Z'
+        mssql_recovery_fork_guid:
+          description: The recovery fork GUID of the MSSQL backup set.
+          type: string
+          example: A1B2C3D4-E5F6-7890-ABCD-EF1234567890
+        mssql_first_recovery_fork_guid:
+          description: The first recovery fork GUID of the MSSQL backup set.
+          type: string
+          example: A1B2C3D4-E5F6-7890-ABCD-EF1234567890
+        mssql_recovery_model:
+          description: The SQL Server database recovery model at the time of the backup.
+          type: string
+          enum:
+          - FULL
+          - BULK_LOGGED
+          - SIMPLE
+          example: FULL
+        mssql_copy_only:
+          description: Whether this backup was a copy-only backup.
+          type: boolean
+          example: false
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    UpdateSnapshotParameters:
+      type: object
+      description: Parameters to update the expiration of a Snapshot.
+      properties:
+        expiration:
+          description: The expiration for this snapshot. Mutually exclusive with retain_forever.
+          type: string
+          format: date
+          example: '2021-07-04'
+        retain_forever:
+          description: Indicates that the snapshot should be retained forever.
+          type: boolean
+          example: false
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    DeleteTag:
+      type: object
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        tags:
+          description: List of tags to be deleted
+          type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    DeletionDependencyPrerequisiteAction:
+      description: Deletion dependency prerequisite action.
+      type: object
+      properties:
+        object_id:
+          description: ID of the object.
+          type: string
+        object_type:
+          description: Type of the object.
+          type: string
+          enum:
+          - SNAPSHOT
+          - VDB
+          - DSOURCE
+          - DATALAYOUT_CONTAINER
+          - DATALAYOUT_TEMPLATE
+          - UNKNOWN
+        object_name:
+          description: Name of the object.
+          type: string
+        namespace_id:
+          description: ID of the namespace that this object belongs to.
+          type: string
+        action:
+          description: The action to perform.
+          type: string
+          enum:
+          - REMOVE_KEEP_FOR
+          - TAKE_SNAPSHOT
+          - REFRESH
+        linked_object_id:
+          description: ID of the deletion dependency object which is linked to this prerequisite action.
+          type: string
+        linked_object_type:
+          description: Type of the deletion dependency object which is linked to this prerequisite action.
+          $ref: '#/components/schemas/DeletionDependencyObjectType'
+        locked:
+          description: Whether the prerequisite action is locked. If this is true then this action will be skipped.
+          type: boolean
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    GetSnapshotDeletionDependenciesResponse:
+      description: The deletion dependencies of a snapshot.
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/BaseDeletetionDependenciesResponse'
+    DeletionDependenciesTreeResponse:
+      description: The deletion dependencies of an object which occupies disk space.
+      type: object
+      properties:
+        prerequisite_actions:
+          description: The pre-requisite actions to perform before deleting the object.
+          type: array
+          items:
+            $ref: '#/components/schemas/DeletionDependencyPrerequisiteAction'
+        object_dependencies:
+          description: The object dependencies of the object.
+          type: array
+          items:
+            $ref: '#/components/schemas/DeletionDependencyObject'
+    SnapshotCapacity:
+      description: Snapshot Capacity information
+      type: object
+      properties:
+        id:
+          description: Id of the snapshot
+          type: string
+          example: 1-ORACLE_SNAPSHOT-1
+        engine_id:
+          description: Id of the engine this snapshot is associated with.
+          type: string
+          example: 1
+        dataset_id:
+          description: DSource or VDB id this snapshot is associated with.
+          type: string
+          example: 1-ORACLE_DB_CONTAINER-32
+        timestamp:
+          type: string
+          description: Timestamp of the snapshot
+          format: date-time
+          example: '2021-05-01T08:51:34.148000+00:00'
+        expiration:
+          type: string
+          description: Expiration date of the snapshot
+          format: date
+          example: '2021-05-01T08:51:34.148000+00:00'
+        size:
+          description: Space used by the snapshot.
+          type: integer
+          format: int64
+          example: 217
+        descendant_vbd_count:
+          description: descendant vbd count.
+          type: integer
+          format: int32
+          example: 2
+        timezone:
+          description: Timezone of the snapshot.
+          type: string
+          example: America/New_York,EST-0500
+    DeletionDependencyObjectType:
+      description: Deletion dependency object type.
+      type: string
+      enum:
+      - TIMEFLOW
+      - SNAPSHOT
+      - JSBOOKMARK
+      - JSBRANCH
+      - TIMEFLOWBOOKMARK
+      - HELDSPACE
+      - VDB
+      - DSOURCE
+      - UNKNOWN
+      - ALLSNAPSHOTS
+      - BOOKMARK
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    VirtualizationTask:
+      deprecated: true
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    ListSnapshotsResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Snapshot'
+        response_metadata:
+          $ref: '#/components/schemas/PaginatedResponseMetadata'
+    TimeflowRange:
+      description: Represents a time range within a timeflow.
+      type: object
+      properties:
+        start_point_location:
+          type: string
+          description: The starting location of this range.
+          example: '1178883'
+        start_point_timestamp:
+          type: string
+          description: The starting timestamp of this range.
+          format: date-time
+          example: '2023-04-01T08:51:34.148000+00:00'
+        end_point_location:
+          type: string
+          description: The ending location of this range.
+          example: '1178884'
+        end_point_timestamp:
+          type: string
+          description: The ending timestamp of this range.
+          format: date-time
+          example: '2023-04-01T09:51:34.148000+00:00'
+        timeflow_id:
+          type: string
+          description: A reference to the timeflow of this range.
+          example: timeflow-123
+        provisionable:
+          type: boolean
+          description: Whether or not this range is provisionable.
+          example: true
+        log_delta:
+          type: integer
+          format: int64
+          description: Time in milliseconds b/w timestamp and snapshot timestamp.
+        is_nearest:
+          type: boolean
+          description: true if timeflow range is found from nearest snapshot corresponding to provided timestamp, else false
+          example: false
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    DeleteSnapshotParameters:
+      description: Parameters to delete a snapshot.
+      type: object
+      properties:
+        delete_all_dependencies:
+          description: Whether to delete the snapshot along with all of its dependencies.
+          type: boolean
+          default: false
+    Snapshot:
+      description: Virtualization Engine Snapshot of a dSource or VDB.
+      type: object
+      properties:
+        id:
+          description: The Snapshot ID.
+          type: string
+          example: snapshot-123
+        engine_id:
+          description: The id of the engine the snapshot belongs to.
+          type: string
+          example: 1
+        namespace:
+          description: Alternate namespace for this object, for replicated and restored snapshots.
+          type: string
+          nullable: true
+          example: NAMESPACE-1
+        name:
+          description: The snapshot's name.
+          type: string
+          example: '@2023-02-02T14:30:00.589'
+        namespace_id:
+          description: The namespace id of this snapshot.
+          type: string
+          example: 1-NAMESPACE-1
+        namespace_name:
+          description: The namespace name of this snapshot.
+          type: string
+          example: test-engine-1
+        is_replica:
+          description: Is this a replicated object.
+          type: boolean
+          example: true
+        consistency:
+          description: Indicates what type of recovery strategies must be invoked when provisioning from this snapshot.
+          type: string
+          enum:
+          - CONSISTENT
+          - INCONSISTENT
+          - CRASH_CONSISTENT
+          - PLUGGABLE
+          example: CONSISTENT
+        missing_non_logged_data:
+          description: Indicates if a virtual database provisioned from this snapshot will be missing nologging changes.
+          type: boolean
+          example: false
+        dataset_id:
+          type: string
+          description: The ID of the Snapshot's dSource or VDB.
+          example: dataset-123
+        creation_time:
+          description: The time when the snapshot was created.
+          type: string
+          format: date-time
+          example: '2023-02-02T19:30:00.589Z'
+        start_timestamp:
+          description: 'The timestamp within the parent TimeFlow at which this snapshot was initiated. \
+
+            No recovery earlier than this point needs to be applied in order to provision a database from \
+
+            this snapshot. If start_timestamp equals timestamp, then no recovery needs to be \
+
+            applied in order to provision a database.
+
+            '
+          type: string
+          format: date-time
+          example: '2021-05-01T08:51:34.148000+00:00'
+        start_location:
+          description: 'The database specific indentifier within the parent TimeFlow at which this snapshot was initiated. \
+
+            No recovery earlier than this point needs to be applied in order to provision a database from \
+
+            this snapshot. If start_location equals location, then no recovery needs to be \
+
+            applied in order to provision a database.
+
+            '
+          type: string
+          example: '1178883'
+        timestamp:
+          description: The logical time of the data contained in this Snapshot.
+          type: string
+          format: date-time
+          example: '2021-05-01T08:51:34.148000+00:00'
+        location:
+          description: Database specific identifier for the data contained in this Snapshot, such as the Log Sequence Number (LSN) for MSsql databases, System Change Number (SCN) for Oracle databases.
+          type: string
+          example: '1178883'
+        retention:
+          description: Retention policy, in days. A value of -1 indicates the snapshot should be kept forever. Deprecated in favor of expiration and retain_forever.
+          deprecated: true
+          type: integer
+          format: int64
+          example: -1
+        expiration:
+          description: The expiration date of this snapshot. If this is unset and retain_forever is false, and the snapshot is not included in a Bookmark, the snapshot is subject to the retention policy of its dataset.
+          type: string
+          format: date
+          example: '2021-07-04'
+        retain_forever:
+          description: Indicates that the snapshot is protected from retention, i.e it will be kept forever. If false, see expiration.
+          type: boolean
+          example: false
+        effective_expiration:
+          description: The effective expiration is that max of the snapshot expiration and the expiration of any Bookmark which includes this snapshot.
+          type: string
+          format: date
+          example: '2021-07-04'
+        effective_retain_forever:
+          description: True if retain_forever is set or a Bookmark retains this snapshot forever.
+          type: boolean
+          example: false
+        timeflow_id:
+          description: The TimeFlow this snapshot was taken on.
+          type: string
+          example: 1-ORACLE_TIMEFLOW-1
+        timezone:
+          description: Time zone of the source database at the time the snapshot was taken.
+          type: string
+          example: America/New_York,EST-0500
+        version:
+          description: Version of database source repository at the time the snapshot was taken.
+          type: string
+          example: 11.2.0.4.0
+          nullable: true
+        temporary:
+          description: Indicates that this snapshot is in a transient state and should not be user visible.
+          type: boolean
+          example: false
+        appdata_toolkit:
+          description: The toolkit associated with this snapshot.
+          type: string
+          example: APPDATA_TOOLKIT-1
+        appdata_metadata:
+          description: The JSON payload conforming to the DraftV4 schema based on the type of application data being manipulated.
+          type: string
+          example: {}
+        ase_db_encryption_key:
+          description: Database encryption key present for this snapshot.
+          type: string
+          example: keyname
+        mssql_internal_version:
+          description: Internal version of the source database at the time the snapshot was taken.
+          type: integer
+          format: int32
+          example: 706
+        mssql_backup_set_uuid:
+          description: UUID of the source database backup that was restored for this snapshot.
+          type: string
+          example: 54290b71-58cd-463d-bd62-7219d4c4d2d5
+        mssql_backup_software_type:
+          description: Backup software used to restore the source database backup for this snapshot
+          type: string
+          enum:
+          - AZURE_NATIVE
+          - NATIVE
+          - LITESPEED
+          - REDGATE
+          - NETBACKUP
+          - COMMVAULT
+          example: NATIVE
+        mssql_backup_location_type:
+          description: Backup software used to restore the source database backup for this snapshot
+          type: string
+          enum:
+          - DISK
+          - AZURE
+          - BACKUP_SERVER
+          example: BACKUP_SERVER
+        mssql_empty_snapshot:
+          description: True if the staging push dSource snapshot is empty.
+          type: boolean
+          example: true
+        mssql_incremental_export_source_snapshot:
+          description: True if this snapshot belongs to Incremental VDB and can be used for Incremental V2P.
+          type: boolean
+          example: false
+        oracle_from_physical_standby_vdb:
+          description: True if this snapshot was taken of a standby database.
+          type: boolean
+          example: false
+        oracle_redo_log_size_in_bytes:
+          description: Online redo log size in bytes when this snapshot was taken.
+          type: integer
+          format: int64
+          example: 314572800
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    DeletionDependencyObject:
+      description: Deletion dependency object.
+      type: object
+      properties:
+        object_id:
+          description: ID of the object.
+          type: string
+        object_type:
+          description: Type of the object.
+          $ref: '#/components/schemas/DeletionDependencyObjectType'
+        object_name:
+          description: Name of the object.
+          type: string
+        namespace_id:
+          description: ID of the namespace that this object belongs to.
+          type: string
+        storage_size:
+          description: Storage size of the object.
+          type: integer
+          format: int64
+        timeflow_vdb_id:
+          description: If the object is a Timeflow, then this is the ID of the VDB that is associated with the Timeflow.
+          type: string
+        timeflow_vdb_name:
+          description: If the object is a Timeflow, then this is the name of the VDB that is associated with the Timeflow.
+          type: string
+        timeflow_dsource_id:
+          description: If the object is a Timeflow, then this is the ID of the dSource that is associated with the Timeflow.
+          type: string
+        timeflow_dsource_name:
+          description: If the object is a Timeflow, then this is the name of the dSource that is associated with the Timeflow.
+          type: string
+        locked:
+          description: Whether the object is locked. If this is true then this object will not be deleted.
+          type: boolean
+        parent_object_id:
+          description: ID of the parent object.
+          type: string
+        parent_object_type:
+          description: Type of the parent object.
+          $ref: '#/components/schemas/DeletionDependencyObjectType'
+        timeflow_snapshot_count:
+          description: Total number of snapshots in the Timeflow if the object is a Timeflow otherwise -1.
+          type: integer
+          format: int64
+          default: -1
+        timeflow_bookmarks_count:
+          description: Total number of bookmarks associated with the Timeflow if the object is a Timeflow otherwise -1.
+          type: integer
+          default: -1
+    BaseDeletetionDependenciesResponse:
+      description: Base class for deletion dependencies response.
+      type: object
+      properties:
+        prerequisite_actions:
+          description: The pre-requisite actions to perform before deleting the snapshot.
+          type: array
+          items:
+            $ref: '#/components/schemas/DeletionDependencyPrerequisiteAction'
+        object_dependencies:
+          description: The object dependencies of the snapshot.
+          type: array
+          items:
+            $ref: '#/components/schemas/DeletionDependencyObject'
+        dependency_tree:
+          description: The dependency tree of the snapshot.
+          $ref: '#/components/schemas/DeletionDependenciesTreeResponse'
+      discriminator:
+        propertyName: class_type
+    SnapshotCapacityResponse:
+      description: Snapshot Capacity information
+      type: object
+      properties:
+        items:
+          description: Snapshot Capacity response.
+          type: array
+          items:
+            $ref: '#/components/schemas/SnapshotCapacity'
+        response_metadata:
+          $ref: '#/components/schemas/PaginatedResponseMetadata'
+    Job:
+      description: An asynchronous task.
+      type: object
+      properties:
+        id:
+          description: The Job entity ID.
+          type: string
+          example: job-123
+        status:
+          description: The status of the job.
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+          example: RUNNING
+        is_waiting_for_telemetry:
+          description: Indicates that the operations performed by this Job have completed successfully, but the object changes are not yet reflected. This is only set when when the JOB is in STARTED status, with the guarantee that the job will not transition to the FAILED status. Note that this flag will likely be replaced with a new status in future API versions and be deprecated.
+          type: boolean
+        type:
+          description: The type of job being done.
+          type: string
+          example: DB_REFRESH
+        localized_type:
+          description: The i18n translated type of job being done.
+          type: string
+          example: DB Refresh
+        error_details:
+          description: Details about the failure for FAILED jobs.
+          type: string
+          example: Unable to connect to the engine.
+        warning_message:
+          description: Warnings for the job.
+          type: string
+          example: 'Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.'
+        target_id:
+          description: A reference to the job's target.
+          type: string
+          example: vdb-123
+        target_name:
+          description: A reference to the job's target name.
+          type: string
+          example: vdb
+        start_time:
+          description: The time the job started executing.
+          type: string
+          format: date-time
+          example: '2022-01-02T05:11:24.148000+00:00'
+        update_time:
+          description: The time the job was last updated.
+          type: string
+          format: date-time
+          example: '2022-01-02T06:11:24.148000+00:00'
+        trace_id:
+          description: traceId of the request which created this Job
+          type: string
+        engine_ids:
+          description: IDs of the engines this Job is executing on.
+          type: array
+          items:
+            type: string
+          deprecated: true
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        engines:
+          type: array
+          items:
+            $ref: '#/components/schemas/Engine'
+        account_id:
+          description: The ID of the account who initiated this job.
+          type: integer
+          example: 1
+        account_name:
+          description: The account name which initiated this job. It can be either firstname and lastname combination or firstname or lastname or username or email address or Account-<id>.
+          type: string
+          example: User 1
+        compliance_node_id:
+          description: The ID of the associated compliance node, if applicable.
+          type: string
+          nullable: true
+        compliance_node_name:
+          description: The name of the associated compliance node, if applicable.
+          type: string
+          nullable: true
+        percent_complete:
+          description: Completion percentage of the Job.
+          type: integer
+          minimum: 0
+          maximum: 100
+          example: '50'
+        virtualization_tasks:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTask'
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTask'
+        execution_id:
+          description: The ID of the associated masking execution, if any.
+          type: string
+          nullable: true
+        result_type:
+          description: The type of the job result. This is the type of the object present in the result.
+          type: string
+        result:
+          description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
+          type: object
+      discriminator:
+        propertyName: class_type
+  parameters:
+    snapshotIdParam:
+      in: path
+      name: snapshotId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the snapshot.
+    snapshotsSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: id
+      required: false
+      schema:
+        type: string
+        enum:
+        - id
+        - -id
+        - engine_id
+        - -engine_id
+        - namespace
+        - -namespace
+        - name
+        - -name
+        - consistency
+        - -consistency
+        - missing_non_logged_data
+        - -missing_non_logged_data
+        - dataset_id
+        - -dataset_id
+        - creation_time
+        - -creation_time
+        - start_timestamp
+        - -start_timestamp
+        - start_location
+        - -start_location
+        - timestamp
+        - -timestamp
+        - location
+        - -location
+        - expiration
+        - -expiration
+        - retain_forever
+        - -retain_forever
+        - effective_expiration
+        - -effective_expiration
+        - effective_retain_forever
+        - -effective_retain_forever
+        - timeflow_id
+        - -timeflow_id
+        - timezone
+        - -timezone
+        - version
+        - -version
+        - temporary
+        - -temporary
+        - appdata_toolkit
+        - -appdata_toolkit
+        - appdata_metadata
+        - -appdata_metadata
+        - ase_db_encryption_key
+        - -ase_db_encryption_key
+        - mssql_internal_version
+        - -mssql_internal_version
+        - mssql_backup_set_uuid
+        - -mssql_backup_set_uuid
+        - mssql_backup_software_type
+        - -mssql_backup_software_type
+        - mssql_backup_location_type
+        - -mssql_backup_location_type
+        - mssql_empty_snapshot
+        - -mssql_empty_snapshot
+        - oracle_from_physical_standby_vdb
+        - -oracle_from_physical_standby_vdb
+        - oracle_redo_log_size_in_bytes
+        - -oracle_redo_log_size_in_bytes
+        nullable: true
+        example: name
+    engineIdQueryParam:
+      in: query
+      name: engine_id
+      description: ID of a registered engine.
+      required: false
+      schema:
+        type: string
+        minLength: 1
+      example: 1
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+    datasetIdQueryParam:
+      in: query
+      required: true
+      name: dataset_id
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the dSource or VDB.
+      example: dataset-123
+  requestBodies:
+    SearchBody:
+      x-skip-codegen-attr: description
+      description: 'A request body containing a filter expression. This enables searching
+
+        for items matching arbitrarily complex conditions. The list of
+
+        attributes which can be used in filter expressions is available
+
+        in the x-filterable vendor extension.
+
+
+        # Filter Expression Overview
+
+        **Note: All keywords are case-insensitive**
+
+
+        ## Comparison Operators
+
+        | Operator | Description | Example |
+
+        | --- | --- | --- |
+
+        | CONTAINS | Substring or membership testing for string and list attributes respectively. | field3 CONTAINS ''foobar'', field4 CONTAINS TRUE  |
+
+        | IN | Tests if field is a member of a list literal. List can contain a maximum of 100 values | field2 IN [''Goku'', ''Vegeta''] |
+
+        | GE | Tests if a field is greater than or equal to a literal value | field1 GE 1.2e-2 |
+
+        | GT | Tests if a field is greater than a literal value | field1 GT 1.2e-2 |
+
+        | LE | Tests if a field is less than or equal to a literal value | field1 LE 9000 |
+
+        | LT | Tests if a field is less than a literal value | field1 LT 9.02 |
+
+        | NE | Tests if a field is not equal to a literal value | field1 NE 42 |
+
+        | EQ | Tests if a field is equal to a literal value | field1 EQ 42 |
+
+
+        ## Search Operator
+
+        The SEARCH operator filters for items which have any filterable
+
+        attribute that contains the input string as a substring, comparison
+
+        is done case-insensitively. This is not restricted to attributes with
+
+        string values. Specifically `SEARCH ''12''` would match an item with an
+
+        attribute with an integer value of `123`.
+
+
+        ## Logical Operators
+
+        Ordered by precedence.
+
+        | Operator | Description | Example |
+
+        | --- | --- | --- |
+
+        | NOT | Logical NOT (Right associative) | NOT field1 LE 9000 |
+
+        | AND | Logical AND (Left Associative) | field1 GT 9000 AND field2 EQ ''Goku'' |
+
+        | OR | Logical OR (Left Associative) | field1 GT 9000 OR field2 EQ ''Goku'' |
+
+
+        ## Grouping
+
+        Parenthesis `()` can be used to override operator precedence.
+
+
+        For example:
+
+        NOT (field1 LT 1234 AND field2 CONTAINS ''foo'')
+
+
+        ## Literal Values
+
+        | Literal      | Description | Examples |
+
+        | --- | --- | --- |
+
+        | Nil | Represents the absence of a value | nil, Nil, nIl, NIL |
+
+        | Boolean | true/false boolean | true, false, True, False, TRUE, FALSE |
+
+        | Number | Signed integer and floating point numbers. Also supports scientific notation. | 0, 1, -1, 1.2, 0.35, 1.2e-2, -1.2e+2 |
+
+        | String | Single or double quoted | "foo", "bar", "foo bar", ''foo'', ''bar'', ''foo bar'' |
+
+        | Datetime | Formatted according to [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) | 2018-04-27T18:39:26.397237+00:00 |
+
+        | List | Comma-separated literals wrapped in square brackets | [0], [0, 1], [''foo'', "bar"] |
+
+
+        ## Limitations
+
+        - A maximum of 8 unique identifiers may be used inside a filter expression.
+
+        '
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SearchBody'
+          examples:
+            nested:
+              description: 'An example of a nested Object comparison testing that at least one repository has a
+
+                version which is equal to 19.0.0.
+
+                '
+              summary: Nested Object Comparison
+              value:
+                filter_expression: repositories CONTAINS {version eq '19.0.0'}
+            relative:
+              description: 'An example of a relative comparison testing that field1 has a
+
+                value which is less than 123.
+
+                '
+              summary: Relative comparison
+              value:
+                filter_expression: field1 LE 123
+            nil:
+              description: 'An example of using nil to test for the absence of a value for field2.
+
+                '
+              summary: Absence of an attribute value
+              value:
+                filter_expression: field2 EQ NIL
+            non-nil:
+              description: 'An example of using nil to test for the existence of a value for field2.
+
+                '
+              summary: Existence of an attribute value
+              value:
+                filter_expression: field2 NE NIL
+            contains:
+              description: 'An example of using the ''CONTAINS'' operator to check if
+
+                field2 contains the string ''foo''. If field2 is string valued
+
+                then this is checking if ''foo'' is a substring of field2. If
+
+                field2 is a list of strings then this is checking if ''foo''
+
+                is a member of the list.
+
+                '
+              summary: Use of the CONTAINS operator
+              value:
+                filter_expression: field2 CONTAINS 'foo'
+            in:
+              description: 'An example of using the ''IN'' operator to check if field1
+
+                is an element of a list literal.
+
+                '
+              summary: Use of the IN operator
+              value:
+                filter_expression: field1 IN [1, 2, 3]
+            search:
+              description: 'An example of using the ''SEARCH'' operator to retrieve all elements
+
+                for which ''foo'' is a substring of a filterable attribute.
+
+                '
+              summary: Use of the SEARCH operator
+              value:
+                filter_expression: SEARCH 'foo'
+            parenthesis:
+              description: 'An example of parenthesis being used to group operators & override
+
+                operator precedence.
+
+                '
+              summary: Overriding operator precedence
+              value:
+                filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
+    DeleteTags:
+      description: The parameters to delete tags
+      content:
+        application/json:
+          schema:
+            x-body-name: environment
+            $ref: '#/components/schemas/DeleteTag'
+          examples:
+            delete_all_tags:
+              description: Delete all tags for given object - No request body required
+              summary: Delete all tags
+              value: {}
+            delete_tags_by_key:
+              description: Delete all tags for given object with matching key
+              summary: Delete tags by key
+              value:
+                key: key-1
+            delete_tags_by_key_value:
+              description: Delete tag for given object with matching key and value
+              summary: Delete a tag by key & value
+              value:
+                key: key-1
+                value: value-1
+            delete_multiple_tags_by_key_value:
+              description: Delete tags for given list of tags with matching key and value
+              summary: Delete multiple tags by key & value
+              value:
+                tags:
+                - key: key-1
+                  value: value-1
+                - key: key-2
+                  value: value-2
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization

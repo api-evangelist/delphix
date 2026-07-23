@@ -1,0 +1,374 @@
+openapi: 3.0.0
+info:
+  title: Delphix DCT Algorithms StorageUsage API
+  version: 3.28.0
+  description: Delphix DCT API
+  contact:
+    name: Delphix Support
+    url: https://portal.perforce.com/s/
+    email: support@delphix.com
+servers:
+- url: /dct/v3
+security:
+- ApiKeyAuth: []
+tags:
+- name: StorageUsage
+paths:
+  /historical-storage-summary-aggregate:
+    get:
+      summary: Returns the aggregated historical storage usage of all registered engines over time, optionally with a projection of future storage usage.
+      tags:
+      - StorageUsage
+      operationId: get_historical_storage_summary_aggregate
+      parameters:
+      - $ref: '#/components/parameters/startDate'
+      - $ref: '#/components/parameters/endDate'
+      - in: query
+        name: include_projection
+        description: Whether to compute a projection of future storage usage.
+        required: false
+        schema:
+          type: boolean
+      - in: query
+        name: engine_ids
+        description: The list of engine ids to aggregate data for. By default aggregating data for all engines.
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - in: query
+        name: dsource_ids
+        description: The list of dSource ids to aggregate data for. By default aggregating data for all dSources.
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - in: query
+        name: vdb_ids
+        description: The list of VDB ids to aggregate data for. By default aggregating data for all VDBs.
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - in: query
+        name: cdb_ids
+        description: The list of CDB ids to aggregate data for. By default aggregating data for all CDBs.
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - in: query
+        name: vcdb_ids
+        description: The list of VCDB ids to aggregate data for. By default aggregating data for all VCDBs.
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: Returns the aggregated historical storage usage of all registered engines over time.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: HistoricalStorageSummaryAggregate
+                properties:
+                  historical_data_points:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/StorageSummaryHistoricalDataPoint'
+                  projected_data_points:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/StorageSummaryProjectedDataPoint'
+  /historical-storage-summary-by-engine:
+    get:
+      summary: Returns the historical storage usage by engine over time, optionally with a projection of future storage usage.
+      tags:
+      - StorageUsage
+      operationId: get_historical_storage_summary_by_engine
+      parameters:
+      - $ref: '#/components/parameters/startDate'
+      - $ref: '#/components/parameters/endDate'
+      - in: query
+        name: include_projection
+        description: Whether to compute a projection of future storage usage.
+        required: false
+        schema:
+          type: boolean
+      - in: query
+        name: engine_ids
+        description: The list of engine ids to include in the response. By default returning data for all engines.
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: Returns the historical storage usage by engine over time.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: HistoricalStorageSummary
+                properties:
+                  engines:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/EngineHistoricalStorageSummary'
+components:
+  schemas:
+    EngineHistoricalStorageSummary:
+      properties:
+        engine_id:
+          type: string
+        engine_name:
+          type: string
+        historical_data_points:
+          type: array
+          items:
+            $ref: '#/components/schemas/StorageSummaryHistoricalDataPoint'
+        projected_data_points:
+          type: array
+          items:
+            $ref: '#/components/schemas/StorageSummaryProjectedDataPoint'
+    StorageSummaryHistoricalDataPoint:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date
+        free_storage:
+          description: The amount of available storage, in bytes.
+          type: integer
+          format: int64
+        used_storage:
+          description: The amount of storage used by engine objects, in bytes.
+          type: integer
+          format: int64
+        reserved_storage:
+          description: The amount of reserved space, in bytes.
+          type: integer
+          format: int64
+        dsource_total_size:
+          type: integer
+          format: int64
+          description: Total actual space used by the dSources.
+        dsource_base_size:
+          type: integer
+          format: int64
+          description: Total amount of space used for the active copy of the dSources.
+        dsource_logs_size:
+          type: integer
+          format: int64
+          description: Total amount of space used by dSource logs.
+        dsource_snapshot_size:
+          type: integer
+          format: int64
+          description: Total amount of space used by dSource snapshots.
+        vdb_total_size:
+          type: integer
+          format: int64
+          description: Total actual space used by the VDBs.
+        vdb_base_size:
+          type: integer
+          format: int64
+          description: Total amount of space used for the active copy of the VDBs.
+        vdb_logs_size:
+          type: integer
+          format: int64
+          description: Total amount of space used by VDB logs.
+        vdb_snapshot_size:
+          type: integer
+          format: int64
+          description: Total amount of space used by VDB snapshots.
+        cdb_total_size:
+          type: integer
+          format: int64
+          description: Total actual space used by the CDBs.
+        cdb_base_size:
+          type: integer
+          format: int64
+          description: Total amount of space used for the active copy of the CDBs.
+        cdb_logs_size:
+          type: integer
+          format: int64
+          description: Total amount of space used by CDB logs.
+        cdb_snapshot_size:
+          type: integer
+          format: int64
+          description: Total amount of space used by CDB snapshots.
+        vcdb_total_size:
+          type: integer
+          format: int64
+          description: Total actual space used by the VCDBs.
+        vcdb_base_size:
+          type: integer
+          format: int64
+          description: Total amount of space used for the active copy of the VCDBs.
+        vcdb_logs_size:
+          type: integer
+          format: int64
+          description: Total amount of space used by VCDB logs.
+        vcdb_snapshot_size:
+          type: integer
+          format: int64
+          description: Total amount of space used by VCDB snapshots.
+        heldspace_total_size:
+          type: integer
+          format: int64
+          description: Total actual space used by the Heldspace.
+        heldspace_base_size:
+          type: integer
+          format: int64
+          description: Total amount of space used for the copy of the Heldspace.
+        heldspace_logs_size:
+          type: integer
+          format: int64
+          description: Total amount of space used by Heldspace logs.
+        heldspace_snapshot_size:
+          type: integer
+          format: int64
+          description: Total amount of space used by Heldspace snapshots.
+        deleted_total_size:
+          type: integer
+          format: int64
+          description: Total actual space used by the deleted datasets.
+        deleted_base_size:
+          type: integer
+          format: int64
+          description: Total amount of space used for the copy of the deleted datasets.
+        deleted_logs_size:
+          type: integer
+          format: int64
+          description: Total amount of space used by deleted dataset logs.
+        deleted_snapshot_size:
+          type: integer
+          format: int64
+          description: Total amount of space used by deleted dataset snapshots.
+    StorageSummaryProjectedDataPoint:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date
+        free_storage:
+          description: The projected amount of available storage, in bytes.
+          type: integer
+          format: int64
+        used_storage:
+          description: The projected amount of storage used by engine objects and reserved space, in bytes.
+          type: integer
+          format: int64
+        reserved_storage:
+          description: The projected amount of reserved space, in bytes.
+          type: integer
+          format: int64
+        dsource_total_size:
+          type: integer
+          format: int64
+          description: Total actual space used by the dSources.
+        dsource_base_size:
+          type: integer
+          format: int64
+          description: Total amount of space used for the active copy of the dSources.
+        dsource_logs_size:
+          type: integer
+          format: int64
+          description: Total amount of space used by dSource logs.
+        dsource_snapshot_size:
+          type: integer
+          format: int64
+          description: Total amount of space used by dSource snapshots.
+        vdb_total_size:
+          type: integer
+          format: int64
+          description: Total actual space used by the VDBs.
+        vdb_base_size:
+          type: integer
+          format: int64
+          description: Total amount of space used for the active copy of the VDBs.
+        vdb_logs_size:
+          type: integer
+          format: int64
+          description: Total amount of space used by VDB logs.
+        vdb_snapshot_size:
+          type: integer
+          format: int64
+          description: Total amount of space used by VDB snapshots.
+        cdb_total_size:
+          type: integer
+          format: int64
+          description: Total actual space used by the CDBs.
+        cdb_base_size:
+          type: integer
+          format: int64
+          description: Total amount of space used for the active copy of the CDBs.
+        cdb_logs_size:
+          type: integer
+          format: int64
+          description: Total amount of space used by CDB logs.
+        cdb_snapshot_size:
+          type: integer
+          format: int64
+          description: Total amount of space used by CDB snapshots.
+        vcdb_total_size:
+          type: integer
+          format: int64
+          description: Total actual space used by the VCDBs.
+        vcdb_base_size:
+          type: integer
+          format: int64
+          description: Total amount of space used for the active copy of the VCDBs.
+        vcdb_logs_size:
+          type: integer
+          format: int64
+          description: Total amount of space used by VCDB logs.
+        vcdb_snapshot_size:
+          type: integer
+          format: int64
+          description: Total amount of space used by VCDB snapshots.
+        heldspace_total_size:
+          type: integer
+          format: int64
+          description: Total actual space used by the Heldspace.
+        heldspace_base_size:
+          type: integer
+          format: int64
+          description: Total amount of space used for the copy of the Heldspace.
+        heldspace_logs_size:
+          type: integer
+          format: int64
+          description: Total amount of space used by Heldspace logs.
+        heldspace_snapshot_size:
+          type: integer
+          format: int64
+          description: Total amount of space used by Heldspace snapshots.
+  parameters:
+    startDate:
+      name: start_date
+      in: query
+      description: Report start date/time. Defaults to first API request.
+      example: '2022-05-29T15:00:00-04:00'
+      schema:
+        type: string
+        format: date-time
+    endDate:
+      name: end_date
+      in: query
+      description: Report end date/time. Defaults to current time.
+      example: '2022-06-07T15:10:00-04:00'
+      schema:
+        type: string
+        format: date-time
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization

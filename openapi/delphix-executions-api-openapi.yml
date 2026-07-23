@@ -1,0 +1,1710 @@
+openapi: 3.0.0
+info:
+  title: Delphix DCT Algorithms Executions API
+  version: 3.28.0
+  description: Delphix DCT API
+  contact:
+    name: Delphix Support
+    url: https://portal.perforce.com/s/
+    email: support@delphix.com
+servers:
+- url: /dct/v3
+security:
+- ApiKeyAuth: []
+tags:
+- name: Executions
+paths:
+  /executions:
+    get:
+      tags:
+      - Executions
+      summary: Retrieve the list of masking executions.
+      operationId: get_executions
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/executionsSortParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ListExecutionsResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Execution'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /executions/search:
+    post:
+      tags:
+      - Executions
+      summary: Search masking executions.
+      operationId: search_executions
+      x-filterable:
+        fields:
+          id:
+            type: string
+          engine_id:
+            type: string
+          engine_name:
+            type: string
+          job_orchestrator_id:
+            type: string
+          job_orchestrator_name:
+            type: string
+          masking_job_id:
+            type: string
+          masking_job_name:
+            type: string
+          compliance_job_type:
+            type: string
+          dct_managed:
+            type: boolean
+          source_connector_id:
+            type: string
+          source_connector_name:
+            type: string
+          target_connector_id:
+            type: string
+          target_connector_name:
+            type: string
+          status:
+            type: string
+          rows_masked:
+            type: integer
+          rows_total:
+            type: integer
+          bytes_processed:
+            type: integer
+          bytes_total:
+            type: integer
+          start_time:
+            type: string
+          submit_time:
+            type: string
+          end_time:
+            type: string
+          run_duration:
+            type: integer
+          queue_duration:
+            type: integer
+          total_duration:
+            type: integer
+          account_id:
+            type: integer
+          account_name:
+            type: string
+          hyperscale_instance_id:
+            type: string
+          hyperscale_engine_count:
+            type: integer
+          collection_execution_id:
+            type: string
+          owning_entity_id:
+            type: string
+          owning_entity_type:
+            type: string
+          task_events:
+            type: array[object]
+            fields:
+              event:
+                type: string
+              status:
+                type: string
+          hyperscale_task_events:
+            type: array[object]
+            fields:
+              name:
+                type: string
+              progress:
+                type: number
+              status:
+                type: string
+              processed_objects:
+                type: integer
+              processed_rows:
+                type: integer
+              total_constraints:
+                type: integer
+              processed_indexes:
+                type: integer
+              total_indexes:
+                type: integer
+              processed_triggers:
+                type: integer
+              total_triggers:
+                type: integer
+              start_time:
+                type: string
+              end_time:
+                type: string
+              errors:
+                type: array[object]
+                fields:
+                  table_name:
+                    type: string
+                  error:
+                    type: string
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/executionsSortParam'
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: SearchExecutionsResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Execution'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /executions/{executionId}:
+    parameters:
+    - $ref: '#/components/parameters/executionIdParam'
+    get:
+      summary: Retrieve an Execution by ID.
+      operationId: get_execution_by_id
+      tags:
+      - Executions
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Execution'
+  /executions/{executionId}/cancel:
+    parameters:
+    - $ref: '#/components/parameters/executionIdParam'
+    post:
+      summary: Cancel an Execution.
+      operationId: cancel_execution
+      tags:
+      - Executions
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              x-body-name: cancel_execution
+              $ref: '#/components/schemas/ExecutionCancelParameters'
+      responses:
+        '200':
+          description: OK
+  /executions/{executionId}/restart:
+    parameters:
+    - $ref: '#/components/parameters/executionIdParam'
+    post:
+      summary: Restart an Execution (Hyperscale only).
+      operationId: restart_execution
+      tags:
+      - Executions
+      responses:
+        '200':
+          description: Masking job execution restarted.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: RestartExecutionResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+  /executions/{executionId}/cleanup:
+    parameters:
+    - $ref: '#/components/parameters/executionIdParam'
+    post:
+      summary: Cleanup an Execution (Hyperscale only).
+      operationId: cleanup_execution
+      tags:
+      - Executions
+      responses:
+        '200':
+          description: Masking job execution cleaned up.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: CleanupExecutionResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+  /executions/{executionId}/events:
+    parameters:
+    - $ref: '#/components/parameters/executionIdParam'
+    get:
+      summary: Retrieve the list of events for a masking execution.
+      operationId: get_execution_events
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/executionEventsSortParam'
+      tags:
+      - Executions
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ListExecutionEventsResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ExecutionEvent'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /executions/{executionId}/events/search:
+    parameters:
+    - $ref: '#/components/parameters/executionIdParam'
+    post:
+      tags:
+      - Executions
+      summary: Search masking executions events.
+      operationId: search_execution_events
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/executionEventsSortParam'
+      x-filterable:
+        fields:
+          id:
+            type: string
+          execution_id:
+            type: string
+          execution_component_id:
+            type: string
+          event_type:
+            type: string
+          severity:
+            type: string
+          cause:
+            type: string
+          count:
+            type: integer
+          timestamp:
+            type: string
+          masked_object_name:
+            type: string
+          algorithm_name:
+            type: string
+          exception_type:
+            type: string
+          exception_detail:
+            type: string
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: SearchExecutionEventsResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ExecutionEvent'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /executions/{executionId}/log:
+    parameters:
+    - $ref: '#/components/parameters/executionIdParam'
+    get:
+      summary: Retrieve the masking execution log.
+      description: Returns the execution log information for the given execution.
+      operationId: get_execution_log
+      tags:
+      - Executions
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExecutionLog'
+        '404':
+          description: Execution not found or log not available.
+  /executions/{executionId}/execution-components:
+    parameters:
+    - $ref: '#/components/parameters/executionIdParam'
+    get:
+      summary: Get execution components for an execution.
+      operationId: get_execution_components
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/executionComponentsSortParam'
+      tags:
+      - Executions
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ExecutionComponentsListResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ExecutionComponent'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /executions/{executionId}/execution-components/search:
+    parameters:
+    - $ref: '#/components/parameters/executionIdParam'
+    post:
+      tags:
+      - Executions
+      summary: Search execution components for an execution.
+      operationId: search_execution_components
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/executionComponentsSortParam'
+      x-filterable:
+        fields:
+          id:
+            type: string
+          name:
+            type: string
+          execution_id:
+            type: string
+          status:
+            type: string
+          rows_masked:
+            type: integer
+          rows_total:
+            type: integer
+          bytes_processed:
+            type: integer
+          bytes_total:
+            type: integer
+          start_time:
+            type: string
+          end_time:
+            type: string
+          non_conforming_data_count:
+            type: integer
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ExecutionComponentsSearchResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ExecutionComponent'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /executions/{executionId}/execution-components/{executionComponentId}:
+    parameters:
+    - $ref: '#/components/parameters/executionIdParam'
+    - $ref: '#/components/parameters/executionComponentIdParam'
+    get:
+      summary: Get an execution component by ID.
+      operationId: get_execution_component_by_id
+      tags:
+      - Executions
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExecutionComponent'
+  /executions/{executionId}/execution-components/{executionComponentId}/log:
+    parameters:
+    - $ref: '#/components/parameters/executionIdParam'
+    - $ref: '#/components/parameters/executionComponentIdParam'
+    get:
+      summary: Get an execution component log.
+      description: Returns the execution component log information for the given execution component.
+      operationId: get_execution_component_log
+      tags:
+      - Executions
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExecutionComponentLog'
+        '404':
+          description: Execution component not found or log not available.
+  /executions/{executionId}/discovery-results:
+    parameters:
+    - $ref: '#/components/parameters/executionIdParam'
+    get:
+      summary: Retrieve the list of discovery results for a masking execution.
+      operationId: get_discovery_results
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/discoveryResultSortParam'
+      tags:
+      - Executions
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ListDiscoveryResultsResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DiscoveryResult'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /executions/{executionId}/discovery-results/search:
+    parameters:
+    - $ref: '#/components/parameters/executionIdParam'
+    post:
+      tags:
+      - Executions
+      summary: Search discovery results associated with execution of a discovery job
+      operationId: search_discovery_results
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/discoveryResultSortParam'
+      x-filterable:
+        fields:
+          id:
+            type: string
+          table_name:
+            type: string
+          file_name:
+            type: string
+          column_name:
+            type: string
+          field_name:
+            type: string
+          data_class_name:
+            type: string
+          algorithm_name:
+            type: string
+          data_type:
+            type: string
+          confidence:
+            type: integer
+          is_profiler_writable:
+            type: boolean
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: SearchDiscoveryResultsResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DiscoveryResult'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+components:
+  parameters:
+    discoveryResultSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: column_name
+      required: false
+      schema:
+        type: string
+        enum:
+        - id
+        - -id
+        - table_name
+        - -table_name
+        - file_name
+        - -file_name
+        - column_name
+        - -column_name
+        - field_name
+        - -field_name
+        - data_class_name
+        - -data_class_name
+        - algorithm_name
+        - -algorithm_name
+        - data_type
+        - -data_type
+        - confidence
+        - -confidence
+        - is_profiler_writable
+        - -is_profiler_writable
+        nullable: true
+        example: name
+    executionComponentsSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: id
+      required: false
+      schema:
+        type: string
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - execution_id
+        - -execution_id
+        - status
+        - -status
+        - rows_masked
+        - -rows_masked
+        - rows_total
+        - -rows_total
+        - bytes_processed
+        - -bytes_processed
+        - bytes_total
+        - -bytes_total
+        - start_time
+        - -start_time
+        - end_time
+        - -end_time
+        - non_conforming_data_count
+        - -non_conforming_data_count
+        nullable: true
+        example: id
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    executionEventsSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: id
+      required: false
+      schema:
+        type: string
+        enum:
+        - id
+        - -id
+        - execution_id
+        - -execution_id
+        - execution_component_id
+        - -execution_component_id
+        - event_type
+        - -event_type
+        - severity
+        - -severity
+        - cause
+        - -cause
+        - count
+        - -count
+        - timestamp
+        - -timestamp
+        - masked_object_name
+        - -masked_object_name
+        - algorithm_name
+        - -algorithm_name
+        - exception_type
+        - -exception_type
+        - exception_detail
+        - -exception_detail
+        nullable: true
+        example: id
+    executionComponentIdParam:
+      in: path
+      name: executionComponentId
+      schema:
+        type: string
+      required: true
+      description: The ID of the Execution Component.
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+    executionsSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: id
+      required: false
+      schema:
+        type: string
+        enum:
+        - id
+        - -id
+        - engine_id
+        - -engine_id
+        - engine_name
+        - -engine_name
+        - job_orchestrator_id
+        - -job_orchestrator_id
+        - job_orchestrator_name
+        - -job_orchestrator_name
+        - masking_job_id
+        - -masking_job_id
+        - masking_job_name
+        - -masking_job_name
+        - compliance_job_type
+        - -compliance_job_type
+        - dct_managed
+        - -dct_managed
+        - source_connector_id
+        - -source_connector_id
+        - source_connector_name
+        - -source_connector_name
+        - target_connector_id
+        - -target_connector_id
+        - target_connector_name
+        - -target_connector_name
+        - status
+        - -status
+        - rows_masked
+        - -rows_masked
+        - rows_total
+        - -rows_total
+        - bytes_processed
+        - -bytes_processed
+        - bytes_total
+        - -bytes_total
+        - start_time
+        - -start_time
+        - end_time
+        - -end_time
+        - submit_time
+        - -submit_time
+        - run_duration
+        - -run_duration
+        - queue_duration
+        - -queue_duration
+        - total_duration
+        - -total_duration
+        - account_id
+        - -account_id
+        - account_name
+        - -account_name
+        - hyperscale_engine_count
+        - -hyperscale_engine_count
+        nullable: true
+        example: -start_time
+    executionIdParam:
+      in: path
+      name: executionId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the Execution.
+  schemas:
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    Execution:
+      description: The execution of a masking or discovery job.
+      type: object
+      properties:
+        id:
+          description: The Execution entity ID.
+          type: string
+          example: 414ed52c-fa89-455d-9fb9-9c2fa5115f80
+        engine_id:
+          description: The ID of the engine where this execution ran.
+          type: string
+          example: '1'
+        hyperscale_instance_id:
+          type: string
+        engine_name:
+          description: The name of the engine where this execution ran.
+          type: string
+          example: prod01
+        job_orchestrator_id:
+          description: The ID of the job orchestrator that is associated with this execution.
+          type: string
+        job_orchestrator_name:
+          description: The name of the job orchestrator that is associated with this execution.
+          type: string
+        masking_job_id:
+          description: The ID of the masking job that is being executed.
+          type: string
+          example: '2'
+        masking_job_name:
+          description: The name of the masking job that is being executed.
+          type: string
+          example: finance-masking-job
+        compliance_job_type:
+          description: The type of the compliance job being executed.
+          type: string
+          enum:
+          - MASKING
+          - DISCOVERY
+          - TOKENIZATION
+          - REIDENTIFICATION
+          example: MASKING
+        dct_managed:
+          description: Indicates whether this execution is for a DCT-managed masking job.
+          type: boolean
+          example: true
+        source_connector_id:
+          description: The ID of the source connector. This field is only used for multi-tenant jobs that are also on-the-fly.
+          type: string
+          example: 1-DATABASE-2
+        target_connector_id:
+          description: The ID of the target connector. This field is only used for multi-tenant jobs.
+          type: string
+          example: 1-DATABASE-3
+        source_connector_name:
+          description: The name of the source connector. This field is only used for multi-tenant jobs that are also on-the-fly.
+          type: string
+          example: source-database
+        target_connector_name:
+          description: The name of the target connector. This field is only used for multi-tenant jobs.
+          type: string
+          example: target-database
+        status:
+          $ref: '#/components/schemas/ExecutionStatus'
+        rows_masked:
+          description: The number of rows masked or profiled so far by this execution. This is not applicable for JSON file type.
+          type: integer
+          format: int64
+          example: 1000
+        rows_total:
+          description: The total number of rows that this execution should mask. This value is set to -1 while the total row count is being calculated. This is not applicable for JSON file type.
+          type: integer
+          format: int64
+          example: 5000
+        bytes_processed:
+          description: The number of bytes masked so far by this execution. This is only applicable for JSON file type.
+          type: integer
+          format: int64
+          example: 500
+        bytes_total:
+          description: The total number of bytes that this execution should mask. This value is set to -1 while the total byte count is being calculated. This is only applicable for JSON file type.
+          type: integer
+          format: int64
+          example: 5000000
+        start_time:
+          description: The date and time that this execution was started.
+          type: string
+          format: date-time
+          example: '2021-05-01T09:51:34.148000+00:00'
+        submit_time:
+          description: The date and time that this execution was submitted.
+          type: string
+          format: date-time
+          example: '2021-05-01T08:51:34.148000+00:00'
+        end_time:
+          description: The date and time that this execution completed.
+          type: string
+          format: date-time
+          example: '2021-05-01T11:51:34.148000+00:00'
+        run_duration:
+          description: The time this execution spent running, in milliseconds.
+          type: integer
+          format: int64
+          example: 4000
+        queue_duration:
+          description: The time this execution spent in the queue, in milliseconds.
+          type: integer
+          format: int64
+          example: 1000
+        total_duration:
+          description: The total time this execution took, in milliseconds.
+          type: integer
+          format: int64
+          example: 5000
+        account_id:
+          description: The account id of the DCT user who started this execution.
+          type: integer
+          format: int64
+          example: 3
+        account_name:
+          description: The account name of the DCT user who started this execution.
+          type: string
+          example: username
+        task_events:
+          description: The progression of steps or events performed by this execution. Only available for executions on masking engines that are version 6.0.14.0 and higher.
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskEvent'
+          example:
+          - event: Initializing
+            status: SUCCEEDED
+          - event: Job Completed
+            status: FAILED
+        hyperscale_task_events:
+          type: array
+          items:
+            $ref: '#/components/schemas/HyperscaleTaskEvent'
+        progress:
+          description: Progress of the task (value between 0 and 1, Hyperscale executions only)
+          type: number
+          example: 0.34
+        execution_components_total:
+          description: The total number of execution components in this execution.
+          type: integer
+          format: int32
+          example: 5
+        execution_components_processed:
+          description: The number of execution components processed so far in this execution.
+          type: integer
+          format: int32
+          example: 3
+        collection_execution_id:
+          description: The id of the compliance job collection execution this execution is part of, if any
+          type: string
+          example: 54a0cbff-bdc6-49fd-8e71-e8b570524fe9
+        data_collection_complete:
+          description: Indicates whether all peripheral information associated with the execution, including execution components, execution events, logs and discovery results, has been fully collected and finalized.
+          type: boolean
+        owning_entity_id:
+          description: The owning entity ID of the target connector.
+          type: string
+        owning_entity_type:
+          description: The type of the owning entity, if any.
+          type: string
+          enum:
+          - PAAS_INSTANCE
+        hyperscale_engine_count:
+          description: The number of hyperscale engines associated with this execution (Hyperscale executions only).
+          type: integer
+          format: int32
+          example: 2
+    DiscoveryResult:
+      description: The result of sensitive data discovery on a single column or field
+      type: object
+      properties:
+        id:
+          description: The DCT local id of this discovery result
+          type: string
+          example: 1
+        table_name:
+          description: The name of the table to which the column belongs
+          type: string
+          example: cust_address
+        file_name:
+          description: The name of the file to which the discovery result applies
+          type: string
+          example: report.json
+        column_name:
+          description: The name the column to which the discovery result applies
+          type: string
+          example: ADDR_LINE_1
+        field_name:
+          description: The name the field to which the discovery result applies
+          type: string
+          example: customer name
+        data_class_name:
+          description: The data class selected for the column or field
+          type: string
+          example: FIRST_NAME
+        algorithm_name:
+          description: The name of the algorithm selected for the column or field
+          type: string
+          example: FIRST_NAME_SL
+        data_type:
+          description: The data type determined for the column or field
+          type: string
+          example: varchar
+        confidence:
+          description: The confidence of the discovery result, ranging from -100 to 100
+          type: integer
+          format: int32
+          example: 85
+        is_profiler_writable:
+          description: Whether the corresponding ruleset column or field was configured to allow the discovery process to update the masking assignment
+          type: boolean
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    ExecutionLog:
+      description: A log containing warnings or errors associated with a job execution.
+      allOf:
+      - type: object
+        properties:
+          id:
+            description: The ExecutionLog entity ID.
+            type: string
+            example: 1-LOG-1
+          execution_id:
+            description: The ID of the execution.
+            type: string
+            example: ea02f031-75d7-4c76-8747-2a7f04181451
+          masking_job_id:
+            description: The ID of the masking job that is being executed.
+            type: string
+            example: '2'
+          status:
+            $ref: '#/components/schemas/ExecutionStatus'
+      - $ref: '#/components/schemas/ExecutionLogsDownloadProperties'
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    ExecutionComponent:
+      description: An execution component associated with a job execution
+      type: object
+      properties:
+        id:
+          description: The ID of the execution component
+          type: string
+          example: '123'
+        name:
+          description: The name of the execution component
+          type: string
+          example: table_a
+        execution_id:
+          description: The ID of the execution
+          type: string
+          example: 414ed52c-fa89-455d-9fb9-9c2fa5115f80
+        status:
+          $ref: '#/components/schemas/ExecutionStatus'
+        rows_masked:
+          description: The number of rows masked or profiled so far in the execution component. This is not applicable for JSON file type.
+          type: integer
+          format: int64
+          example: 1000
+        rows_total:
+          description: The total number of rows that should be masked or profiled in the execution component. This value is set to -1 while the total row count is being calculated. This is not applicable for JSON file type.
+          type: integer
+          format: int64
+          example: 5000
+        bytes_processed:
+          description: The number of bytes masked or profiled so far in the component. This is only applicable to JSON files and ASDD profiling jobs on XML files.
+          type: integer
+          format: int64
+          example: 500
+        bytes_total:
+          description: The total number of bytes that should be masked or profiled in the component. This value is set to -1 while the total byte count is being calculated. This is only applicable to JSON files and ASDD profiling jobs on XML files.
+          type: integer
+          format: int64
+          example: 5000000
+        start_time:
+          description: The date and time that the masking engine starts operating on the execution component.
+          type: string
+          format: date-time
+          example: '2021-05-01T09:51:34.148000+00:00'
+        end_time:
+          description: The date and time that the execution component is placed in a final state.
+          type: string
+          format: date-time
+          example: '2021-05-01T11:51:34.148000+00:00'
+        non_conforming_data_count:
+          description: The non-conforming data count for this execution component.
+          type: integer
+          format: int64
+          example: 10
+    TaskEvent:
+      description: A step or event performed by a masking execution.
+      type: object
+      properties:
+        event:
+          description: The steps or events a task will perform.
+          type: string
+          example: Job Completed
+        status:
+          description: The state of result of the task event.
+          type: string
+          enum:
+          - CANCELLED
+          - FAILED
+          - QUEUED
+          - RUNNING
+          - SUCCEEDED
+          - SKIPPED
+          - NON_CONFORMANT
+          example: SUCCEEDED
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    HyperscaleTaskEvent:
+      properties:
+        name:
+          type: string
+          description: Name of the task (Unload, Masking, Load, Post-Load)
+          example: Unload
+        progress:
+          description: progress of the task (between 0 and 1)
+          type: number
+          example: 0.34
+        status:
+          type: string
+          enum:
+          - CANCELLED
+          - CANCEL_INITIATED
+          - FAILED
+          - RUNNING
+          - SUCCEEDED
+          example: FAILED
+        processed_objects:
+          description: The number of objects (tables) already processed by this task.
+          type: integer
+          format: int64
+        processed_rows:
+          description: The number of rows already processed by this task.
+          type: integer
+          format: int64
+        processed_constraints:
+          description: The number of constraints processed by this task (Post-load task only)
+          type: integer
+          format: int64
+        total_constraints:
+          description: The total number of constraints to be processed by this task (Post-load task only)
+          type: integer
+          format: int64
+        processed_indexes:
+          description: The number of indexes processed by this task (Post-load task only)
+          type: integer
+          format: int64
+        total_indexes:
+          description: The total number of indexes to be processed by this task (Post-load task only)
+          type: integer
+          format: int64
+        processed_triggers:
+          description: The number of triggered processed by this task (Post-load task only)
+          type: integer
+          format: int64
+        total_triggers:
+          description: The total number of triggers to be processed by this task (Post-load task only)
+          type: integer
+          format: int64
+        start_time:
+          description: The date and time that this task was started.
+          type: string
+          format: date-time
+          example: '2022-01-02T05:11:24.148000+00:00'
+        end_time:
+          description: The date and time that this task completed.
+          type: string
+          format: date-time
+          example: '2022-01-02T05:13:24.148000+00:00'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/HyperscaleTaskError'
+    ExecutionStatus:
+      description: The status of a masking or discovery job.
+      type: string
+      enum:
+      - PENDING
+      - QUEUED
+      - RUNNING
+      - CANCELLED
+      - FAILED
+      - SUCCEEDED
+      - WARNING
+      - WAITING
+      example: RUNNING
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    ExecutionCancelParameters:
+      description: Parameters to cancel an execution.
+      type: object
+      properties:
+        expected_status:
+          description: The expected status of the execution to cancel to prevent cancelling a queued job that has transitioned to a running state since the request was issued (Standard Job only).
+          type: string
+          enum:
+          - QUEUED
+          - RUNNING
+          example: QUEUED
+    HyperscaleTaskError:
+      properties:
+        table_name:
+          type: string
+          description: the name of the table for which the error occurred, including the schema.
+          example: public_schema.table_x
+        error:
+          type: string
+          description: A textual description of the error.
+    VirtualizationTask:
+      deprecated: true
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    ExecutionEvent:
+      description: Events, such as warnings or errors, associated with job executions.
+      type: object
+      properties:
+        id:
+          description: The ExecutionEvent entity ID.
+          type: string
+          example: 1-EVENT-1
+        execution_id:
+          description: The ID of the execution.
+          type: string
+          example: 414ed52c-fa89-455d-9fb9-9c2fa5115f80
+        execution_component_id:
+          description: The ID of the execution component.
+          type: string
+          example: '123'
+        event_type:
+          description: The type of execution event.
+          type: string
+          enum:
+          - JOB_ABORTED
+          - UNMASKED_DATA
+          - MASKING_FALLBACK
+          - NONCONFORMANT_DATA_NULLIFICATION
+          - FILE_PATTERN_NO_MATCH
+          - DATA_FETCH_FAIL
+          example: JOB_ABORTED
+        severity:
+          description: The severity of the execution event.
+          type: string
+          enum:
+          - INFO
+          - WARNING
+          - CRITICAL
+          example: INFO
+        cause:
+          description: The cause of the execution event.
+          type: string
+          enum:
+          - UNHANDLED_EXCEPTION
+          - IGNORED_EXCEPTION
+          - PATTERN_MATCH_FAILURE
+          - PREMASK_TYPE_CONVERSION_FAILURE
+          - POSTMASK_TYPE_CONVERSION_FAILURE
+          - EXTENDED_ALGORITHM_FAILURE
+          - DRIVER_SUPPORT_TASK_FAILURE
+          - DATA_NOT_FOUND_FAILURE
+          - INVALID_JOB_CONFIGURATION
+          - DATA_QUERY_TIMEOUT
+          - SALESFORCE_BATCH_JOB_ERRORS
+          example: UNHANDLED_EXCEPTION
+        count:
+          description: The number of times the execution event occurred.
+          type: integer
+          format: int64
+          example: 1
+        timestamp:
+          description: The date and time that this execution event first occurred.
+          type: string
+          format: date-time
+          example: '2023-03-20T08:51:34.148000+00:00'
+        masked_object_name:
+          description: The name of the column, field, or other object being masked when this event occurred, if applicable.
+          type: string
+          example: ssn
+        algorithm_name:
+          description: The name of the masking algorithm running when this event occurred, if applicable.
+          type: string
+          example: SsnTK
+        exception_type:
+          description: The Java class of the exception that triggered this event, if applicable.
+          type: string
+          example: SQLException
+        exception_detail:
+          description: The details associated with the Java exception that triggered this event, if applicable.
+          type: string
+          example: 'Listener refused the connection with the following error: ORA-12505, TNS:listener does not currently know of SID given in connect descriptor'
+    ExecutionComponentLog:
+      description: A log containing information about an execution component
+      allOf:
+      - type: object
+        properties:
+          execution_component_id:
+            description: The ID of the execution component
+            type: string
+            example: '123'
+      - $ref: '#/components/schemas/ExecutionLogsDownloadProperties'
+    ExecutionLogsDownloadProperties:
+      description: Common properties for log file download information.
+      type: object
+      properties:
+        log:
+          description: 'The log file contents. If the log file is 100KB or smaller, the entire contents are returned.
+
+            If the log file is larger than 100KB, the response is truncated to include either the last 1000 lines
+
+            (if they fit within 100KB) or as many lines as fit within the 100KB limit.
+
+            '
+          type: string
+        download_status:
+          description: 'The status of downloading the log file from the engine to DCT.
+
+            - COLLECTED: The log file has been successfully downloaded and is available.
+
+            - FAILED: The log file failed to download from Compliance Node or Engine to DCT.
+
+            - NOT_AVAILABLE: The log file was not available on Compliance Node or Engine.
+
+            - DELETED: The log file has been deleted from DCT.
+
+            '
+          type: string
+          enum:
+          - COLLECTED
+          - FAILED
+          - NOT_AVAILABLE
+          - DELETED
+          example: COLLECTED
+        file_size:
+          description: The size of the log file in bytes.
+          type: integer
+          format: int64
+          example: 1024
+        is_truncated:
+          description: Whether the log content has been truncated because the file size exceeds 100KB. When true, only the last 1000 lines are included, subject to the 100KB limit.
+          type: boolean
+          example: false
+        file_download_id:
+          description: The ID of the file download record, which can be used to download the full log file via the file download API. Only present when download_status is COLLECTED.
+          type: string
+          example: 3a4b5c6d-1234-5678-abcd-ef0123456789
+    Job:
+      description: An asynchronous task.
+      type: object
+      properties:
+        id:
+          description: The Job entity ID.
+          type: string
+          example: job-123
+        status:
+          description: The status of the job.
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+          example: RUNNING
+        is_waiting_for_telemetry:
+          description: Indicates that the operations performed by this Job have completed successfully, but the object changes are not yet reflected. This is only set when when the JOB is in STARTED status, with the guarantee that the job will not transition to the FAILED status. Note that this flag will likely be replaced with a new status in future API versions and be deprecated.
+          type: boolean
+        type:
+          description: The type of job being done.
+          type: string
+          example: DB_REFRESH
+        localized_type:
+          description: The i18n translated type of job being done.
+          type: string
+          example: DB Refresh
+        error_details:
+          description: Details about the failure for FAILED jobs.
+          type: string
+          example: Unable to connect to the engine.
+        warning_message:
+          description: Warnings for the job.
+          type: string
+          example: 'Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.'
+        target_id:
+          description: A reference to the job's target.
+          type: string
+          example: vdb-123
+        target_name:
+          description: A reference to the job's target name.
+          type: string
+          example: vdb
+        start_time:
+          description: The time the job started executing.
+          type: string
+          format: date-time
+          example: '2022-01-02T05:11:24.148000+00:00'
+        update_time:
+          description: The time the job was last updated.
+          type: string
+          format: date-time
+          example: '2022-01-02T06:11:24.148000+00:00'
+        trace_id:
+          description: traceId of the request which created this Job
+          type: string
+        engine_ids:
+          description: IDs of the engines this Job is executing on.
+          type: array
+          items:
+            type: string
+          deprecated: true
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        engines:
+          type: array
+          items:
+            $ref: '#/components/schemas/Engine'
+        account_id:
+          description: The ID of the account who initiated this job.
+          type: integer
+          example: 1
+        account_name:
+          description: The account name which initiated this job. It can be either firstname and lastname combination or firstname or lastname or username or email address or Account-<id>.
+          type: string
+          example: User 1
+        compliance_node_id:
+          type: string
+          description: The ID of the associated compliance node, if applicable.
+          nullable: true
+        compliance_node_name:
+          type: string
+          description: The name of the associated compliance node, if applicable.
+          nullable: true
+        percent_complete:
+          description: Completion percentage of the Job.
+          type: integer
+          minimum: 0
+          maximum: 100
+          example: '50'
+        virtualization_tasks:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTask'
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTask'
+        execution_id:
+          description: The ID of the associated masking execution, if any.
+          type: string
+          nullable: true
+        result_type:
+          description: The type of the job result. This is the type of the object present in the result.
+          type: string
+        result:
+          description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
+          type: object
+  requestBodies:
+    SearchBody:
+      x-skip-codegen-attr: description
+      description: 'A request body containing a filter expression. This enables searching
+
+        for items matching arbitrarily complex conditions. The list of
+
+        attributes which can be used in filter expressions is available
+
+        in the x-filterable vendor extension.
+
+
+        # Filter Expression Overview
+
+        **Note: All keywords are case-insensitive**
+
+
+        ## Comparison Operators
+
+        | Operator | Description | Example |
+
+        | --- | --- | --- |
+
+        | CONTAINS | Substring or membership testing for string and list attributes respectively. | field3 CONTAINS ''foobar'', field4 CONTAINS TRUE  |
+
+        | IN | Tests if field is a member of a list literal. List can contain a maximum of 100 values | field2 IN [''Goku'', ''Vegeta''] |
+
+        | GE | Tests if a field is greater than or equal to a literal value | field1 GE 1.2e-2 |
+
+        | GT | Tests if a field is greater than a literal value | field1 GT 1.2e-2 |
+
+        | LE | Tests if a field is less than or equal to a literal value | field1 LE 9000 |
+
+        | LT | Tests if a field is less than a literal value | field1 LT 9.02 |
+
+        | NE | Tests if a field is not equal to a literal value | field1 NE 42 |
+
+        | EQ | Tests if a field is equal to a literal value | field1 EQ 42 |
+
+
+        ## Search Operator
+
+        The SEARCH operator filters for items which have any filterable
+
+        attribute that contains the input string as a substring, comparison
+
+        is done case-insensitively. This is not restricted to attributes with
+
+        string values. Specifically `SEARCH ''12''` would match an item with an
+
+        attribute with an integer value of `123`.
+
+
+        ## Logical Operators
+
+        Ordered by precedence.
+
+        | Operator | Description | Example |
+
+        | --- | --- | --- |
+
+        | NOT | Logical NOT (Right associative) | NOT field1 LE 9000 |
+
+        | AND | Logical AND (Left Associative) | field1 GT 9000 AND field2 EQ ''Goku'' |
+
+        | OR | Logical OR (Left Associative) | field1 GT 9000 OR field2 EQ ''Goku'' |
+
+
+        ## Grouping
+
+        Parenthesis `()` can be used to override operator precedence.
+
+
+        For example:
+
+        NOT (field1 LT 1234 AND field2 CONTAINS ''foo'')
+
+
+        ## Literal Values
+
+        | Literal      | Description | Examples |
+
+        | --- | --- | --- |
+
+        | Nil | Represents the absence of a value | nil, Nil, nIl, NIL |
+
+        | Boolean | true/false boolean | true, false, True, False, TRUE, FALSE |
+
+        | Number | Signed integer and floating point numbers. Also supports scientific notation. | 0, 1, -1, 1.2, 0.35, 1.2e-2, -1.2e+2 |
+
+        | String | Single or double quoted | "foo", "bar", "foo bar", ''foo'', ''bar'', ''foo bar'' |
+
+        | Datetime | Formatted according to [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) | 2018-04-27T18:39:26.397237+00:00 |
+
+        | List | Comma-separated literals wrapped in square brackets | [0], [0, 1], [''foo'', "bar"] |
+
+
+        ## Limitations
+
+        - A maximum of 8 unique identifiers may be used inside a filter expression.
+
+        '
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SearchBody'
+          examples:
+            nested:
+              description: 'An example of a nested Object comparison testing that at least one repository has a
+
+                version which is equal to 19.0.0.
+
+                '
+              summary: Nested Object Comparison
+              value:
+                filter_expression: repositories CONTAINS {version eq '19.0.0'}
+            relative:
+              description: 'An example of a relative comparison testing that field1 has a
+
+                value which is less than 123.
+
+                '
+              summary: Relative comparison
+              value:
+                filter_expression: field1 LE 123
+            nil:
+              description: 'An example of using nil to test for the absence of a value for field2.
+
+                '
+              summary: Absence of an attribute value
+              value:
+                filter_expression: field2 EQ NIL
+            non-nil:
+              description: 'An example of using nil to test for the existence of a value for field2.
+
+                '
+              summary: Existence of an attribute value
+              value:
+                filter_expression: field2 NE NIL
+            contains:
+              description: 'An example of using the ''CONTAINS'' operator to check if
+
+                field2 contains the string ''foo''. If field2 is string valued
+
+                then this is checking if ''foo'' is a substring of field2. If
+
+                field2 is a list of strings then this is checking if ''foo''
+
+                is a member of the list.
+
+                '
+              summary: Use of the CONTAINS operator
+              value:
+                filter_expression: field2 CONTAINS 'foo'
+            in:
+              description: 'An example of using the ''IN'' operator to check if field1
+
+                is an element of a list literal.
+
+                '
+              summary: Use of the IN operator
+              value:
+                filter_expression: field1 IN [1, 2, 3]
+            search:
+              description: 'An example of using the ''SEARCH'' operator to retrieve all elements
+
+                for which ''foo'' is a substring of a filterable attribute.
+
+                '
+              summary: Use of the SEARCH operator
+              value:
+                filter_expression: SEARCH 'foo'
+            parenthesis:
+              description: 'An example of parenthesis being used to group operators & override
+
+                operator precedence.
+
+                '
+              summary: Overriding operator precedence
+              value:
+                filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization

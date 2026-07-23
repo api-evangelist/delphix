@@ -1,0 +1,841 @@
+openapi: 3.0.0
+info:
+  title: Delphix DCT Algorithms Namespace API
+  version: 3.28.0
+  description: Delphix DCT API
+  contact:
+    name: Delphix Support
+    url: https://portal.perforce.com/s/
+    email: support@delphix.com
+servers:
+- url: /dct/v3
+security:
+- ApiKeyAuth: []
+tags:
+- name: Namespace
+paths:
+  /namespaces:
+    get:
+      summary: List all namespaces.
+      operationId: list_namespaces
+      tags:
+      - Namespace
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/namespacesSortParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ListNamespacesResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Namespace'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /namespaces/search:
+    post:
+      summary: Search Namespaces.
+      operationId: search_namespaces
+      tags:
+      - Namespace
+      x-filterable:
+        fields:
+          id:
+            type: string
+          name:
+            type: string
+          tag:
+            type: string
+          engine_id:
+            type: string
+          description:
+            type: string
+          secure_namespace:
+            type: boolean
+          failed_over:
+            type: boolean
+          failover_report:
+            type: string
+          locked:
+            type: boolean
+          failback_possible:
+            type: boolean
+          failback_capability:
+            type: string
+          failback_incapability_reason:
+            type: string
+          replication_mode:
+            type: string
+          last_execution_status:
+            type: string
+          last_execution_status_timestamp:
+            type: date-time
+          source_engine_name:
+            type: string
+          source_engine_id:
+            type: string
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/namespacesSortParam'
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: SearchNamespacesResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Namespace'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /namespace/{namespaceId}:
+    parameters:
+    - $ref: '#/components/parameters/namespaceIdParam'
+    get:
+      summary: Get a namespace.
+      operationId: get_namespace_by_id
+      tags:
+      - Namespace
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Namespace'
+    patch:
+      summary: Update a Namespace.
+      operationId: update_namespace
+      tags:
+      - Namespace
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateNamespaceParameters'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: NamespaceUpdateJobResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+    delete:
+      summary: Delete a Namespace.
+      operationId: delete_namespace
+      tags:
+      - Namespace
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: NamespaceDeleteJobResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+  /namespace/{namespaceId}/failover:
+    parameters:
+    - $ref: '#/components/parameters/namespaceIdParam'
+    post:
+      summary: Initiates failover for the given namespace.
+      operationId: failover_namespace
+      tags:
+      - Namespace
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FailoverNamespaceParameters'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: NamespaceFailoverJobResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+  /namespace/{namespaceId}/commitFailover:
+    parameters:
+    - $ref: '#/components/parameters/namespaceIdParam'
+    post:
+      summary: Commits the failover of a given namespace and discards the failback state.
+      operationId: commit_failover_namespace
+      tags:
+      - Namespace
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: NamespaceCommitFailoverJobResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+  /namespace/{namespaceId}/failback:
+    parameters:
+    - $ref: '#/components/parameters/namespaceIdParam'
+    post:
+      summary: Initiates failback for the given namespace.
+      operationId: failback_namespace
+      tags:
+      - Namespace
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: NamespaceFailbackJobResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+  /namespace/{namespaceId}/discard:
+    parameters:
+    - $ref: '#/components/parameters/namespaceIdParam'
+    post:
+      summary: Discards any partial receive state for the given namespace.
+      operationId: discard_namespace
+      tags:
+      - Namespace
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: NamespaceDiscardJobResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+components:
+  schemas:
+    Namespace:
+      description: A namespace represents an alternative namespace for objects and data within a Delphix engine.
+      type: object
+      properties:
+        id:
+          description: The Namespace ID.
+          type: string
+        name:
+          description: The Namespace name.
+          type: string
+          minLength: 1
+          maxLength: 256
+        tag:
+          description: This is the tag of the Replication profile that created this namespace.
+          type: string
+        engine_id:
+          description: The ID of the engine that the Namespace belongs to.
+          type: string
+        description:
+          description: A description of the namespace.
+          type: string
+          minLength: 1
+          maxLength: 4096
+        secure_namespace:
+          description: True if the source data stream was generated from a ReplicationProfile with mode CONTINUOUS_VAULT.
+          type: boolean
+        failed_over:
+          description: True if the namespace has been failed over into the live environment.
+          type: boolean
+        failover_report:
+          description: If the namespace has been failed over, this contains a report about objects affected by the failover.
+          type: string
+        locked:
+          description: True if the namespace is locked.
+          type: boolean
+        failback_possible:
+          description: True if the namespace can be failed back.
+          type: boolean
+        failback_capability:
+          description: Whether the namespace is capable of failback
+          type: string
+          enum:
+          - FAILBACK_READY
+          - FAILBACK_COMPATIBLE
+          - FAILBACK_INCOMPATIBLE
+          - FAILBACK_UNSUPPORTED
+          - FAILOVER_COMMITED_CANNOT_FAILBACK
+        failback_incapability_reason:
+          description: When incapable, the reason why the namespace is incompatible with failback.
+          type: string
+        replication_mode:
+          description: The replication mode of the associated ReplicationProfile that created the Namespace.
+          type: string
+          enum:
+          - ENGINE_DATA_REPLICATION
+          - MASKED_DATA_DISTRIBUTION
+          - CONTINUOUS_VAULT
+          - OFFLINE_SEND
+          - OFFLINE_RECEIVE
+          - OFFLINE_CONTINUOUS_VAULT
+        last_execution_status:
+          description: The status of the last execution of the ReplicationProfile associated with the Namespace.
+          type: string
+          enum:
+          - RUNNING
+          - COMPLETED
+          - SUSPENDED
+          - CANCELED
+          - FAILED
+        last_execution_status_timestamp:
+          description: The timestamp of the last execution status of the ReplicationProfile associated with the Namespace.
+          type: string
+          format: date-time
+        source_engine_id:
+          description: The ID of the source engine that the ReplicationProfile that created the Namespace belongs to.
+          type: string
+        source_engine_name:
+          description: The name of the source engine that the ReplicationProfile that created the Namespace belongs to.
+          type: string
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    VirtualizationTask:
+      deprecated: true
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    UpdateNamespaceParameters:
+      description: The parameters to update a Namespace.
+      type: object
+      properties:
+        name:
+          description: The Namespace name.
+          type: string
+        description:
+          description: The description of the namespace.
+          type: string
+    FailoverNamespaceParameters:
+      description: The parameters to failover a Namespace.
+      type: object
+      properties:
+        enable_failback:
+          description: Whether to enable failback for the datasets being failed over.
+          type: boolean
+          default: false
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    Job:
+      description: An asynchronous task.
+      type: object
+      properties:
+        id:
+          description: The Job entity ID.
+          type: string
+          example: job-123
+        status:
+          description: The status of the job.
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+          example: RUNNING
+        is_waiting_for_telemetry:
+          description: Indicates that the operations performed by this Job have completed successfully, but the object changes are not yet reflected. This is only set when when the JOB is in STARTED status, with the guarantee that the job will not transition to the FAILED status. Note that this flag will likely be replaced with a new status in future API versions and be deprecated.
+          type: boolean
+        type:
+          description: The type of job being done.
+          type: string
+          example: DB_REFRESH
+        localized_type:
+          description: The i18n translated type of job being done.
+          type: string
+          example: DB Refresh
+        error_details:
+          description: Details about the failure for FAILED jobs.
+          type: string
+          example: Unable to connect to the engine.
+        warning_message:
+          description: Warnings for the job.
+          type: string
+          example: 'Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.'
+        target_id:
+          description: A reference to the job's target.
+          type: string
+          example: vdb-123
+        target_name:
+          description: A reference to the job's target name.
+          type: string
+          example: vdb
+        start_time:
+          description: The time the job started executing.
+          type: string
+          format: date-time
+          example: '2022-01-02T05:11:24.148000+00:00'
+        update_time:
+          description: The time the job was last updated.
+          type: string
+          format: date-time
+          example: '2022-01-02T06:11:24.148000+00:00'
+        trace_id:
+          description: traceId of the request which created this Job
+          type: string
+        engine_ids:
+          description: IDs of the engines this Job is executing on.
+          type: array
+          items:
+            type: string
+          deprecated: true
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        engines:
+          type: array
+          items:
+            $ref: '#/components/schemas/Engine'
+        account_id:
+          description: The ID of the account who initiated this job.
+          type: integer
+          example: 1
+        account_name:
+          description: The account name which initiated this job. It can be either firstname and lastname combination or firstname or lastname or username or email address or Account-<id>.
+          type: string
+          example: User 1
+        compliance_node_id:
+          description: The ID of the associated compliance node, if applicable.
+          type: string
+          nullable: true
+        compliance_node_name:
+          description: The name of the associated compliance node, if applicable.
+          type: string
+          nullable: true
+        percent_complete:
+          description: Completion percentage of the Job.
+          type: integer
+          minimum: 0
+          maximum: 100
+          example: '50'
+        virtualization_tasks:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTask'
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTask'
+        execution_id:
+          description: The ID of the associated masking execution, if any.
+          type: string
+          nullable: true
+        result_type:
+          description: The type of the job result. This is the type of the object present in the result.
+          type: string
+        result:
+          description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
+          type: object
+      discriminator:
+        propertyName: class_type
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    namespaceIdParam:
+      in: path
+      name: namespaceId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the namespace.
+    namespacesSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: id
+      required: false
+      schema:
+        type: string
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - tag
+        - -tag
+        - engine_id
+        - -engine_id
+        - secure_namespace
+        - -secure_namespace
+        - failed_over
+        - -failed_over
+        - locked
+        - -locked
+        - failback_possible
+        - -failback_possible
+        - failback_capability
+        - -failback_capability
+        - failback_incapability_reason
+        - -failback_incapability_reason
+        - replication_mode
+        - -replication_mode
+        - last_execution_status
+        - -last_execution_status
+        - last_execution_status_timestamp
+        - -last_execution_status_timestamp
+        - source_engine_id
+        - -source_engine_id
+        - source_engine_name
+        - -source_engine_name
+        nullable: true
+        example: name
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+  requestBodies:
+    SearchBody:
+      x-skip-codegen-attr: description
+      description: 'A request body containing a filter expression. This enables searching
+
+        for items matching arbitrarily complex conditions. The list of
+
+        attributes which can be used in filter expressions is available
+
+        in the x-filterable vendor extension.
+
+
+        # Filter Expression Overview
+
+        **Note: All keywords are case-insensitive**
+
+
+        ## Comparison Operators
+
+        | Operator | Description | Example |
+
+        | --- | --- | --- |
+
+        | CONTAINS | Substring or membership testing for string and list attributes respectively. | field3 CONTAINS ''foobar'', field4 CONTAINS TRUE  |
+
+        | IN | Tests if field is a member of a list literal. List can contain a maximum of 100 values | field2 IN [''Goku'', ''Vegeta''] |
+
+        | GE | Tests if a field is greater than or equal to a literal value | field1 GE 1.2e-2 |
+
+        | GT | Tests if a field is greater than a literal value | field1 GT 1.2e-2 |
+
+        | LE | Tests if a field is less than or equal to a literal value | field1 LE 9000 |
+
+        | LT | Tests if a field is less than a literal value | field1 LT 9.02 |
+
+        | NE | Tests if a field is not equal to a literal value | field1 NE 42 |
+
+        | EQ | Tests if a field is equal to a literal value | field1 EQ 42 |
+
+
+        ## Search Operator
+
+        The SEARCH operator filters for items which have any filterable
+
+        attribute that contains the input string as a substring, comparison
+
+        is done case-insensitively. This is not restricted to attributes with
+
+        string values. Specifically `SEARCH ''12''` would match an item with an
+
+        attribute with an integer value of `123`.
+
+
+        ## Logical Operators
+
+        Ordered by precedence.
+
+        | Operator | Description | Example |
+
+        | --- | --- | --- |
+
+        | NOT | Logical NOT (Right associative) | NOT field1 LE 9000 |
+
+        | AND | Logical AND (Left Associative) | field1 GT 9000 AND field2 EQ ''Goku'' |
+
+        | OR | Logical OR (Left Associative) | field1 GT 9000 OR field2 EQ ''Goku'' |
+
+
+        ## Grouping
+
+        Parenthesis `()` can be used to override operator precedence.
+
+
+        For example:
+
+        NOT (field1 LT 1234 AND field2 CONTAINS ''foo'')
+
+
+        ## Literal Values
+
+        | Literal      | Description | Examples |
+
+        | --- | --- | --- |
+
+        | Nil | Represents the absence of a value | nil, Nil, nIl, NIL |
+
+        | Boolean | true/false boolean | true, false, True, False, TRUE, FALSE |
+
+        | Number | Signed integer and floating point numbers. Also supports scientific notation. | 0, 1, -1, 1.2, 0.35, 1.2e-2, -1.2e+2 |
+
+        | String | Single or double quoted | "foo", "bar", "foo bar", ''foo'', ''bar'', ''foo bar'' |
+
+        | Datetime | Formatted according to [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) | 2018-04-27T18:39:26.397237+00:00 |
+
+        | List | Comma-separated literals wrapped in square brackets | [0], [0, 1], [''foo'', "bar"] |
+
+
+        ## Limitations
+
+        - A maximum of 8 unique identifiers may be used inside a filter expression.
+
+        '
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SearchBody'
+          examples:
+            nested:
+              description: 'An example of a nested Object comparison testing that at least one repository has a
+
+                version which is equal to 19.0.0.
+
+                '
+              summary: Nested Object Comparison
+              value:
+                filter_expression: repositories CONTAINS {version eq '19.0.0'}
+            relative:
+              description: 'An example of a relative comparison testing that field1 has a
+
+                value which is less than 123.
+
+                '
+              summary: Relative comparison
+              value:
+                filter_expression: field1 LE 123
+            nil:
+              description: 'An example of using nil to test for the absence of a value for field2.
+
+                '
+              summary: Absence of an attribute value
+              value:
+                filter_expression: field2 EQ NIL
+            non-nil:
+              description: 'An example of using nil to test for the existence of a value for field2.
+
+                '
+              summary: Existence of an attribute value
+              value:
+                filter_expression: field2 NE NIL
+            contains:
+              description: 'An example of using the ''CONTAINS'' operator to check if
+
+                field2 contains the string ''foo''. If field2 is string valued
+
+                then this is checking if ''foo'' is a substring of field2. If
+
+                field2 is a list of strings then this is checking if ''foo''
+
+                is a member of the list.
+
+                '
+              summary: Use of the CONTAINS operator
+              value:
+                filter_expression: field2 CONTAINS 'foo'
+            in:
+              description: 'An example of using the ''IN'' operator to check if field1
+
+                is an element of a list literal.
+
+                '
+              summary: Use of the IN operator
+              value:
+                filter_expression: field1 IN [1, 2, 3]
+            search:
+              description: 'An example of using the ''SEARCH'' operator to retrieve all elements
+
+                for which ''foo'' is a substring of a filterable attribute.
+
+                '
+              summary: Use of the SEARCH operator
+              value:
+                filter_expression: SEARCH 'foo'
+            parenthesis:
+              description: 'An example of parenthesis being used to group operators & override
+
+                operator precedence.
+
+                '
+              summary: Overriding operator precedence
+              value:
+                filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization

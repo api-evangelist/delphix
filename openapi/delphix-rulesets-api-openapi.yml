@@ -1,0 +1,1833 @@
+openapi: 3.0.0
+info:
+  title: Delphix DCT Algorithms RuleSets API
+  version: 3.28.0
+  description: Delphix DCT API
+  contact:
+    name: Delphix Support
+    url: https://portal.perforce.com/s/
+    email: support@delphix.com
+servers:
+- url: /dct/v3
+security:
+- ApiKeyAuth: []
+tags:
+- name: RuleSets
+paths:
+  /rule-sets:
+    post:
+      tags:
+      - RuleSets
+      summary: Create a Rule Set.
+      operationId: create_rule_set
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: rule_set_create_request
+              $ref: '#/components/schemas/RuleSetCreateRequest'
+        required: true
+      responses:
+        '201':
+          description: Rule Set creation initiated.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: RuleSetCreateResponse
+                properties:
+                  id:
+                    type: string
+                    description: The ID of the created rule set.
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+    get:
+      tags:
+      - RuleSets
+      summary: Retrieve the list of Rule Sets.
+      operationId: get_rule_sets
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/ruleSetsSortParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: RuleSetsListResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/RuleSet'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /rule-sets/search:
+    post:
+      tags:
+      - RuleSets
+      summary: Search for Rule Sets.
+      operationId: search_rule_sets
+      x-filterable:
+        fields:
+          id:
+            type: string
+          name:
+            type: string
+          type:
+            type: string
+          platform:
+            type: string
+          connector_id:
+            type: string
+          connector_name:
+            type: string
+          engine_id:
+            type: string
+          engine_name:
+            type: string
+          data_elements_total:
+            type: integer
+          data_elements_sensitive:
+            type: integer
+          records_total:
+            type: integer
+          records_sensitive:
+            type: integer
+          creation_date:
+            type: string
+          account_id:
+            type: integer
+          account_name:
+            type: string
+          dct_managed:
+            type: boolean
+          job_orchestrator_id:
+            type: string
+          job_orchestrator_name:
+            type: string
+          last_attempted_refresh_status:
+            type: string
+          last_attempted_refresh_time:
+            type: string
+          last_refresh_time:
+            type: string
+          tags:
+            type: array[object]
+            fields:
+              key:
+                type: string
+              value:
+                type: string
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/ruleSetsSortParam'
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: RuleSetsSearchResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/RuleSet'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /rule-sets/{ruleSetId}:
+    parameters:
+    - $ref: '#/components/parameters/ruleSetIdParam'
+    get:
+      tags:
+      - RuleSets
+      summary: Get a Rule Set by ID.
+      operationId: get_rule_set_by_id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleSet'
+    patch:
+      tags:
+      - RuleSets
+      summary: Update a Rule Set.
+      operationId: update_rule_set
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: rule_set_update_request
+              $ref: '#/components/schemas/RuleSetUpdateRequest'
+        required: true
+      responses:
+        '200':
+          description: Rule Set update initiated.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: RuleSetUpdateResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+    delete:
+      tags:
+      - RuleSets
+      summary: Delete a Rule Set.
+      operationId: delete_rule_set
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: RuleSetDeleteResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The completed job.
+  /rule-sets/{ruleSetId}/refresh:
+    parameters:
+    - $ref: '#/components/parameters/ruleSetIdParam'
+    post:
+      tags:
+      - RuleSets
+      summary: Refresh a Rule Set.
+      operationId: refresh_rule_set
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: RefreshRuleSetResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The completed job.
+  /rule-sets/{ruleSetId}/bulk-table-delta-update:
+    parameters:
+    - $ref: '#/components/parameters/ruleSetIdParam'
+    post:
+      tags:
+      - RuleSets
+      summary: Update the set of tables and their attributes associated with a database rule set in bulk in a delta fashion.
+      operationId: bulk_table_delta_update_rule_set
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: rule_set_bulk_table_delta_update_request
+              $ref: '#/components/schemas/RuleSetBulkTableDeltaUpdateRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: RuleSetBulkTableDeltaUpdateResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The completed job.
+  /rule-sets/{ruleSetId}/database-table-metadata:
+    parameters:
+    - $ref: '#/components/parameters/ruleSetIdParam'
+    patch:
+      tags:
+      - RuleSets
+      summary: Update multiple database table metadata objects for a rule set.
+      operationId: patch_database_table_metadata_for_rule_set
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: database_table_metadata_patch_request
+              $ref: '#/components/schemas/DatabaseTableMetadataBulkPatchRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: DatabaseTableMetadataBulkPatchResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+        '400':
+          description: Invalid request (e.g. duplicate table names or table not found).
+        '404':
+          description: Rule set not found.
+  /rule-sets/{ruleSetId}/tags:
+    parameters:
+    - $ref: '#/components/parameters/ruleSetIdParam'
+    get:
+      tags:
+      - RuleSets
+      summary: Get tags for a Rule Set.
+      operationId: get_rule_set_tags
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+    post:
+      tags:
+      - RuleSets
+      summary: Create tags for a Rule Set.
+      operationId: create_rule_set_tags
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: rule_set_tags
+              $ref: '#/components/schemas/TagsRequest'
+        description: Tags information for Rule Set.
+        required: true
+      responses:
+        '201':
+          description: Rule Set tags created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+  /rule-sets/{ruleSetId}/tags/delete:
+    parameters:
+    - $ref: '#/components/parameters/ruleSetIdParam'
+    post:
+      tags:
+      - RuleSets
+      summary: Delete tags for a Rule Set.
+      operationId: delete_rule_set_tags
+      requestBody:
+        $ref: '#/components/requestBodies/DeleteTags'
+      responses:
+        '204':
+          description: No Content
+  /database-table-metadata:
+    get:
+      tags:
+      - RuleSets
+      summary: Retrieve table metadata.
+      operationId: get_database_table_metadata
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/databaseTableMetadataSortParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: DatabaseTableMetadataListResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DatabaseTableMetadata'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /database-table-metadata/search:
+    post:
+      tags:
+      - RuleSets
+      summary: Search table metadata.
+      operationId: search_database_table_metadata
+      x-filterable:
+        fields:
+          id:
+            type: string
+          table_name:
+            type: string
+          rule_set_id:
+            type: string
+          rule_set_name:
+            type: string
+          custom_sql:
+            type: string
+          where_clause:
+            type: string
+          having_clause:
+            type: string
+          key_column:
+            type: string
+          is_sensitive:
+            type: boolean
+          row_count:
+            type: integer
+          last_refresh_time:
+            type: string
+          last_row_count_time:
+            type: string
+          filter_key:
+            type: string
+          unload_split:
+            type: integer
+          auto_calculate_unload_split:
+            type: boolean
+          max_parallel_connections_per_table:
+            type: integer
+          max_records_per_split:
+            type: integer
+          max_split_per_connection:
+            type: integer
+          stream_size:
+            type: integer
+          column_array_rows:
+            type: integer
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/databaseTableMetadataSortParam'
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: DatabaseTableMetadataSearchResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DatabaseTableMetadata'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /database-table-metadata/{databaseTableMetadataId}:
+    parameters:
+    - $ref: '#/components/parameters/databaseTableMetadataIdParam'
+    get:
+      tags:
+      - RuleSets
+      summary: Retrieve a database table metadata by ID.
+      operationId: get_database_table_metadata_by_id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseTableMetadata'
+  /database-column-metadata:
+    get:
+      tags:
+      - RuleSets
+      summary: Retrieve column metadata.
+      operationId: get_database_column_metadata
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/databaseColumnMetadataSortParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: DatabaseColumnMetadataListResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DatabaseColumnMetadata'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /database-column-metadata/search:
+    post:
+      tags:
+      - RuleSets
+      summary: Search column metadata.
+      operationId: search_database_column_metadata
+      x-filterable:
+        fields:
+          id:
+            type: integer
+          column_name:
+            type: string
+          database_table_metadata_id:
+            type: integer
+          table_name:
+            type: string
+          engine_id:
+            type: string
+          engine_name:
+            type: string
+          rule_set_id:
+            type: string
+          rule_set_name:
+            type: string
+          algorithm_id:
+            type: string
+          algorithm_name:
+            type: string
+          data_class_id:
+            type: string
+          data_class_name:
+            type: string
+          data_type:
+            type: string
+          date_format:
+            type: string
+          column_length:
+            type: integer
+          is_sensitive:
+            type: boolean
+          is_profiler_writable:
+            type: boolean
+          is_primary_key:
+            type: boolean
+          is_identity:
+            type: boolean
+          is_index:
+            type: boolean
+          is_foreign_key:
+            type: boolean
+          document_store_type:
+            type: string
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/databaseColumnMetadataSortParam'
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: DatabaseColumnMetadataSearchResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DatabaseColumnMetadata'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /database-column-metadata/{databaseColumnMetadataId}:
+    parameters:
+    - $ref: '#/components/parameters/databaseColumnMetadataIdParam'
+    get:
+      tags:
+      - RuleSets
+      summary: Retrieve a database column metadata by ID.
+      operationId: get_database_column_metadata_by_id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseColumnMetadata'
+    patch:
+      tags:
+      - RuleSets
+      summary: Update a database column metadata
+      operationId: update_database_column_metadata
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: database_column_metadata_update_request
+              $ref: '#/components/schemas/DatabaseColumnMetadataUpdateRequest'
+        required: true
+      responses:
+        '200':
+          description: Database column metadata update initiated.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: DatabaseColumnMetadataUpdateResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+components:
+  schemas:
+    ConnectorTypeEnum:
+      type: string
+      enum:
+      - DATABASE
+      - FILE
+      - MAINFRAME_DATASET
+      example: DATABASE
+    DatabaseTableMetadataParameters:
+      description: An object describe a database table of a rule set with some settings.
+      type: object
+      required:
+      - table_name
+      properties:
+        table_name:
+          description: The name of the table.
+          type: string
+          example: my table
+        custom_sql:
+          description: Custom SQL for the table.
+          type: string
+        where_clause:
+          description: SQL where clause for the table.
+          type: string
+        having_clause:
+          description: SQL having clause for the table.
+          type: string
+        key_column:
+          description: Key Column for the table.
+          type: string
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    RuleSetUpdateRequest:
+      description: Parameters used to update a rule set.
+      type: object
+      properties:
+        name:
+          description: The name of this rule set.
+          type: string
+        refresh_drops_tables:
+          description: This applies when table metadata exists in DCT, but the corresponding table no longer exists in the external database. In that event, true will cause the refresh operation to delete the invalid table metadata, whereas false will fail the refresh instead.
+          type: boolean
+    DatabaseTableMetadataUpdateParameters:
+      x-jackson-optional-nullable-helpers: true
+      description: Parameters to update a database table metadata object. Fields not provided are left unchanged (subject to HyperscaleInstance backfill when applicable).
+      type: object
+      required:
+      - table_name
+      properties:
+        table_name:
+          description: The name of the table, used to identify which record to update.
+          type: string
+          example: my table
+        custom_sql:
+          description: Custom SQL for the table.
+          type: string
+          nullable: true
+          x-is-jackson-optional-nullable: true
+        where_clause:
+          description: SQL where clause for the table.
+          type: string
+          nullable: true
+          x-is-jackson-optional-nullable: true
+        having_clause:
+          description: SQL having clause for the table.
+          type: string
+          nullable: true
+          x-is-jackson-optional-nullable: true
+        key_column:
+          description: Key Column for the table.
+          type: string
+          nullable: true
+          x-is-jackson-optional-nullable: true
+        filter_key:
+          description: Filter key column for the table. Only applicable for Hyperscale.
+          type: string
+          nullable: true
+          x-is-jackson-optional-nullable: true
+        unload_split:
+          description: Number of parallel unload splits. Only applicable for Hyperscale.
+          type: integer
+          minimum: 1
+          maximum: 32767
+          x-is-jackson-optional-nullable: true
+        auto_calculate_unload_split:
+          description: Whether to automatically calculate the unload split. Only applicable for Hyperscale.
+          type: boolean
+          x-is-jackson-optional-nullable: true
+        max_parallel_connections_per_table:
+          description: Maximum number of parallel connections per table. Only applicable for Hyperscale.
+          type: integer
+          minimum: 1
+          maximum: 32767
+          x-is-jackson-optional-nullable: true
+        max_records_per_split:
+          description: Maximum number of records per split. Only applicable for Hyperscale.
+          type: integer
+          format: int64
+          minimum: 1
+          x-is-jackson-optional-nullable: true
+        max_split_per_connection:
+          description: Maximum number of splits per connection. Only applicable for Hyperscale.
+          type: integer
+          minimum: 1
+          maximum: 32767
+          x-is-jackson-optional-nullable: true
+        stream_size:
+          description: Stream size in bytes. Only applicable for Hyperscale.
+          type: integer
+          format: int64
+          minimum: 1
+          x-is-jackson-optional-nullable: true
+        column_array_rows:
+          description: Number of column array rows. Only applicable for Hyperscale.
+          type: integer
+          format: int64
+          minimum: 1
+          x-is-jackson-optional-nullable: true
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    DatabaseColumnMetadata:
+      description: An object describing a database column metadata with some settings.
+      type: object
+      properties:
+        id:
+          description: The id of this column metadata.
+          type: string
+          minLength: 1
+          example: '30'
+        column_name:
+          description: The name of the column.
+          type: string
+          example: my_column
+        database_table_metadata_id:
+          description: The id of the database table metadata that this column belongs to.
+          type: string
+          minLength: 1
+          example: '30'
+        table_name:
+          description: The name of the table that this column belongs to.
+          type: string
+          example: profile
+        rule_set_id:
+          description: The id of the rule set that this column metadata belongs to.
+          type: string
+          example: 4ed2357d-f1a7-410c-b951-90f0edc1a0f6
+        rule_set_name:
+          description: The name of the rule set that this table metadata belongs to.
+          type: string
+          example: my rule set
+        engine_id:
+          description: The id of the engine associated with this column.
+          type: string
+          example: 5ff0dab4-368c-4d57-8b61-9a09b6e80f42
+        engine_name:
+          description: The name of the engine associated with this column.
+          type: string
+          example: my engine
+        algorithm_id:
+          description: The id of the algorithm associated with this column.
+          type: string
+          example: 7a1b2c3d-e4f5-4a6b-8c7d-9e0f1a2b3c4d
+        algorithm_name:
+          description: The name of the algorithm associated with this column.
+          type: string
+          example: My Secure Lookup
+        algorithm_field_id:
+          description: The id of the algorithm field that is associated with this algorithm.
+          type: string
+          example: 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+        algorithm_field_name:
+          description: The name of the algorithm field that is associated with this column.
+          type: string
+          example: string1
+          readOnly: true
+        algorithm_group_no:
+          description: The group number of algorithm to identify a set of columns associated with one instance of algorithm.
+          type: integer
+          format: int32
+        data_class_id:
+          description: The id of the data class associated with this column.
+          type: string
+          example: 6b5c4d3e-2a1b-4c3d-5e6f-7a8b9c0d1e2f
+        data_class_name:
+          description: The name of the data class associated with this column.
+          type: string
+          example: My Domain
+        data_type:
+          description: The data type of the column.
+          type: string
+          example: VARCHAR
+        date_format:
+          description: The format of the date stored in the column.
+          type: string
+          example: YYYY-MM-DD
+        column_length:
+          description: The length of the column.
+          type: integer
+          format: int32
+          example: 255
+        is_sensitive:
+          description: This field indicates whether or not a column has sensitive data.
+          type: boolean
+        is_profiler_writable:
+          description: Indicates whether this column is writable by the profiler.
+          type: boolean
+        is_primary_key:
+          description: Indicates whether this column is a primary key.
+          type: boolean
+        is_identity:
+          description: Indicates whether this column is an identity column.
+          type: boolean
+        is_index:
+          description: Indicates whether this column is indexed.
+          type: boolean
+        is_foreign_key:
+          description: Indicates whether this column is a foreign key.
+          type: boolean
+        file_format_id:
+          description: The id of the file format associated with this column.
+          type: string
+          readOnly: true
+        dct_managed:
+          description: Whether this data class is managed by DCT or not.
+          type: boolean
+          readOnly: true
+        document_store_type:
+          type: string
+          readOnly: true
+          enum:
+          - JSON
+          - XML
+          description: 'Indicates that this column contains an embedded structured document. When set, the masking engine traverses and masks fields within the document rather than masking the column value directly.
+
+            '
+        is_document_store_supported:
+          type: boolean
+          readOnly: true
+          nullable: true
+          description: 'Whether this column''s data type supports document store masking. Null when data type is unknown.
+
+            '
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    RuleSet:
+      description: A masking rule set.
+      type: object
+      properties:
+        id:
+          description: The rule set ID.
+          type: string
+          example: a638d976-6b7e-43f4-9212-90f4dc6d405c
+        name:
+          description: The name of this rule set.
+          type: string
+        type:
+          description: The rule set connector type.
+          nullable: true
+          $ref: '#/components/schemas/ConnectorTypeEnum'
+        platform:
+          description: The rule set connector platform.
+          type: string
+          nullable: true
+          example: Oracle
+        connector_id:
+          description: The ID of the connector this rule set uses.
+          type: string
+          nullable: true
+        connector_name:
+          description: The name of the connector this rule set uses.
+          type: string
+          nullable: true
+        engine_id:
+          description: The ID of the engine this rule set originated from.
+          type: string
+          nullable: true
+        engine_name:
+          description: The name of the engine this rule set originated from.
+          type: string
+          nullable: true
+        data_elements_total:
+          description: The total number of data elements in this rule set.
+          type: integer
+          format: int64
+          nullable: true
+        data_elements_sensitive:
+          description: The number of sensitive data elements in this rule set.
+          type: integer
+          format: int64
+          nullable: true
+        records_total:
+          description: The total number of records in this rule set.
+          type: integer
+          format: int64
+          nullable: true
+        records_sensitive:
+          description: The number of sensitive records in this rule set.
+          type: integer
+          format: int64
+          nullable: true
+        creation_date:
+          description: The date this rule set was created.
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2022-11-30T08:51:34.148000+00:00'
+        account_id:
+          description: The ID of the account who created this rule set.
+          type: integer
+          format: int64
+          readOnly: true
+          example: 1
+        account_name:
+          description: The username of the account who created this rule set.
+          type: string
+          readOnly: true
+          example: John Doe
+        dct_managed:
+          description: Whether or not this rule set is managed by DCT.
+          type: boolean
+          readOnly: true
+        refresh_drops_tables:
+          description: This applies when table metadata exists in DCT, but the corresponding table no longer exists in the external database. In that event, true will cause the refresh operation to delete the invalid table metadata, whereas false will fail the refresh instead.
+          type: boolean
+          example: false
+        tags:
+          description: The tags of this rule set.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        job_orchestrator_id:
+          type: string
+          readOnly: true
+        job_orchestrator_name:
+          type: string
+          readOnly: true
+        last_attempted_refresh_status:
+          description: The status of the last attempted rule set refresh.
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+        last_attempted_refresh_time:
+          description: The date and time of the last attempted rule set refresh.
+          type: string
+          format: date-time
+          readOnly: true
+        last_refresh_time:
+          description: The date and time of the last successful rule set refresh.
+          type: string
+          format: date-time
+          readOnly: true
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    DatabaseTableMetadataBulkPatchRequest:
+      description: A request to update multiple database table metadata objects for a rule set.
+      type: object
+      properties:
+        database_table_metadata:
+          description: List of database table metadata update parameters.
+          type: array
+          items:
+            $ref: '#/components/schemas/DatabaseTableMetadataUpdateParameters'
+        set_hyperscale_defaults_for_other_objects:
+          description: 'If true, apply HyperscaleInstance default values to all tables in the rule set that are NOT present in the database_table_metadata list. For tables that ARE in the payload, explicitly provided hyperscale values take effect and any unset hyperscale fields are backfilled from the HyperscaleInstance. Non-hyperscale fields are never defaulted for non-payload tables. When true, an empty or absent database_table_metadata list is allowed (all tables receive HyperscaleInstance defaults).
+
+            '
+          type: boolean
+          default: false
+    RuleSetCreateRequest:
+      description: Parameters used to create a rule set.
+      type: object
+      required:
+      - name
+      - connector_id
+      properties:
+        name:
+          description: The name of this rule set.
+          type: string
+        connector_id:
+          description: The ID of the connector this rule set uses.
+          type: string
+        refresh_drops_tables:
+          description: This applies when table metadata exists in DCT, but the corresponding table no longer exists in the external database. In that event, true will cause the refresh operation to delete the invalid table metadata, whereas false will fail the refresh instead.
+          type: boolean
+          default: false
+        make_current_account_owner:
+          description: Whether the account creating this rule set must be configured as owner of it.
+          type: boolean
+          default: true
+        tags:
+          description: The tags for this rule set.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    DeleteTag:
+      type: object
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        tags:
+          description: List of tags to be deleted
+          type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    VirtualizationTask:
+      deprecated: true
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    DatabaseColumnMetadataUpdateRequest:
+      description: Parameters to update a database column metadata.
+      type: object
+      x-jackson-optional-nullable-helpers: true
+      properties:
+        algorithm_id:
+          description: The id or name of the algorithm associated with this column.
+          type: string
+          nullable: true
+          x-is-jackson-optional-nullable: true
+          example: 7a1b2c3d-e4f5-4a6b-8c7d-9e0f1a2b3c4d
+        algorithm_field_id:
+          description: The id of the algorithm field that is associated with this algorithm.
+          type: string
+          nullable: true
+          x-is-jackson-optional-nullable: true
+          example: 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+        algorithm_group_no:
+          description: The group number of algorithm to identify a set of columns associated with one instance of algorithm.
+          type: integer
+          format: int32
+          nullable: true
+          x-is-jackson-optional-nullable: true
+        data_class_id:
+          description: The id of the data class associated with this column.
+          type: string
+          example: 6b5c4d3e-2a1b-4c3d-5e6f-7a8b9c0d1e2f
+          nullable: true
+          x-is-jackson-optional-nullable: true
+        date_format:
+          description: The format of the date stored in the column.
+          type: string
+          example: YYYY-MM-DD
+          nullable: true
+          x-is-jackson-optional-nullable: true
+        file_format_id:
+          description: The id of the file format associated with this column.
+          type: string
+          nullable: true
+          x-is-jackson-optional-nullable: true
+        is_profiler_writable:
+          description: This field indicates whether or not a column's fields (e.g. algorithm or domain assignment) may be modified during the execution of a profile job when there is a profiling match.
+          type: boolean
+    DatabaseTableMetadata:
+      description: An object describe a database table of a rule set with some settings.
+      type: object
+      properties:
+        id:
+          description: The id of this table metadata.
+          type: string
+          minLength: 1
+          example: '10'
+        table_name:
+          description: The name of the table.
+          type: string
+          example: my table
+        rule_set_id:
+          description: The id of the rule set that this table metadata belongs to.
+          type: string
+          example: 4ed2357d-f1a7-410c-b951-90f0edc1a0f6
+        rule_set_name:
+          description: The name of the rule set that this table metadata belongs to.
+          type: string
+          example: my rule set
+        custom_sql:
+          description: Custom SQL for the table.
+          type: string
+        where_clause:
+          description: SQL where clause for the table.
+          type: string
+        having_clause:
+          description: SQL having clause for the table.
+          type: string
+        key_column:
+          description: Key Column for the table.
+          type: string
+        is_sensitive:
+          description: This field indicates whether or not a table has sensitive data. This field is assigned by DCT to true or false based on whether the table is assigned an algorithm and domain.
+          type: boolean
+        row_count:
+          type: integer
+          format: int64
+        last_refresh_time:
+          type: string
+          format: date-time
+        last_row_count_time:
+          type: string
+          format: date-time
+        engine_id:
+          description: The id of the engine associated with this column.
+          type: string
+          example: 5ff0dab4-368c-4d57-8b61-9a09b6e80f42
+        engine_name:
+          description: The name of the engine associated with this column.
+          type: string
+          example: my engine
+        dct_managed:
+          description: Whether this data class is managed by DCT or not.
+          type: boolean
+          readOnly: true
+        filter_key:
+          description: Filter key column for the table. Only applicable for Hyperscale.
+          type: string
+        unload_split:
+          description: Number of parallel unload splits. Only applicable for Hyperscale.
+          type: integer
+        auto_calculate_unload_split:
+          description: Whether to automatically calculate the unload split. Only applicable for Hyperscale.
+          type: boolean
+        max_parallel_connections_per_table:
+          description: Maximum number of parallel connections per table. Only applicable for Hyperscale.
+          type: integer
+        max_records_per_split:
+          description: Maximum number of records per split. Only applicable for Hyperscale.
+          type: integer
+          format: int64
+        max_split_per_connection:
+          description: Maximum number of splits per connection. Only applicable for Hyperscale.
+          type: integer
+        stream_size:
+          description: Stream size in bytes. Only applicable for Hyperscale.
+          type: integer
+          format: int64
+        column_array_rows:
+          description: Number of column array rows. Only applicable for Hyperscale.
+          type: integer
+          format: int64
+    Job:
+      description: An asynchronous task.
+      type: object
+      properties:
+        id:
+          description: The Job entity ID.
+          type: string
+          example: job-123
+        status:
+          description: The status of the job.
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+          example: RUNNING
+        is_waiting_for_telemetry:
+          description: Indicates that the operations performed by this Job have completed successfully, but the object changes are not yet reflected. This is only set when when the JOB is in STARTED status, with the guarantee that the job will not transition to the FAILED status. Note that this flag will likely be replaced with a new status in future API versions and be deprecated.
+          type: boolean
+        type:
+          description: The type of job being done.
+          type: string
+          example: DB_REFRESH
+        localized_type:
+          description: The i18n translated type of job being done.
+          type: string
+          example: DB Refresh
+        error_details:
+          description: Details about the failure for FAILED jobs.
+          type: string
+          example: Unable to connect to the engine.
+        warning_message:
+          description: Warnings for the job.
+          type: string
+          example: 'Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.'
+        target_id:
+          description: A reference to the job's target.
+          type: string
+          example: vdb-123
+        target_name:
+          description: A reference to the job's target name.
+          type: string
+          example: vdb
+        start_time:
+          description: The time the job started executing.
+          type: string
+          format: date-time
+          example: '2022-01-02T05:11:24.148000+00:00'
+        update_time:
+          description: The time the job was last updated.
+          type: string
+          format: date-time
+          example: '2022-01-02T06:11:24.148000+00:00'
+        trace_id:
+          description: traceId of the request which created this Job
+          type: string
+        engine_ids:
+          description: IDs of the engines this Job is executing on.
+          type: array
+          items:
+            type: string
+          deprecated: true
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        engines:
+          type: array
+          items:
+            $ref: '#/components/schemas/Engine'
+        account_id:
+          description: The ID of the account who initiated this job.
+          type: integer
+          example: 1
+        account_name:
+          description: The account name which initiated this job. It can be either firstname and lastname combination or firstname or lastname or username or email address or Account-<id>.
+          type: string
+          example: User 1
+        compliance_node_id:
+          type: string
+          description: The ID of the associated compliance node, if applicable.
+          nullable: true
+        compliance_node_name:
+          type: string
+          description: The name of the associated compliance node, if applicable.
+          nullable: true
+        percent_complete:
+          description: Completion percentage of the Job.
+          type: integer
+          minimum: 0
+          maximum: 100
+          example: '50'
+        virtualization_tasks:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTask'
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTask'
+        execution_id:
+          description: The ID of the associated masking execution, if any.
+          type: string
+          nullable: true
+        result_type:
+          description: The type of the job result. This is the type of the object present in the result.
+          type: string
+        result:
+          description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
+          type: object
+    RuleSetBulkTableDeltaUpdateRequest:
+      description: The mutually exclusive list of tables to be added, modified, or removed from the ruleset must be provided in three different arrays. Note that only the delta needs to be provided, and existing tables not listed here will be left unchanged.
+      type: object
+      properties:
+        add:
+          description: Tables to add to the rule set.
+          type: array
+          items:
+            $ref: '#/components/schemas/DatabaseTableMetadataParameters'
+        update:
+          description: Tables to update in the rule set. Any DatabaseTableMetadataParameters properties not provided will be set to null.
+          type: array
+          items:
+            $ref: '#/components/schemas/DatabaseTableMetadataParameters'
+        delete:
+          description: Tables to delete from the rule set.
+          type: array
+          items:
+            $ref: '#/components/schemas/DatabaseTableMetadataParameters'
+  parameters:
+    databaseColumnMetadataSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: column_name
+      required: false
+      schema:
+        type: string
+        enum:
+        - id
+        - -id
+        - column_name
+        - -column_name
+        - database_table_metadata_id
+        - -database_table_metadata_id
+        - table_name
+        - -table_name
+        - rule_set_id
+        - -rule_set_id
+        - rule_set_name
+        - -rule_set_name
+        - engine_id
+        - -engine_id
+        - engine_name
+        - -engine_name
+        - algorithm_id
+        - -algorithm_id
+        - algorithm_name
+        - -algorithm_name
+        - algorithm_field_id
+        - -algorithm_field_id
+        - algorithm_field_name
+        - -algorithm_field_name
+        - algorithm_group_no
+        - -algorithm_group_no
+        - data_class_id
+        - -data_class_id
+        - data_class_name
+        - -data_class_name
+        - data_type
+        - -data_type
+        - date_format
+        - -date_format
+        - column_length
+        - -column_length
+        - is_sensitive
+        - -is_sensitive
+        - is_profiler_writable
+        - -is_profiler_writable
+        - is_primary_key
+        - -is_primary_key
+        - is_identity
+        - -is_identity
+        - is_index
+        - -is_index
+        - is_foreign_key
+        - -is_foreign_key
+        - dct_managed
+        - -dct_managed
+        - document_store_type
+        - -document_store_type
+        nullable: true
+        example: column_name
+    ruleSetsSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      required: false
+      schema:
+        type: string
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - type
+        - -type
+        - platform
+        - -platform
+        - connector_id
+        - -connector_id
+        - connector_name
+        - -connector_name
+        - engine_id
+        - -engine_id
+        - engine_name
+        - -engine_name
+        - data_elements_total
+        - -data_elements_total
+        - records_total
+        - -records_total
+        - creation_date
+        - -creation_date
+        - account_id
+        - -account_id
+        - account_name
+        - -account_name
+        - dct_managed
+        - -dct_managed
+        - job_orchestrator_id
+        - -job_orchestrator_id
+        - job_orchestrator_name
+        - -job_orchestrator_name
+        - last_attempted_refresh_status
+        - -last_attempted_refresh_status
+        - last_attempted_refresh_time
+        - -last_attempted_refresh_time
+        - last_refresh_time
+        - -last_refresh_time
+        nullable: true
+    databaseTableMetadataIdParam:
+      in: path
+      name: databaseTableMetadataId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the database table metadata.
+    databaseColumnMetadataIdParam:
+      in: path
+      name: databaseColumnMetadataId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the database column metadata.
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    ruleSetIdParam:
+      in: path
+      name: ruleSetId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the Rule Set.
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+    databaseTableMetadataSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: id
+      required: false
+      schema:
+        type: string
+        enum:
+        - id
+        - -id
+        - table_name
+        - -table_name
+        - rule_set_id
+        - -rule_set_id
+        - custom_sql
+        - -custom_sql
+        - where_clause
+        - -where_clause
+        - having_clause
+        - -having_clause
+        - key_column
+        - -key_column
+        - is_sensitive
+        - -is_sensitive
+        - row_count
+        - -row_count
+        - last_refresh_time
+        - -last_refresh_time
+        - last_row_count_time
+        - -last_row_count_time
+        - engine_id
+        - -engine_id
+        - engine_name
+        - -engine_name
+        - dct_managed
+        - -dct_managed
+        - filter_key
+        - -filter_key
+        - unload_split
+        - -unload_split
+        - auto_calculate_unload_split
+        - -auto_calculate_unload_split
+        - max_parallel_connections_per_table
+        - -max_parallel_connections_per_table
+        - max_records_per_split
+        - -max_records_per_split
+        - max_split_per_connection
+        - -max_split_per_connection
+        - stream_size
+        - -stream_size
+        - column_array_rows
+        - -column_array_rows
+        nullable: true
+        example: table_name
+  requestBodies:
+    SearchBody:
+      x-skip-codegen-attr: description
+      description: 'A request body containing a filter expression. This enables searching
+
+        for items matching arbitrarily complex conditions. The list of
+
+        attributes which can be used in filter expressions is available
+
+        in the x-filterable vendor extension.
+
+
+        # Filter Expression Overview
+
+        **Note: All keywords are case-insensitive**
+
+
+        ## Comparison Operators
+
+        | Operator | Description | Example |
+
+        | --- | --- | --- |
+
+        | CONTAINS | Substring or membership testing for string and list attributes respectively. | field3 CONTAINS ''foobar'', field4 CONTAINS TRUE  |
+
+        | IN | Tests if field is a member of a list literal. List can contain a maximum of 100 values | field2 IN [''Goku'', ''Vegeta''] |
+
+        | GE | Tests if a field is greater than or equal to a literal value | field1 GE 1.2e-2 |
+
+        | GT | Tests if a field is greater than a literal value | field1 GT 1.2e-2 |
+
+        | LE | Tests if a field is less than or equal to a literal value | field1 LE 9000 |
+
+        | LT | Tests if a field is less than a literal value | field1 LT 9.02 |
+
+        | NE | Tests if a field is not equal to a literal value | field1 NE 42 |
+
+        | EQ | Tests if a field is equal to a literal value | field1 EQ 42 |
+
+
+        ## Search Operator
+
+        The SEARCH operator filters for items which have any filterable
+
+        attribute that contains the input string as a substring, comparison
+
+        is done case-insensitively. This is not restricted to attributes with
+
+        string values. Specifically `SEARCH ''12''` would match an item with an
+
+        attribute with an integer value of `123`.
+
+
+        ## Logical Operators
+
+        Ordered by precedence.
+
+        | Operator | Description | Example |
+
+        | --- | --- | --- |
+
+        | NOT | Logical NOT (Right associative) | NOT field1 LE 9000 |
+
+        | AND | Logical AND (Left Associative) | field1 GT 9000 AND field2 EQ ''Goku'' |
+
+        | OR | Logical OR (Left Associative) | field1 GT 9000 OR field2 EQ ''Goku'' |
+
+
+        ## Grouping
+
+        Parenthesis `()` can be used to override operator precedence.
+
+
+        For example:
+
+        NOT (field1 LT 1234 AND field2 CONTAINS ''foo'')
+
+
+        ## Literal Values
+
+        | Literal      | Description | Examples |
+
+        | --- | --- | --- |
+
+        | Nil | Represents the absence of a value | nil, Nil, nIl, NIL |
+
+        | Boolean | true/false boolean | true, false, True, False, TRUE, FALSE |
+
+        | Number | Signed integer and floating point numbers. Also supports scientific notation. | 0, 1, -1, 1.2, 0.35, 1.2e-2, -1.2e+2 |
+
+        | String | Single or double quoted | "foo", "bar", "foo bar", ''foo'', ''bar'', ''foo bar'' |
+
+        | Datetime | Formatted according to [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) | 2018-04-27T18:39:26.397237+00:00 |
+
+        | List | Comma-separated literals wrapped in square brackets | [0], [0, 1], [''foo'', "bar"] |
+
+
+        ## Limitations
+
+        - A maximum of 8 unique identifiers may be used inside a filter expression.
+
+        '
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SearchBody'
+          examples:
+            nested:
+              description: 'An example of a nested Object comparison testing that at least one repository has a
+
+                version which is equal to 19.0.0.
+
+                '
+              summary: Nested Object Comparison
+              value:
+                filter_expression: repositories CONTAINS {version eq '19.0.0'}
+            relative:
+              description: 'An example of a relative comparison testing that field1 has a
+
+                value which is less than 123.
+
+                '
+              summary: Relative comparison
+              value:
+                filter_expression: field1 LE 123
+            nil:
+              description: 'An example of using nil to test for the absence of a value for field2.
+
+                '
+              summary: Absence of an attribute value
+              value:
+                filter_expression: field2 EQ NIL
+            non-nil:
+              description: 'An example of using nil to test for the existence of a value for field2.
+
+                '
+              summary: Existence of an attribute value
+              value:
+                filter_expression: field2 NE NIL
+            contains:
+              description: 'An example of using the ''CONTAINS'' operator to check if
+
+                field2 contains the string ''foo''. If field2 is string valued
+
+                then this is checking if ''foo'' is a substring of field2. If
+
+                field2 is a list of strings then this is checking if ''foo''
+
+                is a member of the list.
+
+                '
+              summary: Use of the CONTAINS operator
+              value:
+                filter_expression: field2 CONTAINS 'foo'
+            in:
+              description: 'An example of using the ''IN'' operator to check if field1
+
+                is an element of a list literal.
+
+                '
+              summary: Use of the IN operator
+              value:
+                filter_expression: field1 IN [1, 2, 3]
+            search:
+              description: 'An example of using the ''SEARCH'' operator to retrieve all elements
+
+                for which ''foo'' is a substring of a filterable attribute.
+
+                '
+              summary: Use of the SEARCH operator
+              value:
+                filter_expression: SEARCH 'foo'
+            parenthesis:
+              description: 'An example of parenthesis being used to group operators & override
+
+                operator precedence.
+
+                '
+              summary: Overriding operator precedence
+              value:
+                filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
+    DeleteTags:
+      description: The parameters to delete tags
+      content:
+        application/json:
+          schema:
+            x-body-name: environment
+            $ref: '#/components/schemas/DeleteTag'
+          examples:
+            delete_all_tags:
+              description: Delete all tags for given object - No request body required
+              summary: Delete all tags
+              value: {}
+            delete_tags_by_key:
+              description: Delete all tags for given object with matching key
+              summary: Delete tags by key
+              value:
+                key: key-1
+            delete_tags_by_key_value:
+              description: Delete tag for given object with matching key and value
+              summary: Delete a tag by key & value
+              value:
+                key: key-1
+                value: value-1
+            delete_multiple_tags_by_key_value:
+              description: Delete tags for given list of tags with matching key and value
+              summary: Delete multiple tags by key & value
+              value:
+                tags:
+                - key: key-1
+                  value: value-1
+                - key: key-2
+                  value: value-2
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization

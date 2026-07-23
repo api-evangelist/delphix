@@ -1,0 +1,1370 @@
+openapi: 3.0.0
+info:
+  title: Delphix DCT Algorithms DiscoveryPolicies API
+  version: 3.28.0
+  description: Delphix DCT API
+  contact:
+    name: Delphix Support
+    url: https://portal.perforce.com/s/
+    email: support@delphix.com
+servers:
+- url: /dct/v3
+security:
+- ApiKeyAuth: []
+tags:
+- name: DiscoveryPolicies
+paths:
+  /discovery-policies:
+    get:
+      tags:
+      - DiscoveryPolicies
+      summary: Retrieve discovery policies.
+      operationId: get_discovery_policies
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/discoveryPoliciesSortParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: DiscoveryPoliciesListResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DiscoveryPolicy'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+    post:
+      tags:
+      - DiscoveryPolicies
+      summary: Create a discovery policy.
+      operationId: create_discovery_policy
+      requestBody:
+        description: The new discovery policy to create
+        content:
+          application/json:
+            schema:
+              x-body-name: discovery_policy_create_request
+              $ref: '#/components/schemas/DiscoveryPolicyCreateRequest'
+        required: true
+      responses:
+        '201':
+          description: Discovery policy creation initiated.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: DiscoveryPolicyCreateResponse
+                properties:
+                  id:
+                    type: string
+                    description: The ID of the created discovery policy.
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+  /discovery-policies/search:
+    post:
+      tags:
+      - DiscoveryPolicies
+      summary: Search for discovery policies.
+      operationId: search_discovery_policies
+      x-filterable:
+        fields:
+          id:
+            type: string
+          name:
+            type: string
+          description:
+            type: string
+          account_id:
+            type: integer
+          account_name:
+            type: string
+          dct_managed:
+            type: boolean
+          discovery_method:
+            type: string
+            enum:
+            - CLASSIFIERS
+            - EXPRESSIONS
+          assignment_threshold:
+            type: integer
+          engine_id:
+            type: string
+          engine_name:
+            type: string
+          tags:
+            type: array[object]
+            fields:
+              key:
+                type: string
+              value:
+                type: string
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/discoveryPoliciesSortParam'
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: DiscoveryPoliciesSearchResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DiscoveryPolicy'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /discovery-policies/{discoveryPolicyId}:
+    parameters:
+    - $ref: '#/components/parameters/discoveryPolicyIdParam'
+    get:
+      tags:
+      - DiscoveryPolicies
+      summary: Get a discovery policy by ID.
+      operationId: get_discovery_policy_by_id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscoveryPolicy'
+    delete:
+      tags:
+      - DiscoveryPolicies
+      summary: Delete a discovery policy.
+      operationId: delete_discovery_policy
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: DiscoveryPolicyDeleteResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The completed job.
+    patch:
+      tags:
+      - DiscoveryPolicies
+      summary: Update a Discovery Policy.
+      operationId: update_discovery_policy
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DiscoveryPolicyUpdateRequest'
+      responses:
+        '200':
+          description: Discovery Policy update initiated.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: DiscoveryPolicyUpdateResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+  /discovery-policies/{discoveryPolicyId}/classifiers:
+    parameters:
+    - $ref: '#/components/parameters/discoveryPolicyIdParam'
+    get:
+      tags:
+      - DiscoveryPolicies
+      summary: Get classifiers for a discovery policy.
+      operationId: get_discovery_policy_classifiers
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/classifiersSortParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ClassifiersListResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Classifier'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+    post:
+      tags:
+      - DiscoveryPolicies
+      summary: Add classifiers to a discovery policy.
+      operationId: add_discovery_policy_classifiers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DiscoveryPolicyAddClassifiersRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: DiscoveryPolicyAddClassifiersResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+  /discovery-policies/{discoveryPolicyId}/classifiers/remove:
+    parameters:
+    - $ref: '#/components/parameters/discoveryPolicyIdParam'
+    post:
+      tags:
+      - DiscoveryPolicies
+      summary: Remove classifiers from a discovery policy.
+      operationId: remove_discovery_policy_classifiers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DiscoveryPolicyRemoveClassifiersRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: DiscoveryPolicyRemoveClassifiersResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+  /discovery-policies/{discoveryPolicyId}/classifiers/search:
+    parameters:
+    - $ref: '#/components/parameters/discoveryPolicyIdParam'
+    post:
+      tags:
+      - DiscoveryPolicies
+      summary: Search for classifiers of a discovery policy.
+      operationId: search_discovery_policy_classifiers
+      x-filterable:
+        fields:
+          id:
+            type: string
+          name:
+            type: string
+          framework:
+            type: string
+            enum:
+            - REGEX
+            - LIST
+            - PATH
+            - DATA_TYPE
+          description:
+            type: string
+          data_class_id:
+            type: string
+          data_class_name:
+            type: string
+          engine_id:
+            type: string
+          engine_name:
+            type: string
+          tags:
+            type: array[object]
+            fields:
+              key:
+                type: string
+              value:
+                type: string
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/classifiersSortParam'
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ClassifiersSearchResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Classifier'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /discovery-policies/{discoveryPolicyId}/expressions:
+    parameters:
+    - $ref: '#/components/parameters/discoveryPolicyIdParam'
+    get:
+      tags:
+      - DiscoveryPolicies
+      summary: Get discovery expressions for a discovery policy.
+      operationId: get_discovery_policy_expressions
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/discoveryExpressionsSortParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: DiscoveryExpressionsListResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DiscoveryExpression'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /discovery-policies/{discoveryPolicyId}/expressions/search:
+    parameters:
+    - $ref: '#/components/parameters/discoveryPolicyIdParam'
+    post:
+      tags:
+      - DiscoveryPolicies
+      summary: Search for discovery expressions of a discovery policy.
+      operationId: search_discovery_policy_expressions
+      x-filterable:
+        fields:
+          id:
+            type: string
+          name:
+            type: string
+          regular_expression:
+            type: string
+          data_level_profiling:
+            type: boolean
+          min_data_length:
+            type: integer
+          engine_id:
+            type: string
+          engine_name:
+            type: string
+          data_class_id:
+            type: string
+          data_class_name:
+            type: string
+          data_type:
+            type: string
+            enum:
+            - String
+            - Number
+            - Date
+            - Binary
+          expression_type:
+            type: string
+            enum:
+            - SEARCH
+            - TYPE
+          level:
+            type: string
+            enum:
+            - DATA
+            - COLUMN
+            - TYPE
+          tags:
+            type: array[object]
+            fields:
+              key:
+                type: string
+              value:
+                type: string
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/discoveryExpressionsSortParam'
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: DiscoveryExpressionsSearchResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DiscoveryExpression'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /discovery-policies/{discoveryPolicyId}/tags:
+    parameters:
+    - $ref: '#/components/parameters/discoveryPolicyIdParam'
+    get:
+      tags:
+      - DiscoveryPolicies
+      summary: Get tags for a discovery policy.
+      operationId: get_discovery_policy_tags
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+    post:
+      tags:
+      - DiscoveryPolicies
+      summary: Create tags for a discovery policy.
+      operationId: create_discovery_policy_tags
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: discovery_policy_tags
+              $ref: '#/components/schemas/TagsRequest'
+        description: Tags information for discovery policy.
+        required: true
+      responses:
+        '201':
+          description: Discovery Policy tags created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+  /discovery-policies/{discoveryPolicyId}/tags/delete:
+    parameters:
+    - $ref: '#/components/parameters/discoveryPolicyIdParam'
+    post:
+      tags:
+      - DiscoveryPolicies
+      summary: Delete tags for a discovery policy.
+      operationId: delete_discovery_policy_tags
+      requestBody:
+        $ref: '#/components/requestBodies/DeleteTags'
+      responses:
+        '204':
+          description: No Content
+components:
+  schemas:
+    DiscoveryExpression:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The id of the discovery expression.
+          example: 5ff0dab4-368c-4d57-8b61-9a09b6e80f42
+        name:
+          type: string
+          description: The name of the discovery expression.
+          example: my expression
+        regular_expression:
+          type: string
+          description: The regular expression that will be used to match against column/field names or data values during the execution of a discovery job. Only applicable for SEARCH expressions.
+          example: .*
+        data_level_profiling:
+          type: boolean
+          description: This field determines whether the discovery expression will be targeted at the underlying data in a data source (e.g. row values in the database column / field values in the file), or whether the discovery expression will be targeted at the schema of the data source (e.g. column names in a database table or field names in a file). Data-Level profiling consumes more memory than Column-Name-Level/Field-Name-Level profiling due to the fact that the discovery expression must be checked against a larger number of data values (e.g. hundreds) than column/field names (i.e. one). Only applicable for SEARCH expressions.
+          example: true
+        min_data_length:
+          type: integer
+          description: Minimum length of the value for string types. Only applicable for TYPE expressions.
+          example: 1
+        engine_id:
+          type: string
+          description: The id of the engine associated with this discovery expression.
+          example: 5ff0dab4-368c-4d57-8b61-9a09b6e80f42
+        engine_name:
+          type: string
+          description: The name of the engine associated with this discovery expression.
+          example: my engine
+        data_class_id:
+          type: string
+          description: The id of the data class associated with this discovery expression.
+          example: 6b5c4d3e-2a1b-4c3d-5e6f-7a8b9c0d1e2f
+        data_class_name:
+          type: string
+          description: The name of the data class associated with this discovery expression.
+          example: My Domain
+        data_type:
+          type: string
+          enum:
+          - String
+          - Number
+          - Date
+          - Binary
+          description: Data type to apply a constraint to. Only applicable for TYPE expressions.
+          example: String
+        expression_type:
+          type: string
+          enum:
+          - SEARCH
+          - TYPE
+          description: The type of the discovery expression.
+          example: SEARCH
+        level:
+          type: string
+          enum:
+          - DATA
+          - COLUMN
+          - TYPE
+          description: The level of data sources this discovery expression will be targeted.
+          example: DATA
+        tags:
+          description: The tags of this discovery expression.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    Job:
+      description: An asynchronous task.
+      type: object
+      properties:
+        id:
+          description: The Job entity ID.
+          type: string
+          example: job-123
+        status:
+          description: The status of the job.
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+          example: RUNNING
+        is_waiting_for_telemetry:
+          description: Indicates that the operations performed by this Job have completed successfully, but the object changes are not yet reflected. This is only set when when the JOB is in STARTED status, with the guarantee that the job will not transition to the FAILED status. Note that this flag will likely be replaced with a new status in future API versions and be deprecated.
+          type: boolean
+        type:
+          description: The type of job being done.
+          type: string
+          example: DB_REFRESH
+        localized_type:
+          description: The i18n translated type of job being done.
+          type: string
+          example: DB Refresh
+        error_details:
+          description: Details about the failure for FAILED jobs.
+          type: string
+          example: Unable to connect to the engine.
+        warning_message:
+          description: Warnings for the job.
+          type: string
+          example: 'Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.'
+        target_id:
+          description: A reference to the job's target.
+          type: string
+          example: vdb-123
+        target_name:
+          description: A reference to the job's target name.
+          type: string
+          example: vdb
+        start_time:
+          description: The time the job started executing.
+          type: string
+          format: date-time
+          example: '2022-01-02T05:11:24.148000+00:00'
+        update_time:
+          description: The time the job was last updated.
+          type: string
+          format: date-time
+          example: '2022-01-02T06:11:24.148000+00:00'
+        trace_id:
+          description: traceId of the request which created this Job
+          type: string
+        engine_ids:
+          description: IDs of the engines this Job is executing on.
+          type: array
+          items:
+            type: string
+          deprecated: true
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        engines:
+          type: array
+          items:
+            $ref: '#/components/schemas/Engine'
+        account_id:
+          description: The ID of the account who initiated this job.
+          type: integer
+          example: 1
+        account_name:
+          description: The account name which initiated this job. It can be either firstname and lastname combination or firstname or lastname or username or email address or Account-<id>.
+          type: string
+          example: User 1
+        compliance_node_id:
+          type: string
+          description: The ID of the associated compliance node, if applicable.
+          nullable: true
+        compliance_node_name:
+          type: string
+          description: The name of the associated compliance node, if applicable.
+          nullable: true
+        percent_complete:
+          description: Completion percentage of the Job.
+          type: integer
+          minimum: 0
+          maximum: 100
+          example: '50'
+        virtualization_tasks:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTask'
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTask'
+        execution_id:
+          description: The ID of the associated masking execution, if any.
+          type: string
+          nullable: true
+        result_type:
+          description: The type of the job result. This is the type of the object present in the result.
+          type: string
+        result:
+          description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
+          type: object
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    DiscoveryPolicyCreateRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          description: The name of the discovery policy.
+          type: string
+        description:
+          description: The description of the discovery policy.
+          type: string
+        classifier_ids:
+          description: The list of classifier IDs to associate with this discovery policy.
+          type: array
+          items:
+            type: string
+        assignment_threshold:
+          description: The assignment threshold for the discovery policy.
+          type: integer
+          format: int32
+        make_current_account_owner:
+          type: boolean
+          default: true
+          description: Whether the account creating this discovery policy should be configured as its owner.
+        tags:
+          type: array
+          description: The tags to set on the discovery policy.
+          items:
+            $ref: '#/components/schemas/Tag'
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    DeleteTag:
+      type: object
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        tags:
+          description: List of tags to be deleted
+          type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+    Classifier:
+      description: A classifier.
+      type: object
+      properties:
+        id:
+          description: The classifier ID.
+          type: string
+          example: a638d976-6b7e-43f4-9212-90f4dc6d405c
+        name:
+          description: The name of this classifier.
+          type: string
+          example: City
+        framework:
+          description: The framework of this classifier.
+          type: string
+          enum:
+          - REGEX
+          - LIST
+          - PATH
+          - DATA_TYPE
+          example: REGEX
+        description:
+          description: A description of this classifier.
+          type: string
+          nullable: true
+        dct_managed:
+          description: Whether or not this classifier is managed by DCT.
+          type: boolean
+          readOnly: true
+        account_id:
+          description: The ID of the account who created this classifier.
+          type: integer
+          format: int64
+          readOnly: true
+        account_name:
+          description: The account name of the DCT user who created this classifier.
+          type: string
+          readOnly: true
+          example: username
+        data_class_id:
+          description: The id of the data class associated with this classifier.
+          type: string
+          example: 6b5c4d3e-2a1b-4c3d-5e6f-7a8b9c0d1e2f
+        data_class_name:
+          description: The name of the data class associated with this classifier.
+          type: string
+          example: My Domain
+        config:
+          description: The configuration of this algorithm.
+          type: object
+          additionalProperties: true
+        engine_id:
+          description: The ID of the engine this classifier originated from.
+          type: string
+          nullable: true
+        engine_name:
+          description: The name of the engine this classifier originated from.
+          type: string
+          nullable: true
+        built_in:
+          description: Whether this classifier is built-in or user-defined.
+          type: boolean
+          readOnly: true
+        tags:
+          description: The tags of this classifier.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    DiscoveryPolicy:
+      description: A discovery policy.
+      type: object
+      properties:
+        id:
+          description: The discovery policy ID.
+          type: string
+          example: a638d976-6b7e-43f4-9212-90f4dc6d405c
+        name:
+          description: The name of this discovery policy.
+          type: string
+          example: ASDD Standard
+        description:
+          description: A description of this discovery policy.
+          type: string
+          nullable: true
+        dct_managed:
+          description: Whether or not this discovery policy is managed by DCT.
+          type: boolean
+          readOnly: true
+        account_id:
+          description: The ID of the account who created this discovery policy.
+          type: integer
+          format: int64
+          readOnly: true
+        account_name:
+          description: The account name of the DCT user who created this discovery policy.
+          type: string
+          readOnly: true
+          example: username
+        discovery_method:
+          description: The method used to discover sensitive data.
+          type: string
+          enum:
+          - CLASSIFIERS
+          - EXPRESSIONS
+          example: CLASSIFIERS
+        assignment_threshold:
+          description: The confidence threshold that must be met or exceeded to make an assignment. This is an integer from 1-100.
+          type: integer
+          format: int32
+          example: 80
+        engine_id:
+          description: The ID of the engine that this discovery policy originated from.
+          type: string
+          nullable: true
+        engine_name:
+          description: The name of the engine that this discovery policy originated from.
+          type: string
+          nullable: true
+        built_in:
+          description: Whether this discovery policy is built-in or user-defined.
+          type: boolean
+          readOnly: true
+        tags:
+          description: The tags of this discovery policy.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    VirtualizationTask:
+      deprecated: true
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    DiscoveryPolicyAddClassifiersRequest:
+      description: Classifiers to add to a discovery policy.
+      type: object
+      required:
+      - classifier_ids
+      properties:
+        classifier_ids:
+          description: The list of classifier IDs to remove from this discovery policy.
+          type: array
+          maxItems: 500
+          minItems: 1
+          uniqueItems: true
+          items:
+            type: string
+          example:
+          - a638d976-6b7e-43f4-9212-90f4dc6d405c
+          - 414ed52c-fa89-455d-9fb9-9c2fa5115f80
+    DiscoveryPolicyUpdateRequest:
+      description: Parameters to update a Discovery Policy.
+      type: object
+      properties:
+        name:
+          description: The name of the discovery policy.
+          type: string
+        description:
+          description: The description of the discovery policy.
+          type: string
+        assignment_threshold:
+          description: The assignment threshold for the discovery policy.
+          type: integer
+          format: int32
+    DiscoveryPolicyRemoveClassifiersRequest:
+      description: Classifiers to remove from a discovery policy.
+      type: object
+      required:
+      - classifier_ids
+      properties:
+        classifier_ids:
+          description: The list of classifier IDs to add to this data class.
+          type: array
+          maxItems: 500
+          uniqueItems: true
+          items:
+            type: string
+          example:
+          - a638d976-6b7e-43f4-9212-90f4dc6d405c
+          - 414ed52c-fa89-455d-9fb9-9c2fa5115f80
+  parameters:
+    classifiersSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: name
+      required: false
+      schema:
+        type: string
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - framework
+        - -framework
+        - description
+        - -description
+        - account_id
+        - -account_id
+        - account_name
+        - -account_name
+        - dct_managed
+        - -dct_managed
+        - data_class_id
+        - -data_class_id
+        - data_class_name
+        - -data_class_name
+        - engine_id
+        - -engine_id
+        - engine_name
+        - -engine_name
+        nullable: true
+        example: name
+    discoveryPoliciesSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: id
+      required: false
+      schema:
+        type: string
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - description
+        - -description
+        - account_id
+        - -account_id
+        - account_name
+        - -account_name
+        - dct_managed
+        - -dct_managed
+        - discovery_method
+        - -discovery_method
+        - assignment_threshold
+        - -assignment_threshold
+        - engine_id
+        - -engine_id
+        - engine_name
+        - -engine_name
+        nullable: true
+        example: name
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    discoveryPolicyIdParam:
+      in: path
+      name: discoveryPolicyId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the Discovery Policy.
+    discoveryExpressionsSortParam:
+      name: sort
+      in: query
+      description: The
+      example: id
+      required: false
+      schema:
+        type: string
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - regular_expression
+        - -regular_expression
+        - data_level_profiling
+        - -data_level_profiling
+        - min_data_length
+        - -min_data_length
+        - engine_id
+        - -engine_id
+        - engine_name
+        - -engine_name
+        - data_class_id
+        - -data_class_id
+        - data_class_name
+        - -data_class_name
+        - data_type
+        - -data_type
+        - expression_type
+        - -expression_type
+        - level
+        - -level
+        nullable: true
+        example: name
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+  requestBodies:
+    SearchBody:
+      x-skip-codegen-attr: description
+      description: 'A request body containing a filter expression. This enables searching
+
+        for items matching arbitrarily complex conditions. The list of
+
+        attributes which can be used in filter expressions is available
+
+        in the x-filterable vendor extension.
+
+
+        # Filter Expression Overview
+
+        **Note: All keywords are case-insensitive**
+
+
+        ## Comparison Operators
+
+        | Operator | Description | Example |
+
+        | --- | --- | --- |
+
+        | CONTAINS | Substring or membership testing for string and list attributes respectively. | field3 CONTAINS ''foobar'', field4 CONTAINS TRUE  |
+
+        | IN | Tests if field is a member of a list literal. List can contain a maximum of 100 values | field2 IN [''Goku'', ''Vegeta''] |
+
+        | GE | Tests if a field is greater than or equal to a literal value | field1 GE 1.2e-2 |
+
+        | GT | Tests if a field is greater than a literal value | field1 GT 1.2e-2 |
+
+        | LE | Tests if a field is less than or equal to a literal value | field1 LE 9000 |
+
+        | LT | Tests if a field is less than a literal value | field1 LT 9.02 |
+
+        | NE | Tests if a field is not equal to a literal value | field1 NE 42 |
+
+        | EQ | Tests if a field is equal to a literal value | field1 EQ 42 |
+
+
+        ## Search Operator
+
+        The SEARCH operator filters for items which have any filterable
+
+        attribute that contains the input string as a substring, comparison
+
+        is done case-insensitively. This is not restricted to attributes with
+
+        string values. Specifically `SEARCH ''12''` would match an item with an
+
+        attribute with an integer value of `123`.
+
+
+        ## Logical Operators
+
+        Ordered by precedence.
+
+        | Operator | Description | Example |
+
+        | --- | --- | --- |
+
+        | NOT | Logical NOT (Right associative) | NOT field1 LE 9000 |
+
+        | AND | Logical AND (Left Associative) | field1 GT 9000 AND field2 EQ ''Goku'' |
+
+        | OR | Logical OR (Left Associative) | field1 GT 9000 OR field2 EQ ''Goku'' |
+
+
+        ## Grouping
+
+        Parenthesis `()` can be used to override operator precedence.
+
+
+        For example:
+
+        NOT (field1 LT 1234 AND field2 CONTAINS ''foo'')
+
+
+        ## Literal Values
+
+        | Literal      | Description | Examples |
+
+        | --- | --- | --- |
+
+        | Nil | Represents the absence of a value | nil, Nil, nIl, NIL |
+
+        | Boolean | true/false boolean | true, false, True, False, TRUE, FALSE |
+
+        | Number | Signed integer and floating point numbers. Also supports scientific notation. | 0, 1, -1, 1.2, 0.35, 1.2e-2, -1.2e+2 |
+
+        | String | Single or double quoted | "foo", "bar", "foo bar", ''foo'', ''bar'', ''foo bar'' |
+
+        | Datetime | Formatted according to [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) | 2018-04-27T18:39:26.397237+00:00 |
+
+        | List | Comma-separated literals wrapped in square brackets | [0], [0, 1], [''foo'', "bar"] |
+
+
+        ## Limitations
+
+        - A maximum of 8 unique identifiers may be used inside a filter expression.
+
+        '
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SearchBody'
+          examples:
+            nested:
+              description: 'An example of a nested Object comparison testing that at least one repository has a
+
+                version which is equal to 19.0.0.
+
+                '
+              summary: Nested Object Comparison
+              value:
+                filter_expression: repositories CONTAINS {version eq '19.0.0'}
+            relative:
+              description: 'An example of a relative comparison testing that field1 has a
+
+                value which is less than 123.
+
+                '
+              summary: Relative comparison
+              value:
+                filter_expression: field1 LE 123
+            nil:
+              description: 'An example of using nil to test for the absence of a value for field2.
+
+                '
+              summary: Absence of an attribute value
+              value:
+                filter_expression: field2 EQ NIL
+            non-nil:
+              description: 'An example of using nil to test for the existence of a value for field2.
+
+                '
+              summary: Existence of an attribute value
+              value:
+                filter_expression: field2 NE NIL
+            contains:
+              description: 'An example of using the ''CONTAINS'' operator to check if
+
+                field2 contains the string ''foo''. If field2 is string valued
+
+                then this is checking if ''foo'' is a substring of field2. If
+
+                field2 is a list of strings then this is checking if ''foo''
+
+                is a member of the list.
+
+                '
+              summary: Use of the CONTAINS operator
+              value:
+                filter_expression: field2 CONTAINS 'foo'
+            in:
+              description: 'An example of using the ''IN'' operator to check if field1
+
+                is an element of a list literal.
+
+                '
+              summary: Use of the IN operator
+              value:
+                filter_expression: field1 IN [1, 2, 3]
+            search:
+              description: 'An example of using the ''SEARCH'' operator to retrieve all elements
+
+                for which ''foo'' is a substring of a filterable attribute.
+
+                '
+              summary: Use of the SEARCH operator
+              value:
+                filter_expression: SEARCH 'foo'
+            parenthesis:
+              description: 'An example of parenthesis being used to group operators & override
+
+                operator precedence.
+
+                '
+              summary: Overriding operator precedence
+              value:
+                filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
+    DeleteTags:
+      description: The parameters to delete tags
+      content:
+        application/json:
+          schema:
+            x-body-name: environment
+            $ref: '#/components/schemas/DeleteTag'
+          examples:
+            delete_all_tags:
+              description: Delete all tags for given object - No request body required
+              summary: Delete all tags
+              value: {}
+            delete_tags_by_key:
+              description: Delete all tags for given object with matching key
+              summary: Delete tags by key
+              value:
+                key: key-1
+            delete_tags_by_key_value:
+              description: Delete tag for given object with matching key and value
+              summary: Delete a tag by key & value
+              value:
+                key: key-1
+                value: value-1
+            delete_multiple_tags_by_key_value:
+              description: Delete tags for given list of tags with matching key and value
+              summary: Delete multiple tags by key & value
+              value:
+                tags:
+                - key: key-1
+                  value: value-1
+                - key: key-2
+                  value: value-2
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization

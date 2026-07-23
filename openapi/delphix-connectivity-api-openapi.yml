@@ -1,0 +1,419 @@
+openapi: 3.0.0
+info:
+  title: Delphix DCT Algorithms Connectivity API
+  version: 3.28.0
+  description: Delphix DCT API
+  contact:
+    name: Delphix Support
+    url: https://portal.perforce.com/s/
+    email: support@delphix.com
+servers:
+- url: /dct/v3
+security:
+- ApiKeyAuth: []
+tags:
+- name: Connectivity
+paths:
+  /connectivity/check:
+    post:
+      tags:
+      - Connectivity
+      summary: Checks connectivity between an engine and a remote host machine on a given port.
+      operationId: connectivity_check
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: connectivity_check
+              $ref: '#/components/schemas/ConnectivityCheckParameters'
+        description: The api to check connectivity of engine and a remote host on given port.
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectivityCheckResponse'
+  /database/connectivity/check:
+    post:
+      tags:
+      - Connectivity
+      summary: Tests the validity of the supplied database credentials, returning an error if unable to connect to the database.
+      operationId: database_connectivity_check
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: database_connectivity_check
+              $ref: '#/components/schemas/DatabaseConnectivityCheckParameters'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectivityCheckResponse'
+  /netbackup/connectivity/check:
+    post:
+      tags:
+      - Connectivity
+      summary: Checks whether the specified NetBackup master server and client are able to communicate on the given environment.
+      operationId: netbackup_connectivity_check
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: netbackup_connectivity_check
+              $ref: '#/components/schemas/NetbackupConnectivityCheckParameters'
+        description: The api to check connectivity of NetBackup master server and client on an environment.
+        required: true
+      responses:
+        '200':
+          description: OK
+  /commvault/connectivity/check:
+    post:
+      tags:
+      - Connectivity
+      summary: Tests whether the CommServe host is accessible from the given environment and Commvault agent.
+      operationId: commvault_connectivity_check
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: commvault_connectivity_check
+              $ref: '#/components/schemas/CommvaultConnectivityCheckParameters'
+        description: The api to check connectivity to the CommServe host and staging client from an environment.
+        required: true
+      responses:
+        '200':
+          description: OK
+components:
+  schemas:
+    CommvaultConnectivityCheckParameters:
+      required:
+      - environment_id
+      - environment_user_id
+      - commserve_host_name
+      - source_client_name
+      - staging_client_name
+      title: CommvaultConnectivityCheckParameters
+      type: object
+      description: Parameters to Tests CommServe host and staging client connectivity on an environment.
+      properties:
+        environment_id:
+          type: string
+          description: Id of the target environment to test Commvault connectivity from.
+          minLength: 1
+          maxLength: 256
+          example: 1-ENVIRONMENT-1
+        environment_user_id:
+          type: string
+          description: Id of the environment user.
+          minLength: 1
+          maxLength: 256
+          example: USER-1
+        commserve_host_name:
+          type: string
+          description: The hostname of the CommServe server to connect to.
+          minLength: 1
+          maxLength: 256
+          example: commserve.delphix.com
+        source_client_name:
+          type: string
+          description: The name of the Source Client in CommServe.
+          minLength: 1
+          maxLength: 256
+          example: source_client.delphix.com
+        staging_client_name:
+          type: string
+          description: The name of the Staging Client in CommServe.
+          minLength: 1
+          maxLength: 256
+          example: staging_client.delphix.com
+    NetbackupConnectivityCheckParameters:
+      required:
+      - environment_id
+      - environment_user_id
+      - master_server_name
+      - source_client_name
+      title: NetbackupConnectivityCheckParameters
+      type: object
+      description: Parameters to test NetBackup master server and client connectivity on an environment.
+      properties:
+        environment_id:
+          type: string
+          description: Id of the target environment to test NetBackup connectivity from.
+          minLength: 1
+          maxLength: 256
+          example: 1-ENVIRONMENT-1
+        environment_user_id:
+          type: string
+          description: Id of the environment user.
+          minLength: 1
+          maxLength: 256
+          example: USER-1
+        master_server_name:
+          type: string
+          description: The name of the NetBackup master server to attempt to connect to.
+          minLength: 1
+          maxLength: 256
+          example: master_server.delphix.com
+        source_client_name:
+          type: string
+          description: The name of the NetBackup client to attempt to connect with.
+          minLength: 1
+          maxLength: 256
+          example: source_client.delphix.com
+    ConnectivityCheckParameters:
+      title: ConnectivityCheckParameters
+      type: object
+      description: Parameters to check connectivity between engine and remote host.
+      required:
+      - engine_id
+      - host
+      - port
+      properties:
+        engine_id:
+          description: The ID of the engine to check.
+          type: string
+          example: engine-123
+        use_engine_public_key:
+          type: boolean
+          description: Whether to use public key authentication.
+          example: true
+        os_name:
+          type: string
+          description: Operating system type of the environment.
+          enum:
+          - UNIX
+          - WINDOWS
+          example: UNIX
+        staging_environment:
+          type: string
+          description: Id of the connector environment which is used to connect to this source environment.
+          minLength: 1
+          maxLength: 256
+          example: 1-WINDOWS_HOST-1
+        host:
+          description: The hostname of the remote host machine to check.
+          type: string
+          example: test.host.com
+        port:
+          description: The port of the remote host machine to check. For Windows, port on which Delphix connector is running.
+          type: integer
+          minimum: 0
+          maximum: 65535
+          nullable: true
+          example: 22
+        username:
+          description: The username of the remote host machine to check. Username is mandatory input with password/use_engine_public_key/kerberos_authentication.
+          type: string
+          minLength: 1
+          maxLength: 255
+          example: username
+        password:
+          x-dct-toolkit-credential-field: true
+          description: The password of the remote host machine to check.
+          type: string
+          minLength: 1
+          maxLength: 255
+          example: password
+        vault_id:
+          type: string
+          description: The DCT id or name of the vault from which to read the host credentials.
+          minLength: 1
+          maxLength: 256
+          example: my-vault
+        hashicorp_vault_engine:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: Vault engine name where the credential is stored.
+          minLength: 1
+          maxLength: 256
+          example: kv
+        hashicorp_vault_secret_path:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: Path in the vault engine where the credential is stored.
+          minLength: 1
+          maxLength: 256
+          example: oracle-env
+        hashicorp_vault_username_key:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: Key for the username in the key-value store.
+          minLength: 1
+          maxLength: 256
+          example: username
+        hashicorp_vault_secret_key:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: Key for the password in the key-value store.
+          minLength: 1
+          maxLength: 256
+          example: secret
+        azure_vault_name:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: Azure key vault name (ORACLE, ASE and MSSQL_DOMAIN_USER only).
+          minLength: 1
+          maxLength: 256
+          example: azure_vault
+        azure_vault_username_key:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: Azure vault key for the username in the key-value store (ORACLE, ASE and MSSQL_DOMAIN_USER only).
+          minLength: 1
+          maxLength: 256
+          example: username
+        azure_vault_secret_key:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: Azure vault key for the password in the key-value store (ORACLE, ASE and MSSQL_DOMAIN_USER only).
+          minLength: 1
+          maxLength: 256
+          example: secret
+        cyberark_vault_query_string:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: Query to find a credential in the CyberArk vault.
+          minLength: 1
+          maxLength: 256
+          example: Safe=Test;Folder=Test;Object=Test
+        use_kerberos_authentication:
+          type: boolean
+          description: Whether to use kerberos authentication.
+          example: true
+        custom_private_key:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: SSH Private key to be used for authentication
+          minLength: 1
+          maxLength: 6000
+          example: ssh custom_private_key
+        custom_public_key:
+          type: string
+          description: SSH Public key to be used for authentication
+          minLength: 1
+          maxLength: 6000
+          example: ssh custom_public_key
+    ConnectivityCheckResponse:
+      title: ConnectivityResponse
+      type: object
+      description: The result of the connectivity check.
+      required:
+      - message
+      properties:
+        message:
+          description: A message describing the result of the connectivity check.
+          type: string
+          example: Success!
+        status:
+          description: A status describing the status of the connectivity check.
+          type: string
+          enum:
+          - SUCCESS
+          - FAILED
+          example: SUCCESS
+    DatabaseConnectivityCheckParameters:
+      required:
+      - credentials_type
+      - source_id
+      title: DatabaseConnectivityCheckParameters
+      type: object
+      description: Parameters to test JDBC connectivity to source configs.
+      properties:
+        credentials_type:
+          description: The type of credentials.
+          type: string
+          enum:
+          - MSSQL_ENVIRONMENT_USER
+          - MSSQL_DOMAIN_USER
+          - MSSQL_DATABASE_USER
+          - ORACLE
+          - ASE
+          - SOURCE_CONFIG
+        source_id:
+          description: Source database config Id.
+          type: string
+          example: 1-SOURCE-CONFIG-1
+        username:
+          description: Database username (Not applicable for MSSQL_ENVIRONMENT_USER).
+          type: string
+          example: username
+        password:
+          x-dct-toolkit-credential-field: true
+          description: Database password (Not applicable for MSSQL_ENVIRONMENT_USER and mutually exclusive with vault attributes).
+          type: string
+          example: password
+        vault:
+          type: string
+          description: The name or reference of the vault from which to read the database credentials (ORACLE, ASE and MSSQL_DOMAIN_USER only).
+          minLength: 1
+          maxLength: 256
+          example: my-vault
+        hashicorp_vault_engine:
+          type: string
+          description: Vault engine name where the credential is stored (ORACLE, ASE and MSSQL_DOMAIN_USER only).
+          minLength: 1
+          maxLength: 256
+          example: kv
+        hashicorp_vault_secret_path:
+          type: string
+          description: Path in the vault engine where the credential is stored (ORACLE, ASE and MSSQL_DOMAIN_USER only).
+          minLength: 1
+          maxLength: 256
+          example: oracle-env
+        hashicorp_vault_username_key:
+          type: string
+          description: Hashicorp vault key for the username in the key-value store (ORACLE, ASE and MSSQL_DOMAIN_USER only).
+          minLength: 1
+          maxLength: 256
+          example: username
+        hashicorp_vault_secret_key:
+          type: string
+          description: Hashicorp vault key for the password in the key-value store (ORACLE, ASE and MSSQL_DOMAIN_USER only).
+          minLength: 1
+          maxLength: 256
+          example: secret
+        azure_vault_name:
+          type: string
+          description: Azure key vault name (ORACLE, ASE and MSSQL_DOMAIN_USER only).
+          minLength: 1
+          maxLength: 256
+          example: azure_vault
+        azure_vault_username_key:
+          type: string
+          description: Azure vault key for the username in the key-value store (ORACLE, ASE and MSSQL_DOMAIN_USER only).
+          minLength: 1
+          maxLength: 256
+          example: username
+        azure_vault_secret_key:
+          type: string
+          description: Azure vault key for the password in the key-value store (ORACLE, ASE and MSSQL_DOMAIN_USER only).
+          minLength: 1
+          maxLength: 256
+          example: secret
+        cyberark_vault_query_string:
+          type: string
+          description: Query to find a credential in the CyberArk vault (ORACLE, ASE and MSSQL_DOMAIN_USER only).
+          minLength: 1
+          maxLength: 256
+          example: Safe=Test;Folder=Test;Object=Test
+        environment_id:
+          type: string
+          description: Id of the environment to which environment user belongs (MSSQL_ENVIRONMENT_USER only).
+          minLength: 1
+          maxLength: 256
+        environment_user:
+          type: string
+          description: Reference to the environment user (MSSQL_ENVIRONMENT_USER only).
+          minLength: 1
+          maxLength: 256
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization

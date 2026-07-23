@@ -1,0 +1,1287 @@
+openapi: 3.0.0
+info:
+  title: Delphix DCT Algorithms Replication API
+  version: 3.28.0
+  description: Delphix DCT API
+  contact:
+    name: Delphix Support
+    url: https://portal.perforce.com/s/
+    email: support@delphix.com
+servers:
+- url: /dct/v3
+security:
+- ApiKeyAuth: []
+tags:
+- name: Replication
+paths:
+  /replication-profiles:
+    get:
+      summary: List all ReplicationProfiles.
+      operationId: get_replication_profiles
+      tags:
+      - Replication
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/replicationProfilesSortParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ListReplicationProfilesResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ReplicationProfile'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+    post:
+      summary: Create a ReplicationProfile.
+      operationId: create_replication_profile
+      tags:
+      - Replication
+      requestBody:
+        $ref: '#/components/requestBodies/CreateReplicationProfile'
+      responses:
+        '201':
+          description: ReplicationProfile created
+          content:
+            application/json:
+              schema:
+                type: object
+                title: CreateReplicationProfileResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+                    description: The initiated job.
+                  replication_profile_id:
+                    type: string
+                    description: The id of the created ReplicationProfile.
+                    example: 1-REPLICATION_PROFILE-1
+  /replication-profiles/search:
+    post:
+      summary: Search for ReplicationProfiles.
+      operationId: search_replication_profiles
+      tags:
+      - Replication
+      x-filterable:
+        fields:
+          id:
+            type: string
+          name:
+            type: string
+          replication_mode:
+            type: string
+          target_engine_id:
+            type: string
+          target_port:
+            type: integer
+          nfs_share:
+            type: string
+          engine_id:
+            type: string
+          replication_tag:
+            type: string
+          last_execution_status:
+            type: string
+          last_execution_status_timestamp:
+            type: date-time
+          description:
+            type: string
+          schedule:
+            type: string
+          tags:
+            type: array[object]
+            fields:
+              key:
+                type: string
+              value:
+                type: string
+          enable_tag_replication:
+            type: boolean
+          encrypted:
+            type: boolean
+          use_system_socks_setting:
+            type: boolean
+          automatic_replication:
+            type: boolean
+          number_of_connections:
+            type: integer
+          bandwidth_limit:
+            type: integer
+          vdb_ids:
+            type: array
+            items:
+              type: string
+          dsource_ids:
+            type: array
+            items:
+              type: string
+          cdb_ids:
+            type: array
+            items:
+              type: string
+          vcdb_ids:
+            type: array
+            items:
+              type: string
+          group_ids:
+            type: array
+            items:
+              type: string
+          data_layout_ids:
+            type: array
+            items:
+              type: string
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/replicationProfilesSortParam'
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: SearchReplicationProfilesResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ReplicationProfile'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /replication-profiles/{replicationProfileId}/execute:
+    parameters:
+    - $ref: '#/components/parameters/replicationProfileIdParam'
+    post:
+      summary: Execute a ReplicationProfile.
+      tags:
+      - Replication
+      operationId: execute_replication_profile
+      responses:
+        '200':
+          description: ReplicationProfile executed.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ExecuteReplicationProfileResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+  /replication-profiles/{replicationProfileId}:
+    parameters:
+    - $ref: '#/components/parameters/replicationProfileIdParam'
+    get:
+      summary: Get a ReplicationProfile by ID.
+      operationId: get_replication_profile_by_id
+      tags:
+      - Replication
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReplicationProfile'
+    delete:
+      summary: Delete a ReplicationProfile.
+      operationId: delete_replication_profile
+      tags:
+      - Replication
+      parameters:
+      - $ref: '#/components/parameters/replicationProfileIdParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ReplicationProfileDeleteJobResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+    patch:
+      summary: Update a ReplicationProfile.
+      operationId: update_replication_profile
+      tags:
+      - Replication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateReplicationProfileParameters'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ReplicationProfileUpdateJobResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+  /replication-profiles/{replicationProfileId}/tags:
+    parameters:
+    - $ref: '#/components/parameters/replicationProfileIdParam'
+    post:
+      tags:
+      - Replication
+      summary: Create tags for a ReplicationProfile.
+      operationId: create_replication_profile_tags
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagsRequest'
+        description: Tags information for ReplicationProfiles.
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+    get:
+      tags:
+      - Replication
+      summary: Get tags for a ReplicationProfile.
+      operationId: get_replication_profile_tags
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+  /replication-profiles/{replicationProfileId}/tags/delete:
+    parameters:
+    - $ref: '#/components/parameters/replicationProfileIdParam'
+    post:
+      tags:
+      - Replication
+      summary: Delete tags for a ReplicationProfile.
+      operationId: delete_replication_profile_tags
+      requestBody:
+        $ref: '#/components/requestBodies/DeleteTags'
+      responses:
+        '204':
+          description: No Content
+  /replication-profiles/{replicationProfileId}/enable-tag-replication:
+    parameters:
+    - $ref: '#/components/parameters/replicationProfileIdParam'
+    post:
+      summary: Enable tag replication for given ReplicationProfile.
+      operationId: enable_tag_replication
+      tags:
+      - Replication
+      responses:
+        '202':
+          description: Accepted
+  /replication-profiles/{replicationProfileId}/disable-tag-replication:
+    parameters:
+    - $ref: '#/components/parameters/replicationProfileIdParam'
+    post:
+      summary: Disable tag replication for given ReplicationProfile.
+      operationId: disable_tag_replication
+      tags:
+      - Replication
+      responses:
+        '200':
+          description: OK
+components:
+  schemas:
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    CreateReplicationProfileParameters:
+      description: The parameters to create a ReplicationProfile.
+      type: object
+      required:
+      - replication_mode
+      - engine_id
+      properties:
+        name:
+          description: The ReplicationProfile name.
+          type: string
+        replication_mode:
+          description: The ReplicationProfile mode.
+          type: string
+          enum:
+          - ENGINE_DATA_REPLICATION
+          - MASKED_DATA_DISTRIBUTION
+          - CONTINUOUS_VAULT
+          - OFFLINE_SEND
+          - OFFLINE_RECEIVE
+          - OFFLINE_CONTINUOUS_VAULT
+        engine_id:
+          description: The ID of the engine that the ReplicationProfile belongs to.
+          type: string
+        target_engine_id:
+          description: The ID of the replication target engine. This field is specific to network replication.
+          type: string
+        target_host:
+          description: Hostname of the replication target engine. If none is provided, the hostname for the engine referenced by target_engine_id will be used. This field is specific to network replication.
+          type: string
+        target_port:
+          description: Target TCP port number for the Delphix Session Protocol. This field is specific to network replication.
+          type: integer
+          minimum: 0
+          maximum: 65535
+          default: 8415
+        nfs_share:
+          description: The NFS share path for the replication target. This field is specific to offline replication.
+          type: string
+          maxLength: 4096
+          minLength: 1
+        offline_send_profile_tag:
+          description: The unique tag identifier for the offline send profile. This field is specific to offline replication receive profiles.
+          type: string
+          maxLength: 256
+        description:
+          description: The ReplicationProfile description.
+          type: string
+          maxLength: 4096
+        schedule:
+          description: Replication schedule in the form of a quartz-formatted string.
+          type: string
+          minLength: 1
+          maxLength: 256
+        tags:
+          description: The tags that are applied to this ReplicationProfile.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        enable_tag_replication:
+          description: Indicates whether tag replication from primary object to replica object is enabled or disabled for this ReplicationProfile.
+          type: boolean
+        bandwidth_limit:
+          description: Bandwidth limit (MB/s) for replication network traffic. A value of 0 means no limit. This field is specific to network replication.
+          type: integer
+          default: 0
+          minimum: 0
+        number_of_connections:
+          description: Total number of transport connections to use. This field is specific to network replication.
+          type: integer
+          default: 1
+          minimum: 1
+          maximum: 16
+        encrypted:
+          description: Encrypt replication network traffic. This field is specific to network replication.
+          type: boolean
+          default: false
+        automatic_replication:
+          description: Indication whether the replication spec schedule is enabled or not.
+          type: boolean
+          default: false
+        use_system_socks_setting:
+          description: Connect to the replication target host via the system-wide SOCKS proxy. This field is specific to network replication.
+          type: boolean
+          default: false
+        vdb_ids:
+          description: The VDBs that are replicated by this ReplicationProfile.
+          type: array
+          items:
+            type: string
+        dsource_ids:
+          description: The dSources that are replicated by this ReplicationProfile.
+          type: array
+          items:
+            type: string
+        cdb_ids:
+          description: The CDBs that are replicated by this ReplicationProfile.
+          type: array
+          items:
+            type: string
+        vcdb_ids:
+          description: The vCDBs that are replicated by this ReplicationProfile.
+          type: array
+          items:
+            type: string
+        group_ids:
+          description: The groups that are replicated by this ReplicationProfile.
+          type: array
+          items:
+            type: string
+        replicate_entire_engine:
+          description: Whether to replicate the entire engine. This is mutually exclusive with the vdb_ids, dsource_ids, cdb_ids, vcdb_ids, and group_ids properties.
+          type: boolean
+    UpdateReplicationProfileParameters:
+      description: The parameters to update a ReplicationProfile.
+      type: object
+      properties:
+        name:
+          description: The ReplicationProfile name.
+          type: string
+        description:
+          description: The ReplicationProfile description.
+          type: string
+          maxLength: 4096
+        target_engine_id:
+          description: The ID of the replication target engine. This field is specific to network replication.
+          type: string
+        target_host:
+          description: Hostname of the replication target engine. If none is provided and the target_engine_id is set, the hostname for the engine referenced by target_engine_id will be used. This field is specific to network replication.
+          type: string
+        target_port:
+          description: Target TCP port number for the Delphix Session Protocol. This field is specific to network replication.
+          type: integer
+          minimum: 0
+          maximum: 65535
+        nfs_share:
+          description: The NFS share path for the replication target. This field is specific to offline replication.
+          type: string
+          maxLength: 4096
+          minLength: 1
+        replication_mode:
+          description: The ReplicationProfile mode.
+          type: string
+          enum:
+          - ENGINE_DATA_REPLICATION
+          - MASKED_DATA_DISTRIBUTION
+          - CONTINUOUS_VAULT
+          - OFFLINE_SEND
+          - OFFLINE_RECEIVE
+          - OFFLINE_CONTINUOUS_VAULT
+        schedule:
+          description: Replication schedule in the form of a quartz-formatted string.
+          type: string
+          minLength: 1
+          maxLength: 256
+        vdb_ids:
+          description: The VDBs that are replicated by this ReplicationProfile.
+          type: array
+          items:
+            type: string
+        dsource_ids:
+          description: The dSources that are replicated by this ReplicationProfile.
+          type: array
+          items:
+            type: string
+        cdb_ids:
+          description: The CDBs that are replicated by this ReplicationProfile.
+          type: array
+          items:
+            type: string
+        vcdb_ids:
+          description: The vCDBs that are replicated by this ReplicationProfile.
+          type: array
+          items:
+            type: string
+        group_ids:
+          description: The groups that are replicated by this ReplicationProfile.
+          type: array
+          items:
+            type: string
+        enable_tag_replication:
+          description: Indicates whether tag replication from primary object to replica object is enabled or disabled for this ReplicationProfile.
+          type: boolean
+        replicate_entire_engine:
+          description: Whether to replicate the entire engine. This is mutually exclusive with the vdb_ids, dsource_ids, cdb_ids, vcdb_ids, and group_ids properties.
+          type: boolean
+        bandwidth_limit:
+          description: Bandwidth limit (MB/s) for replication network traffic. A value of 0 means no limit. This field is specific to network replication.
+          type: integer
+          minimum: 0
+        number_of_connections:
+          description: Total number of transport connections to use. This field is specific to network replication.
+          type: integer
+          minimum: 1
+          maximum: 16
+        encrypted:
+          description: Encrypt replication network traffic. This field is specific to network replication.
+          type: boolean
+        automatic_replication:
+          description: Indication whether the replication spec schedule is enabled or not.
+          type: boolean
+        use_system_socks_setting:
+          description: Connect to the replication target host via the system-wide SOCKS proxy. This field is specific to network replication.
+          type: boolean
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    DeleteTag:
+      type: object
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        tags:
+          description: List of tags to be deleted
+          type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    VirtualizationTask:
+      deprecated: true
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    ReplicationProfile:
+      description: A set of rules that define what data is replicated from a source to a target.
+      type: object
+      properties:
+        id:
+          description: The ReplicationProfile ID.
+          type: string
+        name:
+          description: The ReplicationProfile name.
+          type: string
+        replication_mode:
+          description: The ReplicationProfile mode.
+          type: string
+          enum:
+          - ENGINE_DATA_REPLICATION
+          - MASKED_DATA_DISTRIBUTION
+          - CONTINUOUS_VAULT
+          - OFFLINE_SEND
+          - OFFLINE_RECEIVE
+          - OFFLINE_CONTINUOUS_VAULT
+        engine_id:
+          description: The ID of the engine that the ReplicationProfile belongs to.
+          type: string
+        target_engine_id:
+          description: The ID of the replication target engine.
+          type: string
+        target_host:
+          description: Hostname of the replication target engine.
+          type: string
+        target_port:
+          description: Target TCP port number for the Delphix Session Protocol.
+          type: integer
+          minimum: 0
+          maximum: 65535
+          default: 8415
+        nfs_share:
+          description: The NFS share path for the replication target. This param is specific to offline replication.
+          type: string
+          maxLength: 4096
+          minLength: 1
+        type:
+          deprecated: true
+          description: The ReplicationProfile type.
+          type: string
+        description:
+          description: The ReplicationProfile description.
+          type: string
+          maxLength: 4096
+        last_execution_status:
+          description: The status of the last execution of the ReplicationProfile.
+          type: string
+          enum:
+          - RUNNING
+          - COMPLETED
+          - SUSPENDED
+          - CANCELED
+          - FAILED
+          readOnly: true
+        last_execution_status_timestamp:
+          description: The timestamp of the last execution status.
+          type: string
+          format: date-time
+          readOnly: true
+        schedule:
+          description: Replication schedule in the form of a quartz-formatted string.
+          type: string
+          minLength: 1
+          maxLength: 256
+        replication_tag:
+          description: Globally unique identifier for this ReplicationProfile.
+          type: string
+        replication_objects:
+          deprecated: true
+          description: The objects that are replicated by this ReplicationProfile.
+          type: array
+          items:
+            type: string
+        tags:
+          description: The tags that are applied to this ReplicationProfile.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        enable_tag_replication:
+          description: Indicates whether tag replication from primary object to replica object is enabled or disabled for this ReplicationProfile.
+          type: boolean
+        bandwidth_limit:
+          description: Bandwidth limit (MB/s) for replication network traffic. A value of 0 means no limit.
+          type: integer
+          default: 0
+          minimum: 0
+        number_of_connections:
+          description: Total number of transport connections to use.
+          type: integer
+          default: 1
+          minimum: 1
+          maximum: 16
+        encrypted:
+          description: Encrypt replication network traffic.
+          type: boolean
+          default: false
+        automatic_replication:
+          description: Indication whether the replication spec schedule is enabled or not.
+          type: boolean
+          default: false
+        use_system_socks_setting:
+          description: Connect to the replication target host via the system-wide SOCKS proxy.
+          type: boolean
+          default: false
+        vdb_ids:
+          description: The VDBs that are replicated by this ReplicationProfile.
+          type: array
+          items:
+            type: string
+        dsource_ids:
+          description: The dSources that are replicated by this ReplicationProfile.
+          type: array
+          items:
+            type: string
+        cdb_ids:
+          description: The CDBs that are replicated by this ReplicationProfile.
+          type: array
+          items:
+            type: string
+        vcdb_ids:
+          description: The vCDBs that are replicated by this ReplicationProfile.
+          type: array
+          items:
+            type: string
+        group_ids:
+          description: The groups that are replicated by this ReplicationProfile.
+          type: array
+          items:
+            type: string
+        replicate_entire_engine:
+          description: Whether to replicate the entire engine. This is mutually exclusive with the vdb_ids, dsource_ids, cdb_ids, vcdb_ids, and group_ids properties.
+          type: boolean
+        data_layout_ids:
+          description: The data-layouts that are replicated by this ReplicationProfile.
+          type: array
+          items:
+            type: string
+          readOnly: true
+        last_send_timestamp:
+          description: The timestamp of the last successful offline send operation. This field is specific to offline replication send profiles.
+          type: string
+          format: date-time
+          readOnly: true
+        last_offline_serialization_point_id:
+          description: The ID of the last offline serialization point sent. This field is specific to offline replication send profiles.
+          type: integer
+          readOnly: true
+        last_offline_receive_data_dir:
+          description: The relative path of the directory containing the most recently sent data. This field is specific to offline replication send profiles.
+          type: string
+          readOnly: true
+    Job:
+      description: An asynchronous task.
+      type: object
+      properties:
+        id:
+          description: The Job entity ID.
+          type: string
+          example: job-123
+        status:
+          description: The status of the job.
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+          example: RUNNING
+        is_waiting_for_telemetry:
+          description: Indicates that the operations performed by this Job have completed successfully, but the object changes are not yet reflected. This is only set when when the JOB is in STARTED status, with the guarantee that the job will not transition to the FAILED status. Note that this flag will likely be replaced with a new status in future API versions and be deprecated.
+          type: boolean
+        type:
+          description: The type of job being done.
+          type: string
+          example: DB_REFRESH
+        localized_type:
+          description: The i18n translated type of job being done.
+          type: string
+          example: DB Refresh
+        error_details:
+          description: Details about the failure for FAILED jobs.
+          type: string
+          example: Unable to connect to the engine.
+        warning_message:
+          description: Warnings for the job.
+          type: string
+          example: 'Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.'
+        target_id:
+          description: A reference to the job's target.
+          type: string
+          example: vdb-123
+        target_name:
+          description: A reference to the job's target name.
+          type: string
+          example: vdb
+        start_time:
+          description: The time the job started executing.
+          type: string
+          format: date-time
+          example: '2022-01-02T05:11:24.148000+00:00'
+        update_time:
+          description: The time the job was last updated.
+          type: string
+          format: date-time
+          example: '2022-01-02T06:11:24.148000+00:00'
+        trace_id:
+          description: traceId of the request which created this Job
+          type: string
+        engine_ids:
+          description: IDs of the engines this Job is executing on.
+          type: array
+          items:
+            type: string
+          deprecated: true
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        engines:
+          type: array
+          items:
+            $ref: '#/components/schemas/Engine'
+        account_id:
+          description: The ID of the account who initiated this job.
+          type: integer
+          example: 1
+        account_name:
+          description: The account name which initiated this job. It can be either firstname and lastname combination or firstname or lastname or username or email address or Account-<id>.
+          type: string
+          example: User 1
+        compliance_node_id:
+          description: The ID of the associated compliance node, if applicable.
+          type: string
+          nullable: true
+        compliance_node_name:
+          description: The name of the associated compliance node, if applicable.
+          type: string
+          nullable: true
+        percent_complete:
+          description: Completion percentage of the Job.
+          type: integer
+          minimum: 0
+          maximum: 100
+          example: '50'
+        virtualization_tasks:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTask'
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTask'
+        execution_id:
+          description: The ID of the associated masking execution, if any.
+          type: string
+          nullable: true
+        result_type:
+          description: The type of the job result. This is the type of the object present in the result.
+          type: string
+        result:
+          description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
+          type: object
+      discriminator:
+        propertyName: class_type
+  requestBodies:
+    CreateReplicationProfile:
+      description: The parameters to create a ReplicationProfile.
+      content:
+        application/json:
+          schema:
+            x-body-name: ReplicationProfile
+            $ref: '#/components/schemas/CreateReplicationProfileParameters'
+          examples:
+            ReplicationProfileCreate:
+              description: 'The request example is intended for creating a ReplicationProfile.
+
+                '
+              summary: ReplicationProfile create
+              value:
+                name: replication-profile-name
+                replication_mode: ENGINE_DATA_REPLICATION
+                engine_id: 1
+                target_engine_id: 2
+                target_port: 8415
+                description: description
+                schedule: 0 0 0 * * ?
+                tags:
+                - key: key1
+                  value: value1
+                - key: key2
+                  value: value2
+                enable_tag_replication: true
+                bandwidth_limit: 0
+                number_of_connections: 1
+                encrypted: false
+                automatic_replication: false
+                use_system_socks_setting: false
+                group_ids:
+                - 1-GROUP-1
+    SearchBody:
+      x-skip-codegen-attr: description
+      description: 'A request body containing a filter expression. This enables searching
+
+        for items matching arbitrarily complex conditions. The list of
+
+        attributes which can be used in filter expressions is available
+
+        in the x-filterable vendor extension.
+
+
+        # Filter Expression Overview
+
+        **Note: All keywords are case-insensitive**
+
+
+        ## Comparison Operators
+
+        | Operator | Description | Example |
+
+        | --- | --- | --- |
+
+        | CONTAINS | Substring or membership testing for string and list attributes respectively. | field3 CONTAINS ''foobar'', field4 CONTAINS TRUE  |
+
+        | IN | Tests if field is a member of a list literal. List can contain a maximum of 100 values | field2 IN [''Goku'', ''Vegeta''] |
+
+        | GE | Tests if a field is greater than or equal to a literal value | field1 GE 1.2e-2 |
+
+        | GT | Tests if a field is greater than a literal value | field1 GT 1.2e-2 |
+
+        | LE | Tests if a field is less than or equal to a literal value | field1 LE 9000 |
+
+        | LT | Tests if a field is less than a literal value | field1 LT 9.02 |
+
+        | NE | Tests if a field is not equal to a literal value | field1 NE 42 |
+
+        | EQ | Tests if a field is equal to a literal value | field1 EQ 42 |
+
+
+        ## Search Operator
+
+        The SEARCH operator filters for items which have any filterable
+
+        attribute that contains the input string as a substring, comparison
+
+        is done case-insensitively. This is not restricted to attributes with
+
+        string values. Specifically `SEARCH ''12''` would match an item with an
+
+        attribute with an integer value of `123`.
+
+
+        ## Logical Operators
+
+        Ordered by precedence.
+
+        | Operator | Description | Example |
+
+        | --- | --- | --- |
+
+        | NOT | Logical NOT (Right associative) | NOT field1 LE 9000 |
+
+        | AND | Logical AND (Left Associative) | field1 GT 9000 AND field2 EQ ''Goku'' |
+
+        | OR | Logical OR (Left Associative) | field1 GT 9000 OR field2 EQ ''Goku'' |
+
+
+        ## Grouping
+
+        Parenthesis `()` can be used to override operator precedence.
+
+
+        For example:
+
+        NOT (field1 LT 1234 AND field2 CONTAINS ''foo'')
+
+
+        ## Literal Values
+
+        | Literal      | Description | Examples |
+
+        | --- | --- | --- |
+
+        | Nil | Represents the absence of a value | nil, Nil, nIl, NIL |
+
+        | Boolean | true/false boolean | true, false, True, False, TRUE, FALSE |
+
+        | Number | Signed integer and floating point numbers. Also supports scientific notation. | 0, 1, -1, 1.2, 0.35, 1.2e-2, -1.2e+2 |
+
+        | String | Single or double quoted | "foo", "bar", "foo bar", ''foo'', ''bar'', ''foo bar'' |
+
+        | Datetime | Formatted according to [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) | 2018-04-27T18:39:26.397237+00:00 |
+
+        | List | Comma-separated literals wrapped in square brackets | [0], [0, 1], [''foo'', "bar"] |
+
+
+        ## Limitations
+
+        - A maximum of 8 unique identifiers may be used inside a filter expression.
+
+        '
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SearchBody'
+          examples:
+            nested:
+              description: 'An example of a nested Object comparison testing that at least one repository has a
+
+                version which is equal to 19.0.0.
+
+                '
+              summary: Nested Object Comparison
+              value:
+                filter_expression: repositories CONTAINS {version eq '19.0.0'}
+            relative:
+              description: 'An example of a relative comparison testing that field1 has a
+
+                value which is less than 123.
+
+                '
+              summary: Relative comparison
+              value:
+                filter_expression: field1 LE 123
+            nil:
+              description: 'An example of using nil to test for the absence of a value for field2.
+
+                '
+              summary: Absence of an attribute value
+              value:
+                filter_expression: field2 EQ NIL
+            non-nil:
+              description: 'An example of using nil to test for the existence of a value for field2.
+
+                '
+              summary: Existence of an attribute value
+              value:
+                filter_expression: field2 NE NIL
+            contains:
+              description: 'An example of using the ''CONTAINS'' operator to check if
+
+                field2 contains the string ''foo''. If field2 is string valued
+
+                then this is checking if ''foo'' is a substring of field2. If
+
+                field2 is a list of strings then this is checking if ''foo''
+
+                is a member of the list.
+
+                '
+              summary: Use of the CONTAINS operator
+              value:
+                filter_expression: field2 CONTAINS 'foo'
+            in:
+              description: 'An example of using the ''IN'' operator to check if field1
+
+                is an element of a list literal.
+
+                '
+              summary: Use of the IN operator
+              value:
+                filter_expression: field1 IN [1, 2, 3]
+            search:
+              description: 'An example of using the ''SEARCH'' operator to retrieve all elements
+
+                for which ''foo'' is a substring of a filterable attribute.
+
+                '
+              summary: Use of the SEARCH operator
+              value:
+                filter_expression: SEARCH 'foo'
+            parenthesis:
+              description: 'An example of parenthesis being used to group operators & override
+
+                operator precedence.
+
+                '
+              summary: Overriding operator precedence
+              value:
+                filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
+    DeleteTags:
+      description: The parameters to delete tags
+      content:
+        application/json:
+          schema:
+            x-body-name: environment
+            $ref: '#/components/schemas/DeleteTag'
+          examples:
+            delete_all_tags:
+              description: Delete all tags for given object - No request body required
+              summary: Delete all tags
+              value: {}
+            delete_tags_by_key:
+              description: Delete all tags for given object with matching key
+              summary: Delete tags by key
+              value:
+                key: key-1
+            delete_tags_by_key_value:
+              description: Delete tag for given object with matching key and value
+              summary: Delete a tag by key & value
+              value:
+                key: key-1
+                value: value-1
+            delete_multiple_tags_by_key_value:
+              description: Delete tags for given list of tags with matching key and value
+              summary: Delete multiple tags by key & value
+              value:
+                tags:
+                - key: key-1
+                  value: value-1
+                - key: key-2
+                  value: value-2
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    replicationProfileIdParam:
+      in: path
+      name: replicationProfileId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the ReplicationProfile.
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+    replicationProfilesSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: id
+      required: false
+      schema:
+        type: string
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - replication_mode
+        - -replication_mode
+        - engine_id
+        - -engine_id
+        - target_engine_id
+        - -target_engine_id
+        - target_host
+        - -target_host
+        - target_port
+        - -target_port
+        - replication_tag
+        - -replication_tag
+        - type
+        - -type
+        - encrypted
+        - -encrypted
+        - automatic_replication
+        - -automatic_replication
+        - use_system_socks_setting
+        - -use_system_socks_setting
+        - bandwidth_limit
+        - -bandwidth_limit
+        - number_of_connections
+        - -number_of_connections
+        - last_execution_status
+        - -last_execution_status
+        - last_execution_status_timestamp
+        - -last_execution_status_timestamp
+        - nfs_share
+        - -nfs_share
+        - last_offline_serialization_point_id
+        - -last_offline_serialization_point_id
+        - last_offline_receive_data_dir
+        - -last_offline_receive_data_dir
+        - last_send_timestamp
+        - -last_send_timestamp
+        nullable: true
+        example: name
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization

@@ -1,0 +1,2406 @@
+openapi: 3.0.0
+info:
+  title: Delphix DCT Algorithms Reporting API
+  version: 3.28.0
+  description: Delphix DCT API
+  contact:
+    name: Delphix Support
+    url: https://portal.perforce.com/s/
+    email: support@delphix.com
+servers:
+- url: /dct/v3
+security:
+- ApiKeyAuth: []
+tags:
+- name: Reporting
+paths:
+  /reporting/masking-execution-metrics:
+    get:
+      summary: Get the masking execution metrics report.
+      tags:
+      - Reporting
+      parameters:
+      - $ref: '#/components/parameters/limitExtendedParam'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/maskingExecutionMetricsSortParam'
+      operationId: get_masking_execution_metrics_report
+      responses:
+        '200':
+          description: Returns a list of Masking execution metrics.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: MaskingExecutionMetricsReportResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MaskingExecutionMetrics'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+            text/csv:
+              schema:
+                type: string
+                example: 'id,masking_job_name,masking_job_type,connector_type,ruleset_name,rows_masked,rows_total,bytes_masked,bytes_total,duration,tables_files_count,"masked_tables_files_count",columns_fields_count,"masked_columns_fields_count"
+
+                  "4ed2357d-f1a7-410c-b951-90f0edc1a0f6",masking-job,STANDARD,ORACLE,customers,2,2,0,0,19430,1,1,2,2
+
+                  '
+  /reporting/masking-execution-metrics/search:
+    post:
+      summary: Search the Masking execution metrics report.
+      tags:
+      - Reporting
+      x-filterable:
+        fields:
+          id:
+            type: string
+          masking_job_name:
+            type: string
+          masking_job_type:
+            type: string
+          connector_type:
+            type: string
+          dct_managed:
+            type: boolean
+          ruleset_name:
+            type: string
+          rows_masked:
+            type: integer
+          rows_total:
+            type: integer
+          bytes_masked:
+            type: integer
+          bytes_total:
+            type: integer
+          duration:
+            type: integer
+          tables_files_count:
+            type: integer
+          masked_tables_files_count:
+            type: integer
+          columns_fields_count:
+            type: integer
+          masked_columns_fields_count:
+            type: integer
+      parameters:
+      - $ref: '#/components/parameters/limitExtendedParam'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/maskingExecutionMetricsSortParam'
+      operationId: search_masking_execution_metrics_report
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: Search Masking execution metrics.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: MaskingExecutionMetricsReportResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MaskingExecutionMetrics'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+            text/csv:
+              schema:
+                type: string
+                example: 'id,masking_job_name,connector_type,ruleset_name,rows_masked,rows_total,bytes_masked,bytes_total,duration,tables_files_count,"masked_tables_files_count",columns_fields_count,"masked_columns_fields_count"
+
+                  "4ed2357d-f1a7-410c-b951-90f0edc1a0f6",masking-job,ORACLE,customers,2,2,0,0,19430,1,1,2,2
+
+                  '
+  /reporting/{executionId}/generate-pdf-report:
+    parameters:
+    - $ref: '#/components/parameters/executionIdParam'
+    post:
+      summary: Generate a PDF report for given execution.
+      operationId: generate_execution_pdf_report
+      tags:
+      - Reporting
+      responses:
+        '200':
+          description: PDF Report generation initiated for execution.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: GenerateExecutionPdfReportResponse
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+  /reporting/{executionId}/download-pdf-report:
+    parameters:
+    - $ref: '#/components/parameters/executionIdParam'
+    get:
+      summary: Download PDF report for given execution.
+      operationId: download_execution_pdf_report
+      tags:
+      - Reporting
+      responses:
+        '200':
+          description: PDF file successfully returned
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+  /reporting/engine-global-object-state-report:
+    get:
+      summary: Get the masking engine global object state report.
+      tags:
+      - Reporting
+      parameters:
+      - $ref: '#/components/parameters/limitExtendedParam'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/engineGlobalObjectStateReportSortParam'
+      operationId: get_engine_global_object_state_report
+      responses:
+        '200':
+          description: Returns a list of GlobalObjectState data.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: GetEngineGlobalObjectStateReportResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/EngineGlobalObjectStateData'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+            text/csv:
+              schema:
+                type: string
+                example: 'engine_id,engine_name,jobs_count,connectors_count,rulesets_count,global_object_revision_hash
+
+                  "4ed2357d-f1a7-410c-b951-90f0edc1a0f6",masking-engine-dev,10,25,25,"dfb515e3d9727eebf499cb252b417efc926bad0b"
+
+                  '
+  /reporting/engine-global-object-state-report/search:
+    post:
+      summary: Search the masking engine global object state report.
+      tags:
+      - Reporting
+      x-filterable:
+        fields:
+          engine_id:
+            type: string
+          engine_name:
+            type: string
+          jobs_count:
+            type: integer
+          connectors_count:
+            type: integer
+          rulesets_count:
+            type: integer
+          global_object_revision_hash:
+            type: string
+      parameters:
+      - $ref: '#/components/parameters/limitExtendedParam'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/engineGlobalObjectStateReportSortParam'
+      operationId: search_engine_global_object_state_report
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: Returns a list of searched GlobalObjectState data.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: SearchEngineGlobalObjectStateReportResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/EngineGlobalObjectStateData'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+            text/csv:
+              schema:
+                type: string
+                example: 'engine_id,engine_name,jobs_count,connectors_count,rulesets_count,global_object_revision_hash
+
+                  "4ed2357d-f1a7-410c-b951-90f0edc1a0f6",masking-engine-dev,10,25,25,"dfb515e3d9727eebf499cb252b417efc926bad0b"
+
+                  '
+  /reporting/data-risk-report:
+    get:
+      summary: Get the masking data risk report.
+      tags:
+      - Reporting
+      parameters:
+      - $ref: '#/components/parameters/limitExtendedParam'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/dataRiskReportSortParam'
+      operationId: get_data_risk_report
+      responses:
+        '200':
+          description: Returns a list of DataRisk data.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: GetDataRiskReportResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DataRiskData'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+                  totals:
+                    $ref: '#/components/schemas/DataRiskReportTotals'
+            text/csv:
+              schema:
+                type: string
+                example: 'connector_id,connector_name,engine_id,engine_name,is_profiled,is_sensitive_data,is_masked,is_at_risk
+
+                  "4ed2357d-f1a7-410c-b951-90f0edc1a0f6",my-connector,"dfb515e3d9727eebf499cb252b417efc926bad0b",my-engine,true,true,true,false
+
+                  '
+  /reporting/data-risk-report/search:
+    post:
+      summary: Search the masking data risk report.
+      tags:
+      - Reporting
+      x-filterable:
+        fields:
+          connector_id:
+            type: string
+          engine_connector_id:
+            type: integer
+          connector_name:
+            type: string
+          connector_type:
+            type: string
+          last_profiled_date:
+            type: string
+          last_masked_date:
+            type: string
+          dct_managed:
+            type: boolean
+          engine_id:
+            type: string
+          engine_name:
+            type: string
+          is_profiled:
+            type: boolean
+          is_sensitive_data:
+            type: boolean
+          is_masked:
+            type: boolean
+          is_at_risk:
+            type: boolean
+          data_elements_total:
+            type: integer
+          data_elements_not_sensitive:
+            type: integer
+          data_elements_sensitive_masked:
+            type: integer
+          data_elements_sensitive_unmasked:
+            type: integer
+          records_total:
+            type: integer
+          records_not_sensitive:
+            type: integer
+          records_sensitive_masked:
+            type: integer
+          records_sensitive_unmasked:
+            type: integer
+          tags:
+            type: array[object]
+            fields:
+              key:
+                type: string
+              value:
+                type: string
+      parameters:
+      - $ref: '#/components/parameters/limitExtendedParam'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/dataRiskReportSortParam'
+      operationId: search_data_risk_report
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: Returns a list of searched DataRisk data.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: SearchDataRiskReportResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DataRiskData'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+                  totals:
+                    $ref: '#/components/schemas/DataRiskReportTotals'
+            text/csv:
+              schema:
+                type: string
+                example: 'connector_id,engine_connector_id,connector_name,engine_id,engine_name,is_profiled,is_sensitive_data,is_masked,is_at_risk
+
+                  "1-DATABASE-15",15,my-connector,"1",my-engine,true,true,true,false
+
+                  '
+  /reporting/storage-savings-report/search:
+    post:
+      summary: Search the saving storage summary report for virtualization engines.
+      tags:
+      - Reporting
+      x-filterable:
+        fields:
+          dsource_id:
+            type: string
+          dependant_vdbs:
+            type: integer
+          engine_name:
+            type: string
+          unvirtualized_space:
+            type: integer
+          current_timeflows_unvirtualized_space:
+            type: integer
+          virtualized_space:
+            type: integer
+          name:
+            type: string
+          estimated_savings:
+            type: integer
+          estimated_savings_perc:
+            type: number
+          estimated_current_timeflows_savings:
+            type: integer
+          estimated_current_timeflows_savings_perc:
+            type: number
+          is_replica:
+            type: boolean
+      parameters:
+      - $ref: '#/components/parameters/limitExtendedParam'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/storageSavingsReportSortParam'
+      operationId: search_storage_savings_summary_report
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: Returns a list of saving storage summary data of virtualization engines.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: StorageSavingsSummaryReportResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/StorageSavingsSummaryData'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+                  totals:
+                    $ref: '#/components/schemas/StorageSavingsReportSummarizedData'
+            text/csv:
+              schema:
+                type: string
+                example: 'dsource_id,dependant_vdbs,engine_name,unvirtualized_space,virtualized_space,name,estimated_savings,estimated_savings_perc
+
+                  2-MSSQL_DB_CONTAINER-1.1,my-engine,23404216320,20896169984,testdb,524496896,99.70111311277408
+
+                  '
+  /reporting/vdb-inventory-report:
+    get:
+      summary: Gets the inventory report for virtualization engine VDBs.
+      tags:
+      - Reporting
+      parameters:
+      - $ref: '#/components/parameters/limitExtendedParam'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/vdbInventoryReportSortParam'
+      operationId: get_vdb_inventory_report
+      responses:
+        '200':
+          description: Returns a list of inventory data of VDBs.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: VDBInventoryReportResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/VDBInventoryData'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+            text/csv:
+              schema:
+                type: string
+                example: 'engine_name,name,type,version,parent_name,parent_id,creation_date,parent_timeflow_location,parent_timeflow_timestamp,parent_timeflow_timezone,enabled,status,storage_size
+
+                  engine1,VDB-1,Oracle,10.2.0.5,dSource 1,1-Container-1,2022-01-07T12:06:59.157Z,54321,2022-02-07T12:03:15.821Z,"America/New_York",EDT-0400,true,Running,123456
+
+                  '
+  /reporting/vdb-inventory-report/search:
+    post:
+      summary: Search the inventory report for virtualization engine VDBs.
+      tags:
+      - Reporting
+      x-filterable:
+        fields:
+          name:
+            type: string
+          type:
+            type: string
+          version:
+            type: string
+          parent_name:
+            type: string
+          parent_id:
+            type: string
+          creation_date:
+            type: string
+          last_refreshed_date:
+            type: string
+          parent_timeflow_location:
+            type: string
+          parent_timeflow_timestamp:
+            type: string
+          parent_timeflow_timezone:
+            type: string
+          enabled:
+            type: boolean
+          status:
+            type: string
+          engine_name:
+            type: string
+          storage_size:
+            type: string
+      parameters:
+      - $ref: '#/components/parameters/limitExtendedParam'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/vdbInventoryReportSortParam'
+      operationId: search_vdb_inventory_report
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: Returns a list of inventory data of VDBs.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: VDBInventoryReportResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/VDBInventoryData'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+            text/csv:
+              schema:
+                type: string
+                example: 'engine_name,name,type,version,parent_name,parent_id,creation_date,parent_timeflow_location,parent_timeflow_timestamp,parent_timeflow_timezone,enabled,status
+
+                  engine1,VDB-1,Oracle,10.2.0.5,dSource 1,1-Container-1,2022-01-07T12:06:59.157Z,54321,2022-02-07T12:03:15.821Z,"America/New_York",EDT-0400,true,Running
+
+                  '
+  /reporting/dsource-usage-report:
+    get:
+      summary: Gets the usage report for virtualization engine dSources.
+      tags:
+      - Reporting
+      parameters:
+      - $ref: '#/components/parameters/limitExtendedParam'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/dSourceUsageReportSortParam'
+      operationId: get_dsource_usage_report
+      responses:
+        '200':
+          description: Returns a list of dSource usage data.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: DSourceUsageReportResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DSourceUsageData'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+            text/csv:
+              schema:
+                type: string
+                example: 'engine_name,name,unvirtualized_space,actual_space,dependant_vdbs
+
+                  engine1,prod01,1849457664,607240704,0
+
+                  engine2,test03,1696232960,1290392576,2
+
+                  '
+  /reporting/dsource-usage-report/search:
+    post:
+      summary: Search the usage report for virtualization engine dSources.
+      tags:
+      - Reporting
+      x-filterable:
+        fields:
+          name:
+            type: string
+          unvirtualized_space:
+            type: integer
+          actual_space:
+            type: integer
+          dependant_vdbs:
+            type: integer
+          engine_name:
+            type: string
+      parameters:
+      - $ref: '#/components/parameters/limitExtendedParam'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/dSourceUsageReportSortParam'
+      operationId: search_dsource_usage_report
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: Returns a list of dSource usage data.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: DSourceUsageReportResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DSourceUsageData'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+            text/csv:
+              schema:
+                type: string
+                example: 'engine_name,name,unvirtualized_space,actual_space,dependant_vdbs
+
+                  engine1,prod01,1849457664,607240704,0
+
+                  engine2,test03,1696232960,1290392576,2
+
+                  '
+  /reporting/dsource-consumption-report:
+    get:
+      summary: Gets the consumption report for virtualization engine dSources.
+      tags:
+      - Reporting
+      parameters:
+      - $ref: '#/components/parameters/limitExtendedParam'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/dSourceConsumptionReportSortParam'
+      operationId: get_dsource_consumption_report
+      responses:
+        '200':
+          description: Returns a list of dSource consumption data.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: DSourceConsumptionReportResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DSourceConsumptionData'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+            text/csv:
+              schema:
+                type: string
+                example: 'name,status,database_type,engine_id,engine_name,last_consumption_date,ingested_size
+
+                  dsource1,Running,Oracle,1,engine1,2022-05-29T15:00:00-04:00,12345
+
+                  dsource2,Stopped,SQL Server,1,engine2,2022-05-29T15:00:00-04:00,12345
+
+                  '
+  /reporting/dsource-consumption-report/search:
+    post:
+      summary: Search the consumption report for virtualization engine DSources.
+      tags:
+      - Reporting
+      x-filterable:
+        fields:
+          name:
+            type: string
+          status:
+            type: string
+          database_type:
+            type: string
+          engine_id:
+            type: string
+          engine_name:
+            type: string
+          last_consumption_date:
+            type: string
+            format: date-time
+          ingested_size:
+            type: integer
+      parameters:
+      - $ref: '#/components/parameters/limitExtendedParam'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/dSourceConsumptionReportSortParam'
+      operationId: search_dsource_consumption_report
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: Returns a list of dSource consumption data.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: DSourceConsumptionReportResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DSourceConsumptionData'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+            text/csv:
+              schema:
+                type: string
+                example: 'name,status,database_type,engine_id,engine_name,last_consumption_date,ingested_size
+
+                  dsource1,Running,Oracle,1,engine1,2022-05-29T15:00:00-04:00,12345
+
+                  dsource2,Stopped,SQL Server,1,engine2,2022-05-29T15:00:00-04:00,12345
+
+                  '
+  /reporting/storage-capacity-data-report:
+    get:
+      tags:
+      - Reporting
+      summary: Get engine storage capacity data.
+      operationId: get_storage_capacity_data
+      parameters:
+      - $ref: '#/components/parameters/engineIdQueryParam'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/engineStorageCapacityDataSortParam'
+      responses:
+        '200':
+          description: Returns the engine storage capacity data.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: EngineStorageCapacityDataResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/EngineStorageCapacityData'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /reporting/storage-capacity-data-report/search:
+    post:
+      tags:
+      - Reporting
+      summary: Search engine storage capacity data.
+      operationId: search_storage_capacity_data
+      x-filterable:
+        fields:
+          engine_id:
+            type: string
+          dataset_id:
+            type: string
+          captured_timestamp:
+            type: string
+            format: date-time
+          dataset_type:
+            type: string
+          dataset_name:
+            type: string
+          is_replica:
+            type: boolean
+          total_size:
+            type: integer
+            format: int64
+          base_size:
+            type: integer
+            format: int64
+          snapshot_size:
+            type: integer
+            format: int64
+          logs_size:
+            type: integer
+            format: int64
+          unvirtualized_size:
+            type: integer
+            format: int64
+          current_timeflow_unvirtualized_size:
+            type: integer
+            format: int64
+          timeflow_unvirtualized_size:
+            type: integer
+            format: int64
+          descendant_size:
+            type: integer
+            format: int64
+          policy_size:
+            type: integer
+            format: int64
+          manual_size:
+            type: integer
+            format: int64
+          unowned_snapshot_size:
+            type: integer
+            format: int64
+          ingested_size:
+            type: integer
+            format: int64
+          tags:
+            type: array[object]
+            fields:
+              key:
+                type: string
+              value:
+                type: string
+      parameters:
+      - $ref: '#/components/parameters/engineIdQueryParam'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/engineStorageCapacityDataSortParam'
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: Returns the engine storage capacity data.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: EngineStorageCapacityDataResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/EngineStorageCapacityData'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /reporting/dataset-performance-analytics-summary/search:
+    post:
+      tags:
+      - Reporting
+      summary: Search Dataset Performance analytics summary
+      operationId: search_dataset_performance_analytics_summary
+      x-filterable:
+        fields:
+          dataset_id:
+            type: string
+          dataset_name:
+            type: string
+          dataset_type:
+            type: string
+          is_replica:
+            type: boolean
+          environment_id:
+            type: string
+          environment_name:
+            type: string
+          average_throughput_of_1_h:
+            type: number
+            format: float
+          average_throughput_of_6_h:
+            type: number
+            format: float
+          average_throughput_of_24_h:
+            type: number
+            format: float
+          current_throughput_of_1_h:
+            type: number
+            format: float
+          current_throughput_of_6_h:
+            type: number
+            format: float
+          current_throughput_of_24_h:
+            type: number
+            format: float
+          percentile:
+            type: number
+            format: float
+          tags:
+            type: array[object]
+            fields:
+              key:
+                type: string
+              value:
+                type: string
+      parameters:
+      - $ref: '#/components/parameters/engineIdQueryParamRequired'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/datasetPerformanceAnalyticsSummarySortParam'
+      requestBody:
+        $ref: '#/components/requestBodies/SearchBody'
+      responses:
+        '200':
+          description: Returns the dataset performance analytics data.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: DatasetPerformanceAnalyticsSummaryResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DatasetPerformanceAnalyticsSummary'
+                  response_metadata:
+                    $ref: '#/components/schemas/PaginatedResponseMetadata'
+  /reporting/dataset-performance-analytics:
+    post:
+      tags:
+      - Reporting
+      summary: Get Dataset Performance analytics
+      operationId: get_dataset_performance_analytics
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: dataset_performance_analytics_request
+              $ref: '#/components/schemas/DatasetPerformanceAnalyticsRequest'
+      responses:
+        '200':
+          description: Returns the Dataset Performance Analytics
+          content:
+            application/json:
+              schema:
+                type: object
+                title: DatasetPerformanceAnalyticsResponse
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DatasetPerformanceAnalytics'
+components:
+  schemas:
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    EngineStorageDatasetType:
+      type: string
+      description: Type of the dataset.
+      enum:
+      - VDB
+      - DSOURCE
+      - CDB
+      - VCDB
+      - HELDSPACE
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    StorageSavingsSummaryData:
+      properties:
+        dsource_id:
+          description: Id of the dSource.
+          type: string
+        dependant_vdbs:
+          description: The number of VDBs that are dependant on this dSource. This includes all VDB descendants that have this dSource as an ancestor.
+          type: integer
+          example: 200
+        engine_name:
+          description: The engine name.
+          type: string
+          minLength: 1
+          example: My Favorite Engine
+        unvirtualized_space:
+          description: The disk space, in bytes, that it would take to store the dSource and its descendant VDBs without Delphix, counting each of their timeflows as separate copy of the parent source data.
+          type: integer
+          format: int64
+          example: 109242677
+        current_timeflows_unvirtualized_space:
+          description: The disk space, in bytes, that it would take to store the dSource and its descendant VDBs without Delphix, counting only their current (active) timeflows.
+          type: integer
+          format: int64
+          example: 109242677
+        virtualized_space:
+          description: The actual space used by the dSource and its dependant VDBs, in bytes.
+          type: integer
+          format: int64
+          example: 12345678
+        name:
+          type: string
+          description: The name of the database on the target environment.
+          minLength: 1
+          maxLength: 256
+          example: my-test-database
+        estimated_savings:
+          type: integer
+          description: The disk space that has been saved by using Delphix virtualizion for all descendant timeflows, in bytes.
+          format: int64
+          example: 109242677
+        estimated_savings_perc:
+          description: The disk space that has been saved by using Delphix virtualizion for all descendant timeflows, in percentage.
+          type: number
+        estimated_current_timeflows_savings:
+          type: integer
+          description: The disk space that has been saved by using Delphix virtualizion for only the current (active) timeflows, in bytes.
+          format: int64
+          example: 109242677
+        estimated_current_timeflows_savings_perc:
+          description: The disk space that has been saved by using Delphix virtualizion for only the current (active) timeflows, in percentage.
+          type: number
+        is_replica:
+          description: Indicates if the dSource is a replica
+          type: boolean
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    DataRiskReportTotals:
+      description: The global totals of masking data risk metrics across all connectors.
+      type: object
+      properties:
+        connector_total:
+          description: The total number of connectors.
+          type: integer
+          format: int64
+          example: 10
+        profiled_connector_count:
+          description: The number of connectors that have been profiled.
+          type: integer
+          format: int64
+          example: 8
+        sensitive_connector_count:
+          description: The number of connectors found to have sensitive data.
+          type: integer
+          format: int64
+          example: 5
+        masked_connector_count:
+          description: The number of connectors having had a successfully run masking job.
+          type: integer
+          format: int64
+          example: 3
+        at_risk_connector_count:
+          description: The number of connectors with sensitive data that have not been masked.
+          type: integer
+          format: int64
+          example: 2
+        data_elements_total:
+          description: The total number of data elements across connectors.
+          type: integer
+          format: int64
+          example: 1000
+        data_elements_not_sensitive:
+          description: The number of data elements categorized as not sensitive.
+          type: integer
+          format: int64
+          example: 400
+        data_elements_sensitive_masked:
+          description: The number of sensitive data elements that have been masked.
+          type: integer
+          format: int64
+          example: 500
+        data_elements_sensitive_unmasked:
+          description: The number of sensitive data elements that have not been masked.
+          type: integer
+          format: int64
+          example: 100
+        records_total:
+          description: The total number of records across connectors.
+          type: integer
+          format: int64
+          example: 10000
+        records_not_sensitive:
+          description: The number of records found to be not sensitive.
+          type: integer
+          format: int64
+          example: 4000
+        records_sensitive_masked:
+          description: The number of sensitive records that have been masked.
+          type: integer
+          format: int64
+          example: 5000
+        records_sensitive_unmasked:
+          description: The number of sensitive records that have not been masked.
+          type: integer
+          format: int64
+          example: 1000
+        records_coverage_missing_reason:
+          description: An explanation if the records coverage is not provided.
+          type: string
+    DatasetPerformanceAnalyticsRequest:
+      type: object
+      required:
+      - dataset_ids
+      - start
+      - end
+      - interval
+      properties:
+        dataset_ids:
+          description: List of dataset ids for which dataset performance analytics should be fetched.
+          type: array
+          items:
+            type: string
+          example:
+          - 2-ORACLE_DB_CONTAINER-3
+          - 1-ORACLE_SINGLE_CONFIG-2
+        start:
+          description: Start time in UTC from which to fetch analytics data.
+          type: string
+          format: date-time
+          example: '2021-07-04 08:51:34.148'
+        end:
+          description: End time in UTC up to which analytics data will be fetched.
+          type: string
+          format: date-time
+          example: '2021-07-04 08:51:34.148'
+        interval:
+          type: integer
+          description: Desired time interval in timestamp format.
+          example: 10
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    DSourceUsageData:
+      properties:
+        dsource_id:
+          description: The dSource id.
+          type: string
+          example: dsource-id-1
+        engine_name:
+          description: The name of the engine the dSource belongs to.
+          type: string
+          example: My favorite engine
+        name:
+          description: The name of the dSource
+          type: string
+          example: prod01-main
+        unvirtualized_space:
+          description: The the disk space that would be required if not using Delphix virtualizion, in bytes.
+          type: integer
+          format: int64
+          example: 109242677
+        actual_space:
+          description: The actual space used by this dSource, in bytes. This includes the disk space used by the current copy of the data as well as the snapshots and log files retained to enable provisioning from historical versions.
+          type: integer
+          format: int64
+          example: 339292672
+        dependant_vdbs:
+          description: The number of VDBs that are dependant on this dSource. This includes all VDB descendants that have this dSource as an ancestor.
+          type: integer
+          example: 25
+    EngineGlobalObjectStateData:
+      properties:
+        engine_id:
+          description: The entity ID of the engine.
+          type: string
+          example: 4ed2357d-f1a7-410c-b951-90f0edc1a0f6
+        engine_name:
+          description: The name of the engine.
+          type: string
+          example: My favorite engine
+        jobs_count:
+          description: The number of masking jobs present on the engine.
+          type: integer
+          format: int32
+          example: 10
+        connectors_count:
+          description: The number of connectors present on the engine.
+          type: integer
+          format: int32
+          example: 25
+        rulesets_count:
+          description: The number of rulesets present on the engine.
+          type: integer
+          format: int32
+          example: 25
+        global_object_revision_hash:
+          description: The revisionHash of the GLOBAL_OBJECT.
+          type: string
+          example: dfb515e3d9727eebf499cb252b417efc926bad0b
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    DatasetPerformanceAnalyticsSummary:
+      type: object
+      properties:
+        dataset_id:
+          type: string
+          description: ID of the dataset.
+        dataset_name:
+          type: string
+          description: Name of the dataset.
+        dataset_type:
+          description: Type of the dataset.
+          $ref: '#/components/schemas/EngineStorageDatasetType'
+        is_replica:
+          type: boolean
+          description: Flag to specify if this object is a replica.
+        environment_id:
+          type: string
+          description: A reference to the Environment that hosts this source database.
+        environment_name:
+          type: string
+          description: Name of the Environment that hosts this source database.
+        average_throughput_of_1_h:
+          type: number
+          format: float
+          description: Average throughput of last 1 hour.
+        average_throughput_of_6_h:
+          type: number
+          format: float
+          description: Average throughput of last 6 hours.
+        average_throughput_of_24_h:
+          type: number
+          format: float
+          description: Average throughput of last 24 hours.
+        current_throughput_of_1_h:
+          type: number
+          format: float
+          description: The most recent throughput record from the past hour.
+        current_throughput_of_6_h:
+          type: number
+          format: float
+          description: The most recent throughput record from the 6 hours.
+        current_throughput_of_24_h:
+          type: number
+          format: float
+          description: The most recent throughput record from the past 24 hours.
+        percentile:
+          type: number
+          format: float
+          description: Percentile of average throughput among all datasets in the past 24 hours.
+        tags:
+          description: The tags that are applied to dataset.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    VirtualizationTask:
+      deprecated: true
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    EngineStorageCapacityData:
+      properties:
+        engine_id:
+          type: string
+          description: ID of the engine.
+        dataset_id:
+          type: string
+          description: ID of the dataset.
+        captured_timestamp:
+          type: string
+          format: date-time
+          description: Time at which this information was sampled.
+        dataset_type:
+          description: Type of the dataset.
+          $ref: '#/components/schemas/EngineStorageDatasetType'
+        dataset_name:
+          type: string
+          description: Name of the dataset.
+        is_replica:
+          type: boolean
+          description: Flag to specify if this object is a replica.
+        total_size:
+          type: integer
+          format: int64
+          description: Actual space used by the dataset.
+        base_size:
+          type: integer
+          format: int64
+          description: Amount of space used for the active copy of the dataset.
+        snapshot_size:
+          type: integer
+          format: int64
+          description: Amount of space used by snapshots.
+        logs_size:
+          type: integer
+          format: int64
+          description: Amount of space used by logs.
+        unvirtualized_size:
+          type: integer
+          format: int64
+          description: Unvirtualized space used by the dataset.
+        current_timeflow_unvirtualized_size:
+          type: integer
+          format: int64
+          description: Unvirtualized space used by the current (active) TimeFlow. This is approximately equal to the space a VDB would take upon a virtual-to-physical (V2P) operation.
+        timeflow_unvirtualized_size:
+          type: integer
+          format: int64
+          description: Unvirtualized space used by the TimeFlow.
+        descendant_size:
+          type: integer
+          format: int64
+          description: Amount of space used for snapshots from which VDBs have been provisioned.
+        policy_size:
+          type: integer
+          format: int64
+          description: Amount of space used for snapshots held by policy settings.
+        manual_size:
+          type: integer
+          format: int64
+          description: Amount of space used for snapshots held by manual retention settings.
+        unowned_snapshot_size:
+          type: integer
+          format: int64
+          description: Amount of space used for snapshots part of held space.
+        ingested_size:
+          type: integer
+          format: int64
+          description: Amount of space ingested by the source.
+        tags:
+          description: The tags that are applied to dataset.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+      discriminator:
+        propertyName: class_type
+    VDBInventoryData:
+      properties:
+        vdb_id:
+          description: The VDB id.
+          type: string
+          example: vdb-id-1
+        engine_name:
+          description: The name of the engine the VDB belongs to.
+          type: string
+          example: My favorite engine
+        name:
+          description: The name of the VDB.
+          type: string
+          example: prod01-copy01
+        type:
+          description: The database type of the VDB.
+          type: string
+          example: Oracle
+        version:
+          description: The database version of the VDB.
+          type: string
+          example: 10.2.0.5.0
+        parent_name:
+          description: The name of the VDB's parent dataset.
+          type: string
+          example: prod01-main
+        parent_id:
+          description: A reference to the parent dataset of the VDB.
+          type: string
+          example: 1-DB_CONTAINER-1
+        creation_date:
+          description: The date the VDB was created.
+          type: string
+          format: date-time
+          example: '2023-04-15T08:51:34.148000+00:00'
+        last_refreshed_date:
+          description: The date the VDB was last refreshed.
+          type: string
+          format: date-time
+          example: '2023-04-15T10:49:34.148000+00:00'
+        parent_timeflow_location:
+          description: The location for the VDB's parent timeflow.
+          type: string
+          example: '1178883'
+        parent_timeflow_timestamp:
+          description: The timestamp for the VDB's parent timeflow.
+          type: string
+          format: date-time
+          example: '2021-05-01T08:51:34.148000+00:00'
+        parent_timeflow_timezone:
+          description: The timezone for the VDB's parent timeflow.
+          type: string
+          example: America/Los_Angeles
+        enabled:
+          description: Whether the VDB is enabled
+          type: boolean
+          example: true
+        status:
+          description: The runtime status of the VDB. 'Unknown' if all attempts to connect to the dataset failed.
+          type: string
+          example: RUNNING
+        storage_size:
+          description: The actual space used by the VDB, in bytes.
+          type: integer
+          format: int64
+          example: 12345678
+    DSourceConsumptionData:
+      properties:
+        dsource_id:
+          description: The dSource id.
+          type: string
+          example: dsource-id-1
+        name:
+          description: The name of the dSource
+          type: string
+          example: prod01-main
+        status:
+          description: The status of the dSource
+          type: string
+          example: Running
+        database_type:
+          description: The type of the dSource
+          type: string
+          example: Oracle
+        engine_id:
+          description: The id of the engine the dSource belongs to.
+          type: string
+          minLength: 1
+          example: '1'
+        engine_name:
+          description: The name of the engine the dSource belongs to
+          type: string
+          example: My favorite engine
+        last_consumption_date:
+          description: The most recent date where consumption data was captured for this dSource.
+          type: string
+          format: date-time
+          example: 2022-01-07T12:06:59.157Z,54321
+        ingested_size:
+          description: The ingested size of the dSource
+          type: integer
+          format: int64
+          minimum: 0
+          example: 12345
+    StorageSavingsReportSummarizedData:
+      type: object
+      properties:
+        vdb_count:
+          type: integer
+          description: The total VDB count
+        dsource_count:
+          type: integer
+          description: The total dSource count
+        virtualized_space:
+          type: integer
+          format: int64
+          description: Total Virtualized Space. This is the sum of storage size from dSources and their dependant VDBs.
+        unvirtualized_space:
+          type: integer
+          format: int64
+          description: Total disk space, in bytes, that it would take to store the filtered list of dSources and their descandant VDBs without Delphix, counting each of their timeflows as separate copy of the source data.
+        current_timeflows_unvirtualized_space:
+          type: integer
+          format: int64
+          description: Total disk space, in bytes, that it would take to store the filtered list of dSources and their descandant VDBs without Delphix, counting only their current (active) timeflows.
+        estimated_savings:
+          type: integer
+          description: Total disk space that has been saved by using Delphix virtualization for all timeflows, in bytes.
+          format: int64
+          example: 109242677
+        estimated_savings_perc:
+          description: Total disk space that has been saved by using Delphix virtualization for all timeflows, in percentage.
+          type: number
+        estimated_current_timeflows_savings:
+          type: integer
+          description: Total disk space that has been saved by using Delphix virtualization for only the current (active) timeflows, in bytes.
+          format: int64
+        estimated_current_timeflows_savings_perc:
+          type: number
+          description: Total disk space that has been saved by using Delphix virtualization for only the current (active) timeflows, in percentage.
+    DatasetPerformanceAnalytics:
+      type: object
+      properties:
+        dataset_id:
+          type: string
+          description: ID of the dataset.
+        dataset_name:
+          type: string
+          description: Name of the dataset.
+        performance_analytics:
+          type: array
+          items:
+            $ref: '#/components/schemas/PerformanceAnalytics'
+          description: performance analytics of dataset
+    DataRiskData:
+      properties:
+        connector_id:
+          description: The DCT id of the connector. This is an opaque string.
+          type: string
+          example: 1-DATABASE-15
+        engine_connector_id:
+          description: The ID of the connector as found on the compliance engine.
+          type: integer
+          example: '15'
+        connector_name:
+          description: Name of the connector.
+          type: string
+          example: Dev Database
+        connector_type:
+          description: Type of the connector.
+          type: string
+          enum:
+          - DATABASE
+          - FILE
+          - MAINFRAME_DATASET
+          example: DATABASE
+        last_profiled_date:
+          description: Date this connector was last profiled.
+          type: string
+          format: date-time
+          example: '2022-11-30T08:51:34.148000+00:00'
+        last_masked_date:
+          description: Date this connector last had a masking job run.
+          type: string
+          format: date-time
+          example: '2022-11-30T08:51:34.148000+00:00'
+        dct_managed:
+          description: Whether or not this connector is managed by DCT.
+          type: boolean
+          example: false
+        engine_id:
+          description: The entity ID of the masking engine.
+          type: string
+          example: 4ed2357d-f1a7-410c-b951-90f0edc1a0f6
+        engine_name:
+          description: The name of the masking engine.
+          type: string
+          example: Development Engine
+        is_profiled:
+          description: If this connector has been profiled.
+          type: boolean
+          example: true
+        is_sensitive_data:
+          description: If this connector has sensitive data.
+          type: boolean
+          example: true
+        is_masked:
+          description: If this connector has had a successful masking job run.
+          type: boolean
+          example: false
+        is_at_risk:
+          description: If this connector has sensitive data that have not been masked.
+          type: boolean
+          example: true
+        data_elements_total:
+          description: The total number of data elements of this connector.
+          type: integer
+          format: int64
+          example: 1000
+        data_elements_not_sensitive:
+          description: The number of data elements categorized as not sensitive.
+          type: integer
+          format: int64
+          example: 400
+        data_elements_sensitive_masked:
+          description: The number of sensitive data elements that have been masked.
+          type: integer
+          format: int64
+          example: 500
+        data_elements_sensitive_unmasked:
+          description: The number of sensitive data elements that have not been masked.
+          type: integer
+          format: int64
+          example: 100
+        records_total:
+          description: The total number of records from this connector.
+          type: integer
+          format: int64
+          example: 10000
+        records_not_sensitive:
+          description: The number of records found to be not sensitive.
+          type: integer
+          format: int64
+          example: 4000
+        records_sensitive_masked:
+          description: The number of records found to be sensitive and have been masked.
+          type: integer
+          format: int64
+          example: 5000
+        records_sensitive_unmasked:
+          description: The number of records found to be sensitive and have not been masked.
+          type: integer
+          format: int64
+          example: 1000
+        tags:
+          description: The tags of the connector.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    PerformanceAnalytics:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          description: Starting time of the interval.
+        average_throughput:
+          type: number
+          description: Average throughput for the interval.
+    MaskingExecutionMetrics:
+      description: Metrics for a masking job.
+      type: object
+      properties:
+        id:
+          description: The MaskingJob entity ID.
+          type: string
+          example: masking-job-1
+        masking_job_name:
+          description: The name of the MaskingJob.
+          type: string
+          example: My favorite MaskingJob
+        masking_job_type:
+          type: string
+          description: The type of the Masking job.
+          enum:
+          - STANDARD
+          - HYPERSCALE
+          example: STANDARD
+        connector_type:
+          type: string
+          description: The type of data being masked by this Job. If the Masking Job is masking a database this is the type of the database, otherwise "FILE" or "MAINFRAME_DATASET".
+          example: MARIADB
+        dct_managed:
+          description: Whether or not this execution is managed by DCT.
+          type: boolean
+          example: false
+        ruleset_name:
+          type: string
+          description: Name of the ruleset for the Masking job.
+          example: my-ruleset
+        rows_masked:
+          description: The number of rows masked. This is not applicable for JSON file type.
+          type: integer
+          format: int64
+          example: 1000
+        rows_total:
+          description: The total number of rows. This is not applicable for JSON file type.
+          type: integer
+          format: int64
+          example: 5000
+        bytes_masked:
+          description: The number of bytes masked. This is only applicable for JSON file type.
+          type: integer
+          format: int64
+          example: 500
+        bytes_total:
+          description: The total number of bytes. This is only applicable for JSON file type.
+          type: integer
+          format: int64
+          example: 5000000
+        duration:
+          description: The time taken by the execution in ms.
+          type: integer
+          format: int64
+          example: 5000000
+        tables_files_count:
+          description: The number of tables or files in the ruleset associated to the Masking job.
+          type: integer
+          format: int64
+          example: 5000000
+        masked_tables_files_count:
+          description: The number of tables or files in the ruleset associated to the Masking job for which at least one column or field is masked.
+          type: integer
+          format: int64
+          example: 5000000
+        columns_fields_count:
+          description: The number of columns or fields across all tables or files in the ruleset associated to the Masking job.
+          type: integer
+          format: int64
+          example: 5000000
+        masked_columns_fields_count:
+          description: The number of columns or fields across all tables or files in the ruleset associated to the Masking job which are masked.
+          type: integer
+          format: int64
+          example: 5000000
+    Job:
+      description: An asynchronous task.
+      type: object
+      properties:
+        id:
+          description: The Job entity ID.
+          type: string
+          example: job-123
+        status:
+          description: The status of the job.
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+          example: RUNNING
+        is_waiting_for_telemetry:
+          description: Indicates that the operations performed by this Job have completed successfully, but the object changes are not yet reflected. This is only set when when the JOB is in STARTED status, with the guarantee that the job will not transition to the FAILED status. Note that this flag will likely be replaced with a new status in future API versions and be deprecated.
+          type: boolean
+        type:
+          description: The type of job being done.
+          type: string
+          example: DB_REFRESH
+        localized_type:
+          description: The i18n translated type of job being done.
+          type: string
+          example: DB Refresh
+        error_details:
+          description: Details about the failure for FAILED jobs.
+          type: string
+          example: Unable to connect to the engine.
+        warning_message:
+          description: Warnings for the job.
+          type: string
+          example: 'Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.'
+        target_id:
+          description: A reference to the job's target.
+          type: string
+          example: vdb-123
+        target_name:
+          description: A reference to the job's target name.
+          type: string
+          example: vdb
+        start_time:
+          description: The time the job started executing.
+          type: string
+          format: date-time
+          example: '2022-01-02T05:11:24.148000+00:00'
+        update_time:
+          description: The time the job was last updated.
+          type: string
+          format: date-time
+          example: '2022-01-02T06:11:24.148000+00:00'
+        trace_id:
+          description: traceId of the request which created this Job
+          type: string
+        engine_ids:
+          description: IDs of the engines this Job is executing on.
+          type: array
+          items:
+            type: string
+          deprecated: true
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        engines:
+          type: array
+          items:
+            $ref: '#/components/schemas/Engine'
+        account_id:
+          description: The ID of the account who initiated this job.
+          type: integer
+          example: 1
+        account_name:
+          description: The account name which initiated this job. It can be either firstname and lastname combination or firstname or lastname or username or email address or Account-<id>.
+          type: string
+          example: User 1
+        compliance_node_id:
+          type: string
+          description: The ID of the associated compliance node, if applicable.
+          nullable: true
+        compliance_node_name:
+          type: string
+          description: The name of the associated compliance node, if applicable.
+          nullable: true
+        percent_complete:
+          description: Completion percentage of the Job.
+          type: integer
+          minimum: 0
+          maximum: 100
+          example: '50'
+        virtualization_tasks:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTask'
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTask'
+        execution_id:
+          description: The ID of the associated masking execution, if any.
+          type: string
+          nullable: true
+        result_type:
+          description: The type of the job result. This is the type of the object present in the result.
+          type: string
+        result:
+          description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
+          type: object
+  parameters:
+    engineIdQueryParamRequired:
+      in: query
+      name: engine_id
+      description: ID of a registered engine.
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      example: 1
+    engineGlobalObjectStateReportSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: engine_id
+      required: false
+      schema:
+        type: string
+        enum:
+        - engine_id
+        - -engine_id
+        - engine_name
+        - -engine_name
+        - jobs_count
+        - -jobs_count
+        - connectors_count
+        - -connectors_count
+        - rulesets_count
+        - -rulesets_count
+        - global_object_revision_hash
+        - -global_object_revision_hash
+        nullable: true
+        example: engine_id
+    engineStorageCapacityDataSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: id
+      required: false
+      schema:
+        type: string
+        enum:
+        - engine_id
+        - -engine_id
+        - dataset_id
+        - -dataset_id
+        - captured_timestamp
+        - -captured_timestamp
+        - dataset_type
+        - -dataset_type
+        - dataset_name
+        - -dataset_name
+        - is_replica
+        - -is_replica
+        - total_size
+        - -total_size
+        - base_size
+        - -base_size
+        - snapshot_size
+        - -snapshot_size
+        - logs_size
+        - -logs_size
+        - unvirtualized_size
+        - -unvirtualized_size
+        - current_timeflow_unvirtualized_size
+        - -current_timeflow_unvirtualized_size
+        - timeflow_unvirtualized_size
+        - -timeflow_unvirtualized_size
+        - descendant_size
+        - -descendant_size
+        - policy_size
+        - -policy_size
+        - manual_size
+        - -manual_size
+        - unowned_snapshot_size
+        - -unowned_snapshot_size
+        - ingested_size
+        - -ingested_size
+        nullable: true
+        example: object_id
+    datasetPerformanceAnalyticsSummarySortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: id
+      required: false
+      schema:
+        type: string
+        enum:
+        - dataset_id
+        - -dataset_id
+        - dataset_name
+        - -dataset_name
+        - dataset_type
+        - -dataset_type
+        - is_replica
+        - -is_replica
+        - environment_id
+        - -environment_id
+        - environment_name
+        - -environment_name
+        - average_throughput_of_1_h
+        - -average_throughput_of_1_h
+        - average_throughput_of_6_h
+        - -average_throughput_of_6_h
+        - average_throughput_of_24_h
+        - -average_throughput_of_24_h
+        - current_throughput_of_1_h
+        - -current_throughput_of_1_h
+        - current_throughput_of_6_h
+        - -current_throughput_of_6_h
+        - current_throughput_of_24_h
+        - -current_throughput_of_24_h
+        - percentile
+        - -percentile
+        nullable: true
+        example: object_id
+    storageSavingsReportSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: dependant_vdbs
+      required: false
+      schema:
+        type: string
+        enum:
+        - dependant_vdbs
+        - -dependant_vdbs
+        - unvirtualized_space
+        - -unvirtualized_space
+        - current_timeflows_unvirtualized_space
+        - -current_timeflows_unvirtualized_space
+        - virtualized_space
+        - -virtualized_space
+        - name
+        - -name
+        - engine_name
+        - -engine_name
+        - dsource_id
+        - -dsource_id
+        - estimated_savings
+        - -estimated_savings
+        - estimated_savings_perc
+        - -estimated_savings_perc
+        - estimated_current_timeflows_savings
+        - -estimated_current_timeflows_savings
+        - estimated_current_timeflows_savings_perc
+        - -estimated_current_timeflows_savings_perc
+        - is_replica
+        - -is_replica
+        nullable: true
+        example: dependant_vdbs
+    dataRiskReportSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: engine_id
+      required: false
+      schema:
+        type: string
+        enum:
+        - connector_id
+        - -connector_id
+        - engine_connector_id
+        - -engine_connector_id
+        - connector_name
+        - -connector_name
+        - connector_type
+        - -connector_type
+        - last_profiled_date
+        - -last_profiled_date
+        - last_masked_date
+        - -last_masked_date
+        - dct_managed
+        - -dct_managed
+        - engine_id
+        - -engine_id
+        - engine_name
+        - -engine_name
+        - is_profiled
+        - -is_profiled
+        - is_sensitive_data
+        - -is_sensitive_data
+        - is_masked
+        - -is_masked
+        - is_at_risk
+        - -is_at_risk
+        - data_elements_total
+        - -data_elements_total
+        - data_elements_not_sensitive
+        - -data_elements_not_sensitive
+        - data_elements_sensitive_masked
+        - -data_elements_sensitive_masked
+        - data_elements_sensitive_unmasked
+        - -data_elements_sensitive_unmasked
+        - records_total
+        - -records_total
+        - records_not_sensitive
+        - -records_not_sensitive
+        - records_sensitive_masked
+        - -records_sensitive_masked
+        - records_sensitive_unmasked
+        - -records_sensitive_unmasked
+        nullable: true
+        example: engine_id
+    maskingExecutionMetricsSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: id
+      required: false
+      schema:
+        type: string
+        enum:
+        - id
+        - -id
+        - masking_job_name
+        - -masking_job_name
+        - connector_type
+        - -connector_type
+        - ruleset_name
+        - -ruleset_name
+        - rows_masked
+        - -rows_masked
+        - dct_managed
+        - -dct_managed
+        - rows_total
+        - -rows_total
+        - bytes_masked
+        - -bytes_masked
+        - bytes_total
+        - -bytes_total
+        - duration
+        - -duration
+        - tables_files_count
+        - -tables_files_count
+        - masked_tables_files_count
+        - -masked_tables_files_count
+        - columns_fields_count
+        - -columns_fields_count
+        - masked_columns_fields_count
+        - -masked_columns_fields_count
+        - masking_job_type
+        - -masking_job_type
+        nullable: true
+        example: name
+    dSourceConsumptionReportSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: name
+      required: false
+      schema:
+        type: string
+        enum:
+        - name
+        - -name
+        - status
+        - -status
+        - database_type
+        - -database_type
+        - engine_id
+        - -engine_id
+        - engine_name
+        - -engine_name
+        - last_consumption_date
+        - -last_consumption_date
+        - ingested_size
+        - -ingested_size
+        nullable: true
+        example: name
+    dSourceUsageReportSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: name
+      required: false
+      schema:
+        type: string
+        enum:
+        - name
+        - -name
+        - unvirtualized_space
+        - -unvirtualized_space
+        - actual_space
+        - -actual_space
+        - dependant_vdbs
+        - -dependant_vdbs
+        - engine_name
+        - -engine_name
+        nullable: true
+        example: name
+    engineIdQueryParam:
+      in: query
+      name: engine_id
+      description: ID of a registered engine.
+      required: false
+      schema:
+        type: string
+        minLength: 1
+      example: 1
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+    limitExtendedParam:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 10000.
+      example: 100
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 10000
+        default: 10000
+    vdbInventoryReportSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: name
+      required: false
+      schema:
+        type: string
+        enum:
+        - name
+        - -name
+        - type
+        - -type
+        - version
+        - -version
+        - parent_id
+        - -parent_id
+        - parent_name
+        - -parent_name
+        - creation_date
+        - -creation_date
+        - last_refreshed_date
+        - -last_refreshed_date
+        - parent_timeflow_location
+        - -parent_timeflow_location
+        - parent_timeflow_timestamp
+        - -parent_timeflow_timestamp
+        - parent_timeflow_timezone
+        - -parent_timeflow_timezone
+        - enabled
+        - -enabled
+        - status
+        - -status
+        - engine_name
+        - -engine_name
+        - storage_size
+        - -storage_size
+        nullable: true
+        example: name
+    executionIdParam:
+      in: path
+      name: executionId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the Execution.
+  requestBodies:
+    SearchBody:
+      x-skip-codegen-attr: description
+      description: 'A request body containing a filter expression. This enables searching
+
+        for items matching arbitrarily complex conditions. The list of
+
+        attributes which can be used in filter expressions is available
+
+        in the x-filterable vendor extension.
+
+
+        # Filter Expression Overview
+
+        **Note: All keywords are case-insensitive**
+
+
+        ## Comparison Operators
+
+        | Operator | Description | Example |
+
+        | --- | --- | --- |
+
+        | CONTAINS | Substring or membership testing for string and list attributes respectively. | field3 CONTAINS ''foobar'', field4 CONTAINS TRUE  |
+
+        | IN | Tests if field is a member of a list literal. List can contain a maximum of 100 values | field2 IN [''Goku'', ''Vegeta''] |
+
+        | GE | Tests if a field is greater than or equal to a literal value | field1 GE 1.2e-2 |
+
+        | GT | Tests if a field is greater than a literal value | field1 GT 1.2e-2 |
+
+        | LE | Tests if a field is less than or equal to a literal value | field1 LE 9000 |
+
+        | LT | Tests if a field is less than a literal value | field1 LT 9.02 |
+
+        | NE | Tests if a field is not equal to a literal value | field1 NE 42 |
+
+        | EQ | Tests if a field is equal to a literal value | field1 EQ 42 |
+
+
+        ## Search Operator
+
+        The SEARCH operator filters for items which have any filterable
+
+        attribute that contains the input string as a substring, comparison
+
+        is done case-insensitively. This is not restricted to attributes with
+
+        string values. Specifically `SEARCH ''12''` would match an item with an
+
+        attribute with an integer value of `123`.
+
+
+        ## Logical Operators
+
+        Ordered by precedence.
+
+        | Operator | Description | Example |
+
+        | --- | --- | --- |
+
+        | NOT | Logical NOT (Right associative) | NOT field1 LE 9000 |
+
+        | AND | Logical AND (Left Associative) | field1 GT 9000 AND field2 EQ ''Goku'' |
+
+        | OR | Logical OR (Left Associative) | field1 GT 9000 OR field2 EQ ''Goku'' |
+
+
+        ## Grouping
+
+        Parenthesis `()` can be used to override operator precedence.
+
+
+        For example:
+
+        NOT (field1 LT 1234 AND field2 CONTAINS ''foo'')
+
+
+        ## Literal Values
+
+        | Literal      | Description | Examples |
+
+        | --- | --- | --- |
+
+        | Nil | Represents the absence of a value | nil, Nil, nIl, NIL |
+
+        | Boolean | true/false boolean | true, false, True, False, TRUE, FALSE |
+
+        | Number | Signed integer and floating point numbers. Also supports scientific notation. | 0, 1, -1, 1.2, 0.35, 1.2e-2, -1.2e+2 |
+
+        | String | Single or double quoted | "foo", "bar", "foo bar", ''foo'', ''bar'', ''foo bar'' |
+
+        | Datetime | Formatted according to [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) | 2018-04-27T18:39:26.397237+00:00 |
+
+        | List | Comma-separated literals wrapped in square brackets | [0], [0, 1], [''foo'', "bar"] |
+
+
+        ## Limitations
+
+        - A maximum of 8 unique identifiers may be used inside a filter expression.
+
+        '
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SearchBody'
+          examples:
+            nested:
+              description: 'An example of a nested Object comparison testing that at least one repository has a
+
+                version which is equal to 19.0.0.
+
+                '
+              summary: Nested Object Comparison
+              value:
+                filter_expression: repositories CONTAINS {version eq '19.0.0'}
+            relative:
+              description: 'An example of a relative comparison testing that field1 has a
+
+                value which is less than 123.
+
+                '
+              summary: Relative comparison
+              value:
+                filter_expression: field1 LE 123
+            nil:
+              description: 'An example of using nil to test for the absence of a value for field2.
+
+                '
+              summary: Absence of an attribute value
+              value:
+                filter_expression: field2 EQ NIL
+            non-nil:
+              description: 'An example of using nil to test for the existence of a value for field2.
+
+                '
+              summary: Existence of an attribute value
+              value:
+                filter_expression: field2 NE NIL
+            contains:
+              description: 'An example of using the ''CONTAINS'' operator to check if
+
+                field2 contains the string ''foo''. If field2 is string valued
+
+                then this is checking if ''foo'' is a substring of field2. If
+
+                field2 is a list of strings then this is checking if ''foo''
+
+                is a member of the list.
+
+                '
+              summary: Use of the CONTAINS operator
+              value:
+                filter_expression: field2 CONTAINS 'foo'
+            in:
+              description: 'An example of using the ''IN'' operator to check if field1
+
+                is an element of a list literal.
+
+                '
+              summary: Use of the IN operator
+              value:
+                filter_expression: field1 IN [1, 2, 3]
+            search:
+              description: 'An example of using the ''SEARCH'' operator to retrieve all elements
+
+                for which ''foo'' is a substring of a filterable attribute.
+
+                '
+              summary: Use of the SEARCH operator
+              value:
+                filter_expression: SEARCH 'foo'
+            parenthesis:
+              description: 'An example of parenthesis being used to group operators & override
+
+                operator precedence.
+
+                '
+              summary: Overriding operator precedence
+              value:
+                filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization

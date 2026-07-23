@@ -1,0 +1,625 @@
+openapi: 3.0.0
+info:
+  title: Delphix DCT Algorithms Network Performance Tool API
+  version: 3.28.0
+  description: Delphix DCT API
+  contact:
+    name: Delphix Support
+    url: https://portal.perforce.com/s/
+    email: support@delphix.com
+servers:
+- url: /dct/v3
+security:
+- ApiKeyAuth: []
+tags:
+- name: Network Performance Tool
+paths:
+  /network-performance/test/latency:
+    post:
+      tags:
+      - Network Performance Tool
+      summary: Create Latency Network Performance Test
+      operationId: create_latency_test
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LatencyTestRequest'
+      responses:
+        '201':
+          description: Latency test initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NetworkTestResponse'
+  /network-performance/test/latency/{jobId}:
+    parameters:
+    - $ref: '#/components/parameters/jobIdParam'
+    get:
+      tags:
+      - Network Performance Tool
+      summary: Retrieve Network Latency Test Result
+      description: Returns the result of a previously executed network latency test identified by the job ID.
+      operationId: get_latency_test_result
+      responses:
+        '200':
+          description: Successful retrieval of latency test result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NetworkLatencyTestResult'
+  /network-performance/test/dsp:
+    post:
+      tags:
+      - Network Performance Tool
+      summary: Create DSP Network Performance Test
+      operationId: create_dsp_test
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NetworkDSPTestRequest'
+      responses:
+        '201':
+          description: DSP test initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NetworkTestResponse'
+  /network-performance/test/dsp/{jobId}:
+    parameters:
+    - $ref: '#/components/parameters/jobIdParam'
+    get:
+      tags:
+      - Network Performance Tool
+      summary: Retrieve Network DSP Test Result
+      description: Returns the result of a previously executed network dsp test identified by the job ID.
+      operationId: get_dsp_test_result
+      responses:
+        '200':
+          description: Successful retrieval of DSP test result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NetworkDSPTestResult'
+  /network-performance/test/throughput:
+    post:
+      tags:
+      - Network Performance Tool
+      summary: Create Throughput Network Performance Test
+      operationId: create_throughput_test
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NetworkThroughputTestRequest'
+      responses:
+        '201':
+          description: Throughput test initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NetworkTestResponse'
+  /network-performance/test/throughput/{jobId}:
+    parameters:
+    - $ref: '#/components/parameters/jobIdParam'
+    get:
+      tags:
+      - Network Performance Tool
+      summary: Retrieve Network Throughput Test Result
+      description: Returns the result of a previously executed network throughput test identified by the job ID.
+      operationId: get_throughput_test_result
+      responses:
+        '200':
+          description: Successful retrieval of throughput test result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NetworkThroughputTestResult'
+components:
+  schemas:
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    NetworkTestParametersRequest:
+      description: Parameters used when creating a network test.
+      type: object
+      required:
+      - engine_id
+      properties:
+        engine_id:
+          description: The ID of the engine where the test is to be executed.
+          type: string
+        host_id:
+          type: string
+          description: Identifier of host that must exist within an associated with engine.
+          pattern: ^[a-zA-Z0-9_.-]+$
+          maxLength: 256
+          minLength: 1
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    NetworkTestBaseResult:
+      type: object
+      properties:
+        dct_job_id:
+          type: string
+          description: Unique identifier for the network performance test job.
+        name:
+          type: string
+          description: Object name.
+        remote_address:
+          type: string
+          description: The remote IP address used for the test.
+        remote_host:
+          type: string
+        state:
+          type: string
+          description: The state of the test. [RUNNING, COMPLETED, FAILED, CANCELED]
+          example: COMPLETED
+        start_time:
+          type: string
+          description: Time when the test was started.
+        end_time:
+          type: string
+          description: Time when the test ended.
+    NetworkDSPTestRequest:
+      allOf:
+      - $ref: '#/components/schemas/NetworkTestParametersRequest'
+      - type: object
+        properties:
+          direction:
+            description: Whether the test is a transmit or receive test.
+            enum:
+            - TRANSMIT
+            - RECEIVE
+            type: string
+            default: TRANSMIT
+            example: TRANSMIT
+          num_connections:
+            description: The number of connections to use for the test. The special value 0 (the default) causes the test to automatically discover
+            minimum: 0
+            maximum: 32
+            type: integer
+            default: 0
+            example: 0
+          duration:
+            description: The duration of the test in seconds. Note that when numConnections is 0, an initial period of time will be spent calculating the optimal number of connections, and that time does not count toward the duration of the test.
+            minimum: 1
+            maximum: 3600
+            type: integer
+            default: 30
+            example: 30
+          destination_type:
+            type: string
+            enum:
+            - REMOTE_HOST
+            - DELPHIX_ENGINE
+            description: Whether the test is testing connectivity to a Delphix Engine or remote host.
+            default: REMOTE_HOST
+            example: REMOTE_HOST
+          compression:
+            type: boolean
+            description: Whether or not compression is used for the test.
+            default: false
+            example: false
+          encryption:
+            type: boolean
+            description: Whether or not encryption is used for the test.
+            default: false
+            example: false
+          queue_depth:
+            type: integer
+            description: The queue depth used for the DSP throughput test.
+            minimum: 0
+            maximum: 4096
+            default: 64
+            example: 64
+          block_size:
+            type: integer
+            description: The size of each transmit request in bytes.
+            minimum: 0
+            maximum: 1048576
+            default: 1048576
+            example: 1048576
+          send_socket_buffer:
+            type: integer
+            minimum: 0
+            maximum: 16777216
+            description: The size of the send socket buffer in bytes.
+            default: 1048576
+            example: 1048576
+          receive_socket_buffer:
+            type: integer
+            minimum: 0
+            maximum: 16777216
+            description: The size of the receive socket buffer in bytes.
+            default: 1048576
+            example: 1048576
+          xport_scheduler:
+            type: string
+            enum:
+            - ROUND_ROBIN
+            - LEAST_QUEUE
+            description: The transport scheduler to use.
+            default: ROUND_ROBIN
+            example: ROUND_ROBIN
+          target_engine_id:
+            type: string
+            description: engine id which test exc
+            example: 2
+          target_engine_address:
+            type: string
+            description: Address of other target Delphix Engine.
+            example: example.engine.co
+          target_engine_user:
+            type: string
+            description: Username for the other target Delphix Engine.
+            example: admin
+          target_engine_password:
+            x-dct-toolkit-credential-field: true
+            type: string
+            description: Password for the other target Delphix Engine.
+    NetworkThroughputTestResult:
+      allOf:
+      - $ref: '#/components/schemas/NetworkTestBaseResult'
+      - $ref: '#/components/schemas/NetworkThroughputTestRequest'
+      - type: object
+        properties:
+          throughput:
+            type: integer
+            format: int64
+            description: Average network throughput measured in bits per second (bps). Uses base 1024 for unit scaling (e.g., Kbps, Mbps).
+          num_connections:
+            type: integer
+            description: Number of connections used to achieve maximum sustained throughput.
+    VirtualizationTask:
+      deprecated: true
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    NetworkThroughputTestRequest:
+      allOf:
+      - $ref: '#/components/schemas/NetworkTestParametersRequest'
+      - type: object
+        required:
+        - host_id
+        properties:
+          direction:
+            description: Whether the test is a transmit or receive test.
+            enum:
+            - TRANSMIT
+            - RECEIVE
+            type: string
+            default: TRANSMIT
+            example: TRANSMIT
+          num_connections:
+            description: The number of connections to use for the test. The special value 0 (the default) causes the test to automatically discover
+            minimum: 0
+            maximum: 32
+            type: integer
+            default: 0
+            example: 0
+          duration:
+            description: The duration of the test in seconds. Note that when numConnections is 0, an initial period of time will be spent calculating the optimal number of connections, and that time does not count toward the duration of the test.
+            minimum: 1
+            maximum: 3600
+            type: integer
+            default: 30
+            example: 30
+          port:
+            description: The TCP port number that the server (the receiver) will be listening on.
+            minimum: 0
+            maximum: 65535
+            type: integer
+          block_size:
+            description: The size of each transmit request in bytes.
+            minimum: 0
+            maximum: 1048576
+            default: 16384
+            type: integer
+            example: 16384
+          send_socket_buffer:
+            description: The size of the send socket buffer in bytes.
+            minimum: 0
+            maximum: 16777216
+            type: integer
+            default: 4194304
+            example: 4194304
+    NetworkTestResponse:
+      type: object
+      properties:
+        job:
+          $ref: '#/components/schemas/Job'
+          description: The initiated job.
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    LatencyTestRequest:
+      allOf:
+      - $ref: '#/components/schemas/NetworkTestParametersRequest'
+      - type: object
+        description: The parameters to create Latency Test Request
+        required:
+        - host_id
+        properties:
+          request_count:
+            description: Number of requests to send.
+            minimum: 1
+            maximum: 3600
+            type: integer
+            default: 20
+            example: 20
+          request_size:
+            description: The size of requests to send (bytes).
+            minimum: 16
+            maximum: 65507
+            type: integer
+            default: 16
+            example: 16
+    NetworkLatencyTestResult:
+      allOf:
+      - $ref: '#/components/schemas/NetworkTestBaseResult'
+      - $ref: '#/components/schemas/LatencyTestRequest'
+      - type: object
+        properties:
+          minimum:
+            type: integer
+            description: Minimum measured round-trip time (usec).
+          maximum:
+            type: integer
+            description: Maximum measured round-trip time (usec).
+          average:
+            type: integer
+            description: Average measured round-trip time (usec).
+          stddev:
+            type: integer
+            description: Standard deviation (usec).
+          loss:
+            type: integer
+            description: Percentage of requests or replies lost.
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    Job:
+      description: An asynchronous task.
+      type: object
+      properties:
+        id:
+          description: The Job entity ID.
+          type: string
+          example: job-123
+        status:
+          description: The status of the job.
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+          example: RUNNING
+        is_waiting_for_telemetry:
+          description: Indicates that the operations performed by this Job have completed successfully, but the object changes are not yet reflected. This is only set when when the JOB is in STARTED status, with the guarantee that the job will not transition to the FAILED status. Note that this flag will likely be replaced with a new status in future API versions and be deprecated.
+          type: boolean
+        type:
+          description: The type of job being done.
+          type: string
+          example: DB_REFRESH
+        localized_type:
+          description: The i18n translated type of job being done.
+          type: string
+          example: DB Refresh
+        error_details:
+          description: Details about the failure for FAILED jobs.
+          type: string
+          example: Unable to connect to the engine.
+        warning_message:
+          description: Warnings for the job.
+          type: string
+          example: 'Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.'
+        target_id:
+          description: A reference to the job's target.
+          type: string
+          example: vdb-123
+        target_name:
+          description: A reference to the job's target name.
+          type: string
+          example: vdb
+        start_time:
+          description: The time the job started executing.
+          type: string
+          format: date-time
+          example: '2022-01-02T05:11:24.148000+00:00'
+        update_time:
+          description: The time the job was last updated.
+          type: string
+          format: date-time
+          example: '2022-01-02T06:11:24.148000+00:00'
+        trace_id:
+          description: traceId of the request which created this Job
+          type: string
+        engine_ids:
+          description: IDs of the engines this Job is executing on.
+          type: array
+          items:
+            type: string
+          deprecated: true
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        engines:
+          type: array
+          items:
+            $ref: '#/components/schemas/Engine'
+        account_id:
+          description: The ID of the account who initiated this job.
+          type: integer
+          example: 1
+        account_name:
+          description: The account name which initiated this job. It can be either firstname and lastname combination or firstname or lastname or username or email address or Account-<id>.
+          type: string
+          example: User 1
+        compliance_node_id:
+          description: The ID of the associated compliance node, if applicable.
+          type: string
+          nullable: true
+        compliance_node_name:
+          description: The name of the associated compliance node, if applicable.
+          type: string
+          nullable: true
+        percent_complete:
+          description: Completion percentage of the Job.
+          type: integer
+          minimum: 0
+          maximum: 100
+          example: '50'
+        virtualization_tasks:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTask'
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTask'
+        execution_id:
+          description: The ID of the associated masking execution, if any.
+          type: string
+          nullable: true
+        result_type:
+          description: The type of the job result. This is the type of the object present in the result.
+          type: string
+        result:
+          description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
+          type: object
+      discriminator:
+        propertyName: class_type
+    NetworkDSPTestResult:
+      allOf:
+      - $ref: '#/components/schemas/NetworkTestBaseResult'
+      - $ref: '#/components/schemas/NetworkDSPTestRequest'
+      - type: object
+        properties:
+          throughput:
+            type: integer
+            format: int64
+            description: Average network throughput measured in bits per second (bps). Uses base 1024 for unit scaling (e.g., Kbps, Mbps).
+          num_connections:
+            type: integer
+            description: Number of connections used to achieve maximum sustained throughput.
+  parameters:
+    jobIdParam:
+      in: path
+      name: jobId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+        example: d2f2310bd4e0455289581a7d61fea6c2
+      description: Unique identifier of the network test job.
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
