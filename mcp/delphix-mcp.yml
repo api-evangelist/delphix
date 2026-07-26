@@ -1,0 +1,66 @@
+generated: '2026-07-18'
+method: searched
+status: published
+source: https://github.com/delphix/dxi-mcp-server
+server:
+  name: dct-mcp-server
+  description: >-
+    Official Delphix DCT MCP Server. Exposes the Data Control Tower (DCT) API to AI
+    assistants and MCP clients for test data management: provisioning virtual
+    databases, managing environments, engines, compliance, jobs, and reporting.
+  official: true
+  transport: http
+  default_port: 6790
+  repository: https://github.com/delphix/dxi-mcp-server
+  install:
+    uvx: uvx --from git+https://github.com/delphix/dxi-mcp-server.git dct-mcp-server
+    python: "python src/dct_mcp_server/main.py (Python 3.11+)"
+  configuration:
+    env:
+    - DCT_API_KEY
+    - DCT_BASE_URL
+    - DCT_VERIFY_SSL
+    - DCT_LOG_LEVEL
+    - DCT_TOOLSET
+  modes:
+    dynamic:
+      description: >-
+        Default 2-tool mode driven by the live DCT OpenAPI spec; exposes the full
+        DCT API through a discovery + execute pair.
+      tools:
+      - name: discovery
+        description: Discover available DCT API operations from the live OpenAPI spec.
+      - name: execute
+        description: Execute any discovered DCT API operation with parameters.
+  toolsets:
+  - name: dynamic
+    tools: 2
+    description: discovery + execute over the full DCT OpenAPI spec (default)
+  - name: self_service
+    tools: 7
+    description: Basic VDB operations
+  - name: self_service_provision
+    tools: 14
+    description: Self-service plus provisioning
+  - name: continuous_data_admin
+    tools: 22
+    description: Full DBA operations
+  - name: platform_admin
+    tools: 13
+    description: System administration
+  - name: reporting_insights
+    tools: 13
+    description: Read-only reporting
+  grouped_tools:
+  - name: data_tool
+    description: VDB and dSource lifecycle operations
+  - name: snapshot_bookmark_tool
+    description: Point-in-time snapshots and bookmarks
+  - name: environment_source_tool
+    description: Environment and source management
+  - name: iam_tool
+    description: Identity and access management
+  - name: reporting_tool
+    description: Analytics and reporting
+  - name: job_tool
+    description: Job monitoring

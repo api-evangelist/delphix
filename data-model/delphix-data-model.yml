@@ -1,0 +1,129 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/delphix-continuous-data-openapi.yml
+note: >-
+  Entity-relationship graph derived from the DCT Continuous Data OpenAPI schemas via
+  id-reference fields (e.g. engine_id, environment_id, parent_dsource_id). belongs_to
+  = the entity carries the foreign id; has_many = the entity carries a list of ids.
+entities:
+- name: Engine
+  description: A Delphix Continuous Data or Compliance engine registered with DCT.
+- name: Environment
+  description: A host/repository environment attached to an engine.
+- name: Source
+  description: A source (staging or dSource-backing) within an environment.
+- name: DSource
+  description: A linked production data source ingested into Delphix.
+- name: VDB
+  description: A virtual database provisioned from a dSource or another VDB.
+- name: VDBGroup
+  description: A group of VDBs provisioned/refreshed together from a bookmark.
+- name: Snapshot
+  description: A point-in-time capture on a timeflow.
+- name: Timeflow
+  description: The lineage of snapshots for a dSource or VDB.
+- name: Bookmark
+  description: A named, consistent point-in-time across one or more datasets.
+- name: CDB
+  description: An Oracle container database.
+- name: VCDB
+  description: A virtual container database.
+- name: DatabaseTemplate
+  description: A reusable database configuration template.
+- name: VirtualizationPolicy
+  description: A policy (snapshot/retention/refresh) applied to datasets.
+- name: Job
+  description: An asynchronous operation tracked to a terminal state.
+relationships:
+- from: VDB
+  to: Engine
+  type: belongs_to
+  via: engine_id
+- from: VDB
+  to: Environment
+  type: belongs_to
+  via: environment_id
+- from: VDB
+  to: DSource
+  type: belongs_to
+  via: parent_dsource_id
+- from: VDB
+  to: CDB
+  type: belongs_to
+  via: cdb_id
+- from: VDB
+  to: DatabaseTemplate
+  type: belongs_to
+  via: template_id
+- from: VDB
+  to: Timeflow
+  type: belongs_to
+  via: current_timeflow_id
+- from: DSource
+  to: Engine
+  type: belongs_to
+  via: engine_id
+- from: DSource
+  to: Source
+  type: belongs_to
+  via: source_id
+- from: DSource
+  to: Timeflow
+  type: belongs_to
+  via: current_timeflow_id
+- from: Source
+  to: Environment
+  type: belongs_to
+  via: environment_id
+- from: Environment
+  to: Engine
+  type: belongs_to
+  via: engine_id
+- from: Snapshot
+  to: Timeflow
+  type: belongs_to
+  via: timeflow_id
+- from: Snapshot
+  to: Engine
+  type: belongs_to
+  via: engine_id
+- from: Timeflow
+  to: Snapshot
+  type: belongs_to
+  via: parent_snapshot_id
+- from: Timeflow
+  to: VDB
+  type: belongs_to
+  via: parent_vdb_id
+- from: Timeflow
+  to: DSource
+  type: belongs_to
+  via: parent_dsource_id
+- from: Bookmark
+  to: VDB
+  type: has_many
+  via: vdb_ids
+- from: Bookmark
+  to: DSource
+  type: has_many
+  via: dsource_ids
+- from: Bookmark
+  to: VDBGroup
+  type: belongs_to
+  via: vdb_group_id
+- from: VDBGroup
+  to: VDB
+  type: has_many
+  via: vdb_ids
+- from: VDBGroup
+  to: Bookmark
+  type: belongs_to
+  via: last_successful_refresh_to_bookmark_id
+- from: CDB
+  to: Environment
+  type: belongs_to
+  via: environment_id
+- from: VCDB
+  to: DatabaseTemplate
+  type: belongs_to
+  via: db_template_id

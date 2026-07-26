@@ -1,0 +1,22 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Delphix DCT Continuous Data API
+  version: 1.0.0
+extends: openapi/delphix-continuous-data-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: delphix
+    x-apievangelist-product: Continuous Data
+    x-apievangelist-auth: api-key (Authorization header, apk prefix)
+    x-apievangelist-pagination: cursor+limit (items/response_metadata)
+    x-apievangelist-async: asynchronous jobs return jobId (HTTP 202)
+    x-apievangelist-mcp-server: https://github.com/delphix/dxi-mcp-server
+- target: $.info
+  update:
+    x-apievangelist-artifacts:
+      authentication: authentication/delphix-authentication.yml
+      conventions: conventions/delphix-conventions.yml
+      errors: errors/delphix-problem-types.yml
+      data_model: data-model/delphix-data-model.yml
+      lifecycle: lifecycle/delphix-lifecycle.yml

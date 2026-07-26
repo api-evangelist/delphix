@@ -1,0 +1,53 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/delphix-continuous-data-openapi.yml, openapi/delphix-continuous-compliance-openapi.yml
+format: custom-json
+note: >-
+  The DCT API does not use RFC 9457 problem+json. Errors are returned as JSON using
+  one of the schemas below. Derived from the OpenAPI components.schemas and the 4xx
+  responses declared across both DCT specs.
+envelopes:
+- schema: ErrorResponse
+  content_type: application/json
+  fields:
+  - name: error
+    type: string
+    description: Error code for the failure.
+  - name: error_description
+    type: string
+    description: Human-readable description of the failure.
+- schema: Error
+  content_type: application/json
+  fields:
+  - name: message
+    type: string
+    description: Message providing more detail about the error that occurred, if available.
+  - name: object_name
+    type: string
+    description: Name of the object affected by the error.
+- schema: Errors
+  content_type: application/json
+  description: >-
+    Array of Error objects describing full or partial failures that occurred during
+    the request.
+problems:
+- status: 400
+  title: Bad Request
+  schema: ErrorResponse
+  description: The request was malformed or failed validation.
+- status: 401
+  title: Unauthorized
+  description: Missing or invalid API key (Authorization header, "apk" prefix).
+- status: 403
+  title: Forbidden
+  description: The authenticated account lacks permission for the operation.
+- status: 404
+  title: Not Found
+  schema: Error
+  description: The referenced object (VDB, dSource, environment, engine, job, ...) does not exist.
+- status: 409
+  title: Conflict
+  description: The request conflicts with the current state of the resource.
+- status: 500
+  title: Internal Server Error
+  description: An unexpected error occurred while processing the request.

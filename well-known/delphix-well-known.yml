@@ -1,0 +1,25 @@
+generated: '2026-07-18'
+method: searched
+note: >-
+  Probed the /.well-known/ discovery surface on the Delphix/Perforce hosts. No
+  well-known documents are published — www.delphix.com returns 302 redirects to the
+  Perforce product page for every path, and the docs/API hosts return 404. Absence
+  is a valid, recorded result.
+hosts:
+- host: https://www.delphix.com
+  documents:
+  - {path: /.well-known/security.txt, status: 302, file: null}
+  - {path: /.well-known/openid-configuration, status: 302, file: null}
+  - {path: /.well-known/oauth-authorization-server, status: 302, file: null}
+  - {path: /.well-known/api-catalog, status: 302, file: null}
+  - {path: /.well-known/ai-plugin.json, status: 302, file: null}
+- host: https://help-api.delphix.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404, file: null}
+  - {path: /.well-known/openid-configuration, status: 404, file: null}
+  - {path: /.well-known/oauth-authorization-server, status: 404, file: null}
+  - {path: /.well-known/api-catalog, status: 404, file: null}
+- host: https://dct.delphix.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404, file: null}
+  - {path: /.well-known/api-catalog, status: 404, file: null}

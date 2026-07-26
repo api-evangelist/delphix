@@ -1,5 +1,23 @@
 # Delphix
 
-Delphix is a company surfaced as a portfolio company of a16z, battery-ventures, greylock, lightspeed-venture-partners and added to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+Delphix (now part of [Perforce Software](https://www.perforce.com/products/delphix)) is a DevOps data platform for test data management, data virtualization, and data compliance. Its two core products are **Continuous Data** (fast, space-efficient virtual database provisioning across Oracle, SQL Server, SAP ASE, PostgreSQL, and AppData sources) and **Continuous Compliance** (automated data masking and synthetic data generation).
 
-Backed by: a16z, battery-ventures, greylock, lightspeed-venture-partners — https://adfs4.sts.altareturn.com/adfs/ls/?wa=wsignin1.0&amp;wtrealm=urn%3aportal%3agreylock&amp;wctx=https%3a%2f%2fgreylock.altareturn.com%2f_layouts%2f15%2fAuthenticate.aspx%3fSource%3d%252F&amp;wreply=https%3a%2f%2fgreylock.altareturn.com%2f_trust%2fdefault.aspx
+Delphix is API-first. Everything is available through the **Data Control Tower (DCT)** REST API (OpenAPI 3.0.0, base path `/dct/v3`, API-key auth), plus:
+
+- **DCT MCP Server** — official Model Context Protocol server: https://github.com/delphix/dxi-mcp-server
+- **dct-toolkit** — cross-platform CLI over the full DCT API
+- **delphixpy** — official Python bindings: https://pypi.org/project/delphixpy/
+- **GitHub org** — https://github.com/delphix
+
+## Developer surface
+
+- Product: https://www.perforce.com/products/delphix
+- Documentation: https://help.delphix.com/
+- API reference / OpenAPI downloads: https://help-api.delphix.com/
+- DCT docs: https://dct.delphix.com/docs/latest/api-references
+- Status: https://status.delphix.com
+- Trust Center: https://trust.perforce.com/
+
+Backed by: a16z, Battery Ventures, Greylock, Lightspeed Venture Partners.
+
+This profile is maintained by the API Evangelist enrichment pipeline.

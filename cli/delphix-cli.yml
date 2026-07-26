@@ -1,0 +1,36 @@
+generated: '2026-07-18'
+method: searched
+source: https://dct.delphix.com/docs/latest/dct-toolkit, https://help.delphix.com/dct/current/content/command_references.htm
+name: dct-toolkit
+description: >-
+  The DCT Toolkit is the first-party command-line interface for Delphix Data Control
+  Tower. Every DCT API is available as a command, making the full test-data-management
+  surface scriptable from Linux, Windows, and macOS.
+official: true
+docs: https://dct.delphix.com/docs/latest/dct-toolkit
+command_reference: https://help.delphix.com/dct/current/content/command_references.htm
+install:
+  method: binary
+  steps:
+  - Download the dct-toolkit executable binary from the Delphix download site.
+  - Extract the binary onto the host that will run it.
+  - Grant execute permission to the binary file.
+  platforms: [linux, windows, macos]
+compatibility: >-
+  Compatible with any DCT product version; fully supported from DCT 8.0.0 onwards.
+  New APIs in newer DCT releases become available automatically without upgrading
+  the toolkit.
+configuration:
+  file: ~/.dct-toolkit/dct-toolkit.properties
+  note: Plain-text configuration file storing the DCT host and API key.
+behaviors:
+- name: async job wait
+  description: >-
+    Commands that trigger asynchronous DCT jobs return a jobId; by default the
+    toolkit waits for the job to complete and reports its end state.
+- name: json output
+  description: The --json/-js option prints all response properties in JSON format.
+command_surface: >-
+  Commands mirror the DCT API resources — VDBs, dSources, snapshots, bookmarks,
+  environments, engines, VDB groups, virtualization policies, masking/compliance
+  jobs, replication, and reporting.

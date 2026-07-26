@@ -1,0 +1,63 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/delphix-continuous-data-openapi.yml, openapi/delphix-continuous-compliance-openapi.yml, https://dct.delphix.com/docs/latest/api-requests-and-reporting
+api: Delphix Data Control Tower (DCT) API v3.28.0
+authentication:
+  style: api-key
+  scheme: ApiKeyAuth
+  location: header
+  header: Authorization
+  token_prefix: apk
+  note: >-
+    Prefix the API key with "apk" in the Authorization header
+    (e.g. "Authorization: apk 1.abcd..."). See authentication/.
+base_path: /dct/v3
+idempotency:
+  supported: false
+  note: >-
+    The DCT OpenAPI declares no idempotency-key header or parameter. Many mutating
+    operations are asynchronous and return a jobId (see async_jobs below) rather than
+    relying on request idempotency keys.
+pagination:
+  style: cursor
+  request_params:
+  - name: cursor
+    in: query
+    description: Opaque cursor marking the start of the next page.
+  - name: limit
+    in: query
+    description: Maximum number of items to return per page.
+  response:
+    envelope: object
+    items_field: items
+    metadata_field: response_metadata
+    metadata_schema: PaginatedResponseMetadata
+sorting:
+  style: per-resource sort parameters (e.g. bookmarksSortParam, vdbsSortParam) with sort_by and ascending/descending controls
+async_jobs:
+  supported: true
+  pattern: >-
+    Long-running mutating operations return HTTP 202 with a job object containing a
+    jobId; poll the Jobs API for terminal state. The dct-toolkit CLI waits for job
+    completion by default.
+  response_codes: [202]
+error_envelope:
+  formats:
+  - schema: ErrorResponse
+    fields: [error, error_description]
+    description: OAuth/gateway-style error with code and human-readable description.
+  - schema: Error
+    fields: [message, object_name]
+    description: Object-level error with a message and the affected object name.
+  - schema: Errors
+    description: Array of Error objects for full or partial failures.
+  see_also: errors/delphix-problem-types.yml
+versioning:
+  scheme: uri-path
+  current: v3
+  spec_version: 3.28.0
+  release_cadence: calendar (e.g. 2026.3.0.0)
+  see_also: lifecycle/delphix-lifecycle.yml
+rate_limit_signaling:
+  documented: false
+content_type: application/json

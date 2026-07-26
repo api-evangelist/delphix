@@ -1,0 +1,30 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/delphix-continuous-data-openapi.yml, openapi/delphix-continuous-compliance-openapi.yml, https://www.perforce.com/company/security-compliance-policies, https://trust.perforce.com/
+standards:
+- id: openapi-3.0
+  conforms: true
+  evidence: Both DCT specs are OpenAPI 3.0.0.
+- id: oauth2
+  conforms: false
+  evidence: API uses static API-key auth (Authorization header, apk prefix), not OAuth2.
+- id: openid-connect
+  conforms: false
+  evidence: DCT accounts can federate to SSO/SAML/LDAP at the platform level, but the API itself uses API keys.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors use custom JSON (ErrorResponse/Error) rather than application/problem+json.
+- id: json-api
+  conforms: false
+- id: cursor-pagination
+  conforms: true
+  evidence: List endpoints use cursor + limit query params with items/response_metadata envelope.
+- id: soc2-type2
+  conforms: true
+  evidence: Perforce holds SOC 2 Type 2 attestation (security, availability, confidentiality); available under NDA via the Trust Center.
+- id: iso-27001
+  conforms: true
+  evidence: Perforce publishes ISO 27001 certificates for covered business units on trust.perforce.com.
+- id: gdpr
+  conforms: true
+  evidence: Continuous Compliance masking + Perforce data-compliance program support GDPR/CCPA/HIPAA data-protection use cases.
