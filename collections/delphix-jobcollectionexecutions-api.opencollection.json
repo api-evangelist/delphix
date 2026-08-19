@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms JobCollectionExecutions API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "JobCollectionExecutions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve the list of compliance job collection executions.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/job-collection-executions",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+              }
+            ]
+          },
+          "docs": "Retrieve the list of compliance job collection executions."
+        },
+        {
+          "info": {
+            "name": "Search compliance job collection executions.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/job-collection-executions/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search compliance job collection executions."
+        },
+        {
+          "info": {
+            "name": "Retrieve a compliance job collection execution by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/job-collection-executions/:jobCollectionExecutionId",
+            "params": [
+              {
+                "name": "jobCollectionExecutionId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the job collection execution."
+              }
+            ]
+          },
+          "docs": "Retrieve a compliance job collection execution by ID."
+        },
+        {
+          "info": {
+            "name": "Cancel a compliance job collection execution. This operation is asynchronous is not complete until the collection execution is marked cancelled.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/job-collection-executions/:jobCollectionExecutionId/cancel",
+            "params": [
+              {
+                "name": "jobCollectionExecutionId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the job collection execution."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Cancel a compliance job collection execution. This operation is asynchronous is not complete until the collection execution is marked cancelled."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

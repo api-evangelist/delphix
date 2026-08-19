@@ -1,0 +1,469 @@
+{
+  "item": [
+    {
+      "id": "66593c72-0a57-4372-8783-2219ef7a45cb",
+      "name": "PaaSPlugins",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d2bf1439-da51-4be1-8ee4-9893943d8f95",
+          "name": "List all registered PaaS plugins.",
+          "request": {
+            "name": "List all registered PaaS plugins.",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-plugins"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "04595963-c78d-42f9-8233-82dc97e8ee22",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-plugins"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "name"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"db-123\",\n      \"unique_identifier\": \"my-db-123\",\n      \"name\": \"my-db-123\",\n      \"schema\": \"my-db-123\",\n      \"version\": \"my-db-123\",\n      \"operation_target\": \"PAAS_DATABASE\",\n      \"regions\": [\n        {\n          \"value\": \"us-west-2\",\n          \"label\": \"US West Oregon\"\n        },\n        {\n          \"value\": \"us-west-2\",\n          \"label\": \"US West Oregon\"\n        }\n      ],\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    },\n    {\n      \"id\": \"db-123\",\n      \"unique_identifier\": \"my-db-123\",\n      \"name\": \"my-db-123\",\n      \"schema\": \"my-db-123\",\n      \"version\": \"my-db-123\",\n      \"operation_target\": \"PAAS_INSTANCE\",\n      \"regions\": [\n        {\n          \"value\": \"us-west-2\",\n          \"label\": \"US West Oregon\"\n        },\n        {\n          \"value\": \"us-west-2\",\n          \"label\": \"US West Oregon\"\n        }\n      ],\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 2926\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "71a24871-ed33-4b16-8968-21701970b886",
+          "name": "Create tags for a PaaS plugin.",
+          "request": {
+            "name": "Create tags for a PaaS plugin.",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-plugins",
+                ":paaSPluginId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paaSPluginId",
+                  "description": "(Required) The ID of the PaaS Plugin."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0731e63a-03f1-4dac-95ce-65f21c1f207a",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-plugins",
+                    ":paaSPluginId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paaSPluginId",
+                      "description": "(Required) The ID of the PaaS Plugin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "edc34449-a308-433d-99da-a85e39a30b26",
+          "name": "Get tags for a PaaS Plugin.",
+          "request": {
+            "name": "Get tags for a PaaS Plugin.",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-plugins",
+                ":paaSPluginId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paaSPluginId",
+                  "description": "(Required) The ID of the PaaS Plugin."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "13c5ab7f-1834-4020-a817-e5f556ac862c",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-plugins",
+                    ":paaSPluginId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paaSPluginId",
+                      "description": "(Required) The ID of the PaaS Plugin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "10f757bf-c79b-4c38-ac69-5a55dce7c10a",
+          "name": "Delete tags for a PaaS Plugin.",
+          "request": {
+            "name": "Delete tags for a PaaS Plugin.",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-plugins",
+                ":paaSPluginId",
+                "tags",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paaSPluginId",
+                  "description": "(Required) The ID of the PaaS Plugin."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key\": \"<string>\",\n  \"value\": \"<string>\",\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f8787340-ec06-4f27-b449-324427697133",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-plugins",
+                    ":paaSPluginId",
+                    "tags",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paaSPluginId",
+                      "description": "(Required) The ID of the PaaS Plugin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/dct/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b6dbe2ad-8f93-40c5-9cb6-56cb40493028",
+    "name": "Delphix DCT Algorithms PaaSPlugins API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Delphix DCT API\n\nContact Support:\n Name: Delphix Support\n Email: support@delphix.com",
+      "type": "text/plain"
+    }
+  }
+}

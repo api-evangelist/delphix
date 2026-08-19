@@ -1,0 +1,128 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms Network Performance Tool API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Network Performance Tool",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Latency Network Performance Test",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/network-performance/test/latency",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create Latency Network Performance Test"
+        },
+        {
+          "info": {
+            "name": "Retrieve Network Latency Test Result",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/network-performance/test/latency/:jobId",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the network test job."
+              }
+            ]
+          },
+          "docs": "Returns the result of a previously executed network latency test identified by the job ID."
+        },
+        {
+          "info": {
+            "name": "Create DSP Network Performance Test",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/network-performance/test/dsp",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create DSP Network Performance Test"
+        },
+        {
+          "info": {
+            "name": "Retrieve Network DSP Test Result",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/network-performance/test/dsp/:jobId",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the network test job."
+              }
+            ]
+          },
+          "docs": "Returns the result of a previously executed network dsp test identified by the job ID."
+        },
+        {
+          "info": {
+            "name": "Create Throughput Network Performance Test",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/network-performance/test/throughput",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create Throughput Network Performance Test"
+        },
+        {
+          "info": {
+            "name": "Retrieve Network Throughput Test Result",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/network-performance/test/throughput/:jobId",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the network test job."
+              }
+            ]
+          },
+          "docs": "Returns the result of a previously executed network throughput test identified by the job ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

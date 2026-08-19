@@ -1,0 +1,1372 @@
+{
+  "item": [
+    {
+      "id": "4ce1273a-9f63-4d0c-9261-26d4d0224f36",
+      "name": "ComplianceJobCollections",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5a4b87e0-5471-4c65-8e1f-ef3727315e58",
+          "name": "Create a compliance job collection.",
+          "request": {
+            "name": "Create a compliance job collection.",
+            "description": {},
+            "url": {
+              "path": [
+                "compliance-job-collections"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"failure_handling\": \"<string>\",\n  \"members\": [\n    {\n      \"sequence\": 1,\n      \"compliance_job_id\": \"<string>\"\n    },\n    {\n      \"sequence\": 1,\n      \"compliance_job_id\": \"<string>\"\n    }\n  ],\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b2288d04-a009-4644-8d51-44c9bd517d94",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-job-collections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My favorite Compliance Job Collection\",\n  \"description\": \"Compliance Job Collection for app finance\",\n  \"failure_handling\": \"IGNORE\",\n  \"members\": [\n    {\n      \"sequence\": 1,\n      \"compliance_job_id\": \"<string>\"\n    }\n  ],\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"strin\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 36,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1986-07-06T20:04:35.075Z\",\n        \"end_time\": \"2003-02-13T21:19:38.464Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 80,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"ABANDONED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1980-05-18T11:00:53.365Z\",\n        \"end_time\": \"2010-03-03T22:32:06.826Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 71,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"ABANDONED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1962-01-10T06:11:42.784Z\",\n        \"end_time\": \"1996-05-07T15:08:06.190Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 79,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1953-01-28T20:49:54.736Z\",\n        \"end_time\": \"1981-08-13T16:16:17.540Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 21,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  },\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c5b3ab8a-ae68-4e78-be59-52312fec82c6",
+          "name": "Retrieve the list of compliance job collections.",
+          "request": {
+            "name": "Retrieve the list of compliance job collections.",
+            "description": {},
+            "url": {
+              "path": [
+                "compliance-job-collections"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "13655d6d-6f77-4aa8-8909-6b13fa379dd1",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-job-collections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"compliance-job-collection-1\",\n      \"name\": \"My favorite Compliance Job Collection\",\n      \"description\": \"Compliance Job Collection for app finance\",\n      \"creation_date\": \"2022-11-30T08:51:34.148000+00:00\",\n      \"job_count\": 10,\n      \"last_execution_id\": \"414ed52c-fa89-455d-9fb9-9c2fa5115f80\",\n      \"failure_handling\": \"IGNORE\",\n      \"job_missing\": false,\n      \"members\": [\n        {\n          \"sequence\": 1,\n          \"compliance_job_id\": \"<string>\"\n        }\n      ],\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    },\n    {\n      \"id\": \"compliance-job-collection-1\",\n      \"name\": \"My favorite Compliance Job Collection\",\n      \"description\": \"Compliance Job Collection for app finance\",\n      \"creation_date\": \"2022-11-30T08:51:34.148000+00:00\",\n      \"job_count\": 10,\n      \"last_execution_id\": \"414ed52c-fa89-455d-9fb9-9c2fa5115f80\",\n      \"failure_handling\": \"IGNORE\",\n      \"job_missing\": false,\n      \"members\": [\n        {\n          \"sequence\": 1,\n          \"compliance_job_id\": \"<string>\"\n        }\n      ],\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 7806\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b2a662ee-72b8-4474-b9b4-826825dff2da",
+          "name": "Search compliance job collections.",
+          "request": {
+            "name": "Search compliance job collections.",
+            "description": {},
+            "url": {
+              "path": [
+                "compliance-job-collections",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8f3b0118-5582-460e-af22-14d4ef5670c3",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-job-collections",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"compliance-job-collection-1\",\n      \"name\": \"My favorite Compliance Job Collection\",\n      \"description\": \"Compliance Job Collection for app finance\",\n      \"creation_date\": \"2022-11-30T08:51:34.148000+00:00\",\n      \"job_count\": 10,\n      \"last_execution_id\": \"414ed52c-fa89-455d-9fb9-9c2fa5115f80\",\n      \"failure_handling\": \"IGNORE\",\n      \"job_missing\": true,\n      \"members\": [\n        {\n          \"sequence\": 1,\n          \"compliance_job_id\": \"<string>\"\n        }\n      ],\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    },\n    {\n      \"id\": \"compliance-job-collection-1\",\n      \"name\": \"My favorite Compliance Job Collection\",\n      \"description\": \"Compliance Job Collection for app finance\",\n      \"creation_date\": \"2022-11-30T08:51:34.148000+00:00\",\n      \"job_count\": 10,\n      \"last_execution_id\": \"414ed52c-fa89-455d-9fb9-9c2fa5115f80\",\n      \"failure_handling\": \"IGNORE\",\n      \"job_missing\": true,\n      \"members\": [\n        {\n          \"sequence\": 1,\n          \"compliance_job_id\": \"<string>\"\n        }\n      ],\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 4779\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8a137c8f-a94a-4077-b0b0-7e8d4d93cbec",
+          "name": "Retrieve a compliance job collection by ID.",
+          "request": {
+            "name": "Retrieve a compliance job collection by ID.",
+            "description": {},
+            "url": {
+              "path": [
+                "compliance-job-collections",
+                ":complianceJobCollectionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "complianceJobCollectionId",
+                  "description": "(Required) The ID of the compliance job collection."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "41e7e903-b69b-4980-8ba2-8a5b0e475f59",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-job-collections",
+                    ":complianceJobCollectionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "complianceJobCollectionId",
+                      "description": "(Required) The ID of the compliance job collection."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"compliance-job-collection-1\",\n  \"name\": \"My favorite Compliance Job Collection\",\n  \"description\": \"Compliance Job Collection for app finance\",\n  \"creation_date\": \"2022-11-30T08:51:34.148000+00:00\",\n  \"job_count\": 10,\n  \"last_execution_id\": \"414ed52c-fa89-455d-9fb9-9c2fa5115f80\",\n  \"failure_handling\": \"IGNORE\",\n  \"job_missing\": true,\n  \"members\": [\n    {\n      \"sequence\": 1,\n      \"compliance_job_id\": \"<string>\"\n    }\n  ],\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "16b8d721-f180-4c89-9d4b-22b46cb1e32d",
+          "name": "Update a compliance job collection.",
+          "request": {
+            "name": "Update a compliance job collection.",
+            "description": {},
+            "url": {
+              "path": [
+                "compliance-job-collections",
+                ":complianceJobCollectionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "complianceJobCollectionId",
+                  "description": "(Required) The ID of the compliance job collection."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"failure_handling\": \"<string>\",\n  \"members\": [\n    {\n      \"sequence\": 1,\n      \"compliance_job_id\": \"<string>\"\n    },\n    {\n      \"sequence\": 1,\n      \"compliance_job_id\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c831bd53-35b5-4d8a-b395-7db159ade05a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-job-collections",
+                    ":complianceJobCollectionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "complianceJobCollectionId",
+                      "description": "(Required) The ID of the compliance job collection."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My favorite Compliance Job Collection\",\n  \"description\": \"Compliance Job Collection for app finance\",\n  \"failure_handling\": \"IGNORE\",\n  \"members\": [\n    {\n      \"sequence\": 1,\n      \"compliance_job_id\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 27,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1987-09-01T01:59:01.934Z\",\n        \"end_time\": \"2006-05-25T20:10:40.225Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 24,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2017-04-14T04:20:36.127Z\",\n        \"end_time\": \"1970-08-14T10:19:02.878Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 88,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2012-02-27T22:51:28.963Z\",\n        \"end_time\": \"1976-04-26T07:13:24.240Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 87,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2004-07-13T05:07:37.212Z\",\n        \"end_time\": \"1994-05-18T21:51:40.688Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 8,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4617f27b-8898-4898-968c-b3e8710d9058",
+          "name": "Delete a compliance job collection.",
+          "request": {
+            "name": "Delete a compliance job collection.",
+            "description": {},
+            "url": {
+              "path": [
+                "compliance-job-collections",
+                ":complianceJobCollectionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "complianceJobCollectionId",
+                  "description": "(Required) The ID of the compliance job collection."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bd8775b3-bb36-4480-8359-962ea92ecf92",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-job-collections",
+                    ":complianceJobCollectionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "complianceJobCollectionId",
+                      "description": "(Required) The ID of the compliance job collection."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"stri\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 96,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1959-12-18T17:14:16.085Z\",\n        \"end_time\": \"2008-05-22T07:05:54.256Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 64,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"FAILED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2019-11-17T15:49:21.364Z\",\n        \"end_time\": \"1994-06-10T19:21:57.883Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 88,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2018-06-15T08:56:42.343Z\",\n        \"end_time\": \"1973-10-24T00:25:18.594Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 79,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"COMPLETED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1960-10-27T09:42:44.018Z\",\n        \"end_time\": \"2011-01-01T05:48:56.958Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 99,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6826a743-307e-425b-90a6-6bad3885a188",
+          "name": "Execute a compliance job collection.",
+          "request": {
+            "name": "Execute a compliance job collection.",
+            "description": {},
+            "url": {
+              "path": [
+                "compliance-job-collections",
+                ":complianceJobCollectionId",
+                "execute"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "complianceJobCollectionId",
+                  "description": "(Required) The ID of the compliance job collection."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8c6b507f-77bd-49cf-850b-a2a1b67d0e14",
+              "name": "Compliance job collection execute initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-job-collections",
+                    ":complianceJobCollectionId",
+                    "execute"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "complianceJobCollectionId",
+                      "description": "(Required) The ID of the compliance job collection."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 37,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2009-02-18T10:04:46.073Z\",\n        \"end_time\": \"1987-01-30T17:38:13.357Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 91,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2015-11-30T07:31:01.289Z\",\n        \"end_time\": \"2004-05-22T15:36:09.713Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 68,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1946-09-26T21:40:04.316Z\",\n        \"end_time\": \"1964-03-04T07:35:55.546Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 66,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"COMPLETED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1957-11-12T02:47:51.655Z\",\n        \"end_time\": \"2011-03-31T06:25:06.655Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 41,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aca02feb-2e97-4f28-90fc-55c88fde6677",
+          "name": "Get compliance jobs for a compliance job collection.",
+          "request": {
+            "name": "Get compliance jobs for a compliance job collection.",
+            "description": {},
+            "url": {
+              "path": [
+                "compliance-job-collections",
+                ":complianceJobCollectionId",
+                "jobs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "complianceJobCollectionId",
+                  "description": "(Required) The ID of the compliance job collection."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c7cbb06d-e7a3-41bf-a873-55465c44aa93",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-job-collections",
+                    ":complianceJobCollectionId",
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "complianceJobCollectionId",
+                      "description": "(Required) The ID of the compliance job collection."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"compliance-job-1\",\n      \"name\": \"My favorite ComplianceJob\",\n      \"rule_set_id\": \"uuid\",\n      \"rule_set_name\": \"my rule set\",\n      \"connector_type\": \"MARIADB\",\n      \"is_on_the_fly_masking\": true,\n      \"is_multi_tenant\": false,\n      \"pre_script\": {\n        \"name\": \"pre_script.sql\",\n        \"contents\": \"string\"\n      },\n      \"post_script\": {\n        \"name\": \"pre_script.sql\",\n        \"contents\": \"string\"\n      },\n      \"creation_date\": \"2022-11-30T08:51:34.148000+00:00\",\n      \"last_completed_execution_date\": \"2022-11-30T09:51:34.148000+00:00\",\n      \"hyperscale_state\": \"NOT_AVAILABLE\",\n      \"last_execution_status\": \"RUNNING\",\n      \"last_execution_id\": \"00e38996-7da2-4827-8f3e-0503234de537\",\n      \"last_execution_start_time\": \"2022-11-30T09:51:34.148000+00:00\",\n      \"last_execution_run_time\": 31000,\n      \"on_the_fly_source_connector_id\": \"string\",\n      \"on_the_fly_source_connector_name\": \"string\",\n      \"on_the_fly_source_connector_type\": \"string\",\n      \"type\": \"MASKING\",\n      \"execution_type\": \"STANDARD\",\n      \"hyperscale_instance_id\": \"abc\",\n      \"description\": \"Job for app finance\",\n      \"dataset_id\": \"dataset-123\",\n      \"retain_execution_data\": \"ON_ERROR\",\n      \"max_memory\": 1024,\n      \"min_memory\": 1024,\n      \"feedback_size\": 50000,\n      \"stream_row_limit\": 20000,\n      \"num_input_streams\": 4,\n      \"max_concurrent_source_connections\": 32,\n      \"max_concurrent_target_connections\": 32,\n      \"hyperscale_enabled\": true,\n      \"auto_calculate_unload_split\": true,\n      \"consider_continuous_compliance_warning_event_as\": \"SUCCESS\",\n      \"create_all_indexes_with_nologging\": false,\n      \"disable_parallel_index_creation\": false,\n      \"enable_all_constraints_with_novalidate\": false,\n      \"max_parallel_connections_per_table\": 10,\n      \"max_records_per_split\": 100000000,\n      \"max_split_per_connection\": 4,\n      \"parallelism_degree\": 4,\n      \"source_masking_job_id\": \"masking-job-0\",\n      \"engine_id\": \"string\",\n      \"engine_name\": \"masking-engine-1\",\n      \"engines\": [\n        {\n          \"engine_id\": \"string\",\n          \"engine_name\": \"string\"\n        },\n        {\n          \"engine_id\": \"string\",\n          \"engine_name\": \"string\"\n        }\n      ],\n      \"discovery_policy_id\": \"string\",\n      \"discovery_policy_name\": \"ASDD Standard\",\n      \"environment_name\": \"B2B Staging\",\n      \"application_name\": \"Custom B2B Solution\",\n      \"account_id\": 1234,\n      \"account_name\": \"dsmith\",\n      \"dct_managed\": false,\n      \"fail_immediately\": false,\n      \"batch_update\": true,\n      \"commit_size\": 100,\n      \"num_output_threads_per_stream\": 10,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ],\n      \"job_orchestrator_id\": \"string\",\n      \"job_orchestrator_name\": \"string\",\n      \"reset_profiling_assignments\": true,\n      \"multiple_profiler_check\": true,\n      \"truncate_tables\": false,\n      \"drop_indexes\": false,\n      \"enabled_tasks\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"id\": \"compliance-job-1\",\n      \"name\": \"My favorite ComplianceJob\",\n      \"rule_set_id\": \"uuid\",\n      \"rule_set_name\": \"my rule set\",\n      \"connector_type\": \"MARIADB\",\n      \"is_on_the_fly_masking\": true,\n      \"is_multi_tenant\": false,\n      \"pre_script\": {\n        \"name\": \"pre_script.sql\",\n        \"contents\": \"string\"\n      },\n      \"post_script\": {\n        \"name\": \"pre_script.sql\",\n        \"contents\": \"string\"\n      },\n      \"creation_date\": \"2022-11-30T08:51:34.148000+00:00\",\n      \"last_completed_execution_date\": \"2022-11-30T09:51:34.148000+00:00\",\n      \"hyperscale_state\": \"NOT_AVAILABLE\",\n      \"last_execution_status\": \"RUNNING\",\n      \"last_execution_id\": \"00e38996-7da2-4827-8f3e-0503234de537\",\n      \"last_execution_start_time\": \"2022-11-30T09:51:34.148000+00:00\",\n      \"last_execution_run_time\": 31000,\n      \"on_the_fly_source_connector_id\": \"string\",\n      \"on_the_fly_source_connector_name\": \"string\",\n      \"on_the_fly_source_connector_type\": \"string\",\n      \"type\": \"MASKING\",\n      \"execution_type\": \"STANDARD\",\n      \"hyperscale_instance_id\": \"abc\",\n      \"description\": \"Job for app finance\",\n      \"dataset_id\": \"dataset-123\",\n      \"retain_execution_data\": \"ALWAYS\",\n      \"max_memory\": 1024,\n      \"min_memory\": 1024,\n      \"feedback_size\": 50000,\n      \"stream_row_limit\": 20000,\n      \"num_input_streams\": 4,\n      \"max_concurrent_source_connections\": 32,\n      \"max_concurrent_target_connections\": 32,\n      \"hyperscale_enabled\": true,\n      \"auto_calculate_unload_split\": true,\n      \"consider_continuous_compliance_warning_event_as\": \"SUCCESS\",\n      \"create_all_indexes_with_nologging\": false,\n      \"disable_parallel_index_creation\": false,\n      \"enable_all_constraints_with_novalidate\": false,\n      \"max_parallel_connections_per_table\": 10,\n      \"max_records_per_split\": 100000000,\n      \"max_split_per_connection\": 4,\n      \"parallelism_degree\": 4,\n      \"source_masking_job_id\": \"masking-job-0\",\n      \"engine_id\": \"string\",\n      \"engine_name\": \"masking-engine-1\",\n      \"engines\": [\n        {\n          \"engine_id\": \"string\",\n          \"engine_name\": \"string\"\n        },\n        {\n          \"engine_id\": \"string\",\n          \"engine_name\": \"string\"\n        }\n      ],\n      \"discovery_policy_id\": \"string\",\n      \"discovery_policy_name\": \"ASDD Standard\",\n      \"environment_name\": \"B2B Staging\",\n      \"application_name\": \"Custom B2B Solution\",\n      \"account_id\": 1234,\n      \"account_name\": \"dsmith\",\n      \"dct_managed\": false,\n      \"fail_immediately\": false,\n      \"batch_update\": true,\n      \"commit_size\": 100,\n      \"num_output_threads_per_stream\": 10,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ],\n      \"job_orchestrator_id\": \"string\",\n      \"job_orchestrator_name\": \"string\",\n      \"reset_profiling_assignments\": true,\n      \"multiple_profiler_check\": true,\n      \"truncate_tables\": false,\n      \"drop_indexes\": false,\n      \"enabled_tasks\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 1729\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4377a832-2965-4863-a361-c827c964e37b",
+          "name": "Search compliance jobs for a compliance job collection.",
+          "request": {
+            "name": "Search compliance jobs for a compliance job collection.",
+            "description": {},
+            "url": {
+              "path": [
+                "compliance-job-collections",
+                ":complianceJobCollectionId",
+                "jobs",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "complianceJobCollectionId",
+                  "description": "(Required) The ID of the compliance job collection."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1e1b0ddf-939f-4fcf-bebb-01931627d6e5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-job-collections",
+                    ":complianceJobCollectionId",
+                    "jobs",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "complianceJobCollectionId",
+                      "description": "(Required) The ID of the compliance job collection."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"compliance-job-1\",\n      \"name\": \"My favorite ComplianceJob\",\n      \"rule_set_id\": \"uuid\",\n      \"rule_set_name\": \"my rule set\",\n      \"connector_type\": \"MARIADB\",\n      \"is_on_the_fly_masking\": true,\n      \"is_multi_tenant\": false,\n      \"pre_script\": {\n        \"name\": \"pre_script.sql\",\n        \"contents\": \"string\"\n      },\n      \"post_script\": {\n        \"name\": \"pre_script.sql\",\n        \"contents\": \"string\"\n      },\n      \"creation_date\": \"2022-11-30T08:51:34.148000+00:00\",\n      \"last_completed_execution_date\": \"2022-11-30T09:51:34.148000+00:00\",\n      \"hyperscale_state\": \"NOT_AVAILABLE\",\n      \"last_execution_status\": \"RUNNING\",\n      \"last_execution_id\": \"00e38996-7da2-4827-8f3e-0503234de537\",\n      \"last_execution_start_time\": \"2022-11-30T09:51:34.148000+00:00\",\n      \"last_execution_run_time\": 31000,\n      \"on_the_fly_source_connector_id\": \"string\",\n      \"on_the_fly_source_connector_name\": \"string\",\n      \"on_the_fly_source_connector_type\": \"string\",\n      \"type\": \"MASKING\",\n      \"execution_type\": \"STANDARD\",\n      \"hyperscale_instance_id\": \"abc\",\n      \"description\": \"Job for app finance\",\n      \"dataset_id\": \"dataset-123\",\n      \"retain_execution_data\": \"NO\",\n      \"max_memory\": 1024,\n      \"min_memory\": 1024,\n      \"feedback_size\": 50000,\n      \"stream_row_limit\": 20000,\n      \"num_input_streams\": 4,\n      \"max_concurrent_source_connections\": 32,\n      \"max_concurrent_target_connections\": 32,\n      \"hyperscale_enabled\": true,\n      \"auto_calculate_unload_split\": true,\n      \"consider_continuous_compliance_warning_event_as\": \"SUCCESS\",\n      \"create_all_indexes_with_nologging\": false,\n      \"disable_parallel_index_creation\": false,\n      \"enable_all_constraints_with_novalidate\": false,\n      \"max_parallel_connections_per_table\": 10,\n      \"max_records_per_split\": 100000000,\n      \"max_split_per_connection\": 4,\n      \"parallelism_degree\": 4,\n      \"source_masking_job_id\": \"masking-job-0\",\n      \"engine_id\": \"string\",\n      \"engine_name\": \"masking-engine-1\",\n      \"engines\": [\n        {\n          \"engine_id\": \"string\",\n          \"engine_name\": \"string\"\n        },\n        {\n          \"engine_id\": \"string\",\n          \"engine_name\": \"string\"\n        }\n      ],\n      \"discovery_policy_id\": \"string\",\n      \"discovery_policy_name\": \"ASDD Standard\",\n      \"environment_name\": \"B2B Staging\",\n      \"application_name\": \"Custom B2B Solution\",\n      \"account_id\": 1234,\n      \"account_name\": \"dsmith\",\n      \"dct_managed\": false,\n      \"fail_immediately\": false,\n      \"batch_update\": true,\n      \"commit_size\": 100,\n      \"num_output_threads_per_stream\": 10,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ],\n      \"job_orchestrator_id\": \"string\",\n      \"job_orchestrator_name\": \"string\",\n      \"reset_profiling_assignments\": true,\n      \"multiple_profiler_check\": true,\n      \"truncate_tables\": false,\n      \"drop_indexes\": false,\n      \"enabled_tasks\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"id\": \"compliance-job-1\",\n      \"name\": \"My favorite ComplianceJob\",\n      \"rule_set_id\": \"uuid\",\n      \"rule_set_name\": \"my rule set\",\n      \"connector_type\": \"MARIADB\",\n      \"is_on_the_fly_masking\": true,\n      \"is_multi_tenant\": false,\n      \"pre_script\": {\n        \"name\": \"pre_script.sql\",\n        \"contents\": \"string\"\n      },\n      \"post_script\": {\n        \"name\": \"pre_script.sql\",\n        \"contents\": \"string\"\n      },\n      \"creation_date\": \"2022-11-30T08:51:34.148000+00:00\",\n      \"last_completed_execution_date\": \"2022-11-30T09:51:34.148000+00:00\",\n      \"hyperscale_state\": \"NOT_AVAILABLE\",\n      \"last_execution_status\": \"RUNNING\",\n      \"last_execution_id\": \"00e38996-7da2-4827-8f3e-0503234de537\",\n      \"last_execution_start_time\": \"2022-11-30T09:51:34.148000+00:00\",\n      \"last_execution_run_time\": 31000,\n      \"on_the_fly_source_connector_id\": \"string\",\n      \"on_the_fly_source_connector_name\": \"string\",\n      \"on_the_fly_source_connector_type\": \"string\",\n      \"type\": \"MASKING\",\n      \"execution_type\": \"STANDARD\",\n      \"hyperscale_instance_id\": \"abc\",\n      \"description\": \"Job for app finance\",\n      \"dataset_id\": \"dataset-123\",\n      \"retain_execution_data\": \"ON_ERROR\",\n      \"max_memory\": 1024,\n      \"min_memory\": 1024,\n      \"feedback_size\": 50000,\n      \"stream_row_limit\": 20000,\n      \"num_input_streams\": 4,\n      \"max_concurrent_source_connections\": 32,\n      \"max_concurrent_target_connections\": 32,\n      \"hyperscale_enabled\": true,\n      \"auto_calculate_unload_split\": true,\n      \"consider_continuous_compliance_warning_event_as\": \"SUCCESS\",\n      \"create_all_indexes_with_nologging\": false,\n      \"disable_parallel_index_creation\": false,\n      \"enable_all_constraints_with_novalidate\": false,\n      \"max_parallel_connections_per_table\": 10,\n      \"max_records_per_split\": 100000000,\n      \"max_split_per_connection\": 4,\n      \"parallelism_degree\": 4,\n      \"source_masking_job_id\": \"masking-job-0\",\n      \"engine_id\": \"string\",\n      \"engine_name\": \"masking-engine-1\",\n      \"engines\": [\n        {\n          \"engine_id\": \"string\",\n          \"engine_name\": \"string\"\n        },\n        {\n          \"engine_id\": \"string\",\n          \"engine_name\": \"string\"\n        }\n      ],\n      \"discovery_policy_id\": \"string\",\n      \"discovery_policy_name\": \"ASDD Standard\",\n      \"environment_name\": \"B2B Staging\",\n      \"application_name\": \"Custom B2B Solution\",\n      \"account_id\": 1234,\n      \"account_name\": \"dsmith\",\n      \"dct_managed\": false,\n      \"fail_immediately\": false,\n      \"batch_update\": true,\n      \"commit_size\": 100,\n      \"num_output_threads_per_stream\": 10,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ],\n      \"job_orchestrator_id\": \"string\",\n      \"job_orchestrator_name\": \"string\",\n      \"reset_profiling_assignments\": true,\n      \"multiple_profiler_check\": true,\n      \"truncate_tables\": false,\n      \"drop_indexes\": false,\n      \"enabled_tasks\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 8357\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5e6f2dea-c891-47d8-adfa-4fbb74881613",
+          "name": "Get tags for a compliance job collection.",
+          "request": {
+            "name": "Get tags for a compliance job collection.",
+            "description": {},
+            "url": {
+              "path": [
+                "compliance-job-collections",
+                ":complianceJobCollectionId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "complianceJobCollectionId",
+                  "description": "(Required) The ID of the compliance job collection."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "afaf5556-5962-436e-9162-8de98e49e21a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-job-collections",
+                    ":complianceJobCollectionId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "complianceJobCollectionId",
+                      "description": "(Required) The ID of the compliance job collection."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "27dcf4d7-73d4-467b-b8e6-dd788fa7cb1a",
+          "name": "Create tags for a compliance job collection.",
+          "request": {
+            "name": "Create tags for a compliance job collection.",
+            "description": {},
+            "url": {
+              "path": [
+                "compliance-job-collections",
+                ":complianceJobCollectionId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "complianceJobCollectionId",
+                  "description": "(Required) The ID of the compliance job collection."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b4dcaf9a-725d-4cff-b3d8-0c3ba00f8547",
+              "name": "Compliance job collection tags created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-job-collections",
+                    ":complianceJobCollectionId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "complianceJobCollectionId",
+                      "description": "(Required) The ID of the compliance job collection."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8e913057-40ac-4868-90cb-27ec53615023",
+          "name": "Delete tags for a compliance job collection.",
+          "request": {
+            "name": "Delete tags for a compliance job collection.",
+            "description": {},
+            "url": {
+              "path": [
+                "compliance-job-collections",
+                ":complianceJobCollectionId",
+                "tags",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "complianceJobCollectionId",
+                  "description": "(Required) The ID of the compliance job collection."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key\": \"<string>\",\n  \"value\": \"<string>\",\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "eb9956b4-d91a-4dd7-a090-92e8eef04eb3",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-job-collections",
+                    ":complianceJobCollectionId",
+                    "tags",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "complianceJobCollectionId",
+                      "description": "(Required) The ID of the compliance job collection."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/dct/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "508d9925-2e8f-4a60-8263-bb86cd4fcf8a",
+    "name": "Delphix DCT Algorithms ComplianceJobCollections API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Delphix DCT API\n\nContact Support:\n Name: Delphix Support\n Email: support@delphix.com",
+      "type": "text/plain"
+    }
+  }
+}

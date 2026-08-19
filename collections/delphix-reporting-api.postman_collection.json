@@ -1,0 +1,2246 @@
+{
+  "item": [
+    {
+      "id": "f77cb470-5e83-4095-9fd3-546e5841b842",
+      "name": "Reporting",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9eefc4de-34b9-4841-83b1-aee428ca8508",
+          "name": "Get the masking execution metrics report.",
+          "request": {
+            "name": "Get the masking execution metrics report.",
+            "description": {},
+            "url": {
+              "path": [
+                "reporting",
+                "masking-execution-metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10000",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 10000."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "04298bc6-5558-43c9-a574-d6223b33bf0b",
+              "name": "Returns a list of Masking execution metrics.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "masking-execution-metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"masking-job-1\",\n      \"masking_job_name\": \"My favorite MaskingJob\",\n      \"masking_job_type\": \"STANDARD\",\n      \"connector_type\": \"MARIADB\",\n      \"dct_managed\": false,\n      \"ruleset_name\": \"my-ruleset\",\n      \"rows_masked\": 1000,\n      \"rows_total\": 5000,\n      \"bytes_masked\": 500,\n      \"bytes_total\": 5000000,\n      \"duration\": 5000000,\n      \"tables_files_count\": 5000000,\n      \"masked_tables_files_count\": 5000000,\n      \"columns_fields_count\": 5000000,\n      \"masked_columns_fields_count\": 5000000\n    },\n    {\n      \"id\": \"masking-job-1\",\n      \"masking_job_name\": \"My favorite MaskingJob\",\n      \"masking_job_type\": \"STANDARD\",\n      \"connector_type\": \"MARIADB\",\n      \"dct_managed\": false,\n      \"ruleset_name\": \"my-ruleset\",\n      \"rows_masked\": 1000,\n      \"rows_total\": 5000,\n      \"bytes_masked\": 500,\n      \"bytes_total\": 5000000,\n      \"duration\": 5000000,\n      \"tables_files_count\": 5000000,\n      \"masked_tables_files_count\": 5000000,\n      \"columns_fields_count\": 5000000,\n      \"masked_columns_fields_count\": 5000000\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 8041\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "68085f18-d887-4cd4-bff5-b490c1428ded",
+          "name": "Search the Masking execution metrics report.",
+          "request": {
+            "name": "Search the Masking execution metrics report.",
+            "description": {},
+            "url": {
+              "path": [
+                "reporting",
+                "masking-execution-metrics",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10000",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 10000."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "23ea9dc9-16c0-4c23-b42d-2a5447991971",
+              "name": "Search Masking execution metrics.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "masking-execution-metrics",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"masking-job-1\",\n      \"masking_job_name\": \"My favorite MaskingJob\",\n      \"masking_job_type\": \"STANDARD\",\n      \"connector_type\": \"MARIADB\",\n      \"dct_managed\": false,\n      \"ruleset_name\": \"my-ruleset\",\n      \"rows_masked\": 1000,\n      \"rows_total\": 5000,\n      \"bytes_masked\": 500,\n      \"bytes_total\": 5000000,\n      \"duration\": 5000000,\n      \"tables_files_count\": 5000000,\n      \"masked_tables_files_count\": 5000000,\n      \"columns_fields_count\": 5000000,\n      \"masked_columns_fields_count\": 5000000\n    },\n    {\n      \"id\": \"masking-job-1\",\n      \"masking_job_name\": \"My favorite MaskingJob\",\n      \"masking_job_type\": \"STANDARD\",\n      \"connector_type\": \"MARIADB\",\n      \"dct_managed\": false,\n      \"ruleset_name\": \"my-ruleset\",\n      \"rows_masked\": 1000,\n      \"rows_total\": 5000,\n      \"bytes_masked\": 500,\n      \"bytes_total\": 5000000,\n      \"duration\": 5000000,\n      \"tables_files_count\": 5000000,\n      \"masked_tables_files_count\": 5000000,\n      \"columns_fields_count\": 5000000,\n      \"masked_columns_fields_count\": 5000000\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 8041\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c4a1e50c-994c-4c6c-b4b7-20a3f38e9633",
+          "name": "Generate a PDF report for given execution.",
+          "request": {
+            "name": "Generate a PDF report for given execution.",
+            "description": {},
+            "url": {
+              "path": [
+                "reporting",
+                ":executionId",
+                "generate-pdf-report"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "executionId",
+                  "description": "(Required) The ID of the Execution."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cd3d61c3-2644-4863-9c9a-f1b2c9c9725e",
+              "name": "PDF Report generation initiated for execution.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    ":executionId",
+                    "generate-pdf-report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "executionId",
+                      "description": "(Required) The ID of the Execution."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"stri\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 9,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2005-03-02T08:36:01.091Z\",\n        \"end_time\": \"2014-12-11T19:38:18.072Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 24,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"COMPLETED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1961-12-16T06:42:41.917Z\",\n        \"end_time\": \"2014-03-19T21:06:45.846Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 16,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1998-09-06T00:52:42.724Z\",\n        \"end_time\": \"1994-10-17T08:23:14.700Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 72,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"PENDING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1965-01-30T03:51:39.067Z\",\n        \"end_time\": \"2005-07-03T13:59:28.972Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 86,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "692fee53-6452-41db-bd1a-e67b4ea8b9f7",
+          "name": "Download PDF report for given execution.",
+          "request": {
+            "name": "Download PDF report for given execution.",
+            "description": {},
+            "url": {
+              "path": [
+                "reporting",
+                ":executionId",
+                "download-pdf-report"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "executionId",
+                  "description": "(Required) The ID of the Execution."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/pdf"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "851b5a88-b617-41fd-9fa3-df163166fade",
+              "name": "PDF file successfully returned",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    ":executionId",
+                    "download-pdf-report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "executionId",
+                      "description": "(Required) The ID of the Execution."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/pdf"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/pdf"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2b033609-d9e3-4f16-b7dd-521cc4f7577b",
+          "name": "Get the masking engine global object state report.",
+          "request": {
+            "name": "Get the masking engine global object state report.",
+            "description": {},
+            "url": {
+              "path": [
+                "reporting",
+                "engine-global-object-state-report"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10000",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 10000."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "63ec76bc-73e6-4839-b275-c36186b56edd",
+              "name": "Returns a list of GlobalObjectState data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "engine-global-object-state-report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "engine_id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"engine_id\": \"4ed2357d-f1a7-410c-b951-90f0edc1a0f6\",\n      \"engine_name\": \"My favorite engine\",\n      \"jobs_count\": 10,\n      \"connectors_count\": 25,\n      \"rulesets_count\": 25,\n      \"global_object_revision_hash\": \"dfb515e3d9727eebf499cb252b417efc926bad0b\"\n    },\n    {\n      \"engine_id\": \"4ed2357d-f1a7-410c-b951-90f0edc1a0f6\",\n      \"engine_name\": \"My favorite engine\",\n      \"jobs_count\": 10,\n      \"connectors_count\": 25,\n      \"rulesets_count\": 25,\n      \"global_object_revision_hash\": \"dfb515e3d9727eebf499cb252b417efc926bad0b\"\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 6627\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "395f9f3e-6d3e-415e-b18b-bd7891102f81",
+          "name": "Search the masking engine global object state report.",
+          "request": {
+            "name": "Search the masking engine global object state report.",
+            "description": {},
+            "url": {
+              "path": [
+                "reporting",
+                "engine-global-object-state-report",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10000",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 10000."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "80f9a8f0-94fb-45bd-b8ea-3e4a087fcf5d",
+              "name": "Returns a list of searched GlobalObjectState data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "engine-global-object-state-report",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "engine_id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"engine_id\": \"4ed2357d-f1a7-410c-b951-90f0edc1a0f6\",\n      \"engine_name\": \"My favorite engine\",\n      \"jobs_count\": 10,\n      \"connectors_count\": 25,\n      \"rulesets_count\": 25,\n      \"global_object_revision_hash\": \"dfb515e3d9727eebf499cb252b417efc926bad0b\"\n    },\n    {\n      \"engine_id\": \"4ed2357d-f1a7-410c-b951-90f0edc1a0f6\",\n      \"engine_name\": \"My favorite engine\",\n      \"jobs_count\": 10,\n      \"connectors_count\": 25,\n      \"rulesets_count\": 25,\n      \"global_object_revision_hash\": \"dfb515e3d9727eebf499cb252b417efc926bad0b\"\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 7366\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eed313a7-3690-49a8-be54-cfde403f01d3",
+          "name": "Get the masking data risk report.",
+          "request": {
+            "name": "Get the masking data risk report.",
+            "description": {},
+            "url": {
+              "path": [
+                "reporting",
+                "data-risk-report"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10000",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 10000."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ac64b1b3-becb-47a2-886f-39a976fa484d",
+              "name": "Returns a list of DataRisk data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "data-risk-report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "engine_id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"connector_id\": \"1-DATABASE-15\",\n      \"engine_connector_id\": 4255,\n      \"connector_name\": \"Dev Database\",\n      \"connector_type\": \"DATABASE\",\n      \"last_profiled_date\": \"2022-11-30T08:51:34.148000+00:00\",\n      \"last_masked_date\": \"2022-11-30T08:51:34.148000+00:00\",\n      \"dct_managed\": false,\n      \"engine_id\": \"4ed2357d-f1a7-410c-b951-90f0edc1a0f6\",\n      \"engine_name\": \"Development Engine\",\n      \"is_profiled\": true,\n      \"is_sensitive_data\": true,\n      \"is_masked\": false,\n      \"is_at_risk\": true,\n      \"data_elements_total\": 1000,\n      \"data_elements_not_sensitive\": 400,\n      \"data_elements_sensitive_masked\": 500,\n      \"data_elements_sensitive_unmasked\": 100,\n      \"records_total\": 10000,\n      \"records_not_sensitive\": 4000,\n      \"records_sensitive_masked\": 5000,\n      \"records_sensitive_unmasked\": 1000,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    },\n    {\n      \"connector_id\": \"1-DATABASE-15\",\n      \"engine_connector_id\": 7755,\n      \"connector_name\": \"Dev Database\",\n      \"connector_type\": \"DATABASE\",\n      \"last_profiled_date\": \"2022-11-30T08:51:34.148000+00:00\",\n      \"last_masked_date\": \"2022-11-30T08:51:34.148000+00:00\",\n      \"dct_managed\": false,\n      \"engine_id\": \"4ed2357d-f1a7-410c-b951-90f0edc1a0f6\",\n      \"engine_name\": \"Development Engine\",\n      \"is_profiled\": true,\n      \"is_sensitive_data\": true,\n      \"is_masked\": false,\n      \"is_at_risk\": true,\n      \"data_elements_total\": 1000,\n      \"data_elements_not_sensitive\": 400,\n      \"data_elements_sensitive_masked\": 500,\n      \"data_elements_sensitive_unmasked\": 100,\n      \"records_total\": 10000,\n      \"records_not_sensitive\": 4000,\n      \"records_sensitive_masked\": 5000,\n      \"records_sensitive_unmasked\": 1000,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 7946\n  },\n  \"totals\": {\n    \"connector_total\": 10,\n    \"profiled_connector_count\": 8,\n    \"sensitive_connector_count\": 5,\n    \"masked_connector_count\": 3,\n    \"at_risk_connector_count\": 2,\n    \"data_elements_total\": 1000,\n    \"data_elements_not_sensitive\": 400,\n    \"data_elements_sensitive_masked\": 500,\n    \"data_elements_sensitive_unmasked\": 100,\n    \"records_total\": 10000,\n    \"records_not_sensitive\": 4000,\n    \"records_sensitive_masked\": 5000,\n    \"records_sensitive_unmasked\": 1000,\n    \"records_coverage_missing_reason\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "991da53e-f5c7-4122-8435-96d61e5a5821",
+          "name": "Search the masking data risk report.",
+          "request": {
+            "name": "Search the masking data risk report.",
+            "description": {},
+            "url": {
+              "path": [
+                "reporting",
+                "data-risk-report",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10000",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 10000."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7954f4bb-92c4-4b58-8f4b-9e0a07899771",
+              "name": "Returns a list of searched DataRisk data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "data-risk-report",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "engine_id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"connector_id\": \"1-DATABASE-15\",\n      \"engine_connector_id\": 3603,\n      \"connector_name\": \"Dev Database\",\n      \"connector_type\": \"DATABASE\",\n      \"last_profiled_date\": \"2022-11-30T08:51:34.148000+00:00\",\n      \"last_masked_date\": \"2022-11-30T08:51:34.148000+00:00\",\n      \"dct_managed\": false,\n      \"engine_id\": \"4ed2357d-f1a7-410c-b951-90f0edc1a0f6\",\n      \"engine_name\": \"Development Engine\",\n      \"is_profiled\": true,\n      \"is_sensitive_data\": true,\n      \"is_masked\": false,\n      \"is_at_risk\": true,\n      \"data_elements_total\": 1000,\n      \"data_elements_not_sensitive\": 400,\n      \"data_elements_sensitive_masked\": 500,\n      \"data_elements_sensitive_unmasked\": 100,\n      \"records_total\": 10000,\n      \"records_not_sensitive\": 4000,\n      \"records_sensitive_masked\": 5000,\n      \"records_sensitive_unmasked\": 1000,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    },\n    {\n      \"connector_id\": \"1-DATABASE-15\",\n      \"engine_connector_id\": 5802,\n      \"connector_name\": \"Dev Database\",\n      \"connector_type\": \"DATABASE\",\n      \"last_profiled_date\": \"2022-11-30T08:51:34.148000+00:00\",\n      \"last_masked_date\": \"2022-11-30T08:51:34.148000+00:00\",\n      \"dct_managed\": false,\n      \"engine_id\": \"4ed2357d-f1a7-410c-b951-90f0edc1a0f6\",\n      \"engine_name\": \"Development Engine\",\n      \"is_profiled\": true,\n      \"is_sensitive_data\": true,\n      \"is_masked\": false,\n      \"is_at_risk\": true,\n      \"data_elements_total\": 1000,\n      \"data_elements_not_sensitive\": 400,\n      \"data_elements_sensitive_masked\": 500,\n      \"data_elements_sensitive_unmasked\": 100,\n      \"records_total\": 10000,\n      \"records_not_sensitive\": 4000,\n      \"records_sensitive_masked\": 5000,\n      \"records_sensitive_unmasked\": 1000,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 8570\n  },\n  \"totals\": {\n    \"connector_total\": 10,\n    \"profiled_connector_count\": 8,\n    \"sensitive_connector_count\": 5,\n    \"masked_connector_count\": 3,\n    \"at_risk_connector_count\": 2,\n    \"data_elements_total\": 1000,\n    \"data_elements_not_sensitive\": 400,\n    \"data_elements_sensitive_masked\": 500,\n    \"data_elements_sensitive_unmasked\": 100,\n    \"records_total\": 10000,\n    \"records_not_sensitive\": 4000,\n    \"records_sensitive_masked\": 5000,\n    \"records_sensitive_unmasked\": 1000,\n    \"records_coverage_missing_reason\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "57f804c7-304f-48d1-b11b-dc6b8af15b0f",
+          "name": "Search the saving storage summary report for virtualization engines.",
+          "request": {
+            "name": "Search the saving storage summary report for virtualization engines.",
+            "description": {},
+            "url": {
+              "path": [
+                "reporting",
+                "storage-savings-report",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10000",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 10000."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0afcf90d-6ad0-4829-9106-ed9f8dce23c7",
+              "name": "Returns a list of saving storage summary data of virtualization engines.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "storage-savings-report",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "dependant_vdbs"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"dsource_id\": \"string\",\n      \"dependant_vdbs\": 200,\n      \"engine_name\": \"My Favorite Engine\",\n      \"unvirtualized_space\": 109242677,\n      \"current_timeflows_unvirtualized_space\": 109242677,\n      \"virtualized_space\": 12345678,\n      \"name\": \"my-test-database\",\n      \"estimated_savings\": 109242677,\n      \"estimated_savings_perc\": 5739.737429994426,\n      \"estimated_current_timeflows_savings\": 109242677,\n      \"estimated_current_timeflows_savings_perc\": 1123.8481749138384,\n      \"is_replica\": true\n    },\n    {\n      \"dsource_id\": \"string\",\n      \"dependant_vdbs\": 200,\n      \"engine_name\": \"My Favorite Engine\",\n      \"unvirtualized_space\": 109242677,\n      \"current_timeflows_unvirtualized_space\": 109242677,\n      \"virtualized_space\": 12345678,\n      \"name\": \"my-test-database\",\n      \"estimated_savings\": 109242677,\n      \"estimated_savings_perc\": 366.68841912328776,\n      \"estimated_current_timeflows_savings\": 109242677,\n      \"estimated_current_timeflows_savings_perc\": 2723.468908509975,\n      \"is_replica\": true\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 708\n  },\n  \"totals\": {\n    \"vdb_count\": 8067,\n    \"dsource_count\": 9316,\n    \"virtualized_space\": 3191,\n    \"unvirtualized_space\": 4643,\n    \"current_timeflows_unvirtualized_space\": 7524,\n    \"estimated_savings\": 109242677,\n    \"estimated_savings_perc\": 4010.107385076115,\n    \"estimated_current_timeflows_savings\": 187,\n    \"estimated_current_timeflows_savings_perc\": 7028.469601066734\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3f7269d9-ec07-41f8-a01f-e3a3580b2534",
+          "name": "Gets the inventory report for virtualization engine VDBs.",
+          "request": {
+            "name": "Gets the inventory report for virtualization engine VDBs.",
+            "description": {},
+            "url": {
+              "path": [
+                "reporting",
+                "vdb-inventory-report"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10000",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 10000."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "31c7143e-0333-40f4-85b3-e141293e9473",
+              "name": "Returns a list of inventory data of VDBs.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "vdb-inventory-report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "name"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"vdb_id\": \"vdb-id-1\",\n      \"engine_name\": \"My favorite engine\",\n      \"name\": \"prod01-copy01\",\n      \"type\": \"Oracle\",\n      \"version\": \"10.2.0.5.0\",\n      \"parent_name\": \"prod01-main\",\n      \"parent_id\": \"1-DB_CONTAINER-1\",\n      \"creation_date\": \"2023-04-15T08:51:34.148000+00:00\",\n      \"last_refreshed_date\": \"2023-04-15T10:49:34.148000+00:00\",\n      \"parent_timeflow_location\": \"1178883\",\n      \"parent_timeflow_timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"parent_timeflow_timezone\": \"America/Los_Angeles\",\n      \"enabled\": true,\n      \"status\": \"RUNNING\",\n      \"storage_size\": 12345678\n    },\n    {\n      \"vdb_id\": \"vdb-id-1\",\n      \"engine_name\": \"My favorite engine\",\n      \"name\": \"prod01-copy01\",\n      \"type\": \"Oracle\",\n      \"version\": \"10.2.0.5.0\",\n      \"parent_name\": \"prod01-main\",\n      \"parent_id\": \"1-DB_CONTAINER-1\",\n      \"creation_date\": \"2023-04-15T08:51:34.148000+00:00\",\n      \"last_refreshed_date\": \"2023-04-15T10:49:34.148000+00:00\",\n      \"parent_timeflow_location\": \"1178883\",\n      \"parent_timeflow_timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"parent_timeflow_timezone\": \"America/Los_Angeles\",\n      \"enabled\": true,\n      \"status\": \"RUNNING\",\n      \"storage_size\": 12345678\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 1680\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "38a310ef-4b7f-4642-9c92-2c27216e8910",
+          "name": "Search the inventory report for virtualization engine VDBs.",
+          "request": {
+            "name": "Search the inventory report for virtualization engine VDBs.",
+            "description": {},
+            "url": {
+              "path": [
+                "reporting",
+                "vdb-inventory-report",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10000",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 10000."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9c94f7cd-ed2c-4590-b214-a2cacd35a145",
+              "name": "Returns a list of inventory data of VDBs.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "vdb-inventory-report",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "name"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"vdb_id\": \"vdb-id-1\",\n      \"engine_name\": \"My favorite engine\",\n      \"name\": \"prod01-copy01\",\n      \"type\": \"Oracle\",\n      \"version\": \"10.2.0.5.0\",\n      \"parent_name\": \"prod01-main\",\n      \"parent_id\": \"1-DB_CONTAINER-1\",\n      \"creation_date\": \"2023-04-15T08:51:34.148000+00:00\",\n      \"last_refreshed_date\": \"2023-04-15T10:49:34.148000+00:00\",\n      \"parent_timeflow_location\": \"1178883\",\n      \"parent_timeflow_timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"parent_timeflow_timezone\": \"America/Los_Angeles\",\n      \"enabled\": true,\n      \"status\": \"RUNNING\",\n      \"storage_size\": 12345678\n    },\n    {\n      \"vdb_id\": \"vdb-id-1\",\n      \"engine_name\": \"My favorite engine\",\n      \"name\": \"prod01-copy01\",\n      \"type\": \"Oracle\",\n      \"version\": \"10.2.0.5.0\",\n      \"parent_name\": \"prod01-main\",\n      \"parent_id\": \"1-DB_CONTAINER-1\",\n      \"creation_date\": \"2023-04-15T08:51:34.148000+00:00\",\n      \"last_refreshed_date\": \"2023-04-15T10:49:34.148000+00:00\",\n      \"parent_timeflow_location\": \"1178883\",\n      \"parent_timeflow_timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"parent_timeflow_timezone\": \"America/Los_Angeles\",\n      \"enabled\": true,\n      \"status\": \"RUNNING\",\n      \"storage_size\": 12345678\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 1680\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e6e6eb81-abd6-44bd-b381-67b3794fc862",
+          "name": "Gets the usage report for virtualization engine dSources.",
+          "request": {
+            "name": "Gets the usage report for virtualization engine dSources.",
+            "description": {},
+            "url": {
+              "path": [
+                "reporting",
+                "dsource-usage-report"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10000",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 10000."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4706093c-3993-42ee-b4ae-fbd086da3714",
+              "name": "Returns a list of dSource usage data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "dsource-usage-report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "name"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"dsource_id\": \"dsource-id-1\",\n      \"engine_name\": \"My favorite engine\",\n      \"name\": \"prod01-main\",\n      \"unvirtualized_space\": 109242677,\n      \"actual_space\": 339292672,\n      \"dependant_vdbs\": 25\n    },\n    {\n      \"dsource_id\": \"dsource-id-1\",\n      \"engine_name\": \"My favorite engine\",\n      \"name\": \"prod01-main\",\n      \"unvirtualized_space\": 109242677,\n      \"actual_space\": 339292672,\n      \"dependant_vdbs\": 25\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 5477\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "79974717-113f-417a-b98a-46f895d2d4ed",
+          "name": "Search the usage report for virtualization engine dSources.",
+          "request": {
+            "name": "Search the usage report for virtualization engine dSources.",
+            "description": {},
+            "url": {
+              "path": [
+                "reporting",
+                "dsource-usage-report",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10000",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 10000."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ceb85922-80b5-42bf-9be5-b9b1b7568d6e",
+              "name": "Returns a list of dSource usage data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "dsource-usage-report",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "name"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"dsource_id\": \"dsource-id-1\",\n      \"engine_name\": \"My favorite engine\",\n      \"name\": \"prod01-main\",\n      \"unvirtualized_space\": 109242677,\n      \"actual_space\": 339292672,\n      \"dependant_vdbs\": 25\n    },\n    {\n      \"dsource_id\": \"dsource-id-1\",\n      \"engine_name\": \"My favorite engine\",\n      \"name\": \"prod01-main\",\n      \"unvirtualized_space\": 109242677,\n      \"actual_space\": 339292672,\n      \"dependant_vdbs\": 25\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 5477\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "04b08b52-65a3-483f-8a03-69dff7a67938",
+          "name": "Gets the consumption report for virtualization engine dSources.",
+          "request": {
+            "name": "Gets the consumption report for virtualization engine dSources.",
+            "description": {},
+            "url": {
+              "path": [
+                "reporting",
+                "dsource-consumption-report"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10000",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 10000."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f08e4bdf-9fa2-452b-9e08-62a7f1e562cb",
+              "name": "Returns a list of dSource consumption data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "dsource-consumption-report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "name"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"dsource_id\": \"dsource-id-1\",\n      \"name\": \"prod01-main\",\n      \"status\": \"Running\",\n      \"database_type\": \"Oracle\",\n      \"engine_id\": \"1\",\n      \"engine_name\": \"My favorite engine\",\n      \"last_consumption_date\": \"1978-12-27T20:42:19.502Z\",\n      \"ingested_size\": 12345\n    },\n    {\n      \"dsource_id\": \"dsource-id-1\",\n      \"name\": \"prod01-main\",\n      \"status\": \"Running\",\n      \"database_type\": \"Oracle\",\n      \"engine_id\": \"1\",\n      \"engine_name\": \"My favorite engine\",\n      \"last_consumption_date\": \"1976-08-27T13:19:21.312Z\",\n      \"ingested_size\": 12345\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 3724\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3b57b281-f8da-47f5-b1f7-af30ef2c4852",
+          "name": "Search the consumption report for virtualization engine DSources.",
+          "request": {
+            "name": "Search the consumption report for virtualization engine DSources.",
+            "description": {},
+            "url": {
+              "path": [
+                "reporting",
+                "dsource-consumption-report",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10000",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 10000."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "40bcbb17-2318-4c74-bab2-93f9ee3aee6a",
+              "name": "Returns a list of dSource consumption data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "dsource-consumption-report",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "name"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"dsource_id\": \"dsource-id-1\",\n      \"name\": \"prod01-main\",\n      \"status\": \"Running\",\n      \"database_type\": \"Oracle\",\n      \"engine_id\": \"1\",\n      \"engine_name\": \"My favorite engine\",\n      \"last_consumption_date\": \"1978-12-27T20:42:19.502Z\",\n      \"ingested_size\": 12345\n    },\n    {\n      \"dsource_id\": \"dsource-id-1\",\n      \"name\": \"prod01-main\",\n      \"status\": \"Running\",\n      \"database_type\": \"Oracle\",\n      \"engine_id\": \"1\",\n      \"engine_name\": \"My favorite engine\",\n      \"last_consumption_date\": \"1976-08-27T13:19:21.312Z\",\n      \"ingested_size\": 12345\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 3724\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "82fddd86-076a-49e2-894c-443f32c0c3da",
+          "name": "Get engine storage capacity data.",
+          "request": {
+            "name": "Get engine storage capacity data.",
+            "description": {},
+            "url": {
+              "path": [
+                "reporting",
+                "storage-capacity-data-report"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "engine_id",
+                  "value": "<string>",
+                  "description": "ID of a registered engine."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e8a3e704-d586-4174-9c3b-b0bad3ac0360",
+              "name": "Returns the engine storage capacity data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "storage-capacity-data-report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "engine_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"engine_id\": \"string\",\n      \"dataset_id\": \"string\",\n      \"captured_timestamp\": \"2025-03-02T20:36:42.720Z\",\n      \"dataset_type\": \"CDB\",\n      \"dataset_name\": \"string\",\n      \"is_replica\": true,\n      \"total_size\": 5735,\n      \"base_size\": 8040,\n      \"snapshot_size\": 3319,\n      \"logs_size\": 7017,\n      \"unvirtualized_size\": 111,\n      \"current_timeflow_unvirtualized_size\": 2419,\n      \"timeflow_unvirtualized_size\": 7155,\n      \"descendant_size\": 9139,\n      \"policy_size\": 5366,\n      \"manual_size\": 7767,\n      \"unowned_snapshot_size\": 7675,\n      \"ingested_size\": 1743,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    },\n    {\n      \"engine_id\": \"string\",\n      \"dataset_id\": \"string\",\n      \"captured_timestamp\": \"1989-11-04T16:14:07.471Z\",\n      \"dataset_type\": \"CDB\",\n      \"dataset_name\": \"string\",\n      \"is_replica\": true,\n      \"total_size\": 5222,\n      \"base_size\": 4682,\n      \"snapshot_size\": 5913,\n      \"logs_size\": 9076,\n      \"unvirtualized_size\": 7783,\n      \"current_timeflow_unvirtualized_size\": 2938,\n      \"timeflow_unvirtualized_size\": 6742,\n      \"descendant_size\": 9448,\n      \"policy_size\": 2537,\n      \"manual_size\": 3778,\n      \"unowned_snapshot_size\": 5746,\n      \"ingested_size\": 6311,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 9595\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cd406683-8280-49db-a943-ccfc392390cf",
+          "name": "Search engine storage capacity data.",
+          "request": {
+            "name": "Search engine storage capacity data.",
+            "description": {},
+            "url": {
+              "path": [
+                "reporting",
+                "storage-capacity-data-report",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "engine_id",
+                  "value": "<string>",
+                  "description": "ID of a registered engine."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "69d9aea0-cff2-4bec-979c-6132388b48ff",
+              "name": "Returns the engine storage capacity data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "storage-capacity-data-report",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "engine_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"engine_id\": \"string\",\n      \"dataset_id\": \"string\",\n      \"captured_timestamp\": \"1971-12-11T23:17:11.568Z\",\n      \"dataset_type\": \"VCDB\",\n      \"dataset_name\": \"string\",\n      \"is_replica\": true,\n      \"total_size\": 9118,\n      \"base_size\": 9631,\n      \"snapshot_size\": 6565,\n      \"logs_size\": 1174,\n      \"unvirtualized_size\": 6268,\n      \"current_timeflow_unvirtualized_size\": 5709,\n      \"timeflow_unvirtualized_size\": 24,\n      \"descendant_size\": 1059,\n      \"policy_size\": 3228,\n      \"manual_size\": 9271,\n      \"unowned_snapshot_size\": 3362,\n      \"ingested_size\": 3079,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    },\n    {\n      \"engine_id\": \"string\",\n      \"dataset_id\": \"string\",\n      \"captured_timestamp\": \"1976-02-25T16:03:05.659Z\",\n      \"dataset_type\": \"VDB\",\n      \"dataset_name\": \"string\",\n      \"is_replica\": true,\n      \"total_size\": 9691,\n      \"base_size\": 869,\n      \"snapshot_size\": 5725,\n      \"logs_size\": 8187,\n      \"unvirtualized_size\": 8481,\n      \"current_timeflow_unvirtualized_size\": 3667,\n      \"timeflow_unvirtualized_size\": 2155,\n      \"descendant_size\": 5356,\n      \"policy_size\": 6212,\n      \"manual_size\": 132,\n      \"unowned_snapshot_size\": 2518,\n      \"ingested_size\": 7587,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 6452\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5234a8fb-e36c-48e0-b5ac-ac26c0ec2b11",
+          "name": "Search Dataset Performance analytics summary",
+          "request": {
+            "name": "Search Dataset Performance analytics summary",
+            "description": {},
+            "url": {
+              "path": [
+                "reporting",
+                "dataset-performance-analytics-summary",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "engine_id",
+                  "value": "<string>",
+                  "description": "(Required) ID of a registered engine."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5ea73c25-9852-4d3b-bd4d-5b206e25df3c",
+              "name": "Returns the dataset performance analytics data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "dataset-performance-analytics-summary",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "engine_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"dataset_id\": \"string\",\n      \"dataset_name\": \"string\",\n      \"dataset_type\": \"VDB\",\n      \"is_replica\": false,\n      \"environment_id\": \"string\",\n      \"environment_name\": \"string\",\n      \"average_throughput_of_1_h\": 4323.626507684957,\n      \"average_throughput_of_6_h\": 7302.090316652555,\n      \"average_throughput_of_24_h\": 6669.658243312093,\n      \"current_throughput_of_1_h\": 1821.8021517512007,\n      \"current_throughput_of_6_h\": 8099.79462573427,\n      \"current_throughput_of_24_h\": 7147.986641097119,\n      \"percentile\": 7728.5086131576145,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    },\n    {\n      \"dataset_id\": \"string\",\n      \"dataset_name\": \"string\",\n      \"dataset_type\": \"DSOURCE\",\n      \"is_replica\": false,\n      \"environment_id\": \"string\",\n      \"environment_name\": \"string\",\n      \"average_throughput_of_1_h\": 2033.7172269154935,\n      \"average_throughput_of_6_h\": 1691.9406334060516,\n      \"average_throughput_of_24_h\": 6332.06335637309,\n      \"current_throughput_of_1_h\": 8382.161397593749,\n      \"current_throughput_of_6_h\": 4920.852015543535,\n      \"current_throughput_of_24_h\": 5778.584361227721,\n      \"percentile\": 4278.487753425945,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 3018\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7b377e17-2cd6-4537-ae0e-9ee49a9c739f",
+          "name": "Get Dataset Performance analytics",
+          "request": {
+            "name": "Get Dataset Performance analytics",
+            "description": {},
+            "url": {
+              "path": [
+                "reporting",
+                "dataset-performance-analytics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dataset_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"interval\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "20db16d0-5d47-4559-9fb3-726903c66579",
+              "name": "Returns the Dataset Performance Analytics",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "dataset-performance-analytics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dataset_ids\": [\n    \"2-ORACLE_DB_CONTAINER-3\",\n    \"1-ORACLE_SINGLE_CONFIG-2\"\n  ],\n  \"start\": \"2021-07-04 08:51:34.148\",\n  \"end\": \"2021-07-04 08:51:34.148\",\n  \"interval\": 10\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"dataset_id\": \"string\",\n      \"dataset_name\": \"string\",\n      \"performance_analytics\": [\n        {\n          \"timestamp\": \"1980-08-08T17:57:08.669Z\",\n          \"average_throughput\": 5183.222200928729\n        },\n        {\n          \"timestamp\": \"2010-04-08T00:10:23.413Z\",\n          \"average_throughput\": 2719.0680918151143\n        }\n      ]\n    },\n    {\n      \"dataset_id\": \"string\",\n      \"dataset_name\": \"string\",\n      \"performance_analytics\": [\n        {\n          \"timestamp\": \"1950-05-30T21:15:57.460Z\",\n          \"average_throughput\": 3662.981287415171\n        },\n        {\n          \"timestamp\": \"1962-02-22T17:15:12.771Z\",\n          \"average_throughput\": 6975.679619930305\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/dct/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "03faa0c4-516c-46e9-966e-2459a08da3a8",
+    "name": "Delphix DCT Algorithms Reporting API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Delphix DCT API\n\nContact Support:\n Name: Delphix Support\n Email: support@delphix.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,1201 @@
+{
+  "item": [
+    {
+      "id": "344f38ba-9fe7-4bcc-b10d-aa5cedb3d604",
+      "name": "PaaSSnapshots",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "28331e02-5ad5-458f-938c-8489f65bbd12",
+          "name": "Create a snapshot of a PaaS Instance",
+          "request": {
+            "name": "Create a snapshot of a PaaS Instance",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-instances",
+                ":paaSInstanceId",
+                "snapshots"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paaSInstanceId",
+                  "description": "(Required) The ID of the PaaS Instance."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"is_public\": \"<boolean>\",\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ca2ca93e-43e0-45c9-a74e-214808d65f60",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-instances",
+                    ":paaSInstanceId",
+                    "snapshots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paaSInstanceId",
+                      "description": "(Required) The ID of the PaaS Instance."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"is_public\": true,\n  \"name\": \"my-snapshot-123\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 54,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2004-12-08T22:39:26.009Z\",\n        \"end_time\": \"1949-09-27T23:40:34.496Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 54,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2010-08-20T07:08:44.609Z\",\n        \"end_time\": \"1956-06-17T12:27:07.076Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 31,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2015-10-04T10:08:47.719Z\",\n        \"end_time\": \"1997-01-27T21:59:31.946Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 7,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"PENDING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1962-12-23T19:57:28.136Z\",\n        \"end_time\": \"1996-08-11T08:39:52.335Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 13,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0c31b01f-7d8f-42fa-b21e-64c6ae9c6eb9",
+          "name": "Get all PaaS Snapshots",
+          "request": {
+            "name": "Get all PaaS Snapshots",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-snapshots"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort snapshot results by. A field prefixed with `-` indicates descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4f98a01c-47c7-4c15-bf1a-6bc281a67f07",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-snapshots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-timestamp"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"snapshot-123\",\n      \"name\": \"my-snapshot-123\",\n      \"size\": 123456789,\n      \"snapshot_location\": \"string\",\n      \"database_id\": \"my-db-123\",\n      \"instance_id\": \"my-db-123\",\n      \"database_name\": \"my-db\",\n      \"instance_name\": \"my-db\",\n      \"timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"end_timestamp\": \"2025-05-01T09:51:34.148000+00:00\",\n      \"is_public\": true,\n      \"is_dct_managed\": true,\n      \"is_automated_backup\": true,\n      \"cloud_account_id\": \"my-db-123\",\n      \"timeflow_id\": \"timeflow-123\",\n      \"masked_by_execution_id\": \"string\",\n      \"masked_by_collection_id\": \"string\",\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\",\n          \"mirror_on_cloud\": false\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\",\n          \"mirror_on_cloud\": false\n        }\n      ]\n    },\n    {\n      \"id\": \"snapshot-123\",\n      \"name\": \"my-snapshot-123\",\n      \"size\": 123456789,\n      \"snapshot_location\": \"string\",\n      \"database_id\": \"my-db-123\",\n      \"instance_id\": \"my-db-123\",\n      \"database_name\": \"my-db\",\n      \"instance_name\": \"my-db\",\n      \"timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"end_timestamp\": \"2025-05-01T09:51:34.148000+00:00\",\n      \"is_public\": true,\n      \"is_dct_managed\": true,\n      \"is_automated_backup\": true,\n      \"cloud_account_id\": \"my-db-123\",\n      \"timeflow_id\": \"timeflow-123\",\n      \"masked_by_execution_id\": \"string\",\n      \"masked_by_collection_id\": \"string\",\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\",\n          \"mirror_on_cloud\": false\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\",\n          \"mirror_on_cloud\": false\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 1674\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cdce9756-fc31-4a4b-aa06-9d3d08616bdd",
+          "name": "Get PaaS Snapshot by ID",
+          "request": {
+            "name": "Get PaaS Snapshot by ID",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-snapshots",
+                ":paaSSnapshotId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paaSSnapshotId",
+                  "description": "(Required) The ID of the PaaS Snapshot."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "77d96e24-f182-42d1-9c59-867fde70d08d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-snapshots",
+                    ":paaSSnapshotId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paaSSnapshotId",
+                      "description": "(Required) The ID of the PaaS Snapshot."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"snapshot-123\",\n  \"name\": \"my-snapshot-123\",\n  \"size\": 123456789,\n  \"snapshot_location\": \"string\",\n  \"database_id\": \"my-db-123\",\n  \"instance_id\": \"my-db-123\",\n  \"database_name\": \"my-db\",\n  \"instance_name\": \"my-db\",\n  \"timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n  \"end_timestamp\": \"2025-05-01T09:51:34.148000+00:00\",\n  \"is_public\": true,\n  \"is_dct_managed\": true,\n  \"is_automated_backup\": true,\n  \"cloud_account_id\": \"my-db-123\",\n  \"timeflow_id\": \"timeflow-123\",\n  \"masked_by_execution_id\": \"string\",\n  \"masked_by_collection_id\": \"string\",\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\",\n      \"mirror_on_cloud\": false\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\",\n      \"mirror_on_cloud\": false\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "59df81d3-9399-4954-80c4-b67569c6c11d",
+          "name": "Create tags for a PaaS Snapshot.",
+          "request": {
+            "name": "Create tags for a PaaS Snapshot.",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-snapshots",
+                ":paaSSnapshotId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paaSSnapshotId",
+                  "description": "(Required) The ID of the PaaS Snapshot."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\",\n      \"mirror_on_cloud\": false\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "19bdf80b-9c04-4b46-a0f2-2c5cfeed1ac7",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-snapshots",
+                    ":paaSSnapshotId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paaSSnapshotId",
+                      "description": "(Required) The ID of the PaaS Snapshot."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\",\n      \"mirror_on_cloud\": false\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\",\n      \"mirror_on_cloud\": false\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\",\n      \"mirror_on_cloud\": false\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "73d8b47f-f498-4d0b-9fef-cdc75d695ce6",
+          "name": "Get tags for a PaaS Snapshot.",
+          "request": {
+            "name": "Get tags for a PaaS Snapshot.",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-snapshots",
+                ":paaSSnapshotId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paaSSnapshotId",
+                  "description": "(Required) The ID of the PaaS Snapshot."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1bcdf1ee-b14c-4a5e-80d6-734c3956e309",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-snapshots",
+                    ":paaSSnapshotId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paaSSnapshotId",
+                      "description": "(Required) The ID of the PaaS Snapshot."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\",\n      \"mirror_on_cloud\": false\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\",\n      \"mirror_on_cloud\": false\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "62ce0ffe-1f32-4307-b041-c5f9c511f688",
+          "name": "Delete tags for a PaaS Snapshot.",
+          "request": {
+            "name": "Delete tags for a PaaS Snapshot.",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-snapshots",
+                ":paaSSnapshotId",
+                "tags",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paaSSnapshotId",
+                  "description": "(Required) The ID of the PaaS Snapshot."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key\": \"<string>\",\n  \"value\": \"<string>\",\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\",\n      \"mirror_on_cloud\": false\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6e3fcd82-e82c-4dd4-ba13-bed73616a294",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-snapshots",
+                    ":paaSSnapshotId",
+                    "tags",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paaSSnapshotId",
+                      "description": "(Required) The ID of the PaaS Snapshot."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f5ace5a3-c5a6-41f4-8271-b128db42d44d",
+          "name": "Search PaaS Snapshots",
+          "request": {
+            "name": "Search PaaS Snapshots",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-snapshots",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort snapshot results by. A field prefixed with `-` indicates descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5aed3774-f3f9-416f-a611-ac9337d30975",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-snapshots",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-timestamp"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"snapshot-123\",\n      \"name\": \"my-snapshot-123\",\n      \"size\": 123456789,\n      \"snapshot_location\": \"string\",\n      \"database_id\": \"my-db-123\",\n      \"instance_id\": \"my-db-123\",\n      \"database_name\": \"my-db\",\n      \"instance_name\": \"my-db\",\n      \"timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"end_timestamp\": \"2025-05-01T09:51:34.148000+00:00\",\n      \"is_public\": true,\n      \"is_dct_managed\": true,\n      \"is_automated_backup\": true,\n      \"cloud_account_id\": \"my-db-123\",\n      \"timeflow_id\": \"timeflow-123\",\n      \"masked_by_execution_id\": \"string\",\n      \"masked_by_collection_id\": \"string\",\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\",\n          \"mirror_on_cloud\": false\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\",\n          \"mirror_on_cloud\": false\n        }\n      ]\n    },\n    {\n      \"id\": \"snapshot-123\",\n      \"name\": \"my-snapshot-123\",\n      \"size\": 123456789,\n      \"snapshot_location\": \"string\",\n      \"database_id\": \"my-db-123\",\n      \"instance_id\": \"my-db-123\",\n      \"database_name\": \"my-db\",\n      \"instance_name\": \"my-db\",\n      \"timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"end_timestamp\": \"2025-05-01T09:51:34.148000+00:00\",\n      \"is_public\": true,\n      \"is_dct_managed\": true,\n      \"is_automated_backup\": true,\n      \"cloud_account_id\": \"my-db-123\",\n      \"timeflow_id\": \"timeflow-123\",\n      \"masked_by_execution_id\": \"string\",\n      \"masked_by_collection_id\": \"string\",\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\",\n          \"mirror_on_cloud\": false\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\",\n          \"mirror_on_cloud\": false\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 6616\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "23412036-e57a-49be-a0b5-791339422a24",
+          "name": "Delete PaaS Snapshot by ID",
+          "request": {
+            "name": "Delete PaaS Snapshot by ID",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-snapshots",
+                ":paaSSnapshotId",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paaSSnapshotId",
+                  "description": "(Required) The ID of the PaaS Snapshot."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "92221fc5-a9b8-4f1f-aac6-868a240924f9",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-snapshots",
+                    ":paaSSnapshotId",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paaSSnapshotId",
+                      "description": "(Required) The ID of the PaaS Snapshot."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 93,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1968-03-03T09:10:53.141Z\",\n        \"end_time\": \"1971-10-05T01:43:17.498Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 95,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"FAILED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1962-03-22T02:29:54.053Z\",\n        \"end_time\": \"1991-06-07T21:59:02.050Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 37,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2018-08-04T16:06:53.477Z\",\n        \"end_time\": \"2013-04-28T10:26:22.467Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 19,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"ABANDONED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2022-10-20T01:45:02.502Z\",\n        \"end_time\": \"1947-11-13T07:56:06.192Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 32,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"COMPLETED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4d9056a4-b253-466a-8022-3b99f42dd3e0",
+          "name": "share PaaS Snapshots and make it public",
+          "request": {
+            "name": "share PaaS Snapshots and make it public",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-snapshots",
+                ":paaSSnapshotId",
+                "share"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paaSSnapshotId",
+                  "description": "(Required) The ID of the PaaS Snapshot."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2c1102eb-ce0c-4c76-bf6b-739a912911d6",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-snapshots",
+                    ":paaSSnapshotId",
+                    "share"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paaSSnapshotId",
+                      "description": "(Required) The ID of the PaaS Snapshot."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"snapshot\": {\n    \"id\": \"snapshot-123\",\n    \"name\": \"my-snapshot-123\",\n    \"size\": 123456789,\n    \"snapshot_location\": \"string\",\n    \"database_id\": \"my-db-123\",\n    \"instance_id\": \"my-db-123\",\n    \"database_name\": \"my-db\",\n    \"instance_name\": \"my-db\",\n    \"timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n    \"end_timestamp\": \"2025-05-01T09:51:34.148000+00:00\",\n    \"is_public\": true,\n    \"is_dct_managed\": true,\n    \"is_automated_backup\": true,\n    \"cloud_account_id\": \"my-db-123\",\n    \"timeflow_id\": \"timeflow-123\",\n    \"masked_by_execution_id\": \"string\",\n    \"masked_by_collection_id\": \"string\",\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\",\n        \"mirror_on_cloud\": false\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\",\n        \"mirror_on_cloud\": false\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8ff38cd7-674d-45d8-8a6c-ad8c606dfb5d",
+          "name": "un-share PaaS Snapshots and make it public",
+          "request": {
+            "name": "un-share PaaS Snapshots and make it public",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-snapshots",
+                ":paaSSnapshotId",
+                "unshare"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paaSSnapshotId",
+                  "description": "(Required) The ID of the PaaS Snapshot."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b32e142e-dc47-4520-9286-d2f09b4ea0c5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-snapshots",
+                    ":paaSSnapshotId",
+                    "unshare"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paaSSnapshotId",
+                      "description": "(Required) The ID of the PaaS Snapshot."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"snapshot\": {\n    \"id\": \"snapshot-123\",\n    \"name\": \"my-snapshot-123\",\n    \"size\": 123456789,\n    \"snapshot_location\": \"string\",\n    \"database_id\": \"my-db-123\",\n    \"instance_id\": \"my-db-123\",\n    \"database_name\": \"my-db\",\n    \"instance_name\": \"my-db\",\n    \"timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n    \"end_timestamp\": \"2025-05-01T09:51:34.148000+00:00\",\n    \"is_public\": true,\n    \"is_dct_managed\": true,\n    \"is_automated_backup\": true,\n    \"cloud_account_id\": \"my-db-123\",\n    \"timeflow_id\": \"timeflow-123\",\n    \"masked_by_execution_id\": \"string\",\n    \"masked_by_collection_id\": \"string\",\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\",\n        \"mirror_on_cloud\": false\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\",\n        \"mirror_on_cloud\": false\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "411c2495-fbfa-41cc-a3d8-f3f94608da93",
+          "name": "Create a snapshot of a PaaS Database",
+          "request": {
+            "name": "Create a snapshot of a PaaS Database",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-databases",
+                ":paaSDatabaseId",
+                "snapshots"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paaSDatabaseId",
+                  "description": "(Required) The ID of the PaaS Database."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"is_public\": \"<boolean>\",\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2b27183b-4535-4424-9b75-b2872c7b4a9f",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-databases",
+                    ":paaSDatabaseId",
+                    "snapshots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paaSDatabaseId",
+                      "description": "(Required) The ID of the PaaS Database."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"is_public\": true,\n  \"name\": \"my-snapshot-123\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 26,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2015-09-20T08:51:43.378Z\",\n        \"end_time\": \"1976-02-28T02:30:50.572Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 31,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"COMPLETED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2000-12-03T19:33:21.349Z\",\n        \"end_time\": \"2008-04-24T17:32:08.528Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 24,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2005-05-20T22:06:00.297Z\",\n        \"end_time\": \"2003-08-12T00:26:24.837Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 0,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"COMPLETED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1998-09-18T01:21:20.240Z\",\n        \"end_time\": \"1998-08-03T16:14:20.756Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 48,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"PENDING\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/dct/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f0f7391c-135c-4de8-8b82-6f40721083fc",
+    "name": "Delphix DCT Algorithms PaaSSnapshots API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Delphix DCT API\n\nContact Support:\n Name: Delphix Support\n Email: support@delphix.com",
+      "type": "text/plain"
+    }
+  }
+}

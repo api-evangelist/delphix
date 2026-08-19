@@ -1,0 +1,423 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms Snapshots API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Snapshots",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve the list of snapshots.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/snapshots",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ]
+          },
+          "docs": "Retrieve the list of snapshots."
+        },
+        {
+          "info": {
+            "name": "Get a Snapshot by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/snapshots/:snapshotId",
+            "params": [
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the snapshot."
+              }
+            ]
+          },
+          "docs": "Get a Snapshot by ID."
+        },
+        {
+          "info": {
+            "name": "Update values of a Snapshot.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/snapshots/:snapshotId",
+            "params": [
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the snapshot."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update values of a Snapshot."
+        },
+        {
+          "info": {
+            "name": "Delete a Snapshot.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/dct/v3/snapshots/:snapshotId",
+            "params": [
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the snapshot."
+              }
+            ]
+          },
+          "docs": "Delete a Snapshot."
+        },
+        {
+          "info": {
+            "name": "Delete a Snapshot.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/snapshots/:snapshotId/delete",
+            "params": [
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the snapshot."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete a Snapshot."
+        },
+        {
+          "info": {
+            "name": "Unset a Snapshot's expiration, removing expiration and retain_forever values for the snapshot.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/snapshots/:snapshotId/unset_expiration",
+            "params": [
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the snapshot."
+              }
+            ]
+          },
+          "docs": "Unset a Snapshot's expiration, removing expiration and retain_forever values for the snapshot."
+        },
+        {
+          "info": {
+            "name": "Get tags for a Snapshot.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/snapshots/:snapshotId/tags",
+            "params": [
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the snapshot."
+              }
+            ]
+          },
+          "docs": "Get tags for a Snapshot."
+        },
+        {
+          "info": {
+            "name": "Create tags for a Snapshot.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/snapshots/:snapshotId/tags",
+            "params": [
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the snapshot."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create tags for a Snapshot."
+        },
+        {
+          "info": {
+            "name": "Delete tags for a Snapshot.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/snapshots/:snapshotId/tags/delete",
+            "params": [
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the snapshot."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete tags for a Snapshot."
+        },
+        {
+          "info": {
+            "name": "Search snapshots.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/snapshots/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search snapshots."
+        },
+        {
+          "info": {
+            "name": "Get the snapshots at this location for a dataset.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/snapshots/find_by_location",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "dataset-123",
+                "type": "query",
+                "description": "The ID of the dSource or VDB."
+              },
+              {
+                "name": "location",
+                "value": "2332584",
+                "type": "query",
+                "description": "The location"
+              }
+            ]
+          },
+          "docs": "Get the snapshots at this location for a dataset."
+        },
+        {
+          "info": {
+            "name": "Get the snapshots at this timestamp for a dataset.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/snapshots/find_by_timestamp",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "dataset-123",
+                "type": "query",
+                "description": "The ID of the dSource or VDB."
+              },
+              {
+                "name": "timestamp",
+                "value": "2021-05-01T08:51:34.148000+00:00",
+                "type": "query",
+                "description": "The desired point in time."
+              }
+            ]
+          },
+          "docs": "Get the snapshots at this timestamp for a dataset."
+        },
+        {
+          "info": {
+            "name": "Return the provisionable timeflow range based on a specific snapshot.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/snapshots/:snapshotId/timeflow_range",
+            "params": [
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the snapshot."
+              }
+            ]
+          },
+          "docs": "Return the provisionable timeflow range based on a specific snapshot."
+        },
+        {
+          "info": {
+            "name": "Get a runtime object of a snapshot by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/snapshots/:snapshotId/runtime",
+            "params": [
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the snapshot."
+              }
+            ]
+          },
+          "docs": "Get a runtime object of a snapshot by id"
+        },
+        {
+          "info": {
+            "name": "Lists capacity metrics for all snapshots of dataset or the engine.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/snapshots/capacity",
+            "params": [
+              {
+                "name": "engine_id",
+                "value": "1",
+                "type": "query",
+                "description": "ID of a registered engine."
+              },
+              {
+                "name": "dataset_id",
+                "value": "dataset-123",
+                "type": "query",
+                "description": "The ID of the dSource or VDB."
+              },
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              }
+            ]
+          },
+          "docs": "Lists capacity metrics for all snapshots of dataset or the engine."
+        },
+        {
+          "info": {
+            "name": "API to fetch the shared snapshot space.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/snapshots/shared-space",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "dataset-123",
+                "type": "query",
+                "description": "The ID of the dSource or VDB."
+              }
+            ]
+          },
+          "docs": "API to fetch the shared snapshot space."
+        },
+        {
+          "info": {
+            "name": "Get deletion dependencies for a snapshot.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/snapshots/:snapshotId/deletion-dependencies",
+            "params": [
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the snapshot."
+              }
+            ]
+          },
+          "docs": "Get deletion dependencies for a snapshot."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

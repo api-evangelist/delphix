@@ -1,0 +1,1908 @@
+{
+  "item": [
+    {
+      "id": "18db4677-3bbc-4765-989d-6e240a73a9ae",
+      "name": "Executions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e7f1b590-f281-411d-81a7-6f60b052911a",
+          "name": "Retrieve the list of masking executions.",
+          "request": {
+            "name": "Retrieve the list of masking executions.",
+            "description": {},
+            "url": {
+              "path": [
+                "executions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "73877471-483f-4278-9386-2c49339f2e42",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "executions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"414ed52c-fa89-455d-9fb9-9c2fa5115f80\",\n      \"engine_id\": \"1\",\n      \"hyperscale_instance_id\": \"string\",\n      \"engine_name\": \"prod01\",\n      \"job_orchestrator_id\": \"string\",\n      \"job_orchestrator_name\": \"string\",\n      \"masking_job_id\": \"2\",\n      \"masking_job_name\": \"finance-masking-job\",\n      \"compliance_job_type\": \"MASKING\",\n      \"dct_managed\": true,\n      \"source_connector_id\": \"1-DATABASE-2\",\n      \"target_connector_id\": \"1-DATABASE-3\",\n      \"source_connector_name\": \"source-database\",\n      \"target_connector_name\": \"target-database\",\n      \"status\": \"RUNNING\",\n      \"rows_masked\": 1000,\n      \"rows_total\": 5000,\n      \"bytes_processed\": 500,\n      \"bytes_total\": 5000000,\n      \"start_time\": \"2021-05-01T09:51:34.148000+00:00\",\n      \"submit_time\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"end_time\": \"2021-05-01T11:51:34.148000+00:00\",\n      \"run_duration\": 4000,\n      \"queue_duration\": 1000,\n      \"total_duration\": 5000,\n      \"account_id\": 3,\n      \"account_name\": \"username\",\n      \"task_events\": [\n        {\n          \"event\": \"Initializing\",\n          \"status\": \"SUCCEEDED\"\n        },\n        {\n          \"event\": \"Job Completed\",\n          \"status\": \"FAILED\"\n        }\n      ],\n      \"hyperscale_task_events\": [\n        {\n          \"name\": \"Unload\",\n          \"progress\": 0.34,\n          \"status\": \"FAILED\",\n          \"processed_objects\": 1092,\n          \"processed_rows\": 9367,\n          \"processed_constraints\": 1518,\n          \"total_constraints\": 698,\n          \"processed_indexes\": 2797,\n          \"total_indexes\": 479,\n          \"processed_triggers\": 1284,\n          \"total_triggers\": 4644,\n          \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n          \"end_time\": \"2022-01-02T05:13:24.148000+00:00\",\n          \"errors\": [\n            {\n              \"table_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"error\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"table_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"error\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"name\": \"Unload\",\n          \"progress\": 0.34,\n          \"status\": \"FAILED\",\n          \"processed_objects\": 8944,\n          \"processed_rows\": 7769,\n          \"processed_constraints\": 5579,\n          \"total_constraints\": 2481,\n          \"processed_indexes\": 5632,\n          \"total_indexes\": 2486,\n          \"processed_triggers\": 2327,\n          \"total_triggers\": 50,\n          \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n          \"end_time\": \"2022-01-02T05:13:24.148000+00:00\",\n          \"errors\": [\n            {\n              \"table_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"error\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"table_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"error\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"progress\": 0.34,\n      \"execution_components_total\": 5,\n      \"execution_components_processed\": 3,\n      \"collection_execution_id\": \"54a0cbff-bdc6-49fd-8e71-e8b570524fe9\",\n      \"data_collection_complete\": true,\n      \"owning_entity_id\": \"string\",\n      \"owning_entity_type\": \"PAAS_INSTANCE\",\n      \"hyperscale_engine_count\": 2\n    },\n    {\n      \"id\": \"414ed52c-fa89-455d-9fb9-9c2fa5115f80\",\n      \"engine_id\": \"1\",\n      \"hyperscale_instance_id\": \"string\",\n      \"engine_name\": \"prod01\",\n      \"job_orchestrator_id\": \"string\",\n      \"job_orchestrator_name\": \"string\",\n      \"masking_job_id\": \"2\",\n      \"masking_job_name\": \"finance-masking-job\",\n      \"compliance_job_type\": \"MASKING\",\n      \"dct_managed\": true,\n      \"source_connector_id\": \"1-DATABASE-2\",\n      \"target_connector_id\": \"1-DATABASE-3\",\n      \"source_connector_name\": \"source-database\",\n      \"target_connector_name\": \"target-database\",\n      \"status\": \"RUNNING\",\n      \"rows_masked\": 1000,\n      \"rows_total\": 5000,\n      \"bytes_processed\": 500,\n      \"bytes_total\": 5000000,\n      \"start_time\": \"2021-05-01T09:51:34.148000+00:00\",\n      \"submit_time\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"end_time\": \"2021-05-01T11:51:34.148000+00:00\",\n      \"run_duration\": 4000,\n      \"queue_duration\": 1000,\n      \"total_duration\": 5000,\n      \"account_id\": 3,\n      \"account_name\": \"username\",\n      \"task_events\": [\n        {\n          \"event\": \"Initializing\",\n          \"status\": \"SUCCEEDED\"\n        },\n        {\n          \"event\": \"Job Completed\",\n          \"status\": \"FAILED\"\n        }\n      ],\n      \"hyperscale_task_events\": [\n        {\n          \"name\": \"Unload\",\n          \"progress\": 0.34,\n          \"status\": \"FAILED\",\n          \"processed_objects\": 549,\n          \"processed_rows\": 8611,\n          \"processed_constraints\": 4888,\n          \"total_constraints\": 4816,\n          \"processed_indexes\": 2831,\n          \"total_indexes\": 8311,\n          \"processed_triggers\": 1181,\n          \"total_triggers\": 7913,\n          \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n          \"end_time\": \"2022-01-02T05:13:24.148000+00:00\",\n          \"errors\": [\n            {\n              \"table_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"error\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"table_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"error\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"name\": \"Unload\",\n          \"progress\": 0.34,\n          \"status\": \"FAILED\",\n          \"processed_objects\": 4338,\n          \"processed_rows\": 6242,\n          \"processed_constraints\": 9038,\n          \"total_constraints\": 2628,\n          \"processed_indexes\": 654,\n          \"total_indexes\": 6367,\n          \"processed_triggers\": 5394,\n          \"total_triggers\": 7839,\n          \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n          \"end_time\": \"2022-01-02T05:13:24.148000+00:00\",\n          \"errors\": [\n            {\n              \"table_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"error\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"table_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"error\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"progress\": 0.34,\n      \"execution_components_total\": 5,\n      \"execution_components_processed\": 3,\n      \"collection_execution_id\": \"54a0cbff-bdc6-49fd-8e71-e8b570524fe9\",\n      \"data_collection_complete\": false,\n      \"owning_entity_id\": \"string\",\n      \"owning_entity_type\": \"PAAS_INSTANCE\",\n      \"hyperscale_engine_count\": 2\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 3015\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f054269f-610c-4afb-b7b4-1826b9e3ed54",
+          "name": "Search masking executions.",
+          "request": {
+            "name": "Search masking executions.",
+            "description": {},
+            "url": {
+              "path": [
+                "executions",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1dceaffb-ae13-45a2-b5e4-52dae19ff0ad",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "executions",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"414ed52c-fa89-455d-9fb9-9c2fa5115f80\",\n      \"engine_id\": \"1\",\n      \"hyperscale_instance_id\": \"string\",\n      \"engine_name\": \"prod01\",\n      \"job_orchestrator_id\": \"string\",\n      \"job_orchestrator_name\": \"string\",\n      \"masking_job_id\": \"2\",\n      \"masking_job_name\": \"finance-masking-job\",\n      \"compliance_job_type\": \"MASKING\",\n      \"dct_managed\": true,\n      \"source_connector_id\": \"1-DATABASE-2\",\n      \"target_connector_id\": \"1-DATABASE-3\",\n      \"source_connector_name\": \"source-database\",\n      \"target_connector_name\": \"target-database\",\n      \"status\": \"RUNNING\",\n      \"rows_masked\": 1000,\n      \"rows_total\": 5000,\n      \"bytes_processed\": 500,\n      \"bytes_total\": 5000000,\n      \"start_time\": \"2021-05-01T09:51:34.148000+00:00\",\n      \"submit_time\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"end_time\": \"2021-05-01T11:51:34.148000+00:00\",\n      \"run_duration\": 4000,\n      \"queue_duration\": 1000,\n      \"total_duration\": 5000,\n      \"account_id\": 3,\n      \"account_name\": \"username\",\n      \"task_events\": [\n        {\n          \"event\": \"Initializing\",\n          \"status\": \"SUCCEEDED\"\n        },\n        {\n          \"event\": \"Job Completed\",\n          \"status\": \"FAILED\"\n        }\n      ],\n      \"hyperscale_task_events\": [\n        {\n          \"name\": \"Unload\",\n          \"progress\": 0.34,\n          \"status\": \"FAILED\",\n          \"processed_objects\": 510,\n          \"processed_rows\": 4926,\n          \"processed_constraints\": 2450,\n          \"total_constraints\": 9230,\n          \"processed_indexes\": 4534,\n          \"total_indexes\": 5855,\n          \"processed_triggers\": 7423,\n          \"total_triggers\": 6506,\n          \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n          \"end_time\": \"2022-01-02T05:13:24.148000+00:00\",\n          \"errors\": [\n            {\n              \"table_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"error\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"table_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"error\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"name\": \"Unload\",\n          \"progress\": 0.34,\n          \"status\": \"FAILED\",\n          \"processed_objects\": 7928,\n          \"processed_rows\": 310,\n          \"processed_constraints\": 8243,\n          \"total_constraints\": 2179,\n          \"processed_indexes\": 3458,\n          \"total_indexes\": 5381,\n          \"processed_triggers\": 8764,\n          \"total_triggers\": 3251,\n          \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n          \"end_time\": \"2022-01-02T05:13:24.148000+00:00\",\n          \"errors\": [\n            {\n              \"table_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"error\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"table_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"error\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"progress\": 0.34,\n      \"execution_components_total\": 5,\n      \"execution_components_processed\": 3,\n      \"collection_execution_id\": \"54a0cbff-bdc6-49fd-8e71-e8b570524fe9\",\n      \"data_collection_complete\": false,\n      \"owning_entity_id\": \"string\",\n      \"owning_entity_type\": \"PAAS_INSTANCE\",\n      \"hyperscale_engine_count\": 2\n    },\n    {\n      \"id\": \"414ed52c-fa89-455d-9fb9-9c2fa5115f80\",\n      \"engine_id\": \"1\",\n      \"hyperscale_instance_id\": \"string\",\n      \"engine_name\": \"prod01\",\n      \"job_orchestrator_id\": \"string\",\n      \"job_orchestrator_name\": \"string\",\n      \"masking_job_id\": \"2\",\n      \"masking_job_name\": \"finance-masking-job\",\n      \"compliance_job_type\": \"MASKING\",\n      \"dct_managed\": true,\n      \"source_connector_id\": \"1-DATABASE-2\",\n      \"target_connector_id\": \"1-DATABASE-3\",\n      \"source_connector_name\": \"source-database\",\n      \"target_connector_name\": \"target-database\",\n      \"status\": \"RUNNING\",\n      \"rows_masked\": 1000,\n      \"rows_total\": 5000,\n      \"bytes_processed\": 500,\n      \"bytes_total\": 5000000,\n      \"start_time\": \"2021-05-01T09:51:34.148000+00:00\",\n      \"submit_time\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"end_time\": \"2021-05-01T11:51:34.148000+00:00\",\n      \"run_duration\": 4000,\n      \"queue_duration\": 1000,\n      \"total_duration\": 5000,\n      \"account_id\": 3,\n      \"account_name\": \"username\",\n      \"task_events\": [\n        {\n          \"event\": \"Initializing\",\n          \"status\": \"SUCCEEDED\"\n        },\n        {\n          \"event\": \"Job Completed\",\n          \"status\": \"FAILED\"\n        }\n      ],\n      \"hyperscale_task_events\": [\n        {\n          \"name\": \"Unload\",\n          \"progress\": 0.34,\n          \"status\": \"FAILED\",\n          \"processed_objects\": 3818,\n          \"processed_rows\": 5447,\n          \"processed_constraints\": 8254,\n          \"total_constraints\": 3454,\n          \"processed_indexes\": 5740,\n          \"total_indexes\": 6961,\n          \"processed_triggers\": 8811,\n          \"total_triggers\": 99,\n          \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n          \"end_time\": \"2022-01-02T05:13:24.148000+00:00\",\n          \"errors\": [\n            {\n              \"table_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"error\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"table_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"error\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"name\": \"Unload\",\n          \"progress\": 0.34,\n          \"status\": \"FAILED\",\n          \"processed_objects\": 5138,\n          \"processed_rows\": 4466,\n          \"processed_constraints\": 6806,\n          \"total_constraints\": 551,\n          \"processed_indexes\": 3106,\n          \"total_indexes\": 6720,\n          \"processed_triggers\": 2080,\n          \"total_triggers\": 7195,\n          \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n          \"end_time\": \"2022-01-02T05:13:24.148000+00:00\",\n          \"errors\": [\n            {\n              \"table_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"error\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"table_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"error\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"progress\": 0.34,\n      \"execution_components_total\": 5,\n      \"execution_components_processed\": 3,\n      \"collection_execution_id\": \"54a0cbff-bdc6-49fd-8e71-e8b570524fe9\",\n      \"data_collection_complete\": true,\n      \"owning_entity_id\": \"string\",\n      \"owning_entity_type\": \"PAAS_INSTANCE\",\n      \"hyperscale_engine_count\": 2\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 4194\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f9c8462d-8dec-4e15-9206-53116d7ad03b",
+          "name": "Retrieve an Execution by ID.",
+          "request": {
+            "name": "Retrieve an Execution by ID.",
+            "description": {},
+            "url": {
+              "path": [
+                "executions",
+                ":executionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "executionId",
+                  "description": "(Required) The ID of the Execution."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7927926e-cefb-4b7c-925c-7c57f309efa8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "executions",
+                    ":executionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "executionId",
+                      "description": "(Required) The ID of the Execution."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"414ed52c-fa89-455d-9fb9-9c2fa5115f80\",\n  \"engine_id\": \"1\",\n  \"hyperscale_instance_id\": \"string\",\n  \"engine_name\": \"prod01\",\n  \"job_orchestrator_id\": \"string\",\n  \"job_orchestrator_name\": \"string\",\n  \"masking_job_id\": \"2\",\n  \"masking_job_name\": \"finance-masking-job\",\n  \"compliance_job_type\": \"MASKING\",\n  \"dct_managed\": true,\n  \"source_connector_id\": \"1-DATABASE-2\",\n  \"target_connector_id\": \"1-DATABASE-3\",\n  \"source_connector_name\": \"source-database\",\n  \"target_connector_name\": \"target-database\",\n  \"status\": \"RUNNING\",\n  \"rows_masked\": 1000,\n  \"rows_total\": 5000,\n  \"bytes_processed\": 500,\n  \"bytes_total\": 5000000,\n  \"start_time\": \"2021-05-01T09:51:34.148000+00:00\",\n  \"submit_time\": \"2021-05-01T08:51:34.148000+00:00\",\n  \"end_time\": \"2021-05-01T11:51:34.148000+00:00\",\n  \"run_duration\": 4000,\n  \"queue_duration\": 1000,\n  \"total_duration\": 5000,\n  \"account_id\": 3,\n  \"account_name\": \"username\",\n  \"task_events\": [\n    {\n      \"event\": \"Initializing\",\n      \"status\": \"SUCCEEDED\"\n    },\n    {\n      \"event\": \"Job Completed\",\n      \"status\": \"FAILED\"\n    }\n  ],\n  \"hyperscale_task_events\": [\n    {\n      \"name\": \"Unload\",\n      \"progress\": 0.34,\n      \"status\": \"FAILED\",\n      \"processed_objects\": 7572,\n      \"processed_rows\": 7526,\n      \"processed_constraints\": 2471,\n      \"total_constraints\": 4550,\n      \"processed_indexes\": 3620,\n      \"total_indexes\": 5565,\n      \"processed_triggers\": 8378,\n      \"total_triggers\": 8578,\n      \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n      \"end_time\": \"2022-01-02T05:13:24.148000+00:00\",\n      \"errors\": [\n        {\n          \"table_name\": \"public_schema.table_x\",\n          \"error\": \"string\"\n        },\n        {\n          \"table_name\": \"public_schema.table_x\",\n          \"error\": \"string\"\n        }\n      ]\n    },\n    {\n      \"name\": \"Unload\",\n      \"progress\": 0.34,\n      \"status\": \"FAILED\",\n      \"processed_objects\": 763,\n      \"processed_rows\": 9470,\n      \"processed_constraints\": 7880,\n      \"total_constraints\": 7291,\n      \"processed_indexes\": 7617,\n      \"total_indexes\": 15,\n      \"processed_triggers\": 5188,\n      \"total_triggers\": 5967,\n      \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n      \"end_time\": \"2022-01-02T05:13:24.148000+00:00\",\n      \"errors\": [\n        {\n          \"table_name\": \"public_schema.table_x\",\n          \"error\": \"string\"\n        },\n        {\n          \"table_name\": \"public_schema.table_x\",\n          \"error\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"progress\": 0.34,\n  \"execution_components_total\": 5,\n  \"execution_components_processed\": 3,\n  \"collection_execution_id\": \"54a0cbff-bdc6-49fd-8e71-e8b570524fe9\",\n  \"data_collection_complete\": false,\n  \"owning_entity_id\": \"string\",\n  \"owning_entity_type\": \"PAAS_INSTANCE\",\n  \"hyperscale_engine_count\": 2\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "822e4535-68eb-4dc0-b19b-d74430772a0e",
+          "name": "Cancel an Execution.",
+          "request": {
+            "name": "Cancel an Execution.",
+            "description": {},
+            "url": {
+              "path": [
+                "executions",
+                ":executionId",
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "executionId",
+                  "description": "(Required) The ID of the Execution."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"expected_status\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d6a39f74-e218-4265-90b4-188287bc8138",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "executions",
+                    ":executionId",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "executionId",
+                      "description": "(Required) The ID of the Execution."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"expected_status\": \"QUEUED\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "927be798-cdf1-4501-987e-2767b44448b8",
+          "name": "Restart an Execution (Hyperscale only).",
+          "request": {
+            "name": "Restart an Execution (Hyperscale only).",
+            "description": {},
+            "url": {
+              "path": [
+                "executions",
+                ":executionId",
+                "restart"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "executionId",
+                  "description": "(Required) The ID of the Execution."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "21c2b9e6-cdbb-425f-ad21-4c8c440ae715",
+              "name": "Masking job execution restarted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "executions",
+                    ":executionId",
+                    "restart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "executionId",
+                      "description": "(Required) The ID of the Execution."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 11,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2013-07-30T18:35:33.111Z\",\n        \"end_time\": \"1987-04-20T22:58:34.902Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 35,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"ABANDONED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1983-09-05T21:25:56.207Z\",\n        \"end_time\": \"1997-08-21T23:35:20.420Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 25,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1956-08-19T12:51:55.396Z\",\n        \"end_time\": \"1962-11-12T10:51:24.317Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 95,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"COMPLETED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2002-09-16T00:08:35.835Z\",\n        \"end_time\": \"2018-12-10T08:21:44.853Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 72,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"PENDING\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "027b340a-eed1-49ea-9f76-8b7de4fa11e9",
+          "name": "Cleanup an Execution (Hyperscale only).",
+          "request": {
+            "name": "Cleanup an Execution (Hyperscale only).",
+            "description": {},
+            "url": {
+              "path": [
+                "executions",
+                ":executionId",
+                "cleanup"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "executionId",
+                  "description": "(Required) The ID of the Execution."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8aa90a56-5d69-4abe-a7dc-78bd92cf4623",
+              "name": "Masking job execution cleaned up.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "executions",
+                    ":executionId",
+                    "cleanup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "executionId",
+                      "description": "(Required) The ID of the Execution."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 64,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1996-03-09T22:04:11.389Z\",\n        \"end_time\": \"1973-02-17T20:05:51.380Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 83,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"COMPLETED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1991-08-20T02:27:40.872Z\",\n        \"end_time\": \"2012-08-09T06:40:37.167Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 18,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2024-04-02T22:32:38.408Z\",\n        \"end_time\": \"1970-08-19T15:55:59.979Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 35,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1989-04-30T23:53:15.293Z\",\n        \"end_time\": \"1971-01-08T11:48:58.376Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 72,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"PENDING\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "45aa0961-1c57-4c80-aff6-7b4c108fcd0d",
+          "name": "Retrieve the list of events for a masking execution.",
+          "request": {
+            "name": "Retrieve the list of events for a masking execution.",
+            "description": {},
+            "url": {
+              "path": [
+                "executions",
+                ":executionId",
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "executionId",
+                  "description": "(Required) The ID of the Execution."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ec25e4ae-12bb-4b20-b3dc-8f03166a0f09",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "executions",
+                    ":executionId",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "executionId",
+                      "description": "(Required) The ID of the Execution."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"1-EVENT-1\",\n      \"execution_id\": \"414ed52c-fa89-455d-9fb9-9c2fa5115f80\",\n      \"execution_component_id\": \"123\",\n      \"event_type\": \"JOB_ABORTED\",\n      \"severity\": \"INFO\",\n      \"cause\": \"UNHANDLED_EXCEPTION\",\n      \"count\": 1,\n      \"timestamp\": \"2023-03-20T08:51:34.148000+00:00\",\n      \"masked_object_name\": \"ssn\",\n      \"algorithm_name\": \"SsnTK\",\n      \"exception_type\": \"SQLException\",\n      \"exception_detail\": \"Listener refused the connection with the following error: ORA-12505, TNS:listener does not currently know of SID given in connect descriptor\"\n    },\n    {\n      \"id\": \"1-EVENT-1\",\n      \"execution_id\": \"414ed52c-fa89-455d-9fb9-9c2fa5115f80\",\n      \"execution_component_id\": \"123\",\n      \"event_type\": \"JOB_ABORTED\",\n      \"severity\": \"INFO\",\n      \"cause\": \"UNHANDLED_EXCEPTION\",\n      \"count\": 1,\n      \"timestamp\": \"2023-03-20T08:51:34.148000+00:00\",\n      \"masked_object_name\": \"ssn\",\n      \"algorithm_name\": \"SsnTK\",\n      \"exception_type\": \"SQLException\",\n      \"exception_detail\": \"Listener refused the connection with the following error: ORA-12505, TNS:listener does not currently know of SID given in connect descriptor\"\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 1269\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1cc57652-5cc1-4ea5-80df-86f6fcecacf5",
+          "name": "Search masking executions events.",
+          "request": {
+            "name": "Search masking executions events.",
+            "description": {},
+            "url": {
+              "path": [
+                "executions",
+                ":executionId",
+                "events",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "executionId",
+                  "description": "(Required) The ID of the Execution."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7fa7fd51-2871-42de-9fa4-dcc6a9ca5ac5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "executions",
+                    ":executionId",
+                    "events",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "executionId",
+                      "description": "(Required) The ID of the Execution."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"1-EVENT-1\",\n      \"execution_id\": \"414ed52c-fa89-455d-9fb9-9c2fa5115f80\",\n      \"execution_component_id\": \"123\",\n      \"event_type\": \"JOB_ABORTED\",\n      \"severity\": \"INFO\",\n      \"cause\": \"UNHANDLED_EXCEPTION\",\n      \"count\": 1,\n      \"timestamp\": \"2023-03-20T08:51:34.148000+00:00\",\n      \"masked_object_name\": \"ssn\",\n      \"algorithm_name\": \"SsnTK\",\n      \"exception_type\": \"SQLException\",\n      \"exception_detail\": \"Listener refused the connection with the following error: ORA-12505, TNS:listener does not currently know of SID given in connect descriptor\"\n    },\n    {\n      \"id\": \"1-EVENT-1\",\n      \"execution_id\": \"414ed52c-fa89-455d-9fb9-9c2fa5115f80\",\n      \"execution_component_id\": \"123\",\n      \"event_type\": \"JOB_ABORTED\",\n      \"severity\": \"INFO\",\n      \"cause\": \"UNHANDLED_EXCEPTION\",\n      \"count\": 1,\n      \"timestamp\": \"2023-03-20T08:51:34.148000+00:00\",\n      \"masked_object_name\": \"ssn\",\n      \"algorithm_name\": \"SsnTK\",\n      \"exception_type\": \"SQLException\",\n      \"exception_detail\": \"Listener refused the connection with the following error: ORA-12505, TNS:listener does not currently know of SID given in connect descriptor\"\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 9926\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "03a89ce8-e980-42d9-b517-801fd7125008",
+          "name": "Retrieve the masking execution log.",
+          "request": {
+            "name": "Retrieve the masking execution log.",
+            "description": {
+              "content": "Returns the execution log information for the given execution.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "executions",
+                ":executionId",
+                "log"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "executionId",
+                  "description": "(Required) The ID of the Execution."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0c7cf31b-d873-4ffd-907f-88d610ddb642",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "executions",
+                    ":executionId",
+                    "log"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "executionId",
+                      "description": "(Required) The ID of the Execution."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"1-LOG-1\",\n  \"execution_id\": \"ea02f031-75d7-4c76-8747-2a7f04181451\",\n  \"masking_job_id\": \"2\",\n  \"status\": \"RUNNING\",\n  \"log\": \"string\",\n  \"download_status\": \"COLLECTED\",\n  \"file_size\": 1024,\n  \"is_truncated\": false,\n  \"file_download_id\": \"3a4b5c6d-1234-5678-abcd-ef0123456789\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "94959003-c239-40ff-8c6c-f44784612e54",
+              "name": "Execution not found or log not available.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "executions",
+                    ":executionId",
+                    "log"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "executionId",
+                      "description": "(Required) The ID of the Execution."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f385d355-5337-49b3-998f-cac97d26453e",
+          "name": "Get execution components for an execution.",
+          "request": {
+            "name": "Get execution components for an execution.",
+            "description": {},
+            "url": {
+              "path": [
+                "executions",
+                ":executionId",
+                "execution-components"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "executionId",
+                  "description": "(Required) The ID of the Execution."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9369a01d-5272-4d27-a4ef-c4b43d8bb797",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "executions",
+                    ":executionId",
+                    "execution-components"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "executionId",
+                      "description": "(Required) The ID of the Execution."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"123\",\n      \"name\": \"table_a\",\n      \"execution_id\": \"414ed52c-fa89-455d-9fb9-9c2fa5115f80\",\n      \"status\": \"RUNNING\",\n      \"rows_masked\": 1000,\n      \"rows_total\": 5000,\n      \"bytes_processed\": 500,\n      \"bytes_total\": 5000000,\n      \"start_time\": \"2021-05-01T09:51:34.148000+00:00\",\n      \"end_time\": \"2021-05-01T11:51:34.148000+00:00\",\n      \"non_conforming_data_count\": 10\n    },\n    {\n      \"id\": \"123\",\n      \"name\": \"table_a\",\n      \"execution_id\": \"414ed52c-fa89-455d-9fb9-9c2fa5115f80\",\n      \"status\": \"RUNNING\",\n      \"rows_masked\": 1000,\n      \"rows_total\": 5000,\n      \"bytes_processed\": 500,\n      \"bytes_total\": 5000000,\n      \"start_time\": \"2021-05-01T09:51:34.148000+00:00\",\n      \"end_time\": \"2021-05-01T11:51:34.148000+00:00\",\n      \"non_conforming_data_count\": 10\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 4861\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2e5d50a8-ca5e-483d-b2eb-84104a1f51b3",
+          "name": "Search execution components for an execution.",
+          "request": {
+            "name": "Search execution components for an execution.",
+            "description": {},
+            "url": {
+              "path": [
+                "executions",
+                ":executionId",
+                "execution-components",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "executionId",
+                  "description": "(Required) The ID of the Execution."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "70f7721d-b8a2-4316-8a20-328f3e41ef74",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "executions",
+                    ":executionId",
+                    "execution-components",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "executionId",
+                      "description": "(Required) The ID of the Execution."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"123\",\n      \"name\": \"table_a\",\n      \"execution_id\": \"414ed52c-fa89-455d-9fb9-9c2fa5115f80\",\n      \"status\": \"RUNNING\",\n      \"rows_masked\": 1000,\n      \"rows_total\": 5000,\n      \"bytes_processed\": 500,\n      \"bytes_total\": 5000000,\n      \"start_time\": \"2021-05-01T09:51:34.148000+00:00\",\n      \"end_time\": \"2021-05-01T11:51:34.148000+00:00\",\n      \"non_conforming_data_count\": 10\n    },\n    {\n      \"id\": \"123\",\n      \"name\": \"table_a\",\n      \"execution_id\": \"414ed52c-fa89-455d-9fb9-9c2fa5115f80\",\n      \"status\": \"RUNNING\",\n      \"rows_masked\": 1000,\n      \"rows_total\": 5000,\n      \"bytes_processed\": 500,\n      \"bytes_total\": 5000000,\n      \"start_time\": \"2021-05-01T09:51:34.148000+00:00\",\n      \"end_time\": \"2021-05-01T11:51:34.148000+00:00\",\n      \"non_conforming_data_count\": 10\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 581\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e8bc5f73-1cae-4db4-ae57-ff7923ff5445",
+          "name": "Get an execution component by ID.",
+          "request": {
+            "name": "Get an execution component by ID.",
+            "description": {},
+            "url": {
+              "path": [
+                "executions",
+                ":executionId",
+                "execution-components",
+                ":executionComponentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "executionId",
+                  "description": "(Required) The ID of the Execution."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "executionComponentId",
+                  "description": "(Required) The ID of the Execution Component."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "38dd386a-ada6-4942-8dde-e0f54e9eb6e6",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "executions",
+                    ":executionId",
+                    "execution-components",
+                    ":executionComponentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "executionId",
+                      "description": "(Required) The ID of the Execution."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "executionComponentId",
+                      "description": "(Required) The ID of the Execution Component."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"123\",\n  \"name\": \"table_a\",\n  \"execution_id\": \"414ed52c-fa89-455d-9fb9-9c2fa5115f80\",\n  \"status\": \"RUNNING\",\n  \"rows_masked\": 1000,\n  \"rows_total\": 5000,\n  \"bytes_processed\": 500,\n  \"bytes_total\": 5000000,\n  \"start_time\": \"2021-05-01T09:51:34.148000+00:00\",\n  \"end_time\": \"2021-05-01T11:51:34.148000+00:00\",\n  \"non_conforming_data_count\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dcd67d40-5195-46e0-9f96-ace3cb6b618b",
+          "name": "Get an execution component log.",
+          "request": {
+            "name": "Get an execution component log.",
+            "description": {
+              "content": "Returns the execution component log information for the given execution component.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "executions",
+                ":executionId",
+                "execution-components",
+                ":executionComponentId",
+                "log"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "executionId",
+                  "description": "(Required) The ID of the Execution."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "executionComponentId",
+                  "description": "(Required) The ID of the Execution Component."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7dbc9f12-9032-44ef-a322-ef55106cbd31",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "executions",
+                    ":executionId",
+                    "execution-components",
+                    ":executionComponentId",
+                    "log"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "executionId",
+                      "description": "(Required) The ID of the Execution."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "executionComponentId",
+                      "description": "(Required) The ID of the Execution Component."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"execution_component_id\": \"123\",\n  \"log\": \"string\",\n  \"download_status\": \"COLLECTED\",\n  \"file_size\": 1024,\n  \"is_truncated\": false,\n  \"file_download_id\": \"3a4b5c6d-1234-5678-abcd-ef0123456789\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6efccda4-9c7f-484a-af98-43147555b1e1",
+              "name": "Execution component not found or log not available.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "executions",
+                    ":executionId",
+                    "execution-components",
+                    ":executionComponentId",
+                    "log"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "executionId",
+                      "description": "(Required) The ID of the Execution."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "executionComponentId",
+                      "description": "(Required) The ID of the Execution Component."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3cb2aafc-496a-4ec7-8f09-d2ff01a902c8",
+          "name": "Retrieve the list of discovery results for a masking execution.",
+          "request": {
+            "name": "Retrieve the list of discovery results for a masking execution.",
+            "description": {},
+            "url": {
+              "path": [
+                "executions",
+                ":executionId",
+                "discovery-results"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "executionId",
+                  "description": "(Required) The ID of the Execution."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "209654fd-7e32-4539-9132-fbc078aa5e7b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "executions",
+                    ":executionId",
+                    "discovery-results"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "column_name"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "executionId",
+                      "description": "(Required) The ID of the Execution."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"table_name\": \"cust_address\",\n      \"file_name\": \"report.json\",\n      \"column_name\": \"ADDR_LINE_1\",\n      \"field_name\": \"customer name\",\n      \"data_class_name\": \"FIRST_NAME\",\n      \"algorithm_name\": \"FIRST_NAME_SL\",\n      \"data_type\": \"varchar\",\n      \"confidence\": 85,\n      \"is_profiler_writable\": false\n    },\n    {\n      \"id\": \"string\",\n      \"table_name\": \"cust_address\",\n      \"file_name\": \"report.json\",\n      \"column_name\": \"ADDR_LINE_1\",\n      \"field_name\": \"customer name\",\n      \"data_class_name\": \"FIRST_NAME\",\n      \"algorithm_name\": \"FIRST_NAME_SL\",\n      \"data_type\": \"varchar\",\n      \"confidence\": 85,\n      \"is_profiler_writable\": true\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 6771\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "627d73af-5740-42e5-99db-a157337a7088",
+          "name": "Search discovery results associated with execution of a discovery job",
+          "request": {
+            "name": "Search discovery results associated with execution of a discovery job",
+            "description": {},
+            "url": {
+              "path": [
+                "executions",
+                ":executionId",
+                "discovery-results",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "executionId",
+                  "description": "(Required) The ID of the Execution."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c6971c43-3319-4121-be87-491773e052cd",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "executions",
+                    ":executionId",
+                    "discovery-results",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "column_name"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "executionId",
+                      "description": "(Required) The ID of the Execution."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"table_name\": \"cust_address\",\n      \"file_name\": \"report.json\",\n      \"column_name\": \"ADDR_LINE_1\",\n      \"field_name\": \"customer name\",\n      \"data_class_name\": \"FIRST_NAME\",\n      \"algorithm_name\": \"FIRST_NAME_SL\",\n      \"data_type\": \"varchar\",\n      \"confidence\": 85,\n      \"is_profiler_writable\": true\n    },\n    {\n      \"id\": \"string\",\n      \"table_name\": \"cust_address\",\n      \"file_name\": \"report.json\",\n      \"column_name\": \"ADDR_LINE_1\",\n      \"field_name\": \"customer name\",\n      \"data_class_name\": \"FIRST_NAME\",\n      \"algorithm_name\": \"FIRST_NAME_SL\",\n      \"data_type\": \"varchar\",\n      \"confidence\": 85,\n      \"is_profiler_writable\": false\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 7181\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/dct/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6927ba11-19db-49ef-8b78-2cd369a9d360",
+    "name": "Delphix DCT Algorithms Executions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Delphix DCT API\n\nContact Support:\n Name: Delphix Support\n Email: support@delphix.com",
+      "type": "text/plain"
+    }
+  }
+}

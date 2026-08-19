@@ -1,0 +1,258 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms MaskingPlugins API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "MaskingPlugins",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve the list of masking plugins.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/masking-plugins",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+              }
+            ]
+          },
+          "docs": "Retrieve the list of masking plugins."
+        },
+        {
+          "info": {
+            "name": "Install a masking plugin.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/masking-plugins",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Install a masking plugin."
+        },
+        {
+          "info": {
+            "name": "Get a masking plugin by ID or name.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/masking-plugins/:maskingPluginId",
+            "params": [
+              {
+                "name": "maskingPluginId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the masking plugin."
+              }
+            ]
+          },
+          "docs": "Get a masking plugin by ID or name."
+        },
+        {
+          "info": {
+            "name": "Update a Masking Plugin.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/masking-plugins/:maskingPluginId",
+            "params": [
+              {
+                "name": "maskingPluginId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the masking plugin."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Masking Plugin."
+        },
+        {
+          "info": {
+            "name": "Delete a masking plugin.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/dct/v3/masking-plugins/:maskingPluginId",
+            "params": [
+              {
+                "name": "maskingPluginId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the masking plugin."
+              },
+              {
+                "name": "force",
+                "value": "false",
+                "type": "query",
+                "description": "If true, replace all algorithm usages with NullValueLookup before deleting the plugin. Default is false."
+              }
+            ]
+          },
+          "docs": "Delete a masking plugin."
+        },
+        {
+          "info": {
+            "name": "Get tags for a masking plugin.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/masking-plugins/:maskingPluginId/tags",
+            "params": [
+              {
+                "name": "maskingPluginId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the masking plugin."
+              }
+            ]
+          },
+          "docs": "Get tags for a masking plugin."
+        },
+        {
+          "info": {
+            "name": "Create tags for a masking plugin.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/masking-plugins/:maskingPluginId/tags",
+            "params": [
+              {
+                "name": "maskingPluginId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the masking plugin."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create tags for a masking plugin."
+        },
+        {
+          "info": {
+            "name": "Delete tags for a masking plugin.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/masking-plugins/:maskingPluginId/tags/delete",
+            "params": [
+              {
+                "name": "maskingPluginId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the masking plugin."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete tags for a masking plugin."
+        },
+        {
+          "info": {
+            "name": "Search for masking plugins.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/masking-plugins/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for masking plugins."
+        },
+        {
+          "info": {
+            "name": "Get an algorithm framework by ID or name.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/algorithm-frameworks/:algorithmFrameworkId",
+            "params": [
+              {
+                "name": "algorithmFrameworkId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the algorithm framework."
+              }
+            ]
+          },
+          "docs": "Get an algorithm framework by ID or name."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

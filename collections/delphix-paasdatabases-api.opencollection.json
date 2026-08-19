@@ -1,0 +1,449 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms PaaSDatabases API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "PaaSDatabases",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all PaaS Databases.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/paas-databases",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order.\n"
+              },
+              {
+                "name": "permission",
+                "value": "READ",
+                "type": "query",
+                "description": "Restrict the objects, which are allowed."
+              }
+            ]
+          },
+          "docs": "List all PaaS Databases."
+        },
+        {
+          "info": {
+            "name": "Provision a new PaaS Database",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/paas-databases",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Provision a new PaaS Database"
+        },
+        {
+          "info": {
+            "name": "Provision a new PaaS Database from a bookmark",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/paas-databases/provision_from_bookmark",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Provision a new PaaS Database from a bookmark"
+        },
+        {
+          "info": {
+            "name": "List Bookmarks compatible with this PaaS Database.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/paas-databases/:paaSDatabaseId/bookmarks",
+            "params": [
+              {
+                "name": "paaSDatabaseId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Database."
+              },
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ]
+          },
+          "docs": "List Bookmarks compatible with this PaaS Database."
+        },
+        {
+          "info": {
+            "name": "Search Bookmarks compatible with this PaaS Database.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/paas-databases/:paaSDatabaseId/bookmarks/search",
+            "params": [
+              {
+                "name": "paaSDatabaseId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Database."
+              },
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search Bookmarks compatible with this PaaS Database."
+        },
+        {
+          "info": {
+            "name": "Refresh a PaaS Database from bookmark",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/paas-databases/:paaSDatabaseId/refresh_from_bookmark",
+            "params": [
+              {
+                "name": "paaSDatabaseId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Database."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Refresh a PaaS Database from bookmark"
+        },
+        {
+          "info": {
+            "name": "Search for PaaS Databases.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/paas-databases/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order.\n"
+              },
+              {
+                "name": "permission",
+                "value": "READ",
+                "type": "query",
+                "description": "Restrict the objects, which are allowed."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for PaaS Databases."
+        },
+        {
+          "info": {
+            "name": "Get a PaaS Database by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/paas-databases/:paaSDatabaseId",
+            "params": [
+              {
+                "name": "paaSDatabaseId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Database."
+              }
+            ]
+          },
+          "docs": "Get a PaaS Database by ID."
+        },
+        {
+          "info": {
+            "name": "Delete a PaaS Database",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/paas-databases/:paaSDatabaseId/delete",
+            "params": [
+              {
+                "name": "paaSDatabaseId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Database."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete a PaaS Database"
+        },
+        {
+          "info": {
+            "name": "Execute the compliance job for a PaaS Database",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/paas-databases/:paaSDatabaseId/execute-compliance-job",
+            "params": [
+              {
+                "name": "paaSDatabaseId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Database."
+              }
+            ]
+          },
+          "docs": "Execute the compliance job for a PaaS Database"
+        },
+        {
+          "info": {
+            "name": "Create a new compliance connector for the PaaS Database.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/paas-databases/:paaSDatabaseId/create-compliance-connector",
+            "params": [
+              {
+                "name": "paaSDatabaseId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Database."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new compliance connector for the PaaS Database."
+        },
+        {
+          "info": {
+            "name": "Refresh a PaaS Database",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/paas-databases/:paaSDatabaseId/refresh",
+            "params": [
+              {
+                "name": "paaSDatabaseId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Database."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Refresh a PaaS Database"
+        },
+        {
+          "info": {
+            "name": "De-provision a PaaS Database, meaning that the database object will remain in DCT, along with its permissions, tags, snapshots, ... but the database will no longer be running. If the current database data must be preserved, take a snapshot before de-provisioning.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/paas-databases/:paaSDatabaseId/de-provision",
+            "params": [
+              {
+                "name": "paaSDatabaseId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Database."
+              }
+            ]
+          },
+          "docs": "De-provision a PaaS Database, meaning that the database object will remain in DCT, along with its permissions, tags, snapshots, ... but the database will no longer be running. If the current database data must be preserved, take a snapshot before de-provisioning."
+        },
+        {
+          "info": {
+            "name": "Re-provision a PaaS Database which has previously been de-provisioned. The provision parameters specified at provisioning time will be respected, with the exception of the timestamp or snapshot id to re-provision from.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/paas-databases/:paaSDatabaseId/re-provision",
+            "params": [
+              {
+                "name": "paaSDatabaseId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Database."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Re-provision a PaaS Database which has previously been de-provisioned. The provision parameters specified at provisioning time will be respected, with the exception of the timestamp or snapshot id to re-provision from."
+        },
+        {
+          "info": {
+            "name": "Get tags for a PaaS Database.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/paas-databases/:paaSDatabaseId/tags",
+            "params": [
+              {
+                "name": "paaSDatabaseId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Database."
+              }
+            ]
+          },
+          "docs": "Get tags for a PaaS Database."
+        },
+        {
+          "info": {
+            "name": "Create tags for a PaaS Database.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/paas-databases/:paaSDatabaseId/tags",
+            "params": [
+              {
+                "name": "paaSDatabaseId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Database."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create tags for a PaaS Database."
+        },
+        {
+          "info": {
+            "name": "Delete tags for a PaaS Database.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/paas-databases/:paaSDatabaseId/tags/delete",
+            "params": [
+              {
+                "name": "paaSDatabaseId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Database."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete tags for a PaaS Database."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

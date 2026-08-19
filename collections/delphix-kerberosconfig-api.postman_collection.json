@@ -1,0 +1,371 @@
+{
+  "item": [
+    {
+      "id": "ea6299e6-4eba-4de3-9d36-b88a172bcbb7",
+      "name": "KerberosConfig",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "327febcd-4ff0-4383-b6e4-d8980e86b444",
+          "name": "Get a kerberos config by ID or Name.",
+          "request": {
+            "name": "Get a kerberos config by ID or Name.",
+            "description": {},
+            "url": {
+              "path": [
+                "kerberos-configs",
+                ":kerberosConfigId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "kerberosConfigId",
+                  "description": "(Required) The ID of the kerberos config."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "867b3776-968d-4ff7-a099-49a9a1117b84",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kerberos-configs",
+                    ":kerberosConfigId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "kerberosConfigId",
+                      "description": "(Required) The ID of the kerberos config."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"1-KERBEROS_CONFIG-1\",\n  \"name\": \"Untitled\",\n  \"namespace_id\": \"1-NAMESPACE-1\",\n  \"namespace_name\": \"test-engine-1\",\n  \"is_replica\": true,\n  \"engine_id\": \"1\",\n  \"engine_name\": \"Engine-1\",\n  \"realm\": \"DELPHIX.COM\",\n  \"principal\": \"sybase\",\n  \"enabled\": true,\n  \"keytab\": \"keytab\",\n  \"kdc_servers\": [\n    {\n      \"hostname\": \"kerberos-02.delphix.com\",\n      \"port\": 88\n    },\n    {\n      \"hostname\": \"kerberos-02.delphix.com\",\n      \"port\": 88\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d84b09ee-cf8b-4b37-9471-55077c4face3",
+          "name": "List all kerberos configs.",
+          "request": {
+            "name": "List all kerberos configs.",
+            "description": {},
+            "url": {
+              "path": [
+                "kerberos-configs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ab84d3e9-979f-40c6-bee9-65c536528c87",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kerberos-configs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"1-KERBEROS_CONFIG-1\",\n      \"name\": \"Untitled\",\n      \"namespace_id\": \"1-NAMESPACE-1\",\n      \"namespace_name\": \"test-engine-1\",\n      \"is_replica\": true,\n      \"engine_id\": \"1\",\n      \"engine_name\": \"Engine-1\",\n      \"realm\": \"DELPHIX.COM\",\n      \"principal\": \"sybase\",\n      \"enabled\": true,\n      \"keytab\": \"keytab\",\n      \"kdc_servers\": [\n        {\n          \"hostname\": \"kerberos-02.delphix.com\",\n          \"port\": 88\n        },\n        {\n          \"hostname\": \"kerberos-02.delphix.com\",\n          \"port\": 88\n        }\n      ]\n    },\n    {\n      \"id\": \"1-KERBEROS_CONFIG-1\",\n      \"name\": \"Untitled\",\n      \"namespace_id\": \"1-NAMESPACE-1\",\n      \"namespace_name\": \"test-engine-1\",\n      \"is_replica\": true,\n      \"engine_id\": \"1\",\n      \"engine_name\": \"Engine-1\",\n      \"realm\": \"DELPHIX.COM\",\n      \"principal\": \"sybase\",\n      \"enabled\": false,\n      \"keytab\": \"keytab\",\n      \"kdc_servers\": [\n        {\n          \"hostname\": \"kerberos-02.delphix.com\",\n          \"port\": 88\n        },\n        {\n          \"hostname\": \"kerberos-02.delphix.com\",\n          \"port\": 88\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 4904\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9c65f712-0dca-405a-8f5a-83a40cc83146",
+          "name": "Search for Kerberos Configs.",
+          "request": {
+            "name": "Search for Kerberos Configs.",
+            "description": {},
+            "url": {
+              "path": [
+                "kerberos-configs",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d07c5ea4-baba-447c-88a5-eb92b0aaed65",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kerberos-configs",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"1-KERBEROS_CONFIG-1\",\n      \"name\": \"Untitled\",\n      \"namespace_id\": \"1-NAMESPACE-1\",\n      \"namespace_name\": \"test-engine-1\",\n      \"is_replica\": true,\n      \"engine_id\": \"1\",\n      \"engine_name\": \"Engine-1\",\n      \"realm\": \"DELPHIX.COM\",\n      \"principal\": \"sybase\",\n      \"enabled\": false,\n      \"keytab\": \"keytab\",\n      \"kdc_servers\": [\n        {\n          \"hostname\": \"kerberos-02.delphix.com\",\n          \"port\": 88\n        },\n        {\n          \"hostname\": \"kerberos-02.delphix.com\",\n          \"port\": 88\n        }\n      ]\n    },\n    {\n      \"id\": \"1-KERBEROS_CONFIG-1\",\n      \"name\": \"Untitled\",\n      \"namespace_id\": \"1-NAMESPACE-1\",\n      \"namespace_name\": \"test-engine-1\",\n      \"is_replica\": true,\n      \"engine_id\": \"1\",\n      \"engine_name\": \"Engine-1\",\n      \"realm\": \"DELPHIX.COM\",\n      \"principal\": \"sybase\",\n      \"enabled\": true,\n      \"keytab\": \"keytab\",\n      \"kdc_servers\": [\n        {\n          \"hostname\": \"kerberos-02.delphix.com\",\n          \"port\": 88\n        },\n        {\n          \"hostname\": \"kerberos-02.delphix.com\",\n          \"port\": 88\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 4295\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/dct/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3258afe5-ae04-481e-97f7-c03b00653482",
+    "name": "Delphix DCT Algorithms KerberosConfig API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Delphix DCT API\n\nContact Support:\n Name: Delphix Support\n Email: support@delphix.com",
+      "type": "text/plain"
+    }
+  }
+}

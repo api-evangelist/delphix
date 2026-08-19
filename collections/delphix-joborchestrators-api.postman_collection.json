@@ -1,0 +1,1889 @@
+{
+  "item": [
+    {
+      "id": "b76d76bc-7029-4940-a5c1-d8b77a197609",
+      "name": "JobOrchestrators",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1a589ef2-bd6a-4801-9e59-e93d0749500f",
+          "name": "Create a job orchestrator.",
+          "request": {
+            "name": "Create a job orchestrator.",
+            "description": {},
+            "url": {
+              "path": [
+                "job-orchestrators"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"make_current_account_owner\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c94de73d-6740-44fd-bcf6-d29d3d1e4f6b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "job-orchestrators"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My favorite Job Orchestrator\",\n  \"description\": \"Job Orchestrator for US-west\",\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ],\n  \"make_current_account_owner\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 7,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2017-02-02T02:50:38.695Z\",\n        \"end_time\": \"1971-08-13T08:35:20.849Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 96,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1957-02-16T20:52:41.676Z\",\n        \"end_time\": \"1978-07-13T21:45:10.199Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 43,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1946-09-14T06:25:48.609Z\",\n        \"end_time\": \"1984-08-18T11:00:42.733Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 5,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"COMPLETED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1996-09-10T11:22:32.982Z\",\n        \"end_time\": \"1962-12-15T19:30:45.727Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 30,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "89bbd78b-8c81-4bae-b267-bcc891de1189",
+          "name": "Retrieve the list of job orchestrators.",
+          "request": {
+            "name": "Retrieve the list of job orchestrators.",
+            "description": {},
+            "url": {
+              "path": [
+                "job-orchestrators"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3b9eabdd-7534-40c1-a00c-ff76e97e6bd3",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "job-orchestrators"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"414ed52c-abed-455d-9fb9-9c2fa5115f80\",\n      \"name\": \"My favorite Job Orchestrator\",\n      \"description\": \"Job Orchestrator for US-west\",\n      \"creation_date\": \"2022-11-30T08:51:34.148000+00:00\",\n      \"account_id\": 1,\n      \"account_name\": \"username\",\n      \"node_count\": 10,\n      \"total_core_count\": 10,\n      \"queued_operation_count\": 10,\n      \"running_job_count\": 10,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ],\n      \"hyperscale_instance_id\": \"hyperscale-instance-123\"\n    },\n    {\n      \"id\": \"414ed52c-abed-455d-9fb9-9c2fa5115f80\",\n      \"name\": \"My favorite Job Orchestrator\",\n      \"description\": \"Job Orchestrator for US-west\",\n      \"creation_date\": \"2022-11-30T08:51:34.148000+00:00\",\n      \"account_id\": 1,\n      \"account_name\": \"username\",\n      \"node_count\": 10,\n      \"total_core_count\": 10,\n      \"queued_operation_count\": 10,\n      \"running_job_count\": 10,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ],\n      \"hyperscale_instance_id\": \"hyperscale-instance-123\"\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 4327\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ac6e1dc9-e1b5-4865-a307-91aac1bde0e5",
+          "name": "Search job orchestrators.",
+          "request": {
+            "name": "Search job orchestrators.",
+            "description": {},
+            "url": {
+              "path": [
+                "job-orchestrators",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8c631793-e768-4dfb-a286-d562a8fa5d4d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "job-orchestrators",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"414ed52c-abed-455d-9fb9-9c2fa5115f80\",\n      \"name\": \"My favorite Job Orchestrator\",\n      \"description\": \"Job Orchestrator for US-west\",\n      \"creation_date\": \"2022-11-30T08:51:34.148000+00:00\",\n      \"account_id\": 1,\n      \"account_name\": \"username\",\n      \"node_count\": 10,\n      \"total_core_count\": 10,\n      \"queued_operation_count\": 10,\n      \"running_job_count\": 10,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ],\n      \"hyperscale_instance_id\": \"hyperscale-instance-123\"\n    },\n    {\n      \"id\": \"414ed52c-abed-455d-9fb9-9c2fa5115f80\",\n      \"name\": \"My favorite Job Orchestrator\",\n      \"description\": \"Job Orchestrator for US-west\",\n      \"creation_date\": \"2022-11-30T08:51:34.148000+00:00\",\n      \"account_id\": 1,\n      \"account_name\": \"username\",\n      \"node_count\": 10,\n      \"total_core_count\": 10,\n      \"queued_operation_count\": 10,\n      \"running_job_count\": 10,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ],\n      \"hyperscale_instance_id\": \"hyperscale-instance-123\"\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 123\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cbc2c2c4-41ae-4579-872a-4695401ca38e",
+          "name": "Retrieve a job orchestrator by ID.",
+          "request": {
+            "name": "Retrieve a job orchestrator by ID.",
+            "description": {},
+            "url": {
+              "path": [
+                "job-orchestrators",
+                ":jobOrchestratorId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobOrchestratorId",
+                  "description": "(Required) The ID of the job orchestrator."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "723c1bc3-02ca-4f4b-bad1-ad3ec11fa08f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "job-orchestrators",
+                    ":jobOrchestratorId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobOrchestratorId",
+                      "description": "(Required) The ID of the job orchestrator."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"414ed52c-abed-455d-9fb9-9c2fa5115f80\",\n  \"name\": \"My favorite Job Orchestrator\",\n  \"description\": \"Job Orchestrator for US-west\",\n  \"creation_date\": \"2022-11-30T08:51:34.148000+00:00\",\n  \"account_id\": 1,\n  \"account_name\": \"username\",\n  \"node_count\": 10,\n  \"total_core_count\": 10,\n  \"queued_operation_count\": 10,\n  \"running_job_count\": 10,\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ],\n  \"hyperscale_instance_id\": \"hyperscale-instance-123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d337c108-36ca-4998-ad72-fd82689fdb00",
+          "name": "Update a job orchestrator.",
+          "request": {
+            "name": "Update a job orchestrator.",
+            "description": {},
+            "url": {
+              "path": [
+                "job-orchestrators",
+                ":jobOrchestratorId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobOrchestratorId",
+                  "description": "(Required) The ID of the job orchestrator."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cf3fd86e-504a-4afc-8330-a78827e39f16",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "job-orchestrators",
+                    ":jobOrchestratorId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobOrchestratorId",
+                      "description": "(Required) The ID of the job orchestrator."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My favorite Job Orchestrator\",\n  \"description\": \"Job Orchestrator for US-west\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 67,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1972-02-08T09:49:01.525Z\",\n        \"end_time\": \"1989-11-12T10:29:22.639Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 45,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1950-09-22T16:38:37.703Z\",\n        \"end_time\": \"1999-08-13T18:49:16.650Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 30,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"PENDING\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2016-12-14T16:59:43.144Z\",\n        \"end_time\": \"1958-06-09T16:14:36.487Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 37,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1966-03-23T08:42:09.574Z\",\n        \"end_time\": \"1981-04-08T06:55:04.228Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 91,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d8a0d4a7-bd5b-40ef-ab01-25026e02e2da",
+          "name": "Delete a job orchestrator.",
+          "request": {
+            "name": "Delete a job orchestrator.",
+            "description": {},
+            "url": {
+              "path": [
+                "job-orchestrators",
+                ":jobOrchestratorId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobOrchestratorId",
+                  "description": "(Required) The ID of the job orchestrator."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "500eb349-72b4-4fca-bde4-1528d5c45ed0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "job-orchestrators",
+                    ":jobOrchestratorId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobOrchestratorId",
+                      "description": "(Required) The ID of the job orchestrator."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 78,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1973-06-29T09:51:18.477Z\",\n        \"end_time\": \"1961-02-11T22:32:43.550Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 67,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"COMPLETED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2021-02-26T10:08:38.103Z\",\n        \"end_time\": \"2024-08-12T22:02:26.131Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 62,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1957-12-28T20:29:17.092Z\",\n        \"end_time\": \"2024-05-02T16:18:17.572Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 69,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1973-10-05T02:02:16.614Z\",\n        \"end_time\": \"2020-04-20T16:35:15.839Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 26,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "36b59abc-881f-49ae-bcb8-5945edc0bfa7",
+          "name": "Get tags for a job orchestrator.",
+          "request": {
+            "name": "Get tags for a job orchestrator.",
+            "description": {},
+            "url": {
+              "path": [
+                "job-orchestrators",
+                ":jobOrchestratorId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobOrchestratorId",
+                  "description": "(Required) The ID of the job orchestrator."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cac61862-d32f-477e-9781-44c81f2ff9fb",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "job-orchestrators",
+                    ":jobOrchestratorId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobOrchestratorId",
+                      "description": "(Required) The ID of the job orchestrator."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ea087bbd-8f08-401c-854f-c912ad24f0dd",
+          "name": "Create tags for a job orchestrator.",
+          "request": {
+            "name": "Create tags for a job orchestrator.",
+            "description": {},
+            "url": {
+              "path": [
+                "job-orchestrators",
+                ":jobOrchestratorId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobOrchestratorId",
+                  "description": "(Required) The ID of the job orchestrator."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "05cf0e29-7c9d-4634-81d8-5be28e3a72b5",
+              "name": "Job orchestrator tags created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "job-orchestrators",
+                    ":jobOrchestratorId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobOrchestratorId",
+                      "description": "(Required) The ID of the job orchestrator."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8cdc526f-38d8-4e73-98b0-2b6e95bef8c6",
+          "name": "Delete tags for a job orchestrator.",
+          "request": {
+            "name": "Delete tags for a job orchestrator.",
+            "description": {},
+            "url": {
+              "path": [
+                "job-orchestrators",
+                ":jobOrchestratorId",
+                "tags",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobOrchestratorId",
+                  "description": "(Required) The ID of the job orchestrator."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key\": \"<string>\",\n  \"value\": \"<string>\",\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e9ee9b16-4eac-4cdf-9657-f3f72f33798b",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "job-orchestrators",
+                    ":jobOrchestratorId",
+                    "tags",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobOrchestratorId",
+                      "description": "(Required) The ID of the job orchestrator."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0dbdf907-8b8a-4407-bc4e-6c9b20887738",
+          "name": "Returns a job orchestrator's application settings.",
+          "request": {
+            "name": "Returns a job orchestrator's application settings.",
+            "description": {},
+            "url": {
+              "path": [
+                "job-orchestrators",
+                ":jobOrchestratorId",
+                "application-settings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobOrchestratorId",
+                  "description": "(Required) The ID of the job orchestrator."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3293bb97-5dc5-4f16-8be3-5bf67041ff20",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "job-orchestrators",
+                    ":jobOrchestratorId",
+                    "application-settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "group"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobOrchestratorId",
+                      "description": "(Required) The ID of the job orchestrator."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"5835c60d-2155-1234-8c54-b4dff23d89c5\",\n      \"group\": \"general\",\n      \"name\": \"PasswordResetLinkDuration\",\n      \"value\": \"5\",\n      \"value_type\": \"number\"\n    },\n    {\n      \"id\": \"5835c60d-2155-1234-8c54-b4dff23d89c5\",\n      \"group\": \"general\",\n      \"name\": \"PasswordResetLinkDuration\",\n      \"value\": \"5\",\n      \"value_type\": \"number\"\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 390\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e3567f74-a32d-4f52-81b8-5b75578bf375",
+          "name": "Search a job orchestrator's application settings.",
+          "request": {
+            "name": "Search a job orchestrator's application settings.",
+            "description": {},
+            "url": {
+              "path": [
+                "job-orchestrators",
+                ":jobOrchestratorId",
+                "application-settings",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobOrchestratorId",
+                  "description": "(Required) The ID of the job orchestrator."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d4776120-c5d0-434a-98a0-0dee8d765f86",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "job-orchestrators",
+                    ":jobOrchestratorId",
+                    "application-settings",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "group"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobOrchestratorId",
+                      "description": "(Required) The ID of the job orchestrator."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"5835c60d-2155-1234-8c54-b4dff23d89c5\",\n      \"group\": \"general\",\n      \"name\": \"PasswordResetLinkDuration\",\n      \"value\": \"5\",\n      \"value_type\": \"number\"\n    },\n    {\n      \"id\": \"5835c60d-2155-1234-8c54-b4dff23d89c5\",\n      \"group\": \"general\",\n      \"name\": \"PasswordResetLinkDuration\",\n      \"value\": \"5\",\n      \"value_type\": \"number\"\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 7666\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6961b056-a076-4977-a171-ab33271adfa0",
+          "name": "Update a job orchestrator's application setting value.",
+          "request": {
+            "name": "Update a job orchestrator's application setting value.",
+            "description": {},
+            "url": {
+              "path": [
+                "job-orchestrators",
+                ":jobOrchestratorId",
+                "application-settings",
+                ":applicationSettingsId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobOrchestratorId",
+                  "description": "(Required) The ID of the job orchestrator."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "applicationSettingsId",
+                  "description": "(Required) The ID of the application setting."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"setting_value\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "19e2975c-e0eb-4a44-b6d8-369b3c1b64f5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "job-orchestrators",
+                    ":jobOrchestratorId",
+                    "application-settings",
+                    ":applicationSettingsId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobOrchestratorId",
+                      "description": "(Required) The ID of the job orchestrator."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "applicationSettingsId",
+                      "description": "(Required) The ID of the application setting."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"setting_value\": \"10\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 24,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1971-05-09T06:03:05.989Z\",\n        \"end_time\": \"1968-04-15T09:09:58.718Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 44,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1969-05-02T15:35:41.688Z\",\n        \"end_time\": \"1962-12-06T04:53:17.751Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 87,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"COMPLETED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2019-12-15T14:03:38.023Z\",\n        \"end_time\": \"1989-03-19T04:59:27.852Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 6,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2013-09-12T22:33:58.377Z\",\n        \"end_time\": \"2007-10-26T08:43:30.265Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 30,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"ABANDONED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "633988bd-f737-472d-b046-2b42d1a62448",
+          "name": "Returns a job orchestrator's queued operations.",
+          "request": {
+            "name": "Returns a job orchestrator's queued operations.",
+            "description": {},
+            "url": {
+              "path": [
+                "job-orchestrators",
+                ":jobOrchestratorId",
+                "queued-operations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobOrchestratorId",
+                  "description": "(Required) The ID of the job orchestrator."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "178b3a4d-f255-4daa-bcff-9b1f99bd8474",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "job-orchestrators",
+                    ":jobOrchestratorId",
+                    "queued-operations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobOrchestratorId",
+                      "description": "(Required) The ID of the job orchestrator."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"queued-operation-123\",\n      \"job_orchestrator_id\": \"f8e7d6c5-b4a3-2109-8765-43210fedcba9\",\n      \"enqueued_date\": \"2025-10-03T01:00:00.148000+00:00\",\n      \"job_type\": \"RULE_SET_REFRESH\",\n      \"localized_job_type\": \"Rule Set Refresh\",\n      \"job_id\": \"414ed52c-fa89-455d-9fb9-9c2fa5115f80\",\n      \"target_id\": \"rule-set-123\",\n      \"target_name\": \"my-rule-set\",\n      \"target_type\": \"RULE_SET\",\n      \"account_id\": 1,\n      \"account_name\": \"John Doe\"\n    },\n    {\n      \"id\": \"queued-operation-123\",\n      \"job_orchestrator_id\": \"f8e7d6c5-b4a3-2109-8765-43210fedcba9\",\n      \"enqueued_date\": \"2025-10-03T01:00:00.148000+00:00\",\n      \"job_type\": \"RULE_SET_REFRESH\",\n      \"localized_job_type\": \"Rule Set Refresh\",\n      \"job_id\": \"414ed52c-fa89-455d-9fb9-9c2fa5115f80\",\n      \"target_id\": \"rule-set-123\",\n      \"target_name\": \"my-rule-set\",\n      \"target_type\": \"RULE_SET\",\n      \"account_id\": 1,\n      \"account_name\": \"John Doe\"\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 5294\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "38901bf0-f542-4ce7-9bda-4750b5534971",
+          "name": "Search a job orchestrator's queued operations.",
+          "request": {
+            "name": "Search a job orchestrator's queued operations.",
+            "description": {},
+            "url": {
+              "path": [
+                "job-orchestrators",
+                ":jobOrchestratorId",
+                "queued-operations",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobOrchestratorId",
+                  "description": "(Required) The ID of the job orchestrator."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "377b3e82-3318-43de-b7be-88e496006b47",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "job-orchestrators",
+                    ":jobOrchestratorId",
+                    "queued-operations",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobOrchestratorId",
+                      "description": "(Required) The ID of the job orchestrator."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"queued-operation-123\",\n      \"job_orchestrator_id\": \"f8e7d6c5-b4a3-2109-8765-43210fedcba9\",\n      \"enqueued_date\": \"2025-10-03T01:00:00.148000+00:00\",\n      \"job_type\": \"RULE_SET_REFRESH\",\n      \"localized_job_type\": \"Rule Set Refresh\",\n      \"job_id\": \"414ed52c-fa89-455d-9fb9-9c2fa5115f80\",\n      \"target_id\": \"rule-set-123\",\n      \"target_name\": \"my-rule-set\",\n      \"target_type\": \"RULE_SET\",\n      \"account_id\": 1,\n      \"account_name\": \"John Doe\"\n    },\n    {\n      \"id\": \"queued-operation-123\",\n      \"job_orchestrator_id\": \"f8e7d6c5-b4a3-2109-8765-43210fedcba9\",\n      \"enqueued_date\": \"2025-10-03T01:00:00.148000+00:00\",\n      \"job_type\": \"RULE_SET_REFRESH\",\n      \"localized_job_type\": \"Rule Set Refresh\",\n      \"job_id\": \"414ed52c-fa89-455d-9fb9-9c2fa5115f80\",\n      \"target_id\": \"rule-set-123\",\n      \"target_name\": \"my-rule-set\",\n      \"target_type\": \"RULE_SET\",\n      \"account_id\": 1,\n      \"account_name\": \"John Doe\"\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 4765\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c8c96dc1-bb85-4f67-8ab2-345bb7bb9166",
+          "name": "Generates a bundle for requested nodes of a job orchestrator.",
+          "request": {
+            "name": "Generates a bundle for requested nodes of a job orchestrator.",
+            "description": {},
+            "url": {
+              "path": [
+                "job-orchestrators",
+                ":jobOrchestratorId",
+                "support-bundle"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobOrchestratorId",
+                  "description": "(Required) The ID of the job orchestrator."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"target_node_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c1157718-3469-4c76-89d6-7bb8f7f45d16",
+              "name": "Registers a job to generate the support bundle.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "job-orchestrators",
+                    ":jobOrchestratorId",
+                    "support-bundle"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobOrchestratorId",
+                      "description": "(Required) The ID of the job orchestrator."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"target_node_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 28,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1984-07-09T11:00:59.650Z\",\n        \"end_time\": \"2011-02-04T10:53:20.459Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 20,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1984-12-12T15:38:44.852Z\",\n        \"end_time\": \"1998-12-28T19:51:18.849Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 44,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2002-12-19T04:39:07.573Z\",\n        \"end_time\": \"2023-11-11T19:44:45.562Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 25,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1966-10-12T15:18:35.923Z\",\n        \"end_time\": \"1985-01-28T16:07:48.706Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 67,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e3c6d670-9025-4521-9da3-d3860a7ea460",
+          "name": "Move compliance nodes from a job orchestrator to a hyperscale instance.",
+          "request": {
+            "name": "Move compliance nodes from a job orchestrator to a hyperscale instance.",
+            "description": {},
+            "url": {
+              "path": [
+                "job-orchestrators",
+                ":jobOrchestratorId",
+                "move-to-hyperscale"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobOrchestratorId",
+                  "description": "(Required) The ID of the job orchestrator."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"compliance_node_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"hyperscale_instance_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0fa8e7a2-6465-4821-9311-c4716138cf1f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "job-orchestrators",
+                    ":jobOrchestratorId",
+                    "move-to-hyperscale"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobOrchestratorId",
+                      "description": "(Required) The ID of the job orchestrator."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"compliance_node_ids\": [\n    \"node-101\",\n    \"node-102\",\n    \"node-103\"\n  ],\n  \"hyperscale_instance_id\": \"f8e7d6c5-b4a3-2109-8765-43210fedcba9\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 50,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1992-03-14T02:38:13.910Z\",\n        \"end_time\": \"2019-01-07T21:48:34.902Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 73,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1978-12-27T06:05:20.949Z\",\n        \"end_time\": \"1947-11-27T15:00:20.553Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 41,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1991-01-30T06:33:38.504Z\",\n        \"end_time\": \"1967-05-12T01:54:19.552Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 91,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"ABANDONED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1982-05-31T11:03:17.518Z\",\n        \"end_time\": \"2006-01-20T20:01:48.036Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 25,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/dct/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "50d3c5ef-625e-47f0-8824-b0428a212137",
+    "name": "Delphix DCT Algorithms JobOrchestrators API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Delphix DCT API\n\nContact Support:\n Name: Delphix Support\n Email: support@delphix.com",
+      "type": "text/plain"
+    }
+  }
+}

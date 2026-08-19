@@ -1,0 +1,1957 @@
+{
+  "item": [
+    {
+      "id": "62e813ca-7de5-41b6-9d20-dbf90641d885",
+      "name": "PaaSDatabases",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d090e629-e28a-4bdc-b121-2f9a00e77543",
+          "name": "List all PaaS Databases.",
+          "request": {
+            "name": "List all PaaS Databases.",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-databases"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "permission",
+                  "value": "<string>",
+                  "description": "Restrict the objects, which are allowed."
+                },
+                {
+                  "disabled": false,
+                  "key": "permission",
+                  "value": "<string>",
+                  "description": "Restrict the objects, which are allowed."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "da424612-b317-4218-8770-f049b1bc1297",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-databases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "name"
+                    },
+                    {
+                      "key": "permission",
+                      "value": "READ"
+                    },
+                    {
+                      "key": "permission",
+                      "value": "READ"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"db-123\",\n      \"name\": \"my-db-123\",\n      \"plugin_id\": \"plugin-123\",\n      \"is_snapshot_operation_target\": false,\n      \"instance_id\": \"instance-123\",\n      \"instance_name\": \"my-instance-123\",\n      \"cloud_account_id\": \"environment-123\",\n      \"cloud_account_name\": \"AWS-US-EAST-1\",\n      \"database_engine\": \"Azure SQL Server\",\n      \"database_engine_version\": \"19.1.2\",\n      \"status\": \"DISCOVERED\",\n      \"runtime_status\": \"CREATING\",\n      \"connection_strings\": [\n        \"string\",\n        \"string\"\n      ],\n      \"parent_database_id\": \"my-db-123\",\n      \"parent_database_name\": \"my-parent-db\",\n      \"root_database_id\": \"my-root-123\",\n      \"root_database_name\": \"my-root-db\",\n      \"parent_snapshot_id\": \"my-snapshot-123\",\n      \"is_encrypted\": true,\n      \"compliance_connector_id\": \"123-connector-456\",\n      \"database_type\": \"MSSQL\",\n      \"owner\": \"string\",\n      \"created_time\": \"1999-11-27T06:10:52.023Z\",\n      \"size_bytes\": 7075,\n      \"size_measurement_time\": \"1995-08-28T04:46:19.945Z\",\n      \"size_measurement_source\": \"string\",\n      \"current_timeflow_id\": \"paas-timeflow-abc123\",\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\",\n          \"mirror_on_cloud\": false\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\",\n          \"mirror_on_cloud\": false\n        }\n      ]\n    },\n    {\n      \"id\": \"db-123\",\n      \"name\": \"my-db-123\",\n      \"plugin_id\": \"plugin-123\",\n      \"is_snapshot_operation_target\": true,\n      \"instance_id\": \"instance-123\",\n      \"instance_name\": \"my-instance-123\",\n      \"cloud_account_id\": \"environment-123\",\n      \"cloud_account_name\": \"AWS-US-EAST-1\",\n      \"database_engine\": \"Azure SQL Server\",\n      \"database_engine_version\": \"19.1.2\",\n      \"status\": \"ROOT\",\n      \"runtime_status\": \"DEPROVISIONED\",\n      \"connection_strings\": [\n        \"string\",\n        \"string\"\n      ],\n      \"parent_database_id\": \"my-db-123\",\n      \"parent_database_name\": \"my-parent-db\",\n      \"root_database_id\": \"my-root-123\",\n      \"root_database_name\": \"my-root-db\",\n      \"parent_snapshot_id\": \"my-snapshot-123\",\n      \"is_encrypted\": true,\n      \"compliance_connector_id\": \"123-connector-456\",\n      \"database_type\": \"ORACLE\",\n      \"owner\": \"string\",\n      \"created_time\": \"1993-05-02T12:32:07.547Z\",\n      \"size_bytes\": 3927,\n      \"size_measurement_time\": \"2008-10-29T16:20:44.188Z\",\n      \"size_measurement_source\": \"string\",\n      \"current_timeflow_id\": \"paas-timeflow-abc123\",\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\",\n          \"mirror_on_cloud\": false\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\",\n          \"mirror_on_cloud\": false\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 9013\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "57ac6b8e-6997-4e58-8b74-518801f30d39",
+          "name": "Provision a new PaaS Database",
+          "request": {
+            "name": "Provision a new PaaS Database",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-databases"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"make_current_account_owner\": true,\n  \"target_instance_id\": \"<string>\",\n  \"provision_parameters\": {\n    \"key_0\": false,\n    \"key_1\": true\n  },\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\",\n      \"mirror_on_cloud\": false\n    }\n  ],\n  \"source_database_id\": \"<string>\",\n  \"source_snapshot_id\": \"<string>\",\n  \"timestamp\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d0d2dd28-2cc6-46b3-8bcf-c4788c52af21",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-databases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"my-db-123\",\n  \"make_current_account_owner\": true,\n  \"target_instance_id\": \"instance-123\",\n  \"provision_parameters\": {\n    \"foo\": \"bar\"\n  },\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\",\n      \"mirror_on_cloud\": false\n    }\n  ],\n  \"source_database_id\": \"db-123\",\n  \"source_snapshot_id\": \"snapshot-123\",\n  \"timestamp\": \"2021-05-01T08:51:34.148000+00:00\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"paas_database_id\": \"string\",\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 52,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2013-01-23T14:06:02.066Z\",\n        \"end_time\": \"1966-05-07T08:06:45.147Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 69,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"ABANDONED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1987-06-12T13:22:12.859Z\",\n        \"end_time\": \"1951-03-01T22:21:58.855Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 30,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"PENDING\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2018-12-30T00:03:45.068Z\",\n        \"end_time\": \"1975-10-13T16:17:19.212Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 51,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"PENDING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1953-08-16T04:06:00.533Z\",\n        \"end_time\": \"2014-02-21T02:57:42.864Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 13,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1a87ac3e-4c13-4cb7-82d1-a05d7744bfda",
+          "name": "Provision a new PaaS Database from a bookmark",
+          "request": {
+            "name": "Provision a new PaaS Database from a bookmark",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-databases",
+                "provision_from_bookmark"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"bookmark_id\": \"<string>\",\n  \"make_current_account_owner\": true,\n  \"target_instance_id\": \"<string>\",\n  \"provision_parameters\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": 6261.766958500207,\n    \"key_3\": 9232.086291030704\n  },\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\",\n      \"mirror_on_cloud\": false\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "85815692-9b95-4b7e-aeea-e3873107d6ac",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-databases",
+                    "provision_from_bookmark"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"my-db-123\",\n  \"bookmark_id\": \"bookmark-123\",\n  \"make_current_account_owner\": true,\n  \"target_instance_id\": \"instance-123\",\n  \"provision_parameters\": {\n    \"foo\": \"bar\"\n  },\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\",\n      \"mirror_on_cloud\": false\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"paas_database_id\": \"string\",\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 99,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2017-11-10T18:31:22.402Z\",\n        \"end_time\": \"1976-03-20T02:01:23.696Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 24,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2010-12-22T12:10:25.944Z\",\n        \"end_time\": \"1947-09-20T08:49:13.045Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 76,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1963-02-07T10:10:04.604Z\",\n        \"end_time\": \"1999-09-16T01:33:51.039Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 88,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"ABANDONED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2024-06-08T13:14:01.457Z\",\n        \"end_time\": \"2025-08-04T04:51:44.950Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 34,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"ABANDONED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "594110a0-d2ef-48db-89ad-3f2f0ecc2c0f",
+          "name": "List Bookmarks compatible with this PaaS Database.",
+          "request": {
+            "name": "List Bookmarks compatible with this PaaS Database.",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-databases",
+                ":paaSDatabaseId",
+                "bookmarks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paaSDatabaseId",
+                  "description": "(Required) The ID of the PaaS Database."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0465c87b-0d95-44c7-b443-cb3ad19697da",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-databases",
+                    ":paaSDatabaseId",
+                    "bookmarks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paaSDatabaseId",
+                      "description": "(Required) The ID of the PaaS Database."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"bookmark-123\",\n      \"name\": \"my-bookmark-123\",\n      \"creation_date\": \"2021-07-04T08:51:34.148000+00:00\",\n      \"data_timestamp\": \"2021-06-03T08:51:34.148000+00:00\",\n      \"timeflow_id\": \"1-TIMEFLOW-1\",\n      \"location\": \"200000\",\n      \"vdb_ids\": [\n        \"vdb-123\",\n        \"vdb-456\"\n      ],\n      \"dsource_ids\": [\n        \"dsource-123\",\n        \"dsource-456\"\n      ],\n      \"vdb_group_id\": \"vdb-group-123\",\n      \"vdb_group_name\": \"my-vdb-group\",\n      \"vdbs\": [\n        {\n          \"vdb_id\": \"vdb-id-1\",\n          \"vdb_name\": \"vdb-name\",\n          \"snapshot_id\": \"1-SNAP-1\",\n          \"source_data_timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n          \"root_parent_id\": \"1-DBCONTAINER-1\",\n          \"timeflow_id\": \"string\",\n          \"data_timestamp\": \"2005-10-08T16:35:15.014Z\"\n        },\n        {\n          \"vdb_id\": \"vdb-id-1\",\n          \"vdb_name\": \"vdb-name\",\n          \"snapshot_id\": \"1-SNAP-1\",\n          \"source_data_timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n          \"root_parent_id\": \"1-DBCONTAINER-1\",\n          \"timeflow_id\": \"string\",\n          \"data_timestamp\": \"1988-09-18T03:51:50.556Z\"\n        }\n      ],\n      \"dsources\": [\n        {\n          \"dsource_id\": \"dsource-id-1\",\n          \"dsource_name\": \"dsource-name\",\n          \"snapshot_id\": \"1-SNAP-1\",\n          \"timeflow_id\": \"1-ORACLE-TIMEFLOW-1\",\n          \"data_timestamp\": \"1968-05-13T05:58:29.671Z\"\n        },\n        {\n          \"dsource_id\": \"dsource-id-1\",\n          \"dsource_name\": \"dsource-name\",\n          \"snapshot_id\": \"1-SNAP-1\",\n          \"timeflow_id\": \"1-ORACLE-TIMEFLOW-1\",\n          \"data_timestamp\": \"2006-03-10T04:47:22.348Z\"\n        }\n      ],\n      \"paas_databases\": [\n        {\n          \"paas_database_id\": \"paas-database-id-1\",\n          \"paas_database_name\": \"paas-database-name\",\n          \"root_parent_id\": \"paas-instance-id-1\",\n          \"paas_snapshot_id\": \"1-SNAP-1\",\n          \"data_timestamp\": \"2021-05-01T08:51:34.148000+00:00\"\n        },\n        {\n          \"paas_database_id\": \"paas-database-id-1\",\n          \"paas_database_name\": \"paas-database-name\",\n          \"root_parent_id\": \"paas-instance-id-1\",\n          \"paas_snapshot_id\": \"1-SNAP-1\",\n          \"data_timestamp\": \"2021-05-01T08:51:34.148000+00:00\"\n        }\n      ],\n      \"paas_instances\": [\n        {\n          \"paas_instance_id\": \"paas-instance-id-1\",\n          \"paas_instance_name\": \"paas-instance-name\",\n          \"root_parent_id\": \"paas-instance-root-id-1\",\n          \"paas_snapshot_id\": \"1-SNAP-1\",\n          \"data_timestamp\": \"2021-05-01T08:51:34.148000+00:00\"\n        },\n        {\n          \"paas_instance_id\": \"paas-instance-id-1\",\n          \"paas_instance_name\": \"paas-instance-name\",\n          \"root_parent_id\": \"paas-instance-root-id-1\",\n          \"paas_snapshot_id\": \"1-SNAP-1\",\n          \"data_timestamp\": \"2021-05-01T08:51:34.148000+00:00\"\n        }\n      ],\n      \"retention\": 365,\n      \"expiration\": \"2021-07-04\",\n      \"status\": \"RESTORED\",\n      \"replicated_dataset\": false,\n      \"bookmark_source\": \"ENGINE\",\n      \"bookmark_status\": \"ACTIVE\",\n      \"ss_data_layout_id\": \"string\",\n      \"ss_bookmark_reference\": \"string\",\n      \"ss_bookmark_errors\": [\n        \"No snapshots found for JS_BOOKMARK-1 at timestamp 2021-07-04T08:51:34.148\"\n      ],\n      \"bookmark_type\": \"PRIVATE\",\n      \"namespace_id\": \"1-NAMESPACE-1\",\n      \"namespace_name\": \"test-engine-1\",\n      \"is_replica\": true,\n      \"primary_object_id\": \"string\",\n      \"primary_engine_id\": \"string\",\n      \"primary_engine_name\": \"string\",\n      \"primary_bookmark_expiration\": \"2021-07-04\",\n      \"replicas\": [\n        {\n          \"replica_id\": \"replica-1\",\n          \"replica_engine_id\": \"1\",\n          \"replica_engine_name\": \"replica-e1\",\n          \"replica_namespace_id\": \"namespace-1\"\n        },\n        {\n          \"replica_id\": \"replica-1\",\n          \"replica_engine_id\": \"1\",\n          \"replica_engine_name\": \"replica-e1\",\n          \"replica_namespace_id\": \"namespace-1\"\n        }\n      ],\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-2\",\n          \"value\": \"value-2\"\n        }\n      ]\n    },\n    {\n      \"id\": \"bookmark-123\",\n      \"name\": \"my-bookmark-123\",\n      \"creation_date\": \"2021-07-04T08:51:34.148000+00:00\",\n      \"data_timestamp\": \"2021-06-03T08:51:34.148000+00:00\",\n      \"timeflow_id\": \"1-TIMEFLOW-1\",\n      \"location\": \"200000\",\n      \"vdb_ids\": [\n        \"vdb-123\",\n        \"vdb-456\"\n      ],\n      \"dsource_ids\": [\n        \"dsource-123\",\n        \"dsource-456\"\n      ],\n      \"vdb_group_id\": \"vdb-group-123\",\n      \"vdb_group_name\": \"my-vdb-group\",\n      \"vdbs\": [\n        {\n          \"vdb_id\": \"vdb-id-1\",\n          \"vdb_name\": \"vdb-name\",\n          \"snapshot_id\": \"1-SNAP-1\",\n          \"source_data_timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n          \"root_parent_id\": \"1-DBCONTAINER-1\",\n          \"timeflow_id\": \"string\",\n          \"data_timestamp\": \"2017-05-29T19:32:46.780Z\"\n        },\n        {\n          \"vdb_id\": \"vdb-id-1\",\n          \"vdb_name\": \"vdb-name\",\n          \"snapshot_id\": \"1-SNAP-1\",\n          \"source_data_timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n          \"root_parent_id\": \"1-DBCONTAINER-1\",\n          \"timeflow_id\": \"string\",\n          \"data_timestamp\": \"1967-10-03T23:51:56.788Z\"\n        }\n      ],\n      \"dsources\": [\n        {\n          \"dsource_id\": \"dsource-id-1\",\n          \"dsource_name\": \"dsource-name\",\n          \"snapshot_id\": \"1-SNAP-1\",\n          \"timeflow_id\": \"1-ORACLE-TIMEFLOW-1\",\n          \"data_timestamp\": \"2002-05-10T17:25:07.154Z\"\n        },\n        {\n          \"dsource_id\": \"dsource-id-1\",\n          \"dsource_name\": \"dsource-name\",\n          \"snapshot_id\": \"1-SNAP-1\",\n          \"timeflow_id\": \"1-ORACLE-TIMEFLOW-1\",\n          \"data_timestamp\": \"1993-05-06T14:41:28.200Z\"\n        }\n      ],\n      \"paas_databases\": [\n        {\n          \"paas_database_id\": \"paas-database-id-1\",\n          \"paas_database_name\": \"paas-database-name\",\n          \"root_parent_id\": \"paas-instance-id-1\",\n          \"paas_snapshot_id\": \"1-SNAP-1\",\n          \"data_timestamp\": \"2021-05-01T08:51:34.148000+00:00\"\n        },\n        {\n          \"paas_database_id\": \"paas-database-id-1\",\n          \"paas_database_name\": \"paas-database-name\",\n          \"root_parent_id\": \"paas-instance-id-1\",\n          \"paas_snapshot_id\": \"1-SNAP-1\",\n          \"data_timestamp\": \"2021-05-01T08:51:34.148000+00:00\"\n        }\n      ],\n      \"paas_instances\": [\n        {\n          \"paas_instance_id\": \"paas-instance-id-1\",\n          \"paas_instance_name\": \"paas-instance-name\",\n          \"root_parent_id\": \"paas-instance-root-id-1\",\n          \"paas_snapshot_id\": \"1-SNAP-1\",\n          \"data_timestamp\": \"2021-05-01T08:51:34.148000+00:00\"\n        },\n        {\n          \"paas_instance_id\": \"paas-instance-id-1\",\n          \"paas_instance_name\": \"paas-instance-name\",\n          \"root_parent_id\": \"paas-instance-root-id-1\",\n          \"paas_snapshot_id\": \"1-SNAP-1\",\n          \"data_timestamp\": \"2021-05-01T08:51:34.148000+00:00\"\n        }\n      ],\n      \"retention\": 365,\n      \"expiration\": \"2021-07-04\",\n      \"status\": \"RESTORED\",\n      \"replicated_dataset\": true,\n      \"bookmark_source\": \"ENGINE\",\n      \"bookmark_status\": \"CREATING\",\n      \"ss_data_layout_id\": \"string\",\n      \"ss_bookmark_reference\": \"string\",\n      \"ss_bookmark_errors\": [\n        \"No snapshots found for JS_BOOKMARK-1 at timestamp 2021-07-04T08:51:34.148\"\n      ],\n      \"bookmark_type\": \"PRIVATE\",\n      \"namespace_id\": \"1-NAMESPACE-1\",\n      \"namespace_name\": \"test-engine-1\",\n      \"is_replica\": true,\n      \"primary_object_id\": \"string\",\n      \"primary_engine_id\": \"string\",\n      \"primary_engine_name\": \"string\",\n      \"primary_bookmark_expiration\": \"2021-07-04\",\n      \"replicas\": [\n        {\n          \"replica_id\": \"replica-1\",\n          \"replica_engine_id\": \"1\",\n          \"replica_engine_name\": \"replica-e1\",\n          \"replica_namespace_id\": \"namespace-1\"\n        },\n        {\n          \"replica_id\": \"replica-1\",\n          \"replica_engine_id\": \"1\",\n          \"replica_engine_name\": \"replica-e1\",\n          \"replica_namespace_id\": \"namespace-1\"\n        }\n      ],\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-2\",\n          \"value\": \"value-2\"\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 5432\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "746c5e5e-fddf-4317-a397-81b0cd92be6a",
+          "name": "Search Bookmarks compatible with this PaaS Database.",
+          "request": {
+            "name": "Search Bookmarks compatible with this PaaS Database.",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-databases",
+                ":paaSDatabaseId",
+                "bookmarks",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paaSDatabaseId",
+                  "description": "(Required) The ID of the PaaS Database."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "60d9a214-b4f9-4001-a40c-02ac8e4e834e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-databases",
+                    ":paaSDatabaseId",
+                    "bookmarks",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paaSDatabaseId",
+                      "description": "(Required) The ID of the PaaS Database."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"bookmark-123\",\n      \"name\": \"my-bookmark-123\",\n      \"creation_date\": \"2021-07-04T08:51:34.148000+00:00\",\n      \"data_timestamp\": \"2021-06-03T08:51:34.148000+00:00\",\n      \"timeflow_id\": \"1-TIMEFLOW-1\",\n      \"location\": \"200000\",\n      \"vdb_ids\": [\n        \"vdb-123\",\n        \"vdb-456\"\n      ],\n      \"dsource_ids\": [\n        \"dsource-123\",\n        \"dsource-456\"\n      ],\n      \"vdb_group_id\": \"vdb-group-123\",\n      \"vdb_group_name\": \"my-vdb-group\",\n      \"vdbs\": [\n        {\n          \"vdb_id\": \"vdb-id-1\",\n          \"vdb_name\": \"vdb-name\",\n          \"snapshot_id\": \"1-SNAP-1\",\n          \"source_data_timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n          \"root_parent_id\": \"1-DBCONTAINER-1\",\n          \"timeflow_id\": \"string\",\n          \"data_timestamp\": \"1994-10-19T22:23:44.764Z\"\n        },\n        {\n          \"vdb_id\": \"vdb-id-1\",\n          \"vdb_name\": \"vdb-name\",\n          \"snapshot_id\": \"1-SNAP-1\",\n          \"source_data_timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n          \"root_parent_id\": \"1-DBCONTAINER-1\",\n          \"timeflow_id\": \"string\",\n          \"data_timestamp\": \"2002-12-30T09:19:40.262Z\"\n        }\n      ],\n      \"dsources\": [\n        {\n          \"dsource_id\": \"dsource-id-1\",\n          \"dsource_name\": \"dsource-name\",\n          \"snapshot_id\": \"1-SNAP-1\",\n          \"timeflow_id\": \"1-ORACLE-TIMEFLOW-1\",\n          \"data_timestamp\": \"2012-04-03T03:51:55.140Z\"\n        },\n        {\n          \"dsource_id\": \"dsource-id-1\",\n          \"dsource_name\": \"dsource-name\",\n          \"snapshot_id\": \"1-SNAP-1\",\n          \"timeflow_id\": \"1-ORACLE-TIMEFLOW-1\",\n          \"data_timestamp\": \"1962-05-13T12:01:39.547Z\"\n        }\n      ],\n      \"paas_databases\": [\n        {\n          \"paas_database_id\": \"paas-database-id-1\",\n          \"paas_database_name\": \"paas-database-name\",\n          \"root_parent_id\": \"paas-instance-id-1\",\n          \"paas_snapshot_id\": \"1-SNAP-1\",\n          \"data_timestamp\": \"2021-05-01T08:51:34.148000+00:00\"\n        },\n        {\n          \"paas_database_id\": \"paas-database-id-1\",\n          \"paas_database_name\": \"paas-database-name\",\n          \"root_parent_id\": \"paas-instance-id-1\",\n          \"paas_snapshot_id\": \"1-SNAP-1\",\n          \"data_timestamp\": \"2021-05-01T08:51:34.148000+00:00\"\n        }\n      ],\n      \"paas_instances\": [\n        {\n          \"paas_instance_id\": \"paas-instance-id-1\",\n          \"paas_instance_name\": \"paas-instance-name\",\n          \"root_parent_id\": \"paas-instance-root-id-1\",\n          \"paas_snapshot_id\": \"1-SNAP-1\",\n          \"data_timestamp\": \"2021-05-01T08:51:34.148000+00:00\"\n        },\n        {\n          \"paas_instance_id\": \"paas-instance-id-1\",\n          \"paas_instance_name\": \"paas-instance-name\",\n          \"root_parent_id\": \"paas-instance-root-id-1\",\n          \"paas_snapshot_id\": \"1-SNAP-1\",\n          \"data_timestamp\": \"2021-05-01T08:51:34.148000+00:00\"\n        }\n      ],\n      \"retention\": 365,\n      \"expiration\": \"2021-07-04\",\n      \"status\": \"RESTORED\",\n      \"replicated_dataset\": true,\n      \"bookmark_source\": \"DCT\",\n      \"bookmark_status\": \"CREATING\",\n      \"ss_data_layout_id\": \"string\",\n      \"ss_bookmark_reference\": \"string\",\n      \"ss_bookmark_errors\": [\n        \"No snapshots found for JS_BOOKMARK-1 at timestamp 2021-07-04T08:51:34.148\"\n      ],\n      \"bookmark_type\": \"PRIVATE\",\n      \"namespace_id\": \"1-NAMESPACE-1\",\n      \"namespace_name\": \"test-engine-1\",\n      \"is_replica\": true,\n      \"primary_object_id\": \"string\",\n      \"primary_engine_id\": \"string\",\n      \"primary_engine_name\": \"string\",\n      \"primary_bookmark_expiration\": \"2021-07-04\",\n      \"replicas\": [\n        {\n          \"replica_id\": \"replica-1\",\n          \"replica_engine_id\": \"1\",\n          \"replica_engine_name\": \"replica-e1\",\n          \"replica_namespace_id\": \"namespace-1\"\n        },\n        {\n          \"replica_id\": \"replica-1\",\n          \"replica_engine_id\": \"1\",\n          \"replica_engine_name\": \"replica-e1\",\n          \"replica_namespace_id\": \"namespace-1\"\n        }\n      ],\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-2\",\n          \"value\": \"value-2\"\n        }\n      ]\n    },\n    {\n      \"id\": \"bookmark-123\",\n      \"name\": \"my-bookmark-123\",\n      \"creation_date\": \"2021-07-04T08:51:34.148000+00:00\",\n      \"data_timestamp\": \"2021-06-03T08:51:34.148000+00:00\",\n      \"timeflow_id\": \"1-TIMEFLOW-1\",\n      \"location\": \"200000\",\n      \"vdb_ids\": [\n        \"vdb-123\",\n        \"vdb-456\"\n      ],\n      \"dsource_ids\": [\n        \"dsource-123\",\n        \"dsource-456\"\n      ],\n      \"vdb_group_id\": \"vdb-group-123\",\n      \"vdb_group_name\": \"my-vdb-group\",\n      \"vdbs\": [\n        {\n          \"vdb_id\": \"vdb-id-1\",\n          \"vdb_name\": \"vdb-name\",\n          \"snapshot_id\": \"1-SNAP-1\",\n          \"source_data_timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n          \"root_parent_id\": \"1-DBCONTAINER-1\",\n          \"timeflow_id\": \"string\",\n          \"data_timestamp\": \"1994-12-02T17:41:39.844Z\"\n        },\n        {\n          \"vdb_id\": \"vdb-id-1\",\n          \"vdb_name\": \"vdb-name\",\n          \"snapshot_id\": \"1-SNAP-1\",\n          \"source_data_timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n          \"root_parent_id\": \"1-DBCONTAINER-1\",\n          \"timeflow_id\": \"string\",\n          \"data_timestamp\": \"1988-08-30T09:27:25.605Z\"\n        }\n      ],\n      \"dsources\": [\n        {\n          \"dsource_id\": \"dsource-id-1\",\n          \"dsource_name\": \"dsource-name\",\n          \"snapshot_id\": \"1-SNAP-1\",\n          \"timeflow_id\": \"1-ORACLE-TIMEFLOW-1\",\n          \"data_timestamp\": \"1982-08-26T22:33:52.104Z\"\n        },\n        {\n          \"dsource_id\": \"dsource-id-1\",\n          \"dsource_name\": \"dsource-name\",\n          \"snapshot_id\": \"1-SNAP-1\",\n          \"timeflow_id\": \"1-ORACLE-TIMEFLOW-1\",\n          \"data_timestamp\": \"1978-02-28T16:13:10.917Z\"\n        }\n      ],\n      \"paas_databases\": [\n        {\n          \"paas_database_id\": \"paas-database-id-1\",\n          \"paas_database_name\": \"paas-database-name\",\n          \"root_parent_id\": \"paas-instance-id-1\",\n          \"paas_snapshot_id\": \"1-SNAP-1\",\n          \"data_timestamp\": \"2021-05-01T08:51:34.148000+00:00\"\n        },\n        {\n          \"paas_database_id\": \"paas-database-id-1\",\n          \"paas_database_name\": \"paas-database-name\",\n          \"root_parent_id\": \"paas-instance-id-1\",\n          \"paas_snapshot_id\": \"1-SNAP-1\",\n          \"data_timestamp\": \"2021-05-01T08:51:34.148000+00:00\"\n        }\n      ],\n      \"paas_instances\": [\n        {\n          \"paas_instance_id\": \"paas-instance-id-1\",\n          \"paas_instance_name\": \"paas-instance-name\",\n          \"root_parent_id\": \"paas-instance-root-id-1\",\n          \"paas_snapshot_id\": \"1-SNAP-1\",\n          \"data_timestamp\": \"2021-05-01T08:51:34.148000+00:00\"\n        },\n        {\n          \"paas_instance_id\": \"paas-instance-id-1\",\n          \"paas_instance_name\": \"paas-instance-name\",\n          \"root_parent_id\": \"paas-instance-root-id-1\",\n          \"paas_snapshot_id\": \"1-SNAP-1\",\n          \"data_timestamp\": \"2021-05-01T08:51:34.148000+00:00\"\n        }\n      ],\n      \"retention\": 365,\n      \"expiration\": \"2021-07-04\",\n      \"status\": \"RESTORED\",\n      \"replicated_dataset\": false,\n      \"bookmark_source\": \"ENGINE\",\n      \"bookmark_status\": \"CREATING\",\n      \"ss_data_layout_id\": \"string\",\n      \"ss_bookmark_reference\": \"string\",\n      \"ss_bookmark_errors\": [\n        \"No snapshots found for JS_BOOKMARK-1 at timestamp 2021-07-04T08:51:34.148\"\n      ],\n      \"bookmark_type\": \"PRIVATE\",\n      \"namespace_id\": \"1-NAMESPACE-1\",\n      \"namespace_name\": \"test-engine-1\",\n      \"is_replica\": true,\n      \"primary_object_id\": \"string\",\n      \"primary_engine_id\": \"string\",\n      \"primary_engine_name\": \"string\",\n      \"primary_bookmark_expiration\": \"2021-07-04\",\n      \"replicas\": [\n        {\n          \"replica_id\": \"replica-1\",\n          \"replica_engine_id\": \"1\",\n          \"replica_engine_name\": \"replica-e1\",\n          \"replica_namespace_id\": \"namespace-1\"\n        },\n        {\n          \"replica_id\": \"replica-1\",\n          \"replica_engine_id\": \"1\",\n          \"replica_engine_name\": \"replica-e1\",\n          \"replica_namespace_id\": \"namespace-1\"\n        }\n      ],\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-2\",\n          \"value\": \"value-2\"\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 2921\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8eb50bc8-a383-4e41-9d6b-1df1a009ed4e",
+          "name": "Refresh a PaaS Database from bookmark",
+          "request": {
+            "name": "Refresh a PaaS Database from bookmark",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-databases",
+                ":paaSDatabaseId",
+                "refresh_from_bookmark"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paaSDatabaseId",
+                  "description": "(Required) The ID of the PaaS Database."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bookmark_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c3277b3e-cbf7-458b-aa56-b45e432d6b88",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-databases",
+                    ":paaSDatabaseId",
+                    "refresh_from_bookmark"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paaSDatabaseId",
+                      "description": "(Required) The ID of the PaaS Database."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bookmark_id\": \"bookmark-123\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 14,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1964-06-27T03:30:53.354Z\",\n        \"end_time\": \"1963-09-22T21:46:09.471Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 72,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"PENDING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1965-04-13T17:17:15.363Z\",\n        \"end_time\": \"2020-03-09T04:42:24.509Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 18,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2021-10-07T21:23:21.205Z\",\n        \"end_time\": \"2005-12-08T08:52:04.387Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 88,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1957-09-09T07:36:57.687Z\",\n        \"end_time\": \"2026-06-02T06:31:52.325Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 76,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7a9b2046-a619-4d48-b7ca-dc287dc85b50",
+          "name": "Search for PaaS Databases.",
+          "request": {
+            "name": "Search for PaaS Databases.",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-databases",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "permission",
+                  "value": "<string>",
+                  "description": "Restrict the objects, which are allowed."
+                },
+                {
+                  "disabled": false,
+                  "key": "permission",
+                  "value": "<string>",
+                  "description": "Restrict the objects, which are allowed."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b591ce37-9204-4472-a81f-c428e6035b82",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-databases",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "name"
+                    },
+                    {
+                      "key": "permission",
+                      "value": "READ"
+                    },
+                    {
+                      "key": "permission",
+                      "value": "READ"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"db-123\",\n      \"name\": \"my-db-123\",\n      \"plugin_id\": \"plugin-123\",\n      \"is_snapshot_operation_target\": false,\n      \"instance_id\": \"instance-123\",\n      \"instance_name\": \"my-instance-123\",\n      \"cloud_account_id\": \"environment-123\",\n      \"cloud_account_name\": \"AWS-US-EAST-1\",\n      \"database_engine\": \"Azure SQL Server\",\n      \"database_engine_version\": \"19.1.2\",\n      \"status\": \"ROOT\",\n      \"runtime_status\": \"STOPPED\",\n      \"connection_strings\": [\n        \"string\",\n        \"string\"\n      ],\n      \"parent_database_id\": \"my-db-123\",\n      \"parent_database_name\": \"my-parent-db\",\n      \"root_database_id\": \"my-root-123\",\n      \"root_database_name\": \"my-root-db\",\n      \"parent_snapshot_id\": \"my-snapshot-123\",\n      \"is_encrypted\": true,\n      \"compliance_connector_id\": \"123-connector-456\",\n      \"database_type\": \"RDS_POSTGRES\",\n      \"owner\": \"string\",\n      \"created_time\": \"2001-11-29T07:17:52.612Z\",\n      \"size_bytes\": 8085,\n      \"size_measurement_time\": \"2003-06-24T23:51:34.873Z\",\n      \"size_measurement_source\": \"string\",\n      \"current_timeflow_id\": \"paas-timeflow-abc123\",\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\",\n          \"mirror_on_cloud\": false\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\",\n          \"mirror_on_cloud\": false\n        }\n      ]\n    },\n    {\n      \"id\": \"db-123\",\n      \"name\": \"my-db-123\",\n      \"plugin_id\": \"plugin-123\",\n      \"is_snapshot_operation_target\": false,\n      \"instance_id\": \"instance-123\",\n      \"instance_name\": \"my-instance-123\",\n      \"cloud_account_id\": \"environment-123\",\n      \"cloud_account_name\": \"AWS-US-EAST-1\",\n      \"database_engine\": \"Azure SQL Server\",\n      \"database_engine_version\": \"19.1.2\",\n      \"status\": \"DCT_MANAGED\",\n      \"runtime_status\": \"DEPROVISIONED\",\n      \"connection_strings\": [\n        \"string\",\n        \"string\"\n      ],\n      \"parent_database_id\": \"my-db-123\",\n      \"parent_database_name\": \"my-parent-db\",\n      \"root_database_id\": \"my-root-123\",\n      \"root_database_name\": \"my-root-db\",\n      \"parent_snapshot_id\": \"my-snapshot-123\",\n      \"is_encrypted\": true,\n      \"compliance_connector_id\": \"123-connector-456\",\n      \"database_type\": \"MSSQL\",\n      \"owner\": \"string\",\n      \"created_time\": \"1966-09-21T13:57:00.769Z\",\n      \"size_bytes\": 5614,\n      \"size_measurement_time\": \"1980-03-25T07:41:50.800Z\",\n      \"size_measurement_source\": \"string\",\n      \"current_timeflow_id\": \"paas-timeflow-abc123\",\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\",\n          \"mirror_on_cloud\": false\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\",\n          \"mirror_on_cloud\": false\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 2509\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "deebbca6-da4f-4632-acf6-4f44d9b4a5a6",
+          "name": "Get a PaaS Database by ID.",
+          "request": {
+            "name": "Get a PaaS Database by ID.",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-databases",
+                ":paaSDatabaseId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paaSDatabaseId",
+                  "description": "(Required) The ID of the PaaS Database."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7b549160-6607-455b-92f4-401b5c6b5c20",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-databases",
+                    ":paaSDatabaseId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paaSDatabaseId",
+                      "description": "(Required) The ID of the PaaS Database."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"db-123\",\n  \"name\": \"my-db-123\",\n  \"plugin_id\": \"plugin-123\",\n  \"is_snapshot_operation_target\": false,\n  \"instance_id\": \"instance-123\",\n  \"instance_name\": \"my-instance-123\",\n  \"cloud_account_id\": \"environment-123\",\n  \"cloud_account_name\": \"AWS-US-EAST-1\",\n  \"database_engine\": \"Azure SQL Server\",\n  \"database_engine_version\": \"19.1.2\",\n  \"status\": \"DCT_MANAGED\",\n  \"runtime_status\": \"CREATING\",\n  \"connection_strings\": [\n    \"string\",\n    \"string\"\n  ],\n  \"parent_database_id\": \"my-db-123\",\n  \"parent_database_name\": \"my-parent-db\",\n  \"root_database_id\": \"my-root-123\",\n  \"root_database_name\": \"my-root-db\",\n  \"parent_snapshot_id\": \"my-snapshot-123\",\n  \"is_encrypted\": true,\n  \"compliance_connector_id\": \"123-connector-456\",\n  \"database_type\": \"ORACLE\",\n  \"owner\": \"string\",\n  \"created_time\": \"1990-05-13T13:40:33.790Z\",\n  \"size_bytes\": 1328,\n  \"size_measurement_time\": \"2017-04-29T15:22:20.193Z\",\n  \"size_measurement_source\": \"string\",\n  \"current_timeflow_id\": \"paas-timeflow-abc123\",\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\",\n      \"mirror_on_cloud\": false\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\",\n      \"mirror_on_cloud\": false\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4a720372-d654-48af-9664-6659db82e5d8",
+          "name": "Delete a PaaS Database",
+          "request": {
+            "name": "Delete a PaaS Database",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-databases",
+                ":paaSDatabaseId",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paaSDatabaseId",
+                  "description": "(Required) The ID of the PaaS Database."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"delete_parameters\": {\n    \"key_0\": true,\n    \"key_1\": 6970\n  },\n  \"force_delete\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "67589b3b-42ea-4df9-b701-37f3f7965285",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-databases",
+                    ":paaSDatabaseId",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paaSDatabaseId",
+                      "description": "(Required) The ID of the PaaS Database."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"delete_parameters\": {\n    \"foo\": \"bar\"\n  },\n  \"force_delete\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 6,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2003-08-05T03:22:18.858Z\",\n        \"end_time\": \"1976-09-24T17:54:17.848Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 30,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1998-04-27T09:59:12.637Z\",\n        \"end_time\": \"1985-04-22T09:02:40.872Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 35,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"COMPLETED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2014-08-12T22:43:48.784Z\",\n        \"end_time\": \"2008-02-26T04:49:18.943Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 10,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1979-04-17T01:09:39.941Z\",\n        \"end_time\": \"2010-02-01T02:46:16.292Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 90,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "40581d81-4c7d-4af1-bc6a-155e36e89931",
+          "name": "Execute the compliance job for a PaaS Database",
+          "request": {
+            "name": "Execute the compliance job for a PaaS Database",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-databases",
+                ":paaSDatabaseId",
+                "execute-compliance-job"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paaSDatabaseId",
+                  "description": "(Required) The ID of the PaaS Database."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d513a467-d850-4e2c-9421-1338fe5d8aeb",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-databases",
+                    ":paaSDatabaseId",
+                    "execute-compliance-job"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paaSDatabaseId",
+                      "description": "(Required) The ID of the PaaS Database."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 3,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1961-10-22T16:31:38.247Z\",\n        \"end_time\": \"1968-10-10T17:17:45.666Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 96,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1975-07-07T02:48:08.958Z\",\n        \"end_time\": \"2004-03-27T14:44:29.887Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 82,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1968-04-11T12:16:18.682Z\",\n        \"end_time\": \"1958-06-01T16:23:41.652Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 30,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1954-09-03T02:39:08.370Z\",\n        \"end_time\": \"1961-09-13T19:02:36.162Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 29,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "54e2eb3b-b9a3-4ea8-b271-d2e950bcc91d",
+          "name": "Create a new compliance connector for the PaaS Database.",
+          "request": {
+            "name": "Create a new compliance connector for the PaaS Database.",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-databases",
+                ":paaSDatabaseId",
+                "create-compliance-connector"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paaSDatabaseId",
+                  "description": "(Required) The ID of the PaaS Database."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"engine_id\": \"<string>\",\n  \"schema_name\": \"<string>\",\n  \"masking_environment_id\": \"<string>\",\n  \"username\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "711e8154-c3ba-4ae1-90a6-fa4d9ed8c211",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-databases",
+                    ":paaSDatabaseId",
+                    "create-compliance-connector"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paaSDatabaseId",
+                      "description": "(Required) The ID of the PaaS Database."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"engine_id\": \"<string>\",\n  \"schema_name\": \"<string>\",\n  \"masking_environment_id\": \"<string>\",\n  \"username\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"st\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 35,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1959-12-30T15:34:37.002Z\",\n        \"end_time\": \"1978-09-05T05:52:24.369Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 90,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2012-01-30T20:30:12.070Z\",\n        \"end_time\": \"1968-12-19T23:28:08.005Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 94,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"ABANDONED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1989-02-10T00:19:46.017Z\",\n        \"end_time\": \"1965-01-28T00:59:25.481Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 42,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"ABANDONED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1954-04-16T12:22:12.031Z\",\n        \"end_time\": \"2008-12-10T00:31:11.628Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 37,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "44600d44-e653-465b-b856-45063c1f5ced",
+          "name": "Refresh a PaaS Database",
+          "request": {
+            "name": "Refresh a PaaS Database",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-databases",
+                ":paaSDatabaseId",
+                "refresh"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paaSDatabaseId",
+                  "description": "(Required) The ID of the PaaS Database."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"source_database_id\": \"<string>\",\n  \"source_snapshot_id\": \"<string>\",\n  \"timestamp\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f578718f-1588-4433-bbbe-44db0b99f2de",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-databases",
+                    ":paaSDatabaseId",
+                    "refresh"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paaSDatabaseId",
+                      "description": "(Required) The ID of the PaaS Database."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"source_database_id\": \"db-123\",\n  \"source_snapshot_id\": \"snapshot-123\",\n  \"timestamp\": \"2021-05-01T08:51:34.148000+00:00\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 79,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1962-09-17T10:28:25.552Z\",\n        \"end_time\": \"2015-10-02T05:00:37.298Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 50,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1949-11-09T15:37:21.138Z\",\n        \"end_time\": \"1986-08-06T11:22:50.282Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 24,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"PENDING\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1965-07-20T06:39:44.075Z\",\n        \"end_time\": \"1985-02-14T15:56:47.501Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 64,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2010-07-28T16:19:51.593Z\",\n        \"end_time\": \"2017-03-24T09:20:30.042Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 46,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c38768ab-3e86-47bd-aaa1-b58fcd4584cf",
+          "name": "De-provision a PaaS Database, meaning that the database object will remain in DCT, along with its permissions, tags, snapshots, ... but the database will no longer be running. If the current database data must be preserved, take a snapshot before de-provisioning.",
+          "request": {
+            "name": "De-provision a PaaS Database, meaning that the database object will remain in DCT, along with its permissions, tags, snapshots, ... but the database will no longer be running. If the current database data must be preserved, take a snapshot before de-provisioning.",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-databases",
+                ":paaSDatabaseId",
+                "de-provision"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paaSDatabaseId",
+                  "description": "(Required) The ID of the PaaS Database."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5dff019c-53fe-45f5-812b-2c1387f1b33d",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-databases",
+                    ":paaSDatabaseId",
+                    "de-provision"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paaSDatabaseId",
+                      "description": "(Required) The ID of the PaaS Database."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"stri\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 48,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2007-02-14T18:47:16.567Z\",\n        \"end_time\": \"2010-05-27T13:54:44.615Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 52,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1981-10-10T13:07:27.921Z\",\n        \"end_time\": \"1970-08-04T15:21:55.276Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 67,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"COMPLETED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1976-02-07T06:33:01.645Z\",\n        \"end_time\": \"1994-10-09T20:43:35.303Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 59,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"FAILED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1965-08-31T04:00:23.763Z\",\n        \"end_time\": \"1951-08-04T08:59:08.910Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 43,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "db0eb567-b667-4b67-b6e5-62f7f534ed00",
+          "name": "Re-provision a PaaS Database which has previously been de-provisioned. The provision parameters specified at provisioning time will be respected, with the exception of the timestamp or snapshot id to re-provision from.",
+          "request": {
+            "name": "Re-provision a PaaS Database which has previously been de-provisioned. The provision parameters specified at provisioning time will be respected, with the exception of the timestamp or snapshot id to re-provision from.",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-databases",
+                ":paaSDatabaseId",
+                "re-provision"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paaSDatabaseId",
+                  "description": "(Required) The ID of the PaaS Database."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"source_database_id\": \"<string>\",\n  \"source_snapshot_id\": \"<string>\",\n  \"timestamp\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "db217fae-b8de-4e99-9d21-a391219f672b",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-databases",
+                    ":paaSDatabaseId",
+                    "re-provision"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paaSDatabaseId",
+                      "description": "(Required) The ID of the PaaS Database."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"source_database_id\": \"db-123\",\n  \"source_snapshot_id\": \"snapshot-123\",\n  \"timestamp\": \"2021-05-01T08:51:34.148000+00:00\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 34,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1997-02-27T17:44:32.979Z\",\n        \"end_time\": \"2005-07-29T15:22:37.705Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 25,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1961-12-05T07:01:54.825Z\",\n        \"end_time\": \"1957-11-14T20:00:26.353Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 18,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1954-01-10T17:30:47.162Z\",\n        \"end_time\": \"2003-08-15T21:59:42.528Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 61,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1948-12-19T09:14:14.671Z\",\n        \"end_time\": \"1993-11-15T18:34:33.321Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 74,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7e8bd9fd-22c2-4ddd-9b39-e9fad119a7fa",
+          "name": "Create tags for a PaaS Database.",
+          "request": {
+            "name": "Create tags for a PaaS Database.",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-databases",
+                ":paaSDatabaseId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paaSDatabaseId",
+                  "description": "(Required) The ID of the PaaS Database."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\",\n      \"mirror_on_cloud\": false\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "354992d5-cc8b-49fb-b587-ab2b106265aa",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-databases",
+                    ":paaSDatabaseId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paaSDatabaseId",
+                      "description": "(Required) The ID of the PaaS Database."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\",\n      \"mirror_on_cloud\": false\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\",\n      \"mirror_on_cloud\": false\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\",\n      \"mirror_on_cloud\": false\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "054e150c-2d8b-4653-9a04-447712f45953",
+          "name": "Get tags for a PaaS Database.",
+          "request": {
+            "name": "Get tags for a PaaS Database.",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-databases",
+                ":paaSDatabaseId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paaSDatabaseId",
+                  "description": "(Required) The ID of the PaaS Database."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8c21fd7c-8f6e-4a7c-b869-4dfa5dcc2679",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-databases",
+                    ":paaSDatabaseId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paaSDatabaseId",
+                      "description": "(Required) The ID of the PaaS Database."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\",\n      \"mirror_on_cloud\": false\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\",\n      \"mirror_on_cloud\": false\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "25cc8eeb-5340-4f19-a541-7d86816cfb16",
+          "name": "Delete tags for a PaaS Database.",
+          "request": {
+            "name": "Delete tags for a PaaS Database.",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-databases",
+                ":paaSDatabaseId",
+                "tags",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paaSDatabaseId",
+                  "description": "(Required) The ID of the PaaS Database."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key\": \"<string>\",\n  \"value\": \"<string>\",\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\",\n      \"mirror_on_cloud\": false\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7b5b77cb-783f-4cbc-90cf-97a9f34f9c96",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-databases",
+                    ":paaSDatabaseId",
+                    "tags",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paaSDatabaseId",
+                      "description": "(Required) The ID of the PaaS Database."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/dct/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a898eac5-46ed-414d-b94d-a4c60040e0af",
+    "name": "Delphix DCT Algorithms PaaSDatabases API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Delphix DCT API\n\nContact Support:\n Name: Delphix Support\n Email: support@delphix.com",
+      "type": "text/plain"
+    }
+  }
+}

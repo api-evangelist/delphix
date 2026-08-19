@@ -1,0 +1,1462 @@
+{
+  "item": [
+    {
+      "id": "c4e5b776-e686-4462-b8f7-3f608e0113cf",
+      "name": "VirtualizationPolicies",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0330af95-1831-4024-95c9-e7974a178325",
+          "name": "Fetch a list of all virtualization policies",
+          "request": {
+            "name": "Fetch a list of all virtualization policies",
+            "description": {},
+            "url": {
+              "path": [
+                "virtualization-policies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "99d73924-e87b-43e7-b3e9-9333f97ddb39",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtualization-policies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"dct_managed\": false,\n      \"create_user\": \"string\",\n      \"create_timestamp\": \"1957-03-11T13:36:17.717Z\",\n      \"namespace\": \"string\",\n      \"namespace_id\": \"string\",\n      \"namespace_name\": \"string\",\n      \"is_replica\": false,\n      \"engine_id\": \"string\",\n      \"engine_name\": \"string\",\n      \"policy_type\": \"REFRESH_POLICY\",\n      \"timezone_id\": \"string\",\n      \"default_policy\": false,\n      \"effective_type\": \"DIRECT_APPLIED\",\n      \"data_duration\": 3151,\n      \"data_unit\": \"MONTH\",\n      \"log_duration\": 2215,\n      \"log_unit\": \"YEAR\",\n      \"num_of_daily\": 6980,\n      \"num_of_weekly\": 2995,\n      \"day_of_week\": \"TUESDAY\",\n      \"num_of_monthly\": 7379,\n      \"day_of_month\": 8228,\n      \"num_of_yearly\": 6365,\n      \"day_of_year\": \"string\",\n      \"schedules\": [\n        {\n          \"cron_string\": \"string\",\n          \"cutoff_time\": 2308\n        },\n        {\n          \"cron_string\": \"string\",\n          \"cutoff_time\": 727\n        }\n      ],\n      \"provision_source\": \"LATEST_SNAPSHOT\",\n      \"size\": 6044,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ],\n      \"num_targets\": 1309,\n      \"customized\": false\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"dct_managed\": false,\n      \"create_user\": \"string\",\n      \"create_timestamp\": \"2013-04-26T06:48:58.187Z\",\n      \"namespace\": \"string\",\n      \"namespace_id\": \"string\",\n      \"namespace_name\": \"string\",\n      \"is_replica\": false,\n      \"engine_id\": \"string\",\n      \"engine_name\": \"string\",\n      \"policy_type\": \"SYNC_POLICY\",\n      \"timezone_id\": \"string\",\n      \"default_policy\": false,\n      \"effective_type\": \"DIRECT_APPLIED\",\n      \"data_duration\": 3875,\n      \"data_unit\": \"QUARTER\",\n      \"log_duration\": 7280,\n      \"log_unit\": \"DAY\",\n      \"num_of_daily\": 1360,\n      \"num_of_weekly\": 3197,\n      \"day_of_week\": \"WEDNESDAY\",\n      \"num_of_monthly\": 3231,\n      \"day_of_month\": 6484,\n      \"num_of_yearly\": 1253,\n      \"day_of_year\": \"string\",\n      \"schedules\": [\n        {\n          \"cron_string\": \"string\",\n          \"cutoff_time\": 308\n        },\n        {\n          \"cron_string\": \"string\",\n          \"cutoff_time\": 3317\n        }\n      ],\n      \"provision_source\": \"LATEST_SNAPSHOT\",\n      \"size\": 6131,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ],\n      \"num_targets\": 331,\n      \"customized\": false\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 4733\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0830e518-33f5-4385-8046-b841657c11cd",
+          "name": "Create a VirtualizationPolicy.",
+          "request": {
+            "name": "Create a VirtualizationPolicy.",
+            "description": {},
+            "url": {
+              "path": [
+                "virtualization-policies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"policy_type\": \"<string>\",\n  \"policy_targets\": [\n    {\n      \"object_type\": \"<string>\",\n      \"object_id\": \"<string>\"\n    },\n    {\n      \"object_type\": \"<string>\",\n      \"object_id\": \"<string>\"\n    }\n  ],\n  \"provision_source\": \"<string>\",\n  \"timezone_id\": \"<string>\",\n  \"data_duration\": \"<integer>\",\n  \"data_unit\": \"<string>\",\n  \"log_duration\": \"<integer>\",\n  \"log_unit\": \"<string>\",\n  \"num_of_daily\": \"<integer>\",\n  \"num_of_weekly\": \"<integer>\",\n  \"day_of_week\": \"<string>\",\n  \"num_of_monthly\": \"<integer>\",\n  \"day_of_month\": \"<integer>\",\n  \"num_of_yearly\": \"<integer>\",\n  \"day_of_year\": \"<string>\",\n  \"schedules\": [\n    {\n      \"cron_string\": \"<string>\",\n      \"cutoff_time\": \"<long>\"\n    },\n    {\n      \"cron_string\": \"<string>\",\n      \"cutoff_time\": \"<long>\"\n    }\n  ],\n  \"size\": \"<long>\",\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4853ac86-d1a8-4991-a436-7acb870ff9b0",
+              "name": "VirtualizationPolicy created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtualization-policies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"st\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 30,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1959-06-24T20:56:22.425Z\",\n        \"end_time\": \"1971-09-01T01:37:24.827Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 50,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1966-07-25T01:35:56.708Z\",\n        \"end_time\": \"1987-08-05T03:48:06.245Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 71,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1957-03-20T15:21:51.111Z\",\n        \"end_time\": \"1948-08-29T23:28:50.936Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 32,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1957-06-04T22:12:26.774Z\",\n        \"end_time\": \"2011-04-16T17:11:12.094Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 87,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  },\n  \"virtualization_policy\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"dct_managed\": false,\n    \"create_user\": \"string\",\n    \"create_timestamp\": \"1958-10-07T19:46:25.679Z\",\n    \"namespace\": \"string\",\n    \"namespace_id\": \"string\",\n    \"namespace_name\": \"string\",\n    \"is_replica\": false,\n    \"engine_id\": \"string\",\n    \"engine_name\": \"string\",\n    \"policy_type\": \"<string>\",\n    \"timezone_id\": \"string\",\n    \"default_policy\": false,\n    \"effective_type\": \"DIRECT_APPLIED\",\n    \"data_duration\": 179,\n    \"data_unit\": \"WEEK\",\n    \"log_duration\": 1746,\n    \"log_unit\": \"YEAR\",\n    \"num_of_daily\": 1405,\n    \"num_of_weekly\": 268,\n    \"day_of_week\": \"SATURDAY\",\n    \"num_of_monthly\": 7702,\n    \"day_of_month\": 7923,\n    \"num_of_yearly\": 4632,\n    \"day_of_year\": \"string\",\n    \"schedules\": [\n      {\n        \"cron_string\": \"<string>\",\n        \"cutoff_time\": \"<long>\"\n      },\n      {\n        \"cron_string\": \"<string>\",\n        \"cutoff_time\": \"<long>\"\n      }\n    ],\n    \"provision_source\": \"<string>\",\n    \"size\": 6161,\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"num_targets\": 1858,\n    \"customized\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "314afe81-11ba-4742-94f5-304352dc0ae2",
+          "name": "Search Virtualization Policies.",
+          "request": {
+            "name": "Search Virtualization Policies.",
+            "description": {},
+            "url": {
+              "path": [
+                "virtualization-policies",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "726724a4-b370-48bf-b4c3-3af3ff4b6bcf",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtualization-policies",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"dct_managed\": false,\n      \"create_user\": \"string\",\n      \"create_timestamp\": \"1997-12-12T02:38:05.333Z\",\n      \"namespace\": \"string\",\n      \"namespace_id\": \"string\",\n      \"namespace_name\": \"string\",\n      \"is_replica\": true,\n      \"engine_id\": \"string\",\n      \"engine_name\": \"string\",\n      \"policy_type\": \"<string>\",\n      \"timezone_id\": \"string\",\n      \"default_policy\": false,\n      \"effective_type\": \"INHERITED\",\n      \"data_duration\": 5229,\n      \"data_unit\": \"YEAR\",\n      \"log_duration\": 7881,\n      \"log_unit\": \"QUARTER\",\n      \"num_of_daily\": 6104,\n      \"num_of_weekly\": 5186,\n      \"day_of_week\": \"TUESDAY\",\n      \"num_of_monthly\": 7119,\n      \"day_of_month\": 7630,\n      \"num_of_yearly\": 3962,\n      \"day_of_year\": \"string\",\n      \"schedules\": [\n        {\n          \"cron_string\": \"<string>\",\n          \"cutoff_time\": \"<long>\"\n        },\n        {\n          \"cron_string\": \"<string>\",\n          \"cutoff_time\": \"<long>\"\n        }\n      ],\n      \"provision_source\": \"<string>\",\n      \"size\": 8885,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ],\n      \"num_targets\": 2665,\n      \"customized\": false\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"dct_managed\": false,\n      \"create_user\": \"string\",\n      \"create_timestamp\": \"1981-03-25T02:04:19.930Z\",\n      \"namespace\": \"string\",\n      \"namespace_id\": \"string\",\n      \"namespace_name\": \"string\",\n      \"is_replica\": false,\n      \"engine_id\": \"string\",\n      \"engine_name\": \"string\",\n      \"policy_type\": \"<string>\",\n      \"timezone_id\": \"string\",\n      \"default_policy\": false,\n      \"effective_type\": \"INHERITED\",\n      \"data_duration\": 5488,\n      \"data_unit\": \"MONTH\",\n      \"log_duration\": 6084,\n      \"log_unit\": \"MONTH\",\n      \"num_of_daily\": 9490,\n      \"num_of_weekly\": 9387,\n      \"day_of_week\": \"MONDAY\",\n      \"num_of_monthly\": 5968,\n      \"day_of_month\": 8874,\n      \"num_of_yearly\": 2737,\n      \"day_of_year\": \"string\",\n      \"schedules\": [\n        {\n          \"cron_string\": \"<string>\",\n          \"cutoff_time\": \"<long>\"\n        },\n        {\n          \"cron_string\": \"<string>\",\n          \"cutoff_time\": \"<long>\"\n        }\n      ],\n      \"provision_source\": \"<string>\",\n      \"size\": 4934,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ],\n      \"num_targets\": 8451,\n      \"customized\": false\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 2522\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0e46e8af-0a25-435a-9814-64c2bb818bf7",
+          "name": "Search Virtualization Policy Target Objects.",
+          "request": {
+            "name": "Search Virtualization Policy Target Objects.",
+            "description": {},
+            "url": {
+              "path": [
+                "virtualization-policies",
+                "targets",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4c9c68ef-9260-42e3-9459-841f4c67d1ac",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtualization-policies",
+                    "targets",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"policy_id\": \"string\",\n      \"target_id\": \"string\",\n      \"engine_id\": \"string\",\n      \"policy_type\": \"<string>\",\n      \"target_type\": \"<string>\",\n      \"target_name\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"policy_id\": \"string\",\n      \"target_id\": \"string\",\n      \"engine_id\": \"string\",\n      \"policy_type\": \"<string>\",\n      \"target_type\": \"<string>\",\n      \"target_name\": \"string\"\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 2519\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ea021095-f60a-42da-a958-e3aabb534d57",
+          "name": "Fetch a virtualization policy by Id.",
+          "request": {
+            "name": "Fetch a virtualization policy by Id.",
+            "description": {},
+            "url": {
+              "path": [
+                "virtualization-policies",
+                ":policyId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "policyId",
+                  "description": "(Required) The ID of the Virtualization Policy."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d33f0f36-8878-4a09-be6a-82faf2acb638",
+              "name": "Returns a single virtualization policy",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtualization-policies",
+                    ":policyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyId",
+                      "description": "(Required) The ID of the Virtualization Policy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"dct_managed\": true,\n  \"create_user\": \"string\",\n  \"create_timestamp\": \"2014-12-16T15:06:54.014Z\",\n  \"namespace\": \"string\",\n  \"namespace_id\": \"string\",\n  \"namespace_name\": \"string\",\n  \"is_replica\": true,\n  \"engine_id\": \"string\",\n  \"engine_name\": \"string\",\n  \"policy_type\": \"<string>\",\n  \"timezone_id\": \"string\",\n  \"default_policy\": false,\n  \"effective_type\": \"DIRECT_APPLIED\",\n  \"data_duration\": 3352,\n  \"data_unit\": \"YEAR\",\n  \"log_duration\": 6602,\n  \"log_unit\": \"QUARTER\",\n  \"num_of_daily\": 3077,\n  \"num_of_weekly\": 2492,\n  \"day_of_week\": \"SUNDAY\",\n  \"num_of_monthly\": 3157,\n  \"day_of_month\": 5961,\n  \"num_of_yearly\": 127,\n  \"day_of_year\": \"string\",\n  \"schedules\": [\n    {\n      \"cron_string\": \"<string>\",\n      \"cutoff_time\": \"<long>\"\n    },\n    {\n      \"cron_string\": \"<string>\",\n      \"cutoff_time\": \"<long>\"\n    }\n  ],\n  \"provision_source\": \"<string>\",\n  \"size\": 6036,\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ],\n  \"num_targets\": 4836,\n  \"customized\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c339b51-4cee-4380-88f6-84e29f3e4b58",
+              "name": "Virtualization policy not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtualization-policies",
+                    ":policyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyId",
+                      "description": "(Required) The ID of the Virtualization Policy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "42d5e21a-6a38-40cb-855b-244eaba753e9",
+          "name": "Delete a VirtualizationPolicy.",
+          "request": {
+            "name": "Delete a VirtualizationPolicy.",
+            "description": {},
+            "url": {
+              "path": [
+                "virtualization-policies",
+                ":policyId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "policyId",
+                  "description": "(Required) The ID of the Virtualization Policy."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7e5a607a-3cc3-49da-b2b6-14d2f559f7c1",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtualization-policies",
+                    ":policyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyId",
+                      "description": "(Required) The ID of the Virtualization Policy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 91,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2013-06-08T23:09:23.304Z\",\n        \"end_time\": \"1966-07-08T14:52:30.013Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 45,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1966-04-01T15:21:11.879Z\",\n        \"end_time\": \"2013-12-25T20:50:09.837Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 9,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1953-07-13T07:04:50.226Z\",\n        \"end_time\": \"1975-02-25T20:07:13.826Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 29,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"ABANDONED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1997-12-05T19:05:23.744Z\",\n        \"end_time\": \"1996-01-01T13:24:48.860Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 28,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b57137a3-bd0d-4935-82b4-16cf3bd85dcf",
+          "name": "Update a VirtualizationPolicy.",
+          "request": {
+            "name": "Update a VirtualizationPolicy.",
+            "description": {},
+            "url": {
+              "path": [
+                "virtualization-policies",
+                ":policyId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "policyId",
+                  "description": "(Required) The ID of the Virtualization Policy."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"timezone_id\": \"<string>\",\n  \"data_duration\": \"<integer>\",\n  \"data_unit\": \"<string>\",\n  \"log_duration\": \"<integer>\",\n  \"log_unit\": \"<string>\",\n  \"num_of_daily\": \"<integer>\",\n  \"num_of_weekly\": \"<integer>\",\n  \"day_of_week\": \"<string>\",\n  \"num_of_monthly\": \"<integer>\",\n  \"day_of_month\": \"<integer>\",\n  \"num_of_yearly\": \"<integer>\",\n  \"day_of_year\": \"<string>\",\n  \"schedules\": [\n    {\n      \"cron_string\": \"<string>\",\n      \"cutoff_time\": \"<long>\"\n    },\n    {\n      \"cron_string\": \"<string>\",\n      \"cutoff_time\": \"<long>\"\n    }\n  ],\n  \"size\": \"<long>\",\n  \"provision_source\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bb309cde-af5d-4f16-87bc-fdad3961be0c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtualization-policies",
+                    ":policyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyId",
+                      "description": "(Required) The ID of the Virtualization Policy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"my-policy\",\n  \"timezone_id\": \"America/Los_Angeles\",\n  \"data_duration\": 1,\n  \"data_unit\": \"DAY\",\n  \"log_duration\": 1,\n  \"log_unit\": \"DAY\",\n  \"num_of_daily\": 1,\n  \"num_of_weekly\": 1,\n  \"day_of_week\": \"MONDAY\",\n  \"num_of_monthly\": 1,\n  \"day_of_month\": 1,\n  \"num_of_yearly\": 1,\n  \"day_of_year\": \"Jan 1\",\n  \"schedules\": [\n    {\n      \"cron_string\": \"<string>\",\n      \"cutoff_time\": \"<long>\"\n    },\n    {\n      \"cron_string\": \"<string>\",\n      \"cutoff_time\": \"<long>\"\n    }\n  ],\n  \"size\": 1,\n  \"provision_source\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 38,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2000-05-16T12:19:47.760Z\",\n        \"end_time\": \"2002-02-04T15:35:27.122Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 49,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1968-11-20T23:56:10.724Z\",\n        \"end_time\": \"2011-05-04T01:07:24.480Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 79,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2010-03-28T07:28:16.282Z\",\n        \"end_time\": \"2016-09-08T00:46:15.996Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 75,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"ABANDONED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2024-07-20T15:13:22.986Z\",\n        \"end_time\": \"1977-10-18T19:30:23.120Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 87,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  },\n  \"virtualization_policy\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"dct_managed\": false,\n    \"create_user\": \"string\",\n    \"create_timestamp\": \"2009-01-16T09:14:18.886Z\",\n    \"namespace\": \"string\",\n    \"namespace_id\": \"string\",\n    \"namespace_name\": \"string\",\n    \"is_replica\": true,\n    \"engine_id\": \"string\",\n    \"engine_name\": \"string\",\n    \"policy_type\": \"<string>\",\n    \"timezone_id\": \"string\",\n    \"default_policy\": false,\n    \"effective_type\": \"DIRECT_APPLIED\",\n    \"data_duration\": 6590,\n    \"data_unit\": \"DAY\",\n    \"log_duration\": 6979,\n    \"log_unit\": \"MONTH\",\n    \"num_of_daily\": 8297,\n    \"num_of_weekly\": 3216,\n    \"day_of_week\": \"FRIDAY\",\n    \"num_of_monthly\": 6579,\n    \"day_of_month\": 781,\n    \"num_of_yearly\": 7773,\n    \"day_of_year\": \"string\",\n    \"schedules\": [\n      {\n        \"cron_string\": \"<string>\",\n        \"cutoff_time\": \"<long>\"\n      },\n      {\n        \"cron_string\": \"<string>\",\n        \"cutoff_time\": \"<long>\"\n      }\n    ],\n    \"provision_source\": \"<string>\",\n    \"size\": 2938,\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"num_targets\": 1452,\n    \"customized\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2611db89-6089-4a6d-a87a-335c6f6d7282",
+          "name": "Convert a virtualization policy to a DCT-managed policy.",
+          "request": {
+            "name": "Convert a virtualization policy to a DCT-managed policy.",
+            "description": {},
+            "url": {
+              "path": [
+                "virtualization-policies",
+                ":policyId",
+                "convert"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "policyId",
+                  "description": "(Required) The ID of the Virtualization Policy."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9e1b9f3c-704a-4506-8bda-84129cc2c4c5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtualization-policies",
+                    ":policyId",
+                    "convert"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyId",
+                      "description": "(Required) The ID of the Virtualization Policy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 61,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1981-09-27T22:11:34.838Z\",\n        \"end_time\": \"2015-03-19T20:43:24.482Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 37,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2001-06-20T22:37:49.818Z\",\n        \"end_time\": \"1951-05-01T14:57:33.467Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 17,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"ABANDONED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2008-01-19T22:04:21.633Z\",\n        \"end_time\": \"2019-07-30T18:15:24.921Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 71,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"PENDING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2020-10-14T07:53:01.509Z\",\n        \"end_time\": \"1993-08-18T17:27:46.741Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 49,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  },\n  \"virtualization_policy\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"dct_managed\": false,\n    \"create_user\": \"string\",\n    \"create_timestamp\": \"2007-08-21T08:42:43.458Z\",\n    \"namespace\": \"string\",\n    \"namespace_id\": \"string\",\n    \"namespace_name\": \"string\",\n    \"is_replica\": true,\n    \"engine_id\": \"string\",\n    \"engine_name\": \"string\",\n    \"policy_type\": \"<string>\",\n    \"timezone_id\": \"string\",\n    \"default_policy\": false,\n    \"effective_type\": \"INHERITED\",\n    \"data_duration\": 7695,\n    \"data_unit\": \"WEEK\",\n    \"log_duration\": 4976,\n    \"log_unit\": \"MONTH\",\n    \"num_of_daily\": 8588,\n    \"num_of_weekly\": 5157,\n    \"day_of_week\": \"THURSDAY\",\n    \"num_of_monthly\": 3174,\n    \"day_of_month\": 4666,\n    \"num_of_yearly\": 3791,\n    \"day_of_year\": \"string\",\n    \"schedules\": [\n      {\n        \"cron_string\": \"<string>\",\n        \"cutoff_time\": \"<long>\"\n      },\n      {\n        \"cron_string\": \"<string>\",\n        \"cutoff_time\": \"<long>\"\n      }\n    ],\n    \"provision_source\": \"<string>\",\n    \"size\": 5834,\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"num_targets\": 9808,\n    \"customized\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3cf65134-a444-498b-9d7b-d1b35133315a",
+          "name": "Create tags for a VirtualizationPolicy.",
+          "request": {
+            "name": "Create tags for a VirtualizationPolicy.",
+            "description": {},
+            "url": {
+              "path": [
+                "virtualization-policies",
+                ":policyId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "policyId",
+                  "description": "(Required) The ID of the Virtualization Policy."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ab7bde33-5eba-4a26-ba50-85112f6b047d",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtualization-policies",
+                    ":policyId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyId",
+                      "description": "(Required) The ID of the Virtualization Policy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5c0306dc-4c56-4005-b301-a28ce1a3e48b",
+          "name": "Get tags for a VirtualizationPolicy.",
+          "request": {
+            "name": "Get tags for a VirtualizationPolicy.",
+            "description": {},
+            "url": {
+              "path": [
+                "virtualization-policies",
+                ":policyId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "policyId",
+                  "description": "(Required) The ID of the Virtualization Policy."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "68210035-7f6c-43fc-bb6a-c8b6f04fb676",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtualization-policies",
+                    ":policyId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyId",
+                      "description": "(Required) The ID of the Virtualization Policy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1b3aba2d-2c65-49bf-8549-3414122f8bd6",
+          "name": "Delete tags for a VirtualizationPolicy.",
+          "request": {
+            "name": "Delete tags for a VirtualizationPolicy.",
+            "description": {},
+            "url": {
+              "path": [
+                "virtualization-policies",
+                ":policyId",
+                "tags",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "policyId",
+                  "description": "(Required) The ID of the Virtualization Policy."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key\": \"<string>\",\n  \"value\": \"<string>\",\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b142eaaf-9830-4eac-ae62-5f2e4e3f390b",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtualization-policies",
+                    ":policyId",
+                    "tags",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyId",
+                      "description": "(Required) The ID of the Virtualization Policy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a1f4f44c-0854-45aa-8ccb-1802f5859ab6",
+          "name": "Apply a virtualization policy to the given list of objects.",
+          "request": {
+            "name": "Apply a virtualization policy to the given list of objects.",
+            "description": {},
+            "url": {
+              "path": [
+                "virtualization-policies",
+                ":policyId",
+                "apply"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "policyId",
+                  "description": "(Required) The ID of the Virtualization Policy."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"object_type\": \"<string>\",\n    \"object_id\": \"<string>\"\n  },\n  {\n    \"object_type\": \"<string>\",\n    \"object_id\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3f814daf-388a-4ede-be7a-a4324c68be1c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtualization-policies",
+                    ":policyId",
+                    "apply"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyId",
+                      "description": "(Required) The ID of the Virtualization Policy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 97,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2000-07-04T06:21:06.199Z\",\n        \"end_time\": \"2001-04-12T03:26:15.833Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 90,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2018-08-17T22:00:02.340Z\",\n        \"end_time\": \"1993-06-23T22:37:00.187Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 74,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"ABANDONED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1987-04-28T17:50:28.416Z\",\n        \"end_time\": \"2007-03-03T03:56:31.619Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 5,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1980-06-14T06:04:38.190Z\",\n        \"end_time\": \"2000-07-30T09:59:46.254Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 63,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"ABANDONED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2f1f3569-6b8b-49c0-a9ab-fe381f94d6c6",
+          "name": "Unapply a virtualization policy to the given list of objects.",
+          "request": {
+            "name": "Unapply a virtualization policy to the given list of objects.",
+            "description": {},
+            "url": {
+              "path": [
+                "virtualization-policies",
+                ":policyId",
+                "unapply"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "policyId",
+                  "description": "(Required) The ID of the Virtualization Policy."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"object_type\": \"<string>\",\n    \"object_id\": \"<string>\"\n  },\n  {\n    \"object_type\": \"<string>\",\n    \"object_id\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9d4538ed-621d-489e-9bbe-9a788924e307",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtualization-policies",
+                    ":policyId",
+                    "unapply"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyId",
+                      "description": "(Required) The ID of the Virtualization Policy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 27,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2006-08-14T14:19:00.497Z\",\n        \"end_time\": \"1986-07-05T00:44:21.555Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 76,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"COMPLETED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2007-07-06T00:42:53.054Z\",\n        \"end_time\": \"2006-01-16T02:59:32.216Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 71,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1971-06-10T18:54:45.578Z\",\n        \"end_time\": \"2018-07-12T13:18:57.574Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 80,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1998-04-20T23:23:13.726Z\",\n        \"end_time\": \"1981-04-05T08:46:27.447Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 2,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/dct/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "129ef982-7368-4153-b977-ef30a863217f",
+    "name": "Delphix DCT Algorithms VirtualizationPolicies API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Delphix DCT API\n\nContact Support:\n Name: Delphix Support\n Email: support@delphix.com",
+      "type": "text/plain"
+    }
+  }
+}

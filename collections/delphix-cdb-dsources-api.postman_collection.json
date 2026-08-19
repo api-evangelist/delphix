@@ -1,0 +1,1473 @@
+{
+  "item": [
+    {
+      "id": "197ef3e2-b2f5-4528-84ee-714ce4bedae8",
+      "name": "CDB DSources",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9b2a6da6-8df3-41e4-a766-833fa4c826bf",
+          "name": "List all CDB dSources (Oracle only).",
+          "request": {
+            "name": "List all CDB dSources (Oracle only).",
+            "description": {},
+            "url": {
+              "path": [
+                "cdb-dsources"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "95622a73-d625-4367-994f-bc3974e0664d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdb-dsources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"1-CDB-1\",\n      \"engine_id\": \"engine-12\",\n      \"name\": \"Oracle CDB\",\n      \"enabled\": true,\n      \"status\": \"RUNNING\",\n      \"description\": \"This is Oracle linked CDB.\",\n      \"cdb_source_id\": \"1-ORACLE_SINGLE_CONFIG-1\",\n      \"is_detached\": true,\n      \"logsync_enabled\": true,\n      \"logsync_mode\": \"UNDEFINED\",\n      \"logsync_interval\": 6551,\n      \"size\": 339292672,\n      \"namespace_id\": \"1-NAMESPACE-1\",\n      \"namespace_name\": \"test-engine-1\",\n      \"is_replica\": true,\n      \"group_name\": \"Untitled\",\n      \"diagnose_no_logging_faults\": true,\n      \"rman_channels\": 392,\n      \"files_per_set\": 5717,\n      \"encrypted_linking_enabled\": false,\n      \"compressed_linking_enabled\": true,\n      \"bandwidth_limit\": 9652,\n      \"number_of_connections\": 6517,\n      \"backup_level_enabled\": true,\n      \"check_logical\": true,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    },\n    {\n      \"id\": \"1-CDB-1\",\n      \"engine_id\": \"engine-12\",\n      \"name\": \"Oracle CDB\",\n      \"enabled\": true,\n      \"status\": \"RUNNING\",\n      \"description\": \"This is Oracle linked CDB.\",\n      \"cdb_source_id\": \"1-ORACLE_SINGLE_CONFIG-1\",\n      \"is_detached\": true,\n      \"logsync_enabled\": false,\n      \"logsync_mode\": \"UNDEFINED\",\n      \"logsync_interval\": 1586,\n      \"size\": 339292672,\n      \"namespace_id\": \"1-NAMESPACE-1\",\n      \"namespace_name\": \"test-engine-1\",\n      \"is_replica\": true,\n      \"group_name\": \"Untitled\",\n      \"diagnose_no_logging_faults\": true,\n      \"rman_channels\": 3060,\n      \"files_per_set\": 2506,\n      \"encrypted_linking_enabled\": false,\n      \"compressed_linking_enabled\": false,\n      \"bandwidth_limit\": 7431,\n      \"number_of_connections\": 9344,\n      \"backup_level_enabled\": true,\n      \"check_logical\": false,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 6874\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8fdd0dcb-fb3f-47a0-a4b0-97c3cca8844a",
+          "name": "Get a CDB dSource by ID (Oracle only).",
+          "request": {
+            "name": "Get a CDB dSource by ID (Oracle only).",
+            "description": {},
+            "url": {
+              "path": [
+                "cdb-dsources",
+                ":cdbDSourceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cdbDSourceId",
+                  "description": "(Required) The ID of the CDB DSource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e2f2d752-b077-44a8-9246-95433138afe8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdb-dsources",
+                    ":cdbDSourceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cdbDSourceId",
+                      "description": "(Required) The ID of the CDB DSource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"1-CDB-1\",\n  \"engine_id\": \"engine-12\",\n  \"name\": \"Oracle CDB\",\n  \"enabled\": true,\n  \"status\": \"RUNNING\",\n  \"description\": \"This is Oracle linked CDB.\",\n  \"cdb_source_id\": \"1-ORACLE_SINGLE_CONFIG-1\",\n  \"is_detached\": true,\n  \"logsync_enabled\": true,\n  \"logsync_mode\": \"ARCHIVE_ONLY_MODE\",\n  \"logsync_interval\": 2367,\n  \"size\": 339292672,\n  \"namespace_id\": \"1-NAMESPACE-1\",\n  \"namespace_name\": \"test-engine-1\",\n  \"is_replica\": true,\n  \"group_name\": \"Untitled\",\n  \"diagnose_no_logging_faults\": true,\n  \"rman_channels\": 4803,\n  \"files_per_set\": 5751,\n  \"encrypted_linking_enabled\": true,\n  \"compressed_linking_enabled\": true,\n  \"bandwidth_limit\": 8656,\n  \"number_of_connections\": 16,\n  \"backup_level_enabled\": false,\n  \"check_logical\": true,\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d6696ef0-fb6a-4a4a-8362-99ad7799c280",
+          "name": "Update a CDB DSource.",
+          "request": {
+            "name": "Update a CDB DSource.",
+            "description": {},
+            "url": {
+              "path": [
+                "cdb-dsources",
+                ":cdbDSourceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cdbDSourceId",
+                  "description": "(Required) The ID of the CDB DSource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"external_file_path\": \"<string>\",\n  \"logsync_enabled\": \"<boolean>\",\n  \"logsync_mode\": \"<string>\",\n  \"logsync_interval\": \"<long>\",\n  \"description\": \"<string>\",\n  \"diagnose_no_logging_faults\": \"<boolean>\",\n  \"environment_user_id\": \"<string>\",\n  \"rman_channels\": \"<integer>\",\n  \"files_per_set\": \"<integer>\",\n  \"encrypted_linking_enabled\": \"<boolean>\",\n  \"compressed_linking_enabled\": \"<boolean>\",\n  \"bandwidth_limit\": \"<integer>\",\n  \"number_of_connections\": \"<integer>\",\n  \"backup_level_enabled\": \"<boolean>\",\n  \"check_logical\": \"<boolean>\",\n  \"db_username\": \"<string>\",\n  \"db_password\": \"<string>\",\n  \"non_sys_username\": \"<string>\",\n  \"non_sys_password\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ac6d53da-4101-4c12-9401-7ce8901b330c",
+              "name": "CDB DSource update initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdb-dsources",
+                    ":cdbDSourceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cdbDSourceId",
+                      "description": "(Required) The ID of the CDB DSource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"external_file_path\": \"<string>\",\n  \"logsync_enabled\": \"<boolean>\",\n  \"logsync_mode\": \"<string>\",\n  \"logsync_interval\": \"<long>\",\n  \"description\": \"Updated Linked CDB description.\",\n  \"diagnose_no_logging_faults\": true,\n  \"environment_user_id\": \"ENV_USER-1\",\n  \"rman_channels\": \"<integer>\",\n  \"files_per_set\": \"<integer>\",\n  \"encrypted_linking_enabled\": \"<boolean>\",\n  \"compressed_linking_enabled\": \"<boolean>\",\n  \"bandwidth_limit\": \"<integer>\",\n  \"number_of_connections\": \"<integer>\",\n  \"backup_level_enabled\": \"<boolean>\",\n  \"check_logical\": \"<boolean>\",\n  \"db_username\": \"db-username\",\n  \"db_password\": \"db-password\",\n  \"non_sys_username\": \"<string>\",\n  \"non_sys_password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 14,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1976-04-13T00:54:00.970Z\",\n        \"end_time\": \"1965-08-05T09:20:44.011Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 26,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"PENDING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1957-06-14T18:55:37.922Z\",\n        \"end_time\": \"1958-07-22T12:26:57.352Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 27,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"FAILED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2013-01-13T07:03:04.535Z\",\n        \"end_time\": \"1957-08-09T09:21:16.216Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 34,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1987-06-16T08:04:01.670Z\",\n        \"end_time\": \"1988-08-26T03:28:14.909Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 80,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "95c88ed8-6b6a-47cc-8c08-d919282211a7",
+          "name": "Search for CDB dSources (Oracle only).",
+          "request": {
+            "name": "Search for CDB dSources (Oracle only).",
+            "description": {},
+            "url": {
+              "path": [
+                "cdb-dsources",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5c93df6f-d39c-499b-8e83-90231f107508",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdb-dsources",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"1-CDB-1\",\n      \"engine_id\": \"engine-12\",\n      \"name\": \"Oracle CDB\",\n      \"enabled\": true,\n      \"status\": \"RUNNING\",\n      \"description\": \"This is Oracle linked CDB.\",\n      \"cdb_source_id\": \"1-ORACLE_SINGLE_CONFIG-1\",\n      \"is_detached\": true,\n      \"logsync_enabled\": true,\n      \"logsync_mode\": \"<string>\",\n      \"logsync_interval\": 268,\n      \"size\": 339292672,\n      \"namespace_id\": \"1-NAMESPACE-1\",\n      \"namespace_name\": \"test-engine-1\",\n      \"is_replica\": true,\n      \"group_name\": \"Untitled\",\n      \"diagnose_no_logging_faults\": true,\n      \"rman_channels\": 3788,\n      \"files_per_set\": 9498,\n      \"encrypted_linking_enabled\": true,\n      \"compressed_linking_enabled\": true,\n      \"bandwidth_limit\": 7163,\n      \"number_of_connections\": 8774,\n      \"backup_level_enabled\": false,\n      \"check_logical\": false,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    },\n    {\n      \"id\": \"1-CDB-1\",\n      \"engine_id\": \"engine-12\",\n      \"name\": \"Oracle CDB\",\n      \"enabled\": true,\n      \"status\": \"RUNNING\",\n      \"description\": \"This is Oracle linked CDB.\",\n      \"cdb_source_id\": \"1-ORACLE_SINGLE_CONFIG-1\",\n      \"is_detached\": true,\n      \"logsync_enabled\": true,\n      \"logsync_mode\": \"<string>\",\n      \"logsync_interval\": 8183,\n      \"size\": 339292672,\n      \"namespace_id\": \"1-NAMESPACE-1\",\n      \"namespace_name\": \"test-engine-1\",\n      \"is_replica\": true,\n      \"group_name\": \"Untitled\",\n      \"diagnose_no_logging_faults\": true,\n      \"rman_channels\": 3733,\n      \"files_per_set\": 586,\n      \"encrypted_linking_enabled\": false,\n      \"compressed_linking_enabled\": true,\n      \"bandwidth_limit\": 4483,\n      \"number_of_connections\": 4134,\n      \"backup_level_enabled\": true,\n      \"check_logical\": false,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 1482\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6f0e9ad3-6aad-43f7-a21b-53a3d48c4a09",
+          "name": "Detaches an Oracle CDB from an Oracle database.",
+          "request": {
+            "name": "Detaches an Oracle CDB from an Oracle database.",
+            "description": {},
+            "url": {
+              "path": [
+                "cdb-dsources",
+                ":cdbDSourceId",
+                "detach-cdb"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cdbDSourceId",
+                  "description": "(Required) The ID of the CDB DSource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "79c6d7d2-bafd-41a4-a6c1-6deba1d9e64b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdb-dsources",
+                    ":cdbDSourceId",
+                    "detach-cdb"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cdbDSourceId",
+                      "description": "(Required) The ID of the CDB DSource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 65,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2009-04-15T04:53:47.816Z\",\n        \"end_time\": \"2024-10-20T14:03:38.537Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 31,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"PENDING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2024-03-07T09:43:24.749Z\",\n        \"end_time\": \"1977-10-09T04:05:36.935Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 36,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1987-02-03T00:29:22.546Z\",\n        \"end_time\": \"1976-07-18T12:40:47.463Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 63,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1986-03-04T13:13:33.120Z\",\n        \"end_time\": \"1965-05-28T19:13:09.656Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 43,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"PENDING\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "07498de9-9ead-477d-b46d-4b4f4547982c",
+          "name": "Attaches an Oracle CDB to an Oracle database.",
+          "request": {
+            "name": "Attaches an Oracle CDB to an Oracle database.",
+            "description": {},
+            "url": {
+              "path": [
+                "cdb-dsources",
+                ":cdbDSourceId",
+                "attach-cdb"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cdbDSourceId",
+                  "description": "(Required) The ID of the CDB DSource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"source_id\": \"<string>\",\n  \"backup_level_enabled\": \"<boolean>\",\n  \"bandwidth_limit\": 0,\n  \"check_logical\": false,\n  \"compressed_linking_enabled\": true,\n  \"double_sync\": false,\n  \"encrypted_linking_enabled\": false,\n  \"environment_user\": \"<string>\",\n  \"external_file_path\": \"<string>\",\n  \"files_per_set\": 5,\n  \"force\": false,\n  \"link_now\": false,\n  \"number_of_connections\": 1,\n  \"operations\": [\n    {\n      \"name\": \"<string>\",\n      \"command\": \"<string>\",\n      \"shell\": \"bash\",\n      \"credentials_env_vars\": [\n        {\n          \"base_var_name\": \"<string>\",\n          \"password\": \"<string>\",\n          \"vault_username\": \"<string>\",\n          \"vault\": \"<string>\",\n          \"hashicorp_vault_engine\": \"<string>\",\n          \"hashicorp_vault_secret_path\": \"<string>\",\n          \"hashicorp_vault_username_key\": \"<string>\",\n          \"hashicorp_vault_secret_key\": \"<string>\",\n          \"azure_vault_name\": \"<string>\",\n          \"azure_vault_username_key\": \"<string>\",\n          \"azure_vault_secret_key\": \"<string>\",\n          \"cyberark_vault_query_string\": \"<string>\",\n          \"credential_type\": \"<string>\",\n          \"element_id\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"base_var_name\": \"<string>\",\n          \"password\": \"<string>\",\n          \"vault_username\": \"<string>\",\n          \"vault\": \"<string>\",\n          \"hashicorp_vault_engine\": \"<string>\",\n          \"hashicorp_vault_secret_path\": \"<string>\",\n          \"hashicorp_vault_username_key\": \"<string>\",\n          \"hashicorp_vault_secret_key\": \"<string>\",\n          \"azure_vault_name\": \"<string>\",\n          \"azure_vault_username_key\": \"<string>\",\n          \"azure_vault_secret_key\": \"<string>\",\n          \"cyberark_vault_query_string\": \"<string>\",\n          \"credential_type\": \"<string>\",\n          \"element_id\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"hook_template_id\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"command\": \"<string>\",\n      \"shell\": \"bash\",\n      \"credentials_env_vars\": [\n        {\n          \"base_var_name\": \"<string>\",\n          \"password\": \"<string>\",\n          \"vault_username\": \"<string>\",\n          \"vault\": \"<string>\",\n          \"hashicorp_vault_engine\": \"<string>\",\n          \"hashicorp_vault_secret_path\": \"<string>\",\n          \"hashicorp_vault_username_key\": \"<string>\",\n          \"hashicorp_vault_secret_key\": \"<string>\",\n          \"azure_vault_name\": \"<string>\",\n          \"azure_vault_username_key\": \"<string>\",\n          \"azure_vault_secret_key\": \"<string>\",\n          \"cyberark_vault_query_string\": \"<string>\",\n          \"credential_type\": \"<string>\",\n          \"element_id\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"base_var_name\": \"<string>\",\n          \"password\": \"<string>\",\n          \"vault_username\": \"<string>\",\n          \"vault\": \"<string>\",\n          \"hashicorp_vault_engine\": \"<string>\",\n          \"hashicorp_vault_secret_path\": \"<string>\",\n          \"hashicorp_vault_username_key\": \"<string>\",\n          \"hashicorp_vault_secret_key\": \"<string>\",\n          \"azure_vault_name\": \"<string>\",\n          \"azure_vault_username_key\": \"<string>\",\n          \"azure_vault_secret_key\": \"<string>\",\n          \"cyberark_vault_query_string\": \"<string>\",\n          \"credential_type\": \"<string>\",\n          \"element_id\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"hook_template_id\": \"<string>\"\n    }\n  ],\n  \"oracle_fallback_user\": \"<string>\",\n  \"oracle_fallback_credentials\": \"<string>\",\n  \"rman_channels\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "230f8309-6112-43f1-89d0-0e62eb6ecbdb",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdb-dsources",
+                    ":cdbDSourceId",
+                    "attach-cdb"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cdbDSourceId",
+                      "description": "(Required) The ID of the CDB DSource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"source_id\": \"<string>\",\n  \"backup_level_enabled\": \"<boolean>\",\n  \"bandwidth_limit\": 0,\n  \"check_logical\": false,\n  \"compressed_linking_enabled\": true,\n  \"double_sync\": false,\n  \"encrypted_linking_enabled\": false,\n  \"environment_user\": \"<string>\",\n  \"external_file_path\": \"<string>\",\n  \"files_per_set\": 5,\n  \"force\": false,\n  \"link_now\": false,\n  \"number_of_connections\": 1,\n  \"operations\": [\n    {\n      \"name\": \"<string>\",\n      \"command\": \"<string>\",\n      \"shell\": \"bash\",\n      \"credentials_env_vars\": [\n        {\n          \"base_var_name\": \"<string>\",\n          \"password\": \"password\",\n          \"vault_username\": \"my-vault\",\n          \"vault\": \"1-VAULT-1\",\n          \"hashicorp_vault_engine\": \"kv\",\n          \"hashicorp_vault_secret_path\": \"oracle-env\",\n          \"hashicorp_vault_username_key\": \"username\",\n          \"hashicorp_vault_secret_key\": \"secret\",\n          \"azure_vault_name\": \"azure_vault\",\n          \"azure_vault_username_key\": \"username\",\n          \"azure_vault_secret_key\": \"secret\",\n          \"cyberark_vault_query_string\": \"Safe=Test;Folder=Test;Object=Test\",\n          \"credential_type\": \"PasswordCredential\",\n          \"element_id\": \"<string>\",\n          \"type\": \"CredentialsEnvVars\"\n        },\n        {\n          \"base_var_name\": \"<string>\",\n          \"password\": \"password\",\n          \"vault_username\": \"my-vault\",\n          \"vault\": \"1-VAULT-1\",\n          \"hashicorp_vault_engine\": \"kv\",\n          \"hashicorp_vault_secret_path\": \"oracle-env\",\n          \"hashicorp_vault_username_key\": \"username\",\n          \"hashicorp_vault_secret_key\": \"secret\",\n          \"azure_vault_name\": \"azure_vault\",\n          \"azure_vault_username_key\": \"username\",\n          \"azure_vault_secret_key\": \"secret\",\n          \"cyberark_vault_query_string\": \"Safe=Test;Folder=Test;Object=Test\",\n          \"credential_type\": \"PasswordCredential\",\n          \"element_id\": \"<string>\",\n          \"type\": \"CredentialsEnvVars\"\n        }\n      ],\n      \"hook_template_id\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"command\": \"<string>\",\n      \"shell\": \"bash\",\n      \"credentials_env_vars\": [\n        {\n          \"base_var_name\": \"<string>\",\n          \"password\": \"password\",\n          \"vault_username\": \"my-vault\",\n          \"vault\": \"1-VAULT-1\",\n          \"hashicorp_vault_engine\": \"kv\",\n          \"hashicorp_vault_secret_path\": \"oracle-env\",\n          \"hashicorp_vault_username_key\": \"username\",\n          \"hashicorp_vault_secret_key\": \"secret\",\n          \"azure_vault_name\": \"azure_vault\",\n          \"azure_vault_username_key\": \"username\",\n          \"azure_vault_secret_key\": \"secret\",\n          \"cyberark_vault_query_string\": \"Safe=Test;Folder=Test;Object=Test\",\n          \"credential_type\": \"PasswordCredential\",\n          \"element_id\": \"<string>\",\n          \"type\": \"CredentialsEnvVars\"\n        },\n        {\n          \"base_var_name\": \"<string>\",\n          \"password\": \"password\",\n          \"vault_username\": \"my-vault\",\n          \"vault\": \"1-VAULT-1\",\n          \"hashicorp_vault_engine\": \"kv\",\n          \"hashicorp_vault_secret_path\": \"oracle-env\",\n          \"hashicorp_vault_username_key\": \"username\",\n          \"hashicorp_vault_secret_key\": \"secret\",\n          \"azure_vault_name\": \"azure_vault\",\n          \"azure_vault_username_key\": \"username\",\n          \"azure_vault_secret_key\": \"secret\",\n          \"cyberark_vault_query_string\": \"Safe=Test;Folder=Test;Object=Test\",\n          \"credential_type\": \"PasswordCredential\",\n          \"element_id\": \"<string>\",\n          \"type\": \"CredentialsEnvVars\"\n        }\n      ],\n      \"hook_template_id\": \"<string>\"\n    }\n  ],\n  \"oracle_fallback_user\": \"oracle\",\n  \"oracle_fallback_credentials\": \"oracle\",\n  \"rman_channels\": 2\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 57,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2008-12-06T12:01:31.173Z\",\n        \"end_time\": \"1989-09-27T07:51:18.890Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 72,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2025-05-31T22:50:17.557Z\",\n        \"end_time\": \"2019-12-15T06:42:22.880Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 11,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"FAILED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2002-10-10T09:25:57.457Z\",\n        \"end_time\": \"2015-07-31T20:10:54.199Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 25,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1992-04-30T00:58:08.865Z\",\n        \"end_time\": \"1955-01-12T05:35:20.377Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 4,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9c0ec66c-6196-4a68-8613-a6b7a828e4e2",
+          "name": "Enable a CDB dSource.",
+          "request": {
+            "name": "Enable a CDB dSource.",
+            "description": {},
+            "url": {
+              "path": [
+                "cdb-dsources",
+                ":cdbDSourceId",
+                "enable"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cdbDSourceId",
+                  "description": "(Required) The ID of the CDB DSource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"attempt_start\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9717affe-884e-43fa-bf1d-524deaedb036",
+              "name": "CDB dSource enable initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdb-dsources",
+                    ":cdbDSourceId",
+                    "enable"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cdbDSourceId",
+                      "description": "(Required) The ID of the CDB DSource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"attempt_start\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 61,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1980-01-25T19:31:53.416Z\",\n        \"end_time\": \"1982-09-25T02:24:07.182Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 24,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1984-01-22T07:52:29.854Z\",\n        \"end_time\": \"1966-07-03T01:25:23.508Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 12,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"PENDING\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2020-06-15T09:33:26.147Z\",\n        \"end_time\": \"1985-11-24T06:06:35.673Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 34,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1962-11-13T02:09:05.957Z\",\n        \"end_time\": \"1953-12-14T22:53:18.773Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 56,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "10e9eb38-3b1c-412e-9b41-3ddad5fd8ce5",
+          "name": "Disable a CDB dSource.",
+          "request": {
+            "name": "Disable a CDB dSource.",
+            "description": {},
+            "url": {
+              "path": [
+                "cdb-dsources",
+                ":cdbDSourceId",
+                "disable"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cdbDSourceId",
+                  "description": "(Required) The ID of the CDB DSource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"attempt_cleanup\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e8ed7bb1-10f1-4844-8a89-860b10edfafd",
+              "name": "CDB dSource disable initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdb-dsources",
+                    ":cdbDSourceId",
+                    "disable"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cdbDSourceId",
+                      "description": "(Required) The ID of the CDB DSource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"attempt_cleanup\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 89,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1951-04-02T04:08:36.793Z\",\n        \"end_time\": \"1987-01-26T21:04:46.713Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 27,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2013-04-13T04:12:58.459Z\",\n        \"end_time\": \"1972-01-19T14:46:42.982Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 76,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2019-08-09T17:36:57.464Z\",\n        \"end_time\": \"1958-02-09T05:53:39.210Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 85,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2010-05-27T09:11:55.152Z\",\n        \"end_time\": \"2011-08-23T10:16:45.889Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 58,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "66c7cff9-2d17-4b1f-9ca7-8114c959e7ba",
+          "name": "Delete a CDB dSource.",
+          "request": {
+            "name": "Delete a CDB dSource.",
+            "description": {},
+            "url": {
+              "path": [
+                "cdb-dsources",
+                ":cdbDSourceId",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cdbDSourceId",
+                  "description": "(Required) The ID of the CDB DSource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"force\": false,\n  \"delete_all_dependent_datasets\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "868c5ce1-ae1b-4538-9048-2c01215ce73e",
+              "name": "CDB dSource delete initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdb-dsources",
+                    ":cdbDSourceId",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cdbDSourceId",
+                      "description": "(Required) The ID of the CDB DSource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"force\": false,\n  \"delete_all_dependent_datasets\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 73,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1987-07-25T17:34:47.834Z\",\n        \"end_time\": \"1976-11-17T08:21:01.802Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 32,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"ABANDONED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1994-11-06T01:16:19.193Z\",\n        \"end_time\": \"1978-12-28T08:19:02.815Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 63,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2015-01-24T23:10:00.810Z\",\n        \"end_time\": \"1952-10-26T17:55:08.034Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 6,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"ABANDONED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1952-06-02T03:28:55.512Z\",\n        \"end_time\": \"2015-07-01T19:19:56.487Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 0,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7c17078f-f2a9-40ab-8cd4-cd45adc026ec",
+          "name": "Upgrade Oracle CDB dSource",
+          "request": {
+            "name": "Upgrade Oracle CDB dSource",
+            "description": {},
+            "url": {
+              "path": [
+                "cdb-dsources",
+                ":cdbDSourceId",
+                "upgrade"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cdbDSourceId",
+                  "description": "(Required) The ID of the CDB DSource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"repository_id\": \"<string>\",\n  \"environment_user_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "822949a7-8383-4f1a-b301-60a54fa3d162",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdb-dsources",
+                    ":cdbDSourceId",
+                    "upgrade"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cdbDSourceId",
+                      "description": "(Required) The ID of the CDB DSource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"repository_id\": \"1-ORACLE_INSTALL-4\",\n  \"environment_user_id\": \"HOST_USER-4\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 83,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1967-10-25T20:57:43.210Z\",\n        \"end_time\": \"2009-04-07T15:11:55.906Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 29,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2015-10-08T09:34:04.265Z\",\n        \"end_time\": \"2005-04-30T16:00:16.279Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 24,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"COMPLETED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2002-05-02T07:42:49.416Z\",\n        \"end_time\": \"2005-08-08T02:21:09.663Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 97,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1958-01-26T05:01:19.929Z\",\n        \"end_time\": \"1978-05-13T10:53:50.834Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 22,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "85c22435-40df-4307-b6bd-bbdfdaba0d31",
+          "name": "Create tags for a CDB DSource.",
+          "request": {
+            "name": "Create tags for a CDB DSource.",
+            "description": {},
+            "url": {
+              "path": [
+                "cdb-dsources",
+                ":cdbDSourceId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cdbDSourceId",
+                  "description": "(Required) The ID of the CDB DSource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "64415b82-bdcf-4434-876b-ec5fb910fef8",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdb-dsources",
+                    ":cdbDSourceId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cdbDSourceId",
+                      "description": "(Required) The ID of the CDB DSource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2aa94028-bf49-4429-8139-5ca9d190effc",
+          "name": "Get tags for a CDB DSource.",
+          "request": {
+            "name": "Get tags for a CDB DSource.",
+            "description": {},
+            "url": {
+              "path": [
+                "cdb-dsources",
+                ":cdbDSourceId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cdbDSourceId",
+                  "description": "(Required) The ID of the CDB DSource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b338441d-92ec-4615-98ca-b06bd06bf571",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdb-dsources",
+                    ":cdbDSourceId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cdbDSourceId",
+                      "description": "(Required) The ID of the CDB DSource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7002b0c0-cdc7-457d-949a-d7b4d5e3aedd",
+          "name": "Delete tags for a CDB DSource.",
+          "request": {
+            "name": "Delete tags for a CDB DSource.",
+            "description": {},
+            "url": {
+              "path": [
+                "cdb-dsources",
+                ":cdbDSourceId",
+                "tags",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cdbDSourceId",
+                  "description": "(Required) The ID of the CDB DSource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key\": \"<string>\",\n  \"value\": \"<string>\",\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c4bd0ed5-644a-488e-9e56-b3f8e2aac673",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdb-dsources",
+                    ":cdbDSourceId",
+                    "tags",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cdbDSourceId",
+                      "description": "(Required) The ID of the CDB DSource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/dct/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6ba9f828-5784-4593-ae83-e274653c4515",
+    "name": "Delphix DCT Algorithms CDB DSources API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Delphix DCT API\n\nContact Support:\n Name: Delphix Support\n Email: support@delphix.com",
+      "type": "text/plain"
+    }
+  }
+}

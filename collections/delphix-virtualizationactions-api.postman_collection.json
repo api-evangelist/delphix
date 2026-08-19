@@ -1,0 +1,282 @@
+{
+  "item": [
+    {
+      "id": "9595c85a-8f56-4aac-9ef1-3de4f107d41f",
+      "name": "VirtualizationActions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "077e8d2d-5145-489e-a61e-835372c4091f",
+          "name": "Fetch a list of all virtualization actions",
+          "request": {
+            "name": "Fetch a list of all virtualization actions",
+            "description": {},
+            "url": {
+              "path": [
+                "virtualization-actions",
+                "history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5c2d3382-29db-499e-b887-cc758f8d9421",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtualization-actions",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"engine_id\": \"string\",\n      \"action_type\": \"string\",\n      \"title\": \"string\",\n      \"details\": \"string\",\n      \"start_time\": \"2002-06-11T08:06:58.389Z\",\n      \"end_time\": \"2025-02-05T07:20:41.498Z\",\n      \"user\": \"string\",\n      \"user_agent\": \"string\",\n      \"origin_ip\": \"string\",\n      \"parent_action\": \"string\",\n      \"state\": \"FAILED\",\n      \"work_source\": \"SYSTEM\",\n      \"work_source_name\": \"string\",\n      \"work_source_principal\": \"string\",\n      \"failure_description\": \"string\",\n      \"failure_action\": \"string\",\n      \"failure_message_code\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"engine_id\": \"string\",\n      \"action_type\": \"string\",\n      \"title\": \"string\",\n      \"details\": \"string\",\n      \"start_time\": \"2011-07-15T14:40:34.219Z\",\n      \"end_time\": \"2015-01-18T13:24:26.185Z\",\n      \"user\": \"string\",\n      \"user_agent\": \"string\",\n      \"origin_ip\": \"string\",\n      \"parent_action\": \"string\",\n      \"state\": \"COMPLETED\",\n      \"work_source\": \"POLICY\",\n      \"work_source_name\": \"string\",\n      \"work_source_principal\": \"string\",\n      \"failure_description\": \"string\",\n      \"failure_action\": \"string\",\n      \"failure_message_code\": \"string\"\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 8410\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6e883698-8564-4caa-9892-8da9ab2c4293",
+          "name": "Search virtualization actions",
+          "request": {
+            "name": "Search virtualization actions",
+            "description": {},
+            "url": {
+              "path": [
+                "virtualization-actions",
+                "history",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2e8f142d-bd7a-495a-959d-2d44f163fe89",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtualization-actions",
+                    "history",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"engine_id\": \"string\",\n      \"action_type\": \"string\",\n      \"title\": \"string\",\n      \"details\": \"string\",\n      \"start_time\": \"1965-03-14T17:52:18.232Z\",\n      \"end_time\": \"1987-06-11T12:02:24.320Z\",\n      \"user\": \"string\",\n      \"user_agent\": \"string\",\n      \"origin_ip\": \"string\",\n      \"parent_action\": \"string\",\n      \"state\": \"CANCELED\",\n      \"work_source\": \"WEBSERVICE\",\n      \"work_source_name\": \"string\",\n      \"work_source_principal\": \"string\",\n      \"failure_description\": \"string\",\n      \"failure_action\": \"string\",\n      \"failure_message_code\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"engine_id\": \"string\",\n      \"action_type\": \"string\",\n      \"title\": \"string\",\n      \"details\": \"string\",\n      \"start_time\": \"1962-11-05T05:41:36.878Z\",\n      \"end_time\": \"1948-07-17T19:00:14.247Z\",\n      \"user\": \"string\",\n      \"user_agent\": \"string\",\n      \"origin_ip\": \"string\",\n      \"parent_action\": \"string\",\n      \"state\": \"CANCELED\",\n      \"work_source\": \"POLICY\",\n      \"work_source_name\": \"string\",\n      \"work_source_principal\": \"string\",\n      \"failure_description\": \"string\",\n      \"failure_action\": \"string\",\n      \"failure_message_code\": \"string\"\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 7232\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/dct/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a2c53445-b00d-45e2-884f-91d7917faeca",
+    "name": "Delphix DCT Algorithms VirtualizationActions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Delphix DCT API\n\nContact Support:\n Name: Delphix Support\n Email: support@delphix.com",
+      "type": "text/plain"
+    }
+  }
+}

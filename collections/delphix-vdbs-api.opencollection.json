@@ -1,0 +1,1289 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms VDBs API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "VDBs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all vdbs.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/vdbs",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              },
+              {
+                "name": "permission",
+                "value": "READ",
+                "type": "query",
+                "description": "Restrict the objects, which are allowed."
+              }
+            ]
+          },
+          "docs": "List all vdbs."
+        },
+        {
+          "info": {
+            "name": "Empty VDB recycle bin.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/empty-recycle-bin"
+          },
+          "docs": "Empty VDB recycle bin."
+        },
+        {
+          "info": {
+            "name": "Search for VDBs.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              },
+              {
+                "name": "permission",
+                "value": "READ",
+                "type": "query",
+                "description": "Restrict the objects, which are allowed."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for VDBs."
+        },
+        {
+          "info": {
+            "name": "Get a VDB by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/vdbs/:vdbId",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ]
+          },
+          "docs": "Get a VDB by ID."
+        },
+        {
+          "info": {
+            "name": "Update values of a VDB",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/vdbs/:vdbId",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update values of a VDB"
+        },
+        {
+          "info": {
+            "name": "List Snapshots for a VDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/vdbs/:vdbId/snapshots",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              },
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              }
+            ]
+          },
+          "docs": "List Snapshots for a VDB."
+        },
+        {
+          "info": {
+            "name": "Snapshot a VDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/snapshots",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ]
+          },
+          "docs": "Snapshot a VDB."
+        },
+        {
+          "info": {
+            "name": "List Bookmarks compatible with this VDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/vdbs/:vdbId/bookmarks",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              },
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ]
+          },
+          "docs": "List Bookmarks compatible with this VDB."
+        },
+        {
+          "info": {
+            "name": "Search Bookmarks compatible with this VDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/bookmarks/search",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              },
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search Bookmarks compatible with this VDB."
+        },
+        {
+          "info": {
+            "name": "Get deletion dependencies of a VDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/vdbs/:vdbId/deletion-dependencies",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ]
+          },
+          "docs": "Get deletion dependencies of a VDB."
+        },
+        {
+          "info": {
+            "name": "Get tags for a VDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/vdbs/:vdbId/tags",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ]
+          },
+          "docs": "Get tags for a VDB."
+        },
+        {
+          "info": {
+            "name": "Create tags for a VDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/tags",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create tags for a VDB."
+        },
+        {
+          "info": {
+            "name": "Delete tags for a VDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/tags/delete",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete tags for a VDB."
+        },
+        {
+          "info": {
+            "name": "Start a VDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/start",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Start a VDB."
+        },
+        {
+          "info": {
+            "name": "Stop a VDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/stop",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Stop a VDB."
+        },
+        {
+          "info": {
+            "name": "Enable a VDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/enable",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Enable a VDB."
+        },
+        {
+          "info": {
+            "name": "Disable a VDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/disable",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Disable a VDB."
+        },
+        {
+          "info": {
+            "name": "Migrate a VDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/migrate",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Migrate a VDB."
+        },
+        {
+          "info": {
+            "name": "Returns a list of compatible repositories for vdb migration.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/vdbs/:vdbId/migrate_compatible_repositories",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ]
+          },
+          "docs": "Returns a list of compatible repositories for vdb migration."
+        },
+        {
+          "info": {
+            "name": "Restore a VDB from recycle bin.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/restore-from-recycle-bin",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ]
+          },
+          "docs": "Restore a VDB from recycle bin."
+        },
+        {
+          "info": {
+            "name": "Lock a VDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/lock",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Lock a VDB."
+        },
+        {
+          "info": {
+            "name": "Unlock a VDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/unlock",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ]
+          },
+          "docs": "Unlock a VDB."
+        },
+        {
+          "info": {
+            "name": "Delete a VDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/delete",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete a VDB."
+        },
+        {
+          "info": {
+            "name": "Rollback a VDB by timestamp.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/rollback_by_timestamp",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Rollback a VDB by timestamp."
+        },
+        {
+          "info": {
+            "name": "Rollback a VDB by snapshot.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/rollback_by_snapshot",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Rollback a VDB by snapshot."
+        },
+        {
+          "info": {
+            "name": "Rollback a VDB from a bookmark with only the same VDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/rollback_from_bookmark",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Rollback a VDB from a bookmark with only the same VDB."
+        },
+        {
+          "info": {
+            "name": "Refresh a VDB by timestamp.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/refresh_by_timestamp",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Refresh a VDB by timestamp."
+        },
+        {
+          "info": {
+            "name": "Refresh a VDB by snapshot.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/refresh_by_snapshot",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Refresh a VDB by snapshot."
+        },
+        {
+          "info": {
+            "name": "Refresh a VDB from bookmark with a single VDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/refresh_from_bookmark",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Refresh a VDB from bookmark with a single VDB."
+        },
+        {
+          "info": {
+            "name": "Refresh a VDB by location.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/refresh_by_location",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Refresh a VDB by location."
+        },
+        {
+          "info": {
+            "name": "Undo the last refresh operation.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/undo_refresh",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ]
+          },
+          "docs": "Undo the last refresh operation."
+        },
+        {
+          "info": {
+            "name": "Export cleanup for incremental V2P operation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/export_cleanup",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Export cleanup for incremental V2P operation"
+        },
+        {
+          "info": {
+            "name": "Switches the current timeflow of a VDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/switch_timeflow",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Switches the current timeflow of a VDB."
+        },
+        {
+          "info": {
+            "name": "Upgrade Oracle VDB",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/oracle/:vdbId/upgrade",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API is marked as deprecated in favour of generalized API '/vdbs/{vdbId}/upgrade'"
+        },
+        {
+          "info": {
+            "name": "Upgrade VDB",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/upgrade",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Upgrade VDB"
+        },
+        {
+          "info": {
+            "name": "Returns a list of compatible repositories for vdb upgrade.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/vdbs/:vdbId/upgrade_compatible_repositories",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ]
+          },
+          "docs": "Returns a list of compatible repositories for vdb upgrade."
+        },
+        {
+          "info": {
+            "name": "Verify JDBC connection string for VDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/jdbc-check",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Verify JDBC connection string for VDB."
+        },
+        {
+          "info": {
+            "name": "Provision a new VDB by timestamp.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/provision_by_timestamp",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Provision a new VDB by timestamp."
+        },
+        {
+          "info": {
+            "name": "Get default provision parameters for provisioning a new VDB by timestamp.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/provision_by_timestamp/defaults",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get default provision parameters for provisioning a new VDB by timestamp."
+        },
+        {
+          "info": {
+            "name": "Provision a new VDB by location.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/provision_by_location",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Provision a new VDB by location."
+        },
+        {
+          "info": {
+            "name": "Get default provision parameters for provisioning a new VDB by location.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/provision_by_location/defaults",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get default provision parameters for provisioning a new VDB by location."
+        },
+        {
+          "info": {
+            "name": "Provision a new VDB by snapshot.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/provision_by_snapshot",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Provision a new VDB by snapshot."
+        },
+        {
+          "info": {
+            "name": "Get default provision parameters for provisioning a new VDB by snapshot.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/provision_by_snapshot/defaults",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get default provision parameters for provisioning a new VDB by snapshot."
+        },
+        {
+          "info": {
+            "name": "Provision a new VDB from a bookmark with a single VDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/provision_from_bookmark",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Provision a new VDB from a bookmark with a single VDB."
+        },
+        {
+          "info": {
+            "name": "Get default provision parameters for provisioning a new VDB from a bookmark.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/provision_from_bookmark/defaults",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get default provision parameters for provisioning a new VDB from a bookmark."
+        },
+        {
+          "info": {
+            "name": "Provision an empty VDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/empty_vdb",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Provision an empty VDB."
+        },
+        {
+          "info": {
+            "name": "Convert a virtual database to a physical database on Oracle ASM file system.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/asm-in-place-export",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Convert a virtual database to a physical database on Oracle ASM file system."
+        },
+        {
+          "info": {
+            "name": "Convert a virtual database to a physical database on physical file system.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/in-place-export",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Convert a virtual database to a physical database on physical file system."
+        },
+        {
+          "info": {
+            "name": "Export a vdb using snapshot to an ASM file system",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/asm-export-by-snapshot",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Export a vdb using snapshot to an ASM file system"
+        },
+        {
+          "info": {
+            "name": "Export a vdb using SCN to an ASM file system",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/asm-export-by-location",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Export a vdb using SCN to an ASM file system"
+        },
+        {
+          "info": {
+            "name": "Export a vdb using timestamp to an ASM file system",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/asm-export-by-timestamp",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Export a vdb using timestamp to an ASM file system"
+        },
+        {
+          "info": {
+            "name": "Export a vdb using bookmark to physical file system",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/export-from-bookmark",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Export a vdb using bookmark to physical file system"
+        },
+        {
+          "info": {
+            "name": "Export a vdb using bookmark to an ASM file system",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/asm-export-from-bookmark",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Export a vdb using bookmark to an ASM file system"
+        },
+        {
+          "info": {
+            "name": "Export a vdb using timestamp to a physical file system",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/export-by-timestamp",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Export a vdb using timestamp to a physical file system"
+        },
+        {
+          "info": {
+            "name": "Export a vdb using snapshot to a physical file system",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/export-by-snapshot",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Export a vdb using snapshot to a physical file system"
+        },
+        {
+          "info": {
+            "name": "Export a vdb using timeflow location to a physical file system",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/export-by-location",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Export a vdb using timeflow location to a physical file system"
+        },
+        {
+          "info": {
+            "name": "Finalize operation on incremental V2P export",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdbs/:vdbId/export_finalize",
+            "params": [
+              {
+                "name": "vdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the VDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Finalize operation on incremental V2P export"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

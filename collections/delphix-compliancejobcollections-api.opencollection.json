@@ -1,0 +1,334 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms ComplianceJobCollections API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ComplianceJobCollections",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve the list of compliance job collections.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/compliance-job-collections",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+              }
+            ]
+          },
+          "docs": "Retrieve the list of compliance job collections."
+        },
+        {
+          "info": {
+            "name": "Create a compliance job collection.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/compliance-job-collections",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a compliance job collection."
+        },
+        {
+          "info": {
+            "name": "Search compliance job collections.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/compliance-job-collections/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search compliance job collections."
+        },
+        {
+          "info": {
+            "name": "Retrieve a compliance job collection by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/compliance-job-collections/:complianceJobCollectionId",
+            "params": [
+              {
+                "name": "complianceJobCollectionId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the compliance job collection."
+              }
+            ]
+          },
+          "docs": "Retrieve a compliance job collection by ID."
+        },
+        {
+          "info": {
+            "name": "Update a compliance job collection.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/compliance-job-collections/:complianceJobCollectionId",
+            "params": [
+              {
+                "name": "complianceJobCollectionId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the compliance job collection."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a compliance job collection."
+        },
+        {
+          "info": {
+            "name": "Delete a compliance job collection.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/dct/v3/compliance-job-collections/:complianceJobCollectionId",
+            "params": [
+              {
+                "name": "complianceJobCollectionId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the compliance job collection."
+              }
+            ]
+          },
+          "docs": "Delete a compliance job collection."
+        },
+        {
+          "info": {
+            "name": "Execute a compliance job collection.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/compliance-job-collections/:complianceJobCollectionId/execute",
+            "params": [
+              {
+                "name": "complianceJobCollectionId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the compliance job collection."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Execute a compliance job collection."
+        },
+        {
+          "info": {
+            "name": "Get compliance jobs for a compliance job collection.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/compliance-job-collections/:complianceJobCollectionId/jobs",
+            "params": [
+              {
+                "name": "complianceJobCollectionId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the compliance job collection."
+              },
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+              }
+            ]
+          },
+          "docs": "Get compliance jobs for a compliance job collection."
+        },
+        {
+          "info": {
+            "name": "Search compliance jobs for a compliance job collection.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/compliance-job-collections/:complianceJobCollectionId/jobs/search",
+            "params": [
+              {
+                "name": "complianceJobCollectionId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the compliance job collection."
+              },
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search compliance jobs for a compliance job collection."
+        },
+        {
+          "info": {
+            "name": "Get tags for a compliance job collection.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/compliance-job-collections/:complianceJobCollectionId/tags",
+            "params": [
+              {
+                "name": "complianceJobCollectionId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the compliance job collection."
+              }
+            ]
+          },
+          "docs": "Get tags for a compliance job collection."
+        },
+        {
+          "info": {
+            "name": "Create tags for a compliance job collection.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/compliance-job-collections/:complianceJobCollectionId/tags",
+            "params": [
+              {
+                "name": "complianceJobCollectionId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the compliance job collection."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create tags for a compliance job collection."
+        },
+        {
+          "info": {
+            "name": "Delete tags for a compliance job collection.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/compliance-job-collections/:complianceJobCollectionId/tags/delete",
+            "params": [
+              {
+                "name": "complianceJobCollectionId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the compliance job collection."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete tags for a compliance job collection."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

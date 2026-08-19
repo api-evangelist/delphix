@@ -1,0 +1,431 @@
+{
+  "item": [
+    {
+      "id": "4eea8da9-adb2-40b7-afd7-c1272a812590",
+      "name": "Connectivity",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "03d5560e-c579-4e07-a591-2d0b8d2d38a6",
+          "name": "Checks connectivity between an engine and a remote host machine on a given port.",
+          "request": {
+            "name": "Checks connectivity between an engine and a remote host machine on a given port.",
+            "description": {},
+            "url": {
+              "path": [
+                "connectivity",
+                "check"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"engine_id\": \"<string>\",\n  \"host\": \"<string>\",\n  \"port\": \"<integer>\",\n  \"use_engine_public_key\": \"<boolean>\",\n  \"os_name\": \"<string>\",\n  \"staging_environment\": \"<string>\",\n  \"username\": \"<string>\",\n  \"password\": \"<string>\",\n  \"vault_id\": \"<string>\",\n  \"hashicorp_vault_engine\": \"<string>\",\n  \"hashicorp_vault_secret_path\": \"<string>\",\n  \"hashicorp_vault_username_key\": \"<string>\",\n  \"hashicorp_vault_secret_key\": \"<string>\",\n  \"azure_vault_name\": \"<string>\",\n  \"azure_vault_username_key\": \"<string>\",\n  \"azure_vault_secret_key\": \"<string>\",\n  \"cyberark_vault_query_string\": \"<string>\",\n  \"use_kerberos_authentication\": \"<boolean>\",\n  \"custom_private_key\": \"<string>\",\n  \"custom_public_key\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "653deabc-84b6-4370-8125-8d379bc90f10",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "connectivity",
+                    "check"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"engine_id\": \"engine-123\",\n  \"host\": \"test.host.com\",\n  \"port\": 22,\n  \"use_engine_public_key\": true,\n  \"os_name\": \"UNIX\",\n  \"staging_environment\": \"1-WINDOWS_HOST-1\",\n  \"username\": \"username\",\n  \"password\": \"password\",\n  \"vault_id\": \"my-vault\",\n  \"hashicorp_vault_engine\": \"kv\",\n  \"hashicorp_vault_secret_path\": \"oracle-env\",\n  \"hashicorp_vault_username_key\": \"username\",\n  \"hashicorp_vault_secret_key\": \"secret\",\n  \"azure_vault_name\": \"azure_vault\",\n  \"azure_vault_username_key\": \"username\",\n  \"azure_vault_secret_key\": \"secret\",\n  \"cyberark_vault_query_string\": \"Safe=Test;Folder=Test;Object=Test\",\n  \"use_kerberos_authentication\": true,\n  \"custom_private_key\": \"ssh custom_private_key\",\n  \"custom_public_key\": \"ssh custom_public_key\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Success!\",\n  \"status\": \"SUCCESS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "29a2afaa-bd0c-4945-998b-cc21020956ec",
+          "name": "Tests the validity of the supplied database credentials, returning an error if unable to connect to the database.",
+          "request": {
+            "name": "Tests the validity of the supplied database credentials, returning an error if unable to connect to the database.",
+            "description": {},
+            "url": {
+              "path": [
+                "database",
+                "connectivity",
+                "check"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"credentials_type\": \"<string>\",\n  \"source_id\": \"<string>\",\n  \"username\": \"<string>\",\n  \"password\": \"<string>\",\n  \"vault\": \"<string>\",\n  \"hashicorp_vault_engine\": \"<string>\",\n  \"hashicorp_vault_secret_path\": \"<string>\",\n  \"hashicorp_vault_username_key\": \"<string>\",\n  \"hashicorp_vault_secret_key\": \"<string>\",\n  \"azure_vault_name\": \"<string>\",\n  \"azure_vault_username_key\": \"<string>\",\n  \"azure_vault_secret_key\": \"<string>\",\n  \"cyberark_vault_query_string\": \"<string>\",\n  \"environment_id\": \"<string>\",\n  \"environment_user\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ae7e1376-a946-4c75-9bb7-d20bd0f52070",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "database",
+                    "connectivity",
+                    "check"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"credentials_type\": \"<string>\",\n  \"source_id\": \"1-SOURCE-CONFIG-1\",\n  \"username\": \"username\",\n  \"password\": \"password\",\n  \"vault\": \"my-vault\",\n  \"hashicorp_vault_engine\": \"kv\",\n  \"hashicorp_vault_secret_path\": \"oracle-env\",\n  \"hashicorp_vault_username_key\": \"username\",\n  \"hashicorp_vault_secret_key\": \"secret\",\n  \"azure_vault_name\": \"azure_vault\",\n  \"azure_vault_username_key\": \"username\",\n  \"azure_vault_secret_key\": \"secret\",\n  \"cyberark_vault_query_string\": \"Safe=Test;Folder=Test;Object=Test\",\n  \"environment_id\": \"<string>\",\n  \"environment_user\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Success!\",\n  \"status\": \"SUCCESS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6f195702-563b-4d3b-a9d7-02d92762be07",
+          "name": "Checks whether the specified NetBackup master server and client are able to communicate on the given environment.",
+          "request": {
+            "name": "Checks whether the specified NetBackup master server and client are able to communicate on the given environment.",
+            "description": {},
+            "url": {
+              "path": [
+                "netbackup",
+                "connectivity",
+                "check"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"environment_id\": \"<string>\",\n  \"environment_user_id\": \"<string>\",\n  \"master_server_name\": \"<string>\",\n  \"source_client_name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b6bf91ed-1bbb-418c-be37-a038392edaf0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "netbackup",
+                    "connectivity",
+                    "check"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"environment_id\": \"1-ENVIRONMENT-1\",\n  \"environment_user_id\": \"USER-1\",\n  \"master_server_name\": \"master_server.delphix.com\",\n  \"source_client_name\": \"source_client.delphix.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3cec393b-04b0-4462-827f-bc39a92913dd",
+          "name": "Tests whether the CommServe host is accessible from the given environment and Commvault agent.",
+          "request": {
+            "name": "Tests whether the CommServe host is accessible from the given environment and Commvault agent.",
+            "description": {},
+            "url": {
+              "path": [
+                "commvault",
+                "connectivity",
+                "check"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"environment_id\": \"<string>\",\n  \"environment_user_id\": \"<string>\",\n  \"commserve_host_name\": \"<string>\",\n  \"source_client_name\": \"<string>\",\n  \"staging_client_name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d6b916eb-4b53-4d55-bafd-8251616def7e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commvault",
+                    "connectivity",
+                    "check"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"environment_id\": \"1-ENVIRONMENT-1\",\n  \"environment_user_id\": \"USER-1\",\n  \"commserve_host_name\": \"commserve.delphix.com\",\n  \"source_client_name\": \"source_client.delphix.com\",\n  \"staging_client_name\": \"staging_client.delphix.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/dct/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "42ac2dbe-a250-4445-b803-0314b935b411",
+    "name": "Delphix DCT Algorithms Connectivity API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Delphix DCT API\n\nContact Support:\n Name: Delphix Support\n Email: support@delphix.com",
+      "type": "text/plain"
+    }
+  }
+}

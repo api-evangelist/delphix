@@ -1,0 +1,435 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms DiscoveryPolicies API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DiscoveryPolicies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve discovery policies.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/discovery-policies",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+              }
+            ]
+          },
+          "docs": "Retrieve discovery policies."
+        },
+        {
+          "info": {
+            "name": "Create a discovery policy.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/discovery-policies",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a discovery policy."
+        },
+        {
+          "info": {
+            "name": "Search for discovery policies.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/discovery-policies/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for discovery policies."
+        },
+        {
+          "info": {
+            "name": "Get a discovery policy by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/discovery-policies/:discoveryPolicyId",
+            "params": [
+              {
+                "name": "discoveryPolicyId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Discovery Policy."
+              }
+            ]
+          },
+          "docs": "Get a discovery policy by ID."
+        },
+        {
+          "info": {
+            "name": "Update a Discovery Policy.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/discovery-policies/:discoveryPolicyId",
+            "params": [
+              {
+                "name": "discoveryPolicyId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Discovery Policy."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Discovery Policy."
+        },
+        {
+          "info": {
+            "name": "Delete a discovery policy.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/dct/v3/discovery-policies/:discoveryPolicyId",
+            "params": [
+              {
+                "name": "discoveryPolicyId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Discovery Policy."
+              }
+            ]
+          },
+          "docs": "Delete a discovery policy."
+        },
+        {
+          "info": {
+            "name": "Get classifiers for a discovery policy.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/discovery-policies/:discoveryPolicyId/classifiers",
+            "params": [
+              {
+                "name": "discoveryPolicyId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Discovery Policy."
+              },
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "name",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+              }
+            ]
+          },
+          "docs": "Get classifiers for a discovery policy."
+        },
+        {
+          "info": {
+            "name": "Add classifiers to a discovery policy.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/discovery-policies/:discoveryPolicyId/classifiers",
+            "params": [
+              {
+                "name": "discoveryPolicyId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Discovery Policy."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add classifiers to a discovery policy."
+        },
+        {
+          "info": {
+            "name": "Remove classifiers from a discovery policy.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/discovery-policies/:discoveryPolicyId/classifiers/remove",
+            "params": [
+              {
+                "name": "discoveryPolicyId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Discovery Policy."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove classifiers from a discovery policy."
+        },
+        {
+          "info": {
+            "name": "Search for classifiers of a discovery policy.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/discovery-policies/:discoveryPolicyId/classifiers/search",
+            "params": [
+              {
+                "name": "discoveryPolicyId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Discovery Policy."
+              },
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "name",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for classifiers of a discovery policy."
+        },
+        {
+          "info": {
+            "name": "Get discovery expressions for a discovery policy.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/discovery-policies/:discoveryPolicyId/expressions",
+            "params": [
+              {
+                "name": "discoveryPolicyId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Discovery Policy."
+              },
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The"
+              }
+            ]
+          },
+          "docs": "Get discovery expressions for a discovery policy."
+        },
+        {
+          "info": {
+            "name": "Search for discovery expressions of a discovery policy.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/discovery-policies/:discoveryPolicyId/expressions/search",
+            "params": [
+              {
+                "name": "discoveryPolicyId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Discovery Policy."
+              },
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for discovery expressions of a discovery policy."
+        },
+        {
+          "info": {
+            "name": "Get tags for a discovery policy.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/discovery-policies/:discoveryPolicyId/tags",
+            "params": [
+              {
+                "name": "discoveryPolicyId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Discovery Policy."
+              }
+            ]
+          },
+          "docs": "Get tags for a discovery policy."
+        },
+        {
+          "info": {
+            "name": "Create tags for a discovery policy.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/discovery-policies/:discoveryPolicyId/tags",
+            "params": [
+              {
+                "name": "discoveryPolicyId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Discovery Policy."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create tags for a discovery policy."
+        },
+        {
+          "info": {
+            "name": "Delete tags for a discovery policy.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/discovery-policies/:discoveryPolicyId/tags/delete",
+            "params": [
+              {
+                "name": "discoveryPolicyId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Discovery Policy."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete tags for a discovery policy."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

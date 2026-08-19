@@ -1,0 +1,244 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms ComplianceNodes API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ComplianceNodes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "get_compliance_nodes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/compliance-nodes",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Register a compliance node",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/compliance-nodes",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Register a compliance node"
+        },
+        {
+          "info": {
+            "name": "Search for compliance nodes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/compliance-nodes/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for compliance nodes"
+        },
+        {
+          "info": {
+            "name": "Retrieve a compliance node by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/compliance-nodes/:complianceNodeId",
+            "params": [
+              {
+                "name": "complianceNodeId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Compliance Node."
+              }
+            ]
+          },
+          "docs": "Retrieve a compliance node by ID."
+        },
+        {
+          "info": {
+            "name": "Update a compliance node.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/compliance-nodes/:complianceNodeId",
+            "params": [
+              {
+                "name": "complianceNodeId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Compliance Node."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a compliance node."
+        },
+        {
+          "info": {
+            "name": "Delete a compliance node.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/dct/v3/compliance-nodes/:complianceNodeId",
+            "params": [
+              {
+                "name": "complianceNodeId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Compliance Node."
+              }
+            ]
+          },
+          "docs": "Delete a compliance node."
+        },
+        {
+          "info": {
+            "name": "Refresh the logs for a compliance node.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/compliance-nodes/:complianceNodeId/refreshLogs",
+            "params": [
+              {
+                "name": "complianceNodeId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Compliance Node."
+              }
+            ]
+          },
+          "docs": "Refresh the logs for a compliance node."
+        },
+        {
+          "info": {
+            "name": "Get log file details for a compliance node.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/compliance-nodes/:complianceNodeId/logs",
+            "params": [
+              {
+                "name": "complianceNodeId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Compliance Node."
+              }
+            ]
+          },
+          "docs": "Get log file details for a compliance node."
+        },
+        {
+          "info": {
+            "name": "Get log content for a compliance node.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/compliance-nodes/:complianceNodeId/logs/content",
+            "params": [
+              {
+                "name": "complianceNodeId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Compliance Node."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "logFileNumber",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get log content for a compliance node."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

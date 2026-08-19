@@ -1,0 +1,468 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms PaaSInstances API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "PaaSInstances",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all PaaS Instances.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/paas-instances",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order.\n"
+              },
+              {
+                "name": "permission",
+                "value": "READ",
+                "type": "query",
+                "description": "Restrict the objects, which are allowed."
+              }
+            ]
+          },
+          "docs": "List all PaaS Instances."
+        },
+        {
+          "info": {
+            "name": "Provision a new PaaS Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/paas-instances",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Provision a new PaaS Instance"
+        },
+        {
+          "info": {
+            "name": "Search for PaaS Instances.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/paas-instances/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order.\n"
+              },
+              {
+                "name": "permission",
+                "value": "READ",
+                "type": "query",
+                "description": "Restrict the objects, which are allowed."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for PaaS Instances."
+        },
+        {
+          "info": {
+            "name": "Get a PaaS Instance by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/paas-instances/:paaSInstanceId",
+            "params": [
+              {
+                "name": "paaSInstanceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Instance."
+              }
+            ]
+          },
+          "docs": "Get a PaaS Instance by ID."
+        },
+        {
+          "info": {
+            "name": "Update a PaaS Instance.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/paas-instances/:paaSInstanceId",
+            "params": [
+              {
+                "name": "paaSInstanceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Instance."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a PaaS Instance."
+        },
+        {
+          "info": {
+            "name": "Delete a PaaS Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/paas-instances/:paaSInstanceId/delete",
+            "params": [
+              {
+                "name": "paaSInstanceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Instance."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete a PaaS Instance"
+        },
+        {
+          "info": {
+            "name": "Refresh a PaaS Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/paas-instances/:paaSInstanceId/refresh",
+            "params": [
+              {
+                "name": "paaSInstanceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Instance."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Refresh a PaaS Instance"
+        },
+        {
+          "info": {
+            "name": "Get tags for a PaaS Instance.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/paas-instances/:paaSInstanceId/tags",
+            "params": [
+              {
+                "name": "paaSInstanceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Instance."
+              }
+            ]
+          },
+          "docs": "Get tags for a PaaS Instance."
+        },
+        {
+          "info": {
+            "name": "Create tags for a PaaS Instance.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/paas-instances/:paaSInstanceId/tags",
+            "params": [
+              {
+                "name": "paaSInstanceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Instance."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create tags for a PaaS Instance."
+        },
+        {
+          "info": {
+            "name": "Delete tags for a PaaS Instance.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/paas-instances/:paaSInstanceId/tags/delete",
+            "params": [
+              {
+                "name": "paaSInstanceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Instance."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete tags for a PaaS Instance."
+        },
+        {
+          "info": {
+            "name": "Provision a new PaaS Instance from a bookmark",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/paas-instances/provision_from_bookmark",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Provision a new PaaS Instance from a bookmark"
+        },
+        {
+          "info": {
+            "name": "List Bookmarks compatible with this PaaS Instance.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/paas-instances/:paaSInstanceId/bookmarks",
+            "params": [
+              {
+                "name": "paaSInstanceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Instance."
+              },
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ]
+          },
+          "docs": "List Bookmarks compatible with this PaaS Instance."
+        },
+        {
+          "info": {
+            "name": "Search Bookmarks compatible with this PaaS Instance.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/paas-instances/:paaSInstanceId/bookmarks/search",
+            "params": [
+              {
+                "name": "paaSInstanceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Instance."
+              },
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search Bookmarks compatible with this PaaS Instance."
+        },
+        {
+          "info": {
+            "name": "Refresh a PaaS Instance from a bookmark",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/paas-instances/:paaSInstanceId/refresh_from_bookmark",
+            "params": [
+              {
+                "name": "paaSInstanceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Instance."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Refresh a PaaS Instance from a bookmark"
+        },
+        {
+          "info": {
+            "name": "De-provision a PaaS Instance, meaning that the instance object will remain in DCT, along with its permissions, tags, snapshots, ... but the instance will no longer be running. If the current instance data must be preserved, take a snapshot before de-provisioning.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/paas-instances/:paaSInstanceId/de-provision",
+            "params": [
+              {
+                "name": "paaSInstanceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Instance."
+              }
+            ]
+          },
+          "docs": "De-provision a PaaS Instance, meaning that the instance object will remain in DCT, along with its permissions, tags, snapshots, ... but the instance will no longer be running. If the current instance data must be preserved, take a snapshot before de-provisioning."
+        },
+        {
+          "info": {
+            "name": "Re-provision a PaaS Instance which has previously been de-provisioned. The provision parameters specified at provisioning time will be respected, with the exception of the timestamp or snapshot id to re-provision from.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/paas-instances/:paaSInstanceId/re-provision",
+            "params": [
+              {
+                "name": "paaSInstanceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Instance."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Re-provision a PaaS Instance which has previously been de-provisioned. The provision parameters specified at provisioning time will be respected, with the exception of the timestamp or snapshot id to re-provision from."
+        },
+        {
+          "info": {
+            "name": "Start a PaaS Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/paas-instances/:paaSInstanceId/start",
+            "params": [
+              {
+                "name": "paaSInstanceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Instance."
+              }
+            ]
+          },
+          "docs": "Start a PaaS Instance"
+        },
+        {
+          "info": {
+            "name": "Stop a PaaS Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/paas-instances/:paaSInstanceId/stop",
+            "params": [
+              {
+                "name": "paaSInstanceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Instance."
+              }
+            ]
+          },
+          "docs": "Stop a PaaS Instance"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

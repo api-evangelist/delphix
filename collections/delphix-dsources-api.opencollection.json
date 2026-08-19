@@ -1,0 +1,1015 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms DSources API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DSources",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all dSources.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/dsources",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              },
+              {
+                "name": "permission",
+                "value": "READ",
+                "type": "query",
+                "description": "Restrict the objects, which are allowed."
+              }
+            ]
+          },
+          "docs": "List all dSources."
+        },
+        {
+          "info": {
+            "name": "Link Oracle database as dSource.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/oracle",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Link Oracle database as dSource."
+        },
+        {
+          "info": {
+            "name": "Get defaults for dSource linking.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/oracle/defaults",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get defaults for dSource linking."
+        },
+        {
+          "info": {
+            "name": "Detaches an Oracle source from an Oracle database.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/oracle/:dsourceId/detachSource",
+            "params": [
+              {
+                "name": "dsourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dSource."
+              }
+            ]
+          },
+          "docs": "Detaches an Oracle source from an Oracle database."
+        },
+        {
+          "info": {
+            "name": "Attach an Oracle dSource to an Oracle database.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/oracle/:dsourceId/attachSource",
+            "params": [
+              {
+                "name": "dsourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dSource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Attach an Oracle dSource to an Oracle database."
+        },
+        {
+          "info": {
+            "name": "Link an Oracle staging push database as dSource.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/oracle/staging-push",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Link an Oracle staging push database as dSource."
+        },
+        {
+          "info": {
+            "name": "Get defaults for a Oracle staging push dSource linking.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/oracle/staging-push/defaults",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get defaults for a Oracle staging push dSource linking."
+        },
+        {
+          "info": {
+            "name": "Update values of an Oracle dSource",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/dsources/oracle/:dsourceId",
+            "params": [
+              {
+                "name": "dsourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dSource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update values of an Oracle dSource"
+        },
+        {
+          "info": {
+            "name": "Upgrade the requested Oracle dSource installation and user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/oracle/:dsourceId/upgrade",
+            "params": [
+              {
+                "name": "dsourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dSource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API is marked as deprecated in favour of generalized API '/dsources/{dsourceId}/upgrade'"
+        },
+        {
+          "info": {
+            "name": "Upgrade dSource",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/:dsourceId/upgrade",
+            "params": [
+              {
+                "name": "dsourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dSource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Upgrade dSource"
+        },
+        {
+          "info": {
+            "name": "Link an ASE database as dSource.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/ase",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Link an ASE database as dSource."
+        },
+        {
+          "info": {
+            "name": "Get defaults for an ASE dSource linking.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/ase/defaults",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get defaults for an ASE dSource linking."
+        },
+        {
+          "info": {
+            "name": "Update values of an ASE dSource",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/dsources/ase/:dsourceId",
+            "params": [
+              {
+                "name": "dsourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dSource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update values of an ASE dSource"
+        },
+        {
+          "info": {
+            "name": "Attaches an ASE source to a previously detached ASE dSource.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/ase/:dsourceId/attachSource",
+            "params": [
+              {
+                "name": "dsourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dSource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Attaches an ASE source to a previously detached ASE dSource."
+        },
+        {
+          "info": {
+            "name": "Detaches an ASE source from an ASE database.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/ase/:dsourceId/detachSource",
+            "params": [
+              {
+                "name": "dsourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dSource."
+              }
+            ]
+          },
+          "docs": "Detaches an ASE source from an ASE database."
+        },
+        {
+          "info": {
+            "name": "Link an AppData database as dSource.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/appdata",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Link an AppData database as dSource."
+        },
+        {
+          "info": {
+            "name": "Get defaults for an AppData dSource linking.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/appdata/defaults",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get defaults for an AppData dSource linking."
+        },
+        {
+          "info": {
+            "name": "Update values of an AppData dSource",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/dsources/appdata/:dsourceId",
+            "params": [
+              {
+                "name": "dsourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dSource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update values of an AppData dSource"
+        },
+        {
+          "info": {
+            "name": "Link a MSSql database as dSource.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/mssql",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Link a MSSql database as dSource."
+        },
+        {
+          "info": {
+            "name": "Detaches a linked source from a MSSql database.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/mssql/:dsourceId/detachSource",
+            "params": [
+              {
+                "name": "dsourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dSource."
+              }
+            ]
+          },
+          "docs": "Detaches a linked source from a MSSql database."
+        },
+        {
+          "info": {
+            "name": "Attaches a MSSql source to a previously detached dsource.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/mssql/:dsourceId/attachSource",
+            "params": [
+              {
+                "name": "dsourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dSource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Attaches a MSSql source to a previously detached dsource."
+        },
+        {
+          "info": {
+            "name": "Attaches a MSSql staging push database to a previously detached dsource.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/mssql/staging-push/:dsourceId/attachSource",
+            "params": [
+              {
+                "name": "dsourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dSource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Attaches a MSSql staging push database to a previously detached dsource."
+        },
+        {
+          "info": {
+            "name": "Get defaults for a MSSql dSource linking.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/mssql/defaults",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get defaults for a MSSql dSource linking."
+        },
+        {
+          "info": {
+            "name": "Link a MSSql staging push database as dSource.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/mssql/staging-push",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Link a MSSql staging push database as dSource."
+        },
+        {
+          "info": {
+            "name": "Get defaults for a MSSql staging push dSource linking.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/mssql/staging-push/defaults",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get defaults for a MSSql staging push dSource linking."
+        },
+        {
+          "info": {
+            "name": "Delete the specified dSource.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete the specified dSource."
+        },
+        {
+          "info": {
+            "name": "Search for dSources.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              },
+              {
+                "name": "permission",
+                "value": "READ",
+                "type": "query",
+                "description": "Restrict the objects, which are allowed."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for dSources."
+        },
+        {
+          "info": {
+            "name": "Get a dSource by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/dsources/:dsourceId",
+            "params": [
+              {
+                "name": "dsourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dSource."
+              }
+            ]
+          },
+          "docs": "Get a dSource by ID."
+        },
+        {
+          "info": {
+            "name": "Enable a dSource.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/:dsourceId/enable",
+            "params": [
+              {
+                "name": "dsourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dSource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Enable a dSource."
+        },
+        {
+          "info": {
+            "name": "Disable a dSource.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/:dsourceId/disable",
+            "params": [
+              {
+                "name": "dsourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dSource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Disable a dSource."
+        },
+        {
+          "info": {
+            "name": "Returns a list of compatible repositories for dSource upgrade.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/dsources/:dsourceId/upgrade_compatible_repositories",
+            "params": [
+              {
+                "name": "dsourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dSource."
+              }
+            ]
+          },
+          "docs": "Returns a list of compatible repositories for dSource upgrade."
+        },
+        {
+          "info": {
+            "name": "Update values of an MSSql dSource",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/dsources/mssql/:dsourceId",
+            "params": [
+              {
+                "name": "dsourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dSource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update values of an MSSql dSource"
+        },
+        {
+          "info": {
+            "name": "List Snapshots for a dSource.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/dsources/:dsourceId/snapshots",
+            "params": [
+              {
+                "name": "dsourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dSource."
+              },
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              }
+            ]
+          },
+          "docs": "List Snapshots for a dSource."
+        },
+        {
+          "info": {
+            "name": "Snapshot a dSource.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/:dsourceId/snapshots",
+            "params": [
+              {
+                "name": "dsourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dSource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Snapshot a dSource."
+        },
+        {
+          "info": {
+            "name": "Get deletion dependencies for a dSource.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/dsources/:dsourceId/deletion-dependencies",
+            "params": [
+              {
+                "name": "dsourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dSource."
+              }
+            ]
+          },
+          "docs": "Get deletion dependencies for a dSource."
+        },
+        {
+          "info": {
+            "name": "Get tags for a dSource.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/dsources/:dsourceId/tags",
+            "params": [
+              {
+                "name": "dsourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dSource."
+              }
+            ]
+          },
+          "docs": "Get tags for a dSource."
+        },
+        {
+          "info": {
+            "name": "Create tags for a dSource.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/:dsourceId/tags",
+            "params": [
+              {
+                "name": "dsourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dSource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create tags for a dSource."
+        },
+        {
+          "info": {
+            "name": "Delete tags for a dSource.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/:dsourceId/tags/delete",
+            "params": [
+              {
+                "name": "dsourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dSource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete tags for a dSource."
+        },
+        {
+          "info": {
+            "name": "Export a dSource by a snapshot to an ASM file system",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/:dsourceId/asm-export-by-snapshot",
+            "params": [
+              {
+                "name": "dsourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dSource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Export a dSource by a snapshot to an ASM file system"
+        },
+        {
+          "info": {
+            "name": "Export a dSource using snapshot to a physical file system",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/:dsourceId/export-by-snapshot",
+            "params": [
+              {
+                "name": "dsourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dSource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Export a dSource using snapshot to a physical file system"
+        },
+        {
+          "info": {
+            "name": "Export a dSource using SCN to an ASM file system",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/:dsourceId/asm-export-by-location",
+            "params": [
+              {
+                "name": "dsourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dSource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Export a dSource using SCN to an ASM file system"
+        },
+        {
+          "info": {
+            "name": "Export a dSource using bookmark to an ASM file system",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/:dsourceId/asm-export-from-bookmark",
+            "params": [
+              {
+                "name": "dsourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dSource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Export a dSource using bookmark to an ASM file system"
+        },
+        {
+          "info": {
+            "name": "Export a dSource using bookmark to physical file system",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/:dsourceId/export-from-bookmark",
+            "params": [
+              {
+                "name": "dsourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dSource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Export a dSource using bookmark to physical file system"
+        },
+        {
+          "info": {
+            "name": "Export a dSource using timestamp to an ASM file system",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/:dsourceId/asm-export-by-timestamp",
+            "params": [
+              {
+                "name": "dsourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dSource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Export a dSource using timestamp to an ASM file system"
+        },
+        {
+          "info": {
+            "name": "Export a dSource using timestamp to a physical file system.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/:dsourceId/export-by-timestamp",
+            "params": [
+              {
+                "name": "dsourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dSource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Export a dSource using timestamp to a physical file system."
+        },
+        {
+          "info": {
+            "name": "Export a dSource using timeflow location to a physical file system.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/:dsourceId/export-by-location",
+            "params": [
+              {
+                "name": "dsourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dSource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Export a dSource using timeflow location to a physical file system."
+        },
+        {
+          "info": {
+            "name": "Purge logs of a dSource (Oracle only).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/dsources/:dsourceId/purge-logs",
+            "params": [
+              {
+                "name": "dsourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dSource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Purge logs of a dSource (Oracle only)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

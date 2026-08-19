@@ -1,0 +1,824 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms Environments API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Environments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all environments.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/environments",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ]
+          },
+          "docs": "List all environments."
+        },
+        {
+          "info": {
+            "name": "Create an environment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/environments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an environment."
+        },
+        {
+          "info": {
+            "name": "Get compatible repositories corresponding to the snapshot.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/environments/compatible_repositories_by_snapshot",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get compatible repositories corresponding to the snapshot."
+        },
+        {
+          "info": {
+            "name": "Get compatible repositories corresponding to the timestamp.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/environments/compatible_repositories_by_timestamp",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get compatible repositories corresponding to the timestamp."
+        },
+        {
+          "info": {
+            "name": "Get compatible repositories corresponding to the bookmark.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/environments/compatible_repositories_from_bookmark",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get compatible repositories corresponding to the bookmark."
+        },
+        {
+          "info": {
+            "name": "Get compatible repositories corresponding to the location.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/environments/compatible_repositories_by_location",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get compatible repositories corresponding to the location."
+        },
+        {
+          "info": {
+            "name": "Update a Repository.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/environments/:environmentId/repository/:repositoryId",
+            "params": [
+              {
+                "name": "environmentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the environment."
+              },
+              {
+                "name": "repositoryId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the repository."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Repository."
+        },
+        {
+          "info": {
+            "name": "Delete a repository.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/dct/v3/environments/:environmentId/repository/:repositoryId",
+            "params": [
+              {
+                "name": "environmentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the environment."
+              },
+              {
+                "name": "repositoryId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the repository."
+              }
+            ]
+          },
+          "docs": "Delete a repository."
+        },
+        {
+          "info": {
+            "name": "Create a repository.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/environments/:environmentId/repository",
+            "params": [
+              {
+                "name": "environmentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the environment."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a repository."
+        },
+        {
+          "info": {
+            "name": "Create a new Host.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/environments/:environmentId/hosts",
+            "params": [
+              {
+                "name": "environmentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the environment."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new Host."
+        },
+        {
+          "info": {
+            "name": "Update a Host.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/environments/:environmentId/hosts/:hostId",
+            "params": [
+              {
+                "name": "environmentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the environment."
+              },
+              {
+                "name": "hostId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the host."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Host."
+        },
+        {
+          "info": {
+            "name": "Delete a Host.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/dct/v3/environments/:environmentId/hosts/:hostId",
+            "params": [
+              {
+                "name": "environmentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the environment."
+              },
+              {
+                "name": "hostId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the host."
+              }
+            ]
+          },
+          "docs": "Delete a Host."
+        },
+        {
+          "info": {
+            "name": "Get tags for an Environment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/environments/:environmentId/tags",
+            "params": [
+              {
+                "name": "environmentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the environment."
+              }
+            ]
+          },
+          "docs": "Get tags for an Environment."
+        },
+        {
+          "info": {
+            "name": "Create tags for an Environment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/environments/:environmentId/tags",
+            "params": [
+              {
+                "name": "environmentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the environment."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create tags for an Environment."
+        },
+        {
+          "info": {
+            "name": "Delete tags for an Environment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/environments/:environmentId/tags/delete",
+            "params": [
+              {
+                "name": "environmentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the environment."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete tags for an Environment."
+        },
+        {
+          "info": {
+            "name": "Returns an environment by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/environments/:environmentId",
+            "params": [
+              {
+                "name": "environmentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the environment."
+              }
+            ]
+          },
+          "docs": "Returns an environment by ID."
+        },
+        {
+          "info": {
+            "name": "Update an environment by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/environments/:environmentId",
+            "params": [
+              {
+                "name": "environmentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the environment."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an environment by ID."
+        },
+        {
+          "info": {
+            "name": "Delete an environment by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/dct/v3/environments/:environmentId",
+            "params": [
+              {
+                "name": "environmentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the environment."
+              }
+            ]
+          },
+          "docs": "Delete an environment by ID."
+        },
+        {
+          "info": {
+            "name": "Search for environments.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/environments/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for environments."
+        },
+        {
+          "info": {
+            "name": "Enable a disabled environment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/environments/:environmentId/enable",
+            "params": [
+              {
+                "name": "environmentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the environment."
+              }
+            ]
+          },
+          "docs": "Enable a disabled environment."
+        },
+        {
+          "info": {
+            "name": "Disable environment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/environments/:environmentId/disable",
+            "params": [
+              {
+                "name": "environmentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the environment."
+              }
+            ]
+          },
+          "docs": "Disable environment."
+        },
+        {
+          "info": {
+            "name": "Refresh environment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/environments/:environmentId/refresh",
+            "params": [
+              {
+                "name": "environmentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the environment."
+              }
+            ]
+          },
+          "docs": "Refresh environment."
+        },
+        {
+          "info": {
+            "name": "List environment users.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/environments/:environmentId/users",
+            "params": [
+              {
+                "name": "environmentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the environment."
+              }
+            ]
+          },
+          "docs": "List environment users."
+        },
+        {
+          "info": {
+            "name": "Create environment user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/environments/:environmentId/users",
+            "params": [
+              {
+                "name": "environmentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the environment."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create environment user."
+        },
+        {
+          "info": {
+            "name": "Update environment user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/dct/v3/environments/:environmentId/users/:userRef",
+            "params": [
+              {
+                "name": "environmentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the environment."
+              },
+              {
+                "name": "userRef",
+                "value": "",
+                "type": "path",
+                "description": "Environment user reference."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update environment user."
+        },
+        {
+          "info": {
+            "name": "Delete environment user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/dct/v3/environments/:environmentId/users/:userRef",
+            "params": [
+              {
+                "name": "environmentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the environment."
+              },
+              {
+                "name": "userRef",
+                "value": "",
+                "type": "path",
+                "description": "Environment user reference."
+              }
+            ]
+          },
+          "docs": "Delete environment user."
+        },
+        {
+          "info": {
+            "name": "Set primary environment user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/environments/:environmentId/users/:userRef/primary",
+            "params": [
+              {
+                "name": "environmentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the environment."
+              },
+              {
+                "name": "userRef",
+                "value": "",
+                "type": "path",
+                "description": "Environment user reference."
+              }
+            ]
+          },
+          "docs": "Set primary environment user."
+        },
+        {
+          "info": {
+            "name": "Create Oracle listener.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/environments/:environmentId/listeners",
+            "params": [
+              {
+                "name": "environmentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the environment."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create Oracle listener."
+        },
+        {
+          "info": {
+            "name": "Update an Oracle listener.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/environments/:environmentId/listeners/:listenerId",
+            "params": [
+              {
+                "name": "environmentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the environment."
+              },
+              {
+                "name": "listenerId",
+                "value": "",
+                "type": "path",
+                "description": "Oracle listener id."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an Oracle listener."
+        },
+        {
+          "info": {
+            "name": "Delete an Oracle listener.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/dct/v3/environments/:environmentId/listeners/:listenerId",
+            "params": [
+              {
+                "name": "environmentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the environment."
+              },
+              {
+                "name": "listenerId",
+                "value": "",
+                "type": "path",
+                "description": "Oracle listener id."
+              }
+            ]
+          },
+          "docs": "Delete an Oracle listener."
+        },
+        {
+          "info": {
+            "name": "Fetch an environment host by host id.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/environments/hosts/:hostId",
+            "params": [
+              {
+                "name": "hostId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the host."
+              }
+            ]
+          },
+          "docs": "Fetch an environment host by host id."
+        },
+        {
+          "info": {
+            "name": "List OKV clients running on the specified host.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/environments/hosts/:hostId/okv-clients",
+            "params": [
+              {
+                "name": "hostId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the host."
+              }
+            ]
+          },
+          "docs": "List OKV clients running on the specified host."
+        },
+        {
+          "info": {
+            "name": "Create an OKV Client for the specific host.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/environments/hosts/:hostId/okv-clients",
+            "params": [
+              {
+                "name": "hostId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the host."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an OKV Client for the specific host."
+        },
+        {
+          "info": {
+            "name": "Fetch an OKV Client by okvClient id.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/environments/hosts/okv-clients/:okvClientId",
+            "params": [
+              {
+                "name": "okvClientId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the OKV client."
+              }
+            ]
+          },
+          "docs": "Fetch an OKV Client by okvClient id."
+        },
+        {
+          "info": {
+            "name": "Update an OKV Client.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/environments/hosts/okv-clients/:okvClientId",
+            "params": [
+              {
+                "name": "okvClientId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the OKV client."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an OKV Client."
+        },
+        {
+          "info": {
+            "name": "Delete an OKV Client",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/dct/v3/environments/hosts/okv-clients/:okvClientId",
+            "params": [
+              {
+                "name": "okvClientId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the OKV client."
+              }
+            ]
+          },
+          "docs": "Delete an OKV Client"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,291 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms StagingCdbs API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "StagingCdbs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all Staging CDBs.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/staging-cdbs",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ]
+          },
+          "docs": "List all Staging CDBs."
+        },
+        {
+          "info": {
+            "name": "Search for Staging CDBs.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/staging-cdbs/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for Staging CDBs."
+        },
+        {
+          "info": {
+            "name": "Get a Staging CDB by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/staging-cdbs/:stagingCdbId",
+            "params": [
+              {
+                "name": "stagingCdbId",
+                "value": "",
+                "type": "path",
+                "description": "The Staging CDB ID."
+              }
+            ]
+          },
+          "docs": "Get a Staging CDB by ID."
+        },
+        {
+          "info": {
+            "name": "Update a Staging CDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/staging-cdbs/:stagingCdbId",
+            "params": [
+              {
+                "name": "stagingCdbId",
+                "value": "",
+                "type": "path",
+                "description": "The Staging CDB ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Staging CDB."
+        },
+        {
+          "info": {
+            "name": "Delete a staging CDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/staging-cdbs/:stagingCdbId/delete",
+            "params": [
+              {
+                "name": "stagingCdbId",
+                "value": "",
+                "type": "path",
+                "description": "The Staging CDB ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete a staging CDB."
+        },
+        {
+          "info": {
+            "name": "Get tags for a staging CDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/staging-cdbs/:stagingCdbId/tags",
+            "params": [
+              {
+                "name": "stagingCdbId",
+                "value": "",
+                "type": "path",
+                "description": "The Staging CDB ID."
+              }
+            ]
+          },
+          "docs": "Get tags for a staging CDB."
+        },
+        {
+          "info": {
+            "name": "Create tags for a staging CDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/staging-cdbs/:stagingCdbId/tags",
+            "params": [
+              {
+                "name": "stagingCdbId",
+                "value": "",
+                "type": "path",
+                "description": "The Staging CDB ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create tags for a staging CDB."
+        },
+        {
+          "info": {
+            "name": "Delete tags for a staging CDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/staging-cdbs/:stagingCdbId/tags/delete",
+            "params": [
+              {
+                "name": "stagingCdbId",
+                "value": "",
+                "type": "path",
+                "description": "The Staging CDB ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete tags for a staging CDB."
+        },
+        {
+          "info": {
+            "name": "Enable a staging CDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/staging-cdbs/:stagingCdbId/enable",
+            "params": [
+              {
+                "name": "stagingCdbId",
+                "value": "",
+                "type": "path",
+                "description": "The Staging CDB ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Enable a staging CDB."
+        },
+        {
+          "info": {
+            "name": "Disable a staging CDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/staging-cdbs/:stagingCdbId/disable",
+            "params": [
+              {
+                "name": "stagingCdbId",
+                "value": "",
+                "type": "path",
+                "description": "The Staging CDB ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Disable a staging CDB."
+        },
+        {
+          "info": {
+            "name": "Upgrade Oracle staging CDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/staging-cdbs/:stagingCdbId/upgrade",
+            "params": [
+              {
+                "name": "stagingCdbId",
+                "value": "",
+                "type": "path",
+                "description": "The Staging CDB ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Upgrade Oracle staging CDB."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

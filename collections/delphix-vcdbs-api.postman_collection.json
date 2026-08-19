@@ -1,0 +1,1813 @@
+{
+  "item": [
+    {
+      "id": "4633c06c-0f61-40e6-a058-52f0ea8c9888",
+      "name": "VCDBs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f8c80463-2983-49fa-a0cc-47ce29254823",
+          "name": "List all vCDBs (Oracle only).",
+          "request": {
+            "name": "List all vCDBs (Oracle only).",
+            "description": {},
+            "url": {
+              "path": [
+                "vcdbs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "26657e3d-1b87-4ed0-aaef-adeed769c478",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vcdbs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"1-CDB-1\",\n      \"name\": \"Oracle CDB\",\n      \"description\": \"This is Oracle virtual CDB.\",\n      \"database_name\": \"VPDBSBBVK4\",\n      \"namespace_id\": \"string\",\n      \"namespace_name\": \"string\",\n      \"is_replica\": false,\n      \"database_version\": \"10.2.0.5.0\",\n      \"environment_id\": \"1-ENVIRONMENT-1\",\n      \"size\": 339292672,\n      \"engine_id\": \"engine-12\",\n      \"status\": \"RUNNING\",\n      \"parent_id\": \"1-CDB-1\",\n      \"creation_date\": \"2022-10-15T08:51:34.148000+00:00\",\n      \"group_name\": \"Untitled\",\n      \"enabled\": true,\n      \"content_type\": \"string\",\n      \"vcdb_restart\": true,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ],\n      \"invoke_datapatch\": false,\n      \"node_listeners\": [\n        \"string\",\n        \"string\"\n      ],\n      \"instance_name\": \"VCDSID\",\n      \"instance_number\": 6641,\n      \"instances\": [\n        {\n          \"instance_name\": \"]<n-wXF\",\n          \"instance_number\": 9011,\n          \"node_reference\": \"Jld\",\n          \"okv_client_id\": \"1-ORACLE_OKV_CLIENT-1\"\n        },\n        {\n          \"instance_name\": \"{'\",\n          \"instance_number\": 8661,\n          \"node_reference\": \"2r@9fHmS@l&?%K%$W\",\n          \"okv_client_id\": \"1-ORACLE_OKV_CLIENT-1\"\n        }\n      ],\n      \"oracle_services\": [\n        {\n          \"discovered\": false,\n          \"jdbc_connection_string\": \"jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.110.230.197)(PORT=1521))(CONNECT_DATA=(UR=A)(SERVICE_NAME=VDBOMSRBBDC6C_UJG)))\"\n        },\n        {\n          \"discovered\": true,\n          \"jdbc_connection_string\": \"jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.110.230.197)(PORT=1521))(CONNECT_DATA=(UR=A)(SERVICE_NAME=VDBOMSRBBDC6C_UJG)))\"\n        }\n      ],\n      \"repository_id\": \"1-ORACLE_INSTALL-1\",\n      \"containerization_state\": \"NOT_CONTAINERIZED\",\n      \"tde_key_identifier\": \"Ae5Eo6WB208lv+XJfXMTv8sAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n      \"tde_keystore_config_type\": \"OKV\",\n      \"is_tde_keystore_password_set\": true,\n      \"database_unique_name\": \"DBOMSRBBDC6C\",\n      \"db_username\": \"oracle\",\n      \"logsync_enabled\": true,\n      \"archive_log_mode\": true,\n      \"redo_log_groups\": 3,\n      \"redo_log_size_in_mb\": 1024,\n      \"config_params\": {\n        \"param\": \"value\",\n        \"param2\": \"value2\"\n      },\n      \"custom_env_vars\": [\n        {\n          \"cluster_node\": \"string\",\n          \"path_parameters\": \"string\",\n          \"var_name\": \"string\",\n          \"var_value\": \"string\"\n        },\n        {\n          \"cluster_node\": \"string\",\n          \"path_parameters\": \"string\",\n          \"var_name\": \"string\",\n          \"var_value\": \"string\"\n        }\n      ],\n      \"active_instances\": [\n        {\n          \"instance_number\": 1247,\n          \"instance_name\": \"string\",\n          \"host_name\": \"string\"\n        },\n        {\n          \"instance_number\": 3564,\n          \"instance_name\": \"string\",\n          \"host_name\": \"string\"\n        }\n      ],\n      \"nfs_version\": 3,\n      \"nfs_version_reason\": \"DEFAULT\",\n      \"nfs_encryption_enabled\": true,\n      \"environment_user_ref\": \"string\",\n      \"db_template_id\": \"DATABASE_TEMPLATE-1\",\n      \"db_template_name\": \"template-name\",\n      \"okv_client_id\": \"1-ORACLE_OKV_CLIENT-1\",\n      \"engine_container_reference\": \"string\"\n    },\n    {\n      \"id\": \"1-CDB-1\",\n      \"name\": \"Oracle CDB\",\n      \"description\": \"This is Oracle virtual CDB.\",\n      \"database_name\": \"VPDBSBBVK4\",\n      \"namespace_id\": \"string\",\n      \"namespace_name\": \"string\",\n      \"is_replica\": true,\n      \"database_version\": \"10.2.0.5.0\",\n      \"environment_id\": \"1-ENVIRONMENT-1\",\n      \"size\": 339292672,\n      \"engine_id\": \"engine-12\",\n      \"status\": \"RUNNING\",\n      \"parent_id\": \"1-CDB-1\",\n      \"creation_date\": \"2022-10-15T08:51:34.148000+00:00\",\n      \"group_name\": \"Untitled\",\n      \"enabled\": true,\n      \"content_type\": \"string\",\n      \"vcdb_restart\": true,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ],\n      \"invoke_datapatch\": false,\n      \"node_listeners\": [\n        \"string\",\n        \"string\"\n      ],\n      \"instance_name\": \"VCDSID\",\n      \"instance_number\": 1419,\n      \"instances\": [\n        {\n          \"instance_name\": \"4b$a*3;B*:m<d`\",\n          \"instance_number\": 8235,\n          \"node_reference\": \"1-*pG\",\n          \"okv_client_id\": \"1-ORACLE_OKV_CLIENT-1\"\n        },\n        {\n          \"instance_name\": \"!Ms:6\",\n          \"instance_number\": 415,\n          \"node_reference\": \"s\\\\bA\\\\+Y5~\",\n          \"okv_client_id\": \"1-ORACLE_OKV_CLIENT-1\"\n        }\n      ],\n      \"oracle_services\": [\n        {\n          \"discovered\": true,\n          \"jdbc_connection_string\": \"jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.110.230.197)(PORT=1521))(CONNECT_DATA=(UR=A)(SERVICE_NAME=VDBOMSRBBDC6C_UJG)))\"\n        },\n        {\n          \"discovered\": false,\n          \"jdbc_connection_string\": \"jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.110.230.197)(PORT=1521))(CONNECT_DATA=(UR=A)(SERVICE_NAME=VDBOMSRBBDC6C_UJG)))\"\n        }\n      ],\n      \"repository_id\": \"1-ORACLE_INSTALL-1\",\n      \"containerization_state\": \"NOT_CONTAINERIZED\",\n      \"tde_key_identifier\": \"Ae5Eo6WB208lv+XJfXMTv8sAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n      \"tde_keystore_config_type\": \"OKV\",\n      \"is_tde_keystore_password_set\": true,\n      \"database_unique_name\": \"DBOMSRBBDC6C\",\n      \"db_username\": \"oracle\",\n      \"logsync_enabled\": true,\n      \"archive_log_mode\": true,\n      \"redo_log_groups\": 3,\n      \"redo_log_size_in_mb\": 1024,\n      \"config_params\": {\n        \"param\": \"value\",\n        \"param2\": \"value2\"\n      },\n      \"custom_env_vars\": [\n        {\n          \"cluster_node\": \"string\",\n          \"path_parameters\": \"string\",\n          \"var_name\": \"string\",\n          \"var_value\": \"string\"\n        },\n        {\n          \"cluster_node\": \"string\",\n          \"path_parameters\": \"string\",\n          \"var_name\": \"string\",\n          \"var_value\": \"string\"\n        }\n      ],\n      \"active_instances\": [\n        {\n          \"instance_number\": 7732,\n          \"instance_name\": \"string\",\n          \"host_name\": \"string\"\n        },\n        {\n          \"instance_number\": 1876,\n          \"instance_name\": \"string\",\n          \"host_name\": \"string\"\n        }\n      ],\n      \"nfs_version\": 3,\n      \"nfs_version_reason\": \"DEFAULT\",\n      \"nfs_encryption_enabled\": true,\n      \"environment_user_ref\": \"string\",\n      \"db_template_id\": \"DATABASE_TEMPLATE-1\",\n      \"db_template_name\": \"template-name\",\n      \"okv_client_id\": \"1-ORACLE_OKV_CLIENT-1\",\n      \"engine_container_reference\": \"string\"\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 2611\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4d07efd9-6477-4107-9706-7f2b5a034597",
+          "name": "Search for vCDBs (Oracle only).",
+          "request": {
+            "name": "Search for vCDBs (Oracle only).",
+            "description": {},
+            "url": {
+              "path": [
+                "vcdbs",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3ac00435-9f09-4595-8e41-a24d65c56cdc",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vcdbs",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"1-CDB-1\",\n      \"name\": \"Oracle CDB\",\n      \"description\": \"This is Oracle virtual CDB.\",\n      \"database_name\": \"VPDBSBBVK4\",\n      \"namespace_id\": \"string\",\n      \"namespace_name\": \"string\",\n      \"is_replica\": true,\n      \"database_version\": \"10.2.0.5.0\",\n      \"environment_id\": \"1-ENVIRONMENT-1\",\n      \"size\": 339292672,\n      \"engine_id\": \"engine-12\",\n      \"status\": \"RUNNING\",\n      \"parent_id\": \"1-CDB-1\",\n      \"creation_date\": \"2022-10-15T08:51:34.148000+00:00\",\n      \"group_name\": \"Untitled\",\n      \"enabled\": true,\n      \"content_type\": \"string\",\n      \"vcdb_restart\": true,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ],\n      \"invoke_datapatch\": false,\n      \"node_listeners\": [\n        \"string\",\n        \"string\"\n      ],\n      \"instance_name\": \"VCDSID\",\n      \"instance_number\": 8302,\n      \"instances\": [\n        {\n          \"instance_name\": \"#R$d7[Wj\",\n          \"instance_number\": 2786,\n          \"node_reference\": \"^Bd#w%l&oe7+:B!\",\n          \"okv_client_id\": \"1-ORACLE_OKV_CLIENT-1\"\n        },\n        {\n          \"instance_name\": \"_8\\\"N-'W\",\n          \"instance_number\": 9429,\n          \"node_reference\": \".h{b4\",\n          \"okv_client_id\": \"1-ORACLE_OKV_CLIENT-1\"\n        }\n      ],\n      \"oracle_services\": [\n        {\n          \"discovered\": false,\n          \"jdbc_connection_string\": \"jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.110.230.197)(PORT=1521))(CONNECT_DATA=(UR=A)(SERVICE_NAME=VDBOMSRBBDC6C_UJG)))\"\n        },\n        {\n          \"discovered\": false,\n          \"jdbc_connection_string\": \"jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.110.230.197)(PORT=1521))(CONNECT_DATA=(UR=A)(SERVICE_NAME=VDBOMSRBBDC6C_UJG)))\"\n        }\n      ],\n      \"repository_id\": \"1-ORACLE_INSTALL-1\",\n      \"containerization_state\": \"NOT_CONTAINERIZED\",\n      \"tde_key_identifier\": \"Ae5Eo6WB208lv+XJfXMTv8sAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n      \"tde_keystore_config_type\": \"OKV\",\n      \"is_tde_keystore_password_set\": true,\n      \"database_unique_name\": \"DBOMSRBBDC6C\",\n      \"db_username\": \"oracle\",\n      \"logsync_enabled\": true,\n      \"archive_log_mode\": true,\n      \"redo_log_groups\": 3,\n      \"redo_log_size_in_mb\": 1024,\n      \"config_params\": {\n        \"param\": \"value\",\n        \"param2\": \"value2\"\n      },\n      \"custom_env_vars\": [\n        {\n          \"cluster_node\": \"string\",\n          \"path_parameters\": \"string\",\n          \"var_name\": \"string\",\n          \"var_value\": \"string\"\n        },\n        {\n          \"cluster_node\": \"string\",\n          \"path_parameters\": \"string\",\n          \"var_name\": \"string\",\n          \"var_value\": \"string\"\n        }\n      ],\n      \"active_instances\": [\n        {\n          \"instance_number\": 5770,\n          \"instance_name\": \"string\",\n          \"host_name\": \"string\"\n        },\n        {\n          \"instance_number\": 447,\n          \"instance_name\": \"string\",\n          \"host_name\": \"string\"\n        }\n      ],\n      \"nfs_version\": 3,\n      \"nfs_version_reason\": \"DEFAULT\",\n      \"nfs_encryption_enabled\": true,\n      \"environment_user_ref\": \"string\",\n      \"db_template_id\": \"DATABASE_TEMPLATE-1\",\n      \"db_template_name\": \"template-name\",\n      \"okv_client_id\": \"1-ORACLE_OKV_CLIENT-1\",\n      \"engine_container_reference\": \"string\"\n    },\n    {\n      \"id\": \"1-CDB-1\",\n      \"name\": \"Oracle CDB\",\n      \"description\": \"This is Oracle virtual CDB.\",\n      \"database_name\": \"VPDBSBBVK4\",\n      \"namespace_id\": \"string\",\n      \"namespace_name\": \"string\",\n      \"is_replica\": true,\n      \"database_version\": \"10.2.0.5.0\",\n      \"environment_id\": \"1-ENVIRONMENT-1\",\n      \"size\": 339292672,\n      \"engine_id\": \"engine-12\",\n      \"status\": \"RUNNING\",\n      \"parent_id\": \"1-CDB-1\",\n      \"creation_date\": \"2022-10-15T08:51:34.148000+00:00\",\n      \"group_name\": \"Untitled\",\n      \"enabled\": true,\n      \"content_type\": \"string\",\n      \"vcdb_restart\": true,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ],\n      \"invoke_datapatch\": false,\n      \"node_listeners\": [\n        \"string\",\n        \"string\"\n      ],\n      \"instance_name\": \"VCDSID\",\n      \"instance_number\": 3889,\n      \"instances\": [\n        {\n          \"instance_name\": \"|6832-2R1;oq{>^mJf\\\\2O\",\n          \"instance_number\": 5657,\n          \"node_reference\": \"=RW8nGN+>WEP4CTY\",\n          \"okv_client_id\": \"1-ORACLE_OKV_CLIENT-1\"\n        },\n        {\n          \"instance_name\": \"`<MQ-raC|\",\n          \"instance_number\": 4156,\n          \"node_reference\": \"#Wjl:A~I*d\\\"`\",\n          \"okv_client_id\": \"1-ORACLE_OKV_CLIENT-1\"\n        }\n      ],\n      \"oracle_services\": [\n        {\n          \"discovered\": false,\n          \"jdbc_connection_string\": \"jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.110.230.197)(PORT=1521))(CONNECT_DATA=(UR=A)(SERVICE_NAME=VDBOMSRBBDC6C_UJG)))\"\n        },\n        {\n          \"discovered\": false,\n          \"jdbc_connection_string\": \"jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.110.230.197)(PORT=1521))(CONNECT_DATA=(UR=A)(SERVICE_NAME=VDBOMSRBBDC6C_UJG)))\"\n        }\n      ],\n      \"repository_id\": \"1-ORACLE_INSTALL-1\",\n      \"containerization_state\": \"NOT_CONTAINERIZED\",\n      \"tde_key_identifier\": \"Ae5Eo6WB208lv+XJfXMTv8sAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n      \"tde_keystore_config_type\": \"OKV\",\n      \"is_tde_keystore_password_set\": false,\n      \"database_unique_name\": \"DBOMSRBBDC6C\",\n      \"db_username\": \"oracle\",\n      \"logsync_enabled\": true,\n      \"archive_log_mode\": true,\n      \"redo_log_groups\": 3,\n      \"redo_log_size_in_mb\": 1024,\n      \"config_params\": {\n        \"param\": \"value\",\n        \"param2\": \"value2\"\n      },\n      \"custom_env_vars\": [\n        {\n          \"cluster_node\": \"string\",\n          \"path_parameters\": \"string\",\n          \"var_name\": \"string\",\n          \"var_value\": \"string\"\n        },\n        {\n          \"cluster_node\": \"string\",\n          \"path_parameters\": \"string\",\n          \"var_name\": \"string\",\n          \"var_value\": \"string\"\n        }\n      ],\n      \"active_instances\": [\n        {\n          \"instance_number\": 6634,\n          \"instance_name\": \"string\",\n          \"host_name\": \"string\"\n        },\n        {\n          \"instance_number\": 166,\n          \"instance_name\": \"string\",\n          \"host_name\": \"string\"\n        }\n      ],\n      \"nfs_version\": 3,\n      \"nfs_version_reason\": \"DEFAULT\",\n      \"nfs_encryption_enabled\": true,\n      \"environment_user_ref\": \"string\",\n      \"db_template_id\": \"DATABASE_TEMPLATE-1\",\n      \"db_template_name\": \"template-name\",\n      \"okv_client_id\": \"1-ORACLE_OKV_CLIENT-1\",\n      \"engine_container_reference\": \"string\"\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 7660\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8ad7eafb-9df4-4222-959f-79519d138549",
+          "name": "Get a vCDB by ID (Oracle only).",
+          "request": {
+            "name": "Get a vCDB by ID (Oracle only).",
+            "description": {},
+            "url": {
+              "path": [
+                "vcdbs",
+                ":vcdbId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vcdbId",
+                  "description": "(Required) The ID of the vCDB."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3b440ace-d45a-4711-b8ef-6de5db472f9a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vcdbs",
+                    ":vcdbId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcdbId",
+                      "description": "(Required) The ID of the vCDB."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"1-CDB-1\",\n  \"name\": \"Oracle CDB\",\n  \"description\": \"This is Oracle virtual CDB.\",\n  \"database_name\": \"VPDBSBBVK4\",\n  \"namespace_id\": \"string\",\n  \"namespace_name\": \"string\",\n  \"is_replica\": false,\n  \"database_version\": \"10.2.0.5.0\",\n  \"environment_id\": \"1-ENVIRONMENT-1\",\n  \"size\": 339292672,\n  \"engine_id\": \"engine-12\",\n  \"status\": \"RUNNING\",\n  \"parent_id\": \"1-CDB-1\",\n  \"creation_date\": \"2022-10-15T08:51:34.148000+00:00\",\n  \"group_name\": \"Untitled\",\n  \"enabled\": true,\n  \"content_type\": \"string\",\n  \"vcdb_restart\": true,\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ],\n  \"invoke_datapatch\": true,\n  \"node_listeners\": [\n    \"string\",\n    \"string\"\n  ],\n  \"instance_name\": \"VCDSID\",\n  \"instance_number\": 9594,\n  \"instances\": [\n    {\n      \"instance_name\": \"s8#*|ODMG+V:Wt#P\",\n      \"instance_number\": 1342,\n      \"node_reference\": \"j'={6~k)@^OFvD)\",\n      \"okv_client_id\": \"1-ORACLE_OKV_CLIENT-1\"\n    },\n    {\n      \"instance_name\": \"PI2lc{L)G#u;\",\n      \"instance_number\": 5175,\n      \"node_reference\": \"~,zI9LW'9Sf\",\n      \"okv_client_id\": \"1-ORACLE_OKV_CLIENT-1\"\n    }\n  ],\n  \"oracle_services\": [\n    {\n      \"discovered\": true,\n      \"jdbc_connection_string\": \"jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.110.230.197)(PORT=1521))(CONNECT_DATA=(UR=A)(SERVICE_NAME=VDBOMSRBBDC6C_UJG)))\"\n    },\n    {\n      \"discovered\": false,\n      \"jdbc_connection_string\": \"jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.110.230.197)(PORT=1521))(CONNECT_DATA=(UR=A)(SERVICE_NAME=VDBOMSRBBDC6C_UJG)))\"\n    }\n  ],\n  \"repository_id\": \"1-ORACLE_INSTALL-1\",\n  \"containerization_state\": \"NOT_CONTAINERIZED\",\n  \"tde_key_identifier\": \"Ae5Eo6WB208lv+XJfXMTv8sAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n  \"tde_keystore_config_type\": \"OKV\",\n  \"is_tde_keystore_password_set\": true,\n  \"database_unique_name\": \"DBOMSRBBDC6C\",\n  \"db_username\": \"oracle\",\n  \"logsync_enabled\": true,\n  \"archive_log_mode\": true,\n  \"redo_log_groups\": 3,\n  \"redo_log_size_in_mb\": 1024,\n  \"config_params\": {\n    \"param\": \"value\",\n    \"param2\": \"value2\"\n  },\n  \"custom_env_vars\": [\n    {\n      \"cluster_node\": \"string\",\n      \"path_parameters\": \"string\",\n      \"var_name\": \"string\",\n      \"var_value\": \"string\"\n    },\n    {\n      \"cluster_node\": \"string\",\n      \"path_parameters\": \"string\",\n      \"var_name\": \"string\",\n      \"var_value\": \"string\"\n    }\n  ],\n  \"active_instances\": [\n    {\n      \"instance_number\": 1578,\n      \"instance_name\": \"string\",\n      \"host_name\": \"string\"\n    },\n    {\n      \"instance_number\": 5315,\n      \"instance_name\": \"string\",\n      \"host_name\": \"string\"\n    }\n  ],\n  \"nfs_version\": 3,\n  \"nfs_version_reason\": \"DEFAULT\",\n  \"nfs_encryption_enabled\": true,\n  \"environment_user_ref\": \"string\",\n  \"db_template_id\": \"DATABASE_TEMPLATE-1\",\n  \"db_template_name\": \"template-name\",\n  \"okv_client_id\": \"1-ORACLE_OKV_CLIENT-1\",\n  \"engine_container_reference\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9b1aa663-7e06-47bd-993e-c7e8234cd91a",
+          "name": "Update values of a VCDB",
+          "request": {
+            "name": "Update values of a VCDB",
+            "description": {},
+            "url": {
+              "path": [
+                "vcdbs",
+                ":vcdbId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vcdbId",
+                  "description": "(Required) The ID of the vCDB."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"oracle_services\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"okv_client_id\": \"<string>\",\n  \"instance_name\": \"<string>\",\n  \"instance_number\": \"<integer>\",\n  \"instances\": [\n    {\n      \"instance_name\": \"<string>\",\n      \"instance_number\": \"<integer>\",\n      \"node_reference\": \"<string>\",\n      \"okv_client_id\": \"<string>\"\n    }\n  ],\n  \"node_listeners\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"invoke_datapatch\": \"<boolean>\",\n  \"tde_keystore_password\": \"<string>\",\n  \"tde_keystore_config_type\": \"<string>\",\n  \"tde_key_identifier\": \"<string>\",\n  \"db_username\": \"<string>\",\n  \"db_password\": \"<string>\",\n  \"auto_restart\": \"<boolean>\",\n  \"environment_user_id\": \"<string>\",\n  \"config_params\": {\n    \"key_0\": 8159.724655894691,\n    \"key_1\": 219,\n    \"key_2\": 9480.252219731998\n  },\n  \"custom_env_vars\": {\n    \"key_0\": \"<string>\"\n  },\n  \"custom_env_files\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"oracle_rac_custom_env_files\": [\n    {\n      \"node_id\": \"<string>\",\n      \"path_parameters\": \"<string>\"\n    },\n    {\n      \"node_id\": \"<string>\",\n      \"path_parameters\": \"<string>\"\n    }\n  ],\n  \"oracle_rac_custom_env_vars\": [\n    {\n      \"node_id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"node_id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"db_template_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "07140c40-3ffa-4d13-b486-d6d8a13e6b85",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vcdbs",
+                    ":vcdbId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcdbId",
+                      "description": "(Required) The ID of the vCDB."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"oracle_services\": [\n    \"jdbc:oracle:thin:@hostname:port/service_name\",\n    \"jdbc:oracle:thin:@hostname:port:SID\"\n  ],\n  \"okv_client_id\": \"1-ORACLE_OKV_CLIENT-1\",\n  \"instance_name\": \"CDBSID\",\n  \"instance_number\": 1,\n  \"instances\": [\n    {\n      \"instance_name\": \"instance1\",\n      \"instance_number\": 1,\n      \"node_reference\": \"ORACLE_CLUSTER_NODE-1\",\n      \"okv_client_id\": \"1-ORACLE_OKV_CLIENT-1\"\n    }\n  ],\n  \"node_listeners\": [\n    \"1-ORACLE_NODE_LISTENER-2\",\n    \"1-ORACLE_NODE_LISTENER-3\"\n  ],\n  \"invoke_datapatch\": \"<boolean>\",\n  \"tde_keystore_password\": \"password\",\n  \"tde_keystore_config_type\": \"OKV\",\n  \"tde_key_identifier\": \"0692EFF441BB604F82BFDAD4D2D4181B30\",\n  \"db_username\": \"db-username\",\n  \"db_password\": \"db-password\",\n  \"auto_restart\": \"<boolean>\",\n  \"environment_user_id\": \"environment-user-123\",\n  \"config_params\": {\n    \"processes\": 150\n  },\n  \"custom_env_vars\": {\n    \"MY_ENV_VAR1\": \"$ORACLE_HOME\",\n    \"MY_ENV_VAR2\": \"$CRS_HOME/after\"\n  },\n  \"custom_env_files\": [\n    \"/export/home/env_file_1\",\n    \"/export/home/env_file_2\"\n  ],\n  \"oracle_rac_custom_env_files\": [\n    {\n      \"node_id\": \"ORACLE_CLUSTER_NODE-1\",\n      \"path_parameters\": \"/export/home/env_file_1\"\n    }\n  ],\n  \"oracle_rac_custom_env_vars\": [\n    {\n      \"node_id\": \"ORACLE_CLUSTER_NODE-1\",\n      \"name\": \"MY_ENV_VAR1\",\n      \"value\": \"$CRS_HOME/after\"\n    }\n  ],\n  \"description\": \"Updated virtual CDB description.\",\n  \"db_template_id\": \"template-123\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 39,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2006-05-20T13:22:15.152Z\",\n        \"end_time\": \"1973-03-14T09:52:49.538Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 98,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1984-10-25T10:52:31.250Z\",\n        \"end_time\": \"2003-12-27T18:48:07.956Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 45,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"FAILED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1984-12-22T05:10:18.021Z\",\n        \"end_time\": \"1970-02-09T02:36:44.237Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 62,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"PENDING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2013-12-20T06:49:23.801Z\",\n        \"end_time\": \"1951-03-17T19:38:18.065Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 30,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "20445d31-a8d4-4567-be15-9fca1b8a2b4b",
+          "name": "Create tags for a vCDB.",
+          "request": {
+            "name": "Create tags for a vCDB.",
+            "description": {},
+            "url": {
+              "path": [
+                "vcdbs",
+                ":vcdbId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vcdbId",
+                  "description": "(Required) The ID of the vCDB."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d181cbf8-dc1f-4580-9dd4-bab501e8967e",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vcdbs",
+                    ":vcdbId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcdbId",
+                      "description": "(Required) The ID of the vCDB."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c97f96e3-82a7-4e67-a72d-a2a74d152aa6",
+          "name": "Get tags for a vCDB.",
+          "request": {
+            "name": "Get tags for a vCDB.",
+            "description": {},
+            "url": {
+              "path": [
+                "vcdbs",
+                ":vcdbId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vcdbId",
+                  "description": "(Required) The ID of the vCDB."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "165a0397-270f-4273-81d5-7b85e988d2a3",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vcdbs",
+                    ":vcdbId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcdbId",
+                      "description": "(Required) The ID of the vCDB."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "03589ff3-b61e-4937-a6ec-6dc7b9fc1eab",
+          "name": "Delete tags for a vCDB.",
+          "request": {
+            "name": "Delete tags for a vCDB.",
+            "description": {},
+            "url": {
+              "path": [
+                "vcdbs",
+                ":vcdbId",
+                "tags",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vcdbId",
+                  "description": "(Required) The ID of the vCDB."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key\": \"<string>\",\n  \"value\": \"<string>\",\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a67975ef-80c7-4143-aa40-e405baa83083",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vcdbs",
+                    ":vcdbId",
+                    "tags",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcdbId",
+                      "description": "(Required) The ID of the vCDB."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0f3281ac-f2d9-4831-b393-c2e8d38caa19",
+          "name": "Enable a vCDB.",
+          "request": {
+            "name": "Enable a vCDB.",
+            "description": {},
+            "url": {
+              "path": [
+                "vcdbs",
+                ":vcdbId",
+                "enable"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vcdbId",
+                  "description": "(Required) The ID of the vCDB."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"attempt_start\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "79b43a1e-7742-4ea8-8137-ef76d177f955",
+              "name": "vCDB enable initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vcdbs",
+                    ":vcdbId",
+                    "enable"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcdbId",
+                      "description": "(Required) The ID of the vCDB."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"attempt_start\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 99,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1967-01-22T04:14:49.226Z\",\n        \"end_time\": \"1980-07-26T02:09:26.714Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 36,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1950-04-23T01:19:14.474Z\",\n        \"end_time\": \"1999-02-04T18:02:41.426Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 39,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1962-11-24T08:49:22.533Z\",\n        \"end_time\": \"1970-08-15T01:37:15.659Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 99,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1982-08-30T03:32:25.825Z\",\n        \"end_time\": \"1985-06-04T15:49:42.492Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 1,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "95fc3fe2-5e25-4ba9-89f7-a2f5f53c92c8",
+          "name": "Disable a vCDB.",
+          "request": {
+            "name": "Disable a vCDB.",
+            "description": {},
+            "url": {
+              "path": [
+                "vcdbs",
+                ":vcdbId",
+                "disable"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vcdbId",
+                  "description": "(Required) The ID of the vCDB."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"attempt_cleanup\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "52b419c5-81aa-41d8-b459-679efd80d3ca",
+              "name": "vCDB disable initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vcdbs",
+                    ":vcdbId",
+                    "disable"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcdbId",
+                      "description": "(Required) The ID of the vCDB."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"attempt_cleanup\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 63,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2009-07-22T08:15:04.195Z\",\n        \"end_time\": \"1964-09-22T17:45:09.278Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 44,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1995-01-26T09:42:44.432Z\",\n        \"end_time\": \"2005-10-16T15:19:07.058Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 31,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"COMPLETED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1963-06-26T04:52:36.673Z\",\n        \"end_time\": \"1983-03-12T11:04:07.086Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 22,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"ABANDONED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2018-01-07T18:39:39.762Z\",\n        \"end_time\": \"2025-03-27T17:05:38.104Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 1,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9f224a75-240d-4d6b-81c8-855b08a6e433",
+          "name": "Get deletion dependencies of a vCDB.",
+          "request": {
+            "name": "Get deletion dependencies of a vCDB.",
+            "description": {},
+            "url": {
+              "path": [
+                "vcdbs",
+                ":vcdbId",
+                "deletion-dependencies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vcdbId",
+                  "description": "(Required) The ID of the vCDB."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dbbfac89-30b0-4731-8996-f86325eac7b8",
+              "name": "Deletion dependencies of a vCDB.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vcdbs",
+                    ":vcdbId",
+                    "deletion-dependencies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcdbId",
+                      "description": "(Required) The ID of the vCDB."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"engine_id\": \"string\",\n      \"dataset_id\": \"string\",\n      \"captured_timestamp\": \"1988-12-05T14:44:45.507Z\",\n      \"dataset_type\": \"VCDB\",\n      \"dataset_name\": \"string\",\n      \"is_replica\": true,\n      \"total_size\": 2785,\n      \"base_size\": 2465,\n      \"snapshot_size\": 1710,\n      \"logs_size\": 2085,\n      \"unvirtualized_size\": 9772,\n      \"current_timeflow_unvirtualized_size\": 4131,\n      \"timeflow_unvirtualized_size\": 2287,\n      \"descendant_size\": 2404,\n      \"policy_size\": 5157,\n      \"manual_size\": 7557,\n      \"unowned_snapshot_size\": 3956,\n      \"ingested_size\": 7272,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ],\n      \"parent_id\": \"string\"\n    },\n    {\n      \"engine_id\": \"string\",\n      \"dataset_id\": \"string\",\n      \"captured_timestamp\": \"2014-08-30T04:00:04.945Z\",\n      \"dataset_type\": \"HELDSPACE\",\n      \"dataset_name\": \"string\",\n      \"is_replica\": true,\n      \"total_size\": 185,\n      \"base_size\": 5288,\n      \"snapshot_size\": 988,\n      \"logs_size\": 6347,\n      \"unvirtualized_size\": 8861,\n      \"current_timeflow_unvirtualized_size\": 88,\n      \"timeflow_unvirtualized_size\": 6575,\n      \"descendant_size\": 1550,\n      \"policy_size\": 3974,\n      \"manual_size\": 897,\n      \"unowned_snapshot_size\": 5571,\n      \"ingested_size\": 8919,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ],\n      \"parent_id\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "86f6fa04-29c6-4776-a07a-da74ebe362d3",
+          "name": "Delete a vCDB.",
+          "request": {
+            "name": "Delete a vCDB.",
+            "description": {},
+            "url": {
+              "path": [
+                "vcdbs",
+                ":vcdbId",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vcdbId",
+                  "description": "(Required) The ID of the vCDB."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"force\": false,\n  \"delete_all_dependent_datasets\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dc0c552b-dd02-483f-b9ea-9dd392f916dd",
+              "name": "vCDB delete initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vcdbs",
+                    ":vcdbId",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcdbId",
+                      "description": "(Required) The ID of the vCDB."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"force\": false,\n  \"delete_all_dependent_datasets\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 70,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2008-06-07T14:43:56.981Z\",\n        \"end_time\": \"1990-02-24T14:03:08.603Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 22,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"FAILED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1999-09-24T01:50:45.038Z\",\n        \"end_time\": \"2014-01-29T11:52:14.451Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 74,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2009-12-26T16:01:21.833Z\",\n        \"end_time\": \"1978-09-06T10:03:16.603Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 54,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"FAILED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1959-10-28T21:33:43.113Z\",\n        \"end_time\": \"1999-11-15T05:56:40.958Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 20,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c1216cc1-2f3b-4a90-88a1-aaf1b1a3fddc",
+          "name": "Update a VCDB.",
+          "request": {
+            "name": "Update a VCDB.",
+            "description": {},
+            "url": {
+              "path": [
+                "vcdbs",
+                ":vcdbId",
+                "update"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vcdbId",
+                  "description": "(Required) The ID of the vCDB."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"oracle_services\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"okv_client_id\": \"<string>\",\n  \"instance_name\": \"<string>\",\n  \"instance_number\": \"<integer>\",\n  \"instances\": [\n    {\n      \"instance_name\": \"<string>\",\n      \"instance_number\": \"<integer>\",\n      \"node_reference\": \"<string>\",\n      \"okv_client_id\": \"<string>\"\n    }\n  ],\n  \"node_listeners\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"invoke_datapatch\": \"<boolean>\",\n  \"tde_keystore_password\": \"<string>\",\n  \"tde_keystore_config_type\": \"<string>\",\n  \"tde_key_identifier\": \"<string>\",\n  \"db_username\": \"<string>\",\n  \"db_password\": \"<string>\",\n  \"auto_restart\": \"<boolean>\",\n  \"environment_user_id\": \"<string>\",\n  \"config_params\": {\n    \"key_0\": false,\n    \"key_1\": false\n  },\n  \"custom_env_vars\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"custom_env_files\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"oracle_rac_custom_env_files\": [\n    {\n      \"node_id\": \"<string>\",\n      \"path_parameters\": \"<string>\"\n    },\n    {\n      \"node_id\": \"<string>\",\n      \"path_parameters\": \"<string>\"\n    }\n  ],\n  \"oracle_rac_custom_env_vars\": [\n    {\n      \"node_id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"node_id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"db_template_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2d047258-1bdb-4ce8-97e4-3fd88121af1d",
+              "name": "VCDB update initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vcdbs",
+                    ":vcdbId",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcdbId",
+                      "description": "(Required) The ID of the vCDB."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"oracle_services\": [\n    \"jdbc:oracle:thin:@hostname:port/service_name\",\n    \"jdbc:oracle:thin:@hostname:port:SID\"\n  ],\n  \"okv_client_id\": \"1-ORACLE_OKV_CLIENT-1\",\n  \"instance_name\": \"CDBSID\",\n  \"instance_number\": 1,\n  \"instances\": [\n    {\n      \"instance_name\": \"instance1\",\n      \"instance_number\": 1,\n      \"node_reference\": \"ORACLE_CLUSTER_NODE-1\",\n      \"okv_client_id\": \"1-ORACLE_OKV_CLIENT-1\"\n    }\n  ],\n  \"node_listeners\": [\n    \"1-ORACLE_NODE_LISTENER-2\",\n    \"1-ORACLE_NODE_LISTENER-3\"\n  ],\n  \"invoke_datapatch\": \"<boolean>\",\n  \"tde_keystore_password\": \"password\",\n  \"tde_keystore_config_type\": \"OKV\",\n  \"tde_key_identifier\": \"0692EFF441BB604F82BFDAD4D2D4181B30\",\n  \"db_username\": \"db-username\",\n  \"db_password\": \"db-password\",\n  \"auto_restart\": \"<boolean>\",\n  \"environment_user_id\": \"environment-user-123\",\n  \"config_params\": {\n    \"processes\": 150\n  },\n  \"custom_env_vars\": {\n    \"MY_ENV_VAR1\": \"$ORACLE_HOME\",\n    \"MY_ENV_VAR2\": \"$CRS_HOME/after\"\n  },\n  \"custom_env_files\": [\n    \"/export/home/env_file_1\",\n    \"/export/home/env_file_2\"\n  ],\n  \"oracle_rac_custom_env_files\": [\n    {\n      \"node_id\": \"ORACLE_CLUSTER_NODE-1\",\n      \"path_parameters\": \"/export/home/env_file_1\"\n    }\n  ],\n  \"oracle_rac_custom_env_vars\": [\n    {\n      \"node_id\": \"ORACLE_CLUSTER_NODE-1\",\n      \"name\": \"MY_ENV_VAR1\",\n      \"value\": \"$CRS_HOME/after\"\n    }\n  ],\n  \"description\": \"Updated virtual CDB description.\",\n  \"db_template_id\": \"template-123\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 90,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1954-01-15T10:26:00.265Z\",\n        \"end_time\": \"1971-08-14T10:29:09.310Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 50,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1996-02-02T23:43:15.925Z\",\n        \"end_time\": \"2021-03-06T01:28:14.535Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 46,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1959-01-15T03:46:50.194Z\",\n        \"end_time\": \"1971-10-13T10:05:14.410Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 39,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"PENDING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1960-09-06T15:53:42.368Z\",\n        \"end_time\": \"1964-03-18T15:26:19.177Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 81,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7c0decd9-df58-4892-bbc1-e931a11bccce",
+          "name": "Start a vCDB.",
+          "request": {
+            "name": "Start a vCDB.",
+            "description": {},
+            "url": {
+              "path": [
+                "vcdbs",
+                ":vcdbId",
+                "start"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vcdbId",
+                  "description": "(Required) The ID of the vCDB."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"instances\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f8a4f62a-1f5d-4b72-9f52-590f1b6fa71e",
+              "name": "vCDB start initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vcdbs",
+                    ":vcdbId",
+                    "start"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcdbId",
+                      "description": "(Required) The ID of the vCDB."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"instances\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 39,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2020-08-08T12:55:36.331Z\",\n        \"end_time\": \"1962-09-01T03:49:44.829Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 47,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1989-09-27T06:20:37.915Z\",\n        \"end_time\": \"2012-05-17T23:30:10.055Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 48,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1980-12-22T08:48:39.476Z\",\n        \"end_time\": \"1950-01-23T18:25:18.387Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 17,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2025-12-11T05:14:56.489Z\",\n        \"end_time\": \"1968-10-18T06:59:55.575Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 50,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"FAILED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bd6a8802-30c4-4a9c-a44a-c75b42811d75",
+          "name": "Stop a vCDB.",
+          "request": {
+            "name": "Stop a vCDB.",
+            "description": {},
+            "url": {
+              "path": [
+                "vcdbs",
+                ":vcdbId",
+                "stop"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vcdbId",
+                  "description": "(Required) The ID of the vCDB."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"instances\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"abort\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7d6d094d-17f0-4f63-b4ec-94a2d986e0b2",
+              "name": "vCDB stop initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vcdbs",
+                    ":vcdbId",
+                    "stop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcdbId",
+                      "description": "(Required) The ID of the vCDB."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"instances\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"abort\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 6,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2016-11-04T05:43:59.358Z\",\n        \"end_time\": \"2010-05-25T18:19:47.420Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 89,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"PENDING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2024-10-12T21:56:21.723Z\",\n        \"end_time\": \"2001-03-05T22:46:23.184Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 54,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1971-02-06T22:08:14.108Z\",\n        \"end_time\": \"2023-02-28T20:39:57.829Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 90,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2001-01-02T21:00:42.510Z\",\n        \"end_time\": \"2006-08-19T11:18:10.991Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 44,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "732671c0-89fc-48e5-9598-50209756c60e",
+          "name": "Upgrade Oracle vCDB",
+          "request": {
+            "name": "Upgrade Oracle vCDB",
+            "description": {},
+            "url": {
+              "path": [
+                "vcdbs",
+                ":vcdbId",
+                "upgrade"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vcdbId",
+                  "description": "(Required) The ID of the vCDB."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"repository_id\": \"<string>\",\n  \"environment_user_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6ca50cbc-4181-4b54-8461-cbdcdc42413d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vcdbs",
+                    ":vcdbId",
+                    "upgrade"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcdbId",
+                      "description": "(Required) The ID of the vCDB."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"repository_id\": \"1-ORACLE_INSTALL-4\",\n  \"environment_user_id\": \"HOST_USER-4\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 86,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1983-07-28T08:45:06.503Z\",\n        \"end_time\": \"1950-02-02T23:20:09.882Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 45,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1971-04-06T07:12:18.571Z\",\n        \"end_time\": \"1967-05-15T09:21:57.535Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 36,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"COMPLETED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1976-11-10T19:08:44.892Z\",\n        \"end_time\": \"2017-08-22T21:09:05.995Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 53,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1993-01-26T14:22:28.671Z\",\n        \"end_time\": \"2025-09-16T05:32:20.749Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 48,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3e67231b-e507-4a98-a96e-c0cd9022919a",
+          "name": "Verify JDBC connection string for a vCDB.",
+          "request": {
+            "name": "Verify JDBC connection string for a vCDB.",
+            "description": {},
+            "url": {
+              "path": [
+                "vcdbs",
+                ":vcdbId",
+                "jdbc-check"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vcdbId",
+                  "description": "(Required) The ID of the vCDB."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"database_username\": \"<string>\",\n  \"database_password\": \"<string>\",\n  \"jdbc_connection_string\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9658d393-fd65-4651-bb2a-8e1d22722b1a",
+              "name": "Success or Failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vcdbs",
+                    ":vcdbId",
+                    "jdbc-check"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcdbId",
+                      "description": "(Required) The ID of the vCDB."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Success!\",\n  \"status\": \"SUCCESS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/dct/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "fd14a562-82a2-417e-963a-d79f88f4cfc9",
+    "name": "Delphix DCT Algorithms VCDBs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Delphix DCT API\n\nContact Support:\n Name: Delphix Support\n Email: support@delphix.com",
+      "type": "text/plain"
+    }
+  }
+}

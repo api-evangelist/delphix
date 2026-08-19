@@ -1,0 +1,240 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms CloudAccounts API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "CloudAccounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all Cloud Accounts.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/cloud-accounts",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order.\n"
+              }
+            ]
+          },
+          "docs": "List all Cloud Accounts."
+        },
+        {
+          "info": {
+            "name": "Create a new Cloud Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/cloud-accounts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new Cloud Account"
+        },
+        {
+          "info": {
+            "name": "Update an existing Cloud Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/cloud-accounts/:cloudAccountId",
+            "params": [
+              {
+                "name": "cloudAccountId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Cloud Account."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing Cloud Account"
+        },
+        {
+          "info": {
+            "name": "Cloud Account metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/cloud-accounts/:cloudAccountId/metadata",
+            "params": [
+              {
+                "name": "cloudAccountId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Cloud Account."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Cloud Account metadata"
+        },
+        {
+          "info": {
+            "name": "Get tags for a Cloud Account.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/cloud-accounts/:cloudAccountId/tags",
+            "params": [
+              {
+                "name": "cloudAccountId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Cloud Account."
+              }
+            ]
+          },
+          "docs": "Get tags for a Cloud Account."
+        },
+        {
+          "info": {
+            "name": "Create tags for a Cloud Account.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/cloud-accounts/:cloudAccountId/tags",
+            "params": [
+              {
+                "name": "cloudAccountId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Cloud Account."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create tags for a Cloud Account."
+        },
+        {
+          "info": {
+            "name": "Delete tags for a Cloud Account.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/cloud-accounts/:cloudAccountId/tags/delete",
+            "params": [
+              {
+                "name": "cloudAccountId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Cloud Account."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete tags for a Cloud Account."
+        },
+        {
+          "info": {
+            "name": "Search for Cloud Accounts.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/cloud-accounts/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for Cloud Accounts."
+        },
+        {
+          "info": {
+            "name": "delete_cloud_account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/cloud-accounts/:cloudAccountId/delete",
+            "params": [
+              {
+                "name": "cloudAccountId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Cloud Account."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

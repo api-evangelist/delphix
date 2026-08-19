@@ -1,0 +1,124 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms StorageUsage API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "StorageUsage",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns the aggregated historical storage usage of all registered engines over time, optionally with a projection of future storage usage.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/historical-storage-summary-aggregate",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "2022-05-29T15:00:00-04:00",
+                "type": "query",
+                "description": "Report start date/time. Defaults to first API request."
+              },
+              {
+                "name": "end_date",
+                "value": "2022-06-07T15:10:00-04:00",
+                "type": "query",
+                "description": "Report end date/time. Defaults to current time."
+              },
+              {
+                "name": "include_projection",
+                "value": "",
+                "type": "query",
+                "description": "Whether to compute a projection of future storage usage."
+              },
+              {
+                "name": "engine_ids",
+                "value": "",
+                "type": "query",
+                "description": "The list of engine ids to aggregate data for. By default aggregating data for all engines."
+              },
+              {
+                "name": "dsource_ids",
+                "value": "",
+                "type": "query",
+                "description": "The list of dSource ids to aggregate data for. By default aggregating data for all dSources."
+              },
+              {
+                "name": "vdb_ids",
+                "value": "",
+                "type": "query",
+                "description": "The list of VDB ids to aggregate data for. By default aggregating data for all VDBs."
+              },
+              {
+                "name": "cdb_ids",
+                "value": "",
+                "type": "query",
+                "description": "The list of CDB ids to aggregate data for. By default aggregating data for all CDBs."
+              },
+              {
+                "name": "vcdb_ids",
+                "value": "",
+                "type": "query",
+                "description": "The list of VCDB ids to aggregate data for. By default aggregating data for all VCDBs."
+              }
+            ]
+          },
+          "docs": "Returns the aggregated historical storage usage of all registered engines over time, optionally with a projection of future storage usage."
+        },
+        {
+          "info": {
+            "name": "Returns the historical storage usage by engine over time, optionally with a projection of future storage usage.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/historical-storage-summary-by-engine",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "2022-05-29T15:00:00-04:00",
+                "type": "query",
+                "description": "Report start date/time. Defaults to first API request."
+              },
+              {
+                "name": "end_date",
+                "value": "2022-06-07T15:10:00-04:00",
+                "type": "query",
+                "description": "Report end date/time. Defaults to current time."
+              },
+              {
+                "name": "include_projection",
+                "value": "",
+                "type": "query",
+                "description": "Whether to compute a projection of future storage usage."
+              },
+              {
+                "name": "engine_ids",
+                "value": "",
+                "type": "query",
+                "description": "The list of engine ids to include in the response. By default returning data for all engines."
+              }
+            ]
+          },
+          "docs": "Returns the historical storage usage by engine over time, optionally with a projection of future storage usage."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,2968 @@
+{
+  "item": [
+    {
+      "id": "92375cd4-bce2-4b4c-9fc9-8174f4e9566c",
+      "name": "HyperscaleObjects",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c41bafa8-35ce-40cf-91cd-0381c1ee19e7",
+          "name": "Returns a list of Hyperscale Mount Points.",
+          "request": {
+            "name": "Returns a list of Hyperscale Mount Points.",
+            "description": {},
+            "url": {
+              "path": [
+                "hyperscale-mount-points"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "665187ae-b800-46df-98c7-bc611ec390a7",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hyperscale-mount-points"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"hyperscale_instance_id\": \"string\",\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"hostname\": \"string\",\n      \"mount_path\": \"string\",\n      \"mount_type\": \"NFS3\",\n      \"options\": \"string\",\n      \"staging_storage_type\": \"AWS_S3\",\n      \"auth_mechanism\": \"AWS_ROLE\",\n      \"aws_bucket_name\": \"string\",\n      \"aws_bucket_region\": \"string\",\n      \"aws_bucket_prefix\": \"string\",\n      \"aws_bucket_delimiter\": \"string\",\n      \"blob_auth_type\": \"AZURE_SECRET\",\n      \"blob_account_name\": \"string\",\n      \"blob_container_name\": \"string\",\n      \"blob_container_prefix\": \"string\",\n      \"blob_container_delimiter\": \"string\"\n    },\n    {\n      \"hyperscale_instance_id\": \"string\",\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"hostname\": \"string\",\n      \"mount_path\": \"string\",\n      \"mount_type\": \"CIFS\",\n      \"options\": \"string\",\n      \"staging_storage_type\": \"MOUNT\",\n      \"auth_mechanism\": \"AWS_SECRET\",\n      \"aws_bucket_name\": \"string\",\n      \"aws_bucket_region\": \"string\",\n      \"aws_bucket_prefix\": \"string\",\n      \"aws_bucket_delimiter\": \"string\",\n      \"blob_auth_type\": \"AZURE_SECRET\",\n      \"blob_account_name\": \"string\",\n      \"blob_container_name\": \"string\",\n      \"blob_container_prefix\": \"string\",\n      \"blob_container_delimiter\": \"string\"\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 2371\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9120a4ea-dfc1-4ea7-95b2-e95f0664161e",
+          "name": "Create a Hyperscale Mount Point",
+          "request": {
+            "name": "Create a Hyperscale Mount Point",
+            "description": {},
+            "url": {
+              "path": [
+                "hyperscale-mount-points"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"hyperscale_instance_id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"hostname\": \"<string>\",\n  \"mount_path\": \"<string>\",\n  \"mount_type\": \"<string>\",\n  \"options\": \"<string>\",\n  \"staging_storage_type\": \"<string>\",\n  \"auth_mechanism\": \"<string>\",\n  \"aws_bucket_name\": \"<string>\",\n  \"aws_bucket_region\": \"<string>\",\n  \"aws_bucket_prefix\": \"<string>\",\n  \"aws_bucket_delimiter\": \"<string>\",\n  \"blob_auth_type\": \"<string>\",\n  \"blob_account_name\": \"<string>\",\n  \"blob_container_name\": \"<string>\",\n  \"blob_container_prefix\": \"<string>\",\n  \"blob_container_delimiter\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a70b6a92-8a34-497e-8da4-12a880545fc9",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hyperscale-mount-points"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"hyperscale_instance_id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"hostname\": \"<string>\",\n  \"mount_path\": \"<string>\",\n  \"mount_type\": \"<string>\",\n  \"options\": \"<string>\",\n  \"staging_storage_type\": \"<string>\",\n  \"auth_mechanism\": \"<string>\",\n  \"aws_bucket_name\": \"<string>\",\n  \"aws_bucket_region\": \"<string>\",\n  \"aws_bucket_prefix\": \"<string>\",\n  \"aws_bucket_delimiter\": \"<string>\",\n  \"blob_auth_type\": \"<string>\",\n  \"blob_account_name\": \"<string>\",\n  \"blob_container_name\": \"<string>\",\n  \"blob_container_prefix\": \"<string>\",\n  \"blob_container_delimiter\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 35,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1993-12-24T17:51:35.731Z\",\n        \"end_time\": \"1977-02-07T05:10:46.761Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 52,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1997-03-15T04:11:34.357Z\",\n        \"end_time\": \"1987-08-15T19:00:59.412Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 14,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1950-12-25T22:51:05.598Z\",\n        \"end_time\": \"1981-04-17T17:43:31.603Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 26,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1956-12-16T15:28:51.339Z\",\n        \"end_time\": \"1966-09-17T17:04:12.391Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 83,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"FAILED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "47a3c776-6982-4f1c-941b-c9a8e8cd5d38",
+          "name": "Get a Hyperscale Mount Points.",
+          "request": {
+            "name": "Get a Hyperscale Mount Points.",
+            "description": {},
+            "url": {
+              "path": [
+                "hyperscale-mount-points",
+                ":hyperscaleMountPointId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hyperscaleMountPointId",
+                  "description": "(Required) The ID of the Hyperscale Mount Point."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a1e47b81-52ee-4754-9eb0-96d46c78a7ee",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hyperscale-mount-points",
+                    ":hyperscaleMountPointId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hyperscaleMountPointId",
+                      "description": "(Required) The ID of the Hyperscale Mount Point."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"hyperscale_instance_id\": \"<string>\",\n  \"id\": \"string\",\n  \"name\": \"<string>\",\n  \"hostname\": \"<string>\",\n  \"mount_path\": \"<string>\",\n  \"mount_type\": \"<string>\",\n  \"options\": \"<string>\",\n  \"staging_storage_type\": \"<string>\",\n  \"auth_mechanism\": \"<string>\",\n  \"aws_bucket_name\": \"<string>\",\n  \"aws_bucket_region\": \"<string>\",\n  \"aws_bucket_prefix\": \"<string>\",\n  \"aws_bucket_delimiter\": \"<string>\",\n  \"blob_auth_type\": \"<string>\",\n  \"blob_account_name\": \"<string>\",\n  \"blob_container_name\": \"<string>\",\n  \"blob_container_prefix\": \"<string>\",\n  \"blob_container_delimiter\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0e17185c-7620-4d80-937b-a44d03218c33",
+          "name": "Update a Hyperscale Mount Point by ID.",
+          "request": {
+            "name": "Update a Hyperscale Mount Point by ID.",
+            "description": {},
+            "url": {
+              "path": [
+                "hyperscale-mount-points",
+                ":hyperscaleMountPointId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hyperscaleMountPointId",
+                  "description": "(Required) The ID of the Hyperscale Mount Point."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"hostname\": \"<string>\",\n  \"mount_path\": \"<string>\",\n  \"mount_type\": \"<string>\",\n  \"options\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "17bd1e7d-0a21-4764-aef1-8391b06a76c7",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hyperscale-mount-points",
+                    ":hyperscaleMountPointId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hyperscaleMountPointId",
+                      "description": "(Required) The ID of the Hyperscale Mount Point."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"hostname\": \"<string>\",\n  \"mount_path\": \"<string>\",\n  \"mount_type\": \"<string>\",\n  \"options\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 44,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1952-07-01T23:46:46.779Z\",\n        \"end_time\": \"2003-08-06T08:10:55.099Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 97,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2019-05-19T07:00:40.009Z\",\n        \"end_time\": \"2007-04-24T13:34:50.334Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 53,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"COMPLETED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1962-03-01T09:33:14.933Z\",\n        \"end_time\": \"2011-08-11T18:33:10.394Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 27,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1953-06-30T15:03:19.347Z\",\n        \"end_time\": \"1958-02-27T01:50:47.740Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 46,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"PENDING\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7ab061d8-fd64-42ab-9261-ae6f26c3b8d4",
+          "name": "Delete a Hyperscale Mount Point.",
+          "request": {
+            "name": "Delete a Hyperscale Mount Point.",
+            "description": {},
+            "url": {
+              "path": [
+                "hyperscale-mount-points",
+                ":hyperscaleMountPointId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hyperscaleMountPointId",
+                  "description": "(Required) The ID of the Hyperscale Mount Point."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "65bbf9ca-43af-4096-8c5e-831cca077b8d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hyperscale-mount-points",
+                    ":hyperscaleMountPointId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hyperscaleMountPointId",
+                      "description": "(Required) The ID of the Hyperscale Mount Point."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 2,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2005-06-02T07:14:05.521Z\",\n        \"end_time\": \"1949-11-19T00:15:41.556Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 88,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"FAILED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1985-09-10T05:24:51.185Z\",\n        \"end_time\": \"1981-05-26T20:38:37.694Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 32,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1965-07-25T09:39:22.752Z\",\n        \"end_time\": \"2016-02-21T12:04:43.114Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 56,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2003-11-05T00:57:03.947Z\",\n        \"end_time\": \"2019-10-11T21:12:05.806Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 12,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"PENDING\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fa6528a0-3ed8-48ef-9f87-143b669506a3",
+          "name": "Validate the permissions for the Hyperscale Mount Point.",
+          "request": {
+            "name": "Validate the permissions for the Hyperscale Mount Point.",
+            "description": {},
+            "url": {
+              "path": [
+                "hyperscale-mount-points",
+                ":hyperscaleMountPointId",
+                "validate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hyperscaleMountPointId",
+                  "description": "(Required) The ID of the Hyperscale Mount Point."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7d4180be-dac2-4802-8c90-c6490880a40b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hyperscale-mount-points",
+                    ":hyperscaleMountPointId",
+                    "validate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hyperscaleMountPointId",
+                      "description": "(Required) The ID of the Hyperscale Mount Point."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"isValid\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "523b13c4-fc60-4148-baa2-cbdd21d17ef8",
+          "name": "Search for Hyperscale Mount Points.",
+          "request": {
+            "name": "Search for Hyperscale Mount Points.",
+            "description": {},
+            "url": {
+              "path": [
+                "hyperscale-mount-points",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cf9f159c-4cde-489b-8361-c8ce57c358dd",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hyperscale-mount-points",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"hyperscale_instance_id\": \"<string>\",\n      \"id\": \"string\",\n      \"name\": \"<string>\",\n      \"hostname\": \"<string>\",\n      \"mount_path\": \"<string>\",\n      \"mount_type\": \"<string>\",\n      \"options\": \"<string>\",\n      \"staging_storage_type\": \"<string>\",\n      \"auth_mechanism\": \"<string>\",\n      \"aws_bucket_name\": \"<string>\",\n      \"aws_bucket_region\": \"<string>\",\n      \"aws_bucket_prefix\": \"<string>\",\n      \"aws_bucket_delimiter\": \"<string>\",\n      \"blob_auth_type\": \"<string>\",\n      \"blob_account_name\": \"<string>\",\n      \"blob_container_name\": \"<string>\",\n      \"blob_container_prefix\": \"<string>\",\n      \"blob_container_delimiter\": \"<string>\"\n    },\n    {\n      \"hyperscale_instance_id\": \"<string>\",\n      \"id\": \"string\",\n      \"name\": \"<string>\",\n      \"hostname\": \"<string>\",\n      \"mount_path\": \"<string>\",\n      \"mount_type\": \"<string>\",\n      \"options\": \"<string>\",\n      \"staging_storage_type\": \"<string>\",\n      \"auth_mechanism\": \"<string>\",\n      \"aws_bucket_name\": \"<string>\",\n      \"aws_bucket_region\": \"<string>\",\n      \"aws_bucket_prefix\": \"<string>\",\n      \"aws_bucket_delimiter\": \"<string>\",\n      \"blob_auth_type\": \"<string>\",\n      \"blob_account_name\": \"<string>\",\n      \"blob_container_name\": \"<string>\",\n      \"blob_container_prefix\": \"<string>\",\n      \"blob_container_delimiter\": \"<string>\"\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 8888\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "993f8747-4e0b-4fe2-bd74-09b9c42633a9",
+          "name": "Returns a list of Hyperscale Connectors.",
+          "request": {
+            "name": "Returns a list of Hyperscale Connectors.",
+            "description": {},
+            "url": {
+              "path": [
+                "hyperscale-connectors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3df6dd5f-d2fe-4190-8e4c-f3533988747f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hyperscale-connectors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"hyperscale_instance_id\": \"string\",\n      \"data_type\": \"ORACLE\",\n      \"name\": \"string\",\n      \"source_username\": \"string\",\n      \"source_password\": \"string\",\n      \"source_jdbc_url\": \"string\",\n      \"source_mongo_url\": \"mongodb://host:27017\",\n      \"source_filesystem_path\": \"string\",\n      \"source_connection_properties\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"target_username\": \"string\",\n      \"target_password\": \"string\",\n      \"target_jdbc_url\": \"string\",\n      \"target_mongo_url\": \"mongodb://host:27017\",\n      \"target_filesystem_path\": \"string\",\n      \"target_connection_properties\": {\n        \"key_0\": \"string\"\n      },\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"hyperscale_instance_id\": \"string\",\n      \"data_type\": \"ORACLE\",\n      \"name\": \"string\",\n      \"source_username\": \"string\",\n      \"source_password\": \"string\",\n      \"source_jdbc_url\": \"string\",\n      \"source_mongo_url\": \"mongodb://host:27017\",\n      \"source_filesystem_path\": \"string\",\n      \"source_connection_properties\": {\n        \"key_0\": \"string\"\n      },\n      \"target_username\": \"string\",\n      \"target_password\": \"string\",\n      \"target_jdbc_url\": \"string\",\n      \"target_mongo_url\": \"mongodb://host:27017\",\n      \"target_filesystem_path\": \"string\",\n      \"target_connection_properties\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 7864\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d03e7328-286b-4f2d-87c3-bc5df9c98836",
+          "name": "Create a Hyperscale Connector.",
+          "request": {
+            "name": "Create a Hyperscale Connector.",
+            "description": {},
+            "url": {
+              "path": [
+                "hyperscale-connectors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"hyperscale_instance_id\": \"<string>\",\n  \"data_type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"source_username\": \"<string>\",\n  \"source_password\": \"<string>\",\n  \"source_jdbc_url\": \"<string>\",\n  \"source_mongo_url\": \"<string>\",\n  \"source_filesystem_path\": \"<string>\",\n  \"source_connection_properties\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"target_username\": \"<string>\",\n  \"target_password\": \"<string>\",\n  \"target_jdbc_url\": \"<string>\",\n  \"target_mongo_url\": \"<string>\",\n  \"target_filesystem_path\": \"<string>\",\n  \"target_connection_properties\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"make_current_account_owner\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c242c7e4-3e2d-4a90-bd11-ac2d8841150e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hyperscale-connectors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"hyperscale_instance_id\": \"<string>\",\n  \"data_type\": \"ORACLE\",\n  \"name\": \"<string>\",\n  \"source_username\": \"<string>\",\n  \"source_password\": \"<string>\",\n  \"source_jdbc_url\": \"<string>\",\n  \"source_mongo_url\": \"mongodb://host:27017\",\n  \"source_filesystem_path\": \"<string>\",\n  \"source_connection_properties\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"target_username\": \"<string>\",\n  \"target_password\": \"<string>\",\n  \"target_jdbc_url\": \"<string>\",\n  \"target_mongo_url\": \"mongodb://host:27017\",\n  \"target_filesystem_path\": \"<string>\",\n  \"target_connection_properties\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ],\n  \"make_current_account_owner\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 32,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2005-08-25T17:07:02.177Z\",\n        \"end_time\": \"1986-10-05T13:34:50.531Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 40,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"COMPLETED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1968-01-02T17:32:12.978Z\",\n        \"end_time\": \"1992-02-12T09:43:24.084Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 70,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"COMPLETED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1970-08-11T00:36:57.496Z\",\n        \"end_time\": \"1966-07-10T16:01:18.604Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 6,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1947-01-12T08:08:26.105Z\",\n        \"end_time\": \"1971-02-21T14:30:11.585Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 34,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "33980d30-5572-4537-914e-b1448b3dd1bd",
+          "name": "Get a Hyperscale Connector.",
+          "request": {
+            "name": "Get a Hyperscale Connector.",
+            "description": {},
+            "url": {
+              "path": [
+                "hyperscale-connectors",
+                ":hyperscaleConnectorId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hyperscaleConnectorId",
+                  "description": "(Required) The ID of the Hyperscale Connector."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0aa3d16e-87b2-4b32-ac87-cdc5c4a98788",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hyperscale-connectors",
+                    ":hyperscaleConnectorId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hyperscaleConnectorId",
+                      "description": "(Required) The ID of the Hyperscale Connector."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"hyperscale_instance_id\": \"string\",\n  \"data_type\": \"ORACLE\",\n  \"name\": \"string\",\n  \"source_username\": \"string\",\n  \"source_password\": \"string\",\n  \"source_jdbc_url\": \"string\",\n  \"source_mongo_url\": \"mongodb://host:27017\",\n  \"source_filesystem_path\": \"string\",\n  \"source_connection_properties\": {\n    \"key_0\": \"string\"\n  },\n  \"target_username\": \"string\",\n  \"target_password\": \"string\",\n  \"target_jdbc_url\": \"string\",\n  \"target_mongo_url\": \"mongodb://host:27017\",\n  \"target_filesystem_path\": \"string\",\n  \"target_connection_properties\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b3e6c4a7-aae4-4587-9764-2ef19923280d",
+          "name": "Update a Hyperscale Connector by ID.",
+          "request": {
+            "name": "Update a Hyperscale Connector by ID.",
+            "description": {},
+            "url": {
+              "path": [
+                "hyperscale-connectors",
+                ":hyperscaleConnectorId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hyperscaleConnectorId",
+                  "description": "(Required) The ID of the Hyperscale Connector."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"source_username\": \"<string>\",\n  \"source_password\": \"<string>\",\n  \"source_jdbc_url\": \"<string>\",\n  \"source_mongo_url\": \"<string>\",\n  \"source_filesystem_path\": \"<string>\",\n  \"source_connection_properties\": {\n    \"key_0\": \"<string>\"\n  },\n  \"target_username\": \"<string>\",\n  \"target_password\": \"<string>\",\n  \"target_jdbc_url\": \"<string>\",\n  \"target_mongo_url\": \"<string>\",\n  \"target_filesystem_path\": \"<string>\",\n  \"target_connection_properties\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e6a43af2-95e1-43fc-a2fd-41b7410f189d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hyperscale-connectors",
+                    ":hyperscaleConnectorId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hyperscaleConnectorId",
+                      "description": "(Required) The ID of the Hyperscale Connector."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"source_username\": \"<string>\",\n  \"source_password\": \"<string>\",\n  \"source_jdbc_url\": \"<string>\",\n  \"source_mongo_url\": \"mongodb://host:27017\",\n  \"source_filesystem_path\": \"<string>\",\n  \"source_connection_properties\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\",\n    \"key_3\": \"<string>\"\n  },\n  \"target_username\": \"<string>\",\n  \"target_password\": \"<string>\",\n  \"target_jdbc_url\": \"<string>\",\n  \"target_mongo_url\": \"mongodb://host:27017\",\n  \"target_filesystem_path\": \"<string>\",\n  \"target_connection_properties\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\",\n    \"key_3\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 73,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1954-03-21T04:53:05.755Z\",\n        \"end_time\": \"2020-09-06T12:27:44.705Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 63,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2015-05-08T21:44:01.682Z\",\n        \"end_time\": \"1990-07-11T11:26:39.922Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 8,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1975-05-23T18:29:47.544Z\",\n        \"end_time\": \"1970-10-23T15:30:21.382Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 57,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1961-08-09T21:08:39.121Z\",\n        \"end_time\": \"2012-05-18T10:14:34.866Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 86,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1fe7af0c-d4a7-4b3d-9b24-c8cd29d8cb14",
+          "name": "Delete a Hyperscale Connector.",
+          "request": {
+            "name": "Delete a Hyperscale Connector.",
+            "description": {},
+            "url": {
+              "path": [
+                "hyperscale-connectors",
+                ":hyperscaleConnectorId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hyperscaleConnectorId",
+                  "description": "(Required) The ID of the Hyperscale Connector."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3b366097-9903-44a9-b943-835a17179e6b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hyperscale-connectors",
+                    ":hyperscaleConnectorId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hyperscaleConnectorId",
+                      "description": "(Required) The ID of the Hyperscale Connector."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 34,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2006-06-07T13:04:24.541Z\",\n        \"end_time\": \"2000-04-08T12:35:27.466Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 81,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"FAILED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1982-05-17T15:53:26.760Z\",\n        \"end_time\": \"1968-11-10T08:38:47.000Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 39,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1953-09-16T01:03:53.329Z\",\n        \"end_time\": \"1977-01-18T10:10:33.529Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 76,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"COMPLETED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1952-05-11T23:30:47.547Z\",\n        \"end_time\": \"1963-01-28T18:56:17.800Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 20,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"ABANDONED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "174fe4a3-c0b1-4f5d-8b72-43d86e4beec3",
+          "name": "Create tags for a Hyperscale Connector.",
+          "request": {
+            "name": "Create tags for a Hyperscale Connector.",
+            "description": {},
+            "url": {
+              "path": [
+                "hyperscale-connectors",
+                ":hyperscaleConnectorId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hyperscaleConnectorId",
+                  "description": "(Required) The ID of the Hyperscale Connector."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9d9f7165-1bee-4de9-9f2d-a8c49750804a",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hyperscale-connectors",
+                    ":hyperscaleConnectorId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hyperscaleConnectorId",
+                      "description": "(Required) The ID of the Hyperscale Connector."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a3311240-92ea-4af7-b9af-813f0d96db13",
+          "name": "Get tags for a Hyperscale Connector.",
+          "request": {
+            "name": "Get tags for a Hyperscale Connector.",
+            "description": {},
+            "url": {
+              "path": [
+                "hyperscale-connectors",
+                ":hyperscaleConnectorId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hyperscaleConnectorId",
+                  "description": "(Required) The ID of the Hyperscale Connector."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8b422d9f-2ee2-49b4-84ab-54dd7790900a",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hyperscale-connectors",
+                    ":hyperscaleConnectorId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hyperscaleConnectorId",
+                      "description": "(Required) The ID of the Hyperscale Connector."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "edea34e9-80fe-4de9-b0e1-f89f48a9f3a5",
+          "name": "Delete tags for a Hyperscale Connector.",
+          "request": {
+            "name": "Delete tags for a Hyperscale Connector.",
+            "description": {},
+            "url": {
+              "path": [
+                "hyperscale-connectors",
+                ":hyperscaleConnectorId",
+                "tags",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hyperscaleConnectorId",
+                  "description": "(Required) The ID of the Hyperscale Connector."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key\": \"<string>\",\n  \"value\": \"<string>\",\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b0a0adef-e48b-4e21-9dba-fdb3661d89eb",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hyperscale-connectors",
+                    ":hyperscaleConnectorId",
+                    "tags",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hyperscaleConnectorId",
+                      "description": "(Required) The ID of the Hyperscale Connector."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8fd8f25e-2a01-407c-a6b0-7c58f7fc2a83",
+          "name": "Search for Hyperscale Connectors.",
+          "request": {
+            "name": "Search for Hyperscale Connectors.",
+            "description": {},
+            "url": {
+              "path": [
+                "hyperscale-connectors",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0d228618-dbcc-4ad9-a4da-14640cd09fe2",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hyperscale-connectors",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"hyperscale_instance_id\": \"string\",\n      \"data_type\": \"ORACLE\",\n      \"name\": \"string\",\n      \"source_username\": \"string\",\n      \"source_password\": \"string\",\n      \"source_jdbc_url\": \"string\",\n      \"source_mongo_url\": \"mongodb://host:27017\",\n      \"source_filesystem_path\": \"string\",\n      \"source_connection_properties\": {\n        \"key_0\": \"string\"\n      },\n      \"target_username\": \"string\",\n      \"target_password\": \"string\",\n      \"target_jdbc_url\": \"string\",\n      \"target_mongo_url\": \"mongodb://host:27017\",\n      \"target_filesystem_path\": \"string\",\n      \"target_connection_properties\": {\n        \"key_0\": \"string\"\n      },\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"hyperscale_instance_id\": \"string\",\n      \"data_type\": \"ORACLE\",\n      \"name\": \"string\",\n      \"source_username\": \"string\",\n      \"source_password\": \"string\",\n      \"source_jdbc_url\": \"string\",\n      \"source_mongo_url\": \"mongodb://host:27017\",\n      \"source_filesystem_path\": \"string\",\n      \"source_connection_properties\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"target_username\": \"string\",\n      \"target_password\": \"string\",\n      \"target_jdbc_url\": \"string\",\n      \"target_mongo_url\": \"mongodb://host:27017\",\n      \"target_filesystem_path\": \"string\",\n      \"target_connection_properties\": {\n        \"key_0\": \"string\"\n      },\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 2825\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "df9e63f3-9018-4f8b-87e9-f74247bdf5de",
+          "name": "Returns a list of Hyperscale Datasets.",
+          "request": {
+            "name": "Returns a list of Hyperscale Datasets.",
+            "description": {},
+            "url": {
+              "path": [
+                "hyperscale-datasets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "98cb0090-3730-4382-812c-35ee10ea4171",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hyperscale-datasets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"hyperscale_instance_id\": \"string\",\n      \"data_type\": \"ORACLE\",\n      \"mount_point_id\": \"string\",\n      \"connector_id\": \"string\",\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"hyperscale_instance_id\": \"string\",\n      \"data_type\": \"ORACLE\",\n      \"mount_point_id\": \"string\",\n      \"connector_id\": \"string\",\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 5109\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cb4c383d-b788-4de0-a67e-f75a1230fcb9",
+          "name": "Get a Hyperscale Dataset.",
+          "request": {
+            "name": "Get a Hyperscale Dataset.",
+            "description": {},
+            "url": {
+              "path": [
+                "hyperscale-datasets",
+                ":hyperscaleDatasetId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hyperscaleDatasetId",
+                  "description": "(Required) The ID of the Hyperscale Dataset."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "349df1f5-08fa-4290-a872-ffb01bf5dadb",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hyperscale-datasets",
+                    ":hyperscaleDatasetId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hyperscaleDatasetId",
+                      "description": "(Required) The ID of the Hyperscale Dataset."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"hyperscale_instance_id\": \"string\",\n  \"data_type\": \"ORACLE\",\n  \"mount_point_id\": \"string\",\n  \"connector_id\": \"string\",\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3bbeb761-d2e2-4a4b-af2e-008977202d61",
+          "name": "Update a Hyperscale Dataset by ID.",
+          "request": {
+            "name": "Update a Hyperscale Dataset by ID.",
+            "description": {},
+            "url": {
+              "path": [
+                "hyperscale-datasets",
+                ":hyperscaleDatasetId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hyperscaleDatasetId",
+                  "description": "(Required) The ID of the Hyperscale Dataset."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mount_point_id\": \"<string>\",\n  \"connector_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d202ac1c-fd7b-4fb9-9202-5662f93ba33f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hyperscale-datasets",
+                    ":hyperscaleDatasetId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hyperscaleDatasetId",
+                      "description": "(Required) The ID of the Hyperscale Dataset."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mount_point_id\": \"<string>\",\n  \"connector_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 24,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1950-12-19T10:30:28.286Z\",\n        \"end_time\": \"1970-05-15T16:52:06.037Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 88,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2015-10-21T14:38:59.373Z\",\n        \"end_time\": \"2007-01-01T05:32:16.278Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 28,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1999-03-20T17:42:50.059Z\",\n        \"end_time\": \"1995-07-08T22:57:09.671Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 5,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1990-07-14T16:15:27.853Z\",\n        \"end_time\": \"1996-10-20T09:26:35.153Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 59,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1152c20f-b4b1-4a83-9519-27cc3cac8f15",
+          "name": "Create tags for a Hyperscale Dataset.",
+          "request": {
+            "name": "Create tags for a Hyperscale Dataset.",
+            "description": {},
+            "url": {
+              "path": [
+                "hyperscale-datasets",
+                ":hyperscaleDatasetId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hyperscaleDatasetId",
+                  "description": "(Required) The ID of the Hyperscale Dataset."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e2a141e1-1795-40ee-b98a-4aabe74bb4fc",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hyperscale-datasets",
+                    ":hyperscaleDatasetId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hyperscaleDatasetId",
+                      "description": "(Required) The ID of the Hyperscale Dataset."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ecaed2b0-63af-4fca-832b-b512c90acde7",
+          "name": "Get tags for a Hyperscale Dataset.",
+          "request": {
+            "name": "Get tags for a Hyperscale Dataset.",
+            "description": {},
+            "url": {
+              "path": [
+                "hyperscale-datasets",
+                ":hyperscaleDatasetId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hyperscaleDatasetId",
+                  "description": "(Required) The ID of the Hyperscale Dataset."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "80ada286-a3b0-4810-9f9c-975deee3030b",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hyperscale-datasets",
+                    ":hyperscaleDatasetId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hyperscaleDatasetId",
+                      "description": "(Required) The ID of the Hyperscale Dataset."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "019a44f8-c4ba-47d8-b8c8-91a4e0985c6e",
+          "name": "Delete tags for a Hyperscale Dataset.",
+          "request": {
+            "name": "Delete tags for a Hyperscale Dataset.",
+            "description": {},
+            "url": {
+              "path": [
+                "hyperscale-datasets",
+                ":hyperscaleDatasetId",
+                "tags",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hyperscaleDatasetId",
+                  "description": "(Required) The ID of the Hyperscale Dataset."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key\": \"<string>\",\n  \"value\": \"<string>\",\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "89a06002-46e3-442b-9ee8-3ca6e1d7fa15",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hyperscale-datasets",
+                    ":hyperscaleDatasetId",
+                    "tags",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hyperscaleDatasetId",
+                      "description": "(Required) The ID of the Hyperscale Dataset."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "11f7e826-9259-41b8-b9db-08ac6691b6cd",
+          "name": "Get a Hyperscale Dataset table or file by ID.",
+          "request": {
+            "name": "Get a Hyperscale Dataset table or file by ID.",
+            "description": {},
+            "url": {
+              "path": [
+                "hyperscale-datasets",
+                ":hyperscaleDatasetId",
+                "tables-or-files",
+                ":hyperscaleDatasetTableOrFileId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hyperscaleDatasetId",
+                  "description": "(Required) The ID of the Hyperscale Dataset."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hyperscaleDatasetTableOrFileId",
+                  "description": "(Required) The ID of the Hyperscale Dataset table or file."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "443a6670-d066-410a-bf9c-040e7299c514",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hyperscale-datasets",
+                    ":hyperscaleDatasetId",
+                    "tables-or-files",
+                    ":hyperscaleDatasetTableOrFileId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hyperscaleDatasetId",
+                      "description": "(Required) The ID of the Hyperscale Dataset."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hyperscaleDatasetTableOrFileId",
+                      "description": "(Required) The ID of the Hyperscale Dataset table or file."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"schema_name\": \"string\",\n  \"table_name\": \"string\",\n  \"collection_name\": \"string\",\n  \"database_name\": \"string\",\n  \"filter_key\": \"string\",\n  \"column_array_rows\": 7469,\n  \"unload_split\": 9001,\n  \"stream_size\": 352,\n  \"end_of_record\": \"string\",\n  \"delimiter\": \"string\",\n  \"enclosure\": \"string\",\n  \"enclosure_escape_character\": \"string\",\n  \"escape_enclosure_escape_character\": false,\n  \"has_headers\": true,\n  \"unique_source_files_identifier\": \"string\",\n  \"source_files\": [\n    \"string\",\n    \"string\"\n  ],\n  \"perform_join\": true,\n  \"masking_inventory\": [\n    {\n      \"field_name\": \"string\",\n      \"domain_name\": \"string\",\n      \"algorithm_name\": \"string\",\n      \"date_format\": \"string\",\n      \"algorithm_field_name\": \"string\",\n      \"algorithm_group_no\": 8003\n    },\n    {\n      \"field_name\": \"string\",\n      \"domain_name\": \"string\",\n      \"algorithm_name\": \"string\",\n      \"date_format\": \"string\",\n      \"algorithm_field_name\": \"string\",\n      \"algorithm_group_no\": 2360\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "37e0e8d9-d702-40a6-a0cf-8775f50a86ed",
+          "name": "Update a Hyperscale Dataset table or file by ID.",
+          "request": {
+            "name": "Update a Hyperscale Dataset table or file by ID.",
+            "description": {},
+            "url": {
+              "path": [
+                "hyperscale-datasets",
+                ":hyperscaleDatasetId",
+                "tables-or-files",
+                ":hyperscaleDatasetTableOrFileId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hyperscaleDatasetId",
+                  "description": "(Required) The ID of the Hyperscale Dataset."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hyperscaleDatasetTableOrFileId",
+                  "description": "(Required) The ID of the Hyperscale Dataset table or file."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_key\": \"<string>\",\n  \"column_array_rows\": \"<long>\",\n  \"unload_split\": \"<long>\",\n  \"stream_size\": \"<long>\",\n  \"end_of_record\": \"<string>\",\n  \"delimiter\": \"<string>\",\n  \"enclosure\": \"<string>\",\n  \"enclosure_escape_character\": \"<string>\",\n  \"escape_enclosure_escape_character\": \"<boolean>\",\n  \"has_headers\": \"<boolean>\",\n  \"unique_source_files_identifier\": \"<string>\",\n  \"source_files\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"perform_join\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "53efb73c-cabe-4104-9046-a318053d23e9",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hyperscale-datasets",
+                    ":hyperscaleDatasetId",
+                    "tables-or-files",
+                    ":hyperscaleDatasetTableOrFileId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hyperscaleDatasetId",
+                      "description": "(Required) The ID of the Hyperscale Dataset."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hyperscaleDatasetTableOrFileId",
+                      "description": "(Required) The ID of the Hyperscale Dataset table or file."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filter_key\": \"<string>\",\n  \"column_array_rows\": \"<long>\",\n  \"unload_split\": \"<long>\",\n  \"stream_size\": \"<long>\",\n  \"end_of_record\": \"<string>\",\n  \"delimiter\": \"<string>\",\n  \"enclosure\": \"<string>\",\n  \"enclosure_escape_character\": \"<string>\",\n  \"escape_enclosure_escape_character\": \"<boolean>\",\n  \"has_headers\": \"<boolean>\",\n  \"unique_source_files_identifier\": \"<string>\",\n  \"source_files\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"perform_join\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 74,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1995-01-14T22:05:12.390Z\",\n        \"end_time\": \"1962-12-21T16:58:44.771Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 58,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1963-11-27T06:43:20.396Z\",\n        \"end_time\": \"1965-03-07T13:04:49.624Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 30,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1961-03-28T14:38:57.984Z\",\n        \"end_time\": \"1967-04-02T05:04:52.649Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 28,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"COMPLETED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1960-01-22T07:41:09.222Z\",\n        \"end_time\": \"2003-04-09T05:07:37.462Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 90,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6e7defcd-6e2a-497c-af48-fa2767b0ab32",
+          "name": "Get the tables or files of a hyperscale dataset",
+          "request": {
+            "name": "Get the tables or files of a hyperscale dataset",
+            "description": {},
+            "url": {
+              "path": [
+                "hyperscale-datasets",
+                ":hyperscaleDatasetId",
+                "tables-or-files"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hyperscaleDatasetId",
+                  "description": "(Required) The ID of the Hyperscale Dataset."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "943584c1-884f-43e6-94be-9fcb1c1259c5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hyperscale-datasets",
+                    ":hyperscaleDatasetId",
+                    "tables-or-files"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hyperscaleDatasetId",
+                      "description": "(Required) The ID of the Hyperscale Dataset."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"schema_name\": \"string\",\n      \"table_name\": \"string\",\n      \"collection_name\": \"string\",\n      \"database_name\": \"string\",\n      \"filter_key\": \"string\",\n      \"column_array_rows\": 4431,\n      \"unload_split\": 5126,\n      \"stream_size\": 9800,\n      \"end_of_record\": \"string\",\n      \"delimiter\": \"string\",\n      \"enclosure\": \"string\",\n      \"enclosure_escape_character\": \"string\",\n      \"escape_enclosure_escape_character\": false,\n      \"has_headers\": false,\n      \"unique_source_files_identifier\": \"string\",\n      \"source_files\": [\n        \"string\",\n        \"string\"\n      ],\n      \"perform_join\": true,\n      \"masking_inventory\": [\n        {\n          \"field_name\": \"string\",\n          \"domain_name\": \"string\",\n          \"algorithm_name\": \"string\",\n          \"date_format\": \"string\",\n          \"algorithm_field_name\": \"string\",\n          \"algorithm_group_no\": 6718\n        },\n        {\n          \"field_name\": \"string\",\n          \"domain_name\": \"string\",\n          \"algorithm_name\": \"string\",\n          \"date_format\": \"string\",\n          \"algorithm_field_name\": \"string\",\n          \"algorithm_group_no\": 2627\n        }\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"schema_name\": \"string\",\n      \"table_name\": \"string\",\n      \"collection_name\": \"string\",\n      \"database_name\": \"string\",\n      \"filter_key\": \"string\",\n      \"column_array_rows\": 5,\n      \"unload_split\": 6299,\n      \"stream_size\": 2535,\n      \"end_of_record\": \"string\",\n      \"delimiter\": \"string\",\n      \"enclosure\": \"string\",\n      \"enclosure_escape_character\": \"string\",\n      \"escape_enclosure_escape_character\": false,\n      \"has_headers\": false,\n      \"unique_source_files_identifier\": \"string\",\n      \"source_files\": [\n        \"string\",\n        \"string\"\n      ],\n      \"perform_join\": true,\n      \"masking_inventory\": [\n        {\n          \"field_name\": \"string\",\n          \"domain_name\": \"string\",\n          \"algorithm_name\": \"string\",\n          \"date_format\": \"string\",\n          \"algorithm_field_name\": \"string\",\n          \"algorithm_group_no\": 3629\n        },\n        {\n          \"field_name\": \"string\",\n          \"domain_name\": \"string\",\n          \"algorithm_name\": \"string\",\n          \"date_format\": \"string\",\n          \"algorithm_field_name\": \"string\",\n          \"algorithm_group_no\": 6223\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 337\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "53cb4d0c-8c92-44c9-aad2-4ebb21c5a1fd",
+          "name": "Search the tables or files of a hyperscale dataset",
+          "request": {
+            "name": "Search the tables or files of a hyperscale dataset",
+            "description": {},
+            "url": {
+              "path": [
+                "hyperscale-datasets",
+                ":hyperscaleDatasetId",
+                "tables-or-files",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hyperscaleDatasetId",
+                  "description": "(Required) The ID of the Hyperscale Dataset."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bb31c2b1-7a2b-40fd-abd3-e977c7e70375",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hyperscale-datasets",
+                    ":hyperscaleDatasetId",
+                    "tables-or-files",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hyperscaleDatasetId",
+                      "description": "(Required) The ID of the Hyperscale Dataset."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"schema_name\": \"string\",\n      \"table_name\": \"string\",\n      \"collection_name\": \"string\",\n      \"database_name\": \"string\",\n      \"filter_key\": \"string\",\n      \"column_array_rows\": 2026,\n      \"unload_split\": 539,\n      \"stream_size\": 9994,\n      \"end_of_record\": \"string\",\n      \"delimiter\": \"string\",\n      \"enclosure\": \"string\",\n      \"enclosure_escape_character\": \"string\",\n      \"escape_enclosure_escape_character\": true,\n      \"has_headers\": true,\n      \"unique_source_files_identifier\": \"string\",\n      \"source_files\": [\n        \"string\",\n        \"string\"\n      ],\n      \"perform_join\": false,\n      \"masking_inventory\": [\n        {\n          \"field_name\": \"string\",\n          \"domain_name\": \"string\",\n          \"algorithm_name\": \"string\",\n          \"date_format\": \"string\",\n          \"algorithm_field_name\": \"string\",\n          \"algorithm_group_no\": 4322\n        },\n        {\n          \"field_name\": \"string\",\n          \"domain_name\": \"string\",\n          \"algorithm_name\": \"string\",\n          \"date_format\": \"string\",\n          \"algorithm_field_name\": \"string\",\n          \"algorithm_group_no\": 2355\n        }\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"schema_name\": \"string\",\n      \"table_name\": \"string\",\n      \"collection_name\": \"string\",\n      \"database_name\": \"string\",\n      \"filter_key\": \"string\",\n      \"column_array_rows\": 4529,\n      \"unload_split\": 9200,\n      \"stream_size\": 3292,\n      \"end_of_record\": \"string\",\n      \"delimiter\": \"string\",\n      \"enclosure\": \"string\",\n      \"enclosure_escape_character\": \"string\",\n      \"escape_enclosure_escape_character\": true,\n      \"has_headers\": false,\n      \"unique_source_files_identifier\": \"string\",\n      \"source_files\": [\n        \"string\",\n        \"string\"\n      ],\n      \"perform_join\": true,\n      \"masking_inventory\": [\n        {\n          \"field_name\": \"string\",\n          \"domain_name\": \"string\",\n          \"algorithm_name\": \"string\",\n          \"date_format\": \"string\",\n          \"algorithm_field_name\": \"string\",\n          \"algorithm_group_no\": 4460\n        },\n        {\n          \"field_name\": \"string\",\n          \"domain_name\": \"string\",\n          \"algorithm_name\": \"string\",\n          \"date_format\": \"string\",\n          \"algorithm_field_name\": \"string\",\n          \"algorithm_group_no\": 4649\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 4636\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1b62b9e1-bfbc-48c5-aed6-778605e33b71",
+          "name": "Search for Hyperscale Datasets.",
+          "request": {
+            "name": "Search for Hyperscale Datasets.",
+            "description": {},
+            "url": {
+              "path": [
+                "hyperscale-datasets",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "15d7d4f2-c112-4a2b-a3ba-3ba25a1b8aba",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hyperscale-datasets",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"hyperscale_instance_id\": \"string\",\n      \"data_type\": \"ORACLE\",\n      \"mount_point_id\": \"string\",\n      \"connector_id\": \"string\",\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"hyperscale_instance_id\": \"string\",\n      \"data_type\": \"ORACLE\",\n      \"mount_point_id\": \"string\",\n      \"connector_id\": \"string\",\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 4992\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/dct/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2e4dab19-0465-43f4-84d6-53b45cf59130",
+    "name": "Delphix DCT Algorithms HyperscaleObjects API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Delphix DCT API\n\nContact Support:\n Name: Delphix Support\n Email: support@delphix.com",
+      "type": "text/plain"
+    }
+  }
+}

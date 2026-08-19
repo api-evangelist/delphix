@@ -1,0 +1,311 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms Classifiers API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Classifiers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve classifiers.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/classifiers",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "name",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+              }
+            ]
+          },
+          "docs": "Retrieve classifiers."
+        },
+        {
+          "info": {
+            "name": "Create a Classifier.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/classifiers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a Classifier."
+        },
+        {
+          "info": {
+            "name": "Search for classifiers.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/classifiers/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "name",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for classifiers."
+        },
+        {
+          "info": {
+            "name": "Get a classifier by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/classifiers/:classifierId",
+            "params": [
+              {
+                "name": "classifierId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Classifier."
+              }
+            ]
+          },
+          "docs": "Get a classifier by ID."
+        },
+        {
+          "info": {
+            "name": "Update a Classifier.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/classifiers/:classifierId",
+            "params": [
+              {
+                "name": "classifierId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Classifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Classifier."
+        },
+        {
+          "info": {
+            "name": "Delete a Classifier.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/dct/v3/classifiers/:classifierId",
+            "params": [
+              {
+                "name": "classifierId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Classifier."
+              }
+            ]
+          },
+          "docs": "Delete a Classifier."
+        },
+        {
+          "info": {
+            "name": "Get discovery policies for a classifier.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/classifiers/:classifierId/discovery-policies",
+            "params": [
+              {
+                "name": "classifierId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Classifier."
+              },
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+              }
+            ]
+          },
+          "docs": "Get discovery policies for a classifier."
+        },
+        {
+          "info": {
+            "name": "Search discovery policies for a classifier.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/classifiers/:classifierId/discovery-policies/search",
+            "params": [
+              {
+                "name": "classifierId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Classifier."
+              },
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search discovery policies for a classifier."
+        },
+        {
+          "info": {
+            "name": "Get tags for a classifier.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/classifiers/:classifierId/tags",
+            "params": [
+              {
+                "name": "classifierId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Classifier."
+              }
+            ]
+          },
+          "docs": "Get tags for a classifier."
+        },
+        {
+          "info": {
+            "name": "Create tags for a classifier.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/classifiers/:classifierId/tags",
+            "params": [
+              {
+                "name": "classifierId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Classifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create tags for a classifier."
+        },
+        {
+          "info": {
+            "name": "Delete tags for a classifier.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/classifiers/:classifierId/tags/delete",
+            "params": [
+              {
+                "name": "classifierId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Classifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete tags for a classifier."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,199 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms StagingSources API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "StagingSources",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all staging sources.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/staging-sources",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ]
+          },
+          "docs": "List all staging sources."
+        },
+        {
+          "info": {
+            "name": "Search for Staging Sources.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/staging-sources/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for Staging Sources."
+        },
+        {
+          "info": {
+            "name": "Get a staging source by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/staging-sources/:stagingSourceId",
+            "params": [
+              {
+                "name": "stagingSourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the staging Source."
+              }
+            ]
+          },
+          "docs": "Get a staging source by ID."
+        },
+        {
+          "info": {
+            "name": "Update a Staging Source.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/staging-sources/:stagingSourceId/update",
+            "params": [
+              {
+                "name": "stagingSourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the staging Source."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Staging Source."
+        },
+        {
+          "info": {
+            "name": "Get tags for a Staging Source.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/staging-sources/:stagingSourceId/tags",
+            "params": [
+              {
+                "name": "stagingSourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the staging Source."
+              }
+            ]
+          },
+          "docs": "Get tags for a Staging Source."
+        },
+        {
+          "info": {
+            "name": "Create tags for a Staging Source.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/staging-sources/:stagingSourceId/tags",
+            "params": [
+              {
+                "name": "stagingSourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the staging Source."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create tags for a Staging Source."
+        },
+        {
+          "info": {
+            "name": "Delete tags for a Staging Source.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/staging-sources/:stagingSourceId/tags/delete",
+            "params": [
+              {
+                "name": "stagingSourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the staging Source."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete tags for a Staging Source."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

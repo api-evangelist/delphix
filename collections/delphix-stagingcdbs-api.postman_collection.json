@@ -1,0 +1,1262 @@
+{
+  "item": [
+    {
+      "id": "311beee0-249f-4040-bc0f-c9dac194eb4a",
+      "name": "StagingCdbs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "cd8fc9c2-c466-4a9d-858e-ab82781e6d8b",
+          "name": "List all Staging CDBs.",
+          "request": {
+            "name": "List all Staging CDBs.",
+            "description": {},
+            "url": {
+              "path": [
+                "staging-cdbs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3deffb56-9b4a-46fd-a4a7-47f0cce4c536",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "staging-cdbs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"1-STAGING-CDB-1\",\n      \"name\": \"Staging Oracle CDB\",\n      \"namespace_id\": \"1-NAMESPACE-1\",\n      \"namespace_name\": \"test-engine-1\",\n      \"is_replica\": true,\n      \"database_version\": \"10.2.0.5.0\",\n      \"environment_id\": \"1-ENVIRONMENT-1\",\n      \"size\": 339292672,\n      \"jdbc_connection_string\": \"jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.43.47.94)(PORT=1521))(CONNECT_DATA=(UR=A)(SID=staging01)))\",\n      \"engine_id\": \"engine-12\",\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ],\n      \"group_name\": \"Staging Group\",\n      \"status\": \"RUNNING\",\n      \"enabled\": true,\n      \"instance_name\": \"STAGINGCDBSID\",\n      \"instance_number\": 1746,\n      \"oracle_services\": [\n        {\n          \"discovered\": true,\n          \"jdbc_connection_string\": \"jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.110.230.197)(PORT=1521))(CONNECT_DATA=(UR=A)(SERVICE_NAME=VDBOMSRBBDC6C_UJG)))\"\n        },\n        {\n          \"discovered\": false,\n          \"jdbc_connection_string\": \"jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.110.230.197)(PORT=1521))(CONNECT_DATA=(UR=A)(SERVICE_NAME=VDBOMSRBBDC6C_UJG)))\"\n        }\n      ],\n      \"repository_id\": \"1-ORACLE_INSTALL-1\",\n      \"tde_keystore_config_type\": \"OKV\",\n      \"database_name\": \"staging01\",\n      \"database_unique_name\": \"STAGINGDBOMSRBBDC6C\",\n      \"tde_kms_pkcs11_config_path\": \"/etc/oracle/tde/kms_pkcs11.conf\",\n      \"is_tde_keystore_password_set\": true,\n      \"auto_staging_push_restart\": false,\n      \"configure_staging_db_params\": false,\n      \"physical_standby\": false,\n      \"validate_snapshot_by_opening_db_in_read_mode\": false,\n      \"mount_base\": \"/mnt/staging/CDOMLOSRB5A3\",\n      \"datafile_mount_path\": \"/mnt/staging/CDOMLOSRB5A3/datafile\",\n      \"archive_mount_path\": \"/mnt/staging/CDOMLOSRB5A3/archive\",\n      \"custom_env_vars\": [\n        {\n          \"cluster_node\": \"string\",\n          \"path_parameters\": \"string\",\n          \"var_name\": \"string\",\n          \"var_value\": \"string\"\n        },\n        {\n          \"cluster_node\": \"string\",\n          \"path_parameters\": \"string\",\n          \"var_name\": \"string\",\n          \"var_value\": \"string\"\n        }\n      ],\n      \"nfs_version\": 3,\n      \"nfs_version_reason\": \"DEFAULT\",\n      \"nfs_encryption_enabled\": true,\n      \"logsync_enabled\": true,\n      \"description\": \"Staging CDB for production data\",\n      \"config_params\": {\n        \"param\": \"value\",\n        \"param2\": \"value2\"\n      },\n      \"db_template_id\": \"DB-TEMPLATE-1\",\n      \"db_template_name\": \"template-name\",\n      \"environment_user_ref\": \"string\",\n      \"okv_client_id\": \"1-ORACLE_OKV_CLIENT-1\",\n      \"engine_container_reference\": \"string\"\n    },\n    {\n      \"id\": \"1-STAGING-CDB-1\",\n      \"name\": \"Staging Oracle CDB\",\n      \"namespace_id\": \"1-NAMESPACE-1\",\n      \"namespace_name\": \"test-engine-1\",\n      \"is_replica\": true,\n      \"database_version\": \"10.2.0.5.0\",\n      \"environment_id\": \"1-ENVIRONMENT-1\",\n      \"size\": 339292672,\n      \"jdbc_connection_string\": \"jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.43.47.94)(PORT=1521))(CONNECT_DATA=(UR=A)(SID=staging01)))\",\n      \"engine_id\": \"engine-12\",\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ],\n      \"group_name\": \"Staging Group\",\n      \"status\": \"RUNNING\",\n      \"enabled\": true,\n      \"instance_name\": \"STAGINGCDBSID\",\n      \"instance_number\": 4864,\n      \"oracle_services\": [\n        {\n          \"discovered\": true,\n          \"jdbc_connection_string\": \"jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.110.230.197)(PORT=1521))(CONNECT_DATA=(UR=A)(SERVICE_NAME=VDBOMSRBBDC6C_UJG)))\"\n        },\n        {\n          \"discovered\": true,\n          \"jdbc_connection_string\": \"jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.110.230.197)(PORT=1521))(CONNECT_DATA=(UR=A)(SERVICE_NAME=VDBOMSRBBDC6C_UJG)))\"\n        }\n      ],\n      \"repository_id\": \"1-ORACLE_INSTALL-1\",\n      \"tde_keystore_config_type\": \"OKV\",\n      \"database_name\": \"staging01\",\n      \"database_unique_name\": \"STAGINGDBOMSRBBDC6C\",\n      \"tde_kms_pkcs11_config_path\": \"/etc/oracle/tde/kms_pkcs11.conf\",\n      \"is_tde_keystore_password_set\": false,\n      \"auto_staging_push_restart\": true,\n      \"configure_staging_db_params\": true,\n      \"physical_standby\": true,\n      \"validate_snapshot_by_opening_db_in_read_mode\": true,\n      \"mount_base\": \"/mnt/staging/CDOMLOSRB5A3\",\n      \"datafile_mount_path\": \"/mnt/staging/CDOMLOSRB5A3/datafile\",\n      \"archive_mount_path\": \"/mnt/staging/CDOMLOSRB5A3/archive\",\n      \"custom_env_vars\": [\n        {\n          \"cluster_node\": \"string\",\n          \"path_parameters\": \"string\",\n          \"var_name\": \"string\",\n          \"var_value\": \"string\"\n        },\n        {\n          \"cluster_node\": \"string\",\n          \"path_parameters\": \"string\",\n          \"var_name\": \"string\",\n          \"var_value\": \"string\"\n        }\n      ],\n      \"nfs_version\": 3,\n      \"nfs_version_reason\": \"DEFAULT\",\n      \"nfs_encryption_enabled\": true,\n      \"logsync_enabled\": true,\n      \"description\": \"Staging CDB for production data\",\n      \"config_params\": {\n        \"param\": \"value\",\n        \"param2\": \"value2\"\n      },\n      \"db_template_id\": \"DB-TEMPLATE-1\",\n      \"db_template_name\": \"template-name\",\n      \"environment_user_ref\": \"string\",\n      \"okv_client_id\": \"1-ORACLE_OKV_CLIENT-1\",\n      \"engine_container_reference\": \"string\"\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 7466\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cda49004-f8c8-4374-ab6d-33b34374eb60",
+          "name": "Search for Staging CDBs.",
+          "request": {
+            "name": "Search for Staging CDBs.",
+            "description": {},
+            "url": {
+              "path": [
+                "staging-cdbs",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4f5c420e-b6b5-45a3-b7b3-1dc476c0690f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "staging-cdbs",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"1-STAGING-CDB-1\",\n      \"name\": \"Staging Oracle CDB\",\n      \"namespace_id\": \"1-NAMESPACE-1\",\n      \"namespace_name\": \"test-engine-1\",\n      \"is_replica\": true,\n      \"database_version\": \"10.2.0.5.0\",\n      \"environment_id\": \"1-ENVIRONMENT-1\",\n      \"size\": 339292672,\n      \"jdbc_connection_string\": \"jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.43.47.94)(PORT=1521))(CONNECT_DATA=(UR=A)(SID=staging01)))\",\n      \"engine_id\": \"engine-12\",\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ],\n      \"group_name\": \"Staging Group\",\n      \"status\": \"RUNNING\",\n      \"enabled\": true,\n      \"instance_name\": \"STAGINGCDBSID\",\n      \"instance_number\": 8156,\n      \"oracle_services\": [\n        {\n          \"discovered\": true,\n          \"jdbc_connection_string\": \"jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.110.230.197)(PORT=1521))(CONNECT_DATA=(UR=A)(SERVICE_NAME=VDBOMSRBBDC6C_UJG)))\"\n        },\n        {\n          \"discovered\": true,\n          \"jdbc_connection_string\": \"jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.110.230.197)(PORT=1521))(CONNECT_DATA=(UR=A)(SERVICE_NAME=VDBOMSRBBDC6C_UJG)))\"\n        }\n      ],\n      \"repository_id\": \"1-ORACLE_INSTALL-1\",\n      \"tde_keystore_config_type\": \"OKV\",\n      \"database_name\": \"staging01\",\n      \"database_unique_name\": \"STAGINGDBOMSRBBDC6C\",\n      \"tde_kms_pkcs11_config_path\": \"/etc/oracle/tde/kms_pkcs11.conf\",\n      \"is_tde_keystore_password_set\": true,\n      \"auto_staging_push_restart\": true,\n      \"configure_staging_db_params\": true,\n      \"physical_standby\": true,\n      \"validate_snapshot_by_opening_db_in_read_mode\": true,\n      \"mount_base\": \"/mnt/staging/CDOMLOSRB5A3\",\n      \"datafile_mount_path\": \"/mnt/staging/CDOMLOSRB5A3/datafile\",\n      \"archive_mount_path\": \"/mnt/staging/CDOMLOSRB5A3/archive\",\n      \"custom_env_vars\": [\n        {\n          \"cluster_node\": \"string\",\n          \"path_parameters\": \"string\",\n          \"var_name\": \"string\",\n          \"var_value\": \"string\"\n        },\n        {\n          \"cluster_node\": \"string\",\n          \"path_parameters\": \"string\",\n          \"var_name\": \"string\",\n          \"var_value\": \"string\"\n        }\n      ],\n      \"nfs_version\": 3,\n      \"nfs_version_reason\": \"DEFAULT\",\n      \"nfs_encryption_enabled\": true,\n      \"logsync_enabled\": true,\n      \"description\": \"Staging CDB for production data\",\n      \"config_params\": {\n        \"param\": \"value\",\n        \"param2\": \"value2\"\n      },\n      \"db_template_id\": \"DB-TEMPLATE-1\",\n      \"db_template_name\": \"template-name\",\n      \"environment_user_ref\": \"string\",\n      \"okv_client_id\": \"1-ORACLE_OKV_CLIENT-1\",\n      \"engine_container_reference\": \"string\"\n    },\n    {\n      \"id\": \"1-STAGING-CDB-1\",\n      \"name\": \"Staging Oracle CDB\",\n      \"namespace_id\": \"1-NAMESPACE-1\",\n      \"namespace_name\": \"test-engine-1\",\n      \"is_replica\": true,\n      \"database_version\": \"10.2.0.5.0\",\n      \"environment_id\": \"1-ENVIRONMENT-1\",\n      \"size\": 339292672,\n      \"jdbc_connection_string\": \"jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.43.47.94)(PORT=1521))(CONNECT_DATA=(UR=A)(SID=staging01)))\",\n      \"engine_id\": \"engine-12\",\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ],\n      \"group_name\": \"Staging Group\",\n      \"status\": \"RUNNING\",\n      \"enabled\": true,\n      \"instance_name\": \"STAGINGCDBSID\",\n      \"instance_number\": 3654,\n      \"oracle_services\": [\n        {\n          \"discovered\": false,\n          \"jdbc_connection_string\": \"jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.110.230.197)(PORT=1521))(CONNECT_DATA=(UR=A)(SERVICE_NAME=VDBOMSRBBDC6C_UJG)))\"\n        },\n        {\n          \"discovered\": false,\n          \"jdbc_connection_string\": \"jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.110.230.197)(PORT=1521))(CONNECT_DATA=(UR=A)(SERVICE_NAME=VDBOMSRBBDC6C_UJG)))\"\n        }\n      ],\n      \"repository_id\": \"1-ORACLE_INSTALL-1\",\n      \"tde_keystore_config_type\": \"OKV\",\n      \"database_name\": \"staging01\",\n      \"database_unique_name\": \"STAGINGDBOMSRBBDC6C\",\n      \"tde_kms_pkcs11_config_path\": \"/etc/oracle/tde/kms_pkcs11.conf\",\n      \"is_tde_keystore_password_set\": true,\n      \"auto_staging_push_restart\": true,\n      \"configure_staging_db_params\": true,\n      \"physical_standby\": false,\n      \"validate_snapshot_by_opening_db_in_read_mode\": true,\n      \"mount_base\": \"/mnt/staging/CDOMLOSRB5A3\",\n      \"datafile_mount_path\": \"/mnt/staging/CDOMLOSRB5A3/datafile\",\n      \"archive_mount_path\": \"/mnt/staging/CDOMLOSRB5A3/archive\",\n      \"custom_env_vars\": [\n        {\n          \"cluster_node\": \"string\",\n          \"path_parameters\": \"string\",\n          \"var_name\": \"string\",\n          \"var_value\": \"string\"\n        },\n        {\n          \"cluster_node\": \"string\",\n          \"path_parameters\": \"string\",\n          \"var_name\": \"string\",\n          \"var_value\": \"string\"\n        }\n      ],\n      \"nfs_version\": 3,\n      \"nfs_version_reason\": \"DEFAULT\",\n      \"nfs_encryption_enabled\": true,\n      \"logsync_enabled\": true,\n      \"description\": \"Staging CDB for production data\",\n      \"config_params\": {\n        \"param\": \"value\",\n        \"param2\": \"value2\"\n      },\n      \"db_template_id\": \"DB-TEMPLATE-1\",\n      \"db_template_name\": \"template-name\",\n      \"environment_user_ref\": \"string\",\n      \"okv_client_id\": \"1-ORACLE_OKV_CLIENT-1\",\n      \"engine_container_reference\": \"string\"\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 9963\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "874ee77e-b739-4636-b349-ee84a25c2bdf",
+          "name": "Get a Staging CDB by ID.",
+          "request": {
+            "name": "Get a Staging CDB by ID.",
+            "description": {},
+            "url": {
+              "path": [
+                "staging-cdbs",
+                ":stagingCdbId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "stagingCdbId",
+                  "description": "(Required) The Staging CDB ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b8afaf09-3dfd-4874-b77f-af0aeae19770",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "staging-cdbs",
+                    ":stagingCdbId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stagingCdbId",
+                      "description": "(Required) The Staging CDB ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"1-STAGING-CDB-1\",\n  \"name\": \"Staging Oracle CDB\",\n  \"namespace_id\": \"1-NAMESPACE-1\",\n  \"namespace_name\": \"test-engine-1\",\n  \"is_replica\": true,\n  \"database_version\": \"10.2.0.5.0\",\n  \"environment_id\": \"1-ENVIRONMENT-1\",\n  \"size\": 339292672,\n  \"jdbc_connection_string\": \"jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.43.47.94)(PORT=1521))(CONNECT_DATA=(UR=A)(SID=staging01)))\",\n  \"engine_id\": \"engine-12\",\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ],\n  \"group_name\": \"Staging Group\",\n  \"status\": \"RUNNING\",\n  \"enabled\": true,\n  \"instance_name\": \"STAGINGCDBSID\",\n  \"instance_number\": 5973,\n  \"oracle_services\": [\n    {\n      \"discovered\": false,\n      \"jdbc_connection_string\": \"jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.110.230.197)(PORT=1521))(CONNECT_DATA=(UR=A)(SERVICE_NAME=VDBOMSRBBDC6C_UJG)))\"\n    },\n    {\n      \"discovered\": true,\n      \"jdbc_connection_string\": \"jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.110.230.197)(PORT=1521))(CONNECT_DATA=(UR=A)(SERVICE_NAME=VDBOMSRBBDC6C_UJG)))\"\n    }\n  ],\n  \"repository_id\": \"1-ORACLE_INSTALL-1\",\n  \"tde_keystore_config_type\": \"OKV\",\n  \"database_name\": \"staging01\",\n  \"database_unique_name\": \"STAGINGDBOMSRBBDC6C\",\n  \"tde_kms_pkcs11_config_path\": \"/etc/oracle/tde/kms_pkcs11.conf\",\n  \"is_tde_keystore_password_set\": true,\n  \"auto_staging_push_restart\": false,\n  \"configure_staging_db_params\": false,\n  \"physical_standby\": false,\n  \"validate_snapshot_by_opening_db_in_read_mode\": true,\n  \"mount_base\": \"/mnt/staging/CDOMLOSRB5A3\",\n  \"datafile_mount_path\": \"/mnt/staging/CDOMLOSRB5A3/datafile\",\n  \"archive_mount_path\": \"/mnt/staging/CDOMLOSRB5A3/archive\",\n  \"custom_env_vars\": [\n    {\n      \"cluster_node\": \"string\",\n      \"path_parameters\": \"string\",\n      \"var_name\": \"string\",\n      \"var_value\": \"string\"\n    },\n    {\n      \"cluster_node\": \"string\",\n      \"path_parameters\": \"string\",\n      \"var_name\": \"string\",\n      \"var_value\": \"string\"\n    }\n  ],\n  \"nfs_version\": 3,\n  \"nfs_version_reason\": \"DEFAULT\",\n  \"nfs_encryption_enabled\": true,\n  \"logsync_enabled\": true,\n  \"description\": \"Staging CDB for production data\",\n  \"config_params\": {\n    \"param\": \"value\",\n    \"param2\": \"value2\"\n  },\n  \"db_template_id\": \"DB-TEMPLATE-1\",\n  \"db_template_name\": \"template-name\",\n  \"environment_user_ref\": \"string\",\n  \"okv_client_id\": \"1-ORACLE_OKV_CLIENT-1\",\n  \"engine_container_reference\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3e645e94-5b2e-4775-a059-599da7e1ca67",
+          "name": "Update a Staging CDB.",
+          "request": {
+            "name": "Update a Staging CDB.",
+            "description": {},
+            "url": {
+              "path": [
+                "staging-cdbs",
+                ":stagingCdbId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "stagingCdbId",
+                  "description": "(Required) The Staging CDB ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"oracle_services\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"logsync_enabled\": \"<boolean>\",\n  \"tde_keystore_password\": \"<string>\",\n  \"tde_keystore_config_type\": \"<string>\",\n  \"tde_kms_pkcs11_config_path\": \"<string>\",\n  \"allow_auto_staging_restart_on_host_reboot\": \"<boolean>\",\n  \"physical_standby\": \"<boolean>\",\n  \"validate_snapshot_by_opening_db_in_read_mode\": \"<boolean>\",\n  \"custom_env_variables_pairs\": [\n    {\n      \"var_name\": \"<string>\",\n      \"var_value\": \"<string>\"\n    },\n    {\n      \"var_name\": \"<string>\",\n      \"var_value\": \"<string>\"\n    }\n  ],\n  \"custom_env_variables_paths\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"environment_id\": \"<string>\",\n  \"repository_id\": \"<string>\",\n  \"environment_user_id\": \"<string>\",\n  \"description\": \"<string>\",\n  \"config_params\": {\n    \"key_0\": 5084.70716460879\n  },\n  \"db_template_id\": \"<string>\",\n  \"okv_client_id\": \"<string>\",\n  \"instance_name\": \"<string>\",\n  \"instance_number\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d24292ad-20a5-494b-82da-05ec16ee51cb",
+              "name": "Staging CDB update initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "staging-cdbs",
+                    ":stagingCdbId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stagingCdbId",
+                      "description": "(Required) The Staging CDB ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"oracle_services\": [\n    \"jdbc:oracle:thin:@hostname:port/service_name\",\n    \"jdbc:oracle:thin:@hostname:port:SID\"\n  ],\n  \"logsync_enabled\": \"<boolean>\",\n  \"tde_keystore_password\": \"password\",\n  \"tde_keystore_config_type\": \"OKV\",\n  \"tde_kms_pkcs11_config_path\": \"/etc/oracle/tde/kms_pkcs11.conf\",\n  \"allow_auto_staging_restart_on_host_reboot\": \"<boolean>\",\n  \"physical_standby\": \"<boolean>\",\n  \"validate_snapshot_by_opening_db_in_read_mode\": \"<boolean>\",\n  \"custom_env_variables_pairs\": [\n    {\n      \"var_name\": \"env-var-name-1\",\n      \"var_value\": \"env-var-value-1\"\n    },\n    {\n      \"var_name\": \"env-var-name-1\",\n      \"var_value\": \"env-var-value-1\"\n    }\n  ],\n  \"custom_env_variables_paths\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"environment_id\": \"1-ENVIRONMENT-1\",\n  \"repository_id\": \"1-ORACLE_INSTALL-1\",\n  \"environment_user_id\": \"ENV_USER-1\",\n  \"description\": \"Updated staging CDB description\",\n  \"config_params\": {\n    \"processes\": 150\n  },\n  \"db_template_id\": \"1-DB-TEMPLATE-1\",\n  \"okv_client_id\": \"1-ORACLE_OKV_CLIENT-1\",\n  \"instance_name\": \"CDBSID\",\n  \"instance_number\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 40,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2018-11-26T03:47:01.789Z\",\n        \"end_time\": \"1999-02-05T12:59:38.545Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 94,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2016-05-09T06:40:02.238Z\",\n        \"end_time\": \"2010-02-15T16:47:10.763Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 44,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1947-05-10T23:39:55.288Z\",\n        \"end_time\": \"1964-01-30T02:39:48.275Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 90,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1959-01-07T15:55:20.777Z\",\n        \"end_time\": \"2024-07-22T18:52:09.160Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 59,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "85b0a55b-e138-4bd5-b889-9ad973302154",
+          "name": "Delete a staging CDB.",
+          "request": {
+            "name": "Delete a staging CDB.",
+            "description": {},
+            "url": {
+              "path": [
+                "staging-cdbs",
+                ":stagingCdbId",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "stagingCdbId",
+                  "description": "(Required) The Staging CDB ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"force\": false,\n  \"delete_all_dependent_datasets\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "52b539b1-5811-4a73-8f36-111c6bb13f28",
+              "name": "Staging CDB delete initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "staging-cdbs",
+                    ":stagingCdbId",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stagingCdbId",
+                      "description": "(Required) The Staging CDB ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"force\": false,\n  \"delete_all_dependent_datasets\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 86,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1973-08-27T03:17:57.123Z\",\n        \"end_time\": \"1969-04-07T08:25:49.952Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 55,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1994-07-01T17:15:14.058Z\",\n        \"end_time\": \"1966-05-19T22:55:06.687Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 8,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1970-02-10T08:58:27.792Z\",\n        \"end_time\": \"1971-08-03T16:25:56.772Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 0,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1975-04-26T11:05:17.775Z\",\n        \"end_time\": \"1954-07-15T07:34:33.847Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 70,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a2144fef-c76f-4c29-b28e-4afcfff5f220",
+          "name": "Get tags for a staging CDB.",
+          "request": {
+            "name": "Get tags for a staging CDB.",
+            "description": {},
+            "url": {
+              "path": [
+                "staging-cdbs",
+                ":stagingCdbId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "stagingCdbId",
+                  "description": "(Required) The Staging CDB ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8bdaff2e-9c87-4a65-bc7e-268e47d559f7",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "staging-cdbs",
+                    ":stagingCdbId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stagingCdbId",
+                      "description": "(Required) The Staging CDB ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5bc4f38d-a716-418f-b782-20fefd9bad1c",
+          "name": "Create tags for a staging CDB.",
+          "request": {
+            "name": "Create tags for a staging CDB.",
+            "description": {},
+            "url": {
+              "path": [
+                "staging-cdbs",
+                ":stagingCdbId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "stagingCdbId",
+                  "description": "(Required) The Staging CDB ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "312e9d1d-e2a4-457f-af10-55a51e97397f",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "staging-cdbs",
+                    ":stagingCdbId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stagingCdbId",
+                      "description": "(Required) The Staging CDB ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "56b13313-3ff3-4703-93d2-75bebe73eef2",
+          "name": "Delete tags for a staging CDB.",
+          "request": {
+            "name": "Delete tags for a staging CDB.",
+            "description": {},
+            "url": {
+              "path": [
+                "staging-cdbs",
+                ":stagingCdbId",
+                "tags",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "stagingCdbId",
+                  "description": "(Required) The Staging CDB ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key\": \"<string>\",\n  \"value\": \"<string>\",\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f6dff754-0543-4c8e-a077-cdfc703b9d95",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "staging-cdbs",
+                    ":stagingCdbId",
+                    "tags",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stagingCdbId",
+                      "description": "(Required) The Staging CDB ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "abc8730f-069f-4ba2-b460-27a413c6cdcf",
+          "name": "Enable a staging CDB.",
+          "request": {
+            "name": "Enable a staging CDB.",
+            "description": {},
+            "url": {
+              "path": [
+                "staging-cdbs",
+                ":stagingCdbId",
+                "enable"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "stagingCdbId",
+                  "description": "(Required) The Staging CDB ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"attempt_start\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e401c1e7-56f0-4d1c-a294-d6b03a8bc173",
+              "name": "Staging CDB enable initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "staging-cdbs",
+                    ":stagingCdbId",
+                    "enable"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stagingCdbId",
+                      "description": "(Required) The Staging CDB ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"attempt_start\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 13,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2007-10-15T03:12:25.218Z\",\n        \"end_time\": \"1951-05-31T03:03:05.220Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 87,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2001-07-14T14:30:31.901Z\",\n        \"end_time\": \"2005-02-22T05:34:55.633Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 79,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"ABANDONED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1986-08-25T09:19:02.050Z\",\n        \"end_time\": \"1989-09-14T05:23:38.975Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 23,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2017-04-21T02:00:05.025Z\",\n        \"end_time\": \"1974-06-05T12:36:03.062Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 93,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "219e8748-ac8a-4172-b35e-6e1148147ef1",
+          "name": "Disable a staging CDB.",
+          "request": {
+            "name": "Disable a staging CDB.",
+            "description": {},
+            "url": {
+              "path": [
+                "staging-cdbs",
+                ":stagingCdbId",
+                "disable"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "stagingCdbId",
+                  "description": "(Required) The Staging CDB ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"attempt_cleanup\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "504dd4c5-5569-4760-bef4-962d5434603a",
+              "name": "Staging CDB disable initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "staging-cdbs",
+                    ":stagingCdbId",
+                    "disable"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stagingCdbId",
+                      "description": "(Required) The Staging CDB ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"attempt_cleanup\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 74,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2009-07-08T00:02:13.039Z\",\n        \"end_time\": \"2002-05-24T05:31:58.242Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 72,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1953-04-05T17:55:39.663Z\",\n        \"end_time\": \"1979-01-22T11:55:55.398Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 36,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1970-11-26T07:35:23.790Z\",\n        \"end_time\": \"1996-08-20T17:41:53.779Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 86,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1977-06-16T13:02:26.811Z\",\n        \"end_time\": \"1973-10-27T11:08:54.829Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 79,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7edc4428-982e-465a-8be9-b1a192e10a35",
+          "name": "Upgrade Oracle staging CDB.",
+          "request": {
+            "name": "Upgrade Oracle staging CDB.",
+            "description": {},
+            "url": {
+              "path": [
+                "staging-cdbs",
+                ":stagingCdbId",
+                "upgrade"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "stagingCdbId",
+                  "description": "(Required) The Staging CDB ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"repository_id\": \"<string>\",\n  \"environment_user_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4b64d467-11bd-477f-b53c-3e3d58875a8a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "staging-cdbs",
+                    ":stagingCdbId",
+                    "upgrade"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stagingCdbId",
+                      "description": "(Required) The Staging CDB ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"repository_id\": \"1-ORACLE_INSTALL-4\",\n  \"environment_user_id\": \"HOST_USER-4\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"s\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 3,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1980-06-01T11:47:19.665Z\",\n        \"end_time\": \"1983-08-14T03:23:21.751Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 11,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2011-07-24T23:39:43.089Z\",\n        \"end_time\": \"1979-07-13T15:39:40.559Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 73,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1979-05-18T19:30:42.529Z\",\n        \"end_time\": \"1980-03-08T20:07:03.074Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 93,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"ABANDONED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2016-10-11T03:45:54.402Z\",\n        \"end_time\": \"1997-05-01T17:10:01.020Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 53,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"COMPLETED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/dct/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "168d18e8-7cfd-4a9c-9cb2-64dd238deae3",
+    "name": "Delphix DCT Algorithms StagingCdbs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Delphix DCT API\n\nContact Support:\n Name: Delphix Support\n Email: support@delphix.com",
+      "type": "text/plain"
+    }
+  }
+}

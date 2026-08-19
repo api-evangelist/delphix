@@ -1,0 +1,251 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms Toolkits API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Toolkits",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all toolkits.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/toolkits",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ]
+          },
+          "docs": "List all toolkits."
+        },
+        {
+          "info": {
+            "name": "Search for toolkits.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/toolkits/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for toolkits."
+        },
+        {
+          "info": {
+            "name": "Get Toolkit by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/toolkits/:toolkitId",
+            "params": [
+              {
+                "name": "toolkitId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the toolkit."
+              }
+            ]
+          },
+          "docs": "Get Toolkit by ID."
+        },
+        {
+          "info": {
+            "name": "Delete a Toolkit by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/dct/v3/toolkits/:toolkitId",
+            "params": [
+              {
+                "name": "toolkitId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the toolkit."
+              }
+            ]
+          },
+          "docs": "Delete a Toolkit by ID."
+        },
+        {
+          "info": {
+            "name": "Get tags for a Toolkit.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/toolkits/:toolkitId/tags",
+            "params": [
+              {
+                "name": "toolkitId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the toolkit."
+              }
+            ]
+          },
+          "docs": "Get tags for a Toolkit."
+        },
+        {
+          "info": {
+            "name": "Create tags for a toolkit.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/toolkits/:toolkitId/tags",
+            "params": [
+              {
+                "name": "toolkitId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the toolkit."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create tags for a toolkit."
+        },
+        {
+          "info": {
+            "name": "Delete tags for a Toolkit.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/toolkits/:toolkitId/tags/delete",
+            "params": [
+              {
+                "name": "toolkitId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the toolkit."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete tags for a Toolkit."
+        },
+        {
+          "info": {
+            "name": "Upload toolkit to engines.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/toolkits/upload",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "engine_id",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Upload toolkit to engines."
+        },
+        {
+          "info": {
+            "name": "Get toolkit schema definitions.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/toolkits/schema_definitions"
+          },
+          "docs": "Get toolkit schema definitions."
+        },
+        {
+          "info": {
+            "name": "Upgrade an Inactive appdata toolkit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/toolkits/:toolkitId/upgrade",
+            "params": [
+              {
+                "name": "toolkitId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the toolkit."
+              }
+            ]
+          },
+          "docs": "Upgrade an Inactive appdata toolkit"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

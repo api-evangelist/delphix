@@ -1,0 +1,149 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms VirtualizationFaults API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "VirtualizationFaults",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch a list of all virtualization faults",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/virtualization-faults/history",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ]
+          },
+          "docs": "Fetch a list of all virtualization faults"
+        },
+        {
+          "info": {
+            "name": "Search virtualization faults",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/virtualization-faults/history/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search virtualization faults"
+        },
+        {
+          "info": {
+            "name": "Marks selected faults as resolved or ignored.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/virtualization-faults/resolveOrIgnore",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Marks selected faults as resolved or ignored."
+        },
+        {
+          "info": {
+            "name": "Marks all active faults of an engine that the user has permissions over as resolved.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/virtualization-faults/:engineId/resolveAll",
+            "params": [
+              {
+                "name": "engineId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the registered engine."
+              }
+            ]
+          },
+          "docs": "Marks all active faults of an engine that the user has permissions over as resolved."
+        },
+        {
+          "info": {
+            "name": "Marks the fault as resolved. The Delphix engine will attempt to automatically detect cases where the fault has been resolved; but this is not always possible and may only occur on periodic intervals. In these cases, the user can proactively mark the fault resolved. This does not change the underlying disposition of the fault - if the problem is still present the system may immediately diagnose the same problem again. This should only be used to notify the system of resolution after the underlying problem has been resolved.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/virtualization-fault/:faultId/resolve",
+            "params": [
+              {
+                "name": "faultId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Virtualization Fault."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Marks the fault as resolved. The Delphix engine will attempt to automatically detect cases where the fault has been resolved; but this is not always possible and may only occur on periodic intervals. In these cases, the user can proactively mark the fault resolved. This does not change the underlying disposition of the fault - if the problem is still present the system may immediately diagnose the same problem again. This should only be used to notify the system of resolution after the underlyin"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

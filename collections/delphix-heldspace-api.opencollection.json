@@ -1,0 +1,64 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms HeldSpace API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "HeldSpace",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get heldspace deletion dependencies.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/heldspace/:heldspaceId/deletion-dependencies",
+            "params": [
+              {
+                "name": "heldspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The heldspace id to filter by."
+              }
+            ]
+          },
+          "docs": "Get heldspace deletion dependencies."
+        },
+        {
+          "info": {
+            "name": "Delete a HeldSpace.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/heldspace/:heldspaceId/delete",
+            "params": [
+              {
+                "name": "heldspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The heldspace id to filter by."
+              }
+            ]
+          },
+          "docs": "Delete a HeldSpace."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1490 @@
+{
+  "item": [
+    {
+      "id": "145f472a-14b2-4af8-a200-b718ba1d381b",
+      "name": "DataClasses",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fed33c37-957c-451a-801a-c1744c371e65",
+          "name": "Retrieve the list of Data Classes.",
+          "request": {
+            "name": "Retrieve the list of Data Classes.",
+            "description": {},
+            "url": {
+              "path": [
+                "data-classes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c1cae8a4-52cb-46f1-b5ba-dc19e333d09a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "data-classes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "name"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"description\": \"An example data value for this data class.\",\n      \"type\": \"string\",\n      \"maxLength\": 200,\n      \"nullable\": true\n    },\n    {\n      \"description\": \"An example data value for this data class.\",\n      \"type\": \"string\",\n      \"maxLength\": 200,\n      \"nullable\": true\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 5438\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b6ae689f-feaa-4ab3-a4ba-dec8d5d96769",
+          "name": "Create a Data Class.",
+          "request": {
+            "name": "Create a Data Class.",
+            "description": {},
+            "url": {
+              "path": [
+                "data-classes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"default_algorithm_id\": \"<string>\",\n  \"default_token_algorithm_id\": \"<string>\",\n  \"algorithm_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"example\": \"<string>\",\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"make_current_account_owner\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "20f405b0-d025-4522-a86b-c96e7d7266a4",
+              "name": "Data Class creation initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "data-classes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"An example data value for this data class.\",\n  \"type\": \"string\",\n  \"maxLength\": 200,\n  \"nullable\": true,\n  \"example\": \"abc-123\",\n  \"default\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 52,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1962-10-07T10:30:09.320Z\",\n        \"end_time\": \"1951-08-26T12:30:23.677Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 25,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2019-11-19T18:32:36.416Z\",\n        \"end_time\": \"1965-06-30T00:34:45.648Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 81,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2006-12-23T22:07:10.609Z\",\n        \"end_time\": \"2014-11-08T16:43:00.858Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 30,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"ABANDONED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1954-07-25T01:43:35.556Z\",\n        \"end_time\": \"2017-08-11T16:56:46.186Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 94,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8269be0d-66a5-461a-a619-71b5104d2e1d",
+          "name": "Search for Data Classes.",
+          "request": {
+            "name": "Search for Data Classes.",
+            "description": {},
+            "url": {
+              "path": [
+                "data-classes",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "edd3141a-cff6-4cf4-9563-7b628ee63377",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "data-classes",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "name"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"description\": \"An example data value for this data class.\",\n      \"type\": \"string\",\n      \"maxLength\": 200,\n      \"nullable\": true\n    },\n    {\n      \"description\": \"An example data value for this data class.\",\n      \"type\": \"string\",\n      \"maxLength\": 200,\n      \"nullable\": true\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 9300\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "912f5bf3-3c8e-422d-ac14-80165192aafb",
+          "name": "Get a Data Class by ID.",
+          "request": {
+            "name": "Get a Data Class by ID.",
+            "description": {},
+            "url": {
+              "path": [
+                "data-classes",
+                ":dataClassId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dataClassId",
+                  "description": "(Required) The ID of the Data Class."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3ac0a37e-034d-46bc-a61d-f095ac448ad7",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "data-classes",
+                    ":dataClassId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dataClassId",
+                      "description": "(Required) The ID of the Data Class."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"description\": \"An example data value for this data class.\",\n  \"type\": \"string\",\n  \"maxLength\": 200,\n  \"nullable\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e77478f6-43e8-434c-bead-7c93b484462b",
+          "name": "Update a Data Class.",
+          "request": {
+            "name": "Update a Data Class.",
+            "description": {},
+            "url": {
+              "path": [
+                "data-classes",
+                ":dataClassId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dataClassId",
+                  "description": "(Required) The ID of the Data Class."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"default_algorithm_id\": \"<string>\",\n  \"default_token_algorithm_id\": \"<string>\",\n  \"description\": \"<string>\",\n  \"example\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fa4ea0e6-ce12-490f-9dc8-68739dad7374",
+              "name": "Data Class update initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "data-classes",
+                    ":dataClassId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dataClassId",
+                      "description": "(Required) The ID of the Data Class."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"An example data value for this data class.\",\n  \"type\": \"string\",\n  \"maxLength\": 200,\n  \"nullable\": true,\n  \"example\": \"abc-123\",\n  \"default\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 46,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1956-09-24T12:45:54.230Z\",\n        \"end_time\": \"1990-07-23T14:05:24.809Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 40,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1955-12-17T16:46:58.351Z\",\n        \"end_time\": \"1986-10-07T09:13:46.058Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 84,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"PENDING\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1990-05-02T11:53:52.533Z\",\n        \"end_time\": \"1997-05-17T19:44:27.305Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 6,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2007-05-01T04:10:36.039Z\",\n        \"end_time\": \"2014-04-18T21:51:27.535Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 49,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"FAILED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b851f5b9-71b8-435b-9af6-c0356de944e4",
+          "name": "Delete a Data Class.",
+          "request": {
+            "name": "Delete a Data Class.",
+            "description": {},
+            "url": {
+              "path": [
+                "data-classes",
+                ":dataClassId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dataClassId",
+                  "description": "(Required) The ID of the Data Class."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9b8bec01-81a0-409d-b2bd-4ba7bddb7da4",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "data-classes",
+                    ":dataClassId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dataClassId",
+                      "description": "(Required) The ID of the Data Class."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 81,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2020-07-02T15:45:50.387Z\",\n        \"end_time\": \"1958-07-12T05:19:41.730Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 87,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"PENDING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1951-08-13T10:14:16.876Z\",\n        \"end_time\": \"2010-02-07T21:55:40.066Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 97,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"ABANDONED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1964-08-30T02:14:38.704Z\",\n        \"end_time\": \"1991-11-06T04:38:19.433Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 1,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2015-05-11T17:53:30.175Z\",\n        \"end_time\": \"2024-08-06T13:08:20.264Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 25,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7854d4b3-87d1-4aaa-80b2-01b6ea2e4eb2",
+          "name": "Retrieve the list of algorithms for a Data Class.",
+          "request": {
+            "name": "Retrieve the list of algorithms for a Data Class.",
+            "description": {},
+            "url": {
+              "path": [
+                "data-classes",
+                ":dataClassId",
+                "algorithms"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dataClassId",
+                  "description": "(Required) The ID of the Data Class."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d89c2518-fc9f-4793-8d2b-80460c615f6c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "data-classes",
+                    ":dataClassId",
+                    "algorithms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dataClassId",
+                      "description": "(Required) The ID of the Data Class."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"a638d976-6b7e-43f4-9212-90f4dc6d405c\",\n      \"name\": \"Address\",\n      \"description\": \"string\",\n      \"plugin_name\": \"dlpx-core\",\n      \"plugin_id\": \"a638d976-6b7e-43f4-9212-90f4dc6d405c\",\n      \"framework_name\": \"Secure Lookup\",\n      \"framework_id\": \"a638d976-6b7e-43f4-9212-90f4dc6d405c\",\n      \"engine_name\": \"Compliance Engine 1\",\n      \"engine_id\": \"a638d976-6b7e-43f4-9212-90f4dc6d405c\",\n      \"revision_hash\": \"90f4dc6d405c\",\n      \"config\": {\n        \"key_0\": 3125.5175499747147\n      },\n      \"create_date\": \"2022-11-30T08:51:34.148000+00:00\",\n      \"account_id\": 1,\n      \"account_name\": \"John Doe\",\n      \"dct_managed\": true,\n      \"config_invalid\": false,\n      \"is_default_instance\": false,\n      \"is_tokenization_supported\": false,\n      \"fields\": [\n        {\n          \"id\": \"20b4692e-381d-40a0-a46e-0ba7658acaf3\",\n          \"name\": \"ADDRESS_LINE1\",\n          \"type\": \"STRING\",\n          \"is_read_only\": true,\n          \"is_optional\": false,\n          \"description\": \"string\"\n        },\n        {\n          \"id\": \"20b4692e-381d-40a0-a46e-0ba7658acaf3\",\n          \"name\": \"ADDRESS_LINE1\",\n          \"type\": \"STRING\",\n          \"is_read_only\": false,\n          \"is_optional\": false,\n          \"description\": \"string\"\n        }\n      ],\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    },\n    {\n      \"id\": \"a638d976-6b7e-43f4-9212-90f4dc6d405c\",\n      \"name\": \"Address\",\n      \"description\": \"string\",\n      \"plugin_name\": \"dlpx-core\",\n      \"plugin_id\": \"a638d976-6b7e-43f4-9212-90f4dc6d405c\",\n      \"framework_name\": \"Secure Lookup\",\n      \"framework_id\": \"a638d976-6b7e-43f4-9212-90f4dc6d405c\",\n      \"engine_name\": \"Compliance Engine 1\",\n      \"engine_id\": \"a638d976-6b7e-43f4-9212-90f4dc6d405c\",\n      \"revision_hash\": \"90f4dc6d405c\",\n      \"config\": {\n        \"key_0\": 4593.362175800513\n      },\n      \"create_date\": \"2022-11-30T08:51:34.148000+00:00\",\n      \"account_id\": 1,\n      \"account_name\": \"John Doe\",\n      \"dct_managed\": false,\n      \"config_invalid\": true,\n      \"is_default_instance\": false,\n      \"is_tokenization_supported\": false,\n      \"fields\": [\n        {\n          \"id\": \"20b4692e-381d-40a0-a46e-0ba7658acaf3\",\n          \"name\": \"ADDRESS_LINE1\",\n          \"type\": \"STRING\",\n          \"is_read_only\": false,\n          \"is_optional\": false,\n          \"description\": \"string\"\n        },\n        {\n          \"id\": \"20b4692e-381d-40a0-a46e-0ba7658acaf3\",\n          \"name\": \"ADDRESS_LINE1\",\n          \"type\": \"STRING\",\n          \"is_read_only\": true,\n          \"is_optional\": false,\n          \"description\": \"string\"\n        }\n      ],\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 6543\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "60524eb8-65a8-44ca-ab7e-8e7e18389d39",
+          "name": "Add algorithms to a Data Class.",
+          "request": {
+            "name": "Add algorithms to a Data Class.",
+            "description": {},
+            "url": {
+              "path": [
+                "data-classes",
+                ":dataClassId",
+                "algorithms"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dataClassId",
+                  "description": "(Required) The ID of the Data Class."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"algorithm_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0d35a52b-5a85-4f04-925c-d8a3d21a26ff",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "data-classes",
+                    ":dataClassId",
+                    "algorithms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dataClassId",
+                      "description": "(Required) The ID of the Data Class."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"algorithm_ids\": [\n    \"a638d976-6b7e-43f4-9212-90f4dc6d405c\",\n    \"414ed52c-fa89-455d-9fb9-9c2fa5115f80\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"strin\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 44,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1983-05-03T06:32:17.764Z\",\n        \"end_time\": \"1977-05-12T08:46:30.937Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 41,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"FAILED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2010-09-14T22:37:50.179Z\",\n        \"end_time\": \"1970-01-13T04:32:09.378Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 1,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"ABANDONED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1964-11-20T22:51:32.355Z\",\n        \"end_time\": \"1955-04-23T20:39:13.625Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 1,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2015-08-22T08:00:44.978Z\",\n        \"end_time\": \"1965-01-13T05:41:05.345Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 12,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d93c6f86-3876-4395-bdfe-7fe31a20ea47",
+          "name": "Remove algorithms from a Data Class.",
+          "request": {
+            "name": "Remove algorithms from a Data Class.",
+            "description": {},
+            "url": {
+              "path": [
+                "data-classes",
+                ":dataClassId",
+                "algorithms",
+                "remove"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dataClassId",
+                  "description": "(Required) The ID of the Data Class."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"algorithm_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2912233a-6582-48ec-b491-713ddddc1d3e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "data-classes",
+                    ":dataClassId",
+                    "algorithms",
+                    "remove"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dataClassId",
+                      "description": "(Required) The ID of the Data Class."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"algorithm_ids\": [\n    \"a638d976-6b7e-43f4-9212-90f4dc6d405c\",\n    \"414ed52c-fa89-455d-9fb9-9c2fa5115f80\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 11,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1998-06-05T09:39:24.435Z\",\n        \"end_time\": \"1977-04-11T03:59:32.459Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 5,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"COMPLETED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1966-12-25T15:33:34.968Z\",\n        \"end_time\": \"2004-04-10T03:04:17.142Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 62,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2002-11-28T05:59:36.124Z\",\n        \"end_time\": \"1946-12-04T19:04:37.833Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 66,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1954-10-17T01:21:50.617Z\",\n        \"end_time\": \"1983-05-11T12:49:51.625Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 69,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"COMPLETED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "afb6547b-0735-4780-9360-58ed758c9f35",
+          "name": "Search for algorithms of a Data Class.",
+          "request": {
+            "name": "Search for algorithms of a Data Class.",
+            "description": {},
+            "url": {
+              "path": [
+                "data-classes",
+                ":dataClassId",
+                "algorithms",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dataClassId",
+                  "description": "(Required) The ID of the Data Class."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8f99a2f4-410c-4fec-9aee-c090bfbf963e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "data-classes",
+                    ":dataClassId",
+                    "algorithms",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dataClassId",
+                      "description": "(Required) The ID of the Data Class."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"a638d976-6b7e-43f4-9212-90f4dc6d405c\",\n      \"name\": \"Address\",\n      \"description\": \"string\",\n      \"plugin_name\": \"dlpx-core\",\n      \"plugin_id\": \"a638d976-6b7e-43f4-9212-90f4dc6d405c\",\n      \"framework_name\": \"Secure Lookup\",\n      \"framework_id\": \"a638d976-6b7e-43f4-9212-90f4dc6d405c\",\n      \"engine_name\": \"Compliance Engine 1\",\n      \"engine_id\": \"a638d976-6b7e-43f4-9212-90f4dc6d405c\",\n      \"revision_hash\": \"90f4dc6d405c\",\n      \"config\": {\n        \"key_0\": \"string\",\n        \"key_1\": 1833\n      },\n      \"create_date\": \"2022-11-30T08:51:34.148000+00:00\",\n      \"account_id\": 1,\n      \"account_name\": \"John Doe\",\n      \"dct_managed\": false,\n      \"config_invalid\": true,\n      \"is_default_instance\": true,\n      \"is_tokenization_supported\": true,\n      \"fields\": [\n        {\n          \"id\": \"20b4692e-381d-40a0-a46e-0ba7658acaf3\",\n          \"name\": \"ADDRESS_LINE1\",\n          \"type\": \"STRING\",\n          \"is_read_only\": false,\n          \"is_optional\": false,\n          \"description\": \"string\"\n        },\n        {\n          \"id\": \"20b4692e-381d-40a0-a46e-0ba7658acaf3\",\n          \"name\": \"ADDRESS_LINE1\",\n          \"type\": \"STRING\",\n          \"is_read_only\": true,\n          \"is_optional\": false,\n          \"description\": \"string\"\n        }\n      ],\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    },\n    {\n      \"id\": \"a638d976-6b7e-43f4-9212-90f4dc6d405c\",\n      \"name\": \"Address\",\n      \"description\": \"string\",\n      \"plugin_name\": \"dlpx-core\",\n      \"plugin_id\": \"a638d976-6b7e-43f4-9212-90f4dc6d405c\",\n      \"framework_name\": \"Secure Lookup\",\n      \"framework_id\": \"a638d976-6b7e-43f4-9212-90f4dc6d405c\",\n      \"engine_name\": \"Compliance Engine 1\",\n      \"engine_id\": \"a638d976-6b7e-43f4-9212-90f4dc6d405c\",\n      \"revision_hash\": \"90f4dc6d405c\",\n      \"config\": {\n        \"key_0\": true,\n        \"key_1\": \"string\"\n      },\n      \"create_date\": \"2022-11-30T08:51:34.148000+00:00\",\n      \"account_id\": 1,\n      \"account_name\": \"John Doe\",\n      \"dct_managed\": false,\n      \"config_invalid\": true,\n      \"is_default_instance\": true,\n      \"is_tokenization_supported\": true,\n      \"fields\": [\n        {\n          \"id\": \"20b4692e-381d-40a0-a46e-0ba7658acaf3\",\n          \"name\": \"ADDRESS_LINE1\",\n          \"type\": \"STRING\",\n          \"is_read_only\": false,\n          \"is_optional\": false,\n          \"description\": \"string\"\n        },\n        {\n          \"id\": \"20b4692e-381d-40a0-a46e-0ba7658acaf3\",\n          \"name\": \"ADDRESS_LINE1\",\n          \"type\": \"STRING\",\n          \"is_read_only\": true,\n          \"is_optional\": true,\n          \"description\": \"string\"\n        }\n      ],\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 4638\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8a824d64-0f8d-417b-8763-f75e1e56912f",
+          "name": "Get tags for a Data Class.",
+          "request": {
+            "name": "Get tags for a Data Class.",
+            "description": {},
+            "url": {
+              "path": [
+                "data-classes",
+                ":dataClassId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dataClassId",
+                  "description": "(Required) The ID of the Data Class."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "53cd739f-6687-4126-bba0-81ed0d786150",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "data-classes",
+                    ":dataClassId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dataClassId",
+                      "description": "(Required) The ID of the Data Class."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "83f01226-3ec6-4f81-8bec-6069fa05be95",
+          "name": "Create tags for a Data Class.",
+          "request": {
+            "name": "Create tags for a Data Class.",
+            "description": {},
+            "url": {
+              "path": [
+                "data-classes",
+                ":dataClassId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dataClassId",
+                  "description": "(Required) The ID of the Data Class."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a17ef5a7-f055-4a6d-8eb8-95342aea880f",
+              "name": "Data Class tags created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "data-classes",
+                    ":dataClassId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dataClassId",
+                      "description": "(Required) The ID of the Data Class."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "10e7761c-8436-46ea-bd44-0d6e918a926f",
+          "name": "Delete tags for a Data Class.",
+          "request": {
+            "name": "Delete tags for a Data Class.",
+            "description": {},
+            "url": {
+              "path": [
+                "data-classes",
+                ":dataClassId",
+                "tags",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dataClassId",
+                  "description": "(Required) The ID of the Data Class."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key\": \"<string>\",\n  \"value\": \"<string>\",\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "955742f5-ddae-44da-b6ce-05a5b682a425",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "data-classes",
+                    ":dataClassId",
+                    "tags",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dataClassId",
+                      "description": "(Required) The ID of the Data Class."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/dct/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "99798cab-dd04-46e4-94e4-374d70e9e3ba",
+    "name": "Delphix DCT Algorithms DataClasses API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Delphix DCT API\n\nContact Support:\n Name: Delphix Support\n Email: support@delphix.com",
+      "type": "text/plain"
+    }
+  }
+}

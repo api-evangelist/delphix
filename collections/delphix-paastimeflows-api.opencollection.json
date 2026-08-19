@@ -1,0 +1,214 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms PaaSTimeflows API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "PaaSTimeflows",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all PaaS Timeflows",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/paas-timeflows",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort timeflow results by. A field prefixed with `-` indicates descending order."
+              }
+            ]
+          },
+          "docs": "List all PaaS Timeflows"
+        },
+        {
+          "info": {
+            "name": "Search PaaS Timeflows",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/paas-timeflows/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort timeflow results by. A field prefixed with `-` indicates descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search PaaS Timeflows"
+        },
+        {
+          "info": {
+            "name": "Get PaaS Timeflow by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/paas-timeflows/:paaSTimeflowId",
+            "params": [
+              {
+                "name": "paaSTimeflowId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Timeflow."
+              }
+            ]
+          },
+          "docs": "Get PaaS Timeflow by ID"
+        },
+        {
+          "info": {
+            "name": "Get tags for a PaaS Timeflow.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/paas-timeflows/:paaSTimeflowId/tags",
+            "params": [
+              {
+                "name": "paaSTimeflowId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Timeflow."
+              }
+            ]
+          },
+          "docs": "Get tags for a PaaS Timeflow."
+        },
+        {
+          "info": {
+            "name": "Create tags for a PaaS Timeflow.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/paas-timeflows/:paaSTimeflowId/tags",
+            "params": [
+              {
+                "name": "paaSTimeflowId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Timeflow."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create tags for a PaaS Timeflow."
+        },
+        {
+          "info": {
+            "name": "Delete tags for a PaaS Timeflow.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/paas-timeflows/:paaSTimeflowId/tags/delete",
+            "params": [
+              {
+                "name": "paaSTimeflowId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Timeflow."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete tags for a PaaS Timeflow."
+        },
+        {
+          "info": {
+            "name": "List all timeflows for a PaaS Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/paas-instances/:paaSInstanceId/timeflows",
+            "params": [
+              {
+                "name": "paaSInstanceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Instance."
+              }
+            ]
+          },
+          "docs": "List all timeflows for a PaaS Instance"
+        },
+        {
+          "info": {
+            "name": "List all timeflows for a PaaS Database",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/paas-databases/:paaSDatabaseId/timeflows",
+            "params": [
+              {
+                "name": "paaSDatabaseId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Database."
+              }
+            ]
+          },
+          "docs": "List all timeflows for a PaaS Database"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

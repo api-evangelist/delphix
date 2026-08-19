@@ -1,0 +1,699 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms HyperscaleObjects API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "HyperscaleObjects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns a list of Hyperscale Mount Points.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/hyperscale-mount-points",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ]
+          },
+          "docs": "Returns a list of Hyperscale Mount Points."
+        },
+        {
+          "info": {
+            "name": "Create a Hyperscale Mount Point",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/hyperscale-mount-points",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a Hyperscale Mount Point"
+        },
+        {
+          "info": {
+            "name": "Get a Hyperscale Mount Points.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/hyperscale-mount-points/:hyperscaleMountPointId",
+            "params": [
+              {
+                "name": "hyperscaleMountPointId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Hyperscale Mount Point."
+              }
+            ]
+          },
+          "docs": "Get a Hyperscale Mount Points."
+        },
+        {
+          "info": {
+            "name": "Update a Hyperscale Mount Point by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/hyperscale-mount-points/:hyperscaleMountPointId",
+            "params": [
+              {
+                "name": "hyperscaleMountPointId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Hyperscale Mount Point."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Hyperscale Mount Point by ID."
+        },
+        {
+          "info": {
+            "name": "Delete a Hyperscale Mount Point.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/dct/v3/hyperscale-mount-points/:hyperscaleMountPointId",
+            "params": [
+              {
+                "name": "hyperscaleMountPointId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Hyperscale Mount Point."
+              }
+            ]
+          },
+          "docs": "Delete a Hyperscale Mount Point."
+        },
+        {
+          "info": {
+            "name": "Validate the permissions for the Hyperscale Mount Point.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/hyperscale-mount-points/:hyperscaleMountPointId/validate",
+            "params": [
+              {
+                "name": "hyperscaleMountPointId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Hyperscale Mount Point."
+              }
+            ]
+          },
+          "docs": "Validate the permissions for the Hyperscale Mount Point."
+        },
+        {
+          "info": {
+            "name": "Search for Hyperscale Mount Points.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/hyperscale-mount-points/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for Hyperscale Mount Points."
+        },
+        {
+          "info": {
+            "name": "Returns a list of Hyperscale Connectors.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/hyperscale-connectors",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ]
+          },
+          "docs": "Returns a list of Hyperscale Connectors."
+        },
+        {
+          "info": {
+            "name": "Create a Hyperscale Connector.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/hyperscale-connectors",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a Hyperscale Connector."
+        },
+        {
+          "info": {
+            "name": "Get a Hyperscale Connector.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/hyperscale-connectors/:hyperscaleConnectorId",
+            "params": [
+              {
+                "name": "hyperscaleConnectorId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Hyperscale Connector."
+              }
+            ]
+          },
+          "docs": "Get a Hyperscale Connector."
+        },
+        {
+          "info": {
+            "name": "Update a Hyperscale Connector by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/hyperscale-connectors/:hyperscaleConnectorId",
+            "params": [
+              {
+                "name": "hyperscaleConnectorId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Hyperscale Connector."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Hyperscale Connector by ID."
+        },
+        {
+          "info": {
+            "name": "Delete a Hyperscale Connector.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/dct/v3/hyperscale-connectors/:hyperscaleConnectorId",
+            "params": [
+              {
+                "name": "hyperscaleConnectorId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Hyperscale Connector."
+              }
+            ]
+          },
+          "docs": "Delete a Hyperscale Connector."
+        },
+        {
+          "info": {
+            "name": "Get tags for a Hyperscale Connector.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/hyperscale-connectors/:hyperscaleConnectorId/tags",
+            "params": [
+              {
+                "name": "hyperscaleConnectorId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Hyperscale Connector."
+              }
+            ]
+          },
+          "docs": "Get tags for a Hyperscale Connector."
+        },
+        {
+          "info": {
+            "name": "Create tags for a Hyperscale Connector.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/hyperscale-connectors/:hyperscaleConnectorId/tags",
+            "params": [
+              {
+                "name": "hyperscaleConnectorId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Hyperscale Connector."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create tags for a Hyperscale Connector."
+        },
+        {
+          "info": {
+            "name": "Delete tags for a Hyperscale Connector.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/hyperscale-connectors/:hyperscaleConnectorId/tags/delete",
+            "params": [
+              {
+                "name": "hyperscaleConnectorId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Hyperscale Connector."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete tags for a Hyperscale Connector."
+        },
+        {
+          "info": {
+            "name": "Search for Hyperscale Connectors.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/hyperscale-connectors/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for Hyperscale Connectors."
+        },
+        {
+          "info": {
+            "name": "Returns a list of Hyperscale Datasets.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/hyperscale-datasets",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ]
+          },
+          "docs": "Returns a list of Hyperscale Datasets."
+        },
+        {
+          "info": {
+            "name": "Get a Hyperscale Dataset.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/hyperscale-datasets/:hyperscaleDatasetId",
+            "params": [
+              {
+                "name": "hyperscaleDatasetId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Hyperscale Dataset."
+              }
+            ]
+          },
+          "docs": "Get a Hyperscale Dataset."
+        },
+        {
+          "info": {
+            "name": "Update a Hyperscale Dataset by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/hyperscale-datasets/:hyperscaleDatasetId",
+            "params": [
+              {
+                "name": "hyperscaleDatasetId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Hyperscale Dataset."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Hyperscale Dataset by ID."
+        },
+        {
+          "info": {
+            "name": "Get tags for a Hyperscale Dataset.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/hyperscale-datasets/:hyperscaleDatasetId/tags",
+            "params": [
+              {
+                "name": "hyperscaleDatasetId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Hyperscale Dataset."
+              }
+            ]
+          },
+          "docs": "Get tags for a Hyperscale Dataset."
+        },
+        {
+          "info": {
+            "name": "Create tags for a Hyperscale Dataset.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/hyperscale-datasets/:hyperscaleDatasetId/tags",
+            "params": [
+              {
+                "name": "hyperscaleDatasetId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Hyperscale Dataset."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create tags for a Hyperscale Dataset."
+        },
+        {
+          "info": {
+            "name": "Delete tags for a Hyperscale Dataset.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/hyperscale-datasets/:hyperscaleDatasetId/tags/delete",
+            "params": [
+              {
+                "name": "hyperscaleDatasetId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Hyperscale Dataset."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete tags for a Hyperscale Dataset."
+        },
+        {
+          "info": {
+            "name": "Get a Hyperscale Dataset table or file by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/hyperscale-datasets/:hyperscaleDatasetId/tables-or-files/:hyperscaleDatasetTableOrFileId",
+            "params": [
+              {
+                "name": "hyperscaleDatasetId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Hyperscale Dataset."
+              },
+              {
+                "name": "hyperscaleDatasetTableOrFileId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Hyperscale Dataset table or file."
+              }
+            ]
+          },
+          "docs": "Get a Hyperscale Dataset table or file by ID."
+        },
+        {
+          "info": {
+            "name": "Update a Hyperscale Dataset table or file by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/hyperscale-datasets/:hyperscaleDatasetId/tables-or-files/:hyperscaleDatasetTableOrFileId",
+            "params": [
+              {
+                "name": "hyperscaleDatasetId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Hyperscale Dataset."
+              },
+              {
+                "name": "hyperscaleDatasetTableOrFileId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Hyperscale Dataset table or file."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Hyperscale Dataset table or file by ID."
+        },
+        {
+          "info": {
+            "name": "Get the tables or files of a hyperscale dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/hyperscale-datasets/:hyperscaleDatasetId/tables-or-files",
+            "params": [
+              {
+                "name": "hyperscaleDatasetId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Hyperscale Dataset."
+              },
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ]
+          },
+          "docs": "Get the tables or files of a hyperscale dataset"
+        },
+        {
+          "info": {
+            "name": "Search the tables or files of a hyperscale dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/hyperscale-datasets/:hyperscaleDatasetId/tables-or-files/search",
+            "params": [
+              {
+                "name": "hyperscaleDatasetId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Hyperscale Dataset."
+              },
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search the tables or files of a hyperscale dataset"
+        },
+        {
+          "info": {
+            "name": "Search for Hyperscale Datasets.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/hyperscale-datasets/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for Hyperscale Datasets."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

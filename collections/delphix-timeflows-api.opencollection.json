@@ -1,0 +1,299 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms Timeflows API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Timeflows",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve the list of timeflows.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/timeflows",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ]
+          },
+          "docs": "Retrieve the list of timeflows."
+        },
+        {
+          "info": {
+            "name": "Get a Timeflow by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/timeflows/:timeflowId",
+            "params": [
+              {
+                "name": "timeflowId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the timeflow."
+              }
+            ]
+          },
+          "docs": "Get a Timeflow by ID."
+        },
+        {
+          "info": {
+            "name": "Update values of a timeflow.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/timeflows/:timeflowId",
+            "params": [
+              {
+                "name": "timeflowId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the timeflow."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update values of a timeflow."
+        },
+        {
+          "info": {
+            "name": "Delete a timeflow.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/dct/v3/timeflows/:timeflowId",
+            "params": [
+              {
+                "name": "timeflowId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the timeflow."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete a timeflow."
+        },
+        {
+          "info": {
+            "name": "Returns the count of TimeFlow snapshots of the Timeflow aggregated by day.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/timeflows/:timeflowId/timeflowSnapshotDayRange",
+            "params": [
+              {
+                "name": "timeflowId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the timeflow."
+              },
+              {
+                "name": "timezone",
+                "value": "",
+                "type": "query",
+                "description": "The timezone in which the snapshot timestamps are to be interpreted. This property gets precedence over timezone_offset. If the timezone in this property is unknown to the application, the timezone_offset is used as fallback to interpret the snapshot timestamps."
+              },
+              {
+                "name": "timezone_offset",
+                "value": "",
+                "type": "query",
+                "description": "The offset in seconds of timezone in which the snapshot timestamps are to be interpreted. This property is used as fallback to interpret the snapshot timestamps if timezone is not valid."
+              }
+            ]
+          },
+          "docs": "Returns the count of TimeFlow snapshots of the Timeflow aggregated by day."
+        },
+        {
+          "info": {
+            "name": "Get tags for a Timeflow.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/timeflows/:timeflowId/tags",
+            "params": [
+              {
+                "name": "timeflowId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the timeflow."
+              }
+            ]
+          },
+          "docs": "Get tags for a Timeflow."
+        },
+        {
+          "info": {
+            "name": "Create tags for a Timeflow.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/timeflows/:timeflowId/tags",
+            "params": [
+              {
+                "name": "timeflowId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the timeflow."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create tags for a Timeflow."
+        },
+        {
+          "info": {
+            "name": "Delete tags for a Timeflow.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/timeflows/:timeflowId/tags/delete",
+            "params": [
+              {
+                "name": "timeflowId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the timeflow."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete tags for a Timeflow."
+        },
+        {
+          "info": {
+            "name": "Search timeflows.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/timeflows/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search timeflows."
+        },
+        {
+          "info": {
+            "name": "Repair a Timeflow.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/timeflows/:timeflowId/repair",
+            "params": [
+              {
+                "name": "timeflowId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the timeflow."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Repair a Timeflow."
+        },
+        {
+          "info": {
+            "name": "Return the provisionable range of each snapshot of the given timeflow.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/timeflows/:timeflowId/timeflow_snapshot_ranges",
+            "params": [
+              {
+                "name": "timeflowId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the timeflow."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Return the provisionable range of each snapshot of the given timeflow."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

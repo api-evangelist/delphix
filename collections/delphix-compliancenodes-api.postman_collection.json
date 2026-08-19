@@ -1,0 +1,999 @@
+{
+  "item": [
+    {
+      "id": "f068de87-dd3d-4984-a2be-df07c27d14be",
+      "name": "ComplianceNodes",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0af1d0da-a22c-4870-a3df-4098cd400957",
+          "name": "get compliance nodes",
+          "request": {
+            "name": "get compliance nodes",
+            "description": {},
+            "url": {
+              "path": [
+                "compliance-nodes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c5844503-9838-4be7-a7e5-e56450f972a5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-nodes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"a1b2c3d4-e5f6-7890-1234-567890abcdef\",\n      \"name\": \"My Compliance Node\",\n      \"hostname\": \"compliance.example.com\",\n      \"insecure_ssl\": false,\n      \"unsafe_ssl_hostname_check\": false,\n      \"username\": \"user1\",\n      \"password\": \"secret\",\n      \"creation_date\": \"2024-06-01T08:51:34.148000+00:00\",\n      \"account_id\": 1,\n      \"account_name\": \"username\",\n      \"status\": \"ONLINE\",\n      \"status_details\": \"Connection successful\",\n      \"job_orchestrator_id\": \"f8e7d6c5-b4a3-2109-8765-43210fedcba9\",\n      \"job_orchestrator_name\": \"Job Orchestrator\",\n      \"core_count\": 8,\n      \"memory_for_jobs\": 16384,\n      \"version\": \"1.0.0\",\n      \"api_version\": \"v1\",\n      \"hyperscale_instance_id\": \"f8e7d6c5-b4a3-2109-8765-43210fedcba9\",\n      \"hyperscale_instance_name\": \"Hyperscale Orchestrator\"\n    },\n    {\n      \"id\": \"a1b2c3d4-e5f6-7890-1234-567890abcdef\",\n      \"name\": \"My Compliance Node\",\n      \"hostname\": \"compliance.example.com\",\n      \"insecure_ssl\": false,\n      \"unsafe_ssl_hostname_check\": false,\n      \"username\": \"user1\",\n      \"password\": \"secret\",\n      \"creation_date\": \"2024-06-01T08:51:34.148000+00:00\",\n      \"account_id\": 1,\n      \"account_name\": \"username\",\n      \"status\": \"ONLINE\",\n      \"status_details\": \"Connection successful\",\n      \"job_orchestrator_id\": \"f8e7d6c5-b4a3-2109-8765-43210fedcba9\",\n      \"job_orchestrator_name\": \"Job Orchestrator\",\n      \"core_count\": 8,\n      \"memory_for_jobs\": 16384,\n      \"version\": \"1.0.0\",\n      \"api_version\": \"v1\",\n      \"hyperscale_instance_id\": \"f8e7d6c5-b4a3-2109-8765-43210fedcba9\",\n      \"hyperscale_instance_name\": \"Hyperscale Orchestrator\"\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 6301\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "683e816d-4f54-43e0-a60e-b3a7125281b8",
+          "name": "Register a compliance node",
+          "request": {
+            "name": "Register a compliance node",
+            "description": {},
+            "url": {
+              "path": [
+                "compliance-nodes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"hostname\": \"<string>\",\n  \"username\": \"<string>\",\n  \"password\": \"<string>\",\n  \"job_orchestrator_id\": \"<string>\",\n  \"insecure_ssl\": false,\n  \"unsafe_ssl_hostname_check\": false,\n  \"hyperscale_instance_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f414adfe-f825-41f3-bcb8-3cc5b21f3e13",
+              "name": "Created Compliance Node.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-nodes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My Compliance Node\",\n  \"hostname\": \"compliance.example.com\",\n  \"username\": \"user1\",\n  \"password\": \"secret\",\n  \"job_orchestrator_id\": \"f8e7d6c5-b4a3-2109-8765-43210fedcba9\",\n  \"insecure_ssl\": false,\n  \"unsafe_ssl_hostname_check\": false,\n  \"hyperscale_instance_id\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 54,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1984-10-13T04:36:56.333Z\",\n        \"end_time\": \"1980-05-07T04:50:57.103Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 7,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1974-04-29T16:22:54.364Z\",\n        \"end_time\": \"2022-02-15T12:33:18.330Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 13,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1986-02-02T03:36:45.951Z\",\n        \"end_time\": \"1984-01-26T12:41:52.824Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 34,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1978-12-02T19:55:18.884Z\",\n        \"end_time\": \"1982-04-18T08:19:37.428Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 33,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "58cdf523-5a6a-4484-a3d1-91308abb74e6",
+          "name": "Search for compliance nodes",
+          "request": {
+            "name": "Search for compliance nodes",
+            "description": {},
+            "url": {
+              "path": [
+                "compliance-nodes",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6e11cb5e-106c-4cba-ad06-e4fa0c8f02b6",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-nodes",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"a1b2c3d4-e5f6-7890-1234-567890abcdef\",\n      \"name\": \"My Compliance Node\",\n      \"hostname\": \"compliance.example.com\",\n      \"insecure_ssl\": false,\n      \"unsafe_ssl_hostname_check\": false,\n      \"username\": \"user1\",\n      \"password\": \"secret\",\n      \"creation_date\": \"2024-06-01T08:51:34.148000+00:00\",\n      \"account_id\": 1,\n      \"account_name\": \"username\",\n      \"status\": \"ONLINE\",\n      \"status_details\": \"Connection successful\",\n      \"job_orchestrator_id\": \"f8e7d6c5-b4a3-2109-8765-43210fedcba9\",\n      \"job_orchestrator_name\": \"Job Orchestrator\",\n      \"core_count\": 8,\n      \"memory_for_jobs\": 16384,\n      \"version\": \"1.0.0\",\n      \"api_version\": \"v1\",\n      \"hyperscale_instance_id\": \"f8e7d6c5-b4a3-2109-8765-43210fedcba9\",\n      \"hyperscale_instance_name\": \"Hyperscale Orchestrator\"\n    },\n    {\n      \"id\": \"a1b2c3d4-e5f6-7890-1234-567890abcdef\",\n      \"name\": \"My Compliance Node\",\n      \"hostname\": \"compliance.example.com\",\n      \"insecure_ssl\": false,\n      \"unsafe_ssl_hostname_check\": false,\n      \"username\": \"user1\",\n      \"password\": \"secret\",\n      \"creation_date\": \"2024-06-01T08:51:34.148000+00:00\",\n      \"account_id\": 1,\n      \"account_name\": \"username\",\n      \"status\": \"ONLINE\",\n      \"status_details\": \"Connection successful\",\n      \"job_orchestrator_id\": \"f8e7d6c5-b4a3-2109-8765-43210fedcba9\",\n      \"job_orchestrator_name\": \"Job Orchestrator\",\n      \"core_count\": 8,\n      \"memory_for_jobs\": 16384,\n      \"version\": \"1.0.0\",\n      \"api_version\": \"v1\",\n      \"hyperscale_instance_id\": \"f8e7d6c5-b4a3-2109-8765-43210fedcba9\",\n      \"hyperscale_instance_name\": \"Hyperscale Orchestrator\"\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 5272\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fe51bb82-cb0d-4b06-9816-3ee638f28de1",
+          "name": "Retrieve a compliance node by ID.",
+          "request": {
+            "name": "Retrieve a compliance node by ID.",
+            "description": {},
+            "url": {
+              "path": [
+                "compliance-nodes",
+                ":complianceNodeId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "complianceNodeId",
+                  "description": "(Required) The ID of the Compliance Node."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "60908a4b-96de-4d8b-a90a-12a9d69482c3",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-nodes",
+                    ":complianceNodeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "complianceNodeId",
+                      "description": "(Required) The ID of the Compliance Node."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"a1b2c3d4-e5f6-7890-1234-567890abcdef\",\n  \"name\": \"My Compliance Node\",\n  \"hostname\": \"compliance.example.com\",\n  \"insecure_ssl\": false,\n  \"unsafe_ssl_hostname_check\": false,\n  \"username\": \"user1\",\n  \"password\": \"secret\",\n  \"creation_date\": \"2024-06-01T08:51:34.148000+00:00\",\n  \"account_id\": 1,\n  \"account_name\": \"username\",\n  \"status\": \"ONLINE\",\n  \"status_details\": \"Connection successful\",\n  \"job_orchestrator_id\": \"f8e7d6c5-b4a3-2109-8765-43210fedcba9\",\n  \"job_orchestrator_name\": \"Job Orchestrator\",\n  \"core_count\": 8,\n  \"memory_for_jobs\": 16384,\n  \"version\": \"1.0.0\",\n  \"api_version\": \"v1\",\n  \"hyperscale_instance_id\": \"f8e7d6c5-b4a3-2109-8765-43210fedcba9\",\n  \"hyperscale_instance_name\": \"Hyperscale Orchestrator\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d4a47521-a8c7-45cc-8579-6ab16f162e1f",
+          "name": "Update a compliance node.",
+          "request": {
+            "name": "Update a compliance node.",
+            "description": {},
+            "url": {
+              "path": [
+                "compliance-nodes",
+                ":complianceNodeId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "complianceNodeId",
+                  "description": "(Required) The ID of the Compliance Node."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"hostname\": \"<string>\",\n  \"username\": \"<string>\",\n  \"password\": \"<string>\",\n  \"insecure_ssl\": \"<boolean>\",\n  \"unsafe_ssl_hostname_check\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4d0373cc-c7a8-4bec-ae6b-ac98d4417175",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-nodes",
+                    ":complianceNodeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "complianceNodeId",
+                      "description": "(Required) The ID of the Compliance Node."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My Compliance Node\",\n  \"hostname\": \"compliance.example.com\",\n  \"username\": \"user1\",\n  \"password\": \"secret\",\n  \"insecure_ssl\": false,\n  \"unsafe_ssl_hostname_check\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 22,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1953-09-01T13:47:25.390Z\",\n        \"end_time\": \"1996-12-13T16:09:08.524Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 11,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"ABANDONED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1990-04-06T23:47:54.001Z\",\n        \"end_time\": \"1949-08-01T14:35:24.918Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 0,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1999-08-30T08:03:01.795Z\",\n        \"end_time\": \"1974-12-17T06:23:16.856Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 97,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2006-02-17T23:05:15.053Z\",\n        \"end_time\": \"2020-12-24T19:25:25.042Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 12,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "34b4175f-f25a-4628-9c6a-9ac238b32b2a",
+          "name": "Delete a compliance node.",
+          "request": {
+            "name": "Delete a compliance node.",
+            "description": {},
+            "url": {
+              "path": [
+                "compliance-nodes",
+                ":complianceNodeId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "complianceNodeId",
+                  "description": "(Required) The ID of the Compliance Node."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5fbe42e7-4879-46e9-b298-f4b4f8ce03cf",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-nodes",
+                    ":complianceNodeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "complianceNodeId",
+                      "description": "(Required) The ID of the Compliance Node."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 89,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2022-07-07T06:37:50.849Z\",\n        \"end_time\": \"1991-05-21T05:01:55.213Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 43,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1990-01-14T01:17:02.242Z\",\n        \"end_time\": \"1996-01-24T10:01:13.779Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 53,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2010-08-21T16:53:18.842Z\",\n        \"end_time\": \"1985-09-17T17:21:38.193Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 70,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2023-10-24T20:28:29.161Z\",\n        \"end_time\": \"1976-10-20T22:11:24.999Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 74,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"PENDING\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "be44f450-5ee1-4263-8bd2-906bb65c7129",
+          "name": "Refresh the logs for a compliance node.",
+          "request": {
+            "name": "Refresh the logs for a compliance node.",
+            "description": {},
+            "url": {
+              "path": [
+                "compliance-nodes",
+                ":complianceNodeId",
+                "refreshLogs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "complianceNodeId",
+                  "description": "(Required) The ID of the Compliance Node."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "47fbcad2-e863-49f1-bf3d-1c2d919075db",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-nodes",
+                    ":complianceNodeId",
+                    "refreshLogs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "complianceNodeId",
+                      "description": "(Required) The ID of the Compliance Node."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 73,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2006-11-12T08:11:27.171Z\",\n        \"end_time\": \"1969-07-27T06:53:06.953Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 69,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2011-12-24T10:14:34.258Z\",\n        \"end_time\": \"2018-02-03T14:05:50.856Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 24,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1984-03-28T17:42:46.433Z\",\n        \"end_time\": \"1984-04-14T07:35:21.906Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 90,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2012-04-15T18:09:58.471Z\",\n        \"end_time\": \"1957-06-06T20:15:36.587Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 96,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d577cfc9-8100-4ac7-815c-66a71ffd148f",
+          "name": "Get log file details for a compliance node.",
+          "request": {
+            "name": "Get log file details for a compliance node.",
+            "description": {},
+            "url": {
+              "path": [
+                "compliance-nodes",
+                ":complianceNodeId",
+                "logs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "complianceNodeId",
+                  "description": "(Required) The ID of the Compliance Node."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0d307c93-17ef-4992-8eb5-fc2a540a19f9",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-nodes",
+                    ":complianceNodeId",
+                    "logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "complianceNodeId",
+                      "description": "(Required) The ID of the Compliance Node."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"file_name\": \"6a88560a-7acb-409b-a0d1-341a2d273489.1768936684438.log\",\n      \"file_download_id\": \"string\"\n    },\n    {\n      \"file_name\": \"6a88560a-7acb-409b-a0d1-341a2d273489.1768936684438.log\",\n      \"file_download_id\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a41d0ae7-67b0-4a28-b102-ccba635ef67d",
+          "name": "Get log content for a compliance node.",
+          "request": {
+            "name": "Get log content for a compliance node.",
+            "description": {},
+            "url": {
+              "path": [
+                "compliance-nodes",
+                ":complianceNodeId",
+                "logs",
+                "content"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "logFileNumber",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<dateTime>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "complianceNodeId",
+                  "description": "(Required) The ID of the Compliance Node."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "454c1ebb-f1ad-42b8-a7e1-87e60d040d92",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-nodes",
+                    ":complianceNodeId",
+                    "logs",
+                    "content"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "logFileNumber",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "complianceNodeId",
+                      "description": "(Required) The ID of the Compliance Node."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"log_page_info\": {\n    \"log_file_number\": 4502,\n    \"next_page_offset\": 2432,\n    \"total_lines\": 265\n  },\n  \"content\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/dct/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "daf5138b-0257-4d8e-8004-66bfbf5df696",
+    "name": "Delphix DCT Algorithms ComplianceNodes API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Delphix DCT API\n\nContact Support:\n Name: Delphix Support\n Email: support@delphix.com",
+      "type": "text/plain"
+    }
+  }
+}

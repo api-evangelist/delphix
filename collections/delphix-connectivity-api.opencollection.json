@@ -1,0 +1,86 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms Connectivity API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Connectivity",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Checks connectivity between an engine and a remote host machine on a given port.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/connectivity/check",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Checks connectivity between an engine and a remote host machine on a given port."
+        },
+        {
+          "info": {
+            "name": "Tests the validity of the supplied database credentials, returning an error if unable to connect to the database.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/database/connectivity/check",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Tests the validity of the supplied database credentials, returning an error if unable to connect to the database."
+        },
+        {
+          "info": {
+            "name": "Checks whether the specified NetBackup master server and client are able to communicate on the given environment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/netbackup/connectivity/check",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Checks whether the specified NetBackup master server and client are able to communicate on the given environment."
+        },
+        {
+          "info": {
+            "name": "Tests whether the CommServe host is accessible from the given environment and Commvault agent.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/commvault/connectivity/check",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Tests whether the CommServe host is accessible from the given environment and Commvault agent."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

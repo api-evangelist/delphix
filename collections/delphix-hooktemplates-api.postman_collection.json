@@ -1,0 +1,1035 @@
+{
+  "item": [
+    {
+      "id": "31a5c7e3-e58d-495f-a8e3-7e3b6e558dd4",
+      "name": "HookTemplates",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5727f61e-01b3-420c-8f0c-0aed95e22c59",
+          "name": "Fetch a list of all hook templates",
+          "request": {
+            "name": "Fetch a list of all hook templates",
+            "description": {},
+            "url": {
+              "path": [
+                "hook-templates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a3ea5f8e-5207-4321-9398-219ea5120aa3",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hook-templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"dct_managed\": true,\n      \"description\": \"string\",\n      \"shell\": \"bash\",\n      \"command\": \"string\",\n      \"credentials_env_vars\": [\n        {\n          \"base_var_name\": \"string\",\n          \"password\": \"password\",\n          \"vault_username\": \"my-vault\",\n          \"vault\": \"1-VAULT-1\",\n          \"hashicorp_vault_engine\": \"kv\",\n          \"hashicorp_vault_secret_path\": \"oracle-env\",\n          \"hashicorp_vault_username_key\": \"username\",\n          \"hashicorp_vault_secret_key\": \"secret\",\n          \"azure_vault_name\": \"azure_vault\",\n          \"azure_vault_username_key\": \"username\",\n          \"azure_vault_secret_key\": \"secret\",\n          \"cyberark_vault_query_string\": \"Safe=Test;Folder=Test;Object=Test\",\n          \"credential_type\": \"PasswordCredential\",\n          \"element_id\": \"string\",\n          \"type\": \"CredentialsEnvVars\"\n        },\n        {\n          \"base_var_name\": \"string\",\n          \"password\": \"password\",\n          \"vault_username\": \"my-vault\",\n          \"vault\": \"1-VAULT-1\",\n          \"hashicorp_vault_engine\": \"kv\",\n          \"hashicorp_vault_secret_path\": \"oracle-env\",\n          \"hashicorp_vault_username_key\": \"username\",\n          \"hashicorp_vault_secret_key\": \"secret\",\n          \"azure_vault_name\": \"azure_vault\",\n          \"azure_vault_username_key\": \"username\",\n          \"azure_vault_secret_key\": \"secret\",\n          \"cyberark_vault_query_string\": \"Safe=Test;Folder=Test;Object=Test\",\n          \"credential_type\": \"PasswordCredential\",\n          \"element_id\": \"stri\",\n          \"type\": \"CredentialsEnvVars\"\n        }\n      ],\n      \"engine_id\": \"string\",\n      \"compatible_engine_id\": \"string\",\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"dct_managed\": false,\n      \"description\": \"string\",\n      \"shell\": \"bash\",\n      \"command\": \"string\",\n      \"credentials_env_vars\": [\n        {\n          \"base_var_name\": \"string\",\n          \"password\": \"password\",\n          \"vault_username\": \"my-vault\",\n          \"vault\": \"1-VAULT-1\",\n          \"hashicorp_vault_engine\": \"kv\",\n          \"hashicorp_vault_secret_path\": \"oracle-env\",\n          \"hashicorp_vault_username_key\": \"username\",\n          \"hashicorp_vault_secret_key\": \"secret\",\n          \"azure_vault_name\": \"azure_vault\",\n          \"azure_vault_username_key\": \"username\",\n          \"azure_vault_secret_key\": \"secret\",\n          \"cyberark_vault_query_string\": \"Safe=Test;Folder=Test;Object=Test\",\n          \"credential_type\": \"PasswordCredential\",\n          \"element_id\": \"string\",\n          \"type\": \"CredentialsEnvVars\"\n        },\n        {\n          \"base_var_name\": \"string\",\n          \"password\": \"password\",\n          \"vault_username\": \"my-vault\",\n          \"vault\": \"1-VAULT-1\",\n          \"hashicorp_vault_engine\": \"kv\",\n          \"hashicorp_vault_secret_path\": \"oracle-env\",\n          \"hashicorp_vault_username_key\": \"username\",\n          \"hashicorp_vault_secret_key\": \"secret\",\n          \"azure_vault_name\": \"azure_vault\",\n          \"azure_vault_username_key\": \"username\",\n          \"azure_vault_secret_key\": \"secret\",\n          \"cyberark_vault_query_string\": \"Safe=Test;Folder=Test;Object=Test\",\n          \"credential_type\": \"PasswordCredential\",\n          \"element_id\": \"string\",\n          \"type\": \"CredentialsEnvVars\"\n        }\n      ],\n      \"engine_id\": \"string\",\n      \"compatible_engine_id\": \"string\",\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 3217\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bd44f0fb-a3cd-4067-b8d0-7df4ac5d87df",
+          "name": "Create a Hook Template.",
+          "request": {
+            "name": "Create a Hook Template.",
+            "description": {},
+            "url": {
+              "path": [
+                "hook-templates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"command\": \"<string>\",\n  \"description\": \"<string>\",\n  \"shell\": \"bash\",\n  \"credentials_env_vars\": [\n    {\n      \"base_var_name\": \"<string>\",\n      \"password\": \"<string>\",\n      \"vault_username\": \"<string>\",\n      \"vault\": \"<string>\",\n      \"hashicorp_vault_engine\": \"<string>\",\n      \"hashicorp_vault_secret_path\": \"<string>\",\n      \"hashicorp_vault_username_key\": \"<string>\",\n      \"hashicorp_vault_secret_key\": \"<string>\",\n      \"azure_vault_name\": \"<string>\",\n      \"azure_vault_username_key\": \"<string>\",\n      \"azure_vault_secret_key\": \"<string>\",\n      \"cyberark_vault_query_string\": \"<string>\",\n      \"credential_type\": \"<string>\",\n      \"element_id\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"base_var_name\": \"<string>\",\n      \"password\": \"<string>\",\n      \"vault_username\": \"<string>\",\n      \"vault\": \"<string>\",\n      \"hashicorp_vault_engine\": \"<string>\",\n      \"hashicorp_vault_secret_path\": \"<string>\",\n      \"hashicorp_vault_username_key\": \"<string>\",\n      \"hashicorp_vault_secret_key\": \"<string>\",\n      \"azure_vault_name\": \"<string>\",\n      \"azure_vault_username_key\": \"<string>\",\n      \"azure_vault_secret_key\": \"<string>\",\n      \"cyberark_vault_query_string\": \"<string>\",\n      \"credential_type\": \"<string>\",\n      \"element_id\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1fe64c61-d5b7-486b-b291-0647bc243404",
+              "name": "Hook Template created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hook-templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Hook Template 1\",\n  \"command\": \"<string>\",\n  \"description\": \"<string>\",\n  \"shell\": \"bash\",\n  \"credentials_env_vars\": [\n    {\n      \"base_var_name\": \"<string>\",\n      \"password\": \"password\",\n      \"vault_username\": \"my-vault\",\n      \"vault\": \"1-VAULT-1\",\n      \"hashicorp_vault_engine\": \"kv\",\n      \"hashicorp_vault_secret_path\": \"oracle-env\",\n      \"hashicorp_vault_username_key\": \"username\",\n      \"hashicorp_vault_secret_key\": \"secret\",\n      \"azure_vault_name\": \"azure_vault\",\n      \"azure_vault_username_key\": \"username\",\n      \"azure_vault_secret_key\": \"secret\",\n      \"cyberark_vault_query_string\": \"Safe=Test;Folder=Test;Object=Test\",\n      \"credential_type\": \"PasswordCredential\",\n      \"element_id\": \"<string>\",\n      \"type\": \"CredentialsEnvVars\"\n    },\n    {\n      \"base_var_name\": \"<string>\",\n      \"password\": \"password\",\n      \"vault_username\": \"my-vault\",\n      \"vault\": \"1-VAULT-1\",\n      \"hashicorp_vault_engine\": \"kv\",\n      \"hashicorp_vault_secret_path\": \"oracle-env\",\n      \"hashicorp_vault_username_key\": \"username\",\n      \"hashicorp_vault_secret_key\": \"secret\",\n      \"azure_vault_name\": \"azure_vault\",\n      \"azure_vault_username_key\": \"username\",\n      \"azure_vault_secret_key\": \"secret\",\n      \"cyberark_vault_query_string\": \"Safe=Test;Folder=Test;Object=Test\",\n      \"credential_type\": \"PasswordCredential\",\n      \"element_id\": \"<string>\",\n      \"type\": \"CredentialsEnvVars\"\n    }\n  ],\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 23,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2026-03-18T19:17:55.528Z\",\n        \"end_time\": \"1959-11-03T10:21:49.283Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 14,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1999-10-29T22:45:52.545Z\",\n        \"end_time\": \"1953-09-21T02:27:45.543Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 27,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1999-10-04T23:23:07.919Z\",\n        \"end_time\": \"2019-12-01T07:22:59.933Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 95,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"ABANDONED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1989-12-04T03:00:58.326Z\",\n        \"end_time\": \"2003-07-31T01:38:23.274Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 59,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"COMPLETED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  },\n  \"hook_template\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"dct_managed\": true,\n    \"description\": \"string\",\n    \"shell\": \"bash\",\n    \"command\": \"string\",\n    \"credentials_env_vars\": [\n      {\n        \"base_var_name\": \"<string>\",\n        \"password\": \"password\",\n        \"vault_username\": \"my-vault\",\n        \"vault\": \"1-VAULT-1\",\n        \"hashicorp_vault_engine\": \"kv\",\n        \"hashicorp_vault_secret_path\": \"oracle-env\",\n        \"hashicorp_vault_username_key\": \"username\",\n        \"hashicorp_vault_secret_key\": \"secret\",\n        \"azure_vault_name\": \"azure_vault\",\n        \"azure_vault_username_key\": \"username\",\n        \"azure_vault_secret_key\": \"secret\",\n        \"cyberark_vault_query_string\": \"Safe=Test;Folder=Test;Object=Test\",\n        \"credential_type\": \"PasswordCredential\",\n        \"element_id\": \"<string>\",\n        \"type\": \"CredentialsEnvVars\"\n      },\n      {\n        \"base_var_name\": \"<string>\",\n        \"password\": \"password\",\n        \"vault_username\": \"my-vault\",\n        \"vault\": \"1-VAULT-1\",\n        \"hashicorp_vault_engine\": \"kv\",\n        \"hashicorp_vault_secret_path\": \"oracle-env\",\n        \"hashicorp_vault_username_key\": \"username\",\n        \"hashicorp_vault_secret_key\": \"secret\",\n        \"azure_vault_name\": \"azure_vault\",\n        \"azure_vault_username_key\": \"username\",\n        \"azure_vault_secret_key\": \"secret\",\n        \"cyberark_vault_query_string\": \"Safe=Test;Folder=Test;Object=Test\",\n        \"credential_type\": \"PasswordCredential\",\n        \"element_id\": \"<string>\",\n        \"type\": \"CredentialsEnvVars\"\n      }\n    ],\n    \"engine_id\": \"string\",\n    \"compatible_engine_id\": \"string\",\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1e35293c-6abf-4e9e-b996-c00a4b37f87a",
+          "name": "Fetch Hook Template by ID",
+          "request": {
+            "name": "Fetch Hook Template by ID",
+            "description": {},
+            "url": {
+              "path": [
+                "hook-templates",
+                ":hookTemplateId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hookTemplateId",
+                  "description": "(Required) The ID of the Hook Template."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8628e4c3-c19c-4402-bc31-547359173a2a",
+              "name": "Returns a single hook template",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hook-templates",
+                    ":hookTemplateId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hookTemplateId",
+                      "description": "(Required) The ID of the Hook Template."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"dct_managed\": true,\n  \"description\": \"string\",\n  \"shell\": \"bash\",\n  \"command\": \"string\",\n  \"credentials_env_vars\": [\n    {\n      \"base_var_name\": \"<string>\",\n      \"password\": \"password\",\n      \"vault_username\": \"my-vault\",\n      \"vault\": \"1-VAULT-1\",\n      \"hashicorp_vault_engine\": \"kv\",\n      \"hashicorp_vault_secret_path\": \"oracle-env\",\n      \"hashicorp_vault_username_key\": \"username\",\n      \"hashicorp_vault_secret_key\": \"secret\",\n      \"azure_vault_name\": \"azure_vault\",\n      \"azure_vault_username_key\": \"username\",\n      \"azure_vault_secret_key\": \"secret\",\n      \"cyberark_vault_query_string\": \"Safe=Test;Folder=Test;Object=Test\",\n      \"credential_type\": \"PasswordCredential\",\n      \"element_id\": \"<string>\",\n      \"type\": \"CredentialsEnvVars\"\n    },\n    {\n      \"base_var_name\": \"<string>\",\n      \"password\": \"password\",\n      \"vault_username\": \"my-vault\",\n      \"vault\": \"1-VAULT-1\",\n      \"hashicorp_vault_engine\": \"kv\",\n      \"hashicorp_vault_secret_path\": \"oracle-env\",\n      \"hashicorp_vault_username_key\": \"username\",\n      \"hashicorp_vault_secret_key\": \"secret\",\n      \"azure_vault_name\": \"azure_vault\",\n      \"azure_vault_username_key\": \"username\",\n      \"azure_vault_secret_key\": \"secret\",\n      \"cyberark_vault_query_string\": \"Safe=Test;Folder=Test;Object=Test\",\n      \"credential_type\": \"PasswordCredential\",\n      \"element_id\": \"<string>\",\n      \"type\": \"CredentialsEnvVars\"\n    }\n  ],\n  \"engine_id\": \"string\",\n  \"compatible_engine_id\": \"string\",\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f2564a00-ac2c-417b-ba0e-a145ca7c5bc3",
+              "name": "Hook template not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hook-templates",
+                    ":hookTemplateId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hookTemplateId",
+                      "description": "(Required) The ID of the Hook Template."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1b0b3e8c-770a-48e0-816a-e32467245ba8",
+          "name": "Delete a Hook Template.",
+          "request": {
+            "name": "Delete a Hook Template.",
+            "description": {},
+            "url": {
+              "path": [
+                "hook-templates",
+                ":hookTemplateId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hookTemplateId",
+                  "description": "(Required) The ID of the Hook Template."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f0dda57a-ee74-41fa-93f0-22d2728618f5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hook-templates",
+                    ":hookTemplateId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hookTemplateId",
+                      "description": "(Required) The ID of the Hook Template."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 39,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1978-01-26T12:00:07.479Z\",\n        \"end_time\": \"1966-01-16T14:40:51.132Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 42,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1964-01-19T15:11:19.374Z\",\n        \"end_time\": \"1951-04-26T19:51:38.510Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 22,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2010-08-24T10:54:59.168Z\",\n        \"end_time\": \"1964-05-01T02:43:50.496Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 6,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1978-09-10T09:08:33.007Z\",\n        \"end_time\": \"2008-02-19T13:13:25.574Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 39,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"FAILED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5e682db8-ac61-4790-a326-01cda1713ea0",
+          "name": "Update a Hook Template.",
+          "request": {
+            "name": "Update a Hook Template.",
+            "description": {},
+            "url": {
+              "path": [
+                "hook-templates",
+                ":hookTemplateId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hookTemplateId",
+                  "description": "(Required) The ID of the Hook Template."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"shell\": \"bash\",\n  \"command\": \"<string>\",\n  \"credentials_env_vars\": [\n    {\n      \"base_var_name\": \"<string>\",\n      \"password\": \"<string>\",\n      \"vault_username\": \"<string>\",\n      \"vault\": \"<string>\",\n      \"hashicorp_vault_engine\": \"<string>\",\n      \"hashicorp_vault_secret_path\": \"<string>\",\n      \"hashicorp_vault_username_key\": \"<string>\",\n      \"hashicorp_vault_secret_key\": \"<string>\",\n      \"azure_vault_name\": \"<string>\",\n      \"azure_vault_username_key\": \"<string>\",\n      \"azure_vault_secret_key\": \"<string>\",\n      \"cyberark_vault_query_string\": \"<string>\",\n      \"credential_type\": \"<string>\",\n      \"element_id\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"base_var_name\": \"<string>\",\n      \"password\": \"<string>\",\n      \"vault_username\": \"<string>\",\n      \"vault\": \"<string>\",\n      \"hashicorp_vault_engine\": \"<string>\",\n      \"hashicorp_vault_secret_path\": \"<string>\",\n      \"hashicorp_vault_username_key\": \"<string>\",\n      \"hashicorp_vault_secret_key\": \"<string>\",\n      \"azure_vault_name\": \"<string>\",\n      \"azure_vault_username_key\": \"<string>\",\n      \"azure_vault_secret_key\": \"<string>\",\n      \"cyberark_vault_query_string\": \"<string>\",\n      \"credential_type\": \"<string>\",\n      \"element_id\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ef049baa-896c-41c8-8ff8-0ea515745400",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hook-templates",
+                    ":hookTemplateId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hookTemplateId",
+                      "description": "(Required) The ID of the Hook Template."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Hook Template 1\",\n  \"description\": \"<string>\",\n  \"shell\": \"bash\",\n  \"command\": \"<string>\",\n  \"credentials_env_vars\": [\n    {\n      \"base_var_name\": \"<string>\",\n      \"password\": \"password\",\n      \"vault_username\": \"my-vault\",\n      \"vault\": \"1-VAULT-1\",\n      \"hashicorp_vault_engine\": \"kv\",\n      \"hashicorp_vault_secret_path\": \"oracle-env\",\n      \"hashicorp_vault_username_key\": \"username\",\n      \"hashicorp_vault_secret_key\": \"secret\",\n      \"azure_vault_name\": \"azure_vault\",\n      \"azure_vault_username_key\": \"username\",\n      \"azure_vault_secret_key\": \"secret\",\n      \"cyberark_vault_query_string\": \"Safe=Test;Folder=Test;Object=Test\",\n      \"credential_type\": \"PasswordCredential\",\n      \"element_id\": \"<string>\",\n      \"type\": \"CredentialsEnvVars\"\n    },\n    {\n      \"base_var_name\": \"<string>\",\n      \"password\": \"password\",\n      \"vault_username\": \"my-vault\",\n      \"vault\": \"1-VAULT-1\",\n      \"hashicorp_vault_engine\": \"kv\",\n      \"hashicorp_vault_secret_path\": \"oracle-env\",\n      \"hashicorp_vault_username_key\": \"username\",\n      \"hashicorp_vault_secret_key\": \"secret\",\n      \"azure_vault_name\": \"azure_vault\",\n      \"azure_vault_username_key\": \"username\",\n      \"azure_vault_secret_key\": \"secret\",\n      \"cyberark_vault_query_string\": \"Safe=Test;Folder=Test;Object=Test\",\n      \"credential_type\": \"PasswordCredential\",\n      \"element_id\": \"<string>\",\n      \"type\": \"CredentialsEnvVars\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 38,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1993-08-18T11:41:34.346Z\",\n        \"end_time\": \"1950-10-26T12:53:43.927Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 3,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1996-12-20T09:22:22.715Z\",\n        \"end_time\": \"2002-09-27T18:13:35.436Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 18,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1989-04-15T14:45:22.861Z\",\n        \"end_time\": \"2001-02-16T00:49:29.675Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 77,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1968-05-27T02:18:53.387Z\",\n        \"end_time\": \"1992-04-11T13:55:04.238Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 40,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  },\n  \"hook_template\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"dct_managed\": true,\n    \"description\": \"string\",\n    \"shell\": \"bash\",\n    \"command\": \"string\",\n    \"credentials_env_vars\": [\n      {\n        \"base_var_name\": \"<string>\",\n        \"password\": \"password\",\n        \"vault_username\": \"my-vault\",\n        \"vault\": \"1-VAULT-1\",\n        \"hashicorp_vault_engine\": \"kv\",\n        \"hashicorp_vault_secret_path\": \"oracle-env\",\n        \"hashicorp_vault_username_key\": \"username\",\n        \"hashicorp_vault_secret_key\": \"secret\",\n        \"azure_vault_name\": \"azure_vault\",\n        \"azure_vault_username_key\": \"username\",\n        \"azure_vault_secret_key\": \"secret\",\n        \"cyberark_vault_query_string\": \"Safe=Test;Folder=Test;Object=Test\",\n        \"credential_type\": \"PasswordCredential\",\n        \"element_id\": \"<string>\",\n        \"type\": \"CredentialsEnvVars\"\n      },\n      {\n        \"base_var_name\": \"<string>\",\n        \"password\": \"password\",\n        \"vault_username\": \"my-vault\",\n        \"vault\": \"1-VAULT-1\",\n        \"hashicorp_vault_engine\": \"kv\",\n        \"hashicorp_vault_secret_path\": \"oracle-env\",\n        \"hashicorp_vault_username_key\": \"username\",\n        \"hashicorp_vault_secret_key\": \"secret\",\n        \"azure_vault_name\": \"azure_vault\",\n        \"azure_vault_username_key\": \"username\",\n        \"azure_vault_secret_key\": \"secret\",\n        \"cyberark_vault_query_string\": \"Safe=Test;Folder=Test;Object=Test\",\n        \"credential_type\": \"PasswordCredential\",\n        \"element_id\": \"<string>\",\n        \"type\": \"CredentialsEnvVars\"\n      }\n    ],\n    \"engine_id\": \"string\",\n    \"compatible_engine_id\": \"string\",\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a0bc0c4b-6e02-4c8f-99d4-3b7ff32cced6",
+          "name": "Search Hook Templates.",
+          "request": {
+            "name": "Search Hook Templates.",
+            "description": {},
+            "url": {
+              "path": [
+                "hook-templates",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "912e077a-f62f-4cf6-990d-64764b87726e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hook-templates",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"dct_managed\": true,\n      \"description\": \"string\",\n      \"shell\": \"bash\",\n      \"command\": \"string\",\n      \"credentials_env_vars\": [\n        {\n          \"base_var_name\": \"<string>\",\n          \"password\": \"password\",\n          \"vault_username\": \"my-vault\",\n          \"vault\": \"1-VAULT-1\",\n          \"hashicorp_vault_engine\": \"kv\",\n          \"hashicorp_vault_secret_path\": \"oracle-env\",\n          \"hashicorp_vault_username_key\": \"username\",\n          \"hashicorp_vault_secret_key\": \"secret\",\n          \"azure_vault_name\": \"azure_vault\",\n          \"azure_vault_username_key\": \"username\",\n          \"azure_vault_secret_key\": \"secret\",\n          \"cyberark_vault_query_string\": \"Safe=Test;Folder=Test;Object=Test\",\n          \"credential_type\": \"PasswordCredential\",\n          \"element_id\": \"<string>\",\n          \"type\": \"CredentialsEnvVars\"\n        },\n        {\n          \"base_var_name\": \"<string>\",\n          \"password\": \"password\",\n          \"vault_username\": \"my-vault\",\n          \"vault\": \"1-VAULT-1\",\n          \"hashicorp_vault_engine\": \"kv\",\n          \"hashicorp_vault_secret_path\": \"oracle-env\",\n          \"hashicorp_vault_username_key\": \"username\",\n          \"hashicorp_vault_secret_key\": \"secret\",\n          \"azure_vault_name\": \"azure_vault\",\n          \"azure_vault_username_key\": \"username\",\n          \"azure_vault_secret_key\": \"secret\",\n          \"cyberark_vault_query_string\": \"Safe=Test;Folder=Test;Object=Test\",\n          \"credential_type\": \"PasswordCredential\",\n          \"element_id\": \"<string>\",\n          \"type\": \"CredentialsEnvVars\"\n        }\n      ],\n      \"engine_id\": \"string\",\n      \"compatible_engine_id\": \"string\",\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"dct_managed\": true,\n      \"description\": \"string\",\n      \"shell\": \"bash\",\n      \"command\": \"string\",\n      \"credentials_env_vars\": [\n        {\n          \"base_var_name\": \"<string>\",\n          \"password\": \"password\",\n          \"vault_username\": \"my-vault\",\n          \"vault\": \"1-VAULT-1\",\n          \"hashicorp_vault_engine\": \"kv\",\n          \"hashicorp_vault_secret_path\": \"oracle-env\",\n          \"hashicorp_vault_username_key\": \"username\",\n          \"hashicorp_vault_secret_key\": \"secret\",\n          \"azure_vault_name\": \"azure_vault\",\n          \"azure_vault_username_key\": \"username\",\n          \"azure_vault_secret_key\": \"secret\",\n          \"cyberark_vault_query_string\": \"Safe=Test;Folder=Test;Object=Test\",\n          \"credential_type\": \"PasswordCredential\",\n          \"element_id\": \"<string>\",\n          \"type\": \"CredentialsEnvVars\"\n        },\n        {\n          \"base_var_name\": \"<string>\",\n          \"password\": \"password\",\n          \"vault_username\": \"my-vault\",\n          \"vault\": \"1-VAULT-1\",\n          \"hashicorp_vault_engine\": \"kv\",\n          \"hashicorp_vault_secret_path\": \"oracle-env\",\n          \"hashicorp_vault_username_key\": \"username\",\n          \"hashicorp_vault_secret_key\": \"secret\",\n          \"azure_vault_name\": \"azure_vault\",\n          \"azure_vault_username_key\": \"username\",\n          \"azure_vault_secret_key\": \"secret\",\n          \"cyberark_vault_query_string\": \"Safe=Test;Folder=Test;Object=Test\",\n          \"credential_type\": \"PasswordCredential\",\n          \"element_id\": \"<string>\",\n          \"type\": \"CredentialsEnvVars\"\n        }\n      ],\n      \"engine_id\": \"string\",\n      \"compatible_engine_id\": \"string\",\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 9470\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "20002fa1-5eb0-475c-b6f8-8cc844b28904",
+          "name": "Create tags for a Hook Template.",
+          "request": {
+            "name": "Create tags for a Hook Template.",
+            "description": {},
+            "url": {
+              "path": [
+                "hook-templates",
+                ":hookTemplateId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hookTemplateId",
+                  "description": "(Required) The ID of the Hook Template."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "27a97190-4bc1-47d7-98d6-fcdbeeaf3ab8",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hook-templates",
+                    ":hookTemplateId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hookTemplateId",
+                      "description": "(Required) The ID of the Hook Template."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0d67ade3-5977-4dcb-af77-4e767377d26d",
+          "name": "Get tags for a Hook Template.",
+          "request": {
+            "name": "Get tags for a Hook Template.",
+            "description": {},
+            "url": {
+              "path": [
+                "hook-templates",
+                ":hookTemplateId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hookTemplateId",
+                  "description": "(Required) The ID of the Hook Template."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1a53dd3d-a3bb-4bde-9225-1b88480e8ba3",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hook-templates",
+                    ":hookTemplateId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hookTemplateId",
+                      "description": "(Required) The ID of the Hook Template."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a9bbca19-9942-405e-ad9f-9673ea2971bb",
+          "name": "Delete tags for a Hook Template.",
+          "request": {
+            "name": "Delete tags for a Hook Template.",
+            "description": {},
+            "url": {
+              "path": [
+                "hook-templates",
+                ":hookTemplateId",
+                "tags",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hookTemplateId",
+                  "description": "(Required) The ID of the Hook Template."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key\": \"<string>\",\n  \"value\": \"<string>\",\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5a5b4218-9962-464b-a493-f411ea5c4c84",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hook-templates",
+                    ":hookTemplateId",
+                    "tags",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hookTemplateId",
+                      "description": "(Required) The ID of the Hook Template."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/dct/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "90c5bc2f-89c9-4661-a2b0-686f746b6b68",
+    "name": "Delphix DCT Algorithms HookTemplates API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Delphix DCT API\n\nContact Support:\n Name: Delphix Support\n Email: support@delphix.com",
+      "type": "text/plain"
+    }
+  }
+}

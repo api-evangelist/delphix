@@ -1,0 +1,487 @@
+{
+  "item": [
+    {
+      "id": "e934b19a-e185-4cff-ba94-925135d688b3",
+      "name": "JobCollectionExecutions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4dc50f37-7292-44cb-826d-b44c9fccab7b",
+          "name": "Retrieve the list of compliance job collection executions.",
+          "request": {
+            "name": "Retrieve the list of compliance job collection executions.",
+            "description": {},
+            "url": {
+              "path": [
+                "job-collection-executions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ce35d396-3e17-47df-baed-01e8ef17764e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "job-collection-executions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "start_time"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"414ed52c-fa89-455d-9fb9-9c2fa5115f80\",\n      \"compliance_job_collection_id\": \"5ed2357d-21a7-310c-b951-a0f0edc1a0f6\",\n      \"compliance_job_collection_name\": \"My Job Collection\",\n      \"status\": \"RUNNING\",\n      \"status_reason\": \"JOB_MISSING\",\n      \"start_time\": \"2021-05-01T09:51:34.148000+00:00\",\n      \"end_time\": \"2021-05-01T09:55:34.148000+00:00\",\n      \"run_duration\": 4000,\n      \"actual_execution_count\": 5,\n      \"planned_execution_count\": 7,\n      \"rows_processed\": 1000,\n      \"rows_total\": 5000,\n      \"bytes_processed\": 500,\n      \"bytes_total\": 5000000,\n      \"processed_tables_files_count\": 5,\n      \"tables_files_count\": 10,\n      \"processed_columns_fields_count\": 50,\n      \"columns_fields_count\": 100,\n      \"percent_complete\": 20,\n      \"execute_account_id\": 3,\n      \"execute_account_name\": \"John Doe\",\n      \"cancel_account_id\": 3,\n      \"cancel_account_name\": \"John Doe\"\n    },\n    {\n      \"id\": \"414ed52c-fa89-455d-9fb9-9c2fa5115f80\",\n      \"compliance_job_collection_id\": \"5ed2357d-21a7-310c-b951-a0f0edc1a0f6\",\n      \"compliance_job_collection_name\": \"My Job Collection\",\n      \"status\": \"RUNNING\",\n      \"status_reason\": \"JOB_MISSING\",\n      \"start_time\": \"2021-05-01T09:51:34.148000+00:00\",\n      \"end_time\": \"2021-05-01T09:55:34.148000+00:00\",\n      \"run_duration\": 4000,\n      \"actual_execution_count\": 5,\n      \"planned_execution_count\": 7,\n      \"rows_processed\": 1000,\n      \"rows_total\": 5000,\n      \"bytes_processed\": 500,\n      \"bytes_total\": 5000000,\n      \"processed_tables_files_count\": 5,\n      \"tables_files_count\": 10,\n      \"processed_columns_fields_count\": 50,\n      \"columns_fields_count\": 100,\n      \"percent_complete\": 20,\n      \"execute_account_id\": 3,\n      \"execute_account_name\": \"John Doe\",\n      \"cancel_account_id\": 3,\n      \"cancel_account_name\": \"John Doe\"\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 8861\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3bdbeed4-7b3a-4b81-a09d-0ba6a576602d",
+          "name": "Search compliance job collection executions.",
+          "request": {
+            "name": "Search compliance job collection executions.",
+            "description": {},
+            "url": {
+              "path": [
+                "job-collection-executions",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9fcc8cb1-e507-45f4-b140-bd9f8cc66829",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "job-collection-executions",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "start_time"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"414ed52c-fa89-455d-9fb9-9c2fa5115f80\",\n      \"compliance_job_collection_id\": \"5ed2357d-21a7-310c-b951-a0f0edc1a0f6\",\n      \"compliance_job_collection_name\": \"My Job Collection\",\n      \"status\": \"RUNNING\",\n      \"status_reason\": \"JOB_MISSING\",\n      \"start_time\": \"2021-05-01T09:51:34.148000+00:00\",\n      \"end_time\": \"2021-05-01T09:55:34.148000+00:00\",\n      \"run_duration\": 4000,\n      \"actual_execution_count\": 5,\n      \"planned_execution_count\": 7,\n      \"rows_processed\": 1000,\n      \"rows_total\": 5000,\n      \"bytes_processed\": 500,\n      \"bytes_total\": 5000000,\n      \"processed_tables_files_count\": 5,\n      \"tables_files_count\": 10,\n      \"processed_columns_fields_count\": 50,\n      \"columns_fields_count\": 100,\n      \"percent_complete\": 20,\n      \"execute_account_id\": 3,\n      \"execute_account_name\": \"John Doe\",\n      \"cancel_account_id\": 3,\n      \"cancel_account_name\": \"John Doe\"\n    },\n    {\n      \"id\": \"414ed52c-fa89-455d-9fb9-9c2fa5115f80\",\n      \"compliance_job_collection_id\": \"5ed2357d-21a7-310c-b951-a0f0edc1a0f6\",\n      \"compliance_job_collection_name\": \"My Job Collection\",\n      \"status\": \"RUNNING\",\n      \"status_reason\": \"JOB_MISSING\",\n      \"start_time\": \"2021-05-01T09:51:34.148000+00:00\",\n      \"end_time\": \"2021-05-01T09:55:34.148000+00:00\",\n      \"run_duration\": 4000,\n      \"actual_execution_count\": 5,\n      \"planned_execution_count\": 7,\n      \"rows_processed\": 1000,\n      \"rows_total\": 5000,\n      \"bytes_processed\": 500,\n      \"bytes_total\": 5000000,\n      \"processed_tables_files_count\": 5,\n      \"tables_files_count\": 10,\n      \"processed_columns_fields_count\": 50,\n      \"columns_fields_count\": 100,\n      \"percent_complete\": 20,\n      \"execute_account_id\": 3,\n      \"execute_account_name\": \"John Doe\",\n      \"cancel_account_id\": 3,\n      \"cancel_account_name\": \"John Doe\"\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 2280\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "93b8406f-4497-4327-846b-2eb5e6f3d368",
+          "name": "Retrieve a compliance job collection execution by ID.",
+          "request": {
+            "name": "Retrieve a compliance job collection execution by ID.",
+            "description": {},
+            "url": {
+              "path": [
+                "job-collection-executions",
+                ":jobCollectionExecutionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobCollectionExecutionId",
+                  "description": "(Required) The ID of the job collection execution."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cc95e2d2-5082-47fd-b99f-3c17b3d11bca",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "job-collection-executions",
+                    ":jobCollectionExecutionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobCollectionExecutionId",
+                      "description": "(Required) The ID of the job collection execution."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"414ed52c-fa89-455d-9fb9-9c2fa5115f80\",\n  \"compliance_job_collection_id\": \"5ed2357d-21a7-310c-b951-a0f0edc1a0f6\",\n  \"compliance_job_collection_name\": \"My Job Collection\",\n  \"status\": \"RUNNING\",\n  \"status_reason\": \"JOB_MISSING\",\n  \"start_time\": \"2021-05-01T09:51:34.148000+00:00\",\n  \"end_time\": \"2021-05-01T09:55:34.148000+00:00\",\n  \"run_duration\": 4000,\n  \"actual_execution_count\": 5,\n  \"planned_execution_count\": 7,\n  \"rows_processed\": 1000,\n  \"rows_total\": 5000,\n  \"bytes_processed\": 500,\n  \"bytes_total\": 5000000,\n  \"processed_tables_files_count\": 5,\n  \"tables_files_count\": 10,\n  \"processed_columns_fields_count\": 50,\n  \"columns_fields_count\": 100,\n  \"percent_complete\": 20,\n  \"execute_account_id\": 3,\n  \"execute_account_name\": \"John Doe\",\n  \"cancel_account_id\": 3,\n  \"cancel_account_name\": \"John Doe\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "49da57fe-12f3-4727-93b9-48c51839bddb",
+          "name": "Cancel a compliance job collection execution. This operation is asynchronous is not complete until the collection execution is marked cancelled.",
+          "request": {
+            "name": "Cancel a compliance job collection execution. This operation is asynchronous is not complete until the collection execution is marked cancelled.",
+            "description": {},
+            "url": {
+              "path": [
+                "job-collection-executions",
+                ":jobCollectionExecutionId",
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobCollectionExecutionId",
+                  "description": "(Required) The ID of the job collection execution."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "58b8792a-a7e9-44f0-8ae6-d913c0a32f70",
+              "name": "Job collection execution cancel initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "job-collection-executions",
+                    ":jobCollectionExecutionId",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobCollectionExecutionId",
+                      "description": "(Required) The ID of the job collection execution."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 56,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1976-12-27T19:28:26.644Z\",\n        \"end_time\": \"1988-01-05T11:45:43.458Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 98,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1992-01-06T05:26:20.066Z\",\n        \"end_time\": \"2016-08-25T13:59:30.777Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 95,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1970-08-26T13:23:22.859Z\",\n        \"end_time\": \"1989-09-24T20:07:55.669Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 11,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"FAILED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1967-09-30T04:24:49.146Z\",\n        \"end_time\": \"1992-04-23T07:00:02.133Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 66,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"PENDING\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/dct/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c5ebcf1c-660a-473e-ab4c-cab09ee7b1c4",
+    "name": "Delphix DCT Algorithms JobCollectionExecutions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Delphix DCT API\n\nContact Support:\n Name: Delphix Support\n Email: support@delphix.com",
+      "type": "text/plain"
+    }
+  }
+}

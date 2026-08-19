@@ -1,0 +1,464 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms JobOrchestrators API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "JobOrchestrators",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve the list of job orchestrators.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/job-orchestrators",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+              }
+            ]
+          },
+          "docs": "Retrieve the list of job orchestrators."
+        },
+        {
+          "info": {
+            "name": "Create a job orchestrator.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/job-orchestrators",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a job orchestrator."
+        },
+        {
+          "info": {
+            "name": "Search job orchestrators.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/job-orchestrators/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search job orchestrators."
+        },
+        {
+          "info": {
+            "name": "Retrieve a job orchestrator by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/job-orchestrators/:jobOrchestratorId",
+            "params": [
+              {
+                "name": "jobOrchestratorId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the job orchestrator."
+              }
+            ]
+          },
+          "docs": "Retrieve a job orchestrator by ID."
+        },
+        {
+          "info": {
+            "name": "Update a job orchestrator.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/job-orchestrators/:jobOrchestratorId",
+            "params": [
+              {
+                "name": "jobOrchestratorId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the job orchestrator."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a job orchestrator."
+        },
+        {
+          "info": {
+            "name": "Delete a job orchestrator.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/dct/v3/job-orchestrators/:jobOrchestratorId",
+            "params": [
+              {
+                "name": "jobOrchestratorId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the job orchestrator."
+              }
+            ]
+          },
+          "docs": "Delete a job orchestrator."
+        },
+        {
+          "info": {
+            "name": "Get tags for a job orchestrator.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/job-orchestrators/:jobOrchestratorId/tags",
+            "params": [
+              {
+                "name": "jobOrchestratorId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the job orchestrator."
+              }
+            ]
+          },
+          "docs": "Get tags for a job orchestrator."
+        },
+        {
+          "info": {
+            "name": "Create tags for a job orchestrator.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/job-orchestrators/:jobOrchestratorId/tags",
+            "params": [
+              {
+                "name": "jobOrchestratorId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the job orchestrator."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create tags for a job orchestrator."
+        },
+        {
+          "info": {
+            "name": "Delete tags for a job orchestrator.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/job-orchestrators/:jobOrchestratorId/tags/delete",
+            "params": [
+              {
+                "name": "jobOrchestratorId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the job orchestrator."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete tags for a job orchestrator."
+        },
+        {
+          "info": {
+            "name": "Returns a job orchestrator's application settings.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/job-orchestrators/:jobOrchestratorId/application-settings",
+            "params": [
+              {
+                "name": "jobOrchestratorId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the job orchestrator."
+              },
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "group",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ]
+          },
+          "docs": "Returns a job orchestrator's application settings."
+        },
+        {
+          "info": {
+            "name": "Search a job orchestrator's application settings.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/job-orchestrators/:jobOrchestratorId/application-settings/search",
+            "params": [
+              {
+                "name": "jobOrchestratorId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the job orchestrator."
+              },
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "group",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search a job orchestrator's application settings."
+        },
+        {
+          "info": {
+            "name": "Update a job orchestrator's application setting value.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/dct/v3/job-orchestrators/:jobOrchestratorId/application-settings/:applicationSettingsId",
+            "params": [
+              {
+                "name": "jobOrchestratorId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the job orchestrator."
+              },
+              {
+                "name": "applicationSettingsId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the application setting."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a job orchestrator's application setting value."
+        },
+        {
+          "info": {
+            "name": "Returns a job orchestrator's queued operations.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/job-orchestrators/:jobOrchestratorId/queued-operations",
+            "params": [
+              {
+                "name": "jobOrchestratorId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the job orchestrator."
+              },
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "group",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ]
+          },
+          "docs": "Returns a job orchestrator's queued operations."
+        },
+        {
+          "info": {
+            "name": "Search a job orchestrator's queued operations.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/job-orchestrators/:jobOrchestratorId/queued-operations/search",
+            "params": [
+              {
+                "name": "jobOrchestratorId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the job orchestrator."
+              },
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "group",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search a job orchestrator's queued operations."
+        },
+        {
+          "info": {
+            "name": "Generates a bundle for requested nodes of a job orchestrator.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/job-orchestrators/:jobOrchestratorId/support-bundle",
+            "params": [
+              {
+                "name": "jobOrchestratorId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the job orchestrator."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generates a bundle for requested nodes of a job orchestrator."
+        },
+        {
+          "info": {
+            "name": "Move compliance nodes from a job orchestrator to a hyperscale instance.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/dct/v3/job-orchestrators/:jobOrchestratorId/move-to-hyperscale",
+            "params": [
+              {
+                "name": "jobOrchestratorId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the job orchestrator."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Move compliance nodes from a job orchestrator to a hyperscale instance."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

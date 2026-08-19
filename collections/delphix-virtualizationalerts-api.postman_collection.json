@@ -1,0 +1,282 @@
+{
+  "item": [
+    {
+      "id": "359840cb-67ba-4443-94ea-a7141e9ee3b5",
+      "name": "VirtualizationAlerts",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8d05d25a-0d99-4298-a447-0c22af845d27",
+          "name": "Fetch a list of all virtualization alerts",
+          "request": {
+            "name": "Fetch a list of all virtualization alerts",
+            "description": {},
+            "url": {
+              "path": [
+                "virtualization-alerts",
+                "history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "81c89f4a-7131-4af5-828b-8b3dffac85ac",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtualization-alerts",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"engine_id\": \"string\",\n      \"alert_timestamp\": \"1960-01-09T11:57:35.408Z\",\n      \"event\": \"string\",\n      \"event_severity\": \"INFORMATIONAL\",\n      \"event_title\": \"string\",\n      \"event_response\": \"string\",\n      \"event_action\": \"string\",\n      \"event_command_output\": \"string\",\n      \"event_description\": \"string\",\n      \"target_object_type\": \"string\",\n      \"target_object_id\": \"string\",\n      \"target_name\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"engine_id\": \"string\",\n      \"alert_timestamp\": \"1958-06-27T19:31:38.245Z\",\n      \"event\": \"string\",\n      \"event_severity\": \"AUDIT\",\n      \"event_title\": \"string\",\n      \"event_response\": \"string\",\n      \"event_action\": \"string\",\n      \"event_command_output\": \"string\",\n      \"event_description\": \"string\",\n      \"target_object_type\": \"string\",\n      \"target_object_id\": \"string\",\n      \"target_name\": \"string\"\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 7117\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c8c97cd0-bf34-4471-afec-bc47269936e4",
+          "name": "Search virtualization alerts",
+          "request": {
+            "name": "Search virtualization alerts",
+            "description": {},
+            "url": {
+              "path": [
+                "virtualization-alerts",
+                "history",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b3e2197a-fbf3-4419-94e3-286cda26d363",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtualization-alerts",
+                    "history",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"engine_id\": \"string\",\n      \"alert_timestamp\": \"1988-04-04T00:35:17.922Z\",\n      \"event\": \"string\",\n      \"event_severity\": \"INFORMATIONAL\",\n      \"event_title\": \"string\",\n      \"event_response\": \"string\",\n      \"event_action\": \"string\",\n      \"event_command_output\": \"string\",\n      \"event_description\": \"string\",\n      \"target_object_type\": \"string\",\n      \"target_object_id\": \"string\",\n      \"target_name\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"engine_id\": \"string\",\n      \"alert_timestamp\": \"1967-03-31T13:33:16.723Z\",\n      \"event\": \"string\",\n      \"event_severity\": \"WARNING\",\n      \"event_title\": \"string\",\n      \"event_response\": \"string\",\n      \"event_action\": \"string\",\n      \"event_command_output\": \"string\",\n      \"event_description\": \"string\",\n      \"target_object_type\": \"string\",\n      \"target_object_id\": \"string\",\n      \"target_name\": \"string\"\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 8038\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/dct/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7796425b-5467-46d2-8ff8-ab50aa32f579",
+    "name": "Delphix DCT Algorithms VirtualizationAlerts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Delphix DCT API\n\nContact Support:\n Name: Delphix Support\n Email: support@delphix.com",
+      "type": "text/plain"
+    }
+  }
+}

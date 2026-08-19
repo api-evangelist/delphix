@@ -1,0 +1,617 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms VDBGroups API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "VDBGroups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all VDBGroups.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/vdb-groups",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ]
+          },
+          "docs": "List all VDBGroups."
+        },
+        {
+          "info": {
+            "name": "Create a new VDB Group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdb-groups",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new VDB Group."
+        },
+        {
+          "info": {
+            "name": "Provision a new VDB Group from a Bookmark.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdb-groups/provision_from_bookmark",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Provision a new VDB Group from a Bookmark."
+        },
+        {
+          "info": {
+            "name": "Search for VDB Groups.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdb-groups/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for VDB Groups."
+        },
+        {
+          "info": {
+            "name": "Get a VDB Group by name.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/vdb-groups/:vdbGroupId",
+            "params": [
+              {
+                "name": "vdbGroupId",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the VDB Group."
+              }
+            ]
+          },
+          "docs": "Get a VDB Group by name."
+        },
+        {
+          "info": {
+            "name": "Update values of a VDB group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/vdb-groups/:vdbGroupId",
+            "params": [
+              {
+                "name": "vdbGroupId",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the VDB Group."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update values of a VDB group."
+        },
+        {
+          "info": {
+            "name": "Delete a VDBGoup.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/dct/v3/vdb-groups/:vdbGroupId",
+            "params": [
+              {
+                "name": "vdbGroupId",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the VDB Group."
+              }
+            ]
+          },
+          "docs": "Delete a VDBGoup."
+        },
+        {
+          "info": {
+            "name": "Get latest snapshot of all the vdbs in VDB Group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/vdb-groups/:vdbGroupId/latest-snapshots",
+            "params": [
+              {
+                "name": "vdbGroupId",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the VDB Group."
+              }
+            ]
+          },
+          "docs": "Get latest snapshot of all the vdbs in VDB Group."
+        },
+        {
+          "info": {
+            "name": "Get timestamp summary of all the vdbs in VDB Group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdb-groups/:vdbGroupId/timestamp-summary",
+            "params": [
+              {
+                "name": "vdbGroupId",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the VDB Group."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get timestamp summary of all the vdbs in VDB Group."
+        },
+        {
+          "info": {
+            "name": "Get tags for a VDB Group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/vdb-groups/:vdbGroupId/tags",
+            "params": [
+              {
+                "name": "vdbGroupId",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the VDB Group."
+              }
+            ]
+          },
+          "docs": "Get tags for a VDB Group."
+        },
+        {
+          "info": {
+            "name": "Create tags for a VDB Group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdb-groups/:vdbGroupId/tags",
+            "params": [
+              {
+                "name": "vdbGroupId",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the VDB Group."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create tags for a VDB Group."
+        },
+        {
+          "info": {
+            "name": "Delete tags for a VDB Group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdb-groups/:vdbGroupId/tags/delete",
+            "params": [
+              {
+                "name": "vdbGroupId",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the VDB Group."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete tags for a VDB Group."
+        },
+        {
+          "info": {
+            "name": "Refresh a VDB Group from bookmark.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdb-groups/:vdbGroupId/refresh",
+            "params": [
+              {
+                "name": "vdbGroupId",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the VDB Group."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API is marked as deprecated in favour of renamed API '/vdb-groups/{vdbGroupId}/refresh_from_bookmark'"
+        },
+        {
+          "info": {
+            "name": "Refresh a VDB Group from bookmark.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdb-groups/:vdbGroupId/refresh_from_bookmark",
+            "params": [
+              {
+                "name": "vdbGroupId",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the VDB Group."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Refresh a VDB Group from bookmark."
+        },
+        {
+          "info": {
+            "name": "Refresh a VDB Group by snapshot.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdb-groups/:vdbGroupId/refresh_by_snapshot",
+            "params": [
+              {
+                "name": "vdbGroupId",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the VDB Group."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Refresh a VDB Group by snapshot."
+        },
+        {
+          "info": {
+            "name": "Refresh a VDB Group by timestamp.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdb-groups/:vdbGroupId/refresh_by_timestamp",
+            "params": [
+              {
+                "name": "vdbGroupId",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the VDB Group."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Refresh a VDB Group by timestamp."
+        },
+        {
+          "info": {
+            "name": "Rollback a VDB Group from a bookmark.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdb-groups/:vdbGroupId/rollback",
+            "params": [
+              {
+                "name": "vdbGroupId",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the VDB Group."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API is marked as deprecated in favour of API '/vdb-groups/{vdbGroupId}/refresh_from_bookmark'"
+        },
+        {
+          "info": {
+            "name": "List bookmarks compatible with this VDB Group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/vdb-groups/:vdbGroupId/bookmarks",
+            "params": [
+              {
+                "name": "vdbGroupId",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the VDB Group."
+              },
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ]
+          },
+          "docs": "List bookmarks compatible with this VDB Group."
+        },
+        {
+          "info": {
+            "name": "Search for bookmarks compatible with this VDB Group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdb-groups/:vdbGroupId/bookmarks/search",
+            "params": [
+              {
+                "name": "vdbGroupId",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the VDB Group."
+              },
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for bookmarks compatible with this VDB Group."
+        },
+        {
+          "info": {
+            "name": "Lock a VDB Group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdb-groups/:vdbGroupId/lock",
+            "params": [
+              {
+                "name": "vdbGroupId",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the VDB Group."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Lock a VDB Group."
+        },
+        {
+          "info": {
+            "name": "Unlock a VDB Group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdb-groups/:vdbGroupId/unlock",
+            "params": [
+              {
+                "name": "vdbGroupId",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the VDB Group."
+              }
+            ]
+          },
+          "docs": "Unlock a VDB Group."
+        },
+        {
+          "info": {
+            "name": "Start a VDB Group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdb-groups/:vdbGroupId/start",
+            "params": [
+              {
+                "name": "vdbGroupId",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the VDB Group."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Start a VDB Group."
+        },
+        {
+          "info": {
+            "name": "Stop a VDB Group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdb-groups/:vdbGroupId/stop",
+            "params": [
+              {
+                "name": "vdbGroupId",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the VDB Group."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Stop a VDB Group."
+        },
+        {
+          "info": {
+            "name": "Enable a VDB Group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdb-groups/:vdbGroupId/enable",
+            "params": [
+              {
+                "name": "vdbGroupId",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the VDB Group."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Enable a VDB Group."
+        },
+        {
+          "info": {
+            "name": "Disable a VDB Group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vdb-groups/:vdbGroupId/disable",
+            "params": [
+              {
+                "name": "vdbGroupId",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the VDB Group."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Disable a VDB Group."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

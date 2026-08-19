@@ -1,0 +1,330 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms Bookmarks API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bookmarks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all bookmarks.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/bookmarks",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ]
+          },
+          "docs": "List all bookmarks."
+        },
+        {
+          "info": {
+            "name": "Create a bookmark at the current time.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/bookmarks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a bookmark at the current time."
+        },
+        {
+          "info": {
+            "name": "Search for bookmarks.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/bookmarks/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for bookmarks."
+        },
+        {
+          "info": {
+            "name": "Get a bookmark by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/bookmarks/:bookmarkId",
+            "params": [
+              {
+                "name": "bookmarkId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Bookmark."
+              }
+            ]
+          },
+          "docs": "Get a bookmark by ID."
+        },
+        {
+          "info": {
+            "name": "Update a bookmark",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/bookmarks/:bookmarkId",
+            "params": [
+              {
+                "name": "bookmarkId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Bookmark."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a bookmark"
+        },
+        {
+          "info": {
+            "name": "Delete a bookmark.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/dct/v3/bookmarks/:bookmarkId",
+            "params": [
+              {
+                "name": "bookmarkId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Bookmark."
+              }
+            ]
+          },
+          "docs": "Delete a bookmark."
+        },
+        {
+          "info": {
+            "name": "List VDB Groups compatible with this bookmark.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/bookmarks/:bookmarkId/vdb-groups",
+            "params": [
+              {
+                "name": "bookmarkId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Bookmark."
+              },
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ]
+          },
+          "docs": "List VDB Groups compatible with this bookmark."
+        },
+        {
+          "info": {
+            "name": "Search for VDB Groups compatible with this bookmark.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/bookmarks/:bookmarkId/vdb-groups/search",
+            "params": [
+              {
+                "name": "bookmarkId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Bookmark."
+              },
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for VDB Groups compatible with this bookmark."
+        },
+        {
+          "info": {
+            "name": "Get tags for a Bookmark.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/bookmarks/:bookmarkId/tags",
+            "params": [
+              {
+                "name": "bookmarkId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Bookmark."
+              }
+            ]
+          },
+          "docs": "Get tags for a Bookmark."
+        },
+        {
+          "info": {
+            "name": "Create tags for a Bookmark.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/bookmarks/:bookmarkId/tags",
+            "params": [
+              {
+                "name": "bookmarkId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Bookmark."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create tags for a Bookmark."
+        },
+        {
+          "info": {
+            "name": "Delete tags for a Bookmark.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/bookmarks/:bookmarkId/tags/delete",
+            "params": [
+              {
+                "name": "bookmarkId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Bookmark."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete tags for a Bookmark."
+        },
+        {
+          "info": {
+            "name": "Import engine bookmarks to DCT.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/bookmarks/import-engine-bookmarks/:engineId",
+            "params": [
+              {
+                "name": "engineId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the registered engine."
+              }
+            ]
+          },
+          "docs": "Import engine bookmarks to DCT."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

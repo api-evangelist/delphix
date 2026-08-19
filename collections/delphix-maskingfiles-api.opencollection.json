@@ -1,0 +1,327 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms MaskingFiles API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "MaskingFiles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve the list of masking file uploads.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/masking-file-uploads",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+              }
+            ]
+          },
+          "docs": "Retrieve the list of masking file uploads."
+        },
+        {
+          "info": {
+            "name": "Upload a file for masking.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/masking-file-uploads",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "description",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "tags",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Upload a file for masking."
+        },
+        {
+          "info": {
+            "name": "Get a masking file by ID or name.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/masking-file-uploads/:maskingFileId",
+            "params": [
+              {
+                "name": "maskingFileId",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the masking file."
+              }
+            ]
+          },
+          "docs": "Get a masking file by ID or name."
+        },
+        {
+          "info": {
+            "name": "Update a masking file upload by id.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/masking-file-uploads/:maskingFileId",
+            "params": [
+              {
+                "name": "maskingFileId",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the masking file."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a masking file upload by id."
+        },
+        {
+          "info": {
+            "name": "Search for masking files.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/masking-file-uploads/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for masking files."
+        },
+        {
+          "info": {
+            "name": "Get tags for a masking file.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/masking-file-uploads/:maskingFileId/tags",
+            "params": [
+              {
+                "name": "maskingFileId",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the masking file."
+              }
+            ]
+          },
+          "docs": "Get tags for a masking file."
+        },
+        {
+          "info": {
+            "name": "Create tags for a masking file.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/masking-file-uploads/:maskingFileId/tags",
+            "params": [
+              {
+                "name": "maskingFileId",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the masking file."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create tags for a masking file."
+        },
+        {
+          "info": {
+            "name": "Delete tags for a masking file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/masking-file-uploads/:maskingFileId/tags/delete",
+            "params": [
+              {
+                "name": "maskingFileId",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the masking file."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete tags for a masking file"
+        },
+        {
+          "info": {
+            "name": "Get all consumers associated with this masking file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/masking-file-uploads/:maskingFileId/consumers",
+            "params": [
+              {
+                "name": "maskingFileId",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the masking file."
+              },
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "parent_id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+              }
+            ]
+          },
+          "docs": "Get all consumers associated with this masking file"
+        },
+        {
+          "info": {
+            "name": "Search consumers of a masking file.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/masking-file-uploads/:maskingFileId/consumers/search",
+            "params": [
+              {
+                "name": "maskingFileId",
+                "value": "",
+                "type": "path",
+                "description": "The ID or name of the masking file."
+              },
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "parent_id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search consumers of a masking file."
+        },
+        {
+          "info": {
+            "name": "Generate a download url for a masking file.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/masking-file-downloads/:fileDownloadId/download-url",
+            "params": [
+              {
+                "name": "fileDownloadId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the FileDownload."
+              }
+            ]
+          },
+          "docs": "Generate a download url for a masking file."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

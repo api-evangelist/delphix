@@ -1,0 +1,239 @@
+{
+  "item": [
+    {
+      "id": "f8561346-36b1-4452-8b15-9f315aef4305",
+      "name": "HeldSpace",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bc59f179-5671-4ecd-9029-e312185be3c1",
+          "name": "Get heldspace deletion dependencies.",
+          "request": {
+            "name": "Get heldspace deletion dependencies.",
+            "description": {},
+            "url": {
+              "path": [
+                "heldspace",
+                ":heldspaceId",
+                "deletion-dependencies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "heldspaceId",
+                  "description": "(Required) The heldspace id to filter by."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "81a36904-7166-4b76-8019-c8bd394ca096",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "heldspace",
+                    ":heldspaceId",
+                    "deletion-dependencies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "heldspaceId",
+                      "description": "(Required) The heldspace id to filter by."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"prerequisite_actions\": [\n    {\n      \"object_id\": \"string\",\n      \"object_type\": \"VDB\",\n      \"object_name\": \"string\",\n      \"namespace_id\": \"string\",\n      \"action\": \"REFRESH\",\n      \"linked_object_id\": \"string\",\n      \"linked_object_type\": \"SNAPSHOT\",\n      \"locked\": true\n    },\n    {\n      \"object_id\": \"string\",\n      \"object_type\": \"DSOURCE\",\n      \"object_name\": \"string\",\n      \"namespace_id\": \"string\",\n      \"action\": \"REMOVE_KEEP_FOR\",\n      \"linked_object_id\": \"string\",\n      \"linked_object_type\": \"TIMEFLOW\",\n      \"locked\": true\n    }\n  ],\n  \"object_dependencies\": [\n    {\n      \"object_id\": \"string\",\n      \"object_type\": \"VDB\",\n      \"object_name\": \"string\",\n      \"namespace_id\": \"string\",\n      \"storage_size\": 5159,\n      \"timeflow_vdb_id\": \"string\",\n      \"timeflow_vdb_name\": \"string\",\n      \"timeflow_dsource_id\": \"string\",\n      \"timeflow_dsource_name\": \"string\",\n      \"locked\": true,\n      \"parent_object_id\": \"string\",\n      \"parent_object_type\": \"JSBOOKMARK\",\n      \"timeflow_snapshot_count\": -1,\n      \"timeflow_bookmarks_count\": -1\n    },\n    {\n      \"object_id\": \"string\",\n      \"object_type\": \"HELDSPACE\",\n      \"object_name\": \"string\",\n      \"namespace_id\": \"string\",\n      \"storage_size\": 6524,\n      \"timeflow_vdb_id\": \"string\",\n      \"timeflow_vdb_name\": \"string\",\n      \"timeflow_dsource_id\": \"string\",\n      \"timeflow_dsource_name\": \"string\",\n      \"locked\": true,\n      \"parent_object_id\": \"string\",\n      \"parent_object_type\": \"DSOURCE\",\n      \"timeflow_snapshot_count\": -1,\n      \"timeflow_bookmarks_count\": -1\n    }\n  ],\n  \"dependency_tree\": {\n    \"prerequisite_actions\": [\n      {\n        \"object_id\": \"string\",\n        \"object_type\": \"DATALAYOUT_CONTAINER\",\n        \"object_name\": \"string\",\n        \"namespace_id\": \"string\",\n        \"action\": \"TAKE_SNAPSHOT\",\n        \"linked_object_id\": \"string\",\n        \"linked_object_type\": \"UNKNOWN\",\n        \"locked\": false\n      },\n      {\n        \"object_id\": \"string\",\n        \"object_type\": \"DSOURCE\",\n        \"object_name\": \"string\",\n        \"namespace_id\": \"string\",\n        \"action\": \"TAKE_SNAPSHOT\",\n        \"linked_object_id\": \"string\",\n        \"linked_object_type\": \"SNAPSHOT\",\n        \"locked\": true\n      }\n    ],\n    \"object_dependencies\": [\n      {\n        \"object_id\": \"string\",\n        \"object_type\": \"HELDSPACE\",\n        \"object_name\": \"string\",\n        \"namespace_id\": \"string\",\n        \"storage_size\": 6969,\n        \"timeflow_vdb_id\": \"string\",\n        \"timeflow_vdb_name\": \"string\",\n        \"timeflow_dsource_id\": \"string\",\n        \"timeflow_dsource_name\": \"string\",\n        \"locked\": true,\n        \"parent_object_id\": \"string\",\n        \"parent_object_type\": \"DSOURCE\",\n        \"timeflow_snapshot_count\": -1,\n        \"timeflow_bookmarks_count\": -1\n      },\n      {\n        \"object_id\": \"string\",\n        \"object_type\": \"TIMEFLOWBOOKMARK\",\n        \"object_name\": \"string\",\n        \"namespace_id\": \"string\",\n        \"storage_size\": 6638,\n        \"timeflow_vdb_id\": \"string\",\n        \"timeflow_vdb_name\": \"string\",\n        \"timeflow_dsource_id\": \"string\",\n        \"timeflow_dsource_name\": \"string\",\n        \"locked\": true,\n        \"parent_object_id\": \"string\",\n        \"parent_object_type\": \"VDB\",\n        \"timeflow_snapshot_count\": -1,\n        \"timeflow_bookmarks_count\": -1\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "14934f86-14d3-439f-bff5-c3cff342a6c5",
+          "name": "Delete a HeldSpace.",
+          "request": {
+            "name": "Delete a HeldSpace.",
+            "description": {},
+            "url": {
+              "path": [
+                "heldspace",
+                ":heldspaceId",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "heldspaceId",
+                  "description": "(Required) The heldspace id to filter by."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9f73ade4-6cfa-4b68-b290-f2c3d493ff49",
+              "name": "HeldSpace delete initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "heldspace",
+                    ":heldspaceId",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "heldspaceId",
+                      "description": "(Required) The heldspace id to filter by."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 52,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2004-10-31T21:23:29.774Z\",\n        \"end_time\": \"1948-11-30T06:38:08.676Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 97,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1956-08-30T05:50:51.973Z\",\n        \"end_time\": \"2017-04-27T10:05:05.967Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 91,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2012-09-24T01:52:47.550Z\",\n        \"end_time\": \"1951-01-09T11:08:04.721Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 7,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1971-05-15T09:28:16.060Z\",\n        \"end_time\": \"1965-01-14T07:23:17.001Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 22,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"ABANDONED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/dct/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "99aa10c8-2884-413d-afea-a166897e0d3c",
+    "name": "Delphix DCT Algorithms HeldSpace API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Delphix DCT API\n\nContact Support:\n Name: Delphix Support\n Email: support@delphix.com",
+      "type": "text/plain"
+    }
+  }
+}

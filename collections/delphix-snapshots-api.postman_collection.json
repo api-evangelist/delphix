@@ -1,0 +1,1793 @@
+{
+  "item": [
+    {
+      "id": "41293d55-5d80-4b69-9037-e262df4010d0",
+      "name": "Snapshots",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8298fdb9-15a1-4107-803b-6cf152866038",
+          "name": "Retrieve the list of snapshots.",
+          "request": {
+            "name": "Retrieve the list of snapshots.",
+            "description": {},
+            "url": {
+              "path": [
+                "snapshots"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "664901a6-eca6-41ca-a7c3-a8cbd7ea8d1e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"snapshot-123\",\n      \"engine_id\": \"string\",\n      \"namespace\": \"NAMESPACE-1\",\n      \"name\": \"@2023-02-02T14:30:00.589\",\n      \"namespace_id\": \"1-NAMESPACE-1\",\n      \"namespace_name\": \"test-engine-1\",\n      \"is_replica\": true,\n      \"consistency\": \"CONSISTENT\",\n      \"missing_non_logged_data\": false,\n      \"dataset_id\": \"dataset-123\",\n      \"creation_time\": \"2023-02-02T19:30:00.589Z\",\n      \"start_timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"start_location\": \"1178883\",\n      \"timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"location\": \"1178883\",\n      \"retention\": -1,\n      \"expiration\": \"2021-07-04\",\n      \"retain_forever\": false,\n      \"effective_expiration\": \"2021-07-04\",\n      \"effective_retain_forever\": false,\n      \"timeflow_id\": \"1-ORACLE_TIMEFLOW-1\",\n      \"timezone\": \"America/New_York,EST-0500\",\n      \"version\": \"11.2.0.4.0\",\n      \"temporary\": false,\n      \"appdata_toolkit\": \"APPDATA_TOOLKIT-1\",\n      \"appdata_metadata\": \"string\",\n      \"ase_db_encryption_key\": \"keyname\",\n      \"mssql_internal_version\": 706,\n      \"mssql_backup_set_uuid\": \"54290b71-58cd-463d-bd62-7219d4c4d2d5\",\n      \"mssql_backup_software_type\": \"NATIVE\",\n      \"mssql_backup_location_type\": \"BACKUP_SERVER\",\n      \"mssql_empty_snapshot\": true,\n      \"mssql_incremental_export_source_snapshot\": false,\n      \"oracle_from_physical_standby_vdb\": false,\n      \"oracle_redo_log_size_in_bytes\": 314572800,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    },\n    {\n      \"id\": \"snapshot-123\",\n      \"engine_id\": \"string\",\n      \"namespace\": \"NAMESPACE-1\",\n      \"name\": \"@2023-02-02T14:30:00.589\",\n      \"namespace_id\": \"1-NAMESPACE-1\",\n      \"namespace_name\": \"test-engine-1\",\n      \"is_replica\": true,\n      \"consistency\": \"CONSISTENT\",\n      \"missing_non_logged_data\": false,\n      \"dataset_id\": \"dataset-123\",\n      \"creation_time\": \"2023-02-02T19:30:00.589Z\",\n      \"start_timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"start_location\": \"1178883\",\n      \"timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"location\": \"1178883\",\n      \"retention\": -1,\n      \"expiration\": \"2021-07-04\",\n      \"retain_forever\": false,\n      \"effective_expiration\": \"2021-07-04\",\n      \"effective_retain_forever\": false,\n      \"timeflow_id\": \"1-ORACLE_TIMEFLOW-1\",\n      \"timezone\": \"America/New_York,EST-0500\",\n      \"version\": \"11.2.0.4.0\",\n      \"temporary\": false,\n      \"appdata_toolkit\": \"APPDATA_TOOLKIT-1\",\n      \"appdata_metadata\": \"string\",\n      \"ase_db_encryption_key\": \"keyname\",\n      \"mssql_internal_version\": 706,\n      \"mssql_backup_set_uuid\": \"54290b71-58cd-463d-bd62-7219d4c4d2d5\",\n      \"mssql_backup_software_type\": \"NATIVE\",\n      \"mssql_backup_location_type\": \"BACKUP_SERVER\",\n      \"mssql_empty_snapshot\": true,\n      \"mssql_incremental_export_source_snapshot\": false,\n      \"oracle_from_physical_standby_vdb\": false,\n      \"oracle_redo_log_size_in_bytes\": 314572800,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 2180\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "83d2da51-bfd1-4997-ac8f-6d3deab6de8b",
+          "name": "Get a Snapshot by ID.",
+          "request": {
+            "name": "Get a Snapshot by ID.",
+            "description": {},
+            "url": {
+              "path": [
+                "snapshots",
+                ":snapshotId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "snapshotId",
+                  "description": "(Required) The ID of the snapshot."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a3bc6ef7-e44f-4c18-8daa-18ed07da433f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    ":snapshotId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshotId",
+                      "description": "(Required) The ID of the snapshot."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"snapshot-123\",\n  \"engine_id\": \"string\",\n  \"namespace\": \"NAMESPACE-1\",\n  \"name\": \"@2023-02-02T14:30:00.589\",\n  \"namespace_id\": \"1-NAMESPACE-1\",\n  \"namespace_name\": \"test-engine-1\",\n  \"is_replica\": true,\n  \"consistency\": \"CONSISTENT\",\n  \"missing_non_logged_data\": false,\n  \"dataset_id\": \"dataset-123\",\n  \"creation_time\": \"2023-02-02T19:30:00.589Z\",\n  \"start_timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n  \"start_location\": \"1178883\",\n  \"timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n  \"location\": \"1178883\",\n  \"retention\": -1,\n  \"expiration\": \"2021-07-04\",\n  \"retain_forever\": false,\n  \"effective_expiration\": \"2021-07-04\",\n  \"effective_retain_forever\": false,\n  \"timeflow_id\": \"1-ORACLE_TIMEFLOW-1\",\n  \"timezone\": \"America/New_York,EST-0500\",\n  \"version\": \"11.2.0.4.0\",\n  \"temporary\": false,\n  \"appdata_toolkit\": \"APPDATA_TOOLKIT-1\",\n  \"appdata_metadata\": \"string\",\n  \"ase_db_encryption_key\": \"keyname\",\n  \"mssql_internal_version\": 706,\n  \"mssql_backup_set_uuid\": \"54290b71-58cd-463d-bd62-7219d4c4d2d5\",\n  \"mssql_backup_software_type\": \"NATIVE\",\n  \"mssql_backup_location_type\": \"BACKUP_SERVER\",\n  \"mssql_empty_snapshot\": true,\n  \"mssql_incremental_export_source_snapshot\": false,\n  \"oracle_from_physical_standby_vdb\": false,\n  \"oracle_redo_log_size_in_bytes\": 314572800,\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bb838e0b-4820-484b-babd-d7df8e5d3266",
+          "name": "Update values of a Snapshot.",
+          "request": {
+            "name": "Update values of a Snapshot.",
+            "description": {},
+            "url": {
+              "path": [
+                "snapshots",
+                ":snapshotId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "snapshotId",
+                  "description": "(Required) The ID of the snapshot."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"expiration\": \"<date>\",\n  \"retain_forever\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "44d50735-950e-4ca7-bf7f-c642b0d4ea08",
+              "name": "Snapshot update initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    ":snapshotId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshotId",
+                      "description": "(Required) The ID of the snapshot."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"expiration\": \"2021-07-04\",\n  \"retain_forever\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 51,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1971-06-09T05:27:54.825Z\",\n        \"end_time\": \"1971-12-29T13:32:12.495Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 9,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"PENDING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1985-06-28T11:27:57.444Z\",\n        \"end_time\": \"1963-07-17T04:32:09.199Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 79,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1993-10-01T13:29:14.770Z\",\n        \"end_time\": \"1967-12-24T16:09:18.346Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 20,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2000-10-22T19:26:32.866Z\",\n        \"end_time\": \"1948-09-14T04:59:53.311Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 85,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1237c6c8-2dee-4bbb-9cad-11e296c2f687",
+          "name": "Delete a Snapshot.",
+          "request": {
+            "name": "Delete a Snapshot.",
+            "description": {},
+            "url": {
+              "path": [
+                "snapshots",
+                ":snapshotId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "snapshotId",
+                  "description": "(Required) The ID of the snapshot."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2a163e41-c006-4191-a3ce-564cc88cd090",
+              "name": "Snapshot delete initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    ":snapshotId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshotId",
+                      "description": "(Required) The ID of the snapshot."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 94,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1986-02-17T21:29:01.557Z\",\n        \"end_time\": \"2014-08-26T20:36:28.595Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 75,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1965-10-08T22:23:53.016Z\",\n        \"end_time\": \"2009-12-29T12:01:28.613Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 23,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1986-01-16T17:43:18.957Z\",\n        \"end_time\": \"1995-05-19T07:00:33.005Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 10,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"PENDING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1974-05-05T05:46:03.103Z\",\n        \"end_time\": \"1963-04-21T16:28:20.754Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 40,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8abebac6-d56e-40f2-84e6-952018c15d79",
+          "name": "Delete a Snapshot.",
+          "request": {
+            "name": "Delete a Snapshot.",
+            "description": {},
+            "url": {
+              "path": [
+                "snapshots",
+                ":snapshotId",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "snapshotId",
+                  "description": "(Required) The ID of the snapshot."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"delete_all_dependencies\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6d152470-878a-4a07-a65a-38463c8eb7ef",
+              "name": "Snapshot delete initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    ":snapshotId",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshotId",
+                      "description": "(Required) The ID of the snapshot."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"delete_all_dependencies\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 94,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1986-02-17T21:29:01.557Z\",\n        \"end_time\": \"2014-08-26T20:36:28.595Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 75,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1965-10-08T22:23:53.016Z\",\n        \"end_time\": \"2009-12-29T12:01:28.613Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 23,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1986-01-16T17:43:18.957Z\",\n        \"end_time\": \"1995-05-19T07:00:33.005Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 10,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"PENDING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1974-05-05T05:46:03.103Z\",\n        \"end_time\": \"1963-04-21T16:28:20.754Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 40,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9c9c0cd7-47c8-4d46-b964-0b9fcb7dc386",
+          "name": "Unset a Snapshot's expiration, removing expiration and retain_forever values for the snapshot.",
+          "request": {
+            "name": "Unset a Snapshot's expiration, removing expiration and retain_forever values for the snapshot.",
+            "description": {},
+            "url": {
+              "path": [
+                "snapshots",
+                ":snapshotId",
+                "unset_expiration"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "snapshotId",
+                  "description": "(Required) The ID of the snapshot."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bd7259a9-4387-4c44-bb54-5917093591a0",
+              "name": "Snapshot unset retention initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    ":snapshotId",
+                    "unset_expiration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshotId",
+                      "description": "(Required) The ID of the snapshot."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 36,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1971-07-27T22:17:04.740Z\",\n        \"end_time\": \"1997-06-30T10:02:25.786Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 26,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"COMPLETED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2003-10-12T21:44:55.368Z\",\n        \"end_time\": \"1949-05-10T06:48:11.256Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 4,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"COMPLETED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2026-07-23T08:24:57.261Z\",\n        \"end_time\": \"1974-03-26T10:09:34.364Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 67,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1982-01-16T20:04:24.838Z\",\n        \"end_time\": \"1967-09-01T08:29:30.943Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 98,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"PENDING\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0e0bd9e0-6445-40b5-bc00-e9254630d33a",
+          "name": "Create tags for a Snapshot.",
+          "request": {
+            "name": "Create tags for a Snapshot.",
+            "description": {},
+            "url": {
+              "path": [
+                "snapshots",
+                ":snapshotId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "snapshotId",
+                  "description": "(Required) The ID of the snapshot."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f9547235-ebbc-4959-b78c-a57bbc67e04a",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    ":snapshotId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshotId",
+                      "description": "(Required) The ID of the snapshot."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b3940091-8af5-4290-a13a-c357a0080f7d",
+          "name": "Get tags for a Snapshot.",
+          "request": {
+            "name": "Get tags for a Snapshot.",
+            "description": {},
+            "url": {
+              "path": [
+                "snapshots",
+                ":snapshotId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "snapshotId",
+                  "description": "(Required) The ID of the snapshot."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ea1acff7-d64d-4a07-ab64-1ec575c8b486",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    ":snapshotId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshotId",
+                      "description": "(Required) The ID of the snapshot."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "87e89e29-840e-4b1c-804a-7a1ec590f5e3",
+          "name": "Delete tags for a Snapshot.",
+          "request": {
+            "name": "Delete tags for a Snapshot.",
+            "description": {},
+            "url": {
+              "path": [
+                "snapshots",
+                ":snapshotId",
+                "tags",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "snapshotId",
+                  "description": "(Required) The ID of the snapshot."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key\": \"<string>\",\n  \"value\": \"<string>\",\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2c4764bb-2a35-47ff-b0ab-1b03cd6243e0",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    ":snapshotId",
+                    "tags",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshotId",
+                      "description": "(Required) The ID of the snapshot."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "20c377ac-79dc-43b4-acfa-64eb1da6ae20",
+          "name": "Search snapshots.",
+          "request": {
+            "name": "Search snapshots.",
+            "description": {},
+            "url": {
+              "path": [
+                "snapshots",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6bf91103-28cb-42e6-a731-7d6b3308f7fb",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"snapshot-123\",\n      \"engine_id\": \"string\",\n      \"namespace\": \"NAMESPACE-1\",\n      \"name\": \"@2023-02-02T14:30:00.589\",\n      \"namespace_id\": \"1-NAMESPACE-1\",\n      \"namespace_name\": \"test-engine-1\",\n      \"is_replica\": true,\n      \"consistency\": \"CONSISTENT\",\n      \"missing_non_logged_data\": false,\n      \"dataset_id\": \"dataset-123\",\n      \"creation_time\": \"2023-02-02T19:30:00.589Z\",\n      \"start_timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"start_location\": \"1178883\",\n      \"timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"location\": \"1178883\",\n      \"retention\": -1,\n      \"expiration\": \"2021-07-04\",\n      \"retain_forever\": false,\n      \"effective_expiration\": \"2021-07-04\",\n      \"effective_retain_forever\": false,\n      \"timeflow_id\": \"1-ORACLE_TIMEFLOW-1\",\n      \"timezone\": \"America/New_York,EST-0500\",\n      \"version\": \"11.2.0.4.0\",\n      \"temporary\": false,\n      \"appdata_toolkit\": \"APPDATA_TOOLKIT-1\",\n      \"appdata_metadata\": \"string\",\n      \"ase_db_encryption_key\": \"keyname\",\n      \"mssql_internal_version\": 706,\n      \"mssql_backup_set_uuid\": \"54290b71-58cd-463d-bd62-7219d4c4d2d5\",\n      \"mssql_backup_software_type\": \"NATIVE\",\n      \"mssql_backup_location_type\": \"BACKUP_SERVER\",\n      \"mssql_empty_snapshot\": true,\n      \"mssql_incremental_export_source_snapshot\": false,\n      \"oracle_from_physical_standby_vdb\": false,\n      \"oracle_redo_log_size_in_bytes\": 314572800,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    },\n    {\n      \"id\": \"snapshot-123\",\n      \"engine_id\": \"string\",\n      \"namespace\": \"NAMESPACE-1\",\n      \"name\": \"@2023-02-02T14:30:00.589\",\n      \"namespace_id\": \"1-NAMESPACE-1\",\n      \"namespace_name\": \"test-engine-1\",\n      \"is_replica\": true,\n      \"consistency\": \"CONSISTENT\",\n      \"missing_non_logged_data\": false,\n      \"dataset_id\": \"dataset-123\",\n      \"creation_time\": \"2023-02-02T19:30:00.589Z\",\n      \"start_timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"start_location\": \"1178883\",\n      \"timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"location\": \"1178883\",\n      \"retention\": -1,\n      \"expiration\": \"2021-07-04\",\n      \"retain_forever\": false,\n      \"effective_expiration\": \"2021-07-04\",\n      \"effective_retain_forever\": false,\n      \"timeflow_id\": \"1-ORACLE_TIMEFLOW-1\",\n      \"timezone\": \"America/New_York,EST-0500\",\n      \"version\": \"11.2.0.4.0\",\n      \"temporary\": false,\n      \"appdata_toolkit\": \"APPDATA_TOOLKIT-1\",\n      \"appdata_metadata\": \"string\",\n      \"ase_db_encryption_key\": \"keyname\",\n      \"mssql_internal_version\": 706,\n      \"mssql_backup_set_uuid\": \"54290b71-58cd-463d-bd62-7219d4c4d2d5\",\n      \"mssql_backup_software_type\": \"NATIVE\",\n      \"mssql_backup_location_type\": \"BACKUP_SERVER\",\n      \"mssql_empty_snapshot\": true,\n      \"mssql_incremental_export_source_snapshot\": false,\n      \"oracle_from_physical_standby_vdb\": false,\n      \"oracle_redo_log_size_in_bytes\": 314572800,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 8018\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "02e1c0ad-9203-4e80-81fc-63f355a5070d",
+          "name": "Get the snapshots at this location for a dataset.",
+          "request": {
+            "name": "Get the snapshots at this location for a dataset.",
+            "description": {},
+            "url": {
+              "path": [
+                "snapshots",
+                "find_by_location"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dataset_id",
+                  "value": "<string>",
+                  "description": "(Required) The ID of the dSource or VDB."
+                },
+                {
+                  "disabled": false,
+                  "key": "location",
+                  "value": "<string>",
+                  "description": "(Required) The location"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1e76b3cf-20d5-4f90-8268-89f08945dc31",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    "find_by_location"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataset_id",
+                      "value": "dataset-123"
+                    },
+                    {
+                      "key": "location",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"snapshot-123\",\n      \"engine_id\": \"string\",\n      \"namespace\": \"NAMESPACE-1\",\n      \"name\": \"@2023-02-02T14:30:00.589\",\n      \"namespace_id\": \"1-NAMESPACE-1\",\n      \"namespace_name\": \"test-engine-1\",\n      \"is_replica\": true,\n      \"consistency\": \"CONSISTENT\",\n      \"missing_non_logged_data\": false,\n      \"dataset_id\": \"dataset-123\",\n      \"creation_time\": \"2023-02-02T19:30:00.589Z\",\n      \"start_timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"start_location\": \"1178883\",\n      \"timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"location\": \"1178883\",\n      \"retention\": -1,\n      \"expiration\": \"2021-07-04\",\n      \"retain_forever\": false,\n      \"effective_expiration\": \"2021-07-04\",\n      \"effective_retain_forever\": false,\n      \"timeflow_id\": \"1-ORACLE_TIMEFLOW-1\",\n      \"timezone\": \"America/New_York,EST-0500\",\n      \"version\": \"11.2.0.4.0\",\n      \"temporary\": false,\n      \"appdata_toolkit\": \"APPDATA_TOOLKIT-1\",\n      \"appdata_metadata\": \"string\",\n      \"ase_db_encryption_key\": \"keyname\",\n      \"mssql_internal_version\": 706,\n      \"mssql_backup_set_uuid\": \"54290b71-58cd-463d-bd62-7219d4c4d2d5\",\n      \"mssql_backup_software_type\": \"NATIVE\",\n      \"mssql_backup_location_type\": \"BACKUP_SERVER\",\n      \"mssql_empty_snapshot\": true,\n      \"mssql_incremental_export_source_snapshot\": false,\n      \"oracle_from_physical_standby_vdb\": false,\n      \"oracle_redo_log_size_in_bytes\": 314572800,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    },\n    {\n      \"id\": \"snapshot-123\",\n      \"engine_id\": \"string\",\n      \"namespace\": \"NAMESPACE-1\",\n      \"name\": \"@2023-02-02T14:30:00.589\",\n      \"namespace_id\": \"1-NAMESPACE-1\",\n      \"namespace_name\": \"test-engine-1\",\n      \"is_replica\": true,\n      \"consistency\": \"CONSISTENT\",\n      \"missing_non_logged_data\": false,\n      \"dataset_id\": \"dataset-123\",\n      \"creation_time\": \"2023-02-02T19:30:00.589Z\",\n      \"start_timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"start_location\": \"1178883\",\n      \"timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"location\": \"1178883\",\n      \"retention\": -1,\n      \"expiration\": \"2021-07-04\",\n      \"retain_forever\": false,\n      \"effective_expiration\": \"2021-07-04\",\n      \"effective_retain_forever\": false,\n      \"timeflow_id\": \"1-ORACLE_TIMEFLOW-1\",\n      \"timezone\": \"America/New_York,EST-0500\",\n      \"version\": \"11.2.0.4.0\",\n      \"temporary\": false,\n      \"appdata_toolkit\": \"APPDATA_TOOLKIT-1\",\n      \"appdata_metadata\": \"string\",\n      \"ase_db_encryption_key\": \"keyname\",\n      \"mssql_internal_version\": 706,\n      \"mssql_backup_set_uuid\": \"54290b71-58cd-463d-bd62-7219d4c4d2d5\",\n      \"mssql_backup_software_type\": \"NATIVE\",\n      \"mssql_backup_location_type\": \"BACKUP_SERVER\",\n      \"mssql_empty_snapshot\": true,\n      \"mssql_incremental_export_source_snapshot\": false,\n      \"oracle_from_physical_standby_vdb\": false,\n      \"oracle_redo_log_size_in_bytes\": 314572800,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4a2b53c1-350b-4869-a66c-ced3328175b4",
+          "name": "Get the snapshots at this timestamp for a dataset.",
+          "request": {
+            "name": "Get the snapshots at this timestamp for a dataset.",
+            "description": {},
+            "url": {
+              "path": [
+                "snapshots",
+                "find_by_timestamp"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dataset_id",
+                  "value": "<string>",
+                  "description": "(Required) The ID of the dSource or VDB."
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<dateTime>",
+                  "description": "(Required) The desired point in time."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "512a27d7-f4ca-435c-865a-f812c0f39020",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    "find_by_timestamp"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataset_id",
+                      "value": "dataset-123"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "2021-05-01T08:51:34.148000+00:00"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"snapshot-123\",\n      \"engine_id\": \"string\",\n      \"namespace\": \"NAMESPACE-1\",\n      \"name\": \"@2023-02-02T14:30:00.589\",\n      \"namespace_id\": \"1-NAMESPACE-1\",\n      \"namespace_name\": \"test-engine-1\",\n      \"is_replica\": true,\n      \"consistency\": \"CONSISTENT\",\n      \"missing_non_logged_data\": false,\n      \"dataset_id\": \"dataset-123\",\n      \"creation_time\": \"2023-02-02T19:30:00.589Z\",\n      \"start_timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"start_location\": \"1178883\",\n      \"timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"location\": \"1178883\",\n      \"retention\": -1,\n      \"expiration\": \"2021-07-04\",\n      \"retain_forever\": false,\n      \"effective_expiration\": \"2021-07-04\",\n      \"effective_retain_forever\": false,\n      \"timeflow_id\": \"1-ORACLE_TIMEFLOW-1\",\n      \"timezone\": \"America/New_York,EST-0500\",\n      \"version\": \"11.2.0.4.0\",\n      \"temporary\": false,\n      \"appdata_toolkit\": \"APPDATA_TOOLKIT-1\",\n      \"appdata_metadata\": \"string\",\n      \"ase_db_encryption_key\": \"keyname\",\n      \"mssql_internal_version\": 706,\n      \"mssql_backup_set_uuid\": \"54290b71-58cd-463d-bd62-7219d4c4d2d5\",\n      \"mssql_backup_software_type\": \"NATIVE\",\n      \"mssql_backup_location_type\": \"BACKUP_SERVER\",\n      \"mssql_empty_snapshot\": true,\n      \"mssql_incremental_export_source_snapshot\": false,\n      \"oracle_from_physical_standby_vdb\": false,\n      \"oracle_redo_log_size_in_bytes\": 314572800,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    },\n    {\n      \"id\": \"snapshot-123\",\n      \"engine_id\": \"string\",\n      \"namespace\": \"NAMESPACE-1\",\n      \"name\": \"@2023-02-02T14:30:00.589\",\n      \"namespace_id\": \"1-NAMESPACE-1\",\n      \"namespace_name\": \"test-engine-1\",\n      \"is_replica\": true,\n      \"consistency\": \"CONSISTENT\",\n      \"missing_non_logged_data\": false,\n      \"dataset_id\": \"dataset-123\",\n      \"creation_time\": \"2023-02-02T19:30:00.589Z\",\n      \"start_timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"start_location\": \"1178883\",\n      \"timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"location\": \"1178883\",\n      \"retention\": -1,\n      \"expiration\": \"2021-07-04\",\n      \"retain_forever\": false,\n      \"effective_expiration\": \"2021-07-04\",\n      \"effective_retain_forever\": false,\n      \"timeflow_id\": \"1-ORACLE_TIMEFLOW-1\",\n      \"timezone\": \"America/New_York,EST-0500\",\n      \"version\": \"11.2.0.4.0\",\n      \"temporary\": false,\n      \"appdata_toolkit\": \"APPDATA_TOOLKIT-1\",\n      \"appdata_metadata\": \"string\",\n      \"ase_db_encryption_key\": \"keyname\",\n      \"mssql_internal_version\": 706,\n      \"mssql_backup_set_uuid\": \"54290b71-58cd-463d-bd62-7219d4c4d2d5\",\n      \"mssql_backup_software_type\": \"NATIVE\",\n      \"mssql_backup_location_type\": \"BACKUP_SERVER\",\n      \"mssql_empty_snapshot\": true,\n      \"mssql_incremental_export_source_snapshot\": false,\n      \"oracle_from_physical_standby_vdb\": false,\n      \"oracle_redo_log_size_in_bytes\": 314572800,\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cf47bd9a-60d3-4c4b-9f19-3540830628c4",
+          "name": "Return the provisionable timeflow range based on a specific snapshot.",
+          "request": {
+            "name": "Return the provisionable timeflow range based on a specific snapshot.",
+            "description": {},
+            "url": {
+              "path": [
+                "snapshots",
+                ":snapshotId",
+                "timeflow_range"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "snapshotId",
+                  "description": "(Required) The ID of the snapshot."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f2a7b327-08be-4ec8-a8ee-86b481e65abe",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    ":snapshotId",
+                    "timeflow_range"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshotId",
+                      "description": "(Required) The ID of the snapshot."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"start_point_location\": \"1178883\",\n  \"start_point_timestamp\": \"2023-04-01T08:51:34.148000+00:00\",\n  \"end_point_location\": \"1178884\",\n  \"end_point_timestamp\": \"2023-04-01T09:51:34.148000+00:00\",\n  \"timeflow_id\": \"timeflow-123\",\n  \"provisionable\": true,\n  \"log_delta\": 8344,\n  \"is_nearest\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8bd7f4c5-8f15-43f6-a565-7933bf41c879",
+          "name": "Get a runtime object of a snapshot by id",
+          "request": {
+            "name": "Get a runtime object of a snapshot by id",
+            "description": {},
+            "url": {
+              "path": [
+                "snapshots",
+                ":snapshotId",
+                "runtime"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "snapshotId",
+                  "description": "(Required) The ID of the snapshot."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8c0b9c56-86c3-4c3a-86cd-881f9255ca3d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    ":snapshotId",
+                    "runtime"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshotId",
+                      "description": "(Required) The ID of the snapshot."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"provisionable\": true,\n  \"type\": \"OracleSnapshotRuntime\",\n  \"missing_logs\": [\n    {\n      \"type\": \"OracleLog\",\n      \"instanceNum\": 1,\n      \"sequence\": 217\n    },\n    {\n      \"type\": \"OracleLog\",\n      \"instanceNum\": 1,\n      \"sequence\": 217\n    }\n  ],\n  \"mssql_backup_type\": \"DATABASE_FULL\",\n  \"mssql_first_lsn\": \"34000000446700001\",\n  \"mssql_last_lsn\": \"34000000447000001\",\n  \"mssql_backup_start_time\": \"2026-03-13T08:57:31.000Z\",\n  \"mssql_backup_end_time\": \"2026-03-13T08:58:00.000Z\",\n  \"mssql_recovery_fork_guid\": \"A1B2C3D4-E5F6-7890-ABCD-EF1234567890\",\n  \"mssql_first_recovery_fork_guid\": \"A1B2C3D4-E5F6-7890-ABCD-EF1234567890\",\n  \"mssql_recovery_model\": \"FULL\",\n  \"mssql_copy_only\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2afe62d6-ab0a-4252-9a96-8f2cb0eb027a",
+          "name": "Lists capacity metrics for all snapshots of dataset or the engine.",
+          "request": {
+            "name": "Lists capacity metrics for all snapshots of dataset or the engine.",
+            "description": {},
+            "url": {
+              "path": [
+                "snapshots",
+                "capacity"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "engine_id",
+                  "value": "<string>",
+                  "description": "ID of a registered engine."
+                },
+                {
+                  "disabled": false,
+                  "key": "dataset_id",
+                  "value": "<string>",
+                  "description": "The ID of the dSource or VDB."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "00e57671-b0d0-42fb-a572-7487e5f1d1fb",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    "capacity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "engine_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dataset_id",
+                      "value": "dataset-123"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"1-ORACLE_SNAPSHOT-1\",\n      \"engine_id\": \"string\",\n      \"dataset_id\": \"1-ORACLE_DB_CONTAINER-32\",\n      \"timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"expiration\": \"1981-10-25\",\n      \"size\": 217,\n      \"descendant_vbd_count\": 2,\n      \"timezone\": \"America/New_York,EST-0500\"\n    },\n    {\n      \"id\": \"1-ORACLE_SNAPSHOT-1\",\n      \"engine_id\": \"string\",\n      \"dataset_id\": \"1-ORACLE_DB_CONTAINER-32\",\n      \"timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"expiration\": \"1966-06-11\",\n      \"size\": 217,\n      \"descendant_vbd_count\": 2,\n      \"timezone\": \"America/New_York,EST-0500\"\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 4820\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b20b3331-1699-4e53-8e14-2334a6fdbc3c",
+          "name": "API to fetch the shared snapshot space.",
+          "request": {
+            "name": "API to fetch the shared snapshot space.",
+            "description": {},
+            "url": {
+              "path": [
+                "snapshots",
+                "shared-space"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dataset_id",
+                  "value": "<string>",
+                  "description": "(Required) The ID of the dSource or VDB."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "10db163b-60fc-4adf-9f17-7471897261c9",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    "shared-space"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataset_id",
+                      "value": "dataset-123"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 45,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2010-02-27T07:00:18.106Z\",\n        \"end_time\": \"2019-04-26T08:16:32.012Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 90,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1970-05-13T07:31:47.453Z\",\n        \"end_time\": \"2012-09-18T07:55:26.088Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 60,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2023-06-26T14:41:28.134Z\",\n        \"end_time\": \"1982-05-04T14:09:13.748Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 54,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1974-09-10T10:35:02.158Z\",\n        \"end_time\": \"1982-09-01T01:48:12.007Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 75,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "56690bec-01c6-443a-aa69-1e831acd4727",
+          "name": "Get deletion dependencies for a snapshot.",
+          "request": {
+            "name": "Get deletion dependencies for a snapshot.",
+            "description": {},
+            "url": {
+              "path": [
+                "snapshots",
+                ":snapshotId",
+                "deletion-dependencies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "snapshotId",
+                  "description": "(Required) The ID of the snapshot."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8d5ae82d-3fe2-4392-9ffb-899d5078debf",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    ":snapshotId",
+                    "deletion-dependencies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshotId",
+                      "description": "(Required) The ID of the snapshot."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"prerequisite_actions\": [\n    {\n      \"object_id\": \"string\",\n      \"object_type\": \"DATALAYOUT_CONTAINER\",\n      \"object_name\": \"string\",\n      \"namespace_id\": \"string\",\n      \"action\": \"TAKE_SNAPSHOT\",\n      \"linked_object_id\": \"string\",\n      \"linked_object_type\": \"TIMEFLOWBOOKMARK\",\n      \"locked\": false\n    },\n    {\n      \"object_id\": \"string\",\n      \"object_type\": \"DATALAYOUT_TEMPLATE\",\n      \"object_name\": \"string\",\n      \"namespace_id\": \"string\",\n      \"action\": \"REMOVE_KEEP_FOR\",\n      \"linked_object_id\": \"string\",\n      \"linked_object_type\": \"HELDSPACE\",\n      \"locked\": true\n    }\n  ],\n  \"object_dependencies\": [\n    {\n      \"object_id\": \"string\",\n      \"object_type\": \"DSOURCE\",\n      \"object_name\": \"string\",\n      \"namespace_id\": \"string\",\n      \"storage_size\": 120,\n      \"timeflow_vdb_id\": \"string\",\n      \"timeflow_vdb_name\": \"string\",\n      \"timeflow_dsource_id\": \"string\",\n      \"timeflow_dsource_name\": \"string\",\n      \"locked\": true,\n      \"parent_object_id\": \"string\",\n      \"parent_object_type\": \"SNAPSHOT\",\n      \"timeflow_snapshot_count\": -1,\n      \"timeflow_bookmarks_count\": -1\n    },\n    {\n      \"object_id\": \"string\",\n      \"object_type\": \"JSBOOKMARK\",\n      \"object_name\": \"string\",\n      \"namespace_id\": \"string\",\n      \"storage_size\": 2240,\n      \"timeflow_vdb_id\": \"string\",\n      \"timeflow_vdb_name\": \"string\",\n      \"timeflow_dsource_id\": \"string\",\n      \"timeflow_dsource_name\": \"string\",\n      \"locked\": true,\n      \"parent_object_id\": \"string\",\n      \"parent_object_type\": \"SNAPSHOT\",\n      \"timeflow_snapshot_count\": -1,\n      \"timeflow_bookmarks_count\": -1\n    }\n  ],\n  \"dependency_tree\": {\n    \"prerequisite_actions\": [\n      {\n        \"object_id\": \"string\",\n        \"object_type\": \"SNAPSHOT\",\n        \"object_name\": \"string\",\n        \"namespace_id\": \"string\",\n        \"action\": \"TAKE_SNAPSHOT\",\n        \"linked_object_id\": \"string\",\n        \"linked_object_type\": \"TIMEFLOWBOOKMARK\",\n        \"locked\": true\n      },\n      {\n        \"object_id\": \"string\",\n        \"object_type\": \"DATALAYOUT_CONTAINER\",\n        \"object_name\": \"string\",\n        \"namespace_id\": \"string\",\n        \"action\": \"TAKE_SNAPSHOT\",\n        \"linked_object_id\": \"string\",\n        \"linked_object_type\": \"JSBRANCH\",\n        \"locked\": true\n      }\n    ],\n    \"object_dependencies\": [\n      {\n        \"object_id\": \"string\",\n        \"object_type\": \"VDB\",\n        \"object_name\": \"string\",\n        \"namespace_id\": \"string\",\n        \"storage_size\": 1235,\n        \"timeflow_vdb_id\": \"string\",\n        \"timeflow_vdb_name\": \"string\",\n        \"timeflow_dsource_id\": \"string\",\n        \"timeflow_dsource_name\": \"string\",\n        \"locked\": true,\n        \"parent_object_id\": \"string\",\n        \"parent_object_type\": \"TIMEFLOW\",\n        \"timeflow_snapshot_count\": -1,\n        \"timeflow_bookmarks_count\": -1\n      },\n      {\n        \"object_id\": \"string\",\n        \"object_type\": \"UNKNOWN\",\n        \"object_name\": \"string\",\n        \"namespace_id\": \"string\",\n        \"storage_size\": 8550,\n        \"timeflow_vdb_id\": \"string\",\n        \"timeflow_vdb_name\": \"string\",\n        \"timeflow_dsource_id\": \"string\",\n        \"timeflow_dsource_name\": \"string\",\n        \"locked\": true,\n        \"parent_object_id\": \"string\",\n        \"parent_object_type\": \"TIMEFLOW\",\n        \"timeflow_snapshot_count\": -1,\n        \"timeflow_bookmarks_count\": -1\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/dct/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2e5df965-eccd-40ea-af04-f23c129837f4",
+    "name": "Delphix DCT Algorithms Snapshots API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Delphix DCT API\n\nContact Support:\n Name: Delphix Support\n Email: support@delphix.com",
+      "type": "text/plain"
+    }
+  }
+}

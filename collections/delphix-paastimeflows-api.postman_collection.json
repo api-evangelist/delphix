@@ -1,0 +1,882 @@
+{
+  "item": [
+    {
+      "id": "3aa0bc49-06c3-40e1-9893-5797d2f42e91",
+      "name": "PaaSTimeflows",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2483aa2c-6d3d-4e6f-8227-c48cb9ef7c6a",
+          "name": "List all PaaS Timeflows",
+          "request": {
+            "name": "List all PaaS Timeflows",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-timeflows"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort timeflow results by. A field prefixed with `-` indicates descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "614c09eb-1cb6-4d3d-9c04-b915d83fed84",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-timeflows"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-creation_timestamp"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"paas-timeflow-abc123\",\n      \"instance_id\": \"instance-123\",\n      \"database_id\": \"db-123\",\n      \"is_active\": true,\n      \"creation_timestamp\": \"2025-01-01T00:00:00.000000+00:00\",\n      \"deactivation_timestamp\": \"2025-06-01T00:00:00.000000+00:00\",\n      \"masked_by_execution_id\": \"string\",\n      \"masked_by_collection_id\": \"string\",\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    },\n    {\n      \"id\": \"paas-timeflow-abc123\",\n      \"instance_id\": \"instance-123\",\n      \"database_id\": \"db-123\",\n      \"is_active\": true,\n      \"creation_timestamp\": \"2025-01-01T00:00:00.000000+00:00\",\n      \"deactivation_timestamp\": \"2025-06-01T00:00:00.000000+00:00\",\n      \"masked_by_execution_id\": \"string\",\n      \"masked_by_collection_id\": \"string\",\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 4136\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ed7b3250-20da-4165-a644-0112984a52e2",
+          "name": "Search PaaS Timeflows",
+          "request": {
+            "name": "Search PaaS Timeflows",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-timeflows",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort timeflow results by. A field prefixed with `-` indicates descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f758d7c7-cc23-454b-b9f4-0e11ca3b9af8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-timeflows",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-creation_timestamp"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filter_expression\": \"string_field CONTAINS \\\"over\\\" AND numberic_field GT 9000 OR string_field2 EQ \\\"Goku\\\"\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"paas-timeflow-abc123\",\n      \"instance_id\": \"instance-123\",\n      \"database_id\": \"db-123\",\n      \"is_active\": true,\n      \"creation_timestamp\": \"2025-01-01T00:00:00.000000+00:00\",\n      \"deactivation_timestamp\": \"2025-06-01T00:00:00.000000+00:00\",\n      \"masked_by_execution_id\": \"string\",\n      \"masked_by_collection_id\": \"string\",\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    },\n    {\n      \"id\": \"paas-timeflow-abc123\",\n      \"instance_id\": \"instance-123\",\n      \"database_id\": \"db-123\",\n      \"is_active\": true,\n      \"creation_timestamp\": \"2025-01-01T00:00:00.000000+00:00\",\n      \"deactivation_timestamp\": \"2025-06-01T00:00:00.000000+00:00\",\n      \"masked_by_execution_id\": \"string\",\n      \"masked_by_collection_id\": \"string\",\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 4274\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c424b5c7-0ee0-44eb-a0cb-62f7c4cd7087",
+          "name": "Get PaaS Timeflow by ID",
+          "request": {
+            "name": "Get PaaS Timeflow by ID",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-timeflows",
+                ":paaSTimeflowId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paaSTimeflowId",
+                  "description": "(Required) The ID of the PaaS Timeflow."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cd6b0e41-27d7-4b63-9f08-bfdbc8b06000",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-timeflows",
+                    ":paaSTimeflowId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paaSTimeflowId",
+                      "description": "(Required) The ID of the PaaS Timeflow."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"paas-timeflow-abc123\",\n  \"instance_id\": \"instance-123\",\n  \"database_id\": \"db-123\",\n  \"is_active\": true,\n  \"creation_timestamp\": \"2025-01-01T00:00:00.000000+00:00\",\n  \"deactivation_timestamp\": \"2025-06-01T00:00:00.000000+00:00\",\n  \"masked_by_execution_id\": \"string\",\n  \"masked_by_collection_id\": \"string\",\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0f4b443e-8f0c-415f-a80b-7e4a938bf79a",
+          "name": "Create tags for a PaaS Timeflow.",
+          "request": {
+            "name": "Create tags for a PaaS Timeflow.",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-timeflows",
+                ":paaSTimeflowId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paaSTimeflowId",
+                  "description": "(Required) The ID of the PaaS Timeflow."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "793963f3-aae2-42dc-bcb3-d5dacdc9fb5f",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-timeflows",
+                    ":paaSTimeflowId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paaSTimeflowId",
+                      "description": "(Required) The ID of the PaaS Timeflow."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4127e58e-edd1-4aee-b32a-73dbc91dc88b",
+          "name": "Get tags for a PaaS Timeflow.",
+          "request": {
+            "name": "Get tags for a PaaS Timeflow.",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-timeflows",
+                ":paaSTimeflowId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paaSTimeflowId",
+                  "description": "(Required) The ID of the PaaS Timeflow."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1e16fa68-74a0-4e9a-bfc9-8a6f44d7adda",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-timeflows",
+                    ":paaSTimeflowId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paaSTimeflowId",
+                      "description": "(Required) The ID of the PaaS Timeflow."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ba296bd7-0bc8-4c9f-a094-d3e2d1f1df3f",
+          "name": "Delete tags for a PaaS Timeflow.",
+          "request": {
+            "name": "Delete tags for a PaaS Timeflow.",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-timeflows",
+                ":paaSTimeflowId",
+                "tags",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paaSTimeflowId",
+                  "description": "(Required) The ID of the PaaS Timeflow."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key\": \"<string>\",\n  \"value\": \"<string>\",\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cb2d7938-aac2-4fb7-bddd-a5d43732f20e",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-timeflows",
+                    ":paaSTimeflowId",
+                    "tags",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paaSTimeflowId",
+                      "description": "(Required) The ID of the PaaS Timeflow."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b807c19a-c2b7-4c03-8728-b05b5952cd3c",
+          "name": "List all timeflows for a PaaS Instance",
+          "request": {
+            "name": "List all timeflows for a PaaS Instance",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-instances",
+                ":paaSInstanceId",
+                "timeflows"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paaSInstanceId",
+                  "description": "(Required) The ID of the PaaS Instance."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2c35cdef-fc4f-40e2-9371-0bef11282732",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-instances",
+                    ":paaSInstanceId",
+                    "timeflows"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paaSInstanceId",
+                      "description": "(Required) The ID of the PaaS Instance."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"paas-timeflow-abc123\",\n      \"instance_id\": \"instance-123\",\n      \"database_id\": \"db-123\",\n      \"is_active\": true,\n      \"creation_timestamp\": \"2025-01-01T00:00:00.000000+00:00\",\n      \"deactivation_timestamp\": \"2025-06-01T00:00:00.000000+00:00\",\n      \"masked_by_execution_id\": \"string\",\n      \"masked_by_collection_id\": \"string\",\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    },\n    {\n      \"id\": \"paas-timeflow-abc123\",\n      \"instance_id\": \"instance-123\",\n      \"database_id\": \"db-123\",\n      \"is_active\": true,\n      \"creation_timestamp\": \"2025-01-01T00:00:00.000000+00:00\",\n      \"deactivation_timestamp\": \"2025-06-01T00:00:00.000000+00:00\",\n      \"masked_by_execution_id\": \"string\",\n      \"masked_by_collection_id\": \"string\",\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0ab1a94e-da6a-456a-975f-da5e1eb0ccf0",
+          "name": "List all timeflows for a PaaS Database",
+          "request": {
+            "name": "List all timeflows for a PaaS Database",
+            "description": {},
+            "url": {
+              "path": [
+                "paas-databases",
+                ":paaSDatabaseId",
+                "timeflows"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paaSDatabaseId",
+                  "description": "(Required) The ID of the PaaS Database."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "34d91fd2-78b7-4444-b615-0339920a3717",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paas-databases",
+                    ":paaSDatabaseId",
+                    "timeflows"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paaSDatabaseId",
+                      "description": "(Required) The ID of the PaaS Database."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"paas-timeflow-abc123\",\n      \"instance_id\": \"instance-123\",\n      \"database_id\": \"db-123\",\n      \"is_active\": true,\n      \"creation_timestamp\": \"2025-01-01T00:00:00.000000+00:00\",\n      \"deactivation_timestamp\": \"2025-06-01T00:00:00.000000+00:00\",\n      \"masked_by_execution_id\": \"string\",\n      \"masked_by_collection_id\": \"string\",\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    },\n    {\n      \"id\": \"paas-timeflow-abc123\",\n      \"instance_id\": \"instance-123\",\n      \"database_id\": \"db-123\",\n      \"is_active\": true,\n      \"creation_timestamp\": \"2025-01-01T00:00:00.000000+00:00\",\n      \"deactivation_timestamp\": \"2025-06-01T00:00:00.000000+00:00\",\n      \"masked_by_execution_id\": \"string\",\n      \"masked_by_collection_id\": \"string\",\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/dct/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "31ef6202-2fe2-47c0-8f3d-df996ab17f0e",
+    "name": "Delphix DCT Algorithms PaaSTimeflows API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Delphix DCT API\n\nContact Support:\n Name: Delphix Support\n Email: support@delphix.com",
+      "type": "text/plain"
+    }
+  }
+}

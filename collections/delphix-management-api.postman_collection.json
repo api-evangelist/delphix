@@ -1,0 +1,161 @@
+{
+  "item": [
+    {
+      "id": "0b6b2618-156c-4c95-a446-ca90a9a7b6b5",
+      "name": "Management",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8fc8a1f9-d3c2-48b3-92a1-77367e469e87",
+          "name": "Validate java path for the remote host machine.",
+          "request": {
+            "name": "Validate java path for the remote host machine.",
+            "description": {},
+            "url": {
+              "path": [
+                "management",
+                "engines",
+                ":engineId",
+                "validate",
+                "java-path"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "engineId",
+                  "description": "(Required) The ID of the registered engine."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"java_home\": \"<string>\",\n  \"port\": \"<integer>\",\n  \"host_name\": \"<string>\",\n  \"username\": \"<string>\",\n  \"password\": \"<string>\",\n  \"use_engine_public_key\": \"<boolean>\",\n  \"vault_id\": \"<string>\",\n  \"hashicorp_vault_engine\": \"<string>\",\n  \"hashicorp_vault_secret_path\": \"<string>\",\n  \"hashicorp_vault_username_key\": \"<string>\",\n  \"hashicorp_vault_secret_key\": \"<string>\",\n  \"azure_vault_name\": \"<string>\",\n  \"azure_vault_username_key\": \"<string>\",\n  \"azure_vault_secret_key\": \"<string>\",\n  \"cyberark_vault_query_string\": \"<string>\",\n  \"use_kerberos_authentication\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c2957a55-ed24-467d-a8f9-2eb2cfa7566e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "management",
+                    "engines",
+                    ":engineId",
+                    "validate",
+                    "java-path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "engineId",
+                      "description": "(Required) The ID of the registered engine."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"java_home\": \"home/jdk/\",\n  \"port\": 22,\n  \"host_name\": \"test.host.com\",\n  \"username\": \"username\",\n  \"password\": \"password\",\n  \"use_engine_public_key\": true,\n  \"vault_id\": \"my-vault\",\n  \"hashicorp_vault_engine\": \"kv\",\n  \"hashicorp_vault_secret_path\": \"oracle-env\",\n  \"hashicorp_vault_username_key\": \"username\",\n  \"hashicorp_vault_secret_key\": \"secret\",\n  \"azure_vault_name\": \"azure_vault\",\n  \"azure_vault_username_key\": \"username\",\n  \"azure_vault_secret_key\": \"secret\",\n  \"cyberark_vault_query_string\": \"Safe=Test;Folder=Test;Object=Test\",\n  \"use_kerberos_authentication\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/dct/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "dec182a1-4f04-429f-9bc0-e044607bc2f1",
+    "name": "Delphix DCT Algorithms Management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Delphix DCT API\n\nContact Support:\n Name: Delphix Support\n Email: support@delphix.com",
+      "type": "text/plain"
+    }
+  }
+}

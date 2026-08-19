@@ -1,0 +1,312 @@
+{
+  "item": [
+    {
+      "id": "34853611-0423-4038-89dc-20354f83a016",
+      "name": "VirtualizationJobs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "dd9470de-75b2-4287-85b3-a19e39b88bc7",
+          "name": "Fetch a list of all virtualization jobs",
+          "request": {
+            "name": "Fetch a list of all virtualization jobs",
+            "description": {},
+            "url": {
+              "path": [
+                "virtualization-jobs",
+                "history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                },
+                {
+                  "disabled": false,
+                  "key": "object_id",
+                  "value": "<string>",
+                  "description": "The object id to filter by."
+                },
+                {
+                  "disabled": false,
+                  "key": "object_type",
+                  "value": "<string>",
+                  "description": "The object type to filter by."
+                },
+                {
+                  "disabled": false,
+                  "key": "job_type",
+                  "value": "<string>",
+                  "description": "The job type to filter by."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8fc39d50-beb3-4c25-b796-192c153b3d8c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtualization-jobs",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "engine_job_id"
+                    },
+                    {
+                      "key": "object_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "object_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "job_type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"engine_job_id\": \"string\",\n      \"engine_id\": \"string\",\n      \"legacy_job_type\": \"string\",\n      \"job_type\": \"<string>\",\n      \"target_object_id\": \"string\",\n      \"legacy_target_object_type\": \"string\",\n      \"target_object_type\": \"<string>\",\n      \"job_state\": \"FAILED\",\n      \"start_time\": \"1990-06-04T05:07:27.903Z\",\n      \"update_time\": \"2006-08-31T18:01:39.065Z\",\n      \"suspendable\": false,\n      \"cancelable\": true,\n      \"queued\": true,\n      \"title\": \"string\",\n      \"cancel_reason\": \"string\",\n      \"percent_complete\": 4617,\n      \"run_duration\": 0,\n      \"events\": [\n        {\n          \"event_type\": \"WARNING\",\n          \"event_timestamp\": \"2005-03-24T04:16:40.584Z\",\n          \"event_state\": \"RETRYABLE\",\n          \"percent_complete\": 6616,\n          \"message_code\": \"string\",\n          \"message_details\": \"string\",\n          \"message_action\": \"string\",\n          \"message_command_output\": \"string\"\n        },\n        {\n          \"event_type\": \"INFO\",\n          \"event_timestamp\": \"1960-08-20T15:04:19.140Z\",\n          \"event_state\": \"SUSPENDED\",\n          \"percent_complete\": 1760,\n          \"message_code\": \"string\",\n          \"message_details\": \"string\",\n          \"message_action\": \"string\",\n          \"message_command_output\": \"string\"\n        }\n      ]\n    },\n    {\n      \"engine_job_id\": \"string\",\n      \"engine_id\": \"string\",\n      \"legacy_job_type\": \"string\",\n      \"job_type\": \"<string>\",\n      \"target_object_id\": \"string\",\n      \"legacy_target_object_type\": \"string\",\n      \"target_object_type\": \"<string>\",\n      \"job_state\": \"SUSPENDED\",\n      \"start_time\": \"1979-02-17T06:21:59.097Z\",\n      \"update_time\": \"2022-12-26T16:04:50.861Z\",\n      \"suspendable\": true,\n      \"cancelable\": false,\n      \"queued\": false,\n      \"title\": \"string\",\n      \"cancel_reason\": \"string\",\n      \"percent_complete\": 9325,\n      \"run_duration\": 672,\n      \"events\": [\n        {\n          \"event_type\": \"WARNING\",\n          \"event_timestamp\": \"1980-04-18T13:19:22.518Z\",\n          \"event_state\": \"RUNNING\",\n          \"percent_complete\": 5868,\n          \"message_code\": \"string\",\n          \"message_details\": \"string\",\n          \"message_action\": \"string\",\n          \"message_command_output\": \"string\"\n        },\n        {\n          \"event_type\": \"INFO\",\n          \"event_timestamp\": \"2011-02-10T16:59:38.278Z\",\n          \"event_state\": \"RETRYABLE\",\n          \"percent_complete\": 3290,\n          \"message_code\": \"string\",\n          \"message_details\": \"string\",\n          \"message_action\": \"string\",\n          \"message_command_output\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 8014\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7a8754b4-902f-4d2c-b61b-bf65fa0af2d7",
+          "name": "Search virtualization jobs",
+          "request": {
+            "name": "Search virtualization jobs",
+            "description": {},
+            "url": {
+              "path": [
+                "virtualization-jobs",
+                "history",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ca66533b-f389-4cd4-b6b0-9aba6ef130e2",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtualization-jobs",
+                    "history",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "engine_job_id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"engine_job_id\": \"string\",\n      \"engine_id\": \"string\",\n      \"legacy_job_type\": \"string\",\n      \"job_type\": \"<string>\",\n      \"target_object_id\": \"string\",\n      \"legacy_target_object_type\": \"string\",\n      \"target_object_type\": \"<string>\",\n      \"job_state\": \"RUNNING\",\n      \"start_time\": \"2004-10-16T12:54:15.725Z\",\n      \"update_time\": \"2004-02-21T06:21:31.302Z\",\n      \"suspendable\": false,\n      \"cancelable\": false,\n      \"queued\": true,\n      \"title\": \"string\",\n      \"cancel_reason\": \"string\",\n      \"percent_complete\": 5329,\n      \"run_duration\": 8305,\n      \"events\": [\n        {\n          \"event_type\": \"INFO\",\n          \"event_timestamp\": \"1957-11-10T17:25:40.084Z\",\n          \"event_state\": \"COMPLETED\",\n          \"percent_complete\": 8017,\n          \"message_code\": \"string\",\n          \"message_details\": \"string\",\n          \"message_action\": \"string\",\n          \"message_command_output\": \"string\"\n        },\n        {\n          \"event_type\": \"WARNING\",\n          \"event_timestamp\": \"1978-08-04T06:04:35.958Z\",\n          \"event_state\": \"CANCELED\",\n          \"percent_complete\": 5160,\n          \"message_code\": \"string\",\n          \"message_details\": \"string\",\n          \"message_action\": \"string\",\n          \"message_command_output\": \"string\"\n        }\n      ]\n    },\n    {\n      \"engine_job_id\": \"string\",\n      \"engine_id\": \"string\",\n      \"legacy_job_type\": \"string\",\n      \"job_type\": \"<string>\",\n      \"target_object_id\": \"string\",\n      \"legacy_target_object_type\": \"string\",\n      \"target_object_type\": \"<string>\",\n      \"job_state\": \"SUSPENDED\",\n      \"start_time\": \"1979-06-17T17:53:54.717Z\",\n      \"update_time\": \"1956-06-10T06:16:44.398Z\",\n      \"suspendable\": false,\n      \"cancelable\": true,\n      \"queued\": true,\n      \"title\": \"string\",\n      \"cancel_reason\": \"string\",\n      \"percent_complete\": 4960,\n      \"run_duration\": 6163,\n      \"events\": [\n        {\n          \"event_type\": \"WARNING\",\n          \"event_timestamp\": \"1956-01-26T07:01:02.480Z\",\n          \"event_state\": \"SUSPENDED\",\n          \"percent_complete\": 7184,\n          \"message_code\": \"string\",\n          \"message_details\": \"string\",\n          \"message_action\": \"string\",\n          \"message_command_output\": \"string\"\n        },\n        {\n          \"event_type\": \"WARNING\",\n          \"event_timestamp\": \"1976-12-19T15:50:00.343Z\",\n          \"event_state\": \"CANCELED\",\n          \"percent_complete\": 4406,\n          \"message_code\": \"string\",\n          \"message_details\": \"string\",\n          \"message_action\": \"string\",\n          \"message_command_output\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 8862\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/dct/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c536dd01-446f-47e0-a42b-e558fafa3618",
+    "name": "Delphix DCT Algorithms VirtualizationJobs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Delphix DCT API\n\nContact Support:\n Name: Delphix Support\n Email: support@delphix.com",
+      "type": "text/plain"
+    }
+  }
+}

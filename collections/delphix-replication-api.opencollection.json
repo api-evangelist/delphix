@@ -1,0 +1,290 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms Replication API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Replication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all ReplicationProfiles.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/replication-profiles",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ]
+          },
+          "docs": "List all ReplicationProfiles."
+        },
+        {
+          "info": {
+            "name": "Create a ReplicationProfile.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/replication-profiles",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a ReplicationProfile."
+        },
+        {
+          "info": {
+            "name": "Search for ReplicationProfiles.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/replication-profiles/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for ReplicationProfiles."
+        },
+        {
+          "info": {
+            "name": "Execute a ReplicationProfile.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/replication-profiles/:replicationProfileId/execute",
+            "params": [
+              {
+                "name": "replicationProfileId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the ReplicationProfile."
+              }
+            ]
+          },
+          "docs": "Execute a ReplicationProfile."
+        },
+        {
+          "info": {
+            "name": "Get a ReplicationProfile by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/replication-profiles/:replicationProfileId",
+            "params": [
+              {
+                "name": "replicationProfileId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the ReplicationProfile."
+              }
+            ]
+          },
+          "docs": "Get a ReplicationProfile by ID."
+        },
+        {
+          "info": {
+            "name": "Update a ReplicationProfile.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/replication-profiles/:replicationProfileId",
+            "params": [
+              {
+                "name": "replicationProfileId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the ReplicationProfile."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a ReplicationProfile."
+        },
+        {
+          "info": {
+            "name": "Delete a ReplicationProfile.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/dct/v3/replication-profiles/:replicationProfileId",
+            "params": [
+              {
+                "name": "replicationProfileId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the ReplicationProfile."
+              }
+            ]
+          },
+          "docs": "Delete a ReplicationProfile."
+        },
+        {
+          "info": {
+            "name": "Get tags for a ReplicationProfile.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/replication-profiles/:replicationProfileId/tags",
+            "params": [
+              {
+                "name": "replicationProfileId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the ReplicationProfile."
+              }
+            ]
+          },
+          "docs": "Get tags for a ReplicationProfile."
+        },
+        {
+          "info": {
+            "name": "Create tags for a ReplicationProfile.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/replication-profiles/:replicationProfileId/tags",
+            "params": [
+              {
+                "name": "replicationProfileId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the ReplicationProfile."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create tags for a ReplicationProfile."
+        },
+        {
+          "info": {
+            "name": "Delete tags for a ReplicationProfile.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/replication-profiles/:replicationProfileId/tags/delete",
+            "params": [
+              {
+                "name": "replicationProfileId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the ReplicationProfile."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete tags for a ReplicationProfile."
+        },
+        {
+          "info": {
+            "name": "Enable tag replication for given ReplicationProfile.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/replication-profiles/:replicationProfileId/enable-tag-replication",
+            "params": [
+              {
+                "name": "replicationProfileId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the ReplicationProfile."
+              }
+            ]
+          },
+          "docs": "Enable tag replication for given ReplicationProfile."
+        },
+        {
+          "info": {
+            "name": "Disable tag replication for given ReplicationProfile.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/replication-profiles/:replicationProfileId/disable-tag-replication",
+            "params": [
+              {
+                "name": "replicationProfileId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the ReplicationProfile."
+              }
+            ]
+          },
+          "docs": "Disable tag replication for given ReplicationProfile."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

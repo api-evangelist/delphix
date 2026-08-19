@@ -1,0 +1,491 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms RuleSets API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "RuleSets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve the list of Rule Sets.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/rule-sets",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+              }
+            ]
+          },
+          "docs": "Retrieve the list of Rule Sets."
+        },
+        {
+          "info": {
+            "name": "Create a Rule Set.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/rule-sets",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a Rule Set."
+        },
+        {
+          "info": {
+            "name": "Search for Rule Sets.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/rule-sets/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for Rule Sets."
+        },
+        {
+          "info": {
+            "name": "Get a Rule Set by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/rule-sets/:ruleSetId",
+            "params": [
+              {
+                "name": "ruleSetId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Rule Set."
+              }
+            ]
+          },
+          "docs": "Get a Rule Set by ID."
+        },
+        {
+          "info": {
+            "name": "Update a Rule Set.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/rule-sets/:ruleSetId",
+            "params": [
+              {
+                "name": "ruleSetId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Rule Set."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Rule Set."
+        },
+        {
+          "info": {
+            "name": "Delete a Rule Set.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/dct/v3/rule-sets/:ruleSetId",
+            "params": [
+              {
+                "name": "ruleSetId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Rule Set."
+              }
+            ]
+          },
+          "docs": "Delete a Rule Set."
+        },
+        {
+          "info": {
+            "name": "Refresh a Rule Set.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/rule-sets/:ruleSetId/refresh",
+            "params": [
+              {
+                "name": "ruleSetId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Rule Set."
+              }
+            ]
+          },
+          "docs": "Refresh a Rule Set."
+        },
+        {
+          "info": {
+            "name": "Update the set of tables and their attributes associated with a database rule set in bulk in a delta fashion.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/rule-sets/:ruleSetId/bulk-table-delta-update",
+            "params": [
+              {
+                "name": "ruleSetId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Rule Set."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the set of tables and their attributes associated with a database rule set in bulk in a delta fashion."
+        },
+        {
+          "info": {
+            "name": "Update multiple database table metadata objects for a rule set.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/rule-sets/:ruleSetId/database-table-metadata",
+            "params": [
+              {
+                "name": "ruleSetId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Rule Set."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update multiple database table metadata objects for a rule set."
+        },
+        {
+          "info": {
+            "name": "Get tags for a Rule Set.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/rule-sets/:ruleSetId/tags",
+            "params": [
+              {
+                "name": "ruleSetId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Rule Set."
+              }
+            ]
+          },
+          "docs": "Get tags for a Rule Set."
+        },
+        {
+          "info": {
+            "name": "Create tags for a Rule Set.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/rule-sets/:ruleSetId/tags",
+            "params": [
+              {
+                "name": "ruleSetId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Rule Set."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create tags for a Rule Set."
+        },
+        {
+          "info": {
+            "name": "Delete tags for a Rule Set.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/rule-sets/:ruleSetId/tags/delete",
+            "params": [
+              {
+                "name": "ruleSetId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Rule Set."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete tags for a Rule Set."
+        },
+        {
+          "info": {
+            "name": "Retrieve table metadata.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/database-table-metadata",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+              }
+            ]
+          },
+          "docs": "Retrieve table metadata."
+        },
+        {
+          "info": {
+            "name": "Search table metadata.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/database-table-metadata/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search table metadata."
+        },
+        {
+          "info": {
+            "name": "Retrieve a database table metadata by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/database-table-metadata/:databaseTableMetadataId",
+            "params": [
+              {
+                "name": "databaseTableMetadataId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the database table metadata."
+              }
+            ]
+          },
+          "docs": "Retrieve a database table metadata by ID."
+        },
+        {
+          "info": {
+            "name": "Retrieve column metadata.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/database-column-metadata",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "column_name",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+              }
+            ]
+          },
+          "docs": "Retrieve column metadata."
+        },
+        {
+          "info": {
+            "name": "Search column metadata.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/database-column-metadata/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "column_name",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search column metadata."
+        },
+        {
+          "info": {
+            "name": "Retrieve a database column metadata by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/database-column-metadata/:databaseColumnMetadataId",
+            "params": [
+              {
+                "name": "databaseColumnMetadataId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the database column metadata."
+              }
+            ]
+          },
+          "docs": "Retrieve a database column metadata by ID."
+        },
+        {
+          "info": {
+            "name": "Update a database column metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/database-column-metadata/:databaseColumnMetadataId",
+            "params": [
+              {
+                "name": "databaseColumnMetadataId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the database column metadata."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a database column metadata"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

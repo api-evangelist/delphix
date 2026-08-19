@@ -1,0 +1,398 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms CDBs API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "CDBs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all CDBs (Oracle only).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/cdbs",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ]
+          },
+          "docs": "List all CDBs (Oracle only)."
+        },
+        {
+          "info": {
+            "name": "Search for CDBs (Oracle only).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/cdbs/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for CDBs (Oracle only)."
+        },
+        {
+          "info": {
+            "name": "Get a CDB by ID (Oracle only).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/cdbs/:cdbId",
+            "params": [
+              {
+                "name": "cdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the CDB."
+              }
+            ]
+          },
+          "docs": "Get a CDB by ID (Oracle only)."
+        },
+        {
+          "info": {
+            "name": "Update a CDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/cdbs/:cdbId",
+            "params": [
+              {
+                "name": "cdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the CDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a CDB."
+        },
+        {
+          "info": {
+            "name": "Update a CDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/cdbs/:cdbId/update",
+            "params": [
+              {
+                "name": "cdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the CDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a CDB."
+        },
+        {
+          "info": {
+            "name": "Get tags for a CDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/cdbs/:cdbId/tags",
+            "params": [
+              {
+                "name": "cdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the CDB."
+              }
+            ]
+          },
+          "docs": "Get tags for a CDB."
+        },
+        {
+          "info": {
+            "name": "Create tags for a CDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/cdbs/:cdbId/tags",
+            "params": [
+              {
+                "name": "cdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the CDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create tags for a CDB."
+        },
+        {
+          "info": {
+            "name": "Delete tags for a CDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/cdbs/:cdbId/tags/delete",
+            "params": [
+              {
+                "name": "cdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the CDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete tags for a CDB."
+        },
+        {
+          "info": {
+            "name": "Enable a CDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/cdbs/:cdbId/enable",
+            "params": [
+              {
+                "name": "cdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the CDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Enable a CDB."
+        },
+        {
+          "info": {
+            "name": "Disable a CDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/cdbs/:cdbId/disable",
+            "params": [
+              {
+                "name": "cdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the CDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Disable a CDB."
+        },
+        {
+          "info": {
+            "name": "Get deletion dependencies of a CDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/cdbs/:cdbId/deletion-dependencies",
+            "params": [
+              {
+                "name": "cdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the CDB."
+              }
+            ]
+          },
+          "docs": "Get deletion dependencies of a CDB."
+        },
+        {
+          "info": {
+            "name": "Delete a CDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/cdbs/:cdbId/delete",
+            "params": [
+              {
+                "name": "cdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the CDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete a CDB."
+        },
+        {
+          "info": {
+            "name": "Upgrade Oracle CDB",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/cdbs/:cdbId/upgrade",
+            "params": [
+              {
+                "name": "cdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the CDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Upgrade Oracle CDB"
+        },
+        {
+          "info": {
+            "name": "Detaches an Oracle CDB from an Oracle database.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/cdbs/:cdbId/detachSource",
+            "params": [
+              {
+                "name": "cdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the CDB."
+              }
+            ]
+          },
+          "docs": "Detaches an Oracle CDB from an Oracle database."
+        },
+        {
+          "info": {
+            "name": "Attach an Oracle CDB to an Oracle database.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/cdbs/:cdbId/attachSource",
+            "params": [
+              {
+                "name": "cdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the CDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Attach an Oracle CDB to an Oracle database."
+        },
+        {
+          "info": {
+            "name": "Verify JDBC connection string for a CDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/cdbs/:cdbId/jdbc-check",
+            "params": [
+              {
+                "name": "cdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the CDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Verify JDBC connection string for a CDB."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

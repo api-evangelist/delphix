@@ -1,0 +1,458 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms MaskingJobs API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "MaskingJobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve the list of masking jobs.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/masking-jobs",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+              }
+            ]
+          },
+          "docs": "Retrieve the list of masking jobs."
+        },
+        {
+          "info": {
+            "name": "Create a Masking Job.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/masking-jobs",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a Masking Job."
+        },
+        {
+          "info": {
+            "name": "Search masking jobs.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/masking-jobs/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search masking jobs."
+        },
+        {
+          "info": {
+            "name": "Retrieve the list of masking jobs along with their source engine.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/masking-jobs/source-engines",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+              }
+            ]
+          },
+          "docs": "Retrieve the list of masking jobs along with their source engine."
+        },
+        {
+          "info": {
+            "name": "Search the list of masking jobs along with their source engine.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/masking-jobs/source-engines/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search the list of masking jobs along with their source engine."
+        },
+        {
+          "info": {
+            "name": "Retrieve a MaskingJob by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/masking-jobs/:maskingJobId",
+            "params": [
+              {
+                "name": "maskingJobId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Masking Job."
+              }
+            ]
+          },
+          "docs": "Retrieve a MaskingJob by ID."
+        },
+        {
+          "info": {
+            "name": "Update values of a MaskingJob.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/masking-jobs/:maskingJobId",
+            "params": [
+              {
+                "name": "maskingJobId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Masking Job."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update values of a MaskingJob."
+        },
+        {
+          "info": {
+            "name": "Delete a masking job.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/dct/v3/masking-jobs/:maskingJobId",
+            "params": [
+              {
+                "name": "maskingJobId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Masking Job."
+              },
+              {
+                "name": "force",
+                "value": "true",
+                "type": "query",
+                "description": "If true, ignores any failures to remove a masking job on an engine."
+              }
+            ]
+          },
+          "docs": "Delete a masking job."
+        },
+        {
+          "info": {
+            "name": "Copies the masking job to another engine.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/masking-jobs/:maskingJobId/copy",
+            "params": [
+              {
+                "name": "maskingJobId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Masking Job."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Copies the masking job to another engine."
+        },
+        {
+          "info": {
+            "name": "Migrates the masking job from its current source engine to another engine.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/masking-jobs/:maskingJobId/migrate",
+            "params": [
+              {
+                "name": "maskingJobId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Masking Job."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Migrates the masking job from its current source engine to another engine."
+        },
+        {
+          "info": {
+            "name": "Get connectors for a Masking Job by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/masking-jobs/:maskingJobId/connectors",
+            "params": [
+              {
+                "name": "maskingJobId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Masking Job."
+              }
+            ]
+          },
+          "docs": "Get connectors for a Masking Job by ID."
+        },
+        {
+          "info": {
+            "name": "Execute a MaskingJob.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/masking-jobs/:maskingJobId/execute",
+            "params": [
+              {
+                "name": "maskingJobId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Masking Job."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Execute a MaskingJob."
+        },
+        {
+          "info": {
+            "name": "Re-import the dataset from the source MaskingJob (Hyperscale Job only).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/masking-jobs/:maskingJobId/re-import",
+            "params": [
+              {
+                "name": "maskingJobId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Masking Job."
+              }
+            ]
+          },
+          "docs": "Re-import the dataset from the source MaskingJob (Hyperscale Job only)."
+        },
+        {
+          "info": {
+            "name": "Get tags for a Masking Job.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/masking-jobs/:maskingJobId/tags",
+            "params": [
+              {
+                "name": "maskingJobId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Masking Job."
+              }
+            ]
+          },
+          "docs": "Get tags for a Masking Job."
+        },
+        {
+          "info": {
+            "name": "Create tags for a Masking Job.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/masking-jobs/:maskingJobId/tags",
+            "params": [
+              {
+                "name": "maskingJobId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Masking Job."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create tags for a Masking Job."
+        },
+        {
+          "info": {
+            "name": "Delete tags for a Masking Job.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/masking-jobs/:maskingJobId/tags/delete",
+            "params": [
+              {
+                "name": "maskingJobId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Masking Job."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete tags for a Masking Job."
+        },
+        {
+          "info": {
+            "name": "Add an engine to a Masking Job (Hyperscale Job only).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/masking-jobs/:maskingJobId/add-engine",
+            "params": [
+              {
+                "name": "maskingJobId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Masking Job."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add an engine to a Masking Job (Hyperscale Job only)."
+        },
+        {
+          "info": {
+            "name": "Remove an engine from a Masking Job (Hyperscale Job only).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/masking-jobs/:maskingJobId/remove-engine",
+            "params": [
+              {
+                "name": "maskingJobId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Masking Job."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove an engine from a Masking Job (Hyperscale Job only)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,122 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms PaaSPlugins API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "PaaSPlugins",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all registered PaaS plugins.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/paas-plugins",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order.\n"
+              }
+            ]
+          },
+          "docs": "List all registered PaaS plugins."
+        },
+        {
+          "info": {
+            "name": "Get tags for a PaaS Plugin.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/paas-plugins/:paaSPluginId/tags",
+            "params": [
+              {
+                "name": "paaSPluginId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Plugin."
+              }
+            ]
+          },
+          "docs": "Get tags for a PaaS Plugin."
+        },
+        {
+          "info": {
+            "name": "Create tags for a PaaS plugin.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/paas-plugins/:paaSPluginId/tags",
+            "params": [
+              {
+                "name": "paaSPluginId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Plugin."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create tags for a PaaS plugin."
+        },
+        {
+          "info": {
+            "name": "Delete tags for a PaaS Plugin.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/paas-plugins/:paaSPluginId/tags/delete",
+            "params": [
+              {
+                "name": "paaSPluginId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the PaaS Plugin."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete tags for a PaaS Plugin."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

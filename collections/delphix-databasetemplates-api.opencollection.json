@@ -1,0 +1,263 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms DatabaseTemplates API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DatabaseTemplates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve the list of database templates.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/database-templates",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ]
+          },
+          "docs": "Retrieve the list of database templates."
+        },
+        {
+          "info": {
+            "name": "Create a database template.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/database-templates",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a database template."
+        },
+        {
+          "info": {
+            "name": "Retrieve a DatabaseTemplate by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/database-templates/:databaseTemplateId",
+            "params": [
+              {
+                "name": "databaseTemplateId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Database Template."
+              }
+            ]
+          },
+          "docs": "Retrieve a DatabaseTemplate by ID."
+        },
+        {
+          "info": {
+            "name": "Updates a DatabaseTemplate by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/database-templates/:databaseTemplateId",
+            "params": [
+              {
+                "name": "databaseTemplateId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Database Template."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a DatabaseTemplate by ID"
+        },
+        {
+          "info": {
+            "name": "Delete a DatabaseTemplate by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/dct/v3/database-templates/:databaseTemplateId",
+            "params": [
+              {
+                "name": "databaseTemplateId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Database Template."
+              }
+            ]
+          },
+          "docs": "Delete a DatabaseTemplate by ID."
+        },
+        {
+          "info": {
+            "name": "Get tags for a DatabaseTemplate.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/database-templates/:databaseTemplateId/tags",
+            "params": [
+              {
+                "name": "databaseTemplateId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Database Template."
+              }
+            ]
+          },
+          "docs": "Get tags for a DatabaseTemplate."
+        },
+        {
+          "info": {
+            "name": "Create tags for a DatabaseTemplate.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/database-templates/:databaseTemplateId/tags",
+            "params": [
+              {
+                "name": "databaseTemplateId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Database Template."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create tags for a DatabaseTemplate."
+        },
+        {
+          "info": {
+            "name": "Delete tags for a DatabaseTemplate.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/database-templates/:databaseTemplateId/tags/delete",
+            "params": [
+              {
+                "name": "databaseTemplateId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Database Template."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete tags for a DatabaseTemplate."
+        },
+        {
+          "info": {
+            "name": "Search DatabaseTemplates.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/database-templates/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search DatabaseTemplates."
+        },
+        {
+          "info": {
+            "name": "Imports the database templates from an engine.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/database-templates/import",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Imports the database templates from an engine."
+        },
+        {
+          "info": {
+            "name": "Undo an import of DatabaseTemplates on an Engine.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/database-templates/undo-import",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Undo an import of DatabaseTemplates on an Engine."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

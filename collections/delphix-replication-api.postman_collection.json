@@ -1,0 +1,1244 @@
+{
+  "item": [
+    {
+      "id": "94e872de-15cf-4ba6-a0c6-ddccce20c597",
+      "name": "Replication",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "54600755-2ebe-4224-881e-4ccadab059a5",
+          "name": "List all ReplicationProfiles.",
+          "request": {
+            "name": "List all ReplicationProfiles.",
+            "description": {},
+            "url": {
+              "path": [
+                "replication-profiles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2b9f2ea5-e3f2-48c9-9c27-ef35266454f9",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "replication-profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"replication_mode\": \"CONTINUOUS_VAULT\",\n      \"engine_id\": \"string\",\n      \"target_engine_id\": \"string\",\n      \"target_host\": \"string\",\n      \"target_port\": 8415,\n      \"nfs_share\": \"string\",\n      \"type\": \"string\",\n      \"description\": \"string\",\n      \"last_execution_status\": \"FAILED\",\n      \"last_execution_status_timestamp\": \"2016-05-25T01:45:10.474Z\",\n      \"schedule\": \"string\",\n      \"replication_tag\": \"string\",\n      \"replication_objects\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ],\n      \"enable_tag_replication\": true,\n      \"bandwidth_limit\": 0,\n      \"number_of_connections\": 1,\n      \"encrypted\": false,\n      \"automatic_replication\": false,\n      \"use_system_socks_setting\": false,\n      \"vdb_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"dsource_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"cdb_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"vcdb_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"group_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"replicate_entire_engine\": true,\n      \"data_layout_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"last_send_timestamp\": \"2002-07-03T05:53:15.336Z\",\n      \"last_offline_serialization_point_id\": 2909,\n      \"last_offline_receive_data_dir\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"replication_mode\": \"OFFLINE_RECEIVE\",\n      \"engine_id\": \"string\",\n      \"target_engine_id\": \"string\",\n      \"target_host\": \"string\",\n      \"target_port\": 8415,\n      \"nfs_share\": \"string\",\n      \"type\": \"string\",\n      \"description\": \"string\",\n      \"last_execution_status\": \"COMPLETED\",\n      \"last_execution_status_timestamp\": \"1967-05-30T15:50:03.959Z\",\n      \"schedule\": \"string\",\n      \"replication_tag\": \"string\",\n      \"replication_objects\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ],\n      \"enable_tag_replication\": false,\n      \"bandwidth_limit\": 0,\n      \"number_of_connections\": 1,\n      \"encrypted\": false,\n      \"automatic_replication\": false,\n      \"use_system_socks_setting\": false,\n      \"vdb_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"dsource_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"cdb_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"vcdb_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"group_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"replicate_entire_engine\": false,\n      \"data_layout_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"last_send_timestamp\": \"1949-03-21T13:23:11.686Z\",\n      \"last_offline_serialization_point_id\": 1431,\n      \"last_offline_receive_data_dir\": \"string\"\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 1697\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2fec7e05-a982-48a9-812d-0f4221c7197c",
+          "name": "Create a ReplicationProfile.",
+          "request": {
+            "name": "Create a ReplicationProfile.",
+            "description": {},
+            "url": {
+              "path": [
+                "replication-profiles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"replication_mode\": \"<string>\",\n  \"engine_id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"target_engine_id\": \"<string>\",\n  \"target_host\": \"<string>\",\n  \"target_port\": 8415,\n  \"nfs_share\": \"<string>\",\n  \"offline_send_profile_tag\": \"<string>\",\n  \"description\": \"<string>\",\n  \"schedule\": \"<string>\",\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"enable_tag_replication\": \"<boolean>\",\n  \"bandwidth_limit\": 0,\n  \"number_of_connections\": 1,\n  \"encrypted\": false,\n  \"automatic_replication\": false,\n  \"use_system_socks_setting\": false,\n  \"vdb_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"dsource_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"cdb_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"vcdb_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"group_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"replicate_entire_engine\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "110f158d-e333-4e8e-8d32-314df13e6aa4",
+              "name": "ReplicationProfile created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "replication-profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 53,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1955-05-29T11:59:09.566Z\",\n        \"end_time\": \"1952-06-16T21:05:14.441Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 99,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1990-03-29T08:50:22.691Z\",\n        \"end_time\": \"1988-05-13T22:33:59.379Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 57,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"ABANDONED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2018-09-18T18:56:30.084Z\",\n        \"end_time\": \"2014-07-09T18:29:00.764Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 25,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2011-04-22T20:26:45.506Z\",\n        \"end_time\": \"1992-09-20T11:18:05.842Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 69,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  },\n  \"replication_profile_id\": \"1-REPLICATION_PROFILE-1\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7c6d38c3-a247-4c5a-a280-6d3e74e5612b",
+          "name": "Search for ReplicationProfiles.",
+          "request": {
+            "name": "Search for ReplicationProfiles.",
+            "description": {},
+            "url": {
+              "path": [
+                "replication-profiles",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "548b8223-b606-439e-a14e-dd9fbdeae5a8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "replication-profiles",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"replication_mode\": \"OFFLINE_CONTINUOUS_VAULT\",\n      \"engine_id\": \"string\",\n      \"target_engine_id\": \"string\",\n      \"target_host\": \"string\",\n      \"target_port\": 8415,\n      \"nfs_share\": \"string\",\n      \"type\": \"string\",\n      \"description\": \"string\",\n      \"last_execution_status\": \"SUSPENDED\",\n      \"last_execution_status_timestamp\": \"1952-12-22T22:16:26.140Z\",\n      \"schedule\": \"string\",\n      \"replication_tag\": \"string\",\n      \"replication_objects\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ],\n      \"enable_tag_replication\": false,\n      \"bandwidth_limit\": 0,\n      \"number_of_connections\": 1,\n      \"encrypted\": false,\n      \"automatic_replication\": false,\n      \"use_system_socks_setting\": false,\n      \"vdb_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"dsource_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"cdb_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"vcdb_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"group_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"replicate_entire_engine\": false,\n      \"data_layout_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"last_send_timestamp\": \"1972-11-04T12:35:40.438Z\",\n      \"last_offline_serialization_point_id\": 1047,\n      \"last_offline_receive_data_dir\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"replication_mode\": \"MASKED_DATA_DISTRIBUTION\",\n      \"engine_id\": \"string\",\n      \"target_engine_id\": \"string\",\n      \"target_host\": \"string\",\n      \"target_port\": 8415,\n      \"nfs_share\": \"string\",\n      \"type\": \"string\",\n      \"description\": \"string\",\n      \"last_execution_status\": \"FAILED\",\n      \"last_execution_status_timestamp\": \"1994-10-04T11:59:51.277Z\",\n      \"schedule\": \"string\",\n      \"replication_tag\": \"string\",\n      \"replication_objects\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ],\n      \"enable_tag_replication\": false,\n      \"bandwidth_limit\": 0,\n      \"number_of_connections\": 1,\n      \"encrypted\": false,\n      \"automatic_replication\": false,\n      \"use_system_socks_setting\": false,\n      \"vdb_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"dsource_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"cdb_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"vcdb_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"group_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"replicate_entire_engine\": false,\n      \"data_layout_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"last_send_timestamp\": \"2014-08-21T08:11:43.052Z\",\n      \"last_offline_serialization_point_id\": 9261,\n      \"last_offline_receive_data_dir\": \"string\"\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 1940\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6a19c33e-306d-466d-a1a3-2d18d1a7fbd3",
+          "name": "Execute a ReplicationProfile.",
+          "request": {
+            "name": "Execute a ReplicationProfile.",
+            "description": {},
+            "url": {
+              "path": [
+                "replication-profiles",
+                ":replicationProfileId",
+                "execute"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "replicationProfileId",
+                  "description": "(Required) The ID of the ReplicationProfile."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "21cf79b4-53dd-49e4-9875-fdcbd8a8355f",
+              "name": "ReplicationProfile executed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "replication-profiles",
+                    ":replicationProfileId",
+                    "execute"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "replicationProfileId",
+                      "description": "(Required) The ID of the ReplicationProfile."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 41,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2016-01-15T20:00:17.809Z\",\n        \"end_time\": \"1979-04-13T18:35:55.491Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 82,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2008-07-06T19:31:41.810Z\",\n        \"end_time\": \"1993-02-21T11:28:41.944Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 52,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"FAILED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2019-08-19T19:47:47.903Z\",\n        \"end_time\": \"2009-01-20T04:33:50.088Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 17,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1973-03-26T02:33:14.527Z\",\n        \"end_time\": \"2006-02-18T13:38:44.473Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 18,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0ff9cc08-e30b-46e3-9955-e6166f40f2f7",
+          "name": "Get a ReplicationProfile by ID.",
+          "request": {
+            "name": "Get a ReplicationProfile by ID.",
+            "description": {},
+            "url": {
+              "path": [
+                "replication-profiles",
+                ":replicationProfileId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "replicationProfileId",
+                  "description": "(Required) The ID of the ReplicationProfile."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8de95ee2-e925-42a2-806b-1813368e1b47",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "replication-profiles",
+                    ":replicationProfileId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "replicationProfileId",
+                      "description": "(Required) The ID of the ReplicationProfile."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"replication_mode\": \"CONTINUOUS_VAULT\",\n  \"engine_id\": \"string\",\n  \"target_engine_id\": \"string\",\n  \"target_host\": \"string\",\n  \"target_port\": 8415,\n  \"nfs_share\": \"string\",\n  \"type\": \"string\",\n  \"description\": \"string\",\n  \"last_execution_status\": \"CANCELED\",\n  \"last_execution_status_timestamp\": \"1968-04-22T14:24:30.432Z\",\n  \"schedule\": \"string\",\n  \"replication_tag\": \"string\",\n  \"replication_objects\": [\n    \"string\",\n    \"string\"\n  ],\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ],\n  \"enable_tag_replication\": false,\n  \"bandwidth_limit\": 0,\n  \"number_of_connections\": 1,\n  \"encrypted\": false,\n  \"automatic_replication\": false,\n  \"use_system_socks_setting\": false,\n  \"vdb_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"dsource_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"cdb_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"vcdb_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"group_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"replicate_entire_engine\": false,\n  \"data_layout_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"last_send_timestamp\": \"1963-06-02T12:47:49.055Z\",\n  \"last_offline_serialization_point_id\": 2478,\n  \"last_offline_receive_data_dir\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e6c2e5e8-a856-4587-8c13-e33e50a986ac",
+          "name": "Delete a ReplicationProfile.",
+          "request": {
+            "name": "Delete a ReplicationProfile.",
+            "description": {},
+            "url": {
+              "path": [
+                "replication-profiles",
+                ":replicationProfileId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "replicationProfileId",
+                  "description": "(Required) The ID of the ReplicationProfile."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "59cea925-5194-455b-9dfb-4d7c5ae96a15",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "replication-profiles",
+                    ":replicationProfileId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "replicationProfileId",
+                      "description": "(Required) The ID of the ReplicationProfile."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 80,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1998-05-19T12:28:31.445Z\",\n        \"end_time\": \"1979-12-27T13:58:41.531Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 89,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1970-12-10T13:10:05.216Z\",\n        \"end_time\": \"2015-03-27T05:10:04.411Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 95,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"ABANDONED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1984-06-12T14:24:18.994Z\",\n        \"end_time\": \"1960-11-18T15:48:25.190Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 96,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2007-04-05T23:10:24.975Z\",\n        \"end_time\": \"1964-05-07T09:54:30.316Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 6,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "288040bb-6bf8-4d95-8248-2e9154786930",
+          "name": "Update a ReplicationProfile.",
+          "request": {
+            "name": "Update a ReplicationProfile.",
+            "description": {},
+            "url": {
+              "path": [
+                "replication-profiles",
+                ":replicationProfileId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "replicationProfileId",
+                  "description": "(Required) The ID of the ReplicationProfile."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"target_engine_id\": \"<string>\",\n  \"target_host\": \"<string>\",\n  \"target_port\": \"<integer>\",\n  \"nfs_share\": \"<string>\",\n  \"replication_mode\": \"<string>\",\n  \"schedule\": \"<string>\",\n  \"vdb_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"dsource_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"cdb_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"vcdb_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"group_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"enable_tag_replication\": \"<boolean>\",\n  \"replicate_entire_engine\": \"<boolean>\",\n  \"bandwidth_limit\": \"<integer>\",\n  \"number_of_connections\": \"<integer>\",\n  \"encrypted\": \"<boolean>\",\n  \"automatic_replication\": \"<boolean>\",\n  \"use_system_socks_setting\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9aeb8725-d965-4372-8bc6-857dd9d25dba",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "replication-profiles",
+                    ":replicationProfileId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "replicationProfileId",
+                      "description": "(Required) The ID of the ReplicationProfile."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"target_engine_id\": \"<string>\",\n  \"target_host\": \"<string>\",\n  \"target_port\": \"<integer>\",\n  \"nfs_share\": \"<string>\",\n  \"replication_mode\": \"<string>\",\n  \"schedule\": \"<string>\",\n  \"vdb_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"dsource_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"cdb_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"vcdb_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"group_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"enable_tag_replication\": \"<boolean>\",\n  \"replicate_entire_engine\": \"<boolean>\",\n  \"bandwidth_limit\": \"<integer>\",\n  \"number_of_connections\": \"<integer>\",\n  \"encrypted\": \"<boolean>\",\n  \"automatic_replication\": \"<boolean>\",\n  \"use_system_socks_setting\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 14,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1967-02-10T08:33:15.751Z\",\n        \"end_time\": \"1971-05-19T08:25:19.456Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 99,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2004-08-25T03:19:57.689Z\",\n        \"end_time\": \"1993-01-07T08:45:32.804Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 68,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1974-11-04T00:15:53.313Z\",\n        \"end_time\": \"1960-10-09T23:38:44.251Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 93,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1956-08-08T19:13:23.325Z\",\n        \"end_time\": \"1998-06-24T03:55:13.605Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 59,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fa436395-1917-418a-8c25-d64c03fcd61a",
+          "name": "Create tags for a ReplicationProfile.",
+          "request": {
+            "name": "Create tags for a ReplicationProfile.",
+            "description": {},
+            "url": {
+              "path": [
+                "replication-profiles",
+                ":replicationProfileId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "replicationProfileId",
+                  "description": "(Required) The ID of the ReplicationProfile."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "110d497c-7303-42bf-b0e8-54f65dae38b9",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "replication-profiles",
+                    ":replicationProfileId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "replicationProfileId",
+                      "description": "(Required) The ID of the ReplicationProfile."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6a3a7fd5-14e7-478c-ae2a-5dd37f9564c5",
+          "name": "Get tags for a ReplicationProfile.",
+          "request": {
+            "name": "Get tags for a ReplicationProfile.",
+            "description": {},
+            "url": {
+              "path": [
+                "replication-profiles",
+                ":replicationProfileId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "replicationProfileId",
+                  "description": "(Required) The ID of the ReplicationProfile."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1f3a1ac6-f5a7-41c9-b525-3fc366685ca9",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "replication-profiles",
+                    ":replicationProfileId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "replicationProfileId",
+                      "description": "(Required) The ID of the ReplicationProfile."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "457ff8b7-7c07-4de0-877b-8f9796da04fd",
+          "name": "Delete tags for a ReplicationProfile.",
+          "request": {
+            "name": "Delete tags for a ReplicationProfile.",
+            "description": {},
+            "url": {
+              "path": [
+                "replication-profiles",
+                ":replicationProfileId",
+                "tags",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "replicationProfileId",
+                  "description": "(Required) The ID of the ReplicationProfile."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key\": \"<string>\",\n  \"value\": \"<string>\",\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "40f6d79f-29a0-462a-a8e5-c34a8af57693",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "replication-profiles",
+                    ":replicationProfileId",
+                    "tags",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "replicationProfileId",
+                      "description": "(Required) The ID of the ReplicationProfile."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b0645710-ed90-4d7a-b46e-10ece29ac2b7",
+          "name": "Enable tag replication for given ReplicationProfile.",
+          "request": {
+            "name": "Enable tag replication for given ReplicationProfile.",
+            "description": {},
+            "url": {
+              "path": [
+                "replication-profiles",
+                ":replicationProfileId",
+                "enable-tag-replication"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "replicationProfileId",
+                  "description": "(Required) The ID of the ReplicationProfile."
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "685fe313-5842-4a9a-9b11-ec2dd1dc5a00",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "replication-profiles",
+                    ":replicationProfileId",
+                    "enable-tag-replication"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "replicationProfileId",
+                      "description": "(Required) The ID of the ReplicationProfile."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "31323755-89f0-44b1-9a40-5c73305db439",
+          "name": "Disable tag replication for given ReplicationProfile.",
+          "request": {
+            "name": "Disable tag replication for given ReplicationProfile.",
+            "description": {},
+            "url": {
+              "path": [
+                "replication-profiles",
+                ":replicationProfileId",
+                "disable-tag-replication"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "replicationProfileId",
+                  "description": "(Required) The ID of the ReplicationProfile."
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9b71d966-db97-4140-a0cc-ba046385fa1a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "replication-profiles",
+                    ":replicationProfileId",
+                    "disable-tag-replication"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "replicationProfileId",
+                      "description": "(Required) The ID of the ReplicationProfile."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/dct/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "843ae6cc-463b-4552-9003-132d51fff14c",
+    "name": "Delphix DCT Algorithms Replication API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Delphix DCT API\n\nContact Support:\n Name: Delphix Support\n Email: support@delphix.com",
+      "type": "text/plain"
+    }
+  }
+}

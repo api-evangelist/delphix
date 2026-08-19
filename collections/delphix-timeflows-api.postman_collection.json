@@ -1,0 +1,1261 @@
+{
+  "item": [
+    {
+      "id": "043044c8-ecc8-4686-ba9f-29c01e2c7dbf",
+      "name": "Timeflows",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8a4f42bf-3083-40dd-b39b-7bd933672f04",
+          "name": "Retrieve the list of timeflows.",
+          "request": {
+            "name": "Retrieve the list of timeflows.",
+            "description": {},
+            "url": {
+              "path": [
+                "timeflows"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "88ca04f0-27a0-4cbd-ab9f-4f70ef7d08f3",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timeflows"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"timeflow-123\",\n      \"engine_id\": \"string\",\n      \"namespace\": \"NAMESPACE-1\",\n      \"namespace_id\": \"1-NAMESPACE-1\",\n      \"namespace_name\": \"test-engine-1\",\n      \"is_replica\": true,\n      \"name\": \"DB_PROVISION@2023-01-25T09:00:30\",\n      \"dataset_id\": \"dataset-123\",\n      \"creation_type\": \"REFRESH\",\n      \"parent_snapshot_id\": \"snapshot-123\",\n      \"parent_point_location\": \"1178883\",\n      \"parent_point_timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"parent_point_timeflow_id\": \"timeflow-123\",\n      \"parent_vdb_id\": \"dataset-123\",\n      \"parent_dsource_id\": \"dataset-123\",\n      \"source_vdb_id\": \"dataset-123\",\n      \"source_dsource_id\": \"dataset-123\",\n      \"source_data_timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"oracle_incarnation_id\": \"123\",\n      \"oracle_cdb_timeflow_id\": \"cdb-123\",\n      \"oracle_tde_uuid\": \"tde-indentifier\",\n      \"mssql_database_guid\": \"DATABASE-1\",\n      \"is_active\": false,\n      \"creation_timestamp\": \"2021-05-01T08:51:34Z\",\n      \"activation_timestamp\": \"2021-05-01T08:51:34Z\",\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    },\n    {\n      \"id\": \"timeflow-123\",\n      \"engine_id\": \"string\",\n      \"namespace\": \"NAMESPACE-1\",\n      \"namespace_id\": \"1-NAMESPACE-1\",\n      \"namespace_name\": \"test-engine-1\",\n      \"is_replica\": true,\n      \"name\": \"DB_PROVISION@2023-01-25T09:00:30\",\n      \"dataset_id\": \"dataset-123\",\n      \"creation_type\": \"REFRESH\",\n      \"parent_snapshot_id\": \"snapshot-123\",\n      \"parent_point_location\": \"1178883\",\n      \"parent_point_timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"parent_point_timeflow_id\": \"timeflow-123\",\n      \"parent_vdb_id\": \"dataset-123\",\n      \"parent_dsource_id\": \"dataset-123\",\n      \"source_vdb_id\": \"dataset-123\",\n      \"source_dsource_id\": \"dataset-123\",\n      \"source_data_timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"oracle_incarnation_id\": \"123\",\n      \"oracle_cdb_timeflow_id\": \"cdb-123\",\n      \"oracle_tde_uuid\": \"tde-indentifier\",\n      \"mssql_database_guid\": \"DATABASE-1\",\n      \"is_active\": false,\n      \"creation_timestamp\": \"2021-05-01T08:51:34Z\",\n      \"activation_timestamp\": \"2021-05-01T08:51:34Z\",\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 1837\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b61d8d50-bde0-4068-92e4-61702b0e3fd6",
+          "name": "Get a Timeflow by ID.",
+          "request": {
+            "name": "Get a Timeflow by ID.",
+            "description": {},
+            "url": {
+              "path": [
+                "timeflows",
+                ":timeflowId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "timeflowId",
+                  "description": "(Required) The ID of the timeflow."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7785ad7b-383c-40df-a4ab-28b5a79137d5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timeflows",
+                    ":timeflowId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "timeflowId",
+                      "description": "(Required) The ID of the timeflow."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"timeflow-123\",\n  \"engine_id\": \"string\",\n  \"namespace\": \"NAMESPACE-1\",\n  \"namespace_id\": \"1-NAMESPACE-1\",\n  \"namespace_name\": \"test-engine-1\",\n  \"is_replica\": true,\n  \"name\": \"DB_PROVISION@2023-01-25T09:00:30\",\n  \"dataset_id\": \"dataset-123\",\n  \"creation_type\": \"REFRESH\",\n  \"parent_snapshot_id\": \"snapshot-123\",\n  \"parent_point_location\": \"1178883\",\n  \"parent_point_timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n  \"parent_point_timeflow_id\": \"timeflow-123\",\n  \"parent_vdb_id\": \"dataset-123\",\n  \"parent_dsource_id\": \"dataset-123\",\n  \"source_vdb_id\": \"dataset-123\",\n  \"source_dsource_id\": \"dataset-123\",\n  \"source_data_timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n  \"oracle_incarnation_id\": \"123\",\n  \"oracle_cdb_timeflow_id\": \"cdb-123\",\n  \"oracle_tde_uuid\": \"tde-indentifier\",\n  \"mssql_database_guid\": \"DATABASE-1\",\n  \"is_active\": false,\n  \"creation_timestamp\": \"2021-05-01T08:51:34Z\",\n  \"activation_timestamp\": \"2021-05-01T08:51:34Z\",\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2e5de417-f11b-48a6-a3f4-44fe83ad0a73",
+          "name": "Update values of a timeflow.",
+          "request": {
+            "name": "Update values of a timeflow.",
+            "description": {},
+            "url": {
+              "path": [
+                "timeflows",
+                ":timeflowId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "timeflowId",
+                  "description": "(Required) The ID of the timeflow."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b489ae12-082d-4550-8dac-48e1b3cd286b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timeflows",
+                    ":timeflowId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "timeflowId",
+                      "description": "(Required) The ID of the timeflow."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Latest on parent refresh #02\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 15,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1989-02-17T08:32:42.659Z\",\n        \"end_time\": \"1965-08-06T20:48:01.532Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 54,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2009-07-29T17:03:10.426Z\",\n        \"end_time\": \"1951-08-05T15:44:35.824Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 19,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1971-01-14T11:36:04.524Z\",\n        \"end_time\": \"2004-03-12T21:46:51.989Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 39,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1988-08-12T02:05:51.248Z\",\n        \"end_time\": \"1991-03-16T00:57:18.997Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 73,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"COMPLETED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d05045ea-0689-4a32-80b2-5b9793aa6e36",
+          "name": "Delete a timeflow.",
+          "request": {
+            "name": "Delete a timeflow.",
+            "description": {},
+            "url": {
+              "path": [
+                "timeflows",
+                ":timeflowId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "timeflowId",
+                  "description": "(Required) The ID of the timeflow."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"force_delete\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7e5efa40-afa2-4e23-b499-9907a7eb57f5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timeflows",
+                    ":timeflowId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "timeflowId",
+                      "description": "(Required) The ID of the timeflow."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"force_delete\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"str\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 35,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1985-10-24T20:34:49.644Z\",\n        \"end_time\": \"2008-07-22T14:00:29.601Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 95,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"ABANDONED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2001-05-10T13:07:57.497Z\",\n        \"end_time\": \"2022-07-07T18:53:37.909Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 24,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2007-02-20T14:31:24.198Z\",\n        \"end_time\": \"2012-11-03T14:06:42.204Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 88,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"COMPLETED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2014-07-24T15:21:50.099Z\",\n        \"end_time\": \"2006-06-20T18:22:08.696Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 10,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"PENDING\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "242ff441-7dab-4774-95af-30b0412da7ba",
+          "name": "Returns the count of TimeFlow snapshots of the Timeflow aggregated by day.",
+          "request": {
+            "name": "Returns the count of TimeFlow snapshots of the Timeflow aggregated by day.",
+            "description": {},
+            "url": {
+              "path": [
+                "timeflows",
+                ":timeflowId",
+                "timeflowSnapshotDayRange"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "timezone",
+                  "value": "<string>",
+                  "description": "The timezone in which the snapshot timestamps are to be interpreted. This property gets precedence over timezone_offset. If the timezone in this property is unknown to the application, the timezone_offset is used as fallback to interpret the snapshot timestamps."
+                },
+                {
+                  "disabled": false,
+                  "key": "timezone_offset",
+                  "value": "<integer>",
+                  "description": "The offset in seconds of timezone in which the snapshot timestamps are to be interpreted. This property is used as fallback to interpret the snapshot timestamps if timezone is not valid."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "timeflowId",
+                  "description": "(Required) The ID of the timeflow."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cbb3fcf1-3188-4431-a9af-051bf48ad193",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timeflows",
+                    ":timeflowId",
+                    "timeflowSnapshotDayRange"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "timezone",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timezone_offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "timeflowId",
+                      "description": "(Required) The ID of the timeflow."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"count\": 1,\n      \"date\": \"2019-09-20\",\n      \"start_of_day\": \"2019-09-20T07:00:00.000Z\",\n      \"end_of_day\": \"2019-09-21T07:00:00.000Z\"\n    },\n    {\n      \"count\": 1,\n      \"date\": \"2019-09-20\",\n      \"start_of_day\": \"2019-09-20T07:00:00.000Z\",\n      \"end_of_day\": \"2019-09-21T07:00:00.000Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e9a6c6ba-2a06-4187-85c7-385808c8ef9c",
+          "name": "Create tags for a Timeflow.",
+          "request": {
+            "name": "Create tags for a Timeflow.",
+            "description": {},
+            "url": {
+              "path": [
+                "timeflows",
+                ":timeflowId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "timeflowId",
+                  "description": "(Required) The ID of the timeflow."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6f4322cc-76ae-4a41-957b-8be7ca62ba36",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timeflows",
+                    ":timeflowId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "timeflowId",
+                      "description": "(Required) The ID of the timeflow."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "640de2b2-8609-4208-ae41-ddb77210d407",
+          "name": "Get tags for a Timeflow.",
+          "request": {
+            "name": "Get tags for a Timeflow.",
+            "description": {},
+            "url": {
+              "path": [
+                "timeflows",
+                ":timeflowId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "timeflowId",
+                  "description": "(Required) The ID of the timeflow."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8816ef34-a437-4bc2-9ffc-d8f6250853b6",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timeflows",
+                    ":timeflowId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "timeflowId",
+                      "description": "(Required) The ID of the timeflow."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0011efd0-c5ad-4fcc-bfaf-0cd4db541ecf",
+          "name": "Delete tags for a Timeflow.",
+          "request": {
+            "name": "Delete tags for a Timeflow.",
+            "description": {},
+            "url": {
+              "path": [
+                "timeflows",
+                ":timeflowId",
+                "tags",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "timeflowId",
+                  "description": "(Required) The ID of the timeflow."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key\": \"<string>\",\n  \"value\": \"<string>\",\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4bd4b1e5-46a4-4990-b693-26addf1b696b",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timeflows",
+                    ":timeflowId",
+                    "tags",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "timeflowId",
+                      "description": "(Required) The ID of the timeflow."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "84741410-1067-4917-8863-f075e646cd4d",
+          "name": "Search timeflows.",
+          "request": {
+            "name": "Search timeflows.",
+            "description": {},
+            "url": {
+              "path": [
+                "timeflows",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2bf90b8f-aafb-4aae-a88f-1a9f86f42cfe",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timeflows",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"timeflow-123\",\n      \"engine_id\": \"string\",\n      \"namespace\": \"NAMESPACE-1\",\n      \"namespace_id\": \"1-NAMESPACE-1\",\n      \"namespace_name\": \"test-engine-1\",\n      \"is_replica\": true,\n      \"name\": \"DB_PROVISION@2023-01-25T09:00:30\",\n      \"dataset_id\": \"dataset-123\",\n      \"creation_type\": \"REFRESH\",\n      \"parent_snapshot_id\": \"snapshot-123\",\n      \"parent_point_location\": \"1178883\",\n      \"parent_point_timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"parent_point_timeflow_id\": \"timeflow-123\",\n      \"parent_vdb_id\": \"dataset-123\",\n      \"parent_dsource_id\": \"dataset-123\",\n      \"source_vdb_id\": \"dataset-123\",\n      \"source_dsource_id\": \"dataset-123\",\n      \"source_data_timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"oracle_incarnation_id\": \"123\",\n      \"oracle_cdb_timeflow_id\": \"cdb-123\",\n      \"oracle_tde_uuid\": \"tde-indentifier\",\n      \"mssql_database_guid\": \"DATABASE-1\",\n      \"is_active\": false,\n      \"creation_timestamp\": \"2021-05-01T08:51:34Z\",\n      \"activation_timestamp\": \"2021-05-01T08:51:34Z\",\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    },\n    {\n      \"id\": \"timeflow-123\",\n      \"engine_id\": \"string\",\n      \"namespace\": \"NAMESPACE-1\",\n      \"namespace_id\": \"1-NAMESPACE-1\",\n      \"namespace_name\": \"test-engine-1\",\n      \"is_replica\": true,\n      \"name\": \"DB_PROVISION@2023-01-25T09:00:30\",\n      \"dataset_id\": \"dataset-123\",\n      \"creation_type\": \"REFRESH\",\n      \"parent_snapshot_id\": \"snapshot-123\",\n      \"parent_point_location\": \"1178883\",\n      \"parent_point_timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"parent_point_timeflow_id\": \"timeflow-123\",\n      \"parent_vdb_id\": \"dataset-123\",\n      \"parent_dsource_id\": \"dataset-123\",\n      \"source_vdb_id\": \"dataset-123\",\n      \"source_dsource_id\": \"dataset-123\",\n      \"source_data_timestamp\": \"2021-05-01T08:51:34.148000+00:00\",\n      \"oracle_incarnation_id\": \"123\",\n      \"oracle_cdb_timeflow_id\": \"cdb-123\",\n      \"oracle_tde_uuid\": \"tde-indentifier\",\n      \"mssql_database_guid\": \"DATABASE-1\",\n      \"is_active\": false,\n      \"creation_timestamp\": \"2021-05-01T08:51:34Z\",\n      \"activation_timestamp\": \"2021-05-01T08:51:34Z\",\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 4595\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d5ea8029-c5c7-4ba4-bc41-0e1c65931c90",
+          "name": "Repair a Timeflow.",
+          "request": {
+            "name": "Repair a Timeflow.",
+            "description": {},
+            "url": {
+              "path": [
+                "timeflows",
+                ":timeflowId",
+                "repair"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "timeflowId",
+                  "description": "(Required) The ID of the timeflow."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"host\": \"<string>\",\n  \"username\": \"<string>\",\n  \"directory\": \"<string>\",\n  \"start_location\": \"<string>\",\n  \"end_location\": \"<string>\",\n  \"port\": 22,\n  \"use_engine_public_key\": \"<boolean>\",\n  \"password\": \"<string>\",\n  \"key_pair_private_key\": \"<string>\",\n  \"key_pair_public_key\": \"<string>\",\n  \"vault_id\": \"<string>\",\n  \"hashicorp_vault_engine\": \"<string>\",\n  \"hashicorp_vault_secret_path\": \"<string>\",\n  \"hashicorp_vault_username_key\": \"<string>\",\n  \"hashicorp_vault_secret_key\": \"<string>\",\n  \"azure_vault_name\": \"<string>\",\n  \"azure_vault_username_key\": \"<string>\",\n  \"azure_vault_secret_key\": \"<string>\",\n  \"cyberark_vault_query_string\": \"<string>\",\n  \"use_kerberos_authentication\": \"<boolean>\",\n  \"sshVerificationStrategy\": {\n    \"name\": \"<string>\",\n    \"key_type\": \"<string>\",\n    \"raw_key\": \"<string>\",\n    \"fingerprint_type\": \"<string>\",\n    \"fingerprint\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "20a9b71e-7560-4ce6-bb46-096aea4c50a7",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timeflows",
+                    ":timeflowId",
+                    "repair"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "timeflowId",
+                      "description": "(Required) The ID of the timeflow."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"host\": \"test.host.com\",\n  \"username\": \"username\",\n  \"directory\": \"folder1/folder2\",\n  \"start_location\": \"123456\",\n  \"end_location\": \"654321\",\n  \"port\": 22,\n  \"use_engine_public_key\": true,\n  \"password\": \"password\",\n  \"key_pair_private_key\": \"private key\",\n  \"key_pair_public_key\": \"public key\",\n  \"vault_id\": \"my-vault\",\n  \"hashicorp_vault_engine\": \"kv\",\n  \"hashicorp_vault_secret_path\": \"oracle-env\",\n  \"hashicorp_vault_username_key\": \"username\",\n  \"hashicorp_vault_secret_key\": \"secret\",\n  \"azure_vault_name\": \"azure_vault\",\n  \"azure_vault_username_key\": \"username\",\n  \"azure_vault_secret_key\": \"secret\",\n  \"cyberark_vault_query_string\": \"Safe=Test;Folder=Test;Object=Test\",\n  \"use_kerberos_authentication\": true,\n  \"sshVerificationStrategy\": {\n    \"name\": \"<string>\",\n    \"key_type\": \"<string>\",\n    \"raw_key\": \"<string>\",\n    \"fingerprint_type\": \"<string>\",\n    \"fingerprint\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 98,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2018-04-19T12:54:20.080Z\",\n        \"end_time\": \"1967-06-12T19:18:24.943Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 86,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2001-05-05T18:09:02.313Z\",\n        \"end_time\": \"1952-11-22T20:12:01.583Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 91,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"FAILED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1946-09-19T10:26:12.603Z\",\n        \"end_time\": \"1960-02-13T20:11:34.463Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 50,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"FAILED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2009-12-07T05:11:29.138Z\",\n        \"end_time\": \"2012-12-30T01:44:52.793Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 60,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"ABANDONED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "512e3b47-5416-4eb9-98cd-38986d9e52ab",
+          "name": "Return the provisionable range of each snapshot of the given timeflow.",
+          "request": {
+            "name": "Return the provisionable range of each snapshot of the given timeflow.",
+            "description": {},
+            "url": {
+              "path": [
+                "timeflows",
+                ":timeflowId",
+                "timeflow_snapshot_ranges"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "timeflowId",
+                  "description": "(Required) The ID of the timeflow."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9ec0190e-ac07-4f40-bea5-96d334e4f3b3",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timeflows",
+                    ":timeflowId",
+                    "timeflow_snapshot_ranges"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "timeflowId",
+                      "description": "(Required) The ID of the timeflow."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"start_date\": \"2025-12-17T15:05:30+05:30\",\n  \"end_date\": \"2025-12-18T15:05:30+05:30\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"start_point_location\": \"1178883\",\n      \"start_point_timestamp\": \"2023-04-01T08:51:34.148000+00:00\",\n      \"end_point_location\": \"1178884\",\n      \"end_point_timestamp\": \"2023-04-01T09:51:34.148000+00:00\",\n      \"provisionable\": true,\n      \"snapshot_id\": \"1-ORACLE_SNAPSHOT-1\"\n    },\n    {\n      \"start_point_location\": \"1178883\",\n      \"start_point_timestamp\": \"2023-04-01T08:51:34.148000+00:00\",\n      \"end_point_location\": \"1178884\",\n      \"end_point_timestamp\": \"2023-04-01T09:51:34.148000+00:00\",\n      \"provisionable\": true,\n      \"snapshot_id\": \"1-ORACLE_SNAPSHOT-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/dct/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "26e8a48d-aced-4426-b520-bd2c7d458b8d",
+    "name": "Delphix DCT Algorithms Timeflows API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Delphix DCT API\n\nContact Support:\n Name: Delphix Support\n Email: support@delphix.com",
+      "type": "text/plain"
+    }
+  }
+}

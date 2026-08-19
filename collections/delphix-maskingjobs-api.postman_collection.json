@@ -1,0 +1,2002 @@
+{
+  "item": [
+    {
+      "id": "5300d2d1-a974-4661-80b2-a7fdd1e7c847",
+      "name": "MaskingJobs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b1743d04-dd3d-4840-9f61-2860c62a4f36",
+          "name": "Retrieve the list of masking jobs.",
+          "request": {
+            "name": "Retrieve the list of masking jobs.",
+            "description": {},
+            "url": {
+              "path": [
+                "masking-jobs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c9b8e3d6-dd7b-4024-8317-0fb9e10e2ef5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "masking-jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"masking-job-1\",\n      \"name\": \"My favorite MaskingJob\",\n      \"rule_set_id\": \"uuid\",\n      \"rule_set_name\": \"my rule set\",\n      \"ruleset\": {\n        \"type\": \"DATABASE\",\n        \"name\": \"The best Ruleset\",\n        \"refresh_drops_tables\": true\n      },\n      \"connector_type\": \"MARIADB\",\n      \"is_on_the_fly_masking\": true,\n      \"creation_date\": \"2022-11-30T08:51:34.148000+00:00\",\n      \"last_completed_execution_date\": \"2022-11-30T09:51:34.148000+00:00\",\n      \"last_execution_status\": \"RUNNING\",\n      \"last_execution_id\": \"00e38996-7da2-4827-8f3e-0503234de537\",\n      \"connector_username\": \"user123\",\n      \"connector_password\": \"*****\",\n      \"on_the_fly_source_connector_username\": \"user123\",\n      \"on_the_fly_source_connector_password\": \"*****\",\n      \"job_type\": \"STANDARD\",\n      \"hyperscale_instance_id\": \"abc\",\n      \"description\": \"Job for app finance\",\n      \"dataset_id\": \"dataset-123\",\n      \"retain_execution_data\": \"NO\",\n      \"max_memory\": 1024,\n      \"min_memory\": 1024,\n      \"feedback_size\": 32,\n      \"stream_row_limit\": 4,\n      \"num_input_streams\": 4,\n      \"max_concurrent_source_connections\": 32,\n      \"max_concurrent_target_connections\": 32,\n      \"parallelism_degree\": 4,\n      \"source_masking_job_id\": \"masking-job-0\",\n      \"engine_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    },\n    {\n      \"id\": \"masking-job-1\",\n      \"name\": \"My favorite MaskingJob\",\n      \"rule_set_id\": \"uuid\",\n      \"rule_set_name\": \"my rule set\",\n      \"ruleset\": {\n        \"type\": \"DATABASE\",\n        \"name\": \"The best Ruleset\",\n        \"refresh_drops_tables\": true\n      },\n      \"connector_type\": \"MARIADB\",\n      \"is_on_the_fly_masking\": true,\n      \"creation_date\": \"2022-11-30T08:51:34.148000+00:00\",\n      \"last_completed_execution_date\": \"2022-11-30T09:51:34.148000+00:00\",\n      \"last_execution_status\": \"RUNNING\",\n      \"last_execution_id\": \"00e38996-7da2-4827-8f3e-0503234de537\",\n      \"connector_username\": \"user123\",\n      \"connector_password\": \"*****\",\n      \"on_the_fly_source_connector_username\": \"user123\",\n      \"on_the_fly_source_connector_password\": \"*****\",\n      \"job_type\": \"STANDARD\",\n      \"hyperscale_instance_id\": \"abc\",\n      \"description\": \"Job for app finance\",\n      \"dataset_id\": \"dataset-123\",\n      \"retain_execution_data\": \"ON_ERROR\",\n      \"max_memory\": 1024,\n      \"min_memory\": 1024,\n      \"feedback_size\": 32,\n      \"stream_row_limit\": 4,\n      \"num_input_streams\": 4,\n      \"max_concurrent_source_connections\": 32,\n      \"max_concurrent_target_connections\": 32,\n      \"parallelism_degree\": 4,\n      \"source_masking_job_id\": \"masking-job-0\",\n      \"engine_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 9368\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "db33256f-404e-4f1a-b17d-ed334195112a",
+          "name": "Create a Masking Job.",
+          "request": {
+            "name": "Create a Masking Job.",
+            "description": {},
+            "url": {
+              "path": [
+                "masking-jobs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"job_type\": \"<string>\",\n  \"hyperscale_instance_id\": \"<string>\",\n  \"source_masking_job_id\": \"<string>\",\n  \"hyperscale_source_connector_username\": \"<string>\",\n  \"hyperscale_source_connector_password\": \"<string>\",\n  \"hyperscale_target_connector_username\": \"<string>\",\n  \"hyperscale_target_connector_password\": \"<string>\",\n  \"mount_point_id\": \"<string>\",\n  \"unload_split\": \"<long>\",\n  \"stream_size\": \"<long>\",\n  \"retain_execution_data\": \"<string>\",\n  \"max_memory\": \"<integer>\",\n  \"min_memory\": \"<integer>\",\n  \"feedback_size\": \"<integer>\",\n  \"stream_row_limit\": \"<integer>\",\n  \"num_input_streams\": \"<integer>\",\n  \"max_concurrent_source_connections\": \"<integer>\",\n  \"max_concurrent_target_connections\": \"<integer>\",\n  \"parallelism_degree\": \"<integer>\",\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"make_current_account_owner\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "61f29f2e-0ae2-40f4-b420-017f23e10508",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "masking-jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My favorite MaskingJob\",\n  \"description\": \"Job for app finance DB\",\n  \"job_type\": \"HYPERSCALE\",\n  \"hyperscale_instance_id\": \"hyperscale-123\",\n  \"source_masking_job_id\": \"masking-job-123\",\n  \"hyperscale_source_connector_username\": \"db-user-123\",\n  \"hyperscale_source_connector_password\": \"dp-pass-123\",\n  \"hyperscale_target_connector_username\": \"db-user-123\",\n  \"hyperscale_target_connector_password\": \"dp-pass-123\",\n  \"mount_point_id\": \"mount-point-123\",\n  \"unload_split\": 4,\n  \"stream_size\": 65536,\n  \"retain_execution_data\": \"<string>\",\n  \"max_memory\": 1024,\n  \"min_memory\": 1024,\n  \"feedback_size\": 10000,\n  \"stream_row_limit\": 0,\n  \"num_input_streams\": 4,\n  \"max_concurrent_source_connections\": 32,\n  \"max_concurrent_target_connections\": 32,\n  \"parallelism_degree\": 4,\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ],\n  \"make_current_account_owner\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 38,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2018-12-20T22:07:36.588Z\",\n        \"end_time\": \"1995-02-14T13:21:12.379Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 98,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"ABANDONED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2008-08-23T18:40:18.404Z\",\n        \"end_time\": \"1994-01-02T07:00:52.125Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 59,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1973-06-20T06:57:27.832Z\",\n        \"end_time\": \"1951-04-08T07:02:34.479Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 31,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2026-06-12T11:59:49.181Z\",\n        \"end_time\": \"1995-12-02T07:25:45.100Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 27,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f4dc7294-53d1-4f92-bf29-e0489dab9b07",
+          "name": "Search masking jobs.",
+          "request": {
+            "name": "Search masking jobs.",
+            "description": {},
+            "url": {
+              "path": [
+                "masking-jobs",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c28dd68c-bd7d-46a9-8a67-b5a89971b6a6",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "masking-jobs",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"masking-job-1\",\n      \"name\": \"My favorite MaskingJob\",\n      \"rule_set_id\": \"uuid\",\n      \"rule_set_name\": \"my rule set\",\n      \"ruleset\": {\n        \"type\": \"DATABASE\",\n        \"name\": \"The best Ruleset\",\n        \"refresh_drops_tables\": true\n      },\n      \"connector_type\": \"MARIADB\",\n      \"is_on_the_fly_masking\": true,\n      \"creation_date\": \"2022-11-30T08:51:34.148000+00:00\",\n      \"last_completed_execution_date\": \"2022-11-30T09:51:34.148000+00:00\",\n      \"last_execution_status\": \"RUNNING\",\n      \"last_execution_id\": \"00e38996-7da2-4827-8f3e-0503234de537\",\n      \"connector_username\": \"user123\",\n      \"connector_password\": \"*****\",\n      \"on_the_fly_source_connector_username\": \"user123\",\n      \"on_the_fly_source_connector_password\": \"*****\",\n      \"job_type\": \"STANDARD\",\n      \"hyperscale_instance_id\": \"abc\",\n      \"description\": \"Job for app finance\",\n      \"dataset_id\": \"dataset-123\",\n      \"retain_execution_data\": \"ON_ERROR\",\n      \"max_memory\": 1024,\n      \"min_memory\": 1024,\n      \"feedback_size\": 32,\n      \"stream_row_limit\": 4,\n      \"num_input_streams\": 4,\n      \"max_concurrent_source_connections\": 32,\n      \"max_concurrent_target_connections\": 32,\n      \"parallelism_degree\": 4,\n      \"source_masking_job_id\": \"masking-job-0\",\n      \"engine_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    },\n    {\n      \"id\": \"masking-job-1\",\n      \"name\": \"My favorite MaskingJob\",\n      \"rule_set_id\": \"uuid\",\n      \"rule_set_name\": \"my rule set\",\n      \"ruleset\": {\n        \"type\": \"DATABASE\",\n        \"name\": \"The best Ruleset\",\n        \"refresh_drops_tables\": true\n      },\n      \"connector_type\": \"MARIADB\",\n      \"is_on_the_fly_masking\": true,\n      \"creation_date\": \"2022-11-30T08:51:34.148000+00:00\",\n      \"last_completed_execution_date\": \"2022-11-30T09:51:34.148000+00:00\",\n      \"last_execution_status\": \"RUNNING\",\n      \"last_execution_id\": \"00e38996-7da2-4827-8f3e-0503234de537\",\n      \"connector_username\": \"user123\",\n      \"connector_password\": \"*****\",\n      \"on_the_fly_source_connector_username\": \"user123\",\n      \"on_the_fly_source_connector_password\": \"*****\",\n      \"job_type\": \"STANDARD\",\n      \"hyperscale_instance_id\": \"abc\",\n      \"description\": \"Job for app finance\",\n      \"dataset_id\": \"dataset-123\",\n      \"retain_execution_data\": \"NO\",\n      \"max_memory\": 1024,\n      \"min_memory\": 1024,\n      \"feedback_size\": 32,\n      \"stream_row_limit\": 4,\n      \"num_input_streams\": 4,\n      \"max_concurrent_source_connections\": 32,\n      \"max_concurrent_target_connections\": 32,\n      \"parallelism_degree\": 4,\n      \"source_masking_job_id\": \"masking-job-0\",\n      \"engine_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tags\": [\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        },\n        {\n          \"key\": \"key-1\",\n          \"value\": \"value-1\"\n        }\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 769\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0f05ca9b-48e2-47cd-8087-ec7dc8e35fd0",
+          "name": "Retrieve the list of masking jobs along with their source engine.",
+          "request": {
+            "name": "Retrieve the list of masking jobs along with their source engine.",
+            "description": {},
+            "url": {
+              "path": [
+                "masking-jobs",
+                "source-engines"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d6bf8294-61d0-4b93-8c80-6b6f079644dc",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "masking-jobs",
+                    "source-engines"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"masking_job_id\": \"masking-job-1\",\n      \"source_engine_id\": \"engine-123\"\n    },\n    {\n      \"masking_job_id\": \"masking-job-1\",\n      \"source_engine_id\": \"engine-123\"\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 8515\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "509cdc6c-3b79-4fdd-a901-9178057be38b",
+          "name": "Search the list of masking jobs along with their source engine.",
+          "request": {
+            "name": "Search the list of masking jobs along with their source engine.",
+            "description": {},
+            "url": {
+              "path": [
+                "masking-jobs",
+                "source-engines",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The field to sort results by. A property name with a prepended '-' signifies a descending order."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter_expression\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "79daaca5-1b14-44c2-a1d7-225c02deeb6b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "masking-jobs",
+                    "source-engines",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"masking_job_id\": \"masking-job-1\",\n      \"source_engine_id\": \"engine-123\"\n    },\n    {\n      \"masking_job_id\": \"masking-job-1\",\n      \"source_engine_id\": \"engine-123\"\n    }\n  ],\n  \"response_metadata\": {\n    \"prev_cursor\": \"string\",\n    \"next_cursor\": \"string\",\n    \"total\": 9691\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3482cd87-2d26-4080-9b8c-ca4b2da0a1a2",
+          "name": "Delete a masking job.",
+          "request": {
+            "name": "Delete a masking job.",
+            "description": {},
+            "url": {
+              "path": [
+                "masking-jobs",
+                ":maskingJobId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "force",
+                  "value": "false",
+                  "description": "If true, ignores any failures to remove a masking job on an engine."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "maskingJobId",
+                  "description": "(Required) The ID of the Masking Job."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "26a43d93-6910-4ab6-821d-8fff69613eb7",
+              "name": "Masking job delete initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "masking-jobs",
+                    ":maskingJobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "force",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "maskingJobId",
+                      "description": "(Required) The ID of the Masking Job."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 45,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2021-07-04T21:40:15.902Z\",\n        \"end_time\": \"1972-06-09T00:36:38.684Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 63,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"COMPLETED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2010-05-14T21:14:13.369Z\",\n        \"end_time\": \"1996-01-08T16:20:37.771Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 9,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"COMPLETED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1990-10-18T01:41:51.356Z\",\n        \"end_time\": \"2011-06-07T17:14:39.435Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 9,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"COMPLETED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1974-07-06T01:42:38.613Z\",\n        \"end_time\": \"1964-07-31T16:22:59.359Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 62,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"FAILED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7a1ff2c8-5fb1-40d0-af47-b845e49c1888",
+          "name": "Retrieve a MaskingJob by ID.",
+          "request": {
+            "name": "Retrieve a MaskingJob by ID.",
+            "description": {},
+            "url": {
+              "path": [
+                "masking-jobs",
+                ":maskingJobId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "maskingJobId",
+                  "description": "(Required) The ID of the Masking Job."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "744d9545-452a-4f37-af39-16ec2d121aab",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "masking-jobs",
+                    ":maskingJobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "maskingJobId",
+                      "description": "(Required) The ID of the Masking Job."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"masking-job-1\",\n  \"name\": \"My favorite MaskingJob\",\n  \"rule_set_id\": \"uuid\",\n  \"rule_set_name\": \"my rule set\",\n  \"ruleset\": {\n    \"type\": \"DATABASE\",\n    \"name\": \"The best Ruleset\",\n    \"refresh_drops_tables\": true\n  },\n  \"connector_type\": \"MARIADB\",\n  \"is_on_the_fly_masking\": true,\n  \"creation_date\": \"2022-11-30T08:51:34.148000+00:00\",\n  \"last_completed_execution_date\": \"2022-11-30T09:51:34.148000+00:00\",\n  \"last_execution_status\": \"RUNNING\",\n  \"last_execution_id\": \"00e38996-7da2-4827-8f3e-0503234de537\",\n  \"connector_username\": \"user123\",\n  \"connector_password\": \"*****\",\n  \"on_the_fly_source_connector_username\": \"user123\",\n  \"on_the_fly_source_connector_password\": \"*****\",\n  \"job_type\": \"STANDARD\",\n  \"hyperscale_instance_id\": \"abc\",\n  \"description\": \"Job for app finance\",\n  \"dataset_id\": \"dataset-123\",\n  \"retain_execution_data\": \"ON_ERROR\",\n  \"max_memory\": 1024,\n  \"min_memory\": 1024,\n  \"feedback_size\": 32,\n  \"stream_row_limit\": 4,\n  \"num_input_streams\": 4,\n  \"max_concurrent_source_connections\": 32,\n  \"max_concurrent_target_connections\": 32,\n  \"parallelism_degree\": 4,\n  \"source_masking_job_id\": \"masking-job-0\",\n  \"engine_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "099135e4-0b67-4ce3-bb0f-3b0f21a39bcb",
+          "name": "Update values of a MaskingJob.",
+          "request": {
+            "name": "Update values of a MaskingJob.",
+            "description": {},
+            "url": {
+              "path": [
+                "masking-jobs",
+                ":maskingJobId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "maskingJobId",
+                  "description": "(Required) The ID of the Masking Job."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"connector_username\": \"<string>\",\n  \"connector_password\": \"<string>\",\n  \"on_the_fly_source_connector_username\": \"<string>\",\n  \"on_the_fly_source_connector_password\": \"<string>\",\n  \"description\": \"<string>\",\n  \"dataset_id\": \"<string>\",\n  \"retain_execution_data\": \"<string>\",\n  \"max_memory\": \"<integer>\",\n  \"min_memory\": \"<integer>\",\n  \"feedback_size\": \"<integer>\",\n  \"stream_row_limit\": \"<integer>\",\n  \"num_input_streams\": \"<integer>\",\n  \"max_concurrent_source_connections\": \"<integer>\",\n  \"max_concurrent_target_connections\": \"<integer>\",\n  \"parallelism_degree\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "74f74d0c-ccd6-4da1-bec2-e21d33390d00",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "masking-jobs",
+                    ":maskingJobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "maskingJobId",
+                      "description": "(Required) The ID of the Masking Job."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My favorite MaskingJob\",\n  \"connector_username\": \"user123\",\n  \"connector_password\": \"password123\",\n  \"on_the_fly_source_connector_username\": \"user123\",\n  \"on_the_fly_source_connector_password\": \"password123\",\n  \"description\": \"Job for app finance\",\n  \"dataset_id\": \"dataset-123\",\n  \"retain_execution_data\": \"<string>\",\n  \"max_memory\": 1024,\n  \"min_memory\": 1024,\n  \"feedback_size\": 32,\n  \"stream_row_limit\": 4,\n  \"num_input_streams\": 4,\n  \"max_concurrent_source_connections\": 32,\n  \"max_concurrent_target_connections\": 32,\n  \"parallelism_degree\": 4\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"masking-job-1\",\n  \"name\": \"My favorite MaskingJob\",\n  \"rule_set_id\": \"uuid\",\n  \"rule_set_name\": \"my rule set\",\n  \"ruleset\": {\n    \"type\": \"DATABASE\",\n    \"name\": \"The best Ruleset\",\n    \"refresh_drops_tables\": true\n  },\n  \"connector_type\": \"MARIADB\",\n  \"is_on_the_fly_masking\": true,\n  \"creation_date\": \"2022-11-30T08:51:34.148000+00:00\",\n  \"last_completed_execution_date\": \"2022-11-30T09:51:34.148000+00:00\",\n  \"last_execution_status\": \"RUNNING\",\n  \"last_execution_id\": \"00e38996-7da2-4827-8f3e-0503234de537\",\n  \"connector_username\": \"user123\",\n  \"connector_password\": \"*****\",\n  \"on_the_fly_source_connector_username\": \"user123\",\n  \"on_the_fly_source_connector_password\": \"*****\",\n  \"job_type\": \"STANDARD\",\n  \"hyperscale_instance_id\": \"abc\",\n  \"description\": \"Job for app finance\",\n  \"dataset_id\": \"dataset-123\",\n  \"retain_execution_data\": \"ON_ERROR\",\n  \"max_memory\": 1024,\n  \"min_memory\": 1024,\n  \"feedback_size\": 32,\n  \"stream_row_limit\": 4,\n  \"num_input_streams\": 4,\n  \"max_concurrent_source_connections\": 32,\n  \"max_concurrent_target_connections\": 32,\n  \"parallelism_degree\": 4,\n  \"source_masking_job_id\": \"masking-job-0\",\n  \"engine_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6894c98f-fa38-443f-992a-86ad346882c0",
+          "name": "Copies the masking job to another engine.",
+          "request": {
+            "name": "Copies the masking job to another engine.",
+            "description": {},
+            "url": {
+              "path": [
+                "masking-jobs",
+                ":maskingJobId",
+                "copy"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "maskingJobId",
+                  "description": "(Required) The ID of the Masking Job."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"target_engine_id\": \"<string>\",\n  \"source_environment_id\": \"<string>\",\n  \"target_environment_id\": \"<string>\",\n  \"force_overwrite\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fa3ffefd-771f-49e5-af57-cfe6848f38e3",
+              "name": "Copy masking job initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "masking-jobs",
+                    ":maskingJobId",
+                    "copy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "maskingJobId",
+                      "description": "(Required) The ID of the Masking Job."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"target_engine_id\": \"1\",\n  \"source_environment_id\": \"test-on-the-fly-mask1\",\n  \"target_environment_id\": \"prod-in-place-mask1\",\n  \"force_overwrite\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 31,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2024-09-19T03:10:18.903Z\",\n        \"end_time\": \"1988-02-15T11:34:58.570Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 26,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"PENDING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1967-05-30T21:47:32.415Z\",\n        \"end_time\": \"2013-03-20T16:11:13.329Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 74,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1989-12-08T01:42:27.013Z\",\n        \"end_time\": \"2012-07-10T16:16:51.182Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 29,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1957-10-14T18:47:15.479Z\",\n        \"end_time\": \"1951-12-06T13:10:40.441Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 6,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"RUNNING\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  },\n  \"masking_job_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c9f805cd-6bb0-4309-82f8-3d19d1e0864c",
+          "name": "Migrates the masking job from its current source engine to another engine.",
+          "request": {
+            "name": "Migrates the masking job from its current source engine to another engine.",
+            "description": {},
+            "url": {
+              "path": [
+                "masking-jobs",
+                ":maskingJobId",
+                "migrate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "maskingJobId",
+                  "description": "(Required) The ID of the Masking Job."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"target_engine_id\": \"<string>\",\n  \"source_environment_id\": \"<string>\",\n  \"target_environment_id\": \"<string>\",\n  \"force_overwrite\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f42f5bc7-acbf-4c16-af42-b2c26701aa0f",
+              "name": "Migrate masking job initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "masking-jobs",
+                    ":maskingJobId",
+                    "migrate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "maskingJobId",
+                      "description": "(Required) The ID of the Masking Job."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"target_engine_id\": \"1\",\n  \"source_environment_id\": \"test-on-the-fly-mask1\",\n  \"target_environment_id\": \"prod-in-place-mask1\",\n  \"force_overwrite\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 18,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2026-04-21T20:06:03.674Z\",\n        \"end_time\": \"2022-09-03T01:40:58.357Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 94,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"FAILED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1994-12-26T16:20:55.035Z\",\n        \"end_time\": \"2010-10-30T16:03:56.338Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 86,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1956-01-22T06:47:07.627Z\",\n        \"end_time\": \"2021-06-18T23:24:19.254Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 65,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1962-05-01T02:45:28.113Z\",\n        \"end_time\": \"2014-07-31T10:10:21.522Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 45,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f4de4b53-8590-4534-b4b7-e5c41fe0f4d0",
+          "name": "Get connectors for a Masking Job by ID.",
+          "request": {
+            "name": "Get connectors for a Masking Job by ID.",
+            "description": {},
+            "url": {
+              "path": [
+                "masking-jobs",
+                ":maskingJobId",
+                "connectors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "maskingJobId",
+                  "description": "(Required) The ID of the Masking Job."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "02decde4-50c6-406f-b11d-ac5c31870f59",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "masking-jobs",
+                    ":maskingJobId",
+                    "connectors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "maskingJobId",
+                      "description": "(Required) The ID of the Masking Job."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"connector\": {\n    \"id\": \"1-database-123\",\n    \"name\": \"connector-name\",\n    \"engine_id\": \"123\",\n    \"engine_name\": \"my-compliance-engine-1\",\n    \"type\": \"DATABASE\",\n    \"hostname\": \"database_server.mycompany.co\",\n    \"port\": 9100,\n    \"username\": \"string\",\n    \"password\": \"string\",\n    \"auth_present\": true,\n    \"database_type\": \"ORACLE\",\n    \"custom_driver_name\": \"string\",\n    \"database_name\": \"string\",\n    \"instance_name\": \"string\",\n    \"jdbc\": \"string\",\n    \"schema_name\": \"string\",\n    \"sid\": \"string\",\n    \"kerberos_auth\": false,\n    \"service_principal\": \"string\",\n    \"enable_logger\": false,\n    \"file_type\": \"DELIMITED\",\n    \"connection_mode\": \"SFTP\",\n    \"path\": \"string\",\n    \"ssh_key\": \"string\",\n    \"user_dir_is_root\": false,\n    \"mount_information_id\": \"string\",\n    \"bucket_name\": \"string\",\n    \"region\": \"string\",\n    \"access_key\": \"string\",\n    \"secret_key\": \"string\",\n    \"auth_type\": \"AWS_SECRET\",\n    \"prefix\": \"string\",\n    \"delimiter\": \"string\",\n    \"service_endpoint\": \"string\",\n    \"azure_account_name\": \"string\",\n    \"azure_container_name\": \"string\",\n    \"is_mvs_storage\": true,\n    \"password_vault_auth\": false,\n    \"credential_path_id\": \"string\",\n    \"platform\": \"ORACLE\",\n    \"data_connection_id\": \"data-connection-1\",\n    \"account_id\": 1,\n    \"account_name\": \"John Doe\",\n    \"dct_managed\": true,\n    \"job_orchestrator_id\": \"string\",\n    \"job_orchestrator_name\": \"string\",\n    \"file_reference_id\": \"string\",\n    \"owning_entity_id\": \"string\",\n    \"owning_entity_name\": \"string\",\n    \"owning_entity_type\": \"PAAS_INSTANCE\",\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ]\n  },\n  \"on_the_fly_connector\": {\n    \"id\": \"1-database-123\",\n    \"name\": \"connector-name\",\n    \"engine_id\": \"123\",\n    \"engine_name\": \"my-compliance-engine-1\",\n    \"type\": \"DATABASE\",\n    \"hostname\": \"database_server.mycompany.co\",\n    \"port\": 9100,\n    \"username\": \"string\",\n    \"password\": \"string\",\n    \"auth_present\": true,\n    \"database_type\": \"ORACLE\",\n    \"custom_driver_name\": \"string\",\n    \"database_name\": \"string\",\n    \"instance_name\": \"string\",\n    \"jdbc\": \"string\",\n    \"schema_name\": \"string\",\n    \"sid\": \"string\",\n    \"kerberos_auth\": false,\n    \"service_principal\": \"string\",\n    \"enable_logger\": true,\n    \"file_type\": \"DELIMITED\",\n    \"connection_mode\": \"SFTP\",\n    \"path\": \"string\",\n    \"ssh_key\": \"string\",\n    \"user_dir_is_root\": false,\n    \"mount_information_id\": \"string\",\n    \"bucket_name\": \"string\",\n    \"region\": \"string\",\n    \"access_key\": \"string\",\n    \"secret_key\": \"string\",\n    \"auth_type\": \"AWS_SECRET\",\n    \"prefix\": \"string\",\n    \"delimiter\": \"string\",\n    \"service_endpoint\": \"string\",\n    \"azure_account_name\": \"string\",\n    \"azure_container_name\": \"string\",\n    \"is_mvs_storage\": true,\n    \"password_vault_auth\": false,\n    \"credential_path_id\": \"string\",\n    \"platform\": \"ORACLE\",\n    \"data_connection_id\": \"data-connection-1\",\n    \"account_id\": 1,\n    \"account_name\": \"John Doe\",\n    \"dct_managed\": true,\n    \"job_orchestrator_id\": \"string\",\n    \"job_orchestrator_name\": \"string\",\n    \"file_reference_id\": \"string\",\n    \"owning_entity_id\": \"string\",\n    \"owning_entity_name\": \"string\",\n    \"owning_entity_type\": \"PAAS_INSTANCE\",\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "795f749e-ff27-4cf3-a0fa-05977ec209e8",
+          "name": "Execute a MaskingJob.",
+          "request": {
+            "name": "Execute a MaskingJob.",
+            "description": {},
+            "url": {
+              "path": [
+                "masking-jobs",
+                ":maskingJobId",
+                "execute"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "maskingJobId",
+                  "description": "(Required) The ID of the Masking Job."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"engine_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3375ee3e-d949-4048-a3c5-e224c3611ba0",
+              "name": "Masking job execute initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "masking-jobs",
+                    ":maskingJobId",
+                    "execute"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "maskingJobId",
+                      "description": "(Required) The ID of the Masking Job."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"engine_id\": \"engine-123\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 36,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2010-01-15T13:41:11.206Z\",\n        \"end_time\": \"1955-02-20T22:52:29.367Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 3,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"FAILED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2019-03-28T19:12:45.256Z\",\n        \"end_time\": \"2003-10-03T15:21:42.041Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 59,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"COMPLETED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1987-09-30T13:31:16.522Z\",\n        \"end_time\": \"1992-05-18T12:48:28.693Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 88,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2023-07-07T22:18:02.146Z\",\n        \"end_time\": \"2015-03-04T18:31:39.516Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 91,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e546d677-f59b-4194-983e-278eb289c9b0",
+          "name": "Re-import the dataset from the source MaskingJob (Hyperscale Job only).",
+          "request": {
+            "name": "Re-import the dataset from the source MaskingJob (Hyperscale Job only).",
+            "description": {},
+            "url": {
+              "path": [
+                "masking-jobs",
+                ":maskingJobId",
+                "re-import"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "maskingJobId",
+                  "description": "(Required) The ID of the Masking Job."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7b6a9eee-ad51-4098-bc9d-7418984d8976",
+              "name": "Masking job re-import initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "masking-jobs",
+                    ":maskingJobId",
+                    "re-import"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "maskingJobId",
+                      "description": "(Required) The ID of the Masking Job."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 32,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2018-12-01T16:15:51.125Z\",\n        \"end_time\": \"1951-07-26T02:03:47.924Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 94,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1966-09-12T23:13:36.000Z\",\n        \"end_time\": \"1968-03-30T02:28:35.450Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 9,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"COMPLETED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1995-02-25T10:02:35.037Z\",\n        \"end_time\": \"2018-03-28T00:58:03.177Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 30,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2000-08-06T14:29:59.637Z\",\n        \"end_time\": \"2005-04-26T08:11:22.125Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 68,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"WAITING\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dccbb680-b0e3-4c7e-b6ba-66657c0d2b75",
+          "name": "Create tags for a Masking Job.",
+          "request": {
+            "name": "Create tags for a Masking Job.",
+            "description": {},
+            "url": {
+              "path": [
+                "masking-jobs",
+                ":maskingJobId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "maskingJobId",
+                  "description": "(Required) The ID of the Masking Job."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cf780032-bf04-4d40-bccb-fda66f149708",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "masking-jobs",
+                    ":maskingJobId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "maskingJobId",
+                      "description": "(Required) The ID of the Masking Job."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d2307e34-d03d-43b7-9e56-d337ec99c37f",
+          "name": "Get tags for a Masking Job.",
+          "request": {
+            "name": "Get tags for a Masking Job.",
+            "description": {},
+            "url": {
+              "path": [
+                "masking-jobs",
+                ":maskingJobId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "maskingJobId",
+                  "description": "(Required) The ID of the Masking Job."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "93a09a95-cb13-4cd5-97a8-eafdf9ab0e93",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "masking-jobs",
+                    ":maskingJobId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "maskingJobId",
+                      "description": "(Required) The ID of the Masking Job."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    },\n    {\n      \"key\": \"key-1\",\n      \"value\": \"value-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "124a4b5d-9db6-4d68-aa71-4fe7557b2136",
+          "name": "Delete tags for a Masking Job.",
+          "request": {
+            "name": "Delete tags for a Masking Job.",
+            "description": {},
+            "url": {
+              "path": [
+                "masking-jobs",
+                ":maskingJobId",
+                "tags",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "maskingJobId",
+                  "description": "(Required) The ID of the Masking Job."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key\": \"<string>\",\n  \"value\": \"<string>\",\n  \"tags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2c8bfe32-e8ef-481f-b8ad-34463fd6636a",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "masking-jobs",
+                    ":maskingJobId",
+                    "tags",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "maskingJobId",
+                      "description": "(Required) The ID of the Masking Job."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c36e4ce9-720a-41b5-8ba1-2f60deab681a",
+          "name": "Add an engine to a Masking Job (Hyperscale Job only).",
+          "request": {
+            "name": "Add an engine to a Masking Job (Hyperscale Job only).",
+            "description": {},
+            "url": {
+              "path": [
+                "masking-jobs",
+                ":maskingJobId",
+                "add-engine"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "maskingJobId",
+                  "description": "(Required) The ID of the Masking Job."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"engine_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dc9d2813-1581-4017-b4af-dbc5edf15239",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "masking-jobs",
+                    ":maskingJobId",
+                    "add-engine"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "maskingJobId",
+                      "description": "(Required) The ID of the Masking Job."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"engine_id\": \"1\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": true,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 99,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2009-08-11T10:46:22.912Z\",\n        \"end_time\": \"1951-12-22T17:18:31.102Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 46,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1949-06-21T23:16:39.598Z\",\n        \"end_time\": \"1982-01-09T21:44:33.187Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 69,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"ABANDONED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1993-01-05T11:32:11.852Z\",\n        \"end_time\": \"1956-11-22T08:59:26.125Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 39,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"STARTED\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1981-07-30T18:23:22.772Z\",\n        \"end_time\": \"1967-04-16T01:31:48.974Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 22,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"CANCELED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b5cb39a2-eaee-41dc-9232-2168f27691c3",
+          "name": "Remove an engine from a Masking Job (Hyperscale Job only).",
+          "request": {
+            "name": "Remove an engine from a Masking Job (Hyperscale Job only).",
+            "description": {},
+            "url": {
+              "path": [
+                "masking-jobs",
+                ":maskingJobId",
+                "remove-engine"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "maskingJobId",
+                  "description": "(Required) The ID of the Masking Job."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"engine_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "56179efd-9b93-459c-8ab0-07b2bf06f43a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "masking-jobs",
+                    ":maskingJobId",
+                    "remove-engine"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "maskingJobId",
+                      "description": "(Required) The ID of the Masking Job."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"engine_id\": \"1\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"id\": \"job-123\",\n    \"status\": \"RUNNING\",\n    \"is_waiting_for_telemetry\": false,\n    \"type\": \"DB_REFRESH\",\n    \"localized_type\": \"DB Refresh\",\n    \"error_details\": \"Unable to connect to the engine.\",\n    \"warning_message\": \"Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.\",\n    \"target_id\": \"vdb-123\",\n    \"target_name\": \"vdb\",\n    \"start_time\": \"2022-01-02T05:11:24.148000+00:00\",\n    \"update_time\": \"2022-01-02T06:11:24.148000+00:00\",\n    \"trace_id\": \"string\",\n    \"engine_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      },\n      {\n        \"key\": \"key-1\",\n        \"value\": \"value-1\"\n      }\n    ],\n    \"engines\": [\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      },\n      {\n        \"engine_id\": \"string\",\n        \"engine_name\": \"string\"\n      }\n    ],\n    \"account_id\": 1,\n    \"account_name\": \"User 1\",\n    \"compliance_node_id\": \"string\",\n    \"compliance_node_name\": \"string\",\n    \"percent_complete\": 15,\n    \"virtualization_tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1985-02-09T17:59:12.711Z\",\n        \"end_time\": \"1975-04-17T20:08:53.097Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 55,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"TIMEDOUT\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1956-09-30T09:09:13.184Z\",\n        \"end_time\": \"1948-03-26T05:59:22.070Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 44,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      }\n    ],\n    \"tasks\": [\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"1956-07-21T18:42:00.856Z\",\n        \"end_time\": \"1982-11-05T21:23:09.628Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 53,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"PENDING\"\n      },\n      {\n        \"id\": \"string\",\n        \"parent_job_id\": \"string\",\n        \"start_time\": \"2025-06-19T01:25:59.030Z\",\n        \"end_time\": \"1971-08-02T23:06:12.013Z\",\n        \"title\": \"string\",\n        \"percent_complete\": 99,\n        \"events\": [\n          {\n            \"message_details\": \"string\"\n          },\n          {\n            \"message_details\": \"string\"\n          }\n        ],\n        \"status\": \"SUSPENDED\"\n      }\n    ],\n    \"execution_id\": \"string\",\n    \"result_type\": \"string\",\n    \"result\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/dct/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "291d2bcf-47e7-4519-bf91-bbcbb5f11592",
+    "name": "Delphix DCT Algorithms MaskingJobs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Delphix DCT API\n\nContact Support:\n Name: Delphix Support\n Email: support@delphix.com",
+      "type": "text/plain"
+    }
+  }
+}

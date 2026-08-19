@@ -1,0 +1,233 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms Namespace API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Namespace",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all namespaces.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/namespaces",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ]
+          },
+          "docs": "List all namespaces."
+        },
+        {
+          "info": {
+            "name": "Search Namespaces.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/namespaces/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search Namespaces."
+        },
+        {
+          "info": {
+            "name": "Get a namespace.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/namespace/:namespaceId",
+            "params": [
+              {
+                "name": "namespaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the namespace."
+              }
+            ]
+          },
+          "docs": "Get a namespace."
+        },
+        {
+          "info": {
+            "name": "Update a Namespace.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/namespace/:namespaceId",
+            "params": [
+              {
+                "name": "namespaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the namespace."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Namespace."
+        },
+        {
+          "info": {
+            "name": "Delete a Namespace.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/dct/v3/namespace/:namespaceId",
+            "params": [
+              {
+                "name": "namespaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the namespace."
+              }
+            ]
+          },
+          "docs": "Delete a Namespace."
+        },
+        {
+          "info": {
+            "name": "Initiates failover for the given namespace.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/namespace/:namespaceId/failover",
+            "params": [
+              {
+                "name": "namespaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the namespace."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiates failover for the given namespace."
+        },
+        {
+          "info": {
+            "name": "Commits the failover of a given namespace and discards the failback state.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/namespace/:namespaceId/commitFailover",
+            "params": [
+              {
+                "name": "namespaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the namespace."
+              }
+            ]
+          },
+          "docs": "Commits the failover of a given namespace and discards the failback state."
+        },
+        {
+          "info": {
+            "name": "Initiates failback for the given namespace.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/namespace/:namespaceId/failback",
+            "params": [
+              {
+                "name": "namespaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the namespace."
+              }
+            ]
+          },
+          "docs": "Initiates failback for the given namespace."
+        },
+        {
+          "info": {
+            "name": "Discards any partial receive state for the given namespace.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/namespace/:namespaceId/discard",
+            "params": [
+              {
+                "name": "namespaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the namespace."
+              }
+            ]
+          },
+          "docs": "Discards any partial receive state for the given namespace."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

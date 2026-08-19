@@ -1,0 +1,333 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms CDB DSources API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "CDB DSources",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all CDB dSources (Oracle only).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/cdb-dsources",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ]
+          },
+          "docs": "List all CDB dSources (Oracle only)."
+        },
+        {
+          "info": {
+            "name": "Get a CDB dSource by ID (Oracle only).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/cdb-dsources/:cdbDSourceId",
+            "params": [
+              {
+                "name": "cdbDSourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the CDB DSource."
+              }
+            ]
+          },
+          "docs": "Get a CDB dSource by ID (Oracle only)."
+        },
+        {
+          "info": {
+            "name": "Update a CDB DSource.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/cdb-dsources/:cdbDSourceId",
+            "params": [
+              {
+                "name": "cdbDSourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the CDB DSource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a CDB DSource."
+        },
+        {
+          "info": {
+            "name": "Search for CDB dSources (Oracle only).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/cdb-dsources/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for CDB dSources (Oracle only)."
+        },
+        {
+          "info": {
+            "name": "Detaches an Oracle CDB from an Oracle database.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/cdb-dsources/:cdbDSourceId/detach-cdb",
+            "params": [
+              {
+                "name": "cdbDSourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the CDB DSource."
+              }
+            ]
+          },
+          "docs": "Detaches an Oracle CDB from an Oracle database."
+        },
+        {
+          "info": {
+            "name": "Attaches an Oracle CDB to an Oracle database.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/cdb-dsources/:cdbDSourceId/attach-cdb",
+            "params": [
+              {
+                "name": "cdbDSourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the CDB DSource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Attaches an Oracle CDB to an Oracle database."
+        },
+        {
+          "info": {
+            "name": "Enable a CDB dSource.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/cdb-dsources/:cdbDSourceId/enable",
+            "params": [
+              {
+                "name": "cdbDSourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the CDB DSource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Enable a CDB dSource."
+        },
+        {
+          "info": {
+            "name": "Disable a CDB dSource.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/cdb-dsources/:cdbDSourceId/disable",
+            "params": [
+              {
+                "name": "cdbDSourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the CDB DSource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Disable a CDB dSource."
+        },
+        {
+          "info": {
+            "name": "Delete a CDB dSource.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/cdb-dsources/:cdbDSourceId/delete",
+            "params": [
+              {
+                "name": "cdbDSourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the CDB DSource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete a CDB dSource."
+        },
+        {
+          "info": {
+            "name": "Upgrade Oracle CDB dSource",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/cdb-dsources/:cdbDSourceId/upgrade",
+            "params": [
+              {
+                "name": "cdbDSourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the CDB DSource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Upgrade Oracle CDB dSource"
+        },
+        {
+          "info": {
+            "name": "Get tags for a CDB DSource.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/cdb-dsources/:cdbDSourceId/tags",
+            "params": [
+              {
+                "name": "cdbDSourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the CDB DSource."
+              }
+            ]
+          },
+          "docs": "Get tags for a CDB DSource."
+        },
+        {
+          "info": {
+            "name": "Create tags for a CDB DSource.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/cdb-dsources/:cdbDSourceId/tags",
+            "params": [
+              {
+                "name": "cdbDSourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the CDB DSource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create tags for a CDB DSource."
+        },
+        {
+          "info": {
+            "name": "Delete tags for a CDB DSource.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/cdb-dsources/:cdbDSourceId/tags/delete",
+            "params": [
+              {
+                "name": "cdbDSourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the CDB DSource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete tags for a CDB DSource."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

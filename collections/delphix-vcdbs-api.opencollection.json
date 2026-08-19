@@ -1,0 +1,402 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Delphix DCT Algorithms VCDBs API",
+    "version": "3.28.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "VCDBs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all vCDBs (Oracle only).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/vcdbs",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ]
+          },
+          "docs": "List all vCDBs (Oracle only)."
+        },
+        {
+          "info": {
+            "name": "Search for vCDBs (Oracle only).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vcdbs/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints."
+              },
+              {
+                "name": "sort",
+                "value": "id",
+                "type": "query",
+                "description": "The field to sort results by. A property name with a prepended '-' signifies descending order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for vCDBs (Oracle only)."
+        },
+        {
+          "info": {
+            "name": "Get a vCDB by ID (Oracle only).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/vcdbs/:vcdbId",
+            "params": [
+              {
+                "name": "vcdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the vCDB."
+              }
+            ]
+          },
+          "docs": "Get a vCDB by ID (Oracle only)."
+        },
+        {
+          "info": {
+            "name": "Update values of a VCDB",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/vcdbs/:vcdbId",
+            "params": [
+              {
+                "name": "vcdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the vCDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update values of a VCDB"
+        },
+        {
+          "info": {
+            "name": "Get tags for a vCDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/vcdbs/:vcdbId/tags",
+            "params": [
+              {
+                "name": "vcdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the vCDB."
+              }
+            ]
+          },
+          "docs": "Get tags for a vCDB."
+        },
+        {
+          "info": {
+            "name": "Create tags for a vCDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vcdbs/:vcdbId/tags",
+            "params": [
+              {
+                "name": "vcdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the vCDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create tags for a vCDB."
+        },
+        {
+          "info": {
+            "name": "Delete tags for a vCDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vcdbs/:vcdbId/tags/delete",
+            "params": [
+              {
+                "name": "vcdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the vCDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete tags for a vCDB."
+        },
+        {
+          "info": {
+            "name": "Enable a vCDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vcdbs/:vcdbId/enable",
+            "params": [
+              {
+                "name": "vcdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the vCDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Enable a vCDB."
+        },
+        {
+          "info": {
+            "name": "Disable a vCDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vcdbs/:vcdbId/disable",
+            "params": [
+              {
+                "name": "vcdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the vCDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Disable a vCDB."
+        },
+        {
+          "info": {
+            "name": "Get deletion dependencies of a vCDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/dct/v3/vcdbs/:vcdbId/deletion-dependencies",
+            "params": [
+              {
+                "name": "vcdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the vCDB."
+              }
+            ]
+          },
+          "docs": "Get deletion dependencies of a vCDB."
+        },
+        {
+          "info": {
+            "name": "Delete a vCDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vcdbs/:vcdbId/delete",
+            "params": [
+              {
+                "name": "vcdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the vCDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete a vCDB."
+        },
+        {
+          "info": {
+            "name": "Update a VCDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/dct/v3/vcdbs/:vcdbId/update",
+            "params": [
+              {
+                "name": "vcdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the vCDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a VCDB."
+        },
+        {
+          "info": {
+            "name": "Start a vCDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vcdbs/:vcdbId/start",
+            "params": [
+              {
+                "name": "vcdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the vCDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Start a vCDB."
+        },
+        {
+          "info": {
+            "name": "Stop a vCDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vcdbs/:vcdbId/stop",
+            "params": [
+              {
+                "name": "vcdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the vCDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Stop a vCDB."
+        },
+        {
+          "info": {
+            "name": "Upgrade Oracle vCDB",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vcdbs/:vcdbId/upgrade",
+            "params": [
+              {
+                "name": "vcdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the vCDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Upgrade Oracle vCDB"
+        },
+        {
+          "info": {
+            "name": "Verify JDBC connection string for a vCDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/dct/v3/vcdbs/:vcdbId/jdbc-check",
+            "params": [
+              {
+                "name": "vcdbId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the vCDB."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Verify JDBC connection string for a vCDB."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
