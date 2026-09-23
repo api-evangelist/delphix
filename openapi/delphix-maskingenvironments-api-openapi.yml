@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Delphix DCT Algorithms MaskingEnvironments API
+  title: Delphix DCT Masking Environments API
   version: 3.28.0
   description: Delphix DCT API
   contact:
@@ -18,7 +18,7 @@ paths:
     get:
       tags:
       - MaskingEnvironments
-      summary: Retrieve the list of masking environments.
+      summary: Retrieve the list of masking environments
       operationId: get_masking_environments
       parameters:
       - $ref: '#/components/parameters/limit'
@@ -43,7 +43,7 @@ paths:
     post:
       tags:
       - MaskingEnvironments
-      summary: Search masking environments.
+      summary: Search masking environments
       operationId: search_masking_environments
       x-filterable:
         fields:
@@ -84,7 +84,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/maskingEnvironmentId'
     get:
-      summary: Retrieve a MaskingEnvironment by ID.
+      summary: Retrieve a MaskingEnvironment by ID
       operationId: get_masking_environment_by_id
       tags:
       - MaskingEnvironments
@@ -97,24 +97,6 @@ paths:
                 $ref: '#/components/schemas/MaskingEnvironment'
 components:
   parameters:
-    maskingEnvironmentId:
-      in: path
-      name: maskingEnvironmentId
-      schema:
-        type: string
-        minLength: 1
-      required: true
-      description: The ID of the Masking Environment.
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
     maskingEnvironmentsSortParam:
       name: sort
       in: query
@@ -122,7 +104,9 @@ components:
       example: id
       required: false
       schema:
-        type: string
+        type:
+        - string
+        - 'null'
         enum:
         - id
         - -id
@@ -136,8 +120,17 @@ components:
         - -purpose
         - is_workflow_enabled
         - -is_workflow_enabled
-        nullable: true
         example: name
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
     cursor:
       name: cursor
       in: query
@@ -146,6 +139,14 @@ components:
         type: string
         minLength: 1
         maxLength: 4096
+    maskingEnvironmentId:
+      in: path
+      name: maskingEnvironmentId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the Masking Environment.
   schemas:
     MaskingEnvironment:
       properties:

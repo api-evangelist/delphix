@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Delphix DCT Algorithms DatabaseTemplates API
+  title: Delphix DCT Database Templates API
   version: 3.28.0
   description: Delphix DCT API
   contact:
@@ -18,7 +18,7 @@ paths:
     get:
       tags:
       - DatabaseTemplates
-      summary: Retrieve the list of database templates.
+      summary: Retrieve the list of database templates
       operationId: get_database_templates
       parameters:
       - $ref: '#/components/parameters/limit'
@@ -42,7 +42,7 @@ paths:
     post:
       tags:
       - DatabaseTemplates
-      summary: Create a database template.
+      summary: Create a database template
       operationId: create_database_template
       requestBody:
         $ref: '#/components/requestBodies/CreateDatabaseTemplate'
@@ -65,7 +65,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/databaseTemplateIdParam'
     get:
-      summary: Retrieve a DatabaseTemplate by ID.
+      summary: Retrieve a DatabaseTemplate by ID
       operationId: get_database_template_by_id
       tags:
       - DatabaseTemplates
@@ -77,7 +77,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/DatabaseTemplate'
     delete:
-      summary: Delete a DatabaseTemplate by ID.
+      summary: Delete a DatabaseTemplate by ID
       operationId: delete_database_template
       tags:
       - DatabaseTemplates
@@ -123,7 +123,7 @@ paths:
     post:
       tags:
       - DatabaseTemplates
-      summary: Create tags for a DatabaseTemplate.
+      summary: Create tags for a DatabaseTemplate
       operationId: create_database_template_tags
       requestBody:
         content:
@@ -143,7 +143,7 @@ paths:
     get:
       tags:
       - DatabaseTemplates
-      summary: Get tags for a DatabaseTemplate.
+      summary: Get tags for a DatabaseTemplate
       operationId: get_database_template_tags
       responses:
         '200':
@@ -158,7 +158,7 @@ paths:
     post:
       tags:
       - DatabaseTemplates
-      summary: Delete tags for a DatabaseTemplate.
+      summary: Delete tags for a DatabaseTemplate
       operationId: delete_database_template_tag
       requestBody:
         $ref: '#/components/requestBodies/DeleteTags'
@@ -170,7 +170,7 @@ paths:
     post:
       tags:
       - DatabaseTemplates
-      summary: Search DatabaseTemplates.
+      summary: Search DatabaseTemplates
       operationId: search_database_templates
       x-filterable:
         fields:
@@ -221,7 +221,7 @@ paths:
     post:
       tags:
       - DatabaseTemplates
-      summary: Imports the database templates from an engine.
+      summary: Imports the database templates from an engine
       operationId: import_database_templates
       requestBody:
         description: Body containing the ID of the registered engine.
@@ -237,7 +237,7 @@ paths:
     post:
       tags:
       - DatabaseTemplates
-      summary: Undo an import of DatabaseTemplates on an Engine.
+      summary: Undo an import of DatabaseTemplates on an Engine
       operationId: undo_import_database_templates
       requestBody:
         description: Body containing the ID of the registered engine.
@@ -251,301 +251,6 @@ paths:
           description: OK
 components:
   schemas:
-    Tag:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-    DatabaseTemplateCreateParameters:
-      description: Parameters to create a database template.
-      type: object
-      required:
-      - name
-      - source_type
-      properties:
-        name:
-          description: The DatabaseTemplate name.
-          type: string
-          minLength: 1
-          example: template-name
-        description:
-          description: User provided description for this template.
-          type: string
-          example: Config params for prod01
-        source_type:
-          description: The type of the source associated with the template.
-          type: string
-          enum:
-          - OracleVirtualSource
-          - OracleLinkedSource
-          - MSSqlVirtualSource
-          - MSSqlLinkedSource
-          example: OracleVirtualSource
-        parameters:
-          description: A name/value map of string configuration parameters.
-          type: object
-          additionalProperties:
-            type: string
-          example:
-            confgName1: configValue1
-            configName2: configValue2
-        make_current_account_owner:
-          type: boolean
-          default: true
-          description: Whether the account creating this database template must be configured as owner of the database template.
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    VirtualizationTaskEvent:
-      deprecated: true
-      properties:
-        message_details:
-          type: string
-    Engine:
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
-    PaginatedResponseMetadata:
-      type: object
-      properties:
-        prev_cursor:
-          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        next_cursor:
-          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        total:
-          description: The total number of results. This value may not be provided.
-          type: integer
-          format: int_64
-    JobTaskEvent:
-      properties:
-        message_details:
-          type: string
-    UpdateDatabaseTemplateParameters:
-      type: object
-      description: Parameters to update a Database Template.
-      properties:
-        name:
-          description: The DatabaseTemplate name.
-          type: string
-          minLength: 1
-          example: template-name
-        description:
-          description: User provided description for this template.
-          type: string
-          example: Config params for prod01
-        source_type:
-          description: The type of the source associated with the template.
-          type: string
-          enum:
-          - OracleVirtualSource
-          - OracleLinkedSource
-          - MSSqlVirtualSource
-          - MSSqlLinkedSource
-          example: OracleVirtualSource
-        parameters:
-          description: A name/value map of string configuration parameters.
-          type: object
-          additionalProperties:
-            type: string
-          example:
-            configName1: configValue1
-            configName2: configValue2
-    DeleteTag:
-      type: object
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-        tags:
-          description: List of tags to be deleted
-          type: array
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/Tag'
-    JobTask:
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    TagsRequest:
-      type: object
-      required:
-      - tags
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
-    VirtualizationTask:
-      deprecated: true
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualizationTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    EngineIdBody:
-      description: The ID of the registered engine.
-      type: object
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          example: '1'
-    TagsResponse:
-      type: object
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    DatabaseTemplate:
-      description: A database template to use for provisioning and refresh. If set, configParams will be ignored on provision or refresh.
-      type: object
-      required:
-      - name
-      - source_type
-      properties:
-        id:
-          description: The DatabaseTemplate entity ID.
-          type: string
-          readOnly: true
-          example: 1-database-template-123
-        name:
-          description: The DatabaseTemplate name.
-          type: string
-          minLength: 1
-          example: template-name
-        description:
-          description: User provided description for this template.
-          type: string
-          example: Config params for prod01
-        source_type:
-          description: The type of the source associated with the template.
-          type: string
-          enum:
-          - OracleVirtualSource
-          - OracleLinkedSource
-          - MSSqlVirtualSource
-          - MSSqlLinkedSource
-          example: OracleVirtualSource
-        parameters:
-          description: A name/value map of string configuration parameters.
-          type: object
-          additionalProperties:
-            type: string
-          example:
-            configName1: configValue1
-            configName2: configValue2
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
     Job:
       description: An asynchronous task.
       type: object
@@ -633,12 +338,14 @@ components:
           example: User 1
         compliance_node_id:
           description: The ID of the associated compliance node, if applicable.
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         compliance_node_name:
           description: The name of the associated compliance node, if applicable.
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         percent_complete:
           description: Completion percentage of the Job.
           type: integer
@@ -656,8 +363,9 @@ components:
             $ref: '#/components/schemas/JobTask'
         execution_id:
           description: The ID of the associated masking execution, if any.
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         result_type:
           description: The type of the job result. This is the type of the object present in the result.
           type: string
@@ -666,15 +374,302 @@ components:
           type: object
       discriminator:
         propertyName: class_type
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    DatabaseTemplateCreateParameters:
+      description: Parameters to create a database template.
+      type: object
+      required:
+      - name
+      - source_type
+      properties:
+        name:
+          description: The DatabaseTemplate name.
+          type: string
+          minLength: 1
+          example: template-name
+        description:
+          description: User provided description for this template.
+          type: string
+          example: Config params for prod01
+        source_type:
+          description: The type of the source associated with the template.
+          type: string
+          enum:
+          - OracleVirtualSource
+          - OracleLinkedSource
+          - MSSqlVirtualSource
+          - MSSqlLinkedSource
+          example: OracleVirtualSource
+        parameters:
+          description: A name/value map of string configuration parameters.
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            confgName1: configValue1
+            configName2: configValue2
+        make_current_account_owner:
+          type: boolean
+          default: true
+          description: Whether the account creating this database template must be configured as owner of the database template.
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    VirtualizationTask:
+      deprecated: true
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    DeleteTag:
+      type: object
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        tags:
+          description: List of tags to be deleted
+          type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    EngineIdBody:
+      description: The ID of the registered engine.
+      type: object
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          example: '1'
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    UpdateDatabaseTemplateParameters:
+      type: object
+      description: Parameters to update a Database Template.
+      properties:
+        name:
+          description: The DatabaseTemplate name.
+          type: string
+          minLength: 1
+          example: template-name
+        description:
+          description: User provided description for this template.
+          type: string
+          example: Config params for prod01
+        source_type:
+          description: The type of the source associated with the template.
+          type: string
+          enum:
+          - OracleVirtualSource
+          - OracleLinkedSource
+          - MSSqlVirtualSource
+          - MSSqlLinkedSource
+          example: OracleVirtualSource
+        parameters:
+          description: A name/value map of string configuration parameters.
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            configName1: configValue1
+            configName2: configValue2
+    DatabaseTemplate:
+      description: A database template to use for provisioning and refresh. If set, configParams will be ignored on provision or refresh.
+      type: object
+      required:
+      - name
+      - source_type
+      properties:
+        id:
+          description: The DatabaseTemplate entity ID.
+          type: string
+          readOnly: true
+          example: 1-database-template-123
+        name:
+          description: The DatabaseTemplate name.
+          type: string
+          minLength: 1
+          example: template-name
+        description:
+          description: User provided description for this template.
+          type: string
+          example: Config params for prod01
+        source_type:
+          description: The type of the source associated with the template.
+          type: string
+          enum:
+          - OracleVirtualSource
+          - OracleLinkedSource
+          - MSSqlVirtualSource
+          - MSSqlLinkedSource
+          example: OracleVirtualSource
+        parameters:
+          description: A name/value map of string configuration parameters.
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            configName1: configValue1
+            configName2: configValue2
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
   requestBodies:
-    CreateDatabaseTemplate:
-      content:
-        application/json:
-          schema:
-            x-body-name: database_template
-            $ref: '#/components/schemas/DatabaseTemplateCreateParameters'
-      description: The parameters to create a database template.
-      required: true
     SearchBody:
       x-skip-codegen-attr: description
       description: 'A request body containing a filter expression. This enables searching
@@ -855,6 +850,14 @@ components:
               summary: Overriding operator precedence
               value:
                 filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
+    CreateDatabaseTemplate:
+      content:
+        application/json:
+          schema:
+            x-body-name: database_template
+            $ref: '#/components/schemas/DatabaseTemplateCreateParameters'
+      description: The parameters to create a database template.
+      required: true
     DeleteTags:
       description: The parameters to delete tags
       content:
@@ -898,25 +901,6 @@ components:
         minimum: 1
         maximum: 1000
         default: 100
-    databaseTemplatesSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
-      example: id
-      required: false
-      schema:
-        type: string
-        enum:
-        - id
-        - -id
-        - name
-        - -name
-        - description
-        - -description
-        - source_type
-        - -source_type
-        nullable: true
-        example: name
     cursor:
       name: cursor
       in: query
@@ -933,6 +917,26 @@ components:
         minLength: 1
       required: true
       description: The ID of the Database Template.
+    databaseTemplatesSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - description
+        - -description
+        - source_type
+        - -source_type
+        example: name
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

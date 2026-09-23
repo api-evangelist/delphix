@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Delphix DCT Algorithms Executions API
+  title: Delphix DCT Executions API
   version: 3.28.0
   description: Delphix DCT API
   contact:
@@ -18,7 +18,7 @@ paths:
     get:
       tags:
       - Executions
-      summary: Retrieve the list of masking executions.
+      summary: Retrieve the list of masking executions
       operationId: get_executions
       parameters:
       - $ref: '#/components/parameters/limit'
@@ -43,7 +43,7 @@ paths:
     post:
       tags:
       - Executions
-      summary: Search masking executions.
+      summary: Search masking executions
       operationId: search_executions
       x-filterable:
         fields:
@@ -175,7 +175,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/executionIdParam'
     get:
-      summary: Retrieve an Execution by ID.
+      summary: Retrieve an Execution by ID
       operationId: get_execution_by_id
       tags:
       - Executions
@@ -190,7 +190,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/executionIdParam'
     post:
-      summary: Cancel an Execution.
+      summary: Cancel an Execution
       operationId: cancel_execution
       tags:
       - Executions
@@ -208,7 +208,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/executionIdParam'
     post:
-      summary: Restart an Execution (Hyperscale only).
+      summary: Restart an Execution (Hyperscale only)
       operationId: restart_execution
       tags:
       - Executions
@@ -228,7 +228,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/executionIdParam'
     post:
-      summary: Cleanup an Execution (Hyperscale only).
+      summary: Cleanup an Execution (Hyperscale only)
       operationId: cleanup_execution
       tags:
       - Executions
@@ -248,7 +248,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/executionIdParam'
     get:
-      summary: Retrieve the list of events for a masking execution.
+      summary: Retrieve the list of events for a masking execution
       operationId: get_execution_events
       parameters:
       - $ref: '#/components/parameters/limit'
@@ -277,7 +277,7 @@ paths:
     post:
       tags:
       - Executions
-      summary: Search masking executions events.
+      summary: Search masking executions events
       operationId: search_execution_events
       parameters:
       - $ref: '#/components/parameters/limit'
@@ -330,7 +330,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/executionIdParam'
     get:
-      summary: Retrieve the masking execution log.
+      summary: Retrieve the masking execution log
       description: Returns the execution log information for the given execution.
       operationId: get_execution_log
       tags:
@@ -348,7 +348,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/executionIdParam'
     get:
-      summary: Get execution components for an execution.
+      summary: Get execution components for an execution
       operationId: get_execution_components
       parameters:
       - $ref: '#/components/parameters/limit'
@@ -377,7 +377,7 @@ paths:
     post:
       tags:
       - Executions
-      summary: Search execution components for an execution.
+      summary: Search execution components for an execution
       operationId: search_execution_components
       parameters:
       - $ref: '#/components/parameters/limit'
@@ -429,7 +429,7 @@ paths:
     - $ref: '#/components/parameters/executionIdParam'
     - $ref: '#/components/parameters/executionComponentIdParam'
     get:
-      summary: Get an execution component by ID.
+      summary: Get an execution component by ID
       operationId: get_execution_component_by_id
       tags:
       - Executions
@@ -445,7 +445,7 @@ paths:
     - $ref: '#/components/parameters/executionIdParam'
     - $ref: '#/components/parameters/executionComponentIdParam'
     get:
-      summary: Get an execution component log.
+      summary: Get an execution component log
       description: Returns the execution component log information for the given execution component.
       operationId: get_execution_component_log
       tags:
@@ -463,7 +463,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/executionIdParam'
     get:
-      summary: Retrieve the list of discovery results for a masking execution.
+      summary: Retrieve the list of discovery results for a masking execution
       operationId: get_discovery_results
       parameters:
       - $ref: '#/components/parameters/limit'
@@ -538,223 +538,306 @@ paths:
                   response_metadata:
                     $ref: '#/components/schemas/PaginatedResponseMetadata'
 components:
-  parameters:
-    discoveryResultSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
-      example: column_name
-      required: false
-      schema:
-        type: string
-        enum:
-        - id
-        - -id
-        - table_name
-        - -table_name
-        - file_name
-        - -file_name
-        - column_name
-        - -column_name
-        - field_name
-        - -field_name
-        - data_class_name
-        - -data_class_name
-        - algorithm_name
-        - -algorithm_name
-        - data_type
-        - -data_type
-        - confidence
-        - -confidence
-        - is_profiler_writable
-        - -is_profiler_writable
-        nullable: true
-        example: name
-    executionComponentsSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
-      example: id
-      required: false
-      schema:
-        type: string
-        enum:
-        - id
-        - -id
-        - name
-        - -name
-        - execution_id
-        - -execution_id
-        - status
-        - -status
-        - rows_masked
-        - -rows_masked
-        - rows_total
-        - -rows_total
-        - bytes_processed
-        - -bytes_processed
-        - bytes_total
-        - -bytes_total
-        - start_time
-        - -start_time
-        - end_time
-        - -end_time
-        - non_conforming_data_count
-        - -non_conforming_data_count
-        nullable: true
-        example: id
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
-    executionEventsSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
-      example: id
-      required: false
-      schema:
-        type: string
-        enum:
-        - id
-        - -id
-        - execution_id
-        - -execution_id
-        - execution_component_id
-        - -execution_component_id
-        - event_type
-        - -event_type
-        - severity
-        - -severity
-        - cause
-        - -cause
-        - count
-        - -count
-        - timestamp
-        - -timestamp
-        - masked_object_name
-        - -masked_object_name
-        - algorithm_name
-        - -algorithm_name
-        - exception_type
-        - -exception_type
-        - exception_detail
-        - -exception_detail
-        nullable: true
-        example: id
-    executionComponentIdParam:
-      in: path
-      name: executionComponentId
-      schema:
-        type: string
-      required: true
-      description: The ID of the Execution Component.
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
-    executionsSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
-      example: id
-      required: false
-      schema:
-        type: string
-        enum:
-        - id
-        - -id
-        - engine_id
-        - -engine_id
-        - engine_name
-        - -engine_name
-        - job_orchestrator_id
-        - -job_orchestrator_id
-        - job_orchestrator_name
-        - -job_orchestrator_name
-        - masking_job_id
-        - -masking_job_id
-        - masking_job_name
-        - -masking_job_name
-        - compliance_job_type
-        - -compliance_job_type
-        - dct_managed
-        - -dct_managed
-        - source_connector_id
-        - -source_connector_id
-        - source_connector_name
-        - -source_connector_name
-        - target_connector_id
-        - -target_connector_id
-        - target_connector_name
-        - -target_connector_name
-        - status
-        - -status
-        - rows_masked
-        - -rows_masked
-        - rows_total
-        - -rows_total
-        - bytes_processed
-        - -bytes_processed
-        - bytes_total
-        - -bytes_total
-        - start_time
-        - -start_time
-        - end_time
-        - -end_time
-        - submit_time
-        - -submit_time
-        - run_duration
-        - -run_duration
-        - queue_duration
-        - -queue_duration
-        - total_duration
-        - -total_duration
-        - account_id
-        - -account_id
-        - account_name
-        - -account_name
-        - hyperscale_engine_count
-        - -hyperscale_engine_count
-        nullable: true
-        example: -start_time
-    executionIdParam:
-      in: path
-      name: executionId
-      schema:
-        type: string
-        minLength: 1
-      required: true
-      description: The ID of the Execution.
   schemas:
-    Tag:
-      type: object
-      required:
-      - key
-      - value
+    ExecutionLog:
+      description: A log containing warnings or errors associated with a job execution.
+      allOf:
+      - type: object
+        properties:
+          id:
+            description: The ExecutionLog entity ID.
+            type: string
+            example: 1-LOG-1
+          execution_id:
+            description: The ID of the execution.
+            type: string
+            example: ea02f031-75d7-4c76-8747-2a7f04181451
+          masking_job_id:
+            description: The ID of the masking job that is being executed.
+            type: string
+            example: '2'
+          status:
+            $ref: '#/components/schemas/ExecutionStatus'
+      - $ref: '#/components/schemas/ExecutionLogsDownloadProperties'
+    HyperscaleTaskEvent:
       properties:
-        key:
-          description: Key of the tag
+        name:
           type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
+          description: Name of the task (Unload, Masking, Load, Post-Load)
+          example: Unload
+        progress:
+          description: progress of the task (between 0 and 1)
+          type: number
+          example: 0.34
+        status:
           type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
+          enum:
+          - CANCELLED
+          - CANCEL_INITIATED
+          - FAILED
+          - RUNNING
+          - SUCCEEDED
+          example: FAILED
+        processed_objects:
+          description: The number of objects (tables) already processed by this task.
+          type: integer
+          format: int64
+        processed_rows:
+          description: The number of rows already processed by this task.
+          type: integer
+          format: int64
+        processed_constraints:
+          description: The number of constraints processed by this task (Post-load task only)
+          type: integer
+          format: int64
+        total_constraints:
+          description: The total number of constraints to be processed by this task (Post-load task only)
+          type: integer
+          format: int64
+        processed_indexes:
+          description: The number of indexes processed by this task (Post-load task only)
+          type: integer
+          format: int64
+        total_indexes:
+          description: The total number of indexes to be processed by this task (Post-load task only)
+          type: integer
+          format: int64
+        processed_triggers:
+          description: The number of triggered processed by this task (Post-load task only)
+          type: integer
+          format: int64
+        total_triggers:
+          description: The total number of triggers to be processed by this task (Post-load task only)
+          type: integer
+          format: int64
+        start_time:
+          description: The date and time that this task was started.
+          type: string
+          format: date-time
+          example: '2022-01-02T05:11:24.148000+00:00'
+        end_time:
+          description: The date and time that this task completed.
+          type: string
+          format: date-time
+          example: '2022-01-02T05:13:24.148000+00:00'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/HyperscaleTaskError'
+    Job:
+      description: An asynchronous task.
+      type: object
+      properties:
+        id:
+          description: The Job entity ID.
+          type: string
+          example: job-123
+        status:
+          description: The status of the job.
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+          example: RUNNING
+        is_waiting_for_telemetry:
+          description: Indicates that the operations performed by this Job have completed successfully, but the object changes are not yet reflected. This is only set when when the JOB is in STARTED status, with the guarantee that the job will not transition to the FAILED status. Note that this flag will likely be replaced with a new status in future API versions and be deprecated.
+          type: boolean
+        type:
+          description: The type of job being done.
+          type: string
+          example: DB_REFRESH
+        localized_type:
+          description: The i18n translated type of job being done.
+          type: string
+          example: DB Refresh
+        error_details:
+          description: Details about the failure for FAILED jobs.
+          type: string
+          example: Unable to connect to the engine.
+        warning_message:
+          description: Warnings for the job.
+          type: string
+          example: 'Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.'
+        target_id:
+          description: A reference to the job's target.
+          type: string
+          example: vdb-123
+        target_name:
+          description: A reference to the job's target name.
+          type: string
+          example: vdb
+        start_time:
+          description: The time the job started executing.
+          type: string
+          format: date-time
+          example: '2022-01-02T05:11:24.148000+00:00'
+        update_time:
+          description: The time the job was last updated.
+          type: string
+          format: date-time
+          example: '2022-01-02T06:11:24.148000+00:00'
+        trace_id:
+          description: traceId of the request which created this Job
+          type: string
+        engine_ids:
+          description: IDs of the engines this Job is executing on.
+          type: array
+          items:
+            type: string
+          deprecated: true
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        engines:
+          type: array
+          items:
+            $ref: '#/components/schemas/Engine'
+        account_id:
+          description: The ID of the account who initiated this job.
+          type: integer
+          example: 1
+        account_name:
+          description: The account name which initiated this job. It can be either firstname and lastname combination or firstname or lastname or username or email address or Account-<id>.
+          type: string
+          example: User 1
+        compliance_node_id:
+          type:
+          - string
+          - 'null'
+          description: The ID of the associated compliance node, if applicable.
+        compliance_node_name:
+          type:
+          - string
+          - 'null'
+          description: The name of the associated compliance node, if applicable.
+        percent_complete:
+          description: Completion percentage of the Job.
+          type: integer
+          minimum: 0
+          maximum: 100
+          example: '50'
+        virtualization_tasks:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTask'
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTask'
+        execution_id:
+          description: The ID of the associated masking execution, if any.
+          type:
+          - string
+          - 'null'
+        result_type:
+          description: The type of the job result. This is the type of the object present in the result.
+          type: string
+        result:
+          description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
+          type: object
+    ExecutionStatus:
+      description: The status of a masking or discovery job.
+      type: string
+      enum:
+      - PENDING
+      - QUEUED
+      - RUNNING
+      - CANCELLED
+      - FAILED
+      - SUCCEEDED
+      - WARNING
+      - WAITING
+      example: RUNNING
+    ExecutionComponentLog:
+      description: A log containing information about an execution component
+      allOf:
+      - type: object
+        properties:
+          execution_component_id:
+            description: The ID of the execution component
+            type: string
+            example: '123'
+      - $ref: '#/components/schemas/ExecutionLogsDownloadProperties'
+    DiscoveryResult:
+      description: The result of sensitive data discovery on a single column or field
+      type: object
+      properties:
+        id:
+          description: The DCT local id of this discovery result
+          type: string
+          example: 1
+        table_name:
+          description: The name of the table to which the column belongs
+          type: string
+          example: cust_address
+        file_name:
+          description: The name of the file to which the discovery result applies
+          type: string
+          example: report.json
+        column_name:
+          description: The name the column to which the discovery result applies
+          type: string
+          example: ADDR_LINE_1
+        field_name:
+          description: The name the field to which the discovery result applies
+          type: string
+          example: customer name
+        data_class_name:
+          description: The data class selected for the column or field
+          type: string
+          example: FIRST_NAME
+        algorithm_name:
+          description: The name of the algorithm selected for the column or field
+          type: string
+          example: FIRST_NAME_SL
+        data_type:
+          description: The data type determined for the column or field
+          type: string
+          example: varchar
+        confidence:
+          description: The confidence of the discovery result, ranging from -100 to 100
+          type: integer
+          format: int32
+          example: 85
+        is_profiler_writable:
+          description: Whether the corresponding ruleset column or field was configured to allow the discovery process to update the masking assignment
+          type: boolean
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    HyperscaleTaskError:
+      properties:
+        table_name:
+          type: string
+          description: the name of the table for which the error occurred, including the schema.
+          example: public_schema.table_x
+        error:
+          type: string
+          description: A textual description of the error.
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
     Execution:
       description: The execution of a masking or discovery job.
       type: object
@@ -925,102 +1008,51 @@ components:
           type: integer
           format: int32
           example: 2
-    DiscoveryResult:
-      description: The result of sensitive data discovery on a single column or field
-      type: object
-      properties:
-        id:
-          description: The DCT local id of this discovery result
-          type: string
-          example: 1
-        table_name:
-          description: The name of the table to which the column belongs
-          type: string
-          example: cust_address
-        file_name:
-          description: The name of the file to which the discovery result applies
-          type: string
-          example: report.json
-        column_name:
-          description: The name the column to which the discovery result applies
-          type: string
-          example: ADDR_LINE_1
-        field_name:
-          description: The name the field to which the discovery result applies
-          type: string
-          example: customer name
-        data_class_name:
-          description: The data class selected for the column or field
-          type: string
-          example: FIRST_NAME
-        algorithm_name:
-          description: The name of the algorithm selected for the column or field
-          type: string
-          example: FIRST_NAME_SL
-        data_type:
-          description: The data type determined for the column or field
-          type: string
-          example: varchar
-        confidence:
-          description: The confidence of the discovery result, ranging from -100 to 100
-          type: integer
-          format: int32
-          example: 85
-        is_profiler_writable:
-          description: Whether the corresponding ruleset column or field was configured to allow the discovery process to update the masking assignment
-          type: boolean
-    VirtualizationTaskEvent:
+    VirtualizationTask:
       deprecated: true
       properties:
-        message_details:
+        id:
           type: string
-    ExecutionLog:
-      description: A log containing warnings or errors associated with a job execution.
-      allOf:
-      - type: object
-        properties:
-          id:
-            description: The ExecutionLog entity ID.
-            type: string
-            example: 1-LOG-1
-          execution_id:
-            description: The ID of the execution.
-            type: string
-            example: ea02f031-75d7-4c76-8747-2a7f04181451
-          masking_job_id:
-            description: The ID of the masking job that is being executed.
-            type: string
-            example: '2'
-          status:
-            $ref: '#/components/schemas/ExecutionStatus'
-      - $ref: '#/components/schemas/ExecutionLogsDownloadProperties'
-    Engine:
-      properties:
-        engine_id:
+        parent_job_id:
           type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
+        start_time:
           type: string
-          minLength: 1
-          maxLength: 4000
-    PaginatedResponseMetadata:
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    SearchBody:
+      description: Search body.
       type: object
       properties:
-        prev_cursor:
-          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+        filter_expression:
           type: string
-        next_cursor:
-          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        total:
-          description: The total number of results. This value may not be provided.
-          type: integer
-          format: int_64
-    JobTaskEvent:
-      properties:
-        message_details:
-          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
     ExecutionComponent:
       description: An execution component associated with a job execution
       type: object
@@ -1074,26 +1106,6 @@ components:
           type: integer
           format: int64
           example: 10
-    TaskEvent:
-      description: A step or event performed by a masking execution.
-      type: object
-      properties:
-        event:
-          description: The steps or events a task will perform.
-          type: string
-          example: Job Completed
-        status:
-          description: The state of result of the task event.
-          type: string
-          enum:
-          - CANCELLED
-          - FAILED
-          - QUEUED
-          - RUNNING
-          - SUCCEEDED
-          - SKIPPED
-          - NON_CONFORMANT
-          example: SUCCEEDED
     JobTask:
       properties:
         id:
@@ -1129,149 +1141,16 @@ components:
           - WAITING
           - COMPLETED
           - ABANDONED
-    HyperscaleTaskEvent:
+    Engine:
       properties:
-        name:
+        engine_id:
           type: string
-          description: Name of the task (Unload, Masking, Load, Post-Load)
-          example: Unload
-        progress:
-          description: progress of the task (between 0 and 1)
-          type: number
-          example: 0.34
-        status:
+          minLength: 1
+          maxLength: 4000
+        engine_name:
           type: string
-          enum:
-          - CANCELLED
-          - CANCEL_INITIATED
-          - FAILED
-          - RUNNING
-          - SUCCEEDED
-          example: FAILED
-        processed_objects:
-          description: The number of objects (tables) already processed by this task.
-          type: integer
-          format: int64
-        processed_rows:
-          description: The number of rows already processed by this task.
-          type: integer
-          format: int64
-        processed_constraints:
-          description: The number of constraints processed by this task (Post-load task only)
-          type: integer
-          format: int64
-        total_constraints:
-          description: The total number of constraints to be processed by this task (Post-load task only)
-          type: integer
-          format: int64
-        processed_indexes:
-          description: The number of indexes processed by this task (Post-load task only)
-          type: integer
-          format: int64
-        total_indexes:
-          description: The total number of indexes to be processed by this task (Post-load task only)
-          type: integer
-          format: int64
-        processed_triggers:
-          description: The number of triggered processed by this task (Post-load task only)
-          type: integer
-          format: int64
-        total_triggers:
-          description: The total number of triggers to be processed by this task (Post-load task only)
-          type: integer
-          format: int64
-        start_time:
-          description: The date and time that this task was started.
-          type: string
-          format: date-time
-          example: '2022-01-02T05:11:24.148000+00:00'
-        end_time:
-          description: The date and time that this task completed.
-          type: string
-          format: date-time
-          example: '2022-01-02T05:13:24.148000+00:00'
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/HyperscaleTaskError'
-    ExecutionStatus:
-      description: The status of a masking or discovery job.
-      type: string
-      enum:
-      - PENDING
-      - QUEUED
-      - RUNNING
-      - CANCELLED
-      - FAILED
-      - SUCCEEDED
-      - WARNING
-      - WAITING
-      example: RUNNING
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
-    ExecutionCancelParameters:
-      description: Parameters to cancel an execution.
-      type: object
-      properties:
-        expected_status:
-          description: The expected status of the execution to cancel to prevent cancelling a queued job that has transitioned to a running state since the request was issued (Standard Job only).
-          type: string
-          enum:
-          - QUEUED
-          - RUNNING
-          example: QUEUED
-    HyperscaleTaskError:
-      properties:
-        table_name:
-          type: string
-          description: the name of the table for which the error occurred, including the schema.
-          example: public_schema.table_x
-        error:
-          type: string
-          description: A textual description of the error.
-    VirtualizationTask:
-      deprecated: true
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualizationTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
+          minLength: 1
+          maxLength: 4000
     ExecutionEvent:
       description: Events, such as warnings or errors, associated with job executions.
       type: object
@@ -1349,16 +1228,17 @@ components:
           description: The details associated with the Java exception that triggered this event, if applicable.
           type: string
           example: 'Listener refused the connection with the following error: ORA-12505, TNS:listener does not currently know of SID given in connect descriptor'
-    ExecutionComponentLog:
-      description: A log containing information about an execution component
-      allOf:
-      - type: object
-        properties:
-          execution_component_id:
-            description: The ID of the execution component
-            type: string
-            example: '123'
-      - $ref: '#/components/schemas/ExecutionLogsDownloadProperties'
+    ExecutionCancelParameters:
+      description: Parameters to cancel an execution.
+      type: object
+      properties:
+        expected_status:
+          description: The expected status of the execution to cancel to prevent cancelling a queued job that has transitioned to a running state since the request was issued (Standard Job only).
+          type: string
+          enum:
+          - QUEUED
+          - RUNNING
+          example: QUEUED
     ExecutionLogsDownloadProperties:
       description: Common properties for log file download information.
       type: object
@@ -1404,124 +1284,49 @@ components:
           description: The ID of the file download record, which can be used to download the full log file via the file download API. Only present when download_status is COLLECTED.
           type: string
           example: 3a4b5c6d-1234-5678-abcd-ef0123456789
-    Job:
-      description: An asynchronous task.
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    TaskEvent:
+      description: A step or event performed by a masking execution.
       type: object
       properties:
-        id:
-          description: The Job entity ID.
+        event:
+          description: The steps or events a task will perform.
           type: string
-          example: job-123
+          example: Job Completed
         status:
-          description: The status of the job.
+          description: The state of result of the task event.
           type: string
           enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
+          - CANCELLED
           - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-          example: RUNNING
-        is_waiting_for_telemetry:
-          description: Indicates that the operations performed by this Job have completed successfully, but the object changes are not yet reflected. This is only set when when the JOB is in STARTED status, with the guarantee that the job will not transition to the FAILED status. Note that this flag will likely be replaced with a new status in future API versions and be deprecated.
-          type: boolean
-        type:
-          description: The type of job being done.
-          type: string
-          example: DB_REFRESH
-        localized_type:
-          description: The i18n translated type of job being done.
-          type: string
-          example: DB Refresh
-        error_details:
-          description: Details about the failure for FAILED jobs.
-          type: string
-          example: Unable to connect to the engine.
-        warning_message:
-          description: Warnings for the job.
-          type: string
-          example: 'Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.'
-        target_id:
-          description: A reference to the job's target.
-          type: string
-          example: vdb-123
-        target_name:
-          description: A reference to the job's target name.
-          type: string
-          example: vdb
-        start_time:
-          description: The time the job started executing.
-          type: string
-          format: date-time
-          example: '2022-01-02T05:11:24.148000+00:00'
-        update_time:
-          description: The time the job was last updated.
-          type: string
-          format: date-time
-          example: '2022-01-02T06:11:24.148000+00:00'
-        trace_id:
-          description: traceId of the request which created this Job
-          type: string
-        engine_ids:
-          description: IDs of the engines this Job is executing on.
-          type: array
-          items:
-            type: string
-          deprecated: true
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-        engines:
-          type: array
-          items:
-            $ref: '#/components/schemas/Engine'
-        account_id:
-          description: The ID of the account who initiated this job.
-          type: integer
-          example: 1
-        account_name:
-          description: The account name which initiated this job. It can be either firstname and lastname combination or firstname or lastname or username or email address or Account-<id>.
-          type: string
-          example: User 1
-        compliance_node_id:
-          type: string
-          description: The ID of the associated compliance node, if applicable.
-          nullable: true
-        compliance_node_name:
-          type: string
-          description: The name of the associated compliance node, if applicable.
-          nullable: true
-        percent_complete:
-          description: Completion percentage of the Job.
-          type: integer
-          minimum: 0
-          maximum: 100
-          example: '50'
-        virtualization_tasks:
-          deprecated: true
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualizationTask'
-        tasks:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTask'
-        execution_id:
-          description: The ID of the associated masking execution, if any.
-          type: string
-          nullable: true
-        result_type:
-          description: The type of the job result. This is the type of the object present in the result.
-          type: string
-        result:
-          description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
-          type: object
+          - QUEUED
+          - RUNNING
+          - SUCCEEDED
+          - SKIPPED
+          - NON_CONFORMANT
+          example: SUCCEEDED
   requestBodies:
     SearchBody:
       x-skip-codegen-attr: description
@@ -1703,6 +1508,208 @@ components:
               summary: Overriding operator precedence
               value:
                 filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    executionEventsSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - execution_id
+        - -execution_id
+        - execution_component_id
+        - -execution_component_id
+        - event_type
+        - -event_type
+        - severity
+        - -severity
+        - cause
+        - -cause
+        - count
+        - -count
+        - timestamp
+        - -timestamp
+        - masked_object_name
+        - -masked_object_name
+        - algorithm_name
+        - -algorithm_name
+        - exception_type
+        - -exception_type
+        - exception_detail
+        - -exception_detail
+        example: id
+    executionsSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - engine_id
+        - -engine_id
+        - engine_name
+        - -engine_name
+        - job_orchestrator_id
+        - -job_orchestrator_id
+        - job_orchestrator_name
+        - -job_orchestrator_name
+        - masking_job_id
+        - -masking_job_id
+        - masking_job_name
+        - -masking_job_name
+        - compliance_job_type
+        - -compliance_job_type
+        - dct_managed
+        - -dct_managed
+        - source_connector_id
+        - -source_connector_id
+        - source_connector_name
+        - -source_connector_name
+        - target_connector_id
+        - -target_connector_id
+        - target_connector_name
+        - -target_connector_name
+        - status
+        - -status
+        - rows_masked
+        - -rows_masked
+        - rows_total
+        - -rows_total
+        - bytes_processed
+        - -bytes_processed
+        - bytes_total
+        - -bytes_total
+        - start_time
+        - -start_time
+        - end_time
+        - -end_time
+        - submit_time
+        - -submit_time
+        - run_duration
+        - -run_duration
+        - queue_duration
+        - -queue_duration
+        - total_duration
+        - -total_duration
+        - account_id
+        - -account_id
+        - account_name
+        - -account_name
+        - hyperscale_engine_count
+        - -hyperscale_engine_count
+        example: -start_time
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+    executionIdParam:
+      in: path
+      name: executionId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the Execution.
+    executionComponentsSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - execution_id
+        - -execution_id
+        - status
+        - -status
+        - rows_masked
+        - -rows_masked
+        - rows_total
+        - -rows_total
+        - bytes_processed
+        - -bytes_processed
+        - bytes_total
+        - -bytes_total
+        - start_time
+        - -start_time
+        - end_time
+        - -end_time
+        - non_conforming_data_count
+        - -non_conforming_data_count
+        example: id
+    executionComponentIdParam:
+      in: path
+      name: executionComponentId
+      schema:
+        type: string
+      required: true
+      description: The ID of the Execution Component.
+    discoveryResultSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: column_name
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - table_name
+        - -table_name
+        - file_name
+        - -file_name
+        - column_name
+        - -column_name
+        - field_name
+        - -field_name
+        - data_class_name
+        - -data_class_name
+        - algorithm_name
+        - -algorithm_name
+        - data_type
+        - -data_type
+        - confidence
+        - -confidence
+        - is_profiler_writable
+        - -is_profiler_writable
+        example: name
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Delphix DCT Algorithms HeldSpace API
+  title: Delphix DCT Held Space API
   version: 3.28.0
   description: Delphix DCT API
   contact:
@@ -18,7 +18,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/heldspaceId'
     get:
-      summary: Get heldspace deletion dependencies.
+      summary: Get heldspace deletion dependencies
       operationId: get_heldspace_deletion_dependencies
       tags:
       - HeldSpace
@@ -33,7 +33,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/heldspaceId'
     post:
-      summary: Delete a HeldSpace.
+      summary: Delete a HeldSpace
       operationId: delete_heldspace_by_id
       tags:
       - HeldSpace
@@ -51,148 +51,6 @@ paths:
                     description: The initiated job.
 components:
   schemas:
-    HeldSpaceDeletionDependenciesResponse:
-      description: The deletion dependencies of a held space.
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/BaseDeletetionDependenciesResponse'
-    JobTaskEvent:
-      properties:
-        message_details:
-          type: string
-    Tag:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-    VirtualizationTask:
-      deprecated: true
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualizationTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    JobTask:
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    DeletionDependencyPrerequisiteAction:
-      description: Deletion dependency prerequisite action.
-      type: object
-      properties:
-        object_id:
-          description: ID of the object.
-          type: string
-        object_type:
-          description: Type of the object.
-          type: string
-          enum:
-          - SNAPSHOT
-          - VDB
-          - DSOURCE
-          - DATALAYOUT_CONTAINER
-          - DATALAYOUT_TEMPLATE
-          - UNKNOWN
-        object_name:
-          description: Name of the object.
-          type: string
-        namespace_id:
-          description: ID of the namespace that this object belongs to.
-          type: string
-        action:
-          description: The action to perform.
-          type: string
-          enum:
-          - REMOVE_KEEP_FOR
-          - TAKE_SNAPSHOT
-          - REFRESH
-        linked_object_id:
-          description: ID of the deletion dependency object which is linked to this prerequisite action.
-          type: string
-        linked_object_type:
-          description: Type of the deletion dependency object which is linked to this prerequisite action.
-          $ref: '#/components/schemas/DeletionDependencyObjectType'
-        locked:
-          description: Whether the prerequisite action is locked. If this is true then this action will be skipped.
-          type: boolean
-    VirtualizationTaskEvent:
-      deprecated: true
-      properties:
-        message_details:
-          type: string
     DeletionDependencyObject:
       description: Deletion dependency object.
       type: object
@@ -243,39 +101,11 @@ components:
           description: Total number of bookmarks associated with the Timeflow if the object is a Timeflow otherwise -1.
           type: integer
           default: -1
-    BaseDeletetionDependenciesResponse:
-      description: Base class for deletion dependencies response.
+    HeldSpaceDeletionDependenciesResponse:
+      description: The deletion dependencies of a held space.
       type: object
-      properties:
-        prerequisite_actions:
-          description: The pre-requisite actions to perform before deleting the snapshot.
-          type: array
-          items:
-            $ref: '#/components/schemas/DeletionDependencyPrerequisiteAction'
-        object_dependencies:
-          description: The object dependencies of the snapshot.
-          type: array
-          items:
-            $ref: '#/components/schemas/DeletionDependencyObject'
-        dependency_tree:
-          description: The dependency tree of the snapshot.
-          $ref: '#/components/schemas/DeletionDependenciesTreeResponse'
-      discriminator:
-        propertyName: class_type
-    DeletionDependenciesTreeResponse:
-      description: The deletion dependencies of an object which occupies disk space.
-      type: object
-      properties:
-        prerequisite_actions:
-          description: The pre-requisite actions to perform before deleting the object.
-          type: array
-          items:
-            $ref: '#/components/schemas/DeletionDependencyPrerequisiteAction'
-        object_dependencies:
-          description: The object dependencies of the object.
-          type: array
-          items:
-            $ref: '#/components/schemas/DeletionDependencyObject'
+      allOf:
+      - $ref: '#/components/schemas/BaseDeletetionDependenciesResponse'
     Engine:
       properties:
         engine_id:
@@ -373,12 +203,14 @@ components:
           example: User 1
         compliance_node_id:
           description: The ID of the associated compliance node, if applicable.
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         compliance_node_name:
           description: The name of the associated compliance node, if applicable.
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         percent_complete:
           description: Completion percentage of the Job.
           type: integer
@@ -396,8 +228,9 @@ components:
             $ref: '#/components/schemas/JobTask'
         execution_id:
           description: The ID of the associated masking execution, if any.
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         result_type:
           description: The type of the job result. This is the type of the object present in the result.
           type: string
@@ -406,6 +239,137 @@ components:
           type: object
       discriminator:
         propertyName: class_type
+    DeletionDependenciesTreeResponse:
+      description: The deletion dependencies of an object which occupies disk space.
+      type: object
+      properties:
+        prerequisite_actions:
+          description: The pre-requisite actions to perform before deleting the object.
+          type: array
+          items:
+            $ref: '#/components/schemas/DeletionDependencyPrerequisiteAction'
+        object_dependencies:
+          description: The object dependencies of the object.
+          type: array
+          items:
+            $ref: '#/components/schemas/DeletionDependencyObject'
+    VirtualizationTask:
+      deprecated: true
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    DeletionDependencyPrerequisiteAction:
+      description: Deletion dependency prerequisite action.
+      type: object
+      properties:
+        object_id:
+          description: ID of the object.
+          type: string
+        object_type:
+          description: Type of the object.
+          type: string
+          enum:
+          - SNAPSHOT
+          - VDB
+          - DSOURCE
+          - DATALAYOUT_CONTAINER
+          - DATALAYOUT_TEMPLATE
+          - UNKNOWN
+        object_name:
+          description: Name of the object.
+          type: string
+        namespace_id:
+          description: ID of the namespace that this object belongs to.
+          type: string
+        action:
+          description: The action to perform.
+          type: string
+          enum:
+          - REMOVE_KEEP_FOR
+          - TAKE_SNAPSHOT
+          - REFRESH
+        linked_object_id:
+          description: ID of the deletion dependency object which is linked to this prerequisite action.
+          type: string
+        linked_object_type:
+          description: Type of the deletion dependency object which is linked to this prerequisite action.
+          $ref: '#/components/schemas/DeletionDependencyObjectType'
+        locked:
+          description: Whether the prerequisite action is locked. If this is true then this action will be skipped.
+          type: boolean
+    BaseDeletetionDependenciesResponse:
+      description: Base class for deletion dependencies response.
+      type: object
+      properties:
+        prerequisite_actions:
+          description: The pre-requisite actions to perform before deleting the snapshot.
+          type: array
+          items:
+            $ref: '#/components/schemas/DeletionDependencyPrerequisiteAction'
+        object_dependencies:
+          description: The object dependencies of the snapshot.
+          type: array
+          items:
+            $ref: '#/components/schemas/DeletionDependencyObject'
+        dependency_tree:
+          description: The dependency tree of the snapshot.
+          $ref: '#/components/schemas/DeletionDependenciesTreeResponse'
+      discriminator:
+        propertyName: class_type
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
     DeletionDependencyObjectType:
       description: Deletion dependency object type.
       type: string
@@ -421,6 +385,45 @@ components:
       - UNKNOWN
       - ALLSNAPSHOTS
       - BOOKMARK
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
   parameters:
     heldspaceId:
       name: heldspaceId

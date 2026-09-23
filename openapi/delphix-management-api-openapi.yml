@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Delphix DCT Algorithms Management API
+  title: Delphix DCT Management API
   version: 3.28.0
   description: Delphix DCT API
   contact:
@@ -20,7 +20,7 @@ paths:
     post:
       tags:
       - Management
-      summary: Validate java path for the remote host machine.
+      summary: Validate java path for the remote host machine
       operationId: validate_java_path
       requestBody:
         content:
@@ -50,10 +50,11 @@ components:
           example: home/jdk/
         port:
           description: SSH port of the remote host machine that will be used to establish SSH connection.
-          type: integer
+          type:
+          - integer
+          - 'null'
           minimum: 0
           maximum: 65535
-          nullable: true
           example: 22
         username:
           description: The username of the user that will be used to connect to the remote host machine.

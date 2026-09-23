@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Delphix DCT Algorithms VirtualizationJobs API
+  title: Delphix DCT Virtualization Jobs API
   version: 3.28.0
   description: Delphix DCT API
   contact:
@@ -125,83 +125,6 @@ paths:
                   response_metadata:
                     $ref: '#/components/schemas/PaginatedResponseMetadata'
 components:
-  parameters:
-    JobTypeParam:
-      name: job_type
-      in: query
-      description: The job type to filter by.
-      required: false
-      schema:
-        $ref: '#/components/schemas/TargetJobType'
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
-    ObjectIdParam:
-      name: object_id
-      in: query
-      description: The object id to filter by.
-      required: false
-      schema:
-        type: string
-    virtualizationJobsSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
-      example: engine_job_id
-      required: false
-      schema:
-        type: string
-        enum:
-        - engine_job_id
-        - -engine_job_id
-        - engine_id
-        - -engine_id
-        - job_state
-        - -job_state
-        - legacy_job_type
-        - -legacy_job_type
-        - job_type
-        - -job_type
-        - target_object_id
-        - -target_object_id
-        - legacy_target_object_type
-        - -legacy_target_object_type
-        - target_object_type
-        - -target_object_type
-        - job_state
-        - -job_state
-        - start_time
-        - -start_time
-        - update_time
-        - -update_time
-        - percent_complete
-        - -percent_complete
-        - run_duration
-        - -run_duration
-        nullable: true
-        example: engine_id
-    ObjectTypeParam:
-      name: object_type
-      in: query
-      description: The object type to filter by.
-      required: false
-      schema:
-        $ref: '#/components/schemas/TargetObjectType'
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
   schemas:
     VirtualizationJobEvent:
       description: An event associated with a virtualization engine job.
@@ -347,6 +270,84 @@ components:
           minLength: 5
           maxLength: 50000
           example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    virtualizationJobsSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: engine_job_id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - engine_job_id
+        - -engine_job_id
+        - engine_id
+        - -engine_id
+        - job_state
+        - -job_state
+        - legacy_job_type
+        - -legacy_job_type
+        - job_type
+        - -job_type
+        - target_object_id
+        - -target_object_id
+        - legacy_target_object_type
+        - -legacy_target_object_type
+        - target_object_type
+        - -target_object_type
+        - job_state
+        - -job_state
+        - start_time
+        - -start_time
+        - update_time
+        - -update_time
+        - percent_complete
+        - -percent_complete
+        - run_duration
+        - -run_duration
+        example: engine_id
+    ObjectTypeParam:
+      name: object_type
+      in: query
+      description: The object type to filter by.
+      required: false
+      schema:
+        $ref: '#/components/schemas/TargetObjectType'
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+    ObjectIdParam:
+      name: object_id
+      in: query
+      description: The object id to filter by.
+      required: false
+      schema:
+        type: string
+    JobTypeParam:
+      name: job_type
+      in: query
+      description: The job type to filter by.
+      required: false
+      schema:
+        $ref: '#/components/schemas/TargetJobType'
   requestBodies:
     SearchBody:
       x-skip-codegen-attr: description

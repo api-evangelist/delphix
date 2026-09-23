@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Delphix DCT Algorithms Namespace API
+  title: Delphix DCT Namespace API
   version: 3.28.0
   description: Delphix DCT API
   contact:
@@ -16,7 +16,7 @@ tags:
 paths:
   /namespaces:
     get:
-      summary: List all namespaces.
+      summary: List all namespaces
       operationId: list_namespaces
       tags:
       - Namespace
@@ -41,7 +41,7 @@ paths:
                     $ref: '#/components/schemas/PaginatedResponseMetadata'
   /namespaces/search:
     post:
-      summary: Search Namespaces.
+      summary: Search Namespaces
       operationId: search_namespaces
       tags:
       - Namespace
@@ -106,7 +106,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/namespaceIdParam'
     get:
-      summary: Get a namespace.
+      summary: Get a namespace
       operationId: get_namespace_by_id
       tags:
       - Namespace
@@ -118,7 +118,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Namespace'
     patch:
-      summary: Update a Namespace.
+      summary: Update a Namespace
       operationId: update_namespace
       tags:
       - Namespace
@@ -140,7 +140,7 @@ paths:
                   job:
                     $ref: '#/components/schemas/Job'
     delete:
-      summary: Delete a Namespace.
+      summary: Delete a Namespace
       operationId: delete_namespace
       tags:
       - Namespace
@@ -159,7 +159,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/namespaceIdParam'
     post:
-      summary: Initiates failover for the given namespace.
+      summary: Initiates failover for the given namespace
       operationId: failover_namespace
       tags:
       - Namespace
@@ -183,7 +183,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/namespaceIdParam'
     post:
-      summary: Commits the failover of a given namespace and discards the failback state.
+      summary: Commits the failover of a given namespace and discards the failback state
       operationId: commit_failover_namespace
       tags:
       - Namespace
@@ -202,7 +202,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/namespaceIdParam'
     post:
-      summary: Initiates failback for the given namespace.
+      summary: Initiates failback for the given namespace
       operationId: failback_namespace
       tags:
       - Namespace
@@ -221,7 +221,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/namespaceIdParam'
     post:
-      summary: Discards any partial receive state for the given namespace.
+      summary: Discards any partial receive state for the given namespace
       operationId: discard_namespace
       tags:
       - Namespace
@@ -238,193 +238,6 @@ paths:
                     $ref: '#/components/schemas/Job'
 components:
   schemas:
-    Namespace:
-      description: A namespace represents an alternative namespace for objects and data within a Delphix engine.
-      type: object
-      properties:
-        id:
-          description: The Namespace ID.
-          type: string
-        name:
-          description: The Namespace name.
-          type: string
-          minLength: 1
-          maxLength: 256
-        tag:
-          description: This is the tag of the Replication profile that created this namespace.
-          type: string
-        engine_id:
-          description: The ID of the engine that the Namespace belongs to.
-          type: string
-        description:
-          description: A description of the namespace.
-          type: string
-          minLength: 1
-          maxLength: 4096
-        secure_namespace:
-          description: True if the source data stream was generated from a ReplicationProfile with mode CONTINUOUS_VAULT.
-          type: boolean
-        failed_over:
-          description: True if the namespace has been failed over into the live environment.
-          type: boolean
-        failover_report:
-          description: If the namespace has been failed over, this contains a report about objects affected by the failover.
-          type: string
-        locked:
-          description: True if the namespace is locked.
-          type: boolean
-        failback_possible:
-          description: True if the namespace can be failed back.
-          type: boolean
-        failback_capability:
-          description: Whether the namespace is capable of failback
-          type: string
-          enum:
-          - FAILBACK_READY
-          - FAILBACK_COMPATIBLE
-          - FAILBACK_INCOMPATIBLE
-          - FAILBACK_UNSUPPORTED
-          - FAILOVER_COMMITED_CANNOT_FAILBACK
-        failback_incapability_reason:
-          description: When incapable, the reason why the namespace is incompatible with failback.
-          type: string
-        replication_mode:
-          description: The replication mode of the associated ReplicationProfile that created the Namespace.
-          type: string
-          enum:
-          - ENGINE_DATA_REPLICATION
-          - MASKED_DATA_DISTRIBUTION
-          - CONTINUOUS_VAULT
-          - OFFLINE_SEND
-          - OFFLINE_RECEIVE
-          - OFFLINE_CONTINUOUS_VAULT
-        last_execution_status:
-          description: The status of the last execution of the ReplicationProfile associated with the Namespace.
-          type: string
-          enum:
-          - RUNNING
-          - COMPLETED
-          - SUSPENDED
-          - CANCELED
-          - FAILED
-        last_execution_status_timestamp:
-          description: The timestamp of the last execution status of the ReplicationProfile associated with the Namespace.
-          type: string
-          format: date-time
-        source_engine_id:
-          description: The ID of the source engine that the ReplicationProfile that created the Namespace belongs to.
-          type: string
-        source_engine_name:
-          description: The name of the source engine that the ReplicationProfile that created the Namespace belongs to.
-          type: string
-    JobTaskEvent:
-      properties:
-        message_details:
-          type: string
-    Tag:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-    VirtualizationTask:
-      deprecated: true
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualizationTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    JobTask:
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    VirtualizationTaskEvent:
-      deprecated: true
-      properties:
-        message_details:
-          type: string
-    UpdateNamespaceParameters:
-      description: The parameters to update a Namespace.
-      type: object
-      properties:
-        name:
-          description: The Namespace name.
-          type: string
-        description:
-          description: The description of the namespace.
-          type: string
     FailoverNamespaceParameters:
       description: The parameters to failover a Namespace.
       type: object
@@ -433,16 +246,6 @@ components:
           description: Whether to enable failback for the datasets being failed over.
           type: boolean
           default: false
-    Engine:
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
     Job:
       description: An asynchronous task.
       type: object
@@ -530,12 +333,14 @@ components:
           example: User 1
         compliance_node_id:
           description: The ID of the associated compliance node, if applicable.
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         compliance_node_name:
           description: The name of the associated compliance node, if applicable.
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         percent_complete:
           description: Completion percentage of the Job.
           type: integer
@@ -553,8 +358,9 @@ components:
             $ref: '#/components/schemas/JobTask'
         execution_id:
           description: The ID of the associated masking execution, if any.
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         result_type:
           description: The type of the job result. This is the type of the object present in the result.
           type: string
@@ -563,6 +369,57 @@ components:
           type: object
       discriminator:
         propertyName: class_type
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    VirtualizationTask:
+      deprecated: true
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
     PaginatedResponseMetadata:
       type: object
       properties:
@@ -585,25 +442,153 @@ components:
           minLength: 5
           maxLength: 50000
           example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    Namespace:
+      description: A namespace represents an alternative namespace for objects and data within a Delphix engine.
+      type: object
+      properties:
+        id:
+          description: The Namespace ID.
+          type: string
+        name:
+          description: The Namespace name.
+          type: string
+          minLength: 1
+          maxLength: 256
+        tag:
+          description: This is the tag of the Replication profile that created this namespace.
+          type: string
+        engine_id:
+          description: The ID of the engine that the Namespace belongs to.
+          type: string
+        description:
+          description: A description of the namespace.
+          type: string
+          minLength: 1
+          maxLength: 4096
+        secure_namespace:
+          description: True if the source data stream was generated from a ReplicationProfile with mode CONTINUOUS_VAULT.
+          type: boolean
+        failed_over:
+          description: True if the namespace has been failed over into the live environment.
+          type: boolean
+        failover_report:
+          description: If the namespace has been failed over, this contains a report about objects affected by the failover.
+          type: string
+        locked:
+          description: True if the namespace is locked.
+          type: boolean
+        failback_possible:
+          description: True if the namespace can be failed back.
+          type: boolean
+        failback_capability:
+          description: Whether the namespace is capable of failback
+          type: string
+          enum:
+          - FAILBACK_READY
+          - FAILBACK_COMPATIBLE
+          - FAILBACK_INCOMPATIBLE
+          - FAILBACK_UNSUPPORTED
+          - FAILOVER_COMMITED_CANNOT_FAILBACK
+        failback_incapability_reason:
+          description: When incapable, the reason why the namespace is incompatible with failback.
+          type: string
+        replication_mode:
+          description: The replication mode of the associated ReplicationProfile that created the Namespace.
+          type: string
+          enum:
+          - ENGINE_DATA_REPLICATION
+          - MASKED_DATA_DISTRIBUTION
+          - CONTINUOUS_VAULT
+          - OFFLINE_SEND
+          - OFFLINE_RECEIVE
+          - OFFLINE_CONTINUOUS_VAULT
+        last_execution_status:
+          description: The status of the last execution of the ReplicationProfile associated with the Namespace.
+          type: string
+          enum:
+          - RUNNING
+          - COMPLETED
+          - SUSPENDED
+          - CANCELED
+          - FAILED
+        last_execution_status_timestamp:
+          description: The timestamp of the last execution status of the ReplicationProfile associated with the Namespace.
+          type: string
+          format: date-time
+        source_engine_id:
+          description: The ID of the source engine that the ReplicationProfile that created the Namespace belongs to.
+          type: string
+        source_engine_name:
+          description: The name of the source engine that the ReplicationProfile that created the Namespace belongs to.
+          type: string
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    UpdateNamespaceParameters:
+      description: The parameters to update a Namespace.
+      type: object
+      properties:
+        name:
+          description: The Namespace name.
+          type: string
+        description:
+          description: The description of the namespace.
+          type: string
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
   parameters:
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
-    namespaceIdParam:
-      in: path
-      name: namespaceId
-      required: true
-      schema:
-        type: string
-        minLength: 1
-      description: The ID of the namespace.
     namespacesSortParam:
       name: sort
       in: query
@@ -611,7 +596,9 @@ components:
       example: id
       required: false
       schema:
-        type: string
+        type:
+        - string
+        - 'null'
         enum:
         - id
         - -id
@@ -643,8 +630,25 @@ components:
         - -source_engine_id
         - source_engine_name
         - -source_engine_name
-        nullable: true
         example: name
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    namespaceIdParam:
+      in: path
+      name: namespaceId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the namespace.
     cursor:
       name: cursor
       in: query

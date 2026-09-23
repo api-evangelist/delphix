@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Delphix DCT Algorithms HyperscaleInstance API
+  title: Delphix DCT Hyperscale Instance API
   version: 3.28.0
   description: Delphix DCT API
   contact:
@@ -46,7 +46,7 @@ paths:
     get:
       tags:
       - HyperscaleInstance
-      summary: Returns a list of Hyperscale instances.
+      summary: Returns a list of Hyperscale instances
       operationId: get_hyperscale_instances
       parameters:
       - $ref: '#/components/parameters/limit'
@@ -69,7 +69,7 @@ paths:
                     $ref: '#/components/schemas/PaginatedResponseMetadata'
   /hyperscale-instances/search:
     post:
-      summary: Search for Hyperscale instances.
+      summary: Search for Hyperscale instances
       operationId: search_hyperscale_instances
       tags:
       - HyperscaleInstance
@@ -129,7 +129,7 @@ paths:
     get:
       tags:
       - HyperscaleInstance
-      summary: Returns a Hyperscale Instance by ID.
+      summary: Returns a Hyperscale Instance by ID
       operationId: get_hyperscale_instance_by_id
       responses:
         '200':
@@ -161,7 +161,7 @@ paths:
     delete:
       tags:
       - HyperscaleInstance
-      summary: Unregister a Hyperscale Instance.
+      summary: Unregister a Hyperscale Instance
       operationId: unregister_hyperscale_instance
       responses:
         '200':
@@ -181,7 +181,7 @@ paths:
     post:
       tags:
       - HyperscaleInstance
-      summary: Create tags for a Hyperscale Instance.
+      summary: Create tags for a Hyperscale Instance
       operationId: create_hyperscale_instance_tags
       requestBody:
         content:
@@ -201,7 +201,7 @@ paths:
     get:
       tags:
       - HyperscaleInstance
-      summary: Get tags for a Hyperscale Instance.
+      summary: Get tags for a Hyperscale Instance
       operationId: get_hyperscale_instance_tags
       responses:
         '200':
@@ -216,7 +216,7 @@ paths:
     post:
       tags:
       - HyperscaleInstance
-      summary: Delete tags for a Hyperscale Instance.
+      summary: Delete tags for a Hyperscale Instance
       operationId: delete_hyperscale_instance_tags
       requestBody:
         $ref: '#/components/requestBodies/DeleteTags'
@@ -229,7 +229,7 @@ paths:
     post:
       tags:
       - HyperscaleInstance
-      summary: Sync the global object from a source engine to engines on a Hyperscale Instance.
+      summary: Sync the global object from a source engine to engines on a Hyperscale Instance
       operationId: sync_engines_hyperscale_instance
       requestBody:
         content:
@@ -255,7 +255,7 @@ paths:
     post:
       tags:
       - HyperscaleInstance
-      summary: Add an engine to a Hyperscale Instance.
+      summary: Add an engine to a Hyperscale Instance
       operationId: add_engine_to_hyperscale_instance
       requestBody:
         content:
@@ -282,7 +282,7 @@ paths:
     post:
       tags:
       - HyperscaleInstance
-      summary: Remove an engine from a Hyperscale Instance.
+      summary: Remove an engine from a Hyperscale Instance
       operationId: remove_engine_from_hyperscale_instance
       requestBody:
         content:
@@ -309,7 +309,7 @@ paths:
     put:
       tags:
       - HyperscaleInstance
-      summary: Move compliance nodes from a hyperscale orchestrator to a job orchestrator.
+      summary: Move compliance nodes from a hyperscale orchestrator to a job orchestrator
       operationId: move_compliance_nodes_to_job_orchestrator
       requestBody:
         content:
@@ -346,537 +346,6 @@ components:
           minLength: 1
           maxLength: 4000
           example: value-1
-    HyperscaleInstance:
-      title: HyperscaleInstance
-      type: object
-      description: A registered Hyperscale instance's connection and authentication settings.
-      required:
-      - name
-      - hostname
-      - api_key
-      - job_orchestrator_id
-      properties:
-        id:
-          description: The Hyperscale instance entity ID.
-          type: string
-          readOnly: true
-        name:
-          description: The name of this hyperscale instance.
-          type: string
-        hostname:
-          description: The hostname of this hyperscale instance.
-          type: string
-        data_type:
-          $ref: '#/components/schemas/HyperscaleDataTypeEnum'
-        creation_date:
-          description: The date this hyperscale instance was registered.
-          type: string
-          format: date-time
-        tags:
-          description: The tags to be created for this hyperscale instance.
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-        api_key:
-          description: API key to connect to the hyperscale instance.
-          type: string
-        insecure_ssl:
-          description: 'Allow connections to the hyperscale instance over HTTPs without validating the TLS certificate. Even though
-
-            the connection to the hyperscale instance might be performed over HTTPs, setting this property eliminates
-
-            the protection against a man-in-the-middle attach for connections to this engine. Instead,
-
-            consider configuring DCT with Certificate Authority certificates.
-
-            '
-          type: boolean
-          default: false
-        unsafe_ssl_hostname_check:
-          description: 'Ignore validation of the name associated to the TLS certificate when connecting to the hyperscale instance over HTTPs.
-
-            Setting this value must only be done if the TLS certificate of the hyperscale instance does not match the hostname,
-
-            and the TLS configuration of the hyperscale instance cannot be fixed. Setting this property reduces the protection
-
-            against a man-in-the-middle attack for connections to this hyperscale instance.
-
-            This is ignored if insecure_ssl is set.
-
-            '
-          type: boolean
-          default: false
-        status:
-          description: The status of this hyperscale instance.
-          type: string
-          enum:
-          - CREATED
-          - DELETING
-          nullable: true
-          readOnly: true
-        connection_status:
-          description: The status of the connection to the hyperscale instance.
-          type: string
-          enum:
-          - ONLINE
-          - CONNECTION_ERROR
-          - BAD_CREDENTIALS
-          nullable: true
-          readOnly: true
-        connection_status_details:
-          description: If set, details about the status of the connection to the hyperscale instance.
-          type: string
-          readOnly: true
-        job_orchestrator_id:
-          type: string
-          description: The job orchestrator id that is associated with the hyperscale instance.
-        job_orchestrator_name:
-          description: The job orchestrator name associated with the hyperscale instance.
-          type: string
-        node_count:
-          type: integer
-          description: The Number of compliance nodes registered on Hyperscale Instance if instance is dct_managed.
-        auto_calculate_unload_split:
-          type: boolean
-          default: true
-          description: If set, hyperscale will auto calculate the no of splits required for masking job.
-        consider_continuous_compliance_warning_event_as:
-          type: string
-          enum:
-          - SUCCESS
-          - FAILURE
-          default: SUCCESS
-          description: The flag to control behavior of Hyperscale Job execution on warning event in Continuous Compliance Job execution. Default behavior of Hyperscale Job on the WARNING status of Continuous Compliance Job execution, is to consider it as SUCCESS. One example of warning event in Continuous Compliance is masking non conformant data.
-        create_all_indexes_with_nologging:
-          type: boolean
-          default: false
-          description: Add all indexes with NOLOGGING as part of post load.
-        disable_parallel_index_creation:
-          type: boolean
-          default: false
-          description: Exclude indexes from combining with constraint and trigger groups as part of pre load.
-        enable_all_constraints_with_novalidate:
-          type: boolean
-          default: false
-          description: Enable all constraints with NOVALIDATE as part of post load.
-        max_concurrent_source_connections:
-          type: integer
-          default: 30
-          description: Maximum number of parallel connection that hyperscale can have with source datasource.
-        max_concurrent_target_connections:
-          type: integer
-          default: 30
-          description: Maximum number of parallel connection that hyperscale can have with target datasource.
-        max_parallel_connections_per_table:
-          type: integer
-          default: 30
-          description: Maximum number of parallel connection that per table per masking job.
-        max_records_per_split:
-          type: integer
-          format: int64
-          default: 30
-          description: Maximum number of rows allowed per split file for job execution.
-        max_split_per_connection:
-          type: integer
-          default: 4
-          description: Maximum number of split files allowed per connection for job execution.
-        parallelism_degree:
-          type: integer
-          default: 0
-          description: Degree of parallelism for target database.
-        retain_execution_data:
-          type: string
-          enum:
-          - 'NO'
-          - ON_ERROR
-          - ALWAYS
-          default: 'NO'
-          description: Defines whether execution data will be stored after execution is complete. Enum having values- NO, ON_ERROR, ALWAYS.
-        stream_size:
-          type: integer
-          default: 0
-          description: The stream size to be used by sqlldr oracle utility which specifies the size (in bytes) of the data stream sent from the client to the server.
-        column_array_rows:
-          type: integer
-          default: 0
-          description: The number of column array rows to be used by sqlldr oracle utility which determines the number of rows loaded before the stream buffer is built.
-        unload_split:
-          type: integer
-          default: 1
-          description: The number of unloaded files to be generated from the source database.
-    VirtualizationTaskEvent:
-      deprecated: true
-      properties:
-        message_details:
-          type: string
-    Engine:
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
-    MoveComplianceNodesToJobOrchestratorRequest:
-      description: Parameters to move compliance nodes from a hyperscale orchestrator to a job orchestrator.
-      type: object
-      required:
-      - compliance_node_ids
-      - job_orchestrator_id
-      properties:
-        compliance_node_ids:
-          description: List of compliance node IDs to move.
-          type: array
-          items:
-            type: string
-          example:
-          - node-101
-          - node-102
-          - node-103
-        job_orchestrator_id:
-          description: The ID of the target job orchestrator to move the compliance nodes to.
-          type: string
-          example: f8e7d6c5-b4a3-2109-8765-43210fedcba9
-    PaginatedResponseMetadata:
-      type: object
-      properties:
-        prev_cursor:
-          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        next_cursor:
-          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        total:
-          description: The total number of results. This value may not be provided.
-          type: integer
-          format: int_64
-    JobTaskEvent:
-      properties:
-        message_details:
-          type: string
-    DeleteTag:
-      type: object
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-        tags:
-          description: List of tags to be deleted
-          type: array
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/Tag'
-    JobTask:
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    TagsRequest:
-      type: object
-      required:
-      - tags
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-    MoveComplianceNodesResponse:
-      description: Response for compliance node movement operations.
-      type: object
-      properties:
-        job:
-          $ref: '#/components/schemas/Job'
-          description: The Job tracking the compliance node movement.
-    HyperscaleInstanceRegistrationParameter:
-      title: HyperscaleInstanceRegistrationParameter
-      type: object
-      description: Parameters to register and authenticate a Hyperscale instance
-      required:
-      - name
-      - hostname
-      - api_key
-      - job_orchestrator_id
-      properties:
-        name:
-          type: string
-          description: Name in DCT of the Hyperscale instance.
-          minLength: 1
-          maxLength: 256
-        hostname:
-          type: string
-          description: Hostname of the Hyperscale instance. If the Hyperscale instance is running on a custom port (not 443), the port can be specified using the "hostname:port" format, for instance "hyperscale-1.mycompany.co:1765"
-          minLength: 1
-          maxLength: 512
-        api_key:
-          x-dct-toolkit-credential-field: true
-          description: API key to connect to the Hyperscale instance.
-          type: string
-          nullable: true
-          minLength: 1
-          maxLength: 4096
-        insecure_ssl:
-          description: 'Allow connections to the hyperscale instance over HTTPs without validating the TLS certificate. Even though
-
-            the connection to the hyperscale instance might be performed over HTTPs, setting this property eliminates
-
-            the protection against a man-in-the-middle attach for connections to this engine. Instead,
-
-            consider configuring DCT with Certificate Authority certificates.
-
-            '
-          type: boolean
-          default: false
-        unsafe_ssl_hostname_check:
-          description: 'Ignore validation of the name associated to the TLS certificate when connecting to the hyperscale instance over HTTPs.
-
-            Setting this value must only be done if the TLS certificate of the hyperscale instance does not match the hostname,
-
-            and the TLS configuration of the hyperscale instance cannot be fixed. Setting this property reduces the protection
-
-            against a man-in-the-middle attack for connections to this engine.
-
-            This is ignored if insecure_ssl is set.
-
-            '
-          type: boolean
-          default: false
-        tags:
-          description: The tags to be created for this engine.
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-        make_current_account_owner:
-          type: boolean
-          default: true
-          description: Whether the account creating this Hyperscale instance must be configured as owner of it.
-        job_orchestrator_id:
-          type: string
-          description: The ID or name of the job orchestrator that is associated with this hyperscale instance.
-          nullable: false
-        auto_calculate_unload_split:
-          type: boolean
-          default: true
-          description: If set, hyperscale will auto calculate the no of splits required for masking job.
-        consider_continuous_compliance_warning_event_as:
-          type: string
-          enum:
-          - SUCCESS
-          - FAILURE
-          default: SUCCESS
-          description: The flag to control behavior of Hyperscale Job execution on warning event in Continuous Compliance Job execution. Default behavior of Hyperscale Job on the WARNING status of Continuous Compliance Job execution, is to consider it as SUCCESS. One example of warning event in Continuous Compliance is masking non conformant data.
-        create_all_indexes_with_nologging:
-          type: boolean
-          default: false
-          description: Add all indexes with NOLOGGING as part of post load.
-        disable_parallel_index_creation:
-          type: boolean
-          default: false
-          description: Exclude indexes from combining with constraint and trigger groups as part of pre load.
-        enable_all_constraints_with_novalidate:
-          type: boolean
-          default: false
-          description: Enable all constraints with NOVALIDATE as part of post load.
-        max_concurrent_source_connections:
-          type: integer
-          default: 30
-          minimum: 1
-          maximum: 32767
-          description: Maximum number of parallel connection that hyperscale can have with source datasource.
-        max_concurrent_target_connections:
-          type: integer
-          default: 30
-          minimum: 1
-          maximum: 32767
-          description: Maximum number of parallel connection that hyperscale can have with target datasource.
-        max_parallel_connections_per_table:
-          type: integer
-          default: 30
-          minimum: 1
-          maximum: 32767
-          description: Maximum number of parallel connection that per table per masking job.
-        max_records_per_split:
-          type: integer
-          format: int64
-          default: 30
-          minimum: 1
-          description: Maximum number of rows allowed per split file for job execution.
-        max_split_per_connection:
-          type: integer
-          default: 4
-          minimum: 1
-          maximum: 32767
-          description: Maximum number of split files allowed per connection for job execution.
-        parallelism_degree:
-          type: integer
-          default: 0
-          minimum: -1
-          maximum: 32767
-          description: Degree of parallelism for target database.
-        retain_execution_data:
-          type: string
-          enum:
-          - 'NO'
-          - ON_ERROR
-          - ALWAYS
-          default: 'NO'
-          description: Defines whether execution data will be stored after execution is complete. Enum having values- NO, ON_ERROR, ALWAYS.
-        stream_size:
-          type: integer
-          default: 0
-          minimum: 0
-          description: The stream size to be used by sqlldr oracle utility which specifies the size (in bytes) of the data stream sent from the client to the server.
-        column_array_rows:
-          type: integer
-          default: 0
-          minimum: 0
-          description: The number of column array rows to be used by sqlldr oracle utility which determines the number of rows loaded before the stream buffer is built.
-        unload_split:
-          type: integer
-          default: 1
-          minimum: 1
-          maximum: 32767
-          description: The number of unloaded files to be generated from the source database.
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
-    VirtualizationTask:
-      deprecated: true
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualizationTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    SyncEnginesHyperscaleParameters:
-      type: object
-      description: Parameters to sync the global object from a source engine to a list of target engines registered with a Hyperscale Instance.
-      required:
-      - source_engine_id
-      - target_engine_ids
-      properties:
-        source_engine_id:
-          type: string
-          description: The ID of the engine to copy the data from.
-          minLength: 1
-          maxLength: 256
-          example: '1'
-        target_engine_ids:
-          type: array
-          items:
-            type: string
-            minLength: 1
-            maxLength: 256
-          minItems: 1
-          description: The IDs of the target engines to copy the data into.
-          example:
-          - '1'
-          - '2'
-    EngineIdBody:
-      description: The ID of the registered engine.
-      type: object
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          example: '1'
-    TagsResponse:
-      type: object
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    HyperscaleDataTypeEnum:
-      type: string
-      description: The data type designation for the hyperscale deployment.
-      enum:
-      - ORACLE
-      - MSSQL
-      - DELIMITED_FILES
-      - MONGO_DB
-      example: ORACLE
     Job:
       description: An asynchronous task.
       type: object
@@ -963,13 +432,15 @@ components:
           type: string
           example: User 1
         compliance_node_id:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The ID of the associated compliance node, if applicable.
-          nullable: true
         compliance_node_name:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The name of the associated compliance node, if applicable.
-          nullable: true
         percent_complete:
           description: Completion percentage of the Job.
           type: integer
@@ -987,14 +458,109 @@ components:
             $ref: '#/components/schemas/JobTask'
         execution_id:
           description: The ID of the associated masking execution, if any.
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         result_type:
           description: The type of the job result. This is the type of the object present in the result.
           type: string
         result:
           description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
           type: object
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    VirtualizationTask:
+      deprecated: true
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    DeleteTag:
+      type: object
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        tags:
+          description: List of tags to be deleted
+          type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+    HyperscaleDataTypeEnum:
+      type: string
+      description: The data type designation for the hyperscale deployment.
+      enum:
+      - ORACLE
+      - MSSQL
+      - DELIMITED_FILES
+      - MONGO_DB
+      example: ORACLE
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
     HyperscaleInstanceUpdateParams:
       title: HyperscaleInstanceUpdateParams
       type: object
@@ -1013,8 +579,9 @@ components:
         api_key:
           x-dct-toolkit-credential-field: true
           description: API key to connect to the Hyperscale instance.
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           minLength: 1
           maxLength: 4096
         insecure_ssl:
@@ -1042,9 +609,10 @@ components:
             '
           type: boolean
         job_orchestrator_id:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The ID or name of the job orchestrator that is associated with this hyperscale instance.
-          nullable: true
         auto_calculate_unload_split:
           type: boolean
           description: If set, hyperscale will auto calculate the no of splits required for masking job.
@@ -1113,6 +681,445 @@ components:
           minimum: 1
           maximum: 32767
           description: The number of unloaded files to be generated from the source database.
+    SyncEnginesHyperscaleParameters:
+      type: object
+      description: Parameters to sync the global object from a source engine to a list of target engines registered with a Hyperscale Instance.
+      required:
+      - source_engine_id
+      - target_engine_ids
+      properties:
+        source_engine_id:
+          type: string
+          description: The ID of the engine to copy the data from.
+          minLength: 1
+          maxLength: 256
+          example: '1'
+        target_engine_ids:
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 256
+          minItems: 1
+          description: The IDs of the target engines to copy the data into.
+          example:
+          - '1'
+          - '2'
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    MoveComplianceNodesResponse:
+      description: Response for compliance node movement operations.
+      type: object
+      properties:
+        job:
+          $ref: '#/components/schemas/Job'
+          description: The Job tracking the compliance node movement.
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    HyperscaleInstance:
+      title: HyperscaleInstance
+      type: object
+      description: A registered Hyperscale instance's connection and authentication settings.
+      required:
+      - name
+      - hostname
+      - api_key
+      - job_orchestrator_id
+      properties:
+        id:
+          description: The Hyperscale instance entity ID.
+          type: string
+          readOnly: true
+        name:
+          description: The name of this hyperscale instance.
+          type: string
+        hostname:
+          description: The hostname of this hyperscale instance.
+          type: string
+        data_type:
+          $ref: '#/components/schemas/HyperscaleDataTypeEnum'
+        creation_date:
+          description: The date this hyperscale instance was registered.
+          type: string
+          format: date-time
+        tags:
+          description: The tags to be created for this hyperscale instance.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        api_key:
+          description: API key to connect to the hyperscale instance.
+          type: string
+        insecure_ssl:
+          description: 'Allow connections to the hyperscale instance over HTTPs without validating the TLS certificate. Even though
+
+            the connection to the hyperscale instance might be performed over HTTPs, setting this property eliminates
+
+            the protection against a man-in-the-middle attach for connections to this engine. Instead,
+
+            consider configuring DCT with Certificate Authority certificates.
+
+            '
+          type: boolean
+          default: false
+        unsafe_ssl_hostname_check:
+          description: 'Ignore validation of the name associated to the TLS certificate when connecting to the hyperscale instance over HTTPs.
+
+            Setting this value must only be done if the TLS certificate of the hyperscale instance does not match the hostname,
+
+            and the TLS configuration of the hyperscale instance cannot be fixed. Setting this property reduces the protection
+
+            against a man-in-the-middle attack for connections to this hyperscale instance.
+
+            This is ignored if insecure_ssl is set.
+
+            '
+          type: boolean
+          default: false
+        status:
+          description: The status of this hyperscale instance.
+          type:
+          - string
+          - 'null'
+          enum:
+          - CREATED
+          - DELETING
+          readOnly: true
+        connection_status:
+          description: The status of the connection to the hyperscale instance.
+          type:
+          - string
+          - 'null'
+          enum:
+          - ONLINE
+          - CONNECTION_ERROR
+          - BAD_CREDENTIALS
+          readOnly: true
+        connection_status_details:
+          description: If set, details about the status of the connection to the hyperscale instance.
+          type: string
+          readOnly: true
+        job_orchestrator_id:
+          type: string
+          description: The job orchestrator id that is associated with the hyperscale instance.
+        job_orchestrator_name:
+          description: The job orchestrator name associated with the hyperscale instance.
+          type: string
+        node_count:
+          type: integer
+          description: The Number of compliance nodes registered on Hyperscale Instance if instance is dct_managed.
+        auto_calculate_unload_split:
+          type: boolean
+          default: true
+          description: If set, hyperscale will auto calculate the no of splits required for masking job.
+        consider_continuous_compliance_warning_event_as:
+          type: string
+          enum:
+          - SUCCESS
+          - FAILURE
+          default: SUCCESS
+          description: The flag to control behavior of Hyperscale Job execution on warning event in Continuous Compliance Job execution. Default behavior of Hyperscale Job on the WARNING status of Continuous Compliance Job execution, is to consider it as SUCCESS. One example of warning event in Continuous Compliance is masking non conformant data.
+        create_all_indexes_with_nologging:
+          type: boolean
+          default: false
+          description: Add all indexes with NOLOGGING as part of post load.
+        disable_parallel_index_creation:
+          type: boolean
+          default: false
+          description: Exclude indexes from combining with constraint and trigger groups as part of pre load.
+        enable_all_constraints_with_novalidate:
+          type: boolean
+          default: false
+          description: Enable all constraints with NOVALIDATE as part of post load.
+        max_concurrent_source_connections:
+          type: integer
+          default: 30
+          description: Maximum number of parallel connection that hyperscale can have with source datasource.
+        max_concurrent_target_connections:
+          type: integer
+          default: 30
+          description: Maximum number of parallel connection that hyperscale can have with target datasource.
+        max_parallel_connections_per_table:
+          type: integer
+          default: 30
+          description: Maximum number of parallel connection that per table per masking job.
+        max_records_per_split:
+          type: integer
+          format: int64
+          default: 30
+          description: Maximum number of rows allowed per split file for job execution.
+        max_split_per_connection:
+          type: integer
+          default: 4
+          description: Maximum number of split files allowed per connection for job execution.
+        parallelism_degree:
+          type: integer
+          default: 0
+          description: Degree of parallelism for target database.
+        retain_execution_data:
+          type: string
+          enum:
+          - 'NO'
+          - ON_ERROR
+          - ALWAYS
+          default: 'NO'
+          description: Defines whether execution data will be stored after execution is complete. Enum having values- NO, ON_ERROR, ALWAYS.
+        stream_size:
+          type: integer
+          default: 0
+          description: The stream size to be used by sqlldr oracle utility which specifies the size (in bytes) of the data stream sent from the client to the server.
+        column_array_rows:
+          type: integer
+          default: 0
+          description: The number of column array rows to be used by sqlldr oracle utility which determines the number of rows loaded before the stream buffer is built.
+        unload_split:
+          type: integer
+          default: 1
+          description: The number of unloaded files to be generated from the source database.
+    EngineIdBody:
+      description: The ID of the registered engine.
+      type: object
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          example: '1'
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    HyperscaleInstanceRegistrationParameter:
+      title: HyperscaleInstanceRegistrationParameter
+      type: object
+      description: Parameters to register and authenticate a Hyperscale instance
+      required:
+      - name
+      - hostname
+      - api_key
+      - job_orchestrator_id
+      properties:
+        name:
+          type: string
+          description: Name in DCT of the Hyperscale instance.
+          minLength: 1
+          maxLength: 256
+        hostname:
+          type: string
+          description: Hostname of the Hyperscale instance. If the Hyperscale instance is running on a custom port (not 443), the port can be specified using the "hostname:port" format, for instance "hyperscale-1.mycompany.co:1765"
+          minLength: 1
+          maxLength: 512
+        api_key:
+          x-dct-toolkit-credential-field: true
+          description: API key to connect to the Hyperscale instance.
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          maxLength: 4096
+        insecure_ssl:
+          description: 'Allow connections to the hyperscale instance over HTTPs without validating the TLS certificate. Even though
+
+            the connection to the hyperscale instance might be performed over HTTPs, setting this property eliminates
+
+            the protection against a man-in-the-middle attach for connections to this engine. Instead,
+
+            consider configuring DCT with Certificate Authority certificates.
+
+            '
+          type: boolean
+          default: false
+        unsafe_ssl_hostname_check:
+          description: 'Ignore validation of the name associated to the TLS certificate when connecting to the hyperscale instance over HTTPs.
+
+            Setting this value must only be done if the TLS certificate of the hyperscale instance does not match the hostname,
+
+            and the TLS configuration of the hyperscale instance cannot be fixed. Setting this property reduces the protection
+
+            against a man-in-the-middle attack for connections to this engine.
+
+            This is ignored if insecure_ssl is set.
+
+            '
+          type: boolean
+          default: false
+        tags:
+          description: The tags to be created for this engine.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        make_current_account_owner:
+          type: boolean
+          default: true
+          description: Whether the account creating this Hyperscale instance must be configured as owner of it.
+        job_orchestrator_id:
+          type: string
+          description: The ID or name of the job orchestrator that is associated with this hyperscale instance.
+        auto_calculate_unload_split:
+          type: boolean
+          default: true
+          description: If set, hyperscale will auto calculate the no of splits required for masking job.
+        consider_continuous_compliance_warning_event_as:
+          type: string
+          enum:
+          - SUCCESS
+          - FAILURE
+          default: SUCCESS
+          description: The flag to control behavior of Hyperscale Job execution on warning event in Continuous Compliance Job execution. Default behavior of Hyperscale Job on the WARNING status of Continuous Compliance Job execution, is to consider it as SUCCESS. One example of warning event in Continuous Compliance is masking non conformant data.
+        create_all_indexes_with_nologging:
+          type: boolean
+          default: false
+          description: Add all indexes with NOLOGGING as part of post load.
+        disable_parallel_index_creation:
+          type: boolean
+          default: false
+          description: Exclude indexes from combining with constraint and trigger groups as part of pre load.
+        enable_all_constraints_with_novalidate:
+          type: boolean
+          default: false
+          description: Enable all constraints with NOVALIDATE as part of post load.
+        max_concurrent_source_connections:
+          type: integer
+          default: 30
+          minimum: 1
+          maximum: 32767
+          description: Maximum number of parallel connection that hyperscale can have with source datasource.
+        max_concurrent_target_connections:
+          type: integer
+          default: 30
+          minimum: 1
+          maximum: 32767
+          description: Maximum number of parallel connection that hyperscale can have with target datasource.
+        max_parallel_connections_per_table:
+          type: integer
+          default: 30
+          minimum: 1
+          maximum: 32767
+          description: Maximum number of parallel connection that per table per masking job.
+        max_records_per_split:
+          type: integer
+          format: int64
+          default: 30
+          minimum: 1
+          description: Maximum number of rows allowed per split file for job execution.
+        max_split_per_connection:
+          type: integer
+          default: 4
+          minimum: 1
+          maximum: 32767
+          description: Maximum number of split files allowed per connection for job execution.
+        parallelism_degree:
+          type: integer
+          default: 0
+          minimum: -1
+          maximum: 32767
+          description: Degree of parallelism for target database.
+        retain_execution_data:
+          type: string
+          enum:
+          - 'NO'
+          - ON_ERROR
+          - ALWAYS
+          default: 'NO'
+          description: Defines whether execution data will be stored after execution is complete. Enum having values- NO, ON_ERROR, ALWAYS.
+        stream_size:
+          type: integer
+          default: 0
+          minimum: 0
+          description: The stream size to be used by sqlldr oracle utility which specifies the size (in bytes) of the data stream sent from the client to the server.
+        column_array_rows:
+          type: integer
+          default: 0
+          minimum: 0
+          description: The number of column array rows to be used by sqlldr oracle utility which determines the number of rows loaded before the stream buffer is built.
+        unload_split:
+          type: integer
+          default: 1
+          minimum: 1
+          maximum: 32767
+          description: The number of unloaded files to be generated from the source database.
+    MoveComplianceNodesToJobOrchestratorRequest:
+      description: Parameters to move compliance nodes from a hyperscale orchestrator to a job orchestrator.
+      type: object
+      required:
+      - compliance_node_ids
+      - job_orchestrator_id
+      properties:
+        compliance_node_ids:
+          description: List of compliance node IDs to move.
+          type: array
+          items:
+            type: string
+          example:
+          - node-101
+          - node-102
+          - node-103
+        job_orchestrator_id:
+          description: The ID of the target job orchestrator to move the compliance nodes to.
+          type: string
+          example: f8e7d6c5-b4a3-2109-8765-43210fedcba9
   parameters:
     hyperscaleInstanceId:
       in: path
@@ -1121,6 +1128,24 @@ components:
         type: string
       required: true
       description: The ID of hyperscale instance.
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
     hyperscaleInstancesSortParam:
       name: sort
       in: query
@@ -1128,7 +1153,9 @@ components:
       example: id
       required: false
       schema:
-        type: string
+        type:
+        - string
+        - 'null'
         enum:
         - id
         - -id
@@ -1152,26 +1179,7 @@ components:
         - -job_orchestrator_name
         - node_count
         - -node_count
-        nullable: true
         example: name
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
   requestBodies:
     SearchBody:
       x-skip-codegen-attr: description

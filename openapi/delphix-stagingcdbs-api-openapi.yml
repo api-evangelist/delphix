@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Delphix DCT Algorithms StagingCdbs API
+  title: Delphix DCT Staging Cdbs API
   version: 3.28.0
   description: Delphix DCT API
   contact:
@@ -16,7 +16,7 @@ tags:
 paths:
   /staging-cdbs:
     get:
-      summary: List all Staging CDBs.
+      summary: List all Staging CDBs
       operationId: get_staging_cdbs
       tags:
       - StagingCdbs
@@ -41,7 +41,7 @@ paths:
                     $ref: '#/components/schemas/PaginatedResponseMetadata'
   /staging-cdbs/search:
     post:
-      summary: Search for Staging CDBs.
+      summary: Search for Staging CDBs
       operationId: search_staging_cdbs
       tags:
       - StagingCdbs
@@ -137,7 +137,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/stagingCdbIdParam'
     get:
-      summary: Get a Staging CDB by ID.
+      summary: Get a Staging CDB by ID
       operationId: get_staging_cdb_by_id
       tags:
       - StagingCdbs
@@ -149,7 +149,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/StagingCdb'
     patch:
-      summary: Update a Staging CDB.
+      summary: Update a Staging CDB
       tags:
       - StagingCdbs
       operationId: update_staging_cdb
@@ -176,7 +176,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/stagingCdbIdParam'
     post:
-      summary: Delete a staging CDB.
+      summary: Delete a staging CDB
       tags:
       - StagingCdbs
       operationId: delete_staging_cdb
@@ -203,7 +203,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/stagingCdbIdParam'
     get:
-      summary: Get tags for a staging CDB.
+      summary: Get tags for a staging CDB
       operationId: get_staging_cdb_tags
       tags:
       - StagingCdbs
@@ -215,7 +215,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/TagsResponse'
     post:
-      summary: Create tags for a staging CDB.
+      summary: Create tags for a staging CDB
       operationId: create_staging_cdb_tags
       tags:
       - StagingCdbs
@@ -238,7 +238,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/stagingCdbIdParam'
     post:
-      summary: Delete tags for a staging CDB.
+      summary: Delete tags for a staging CDB
       operationId: delete_staging_cdb_tags
       tags:
       - StagingCdbs
@@ -252,7 +252,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/stagingCdbIdParam'
     post:
-      summary: Enable a staging CDB.
+      summary: Enable a staging CDB
       tags:
       - StagingCdbs
       operationId: enable_staging_cdb
@@ -279,7 +279,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/stagingCdbIdParam'
     post:
-      summary: Disable a staging CDB.
+      summary: Disable a staging CDB
       tags:
       - StagingCdbs
       operationId: disable_staging_cdb
@@ -306,7 +306,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/stagingCdbIdParam'
     post:
-      summary: Upgrade Oracle staging CDB.
+      summary: Upgrade Oracle staging CDB
       tags:
       - StagingCdbs
       operationId: upgrade_staging_cdb
@@ -331,57 +331,376 @@ paths:
                     description: The initiated job.
 components:
   schemas:
-    Tag:
-      type: object
-      required:
-      - key
-      - value
+    OracleTdeKeystoreConfigTypeEnum:
+      type: string
+      description: Oracle TDE keystore configuration type.
+      enum:
+      - FILE
+      - OKV
+      - HSM
+      - OKV|FILE
+      - FILE|OKV
+      - HSM|FILE
+      - FILE|HSM
+      - OCI_VAULT
+      - UNSET
+    OracleService:
       properties:
-        key:
-          description: Key of the tag
+        discovered:
+          description: Represents whether this jdbc connection string is auto discovered or not.
+          type: boolean
+        jdbc_connection_string:
+          description: The jdbc connection string used to connect with the database.
           type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-    NameValuePair:
+          example: jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.110.230.197)(PORT=1521))(CONNECT_DATA=(UR=A)(SERVICE_NAME=VDBOMSRBBDC6C_UJG)))
+    DisableCDBParameters:
       type: object
-      required:
-      - var_name
-      - var_value
+      description: Parameters to disable a CDB.
       properties:
+        attempt_cleanup:
+          type: boolean
+          description: Whether to attempt a cleanup of the CDB before the disable.
+          default: true
+    NfsVersionReasonEnum:
+      type: string
+      description: The reason why the source is being mounted with nfsVersion.
+      enum:
+      - DEFAULT
+      - OLD_REDHAT
+      - UNSUPPORTED_OS
+      - DNFS
+      - TUNABLE_OVERRIDE
+      - NO_RECOVER_LOST_LOCKS
+      - UNSUPPORTED_DATA_PLATFORM
+      - INCOMPLETE_V4_CONFIG
+      - DNFS_UNSUPPORTED_ORACLE_VERSIONS_1912_1915
+      - DNFS_UNSUPPORTED_ORACLE_VERSIONS_211_216
+      - DNFS_UNSUPPORTED_ORACLE_VERSIONS_LESS_THAN_12C
+    StagingCdb:
+      description: The Delphix representation of a Staging Container Database.
+      type: object
+      properties:
+        id:
+          description: The Staging CDB object entity ID.
+          type: string
+          example: 1-STAGING-CDB-1
+        name:
+          description: The name of this Staging CDB.
+          type:
+          - string
+          - 'null'
+          example: Staging Oracle CDB
+        namespace_id:
+          description: The namespace id of this Staging CDB.
+          type: string
+          example: 1-NAMESPACE-1
+        namespace_name:
+          description: The namespace name of this Staging CDB.
+          type: string
+          example: test-engine-1
+        is_replica:
+          description: Is this a replicated object.
+          type: boolean
+          example: true
+        database_version:
+          description: The version of this Staging CDB.
+          type:
+          - string
+          - 'null'
+          example: 10.2.0.5.0
+        environment_id:
+          description: A reference to the Environment that hosts this Staging CDB.
+          type:
+          - string
+          - 'null'
+          example: 1-ENVIRONMENT-1
+        size:
+          description: The total size of the data files used by this Staging CDB, in bytes.
+          type:
+          - integer
+          - 'null'
+          format: int64
+          example: 339292672
+        jdbc_connection_string:
+          description: The JDBC connection URL for this Staging CDB.
+          type:
+          - string
+          - 'null'
+          example: jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.43.47.94)(PORT=1521))(CONNECT_DATA=(UR=A)(SID=staging01)))
+          deprecated: true
+        engine_id:
+          description: A reference to the Engine that this Staging CDB belongs to.
+          type: string
+          example: engine-12
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        group_name:
+          description: The name of the group containing this Staging CDB.
+          type:
+          - string
+          - 'null'
+          example: Staging Group
+        status:
+          description: The runtime status of the Staging CDB.
+          type:
+          - string
+          - 'null'
+          example: RUNNING
+        enabled:
+          description: Whether the Staging CDB is enabled or not.
+          type: boolean
+          example: true
+        instance_name:
+          description: The instance name of this single instance Staging CDB.
+          type: string
+          example: STAGINGCDBSID
+        instance_number:
+          description: The instance number of this single instance Staging CDB.
+          type: integer
+        oracle_services:
+          type: array
+          items:
+            $ref: '#/components/schemas/OracleService'
+        repository_id:
+          description: The repository id of this Staging CDB.
+          type: string
+          example: 1-ORACLE_INSTALL-1
+        tde_keystore_config_type:
+          description: The TDE keystore configuration type of this database.
+          $ref: '#/components/schemas/OracleTdeKeystoreConfigTypeEnum'
+          example: OKV
+        database_name:
+          description: The database name of this Staging CDB.
+          type: string
+          example: staging01
+        database_unique_name:
+          type: string
+          description: The unique name of the Staging CDB.
+          example: STAGINGDBOMSRBBDC6C
+        tde_kms_pkcs11_config_path:
+          description: The path to the TDE KMS PKC11 configuration file.
+          type: string
+          example: /etc/oracle/tde/kms_pkcs11.conf
+        is_tde_keystore_password_set:
+          description: True if TDE keystore password is set for this Staging CDB.
+          type: boolean
+        auto_staging_push_restart:
+          description: Whether to automatically restart staging push operations.
+          type: boolean
+        configure_staging_db_params:
+          description: Whether to configure staging database parameters.
+          type: boolean
+        physical_standby:
+          description: Whether this is a physical standby database.
+          type: boolean
+        validate_snapshot_by_opening_db_in_read_mode:
+          description: Whether to validate snapshots by opening the database in read mode.
+          type: boolean
+        mount_base:
+          description: The base mount point for the NFS mount on the staging environment.
+          type: string
+          example: /mnt/staging/CDOMLOSRB5A3
+        datafile_mount_path:
+          description: The datafile mount point for the NFS mount on the staging environment.
+          type: string
+          example: /mnt/staging/CDOMLOSRB5A3/datafile
+        archive_mount_path:
+          description: The archive mount point for the NFS mount on the staging environment.
+          type: string
+          example: /mnt/staging/CDOMLOSRB5A3/archive
+        custom_env_vars:
+          type: array
+          items:
+            $ref: '#/components/schemas/OracleCustomEnvVar'
+        nfs_version:
+          description: The NFS version that was last used to mount this source."
+          type: integer
+          format: int32
+          example: 3
+        nfs_version_reason:
+          description: The reason why the source is being mounted with nfsVersion.
+          $ref: '#/components/schemas/NfsVersionReasonEnum'
+          example: DEFAULT
+        nfs_encryption_enabled:
+          description: Flag indicating whether the data transfer is encrypted or not.
+          type: boolean
+          example: true
+        logsync_enabled:
+          description: Whether logsync is enabled for this Staging CDB.
+          type: boolean
+          example: true
+        description:
+          description: Description of this Staging CDB.
+          type: string
+          example: Staging CDB for production data
+        config_params:
+          description: Database configuration parameter overrides.
+          type:
+          - object
+          - 'null'
+          additionalProperties: true
+          example:
+            param: value
+            param2: value2
+        db_template_id:
+          description: The database template ID for this Staging CDB.
+          type: string
+          example: DB-TEMPLATE-1
+        db_template_name:
+          description: Name of the Database Template.
+          type: string
+          example: template-name
+        environment_user_ref:
+          description: The environment user reference.
+          type: string
+        okv_client_id:
+          description: The id of the OKV client used for TDE keystore access.
+          type: string
+          example: 1-ORACLE_OKV_CLIENT-1
+        engine_container_reference:
+          x-internal: true
+          description: Reference to the engine container.
+          type: string
+    Job:
+      description: An asynchronous task.
+      type: object
+      properties:
+        id:
+          description: The Job entity ID.
+          type: string
+          example: job-123
+        status:
+          description: The status of the job.
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+          example: RUNNING
+        is_waiting_for_telemetry:
+          description: Indicates that the operations performed by this Job have completed successfully, but the object changes are not yet reflected. This is only set when when the JOB is in STARTED status, with the guarantee that the job will not transition to the FAILED status. Note that this flag will likely be replaced with a new status in future API versions and be deprecated.
+          type: boolean
+        type:
+          description: The type of job being done.
+          type: string
+          example: DB_REFRESH
+        localized_type:
+          description: The i18n translated type of job being done.
+          type: string
+          example: DB Refresh
+        error_details:
+          description: Details about the failure for FAILED jobs.
+          type: string
+          example: Unable to connect to the engine.
+        warning_message:
+          description: Warnings for the job.
+          type: string
+          example: 'Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.'
+        target_id:
+          description: A reference to the job's target.
+          type: string
+          example: vdb-123
+        target_name:
+          description: A reference to the job's target name.
+          type: string
+          example: vdb
+        start_time:
+          description: The time the job started executing.
+          type: string
+          format: date-time
+          example: '2022-01-02T05:11:24.148000+00:00'
+        update_time:
+          description: The time the job was last updated.
+          type: string
+          format: date-time
+          example: '2022-01-02T06:11:24.148000+00:00'
+        trace_id:
+          description: traceId of the request which created this Job
+          type: string
+        engine_ids:
+          description: IDs of the engines this Job is executing on.
+          type: array
+          items:
+            type: string
+          deprecated: true
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        engines:
+          type: array
+          items:
+            $ref: '#/components/schemas/Engine'
+        account_id:
+          description: The ID of the account who initiated this job.
+          type: integer
+          example: 1
+        account_name:
+          description: The account name which initiated this job. It can be either firstname and lastname combination or firstname or lastname or username or email address or Account-<id>.
+          type: string
+          example: User 1
+        compliance_node_id:
+          description: The ID of the associated compliance node, if applicable.
+          type:
+          - string
+          - 'null'
+        compliance_node_name:
+          description: The name of the associated compliance node, if applicable.
+          type:
+          - string
+          - 'null'
+        percent_complete:
+          description: Completion percentage of the Job.
+          type: integer
+          minimum: 0
+          maximum: 100
+          example: '50'
+        virtualization_tasks:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTask'
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTask'
+        execution_id:
+          description: The ID of the associated masking execution, if any.
+          type:
+          - string
+          - 'null'
+        result_type:
+          description: The type of the job result. This is the type of the object present in the result.
+          type: string
+        result:
+          description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
+          type: object
+      discriminator:
+        propertyName: class_type
+    OracleCustomEnvVar:
+      type: object
+      properties:
+        cluster_node:
+          type: string
+          description: The cluster node on which the environment variable is relevant.
+        path_parameters:
+          type: string
+          description: A string of whitespace-separated parameters to be passed to the source command. The first parameter must be an absolute path to a file that exists on the target environment. Every subsequent parameter will be treated as an argument interpreted by the environment file.
         var_name:
           type: string
           description: The name of the environment variable.
-          minLength: 1
-          maxLength: 256
-          example: env-var-name-1
         var_value:
-          type: string
           description: The value of the environment variable.
-          minLength: 1
-          maxLength: 256
-          example: env-var-value-1
-    VirtualizationTaskEvent:
-      deprecated: true
-      properties:
-        message_details:
           type: string
-    Engine:
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
     PaginatedResponseMetadata:
       type: object
       properties:
@@ -399,113 +718,6 @@ components:
       properties:
         message_details:
           type: string
-    DeleteTag:
-      type: object
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-        tags:
-          description: List of tags to be deleted
-          type: array
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/Tag'
-    JobTask:
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    TagsRequest:
-      type: object
-      required:
-      - tags
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-    OracleCustomEnvVar:
-      type: object
-      properties:
-        cluster_node:
-          type: string
-          description: The cluster node on which the environment variable is relevant.
-        path_parameters:
-          type: string
-          description: A string of whitespace-separated parameters to be passed to the source command. The first parameter must be an absolute path to a file that exists on the target environment. Every subsequent parameter will be treated as an argument interpreted by the environment file.
-        var_name:
-          type: string
-          description: The name of the environment variable.
-        var_value:
-          description: The value of the environment variable.
-          type: string
-    OracleService:
-      properties:
-        discovered:
-          description: Represents whether this jdbc connection string is auto discovered or not.
-          type: boolean
-        jdbc_connection_string:
-          description: The jdbc connection string used to connect with the database.
-          type: string
-          example: jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.110.230.197)(PORT=1521))(CONNECT_DATA=(UR=A)(SERVICE_NAME=VDBOMSRBBDC6C_UJG)))
-    DeleteStagingCdbParameters:
-      type: object
-      description: Parameters to delete a Staging CDB.
-      properties:
-        force:
-          type: boolean
-          description: Whether to continue the operation upon failures.
-          default: false
-        delete_all_dependent_datasets:
-          type: boolean
-          description: Whether to delete all dependent datasets of the Staging CDB.
-          default: false
     UpdateStagingCdbParameters:
       type: object
       description: Parameters to update a Staging CDB.
@@ -597,15 +809,6 @@ components:
           type: integer
           minimum: 1
           example: 1
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
     VirtualizationTask:
       deprecated: true
       properties:
@@ -642,247 +845,61 @@ components:
           - WAITING
           - COMPLETED
           - ABANDONED
-    OracleTdeKeystoreConfigTypeEnum:
-      type: string
-      description: Oracle TDE keystore configuration type.
-      enum:
-      - FILE
-      - OKV
-      - HSM
-      - OKV|FILE
-      - FILE|OKV
-      - HSM|FILE
-      - FILE|HSM
-      - OCI_VAULT
-      - UNSET
-    EnableCDBParameters:
-      type: object
-      description: Parameters to enable a CDB.
-      properties:
-        attempt_start:
-          type: boolean
-          description: Whether to attempt a startup of the CDB after the enable.
-          default: true
-    TagsResponse:
+    DeleteTag:
       type: object
       properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
         tags:
-          description: Array of tags with key value pairs
+          description: List of tags to be deleted
           type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
           items:
             $ref: '#/components/schemas/Tag'
-    StagingCdb:
-      description: The Delphix representation of a Staging Container Database.
+    SearchBody:
+      description: Search body.
       type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    JobTask:
       properties:
         id:
-          description: The Staging CDB object entity ID.
           type: string
-          example: 1-STAGING-CDB-1
-        name:
-          description: The name of this Staging CDB.
+        parent_job_id:
           type: string
-          nullable: true
-          example: Staging Oracle CDB
-        namespace_id:
-          description: The namespace id of this Staging CDB.
+        start_time:
           type: string
-          example: 1-NAMESPACE-1
-        namespace_name:
-          description: The namespace name of this Staging CDB.
+          format: date-time
+        end_time:
           type: string
-          example: test-engine-1
-        is_replica:
-          description: Is this a replicated object.
-          type: boolean
-          example: true
-        database_version:
-          description: The version of this Staging CDB.
+          format: date-time
+        title:
           type: string
-          nullable: true
-          example: 10.2.0.5.0
-        environment_id:
-          description: A reference to the Environment that hosts this Staging CDB.
-          type: string
-          nullable: true
-          example: 1-ENVIRONMENT-1
-        size:
-          description: The total size of the data files used by this Staging CDB, in bytes.
+        percent_complete:
           type: integer
-          format: int64
-          nullable: true
-          example: 339292672
-        jdbc_connection_string:
-          description: The JDBC connection URL for this Staging CDB.
-          type: string
-          nullable: true
-          example: jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.43.47.94)(PORT=1521))(CONNECT_DATA=(UR=A)(SID=staging01)))
-          deprecated: true
-        engine_id:
-          description: A reference to the Engine that this Staging CDB belongs to.
-          type: string
-          example: engine-12
-        tags:
+          minimum: 0
+          maximum: 100
+        events:
           type: array
           items:
-            $ref: '#/components/schemas/Tag'
-        group_name:
-          description: The name of the group containing this Staging CDB.
-          type: string
-          nullable: true
-          example: Staging Group
+            $ref: '#/components/schemas/JobTaskEvent'
         status:
-          description: The runtime status of the Staging CDB.
-          type: string
-          nullable: true
-          example: RUNNING
-        enabled:
-          description: Whether the Staging CDB is enabled or not.
-          type: boolean
-          example: true
-        instance_name:
-          description: The instance name of this single instance Staging CDB.
-          type: string
-          example: STAGINGCDBSID
-        instance_number:
-          description: The instance number of this single instance Staging CDB.
-          type: integer
-        oracle_services:
-          type: array
-          items:
-            $ref: '#/components/schemas/OracleService'
-        repository_id:
-          description: The repository id of this Staging CDB.
-          type: string
-          example: 1-ORACLE_INSTALL-1
-        tde_keystore_config_type:
-          description: The TDE keystore configuration type of this database.
-          $ref: '#/components/schemas/OracleTdeKeystoreConfigTypeEnum'
-          example: OKV
-        database_name:
-          description: The database name of this Staging CDB.
-          type: string
-          example: staging01
-        database_unique_name:
-          type: string
-          description: The unique name of the Staging CDB.
-          example: STAGINGDBOMSRBBDC6C
-        tde_kms_pkcs11_config_path:
-          description: The path to the TDE KMS PKC11 configuration file.
-          type: string
-          example: /etc/oracle/tde/kms_pkcs11.conf
-        is_tde_keystore_password_set:
-          description: True if TDE keystore password is set for this Staging CDB.
-          type: boolean
-        auto_staging_push_restart:
-          description: Whether to automatically restart staging push operations.
-          type: boolean
-        configure_staging_db_params:
-          description: Whether to configure staging database parameters.
-          type: boolean
-        physical_standby:
-          description: Whether this is a physical standby database.
-          type: boolean
-        validate_snapshot_by_opening_db_in_read_mode:
-          description: Whether to validate snapshots by opening the database in read mode.
-          type: boolean
-        mount_base:
-          description: The base mount point for the NFS mount on the staging environment.
-          type: string
-          example: /mnt/staging/CDOMLOSRB5A3
-        datafile_mount_path:
-          description: The datafile mount point for the NFS mount on the staging environment.
-          type: string
-          example: /mnt/staging/CDOMLOSRB5A3/datafile
-        archive_mount_path:
-          description: The archive mount point for the NFS mount on the staging environment.
-          type: string
-          example: /mnt/staging/CDOMLOSRB5A3/archive
-        custom_env_vars:
-          type: array
-          items:
-            $ref: '#/components/schemas/OracleCustomEnvVar'
-        nfs_version:
-          description: The NFS version that was last used to mount this source."
-          type: integer
-          format: int32
-          example: 3
-        nfs_version_reason:
-          description: The reason why the source is being mounted with nfsVersion.
-          $ref: '#/components/schemas/NfsVersionReasonEnum'
-          example: DEFAULT
-        nfs_encryption_enabled:
-          description: Flag indicating whether the data transfer is encrypted or not.
-          type: boolean
-          example: true
-        logsync_enabled:
-          description: Whether logsync is enabled for this Staging CDB.
-          type: boolean
-          example: true
-        description:
-          description: Description of this Staging CDB.
-          type: string
-          example: Staging CDB for production data
-        config_params:
-          description: Database configuration parameter overrides.
-          type: object
-          additionalProperties: true
-          nullable: true
-          example:
-            param: value
-            param2: value2
-        db_template_id:
-          description: The database template ID for this Staging CDB.
-          type: string
-          example: DB-TEMPLATE-1
-        db_template_name:
-          description: Name of the Database Template.
-          type: string
-          example: template-name
-        environment_user_ref:
-          description: The environment user reference.
-          type: string
-        okv_client_id:
-          description: The id of the OKV client used for TDE keystore access.
-          type: string
-          example: 1-ORACLE_OKV_CLIENT-1
-        engine_container_reference:
-          x-internal: true
-          description: Reference to the engine container.
-          type: string
-    NfsVersionReasonEnum:
-      type: string
-      description: The reason why the source is being mounted with nfsVersion.
-      enum:
-      - DEFAULT
-      - OLD_REDHAT
-      - UNSUPPORTED_OS
-      - DNFS
-      - TUNABLE_OVERRIDE
-      - NO_RECOVER_LOST_LOCKS
-      - UNSUPPORTED_DATA_PLATFORM
-      - INCOMPLETE_V4_CONFIG
-      - DNFS_UNSUPPORTED_ORACLE_VERSIONS_1912_1915
-      - DNFS_UNSUPPORTED_ORACLE_VERSIONS_211_216
-      - DNFS_UNSUPPORTED_ORACLE_VERSIONS_LESS_THAN_12C
-    DisableCDBParameters:
-      type: object
-      description: Parameters to disable a CDB.
-      properties:
-        attempt_cleanup:
-          type: boolean
-          description: Whether to attempt a cleanup of the CDB before the disable.
-          default: true
-    Job:
-      description: An asynchronous task.
-      type: object
-      properties:
-        id:
-          description: The Job entity ID.
-          type: string
-          example: job-123
-        status:
-          description: The status of the job.
           type: string
           enum:
           - PENDING
@@ -895,104 +912,16 @@ components:
           - WAITING
           - COMPLETED
           - ABANDONED
-          example: RUNNING
-        is_waiting_for_telemetry:
-          description: Indicates that the operations performed by this Job have completed successfully, but the object changes are not yet reflected. This is only set when when the JOB is in STARTED status, with the guarantee that the job will not transition to the FAILED status. Note that this flag will likely be replaced with a new status in future API versions and be deprecated.
-          type: boolean
-        type:
-          description: The type of job being done.
+    Engine:
+      properties:
+        engine_id:
           type: string
-          example: DB_REFRESH
-        localized_type:
-          description: The i18n translated type of job being done.
+          minLength: 1
+          maxLength: 4000
+        engine_name:
           type: string
-          example: DB Refresh
-        error_details:
-          description: Details about the failure for FAILED jobs.
-          type: string
-          example: Unable to connect to the engine.
-        warning_message:
-          description: Warnings for the job.
-          type: string
-          example: 'Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.'
-        target_id:
-          description: A reference to the job's target.
-          type: string
-          example: vdb-123
-        target_name:
-          description: A reference to the job's target name.
-          type: string
-          example: vdb
-        start_time:
-          description: The time the job started executing.
-          type: string
-          format: date-time
-          example: '2022-01-02T05:11:24.148000+00:00'
-        update_time:
-          description: The time the job was last updated.
-          type: string
-          format: date-time
-          example: '2022-01-02T06:11:24.148000+00:00'
-        trace_id:
-          description: traceId of the request which created this Job
-          type: string
-        engine_ids:
-          description: IDs of the engines this Job is executing on.
-          type: array
-          items:
-            type: string
-          deprecated: true
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-        engines:
-          type: array
-          items:
-            $ref: '#/components/schemas/Engine'
-        account_id:
-          description: The ID of the account who initiated this job.
-          type: integer
-          example: 1
-        account_name:
-          description: The account name which initiated this job. It can be either firstname and lastname combination or firstname or lastname or username or email address or Account-<id>.
-          type: string
-          example: User 1
-        compliance_node_id:
-          description: The ID of the associated compliance node, if applicable.
-          type: string
-          nullable: true
-        compliance_node_name:
-          description: The name of the associated compliance node, if applicable.
-          type: string
-          nullable: true
-        percent_complete:
-          description: Completion percentage of the Job.
-          type: integer
-          minimum: 0
-          maximum: 100
-          example: '50'
-        virtualization_tasks:
-          deprecated: true
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualizationTask'
-        tasks:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTask'
-        execution_id:
-          description: The ID of the associated masking execution, if any.
-          type: string
-          nullable: true
-        result_type:
-          description: The type of the job result. This is the type of the object present in the result.
-          type: string
-        result:
-          description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
-          type: object
-      discriminator:
-        propertyName: class_type
+          minLength: 1
+          maxLength: 4000
     UpgradeOracleContainerDatabaseParameters:
       type: object
       description: Parameters to upgrade CDB/vCDB.
@@ -1008,6 +937,88 @@ components:
           type: string
           description: Reference of the environment user to use for CDB/vCDB upgrade.
           example: HOST_USER-4
+    EnableCDBParameters:
+      type: object
+      description: Parameters to enable a CDB.
+      properties:
+        attempt_start:
+          type: boolean
+          description: Whether to attempt a startup of the CDB after the enable.
+          default: true
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    NameValuePair:
+      type: object
+      required:
+      - var_name
+      - var_value
+      properties:
+        var_name:
+          type: string
+          description: The name of the environment variable.
+          minLength: 1
+          maxLength: 256
+          example: env-var-name-1
+        var_value:
+          type: string
+          description: The value of the environment variable.
+          minLength: 1
+          maxLength: 256
+          example: env-var-value-1
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    DeleteStagingCdbParameters:
+      type: object
+      description: Parameters to delete a Staging CDB.
+      properties:
+        force:
+          type: boolean
+          description: Whether to continue the operation upon failures.
+          default: false
+        delete_all_dependent_datasets:
+          type: boolean
+          description: Whether to delete all dependent datasets of the Staging CDB.
+          default: false
   requestBodies:
     SearchBody:
       x-skip-codegen-attr: description
@@ -1232,13 +1243,6 @@ components:
         minimum: 1
         maximum: 1000
         default: 100
-    stagingCdbIdParam:
-      name: stagingCdbId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The Staging CDB ID.
     cursor:
       name: cursor
       in: query
@@ -1247,6 +1251,13 @@ components:
         type: string
         minLength: 1
         maxLength: 4096
+    stagingCdbIdParam:
+      name: stagingCdbId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The Staging CDB ID.
     stagingCdbsSortParam:
       name: sort
       in: query
@@ -1254,7 +1265,9 @@ components:
       example: id
       required: false
       schema:
-        type: string
+        type:
+        - string
+        - 'null'
         enum:
         - id
         - -id
@@ -1330,7 +1343,6 @@ components:
         - -environment_user_ref
         - okv_client_id
         - -okv_client_id
-        nullable: true
         example: name
   securitySchemes:
     ApiKeyAuth:

@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Delphix DCT Algorithms VirtualizationActions API
+  title: Delphix DCT Virtualization Actions API
   version: 3.28.0
   description: Delphix DCT API
   contact:
@@ -139,7 +139,9 @@ components:
       example: id
       required: false
       schema:
-        type: string
+        type:
+        - string
+        - 'null'
         enum:
         - id
         - -id
@@ -177,7 +179,6 @@ components:
         - -failure_action
         - failure_message_code
         - -failure_message_code
-        nullable: true
         example: name
     cursor:
       name: cursor
@@ -188,15 +189,6 @@ components:
         minLength: 1
         maxLength: 4096
   schemas:
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
     VirtualizationAction:
       description: A virtualization engine action.
       type: object
@@ -280,6 +272,15 @@ components:
           description: The total number of results. This value may not be provided.
           type: integer
           format: int_64
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
   requestBodies:
     SearchBody:
       x-skip-codegen-attr: description

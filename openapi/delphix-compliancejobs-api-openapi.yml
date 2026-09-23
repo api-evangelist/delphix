@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Delphix DCT Algorithms ComplianceJobs API
+  title: Delphix DCT Compliance Jobs API
   version: 3.28.0
   description: Delphix DCT API
   contact:
@@ -18,7 +18,7 @@ paths:
     get:
       tags:
       - ComplianceJobs
-      summary: Retrieve the list of compliance jobs.
+      summary: Retrieve the list of compliance jobs
       operationId: get_compliance_jobs
       parameters:
       - $ref: '#/components/parameters/limit'
@@ -42,7 +42,7 @@ paths:
     post:
       tags:
       - ComplianceJobs
-      summary: Create a Compliance Job.
+      summary: Create a Compliance Job
       operationId: create_compliance_job
       requestBody:
         content:
@@ -71,7 +71,7 @@ paths:
     post:
       tags:
       - ComplianceJobs
-      summary: Search compliance jobs.
+      summary: Search compliance jobs
       operationId: search_compliance_jobs
       x-filterable:
         fields:
@@ -223,7 +223,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/complianceJobIdParam'
     get:
-      summary: Retrieve a compliance job by ID.
+      summary: Retrieve a compliance job by ID
       operationId: get_compliance_job_by_id
       tags:
       - ComplianceJobs
@@ -235,7 +235,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ComplianceJob'
     patch:
-      summary: Update values of a compliance job.
+      summary: Update values of a compliance job
       operationId: update_compliance_job
       tags:
       - ComplianceJobs
@@ -265,7 +265,7 @@ paths:
     delete:
       tags:
       - ComplianceJobs
-      summary: Delete a compliance job.
+      summary: Delete a compliance job
       operationId: delete_compliance_job
       responses:
         '200':
@@ -285,7 +285,7 @@ paths:
     get:
       tags:
       - ComplianceJobs
-      summary: Get connectors for a Masking Job by ID.
+      summary: Get connectors for a Masking Job by ID
       operationId: get_compliance_job_connectors
       responses:
         '200':
@@ -300,7 +300,7 @@ paths:
     post:
       tags:
       - ComplianceJobs
-      summary: Create tags for a compliance job.
+      summary: Create tags for a compliance job
       operationId: create_compliance_job_tag
       requestBody:
         content:
@@ -320,7 +320,7 @@ paths:
     get:
       tags:
       - ComplianceJobs
-      summary: Get tags for a compliance job.
+      summary: Get tags for a compliance job
       operationId: get_compliance_job_tag
       responses:
         '200':
@@ -335,7 +335,7 @@ paths:
     post:
       tags:
       - ComplianceJobs
-      summary: Delete tags for a compliance job.
+      summary: Delete tags for a compliance job
       operationId: delete_compliance_job_tag
       requestBody:
         $ref: '#/components/requestBodies/DeleteTags'
@@ -357,7 +357,7 @@ paths:
         - HYPERSCALE
         default: STANDARD
     post:
-      summary: Execute a compliance job.
+      summary: Execute a compliance job
       operationId: execute_compliance_job
       tags:
       - ComplianceJobs
@@ -380,46 +380,140 @@ paths:
                     description: The initiated job.
 components:
   schemas:
-    ConnectorTypeEnum:
+    Job:
+      description: An asynchronous task.
+      type: object
+      properties:
+        id:
+          description: The Job entity ID.
+          type: string
+          example: job-123
+        status:
+          description: The status of the job.
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+          example: RUNNING
+        is_waiting_for_telemetry:
+          description: Indicates that the operations performed by this Job have completed successfully, but the object changes are not yet reflected. This is only set when when the JOB is in STARTED status, with the guarantee that the job will not transition to the FAILED status. Note that this flag will likely be replaced with a new status in future API versions and be deprecated.
+          type: boolean
+        type:
+          description: The type of job being done.
+          type: string
+          example: DB_REFRESH
+        localized_type:
+          description: The i18n translated type of job being done.
+          type: string
+          example: DB Refresh
+        error_details:
+          description: Details about the failure for FAILED jobs.
+          type: string
+          example: Unable to connect to the engine.
+        warning_message:
+          description: Warnings for the job.
+          type: string
+          example: 'Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.'
+        target_id:
+          description: A reference to the job's target.
+          type: string
+          example: vdb-123
+        target_name:
+          description: A reference to the job's target name.
+          type: string
+          example: vdb
+        start_time:
+          description: The time the job started executing.
+          type: string
+          format: date-time
+          example: '2022-01-02T05:11:24.148000+00:00'
+        update_time:
+          description: The time the job was last updated.
+          type: string
+          format: date-time
+          example: '2022-01-02T06:11:24.148000+00:00'
+        trace_id:
+          description: traceId of the request which created this Job
+          type: string
+        engine_ids:
+          description: IDs of the engines this Job is executing on.
+          type: array
+          items:
+            type: string
+          deprecated: true
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        engines:
+          type: array
+          items:
+            $ref: '#/components/schemas/Engine'
+        account_id:
+          description: The ID of the account who initiated this job.
+          type: integer
+          example: 1
+        account_name:
+          description: The account name which initiated this job. It can be either firstname and lastname combination or firstname or lastname or username or email address or Account-<id>.
+          type: string
+          example: User 1
+        compliance_node_id:
+          type:
+          - string
+          - 'null'
+          description: The ID of the associated compliance node, if applicable.
+        compliance_node_name:
+          type:
+          - string
+          - 'null'
+          description: The name of the associated compliance node, if applicable.
+        percent_complete:
+          description: Completion percentage of the Job.
+          type: integer
+          minimum: 0
+          maximum: 100
+          example: '50'
+        virtualization_tasks:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTask'
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTask'
+        execution_id:
+          description: The ID of the associated masking execution, if any.
+          type:
+          - string
+          - 'null'
+        result_type:
+          description: The type of the job result. This is the type of the object present in the result.
+          type: string
+        result:
+          description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
+          type: object
+    ExecutionStatus:
+      description: The status of a masking or discovery job.
       type: string
       enum:
-      - DATABASE
-      - FILE
-      - MAINFRAME_DATASET
-      example: DATABASE
-    Tag:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-    VirtualizationTaskEvent:
-      deprecated: true
-      properties:
-        message_details:
-          type: string
-    Engine:
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
+      - PENDING
+      - QUEUED
+      - RUNNING
+      - CANCELLED
+      - FAILED
+      - SUCCEEDED
+      - WARNING
+      - WAITING
+      example: RUNNING
     PaginatedResponseMetadata:
       type: object
       properties:
@@ -437,14 +531,376 @@ components:
       properties:
         message_details:
           type: string
-    ComplianceJobConnectorsResponse:
-      description: Connector(s) for a compliance job.
+    ComplianceJobScript:
+      description: A SQL script to be run before or after a compliance job.
+      type: object
+      required:
+      - name
+      - contents
+      properties:
+        name:
+          description: The name of the SQL script.
+          type: string
+          example: pre_script.sql
+        contents:
+          description: The contents of the SQL script.
+          type: string
+          maxLength: 65535
+    VirtualizationTask:
+      deprecated: true
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    DeleteTag:
       type: object
       properties:
-        connector:
-          $ref: '#/components/schemas/Connector'
-        on_the_fly_connector:
-          $ref: '#/components/schemas/Connector'
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        tags:
+          description: List of tags to be deleted
+          type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    CreateComplianceJobRequest:
+      description: Parameters to create a compliance job.
+      type: object
+      required:
+      - name
+      - rule_set_id
+      - type
+      properties:
+        name:
+          description: The name of this compliance job.
+          type: string
+          example: My favorite ComplianceJob
+        description:
+          description: A description of the compliance job.
+          type: string
+          example: Job for app finance
+        rule_set_id:
+          description: The ID of the Rule Set used by this compliance job.
+          type: string
+          example: uuid
+        type:
+          description: The type of compliance job.
+          type: string
+          enum:
+          - MASKING
+          - DISCOVERY
+          - TOKENIZATION
+          - REIDENTIFICATION
+          example: MASKING
+        discovery_policy_id:
+          description: The ID of the discovery policy to use for this compliance job. This is only applicable for DISCOVERY jobs.
+          type: string
+          example: uuid
+        max_memory:
+          description: The maximum amount of memory, in MB, that the compliance job can consume during execution. A value of 0 or omitting this field uses the default max memory set in application settings.
+          type: integer
+          format: int32
+          minimum: 0
+          example: 1024
+        min_memory:
+          description: The minimum amount of memory, in MB, that the compliance job can consume during execution. Omitting this field uses the default min memory set in application settings.
+          type: integer
+          format: int32
+          minimum: 0
+          example: 1024
+        feedback_size:
+          description: The granularity with which the system provides updates on the progress of the compliance job. For instance, a feedback size of 50000 results in log updates whenever 50000 rows are processed during the masking phase.
+          type: integer
+          format: int32
+          minimum: 1
+          example: 50000
+          default: 50000
+        stream_row_limit:
+          description: This value constrains the total number of rows that may enter the job for each masking stream. A value of 0 means unlimited. A value of -1 selects the default value. The minimum explicit value allowed is 20.
+          type: integer
+          format: int32
+          minimum: -1
+          example: 20000
+        num_input_streams:
+          description: This field controls the amount of parallelism that the masking job uses to extract out the data to be masked. For instance, when masking a database, specifying 5 input streams results in the compliance job reading up to 5 database tables in parallel and then masking those 5 streams of data in parallel. The higher the value of this field, the more potential parallelism there will be in the job, but the masking job will consume more memory. If the number of input streams exceeds the number of units being masked (e.g. tables or files), then the excess streams will do nothing.
+          type: integer
+          format: int32
+          minimum: 1
+          default: 1
+          example: 4
+        max_concurrent_source_connections:
+          description: Maximum number of parallel connection that the Hyperscale instance can have with the source datasource (Hyperscale Job only).
+          type: integer
+          format: int32
+          minimum: 1
+          example: 32
+        max_concurrent_target_connections:
+          description: Maximum number of parallel connection that the Hyperscale instance can have with the target datasource (Hyperscale Job only).
+          type: integer
+          format: int32
+          minimum: 1
+          example: 32
+        hyperscale_enabled:
+          type: boolean
+          example: true
+          description: This flag indicates if this compliance job is enabled for Hyperscale processing.
+        auto_calculate_unload_split:
+          type: boolean
+          example: true
+          description: If set, hyperscale will auto calculate the no of splits required for masking job.
+        consider_continuous_compliance_warning_event_as:
+          type: string
+          enum:
+          - SUCCESS
+          - FAILURE
+          example: SUCCESS
+          description: The flag to control behavior of Hyperscale Job execution on warning event in Continuous Compliance Job execution. Default behavior of Hyperscale Job on the WARNING status of Continuous Compliance Job execution, is to consider it as SUCCESS. One example of warning event in Continuous Compliance is masking non conformant data.
+        create_all_indexes_with_nologging:
+          type: boolean
+          example: false
+          description: Add all indexes with NOLOGGING as part of post load.
+        disable_parallel_index_creation:
+          type: boolean
+          example: false
+          description: Exclude indexes from combining with constraint and trigger groups as part of pre load.
+        enable_all_constraints_with_novalidate:
+          type: boolean
+          example: false
+          description: Enable all constraints with NOVALIDATE as part of post load.
+        max_parallel_connections_per_table:
+          type: integer
+          minimum: 1
+          maximum: 32767
+          example: 10
+          description: Maximum number of parallel connection that per table per masking job.
+        max_records_per_split:
+          type: integer
+          format: int64
+          minimum: 1
+          example: 100000000
+          description: Maximum number of rows allowed per split file for job execution.
+        max_split_per_connection:
+          type: integer
+          minimum: 1
+          maximum: 32767
+          example: 4
+          description: Maximum number of split files allowed per connection for job execution.
+        parallelism_degree:
+          description: The degree of parallelism (DOP) per Oracle job to recreate the index in the post-load process (Hyperscale Job only).
+          type: integer
+          format: int32
+          minimum: -1
+          maximum: 32767
+          example: 4
+        fail_immediately:
+          description: Whether to fail immediately or delay failure until job completion when a masking algorithm fails to mask its data.
+          type: boolean
+          default: false
+          example: false
+        batch_update:
+          description: Whether the database load phase to output the masked data will be performed in batches. The size of the batches is determined by the field 'commit_size'.
+          type: boolean
+          default: true
+          example: true
+        commit_size:
+          description: The size of the database commits when performing batch updates. Omitting this field uses the default commit size set in application settings.
+          type: integer
+          format: int32
+          minimum: 1
+          example: 10000
+        num_output_threads_per_stream:
+          description: The amount of parallelism, per input stream, that the job uses to load back the masked data. For example, specifying 4 output threads per stream with 5 input streams results in a total of 20 output threads for the whole job.
+          type: integer
+          format: int32
+          minimum: 1
+          default: 1
+          example: 10
+        make_current_account_owner:
+          type: boolean
+          default: true
+          description: Whether the account creating this compliance job should be configured as its owner.
+        is_multi_tenant:
+          description: If true, this job must be executed using a connector that is different from the underlying connector associated with its ruleset.
+          type: boolean
+          default: false
+          example: false
+        on_the_fly_source_connector_id:
+          type:
+          - string
+          - 'null'
+          description: The ID of the OTF source connector for this job.
+        reset_profiling_assignments:
+          description: Determines whether the ruleset assignments for the previous profiling execution need to be cleared before this job gets executed.
+          type: boolean
+          example: true
+        multiple_profiler_check:
+          description: When enabled, assigns a default algorithm if multiple classifiers match across different data classes above the threshold.
+          type: boolean
+          example: true
+        truncate_tables:
+          description: Whether to truncate target database tables before loading masked data. Only applies to database on-the-fly masking jobs.
+          type: boolean
+          default: false
+          example: false
+        drop_indexes:
+          description: Whether to temporarily drop indexes prior to masking. This only applies to MySQL/MariaDB masking jobs. Other platforms should use enabled_tasks.
+          type: boolean
+          default: false
+          example: false
+        pre_script:
+          $ref: '#/components/schemas/ComplianceJobScript'
+        post_script:
+          $ref: '#/components/schemas/ComplianceJobScript'
+        enabled_tasks:
+          description: Tasks to perform before/after a job from a set of available driver support tasks as indicated by the target rule-set's connector.
+          type: array
+          items:
+            type: string
+        tags:
+          description: The tags to set on the compliance job.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    ConnectorTypeEnum:
+      type: string
+      enum:
+      - DATABASE
+      - FILE
+      - MAINFRAME_DATASET
+      example: DATABASE
+    ExecuteComplianceJobRequest:
+      type: object
+      description: Parameters to execute a compliance job.
+      properties:
+        target_connector_id:
+          description: The ID of the target connector. This field is only used for multi-tenant jobs.
+          type:
+          - string
+          - 'null'
+          example: 1-DATABASE-3
+        source_connector_id:
+          description: The ID of the source connector. This field is only used for multi-tenant and on-the-fly jobs.
+          type:
+          - string
+          - 'null'
+          example: 1-DATABASE-4
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
     Connector:
       description: Connectors are the way users define the data sources to which the Masking Engine should connect.
       type: object
@@ -686,128 +1142,6 @@ components:
         username: user-123
         kerberos_auth: false
         service_principal: krbuser
-    ComplianceJobScript:
-      description: A SQL script to be run before or after a compliance job.
-      type: object
-      required:
-      - name
-      - contents
-      properties:
-        name:
-          description: The name of the SQL script.
-          type: string
-          example: pre_script.sql
-        contents:
-          description: The contents of the SQL script.
-          type: string
-          maxLength: 65535
-    DeleteTag:
-      type: object
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-        tags:
-          description: List of tags to be deleted
-          type: array
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/Tag'
-    JobTask:
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    TagsRequest:
-      type: object
-      required:
-      - tags
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-    ExecutionStatus:
-      description: The status of a masking or discovery job.
-      type: string
-      enum:
-      - PENDING
-      - QUEUED
-      - RUNNING
-      - CANCELLED
-      - FAILED
-      - SUCCEEDED
-      - WARNING
-      - WAITING
-      example: RUNNING
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
-    ExecuteComplianceJobRequest:
-      type: object
-      description: Parameters to execute a compliance job.
-      properties:
-        target_connector_id:
-          description: The ID of the target connector. This field is only used for multi-tenant jobs.
-          type: string
-          nullable: true
-          example: 1-DATABASE-3
-        source_connector_id:
-          description: The ID of the source connector. This field is only used for multi-tenant and on-the-fly jobs.
-          type: string
-          nullable: true
-          example: 1-DATABASE-4
     UpdateComplianceJobRequest:
       description: Parameters to update a compliance job.
       x-jackson-optional-nullable-helpers: true
@@ -971,9 +1305,10 @@ components:
           type: boolean
           example: false
         on_the_fly_source_connector_id:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The ID of the OTF source connector for this job.
-          nullable: true
           x-is-jackson-optional-nullable: true
         reset_profiling_assignments:
           description: Determines whether the ruleset assignments for the previous profiling execution need to be cleared before this job gets executed.
@@ -992,13 +1327,11 @@ components:
           type: boolean
           example: false
         pre_script:
-          nullable: true
           x-is-jackson-optional-nullable: true
           allOf:
           - $ref: '#/components/schemas/ComplianceJobScript'
           title: UpdateComplianceJobScript
         post_script:
-          nullable: true
           x-is-jackson-optional-nullable: true
           allOf:
           - $ref: '#/components/schemas/ComplianceJobScript'
@@ -1013,42 +1346,19 @@ components:
           type: array
           items:
             type: string
-    VirtualizationTask:
+    ComplianceJobConnectorsResponse:
+      description: Connector(s) for a compliance job.
+      type: object
+      properties:
+        connector:
+          $ref: '#/components/schemas/Connector'
+        on_the_fly_connector:
+          $ref: '#/components/schemas/Connector'
+    VirtualizationTaskEvent:
       deprecated: true
       properties:
-        id:
+        message_details:
           type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualizationTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
     ComplianceJob:
       description: A compliance job.
       type: object
@@ -1121,17 +1431,20 @@ components:
           format: int64
           example: 31000
         on_the_fly_source_connector_id:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The ID of the OTF source connector for this job
-          nullable: true
         on_the_fly_source_connector_name:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The name of the OTF source connector for this job
-          nullable: true
         on_the_fly_source_connector_type:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The type of the OTF source connector for this job
-          nullable: true
         type:
           type: string
           description: The type of compliance job.
@@ -1274,12 +1587,14 @@ components:
             $ref: '#/components/schemas/Engine'
         discovery_policy_id:
           description: The id of the discovery policy in use - applicable for discovery jobs only.
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
         discovery_policy_name:
           description: The name of the discovery policy in use - applicable for discovery jobs only.
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
           example: ASDD Standard
         environment_name:
           description: The name of the environment in which this job resides on the compliance engine.
@@ -1356,329 +1671,24 @@ components:
           type: array
           items:
             type: string
-    TagsResponse:
-      type: object
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    CreateComplianceJobRequest:
-      description: Parameters to create a compliance job.
+    Tag:
       type: object
       required:
-      - name
-      - rule_set_id
-      - type
+      - key
+      - value
       properties:
-        name:
-          description: The name of this compliance job.
+        key:
+          description: Key of the tag
           type: string
-          example: My favorite ComplianceJob
-        description:
-          description: A description of the compliance job.
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
           type: string
-          example: Job for app finance
-        rule_set_id:
-          description: The ID of the Rule Set used by this compliance job.
-          type: string
-          example: uuid
-        type:
-          description: The type of compliance job.
-          type: string
-          enum:
-          - MASKING
-          - DISCOVERY
-          - TOKENIZATION
-          - REIDENTIFICATION
-          example: MASKING
-        discovery_policy_id:
-          description: The ID of the discovery policy to use for this compliance job. This is only applicable for DISCOVERY jobs.
-          type: string
-          example: uuid
-        max_memory:
-          description: The maximum amount of memory, in MB, that the compliance job can consume during execution. A value of 0 or omitting this field uses the default max memory set in application settings.
-          type: integer
-          format: int32
-          minimum: 0
-          example: 1024
-        min_memory:
-          description: The minimum amount of memory, in MB, that the compliance job can consume during execution. Omitting this field uses the default min memory set in application settings.
-          type: integer
-          format: int32
-          minimum: 0
-          example: 1024
-        feedback_size:
-          description: The granularity with which the system provides updates on the progress of the compliance job. For instance, a feedback size of 50000 results in log updates whenever 50000 rows are processed during the masking phase.
-          type: integer
-          format: int32
-          minimum: 1
-          example: 50000
-          default: 50000
-        stream_row_limit:
-          description: This value constrains the total number of rows that may enter the job for each masking stream. A value of 0 means unlimited. A value of -1 selects the default value. The minimum explicit value allowed is 20.
-          type: integer
-          format: int32
-          minimum: -1
-          example: 20000
-        num_input_streams:
-          description: This field controls the amount of parallelism that the masking job uses to extract out the data to be masked. For instance, when masking a database, specifying 5 input streams results in the compliance job reading up to 5 database tables in parallel and then masking those 5 streams of data in parallel. The higher the value of this field, the more potential parallelism there will be in the job, but the masking job will consume more memory. If the number of input streams exceeds the number of units being masked (e.g. tables or files), then the excess streams will do nothing.
-          type: integer
-          format: int32
-          minimum: 1
-          default: 1
-          example: 4
-        max_concurrent_source_connections:
-          description: Maximum number of parallel connection that the Hyperscale instance can have with the source datasource (Hyperscale Job only).
-          type: integer
-          format: int32
-          minimum: 1
-          example: 32
-        max_concurrent_target_connections:
-          description: Maximum number of parallel connection that the Hyperscale instance can have with the target datasource (Hyperscale Job only).
-          type: integer
-          format: int32
-          minimum: 1
-          example: 32
-        hyperscale_enabled:
-          type: boolean
-          example: true
-          description: This flag indicates if this compliance job is enabled for Hyperscale processing.
-        auto_calculate_unload_split:
-          type: boolean
-          example: true
-          description: If set, hyperscale will auto calculate the no of splits required for masking job.
-        consider_continuous_compliance_warning_event_as:
-          type: string
-          enum:
-          - SUCCESS
-          - FAILURE
-          example: SUCCESS
-          description: The flag to control behavior of Hyperscale Job execution on warning event in Continuous Compliance Job execution. Default behavior of Hyperscale Job on the WARNING status of Continuous Compliance Job execution, is to consider it as SUCCESS. One example of warning event in Continuous Compliance is masking non conformant data.
-        create_all_indexes_with_nologging:
-          type: boolean
-          example: false
-          description: Add all indexes with NOLOGGING as part of post load.
-        disable_parallel_index_creation:
-          type: boolean
-          example: false
-          description: Exclude indexes from combining with constraint and trigger groups as part of pre load.
-        enable_all_constraints_with_novalidate:
-          type: boolean
-          example: false
-          description: Enable all constraints with NOVALIDATE as part of post load.
-        max_parallel_connections_per_table:
-          type: integer
-          minimum: 1
-          maximum: 32767
-          example: 10
-          description: Maximum number of parallel connection that per table per masking job.
-        max_records_per_split:
-          type: integer
-          format: int64
-          minimum: 1
-          example: 100000000
-          description: Maximum number of rows allowed per split file for job execution.
-        max_split_per_connection:
-          type: integer
-          minimum: 1
-          maximum: 32767
-          example: 4
-          description: Maximum number of split files allowed per connection for job execution.
-        parallelism_degree:
-          description: The degree of parallelism (DOP) per Oracle job to recreate the index in the post-load process (Hyperscale Job only).
-          type: integer
-          format: int32
-          minimum: -1
-          maximum: 32767
-          example: 4
-        fail_immediately:
-          description: Whether to fail immediately or delay failure until job completion when a masking algorithm fails to mask its data.
-          type: boolean
-          default: false
-          example: false
-        batch_update:
-          description: Whether the database load phase to output the masked data will be performed in batches. The size of the batches is determined by the field 'commit_size'.
-          type: boolean
-          default: true
-          example: true
-        commit_size:
-          description: The size of the database commits when performing batch updates. Omitting this field uses the default commit size set in application settings.
-          type: integer
-          format: int32
-          minimum: 1
-          example: 10000
-        num_output_threads_per_stream:
-          description: The amount of parallelism, per input stream, that the job uses to load back the masked data. For example, specifying 4 output threads per stream with 5 input streams results in a total of 20 output threads for the whole job.
-          type: integer
-          format: int32
-          minimum: 1
-          default: 1
-          example: 10
-        make_current_account_owner:
-          type: boolean
-          default: true
-          description: Whether the account creating this compliance job should be configured as its owner.
-        is_multi_tenant:
-          description: If true, this job must be executed using a connector that is different from the underlying connector associated with its ruleset.
-          type: boolean
-          default: false
-          example: false
-        on_the_fly_source_connector_id:
-          type: string
-          description: The ID of the OTF source connector for this job.
-          nullable: true
-        reset_profiling_assignments:
-          description: Determines whether the ruleset assignments for the previous profiling execution need to be cleared before this job gets executed.
-          type: boolean
-          example: true
-        multiple_profiler_check:
-          description: When enabled, assigns a default algorithm if multiple classifiers match across different data classes above the threshold.
-          type: boolean
-          example: true
-        truncate_tables:
-          description: Whether to truncate target database tables before loading masked data. Only applies to database on-the-fly masking jobs.
-          type: boolean
-          default: false
-          example: false
-        drop_indexes:
-          description: Whether to temporarily drop indexes prior to masking. This only applies to MySQL/MariaDB masking jobs. Other platforms should use enabled_tasks.
-          type: boolean
-          default: false
-          example: false
-        pre_script:
-          $ref: '#/components/schemas/ComplianceJobScript'
-        post_script:
-          $ref: '#/components/schemas/ComplianceJobScript'
-        enabled_tasks:
-          description: Tasks to perform before/after a job from a set of available driver support tasks as indicated by the target rule-set's connector.
-          type: array
-          items:
-            type: string
-        tags:
-          description: The tags to set on the compliance job.
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    Job:
-      description: An asynchronous task.
-      type: object
-      properties:
-        id:
-          description: The Job entity ID.
-          type: string
-          example: job-123
-        status:
-          description: The status of the job.
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-          example: RUNNING
-        is_waiting_for_telemetry:
-          description: Indicates that the operations performed by this Job have completed successfully, but the object changes are not yet reflected. This is only set when when the JOB is in STARTED status, with the guarantee that the job will not transition to the FAILED status. Note that this flag will likely be replaced with a new status in future API versions and be deprecated.
-          type: boolean
-        type:
-          description: The type of job being done.
-          type: string
-          example: DB_REFRESH
-        localized_type:
-          description: The i18n translated type of job being done.
-          type: string
-          example: DB Refresh
-        error_details:
-          description: Details about the failure for FAILED jobs.
-          type: string
-          example: Unable to connect to the engine.
-        warning_message:
-          description: Warnings for the job.
-          type: string
-          example: 'Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.'
-        target_id:
-          description: A reference to the job's target.
-          type: string
-          example: vdb-123
-        target_name:
-          description: A reference to the job's target name.
-          type: string
-          example: vdb
-        start_time:
-          description: The time the job started executing.
-          type: string
-          format: date-time
-          example: '2022-01-02T05:11:24.148000+00:00'
-        update_time:
-          description: The time the job was last updated.
-          type: string
-          format: date-time
-          example: '2022-01-02T06:11:24.148000+00:00'
-        trace_id:
-          description: traceId of the request which created this Job
-          type: string
-        engine_ids:
-          description: IDs of the engines this Job is executing on.
-          type: array
-          items:
-            type: string
-          deprecated: true
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-        engines:
-          type: array
-          items:
-            $ref: '#/components/schemas/Engine'
-        account_id:
-          description: The ID of the account who initiated this job.
-          type: integer
-          example: 1
-        account_name:
-          description: The account name which initiated this job. It can be either firstname and lastname combination or firstname or lastname or username or email address or Account-<id>.
-          type: string
-          example: User 1
-        compliance_node_id:
-          type: string
-          description: The ID of the associated compliance node, if applicable.
-          nullable: true
-        compliance_node_name:
-          type: string
-          description: The name of the associated compliance node, if applicable.
-          nullable: true
-        percent_complete:
-          description: Completion percentage of the Job.
-          type: integer
-          minimum: 0
-          maximum: 100
-          example: '50'
-        virtualization_tasks:
-          deprecated: true
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualizationTask'
-        tasks:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTask'
-        execution_id:
-          description: The ID of the associated masking execution, if any.
-          type: string
-          nullable: true
-        result_type:
-          description: The type of the job result. This is the type of the object present in the result.
-          type: string
-        result:
-          description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
-          type: object
+          minLength: 1
+          maxLength: 4000
+          example: value-1
   requestBodies:
     SearchBody:
       x-skip-codegen-attr: description
@@ -1911,6 +1921,14 @@ components:
         type: string
         minLength: 1
         maxLength: 4096
+    complianceJobIdParam:
+      in: path
+      name: complianceJobId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the compliance job.
     complianceJobsSortParam:
       name: sort
       in: query
@@ -1918,7 +1936,9 @@ components:
       example: id
       required: false
       schema:
-        type: string
+        type:
+        - string
+        - 'null'
         enum:
         - id
         - -id
@@ -2034,16 +2054,7 @@ components:
         - -drop_indexes
         - hyperscale_state
         - -hyperscale_state
-        nullable: true
         example: name
-    complianceJobIdParam:
-      in: path
-      name: complianceJobId
-      schema:
-        type: string
-        minLength: 1
-      required: true
-      description: The ID of the compliance job.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

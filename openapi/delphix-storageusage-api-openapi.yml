@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Delphix DCT Algorithms StorageUsage API
+  title: Delphix DCT Storage Usage API
   version: 3.28.0
   description: Delphix DCT API
   contact:
@@ -16,7 +16,7 @@ tags:
 paths:
   /historical-storage-summary-aggregate:
     get:
-      summary: Returns the aggregated historical storage usage of all registered engines over time, optionally with a projection of future storage usage.
+      summary: Returns the aggregated historical storage usage of all registered engines over…
       tags:
       - StorageUsage
       operationId: get_historical_storage_summary_aggregate
@@ -88,7 +88,7 @@ paths:
                       $ref: '#/components/schemas/StorageSummaryProjectedDataPoint'
   /historical-storage-summary-by-engine:
     get:
-      summary: Returns the historical storage usage by engine over time, optionally with a projection of future storage usage.
+      summary: Returns the historical storage usage by engine over time, optionally with a…
       tags:
       - StorageUsage
       operationId: get_historical_storage_summary_by_engine
@@ -351,19 +351,19 @@ components:
           format: int64
           description: Total amount of space used by Heldspace snapshots.
   parameters:
-    startDate:
-      name: start_date
-      in: query
-      description: Report start date/time. Defaults to first API request.
-      example: '2022-05-29T15:00:00-04:00'
-      schema:
-        type: string
-        format: date-time
     endDate:
       name: end_date
       in: query
       description: Report end date/time. Defaults to current time.
       example: '2022-06-07T15:10:00-04:00'
+      schema:
+        type: string
+        format: date-time
+    startDate:
+      name: start_date
+      in: query
+      description: Report start date/time. Defaults to first API request.
+      example: '2022-05-29T15:00:00-04:00'
       schema:
         type: string
         format: date-time

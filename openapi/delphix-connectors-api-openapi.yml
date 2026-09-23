@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Delphix DCT Algorithms Connectors API
+  title: Delphix DCT Connectors API
   version: 3.28.0
   description: Delphix DCT API
   contact:
@@ -18,7 +18,7 @@ paths:
     get:
       tags:
       - Connectors
-      summary: Retrieve the list of masking connectors.
+      summary: Retrieve the list of masking connectors
       operationId: get_connectors
       parameters:
       - $ref: '#/components/parameters/limit'
@@ -42,7 +42,7 @@ paths:
     post:
       tags:
       - Connectors
-      summary: Create a Connector.
+      summary: Create a Connector
       operationId: create_connector
       requestBody:
         content:
@@ -71,7 +71,7 @@ paths:
     post:
       tags:
       - Connectors
-      summary: Checks connectivity of an unsaved remote data source.
+      summary: Checks connectivity of an unsaved remote data source
       operationId: test_unsaved_connector
       requestBody:
         description: The connector details to use to test.
@@ -92,7 +92,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/connectorIdParam'
     get:
-      summary: Retrieve a masking Connector by ID.
+      summary: Retrieve a masking Connector by ID
       operationId: get_connector_by_id
       tags:
       - Connectors
@@ -104,7 +104,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Connector'
     patch:
-      summary: Update a masking Connector by ID.
+      summary: Update a masking Connector by ID
       operationId: update_connector_by_id
       tags:
       - Connectors
@@ -129,7 +129,7 @@ paths:
     delete:
       tags:
       - Connectors
-      summary: Delete a DCT managed masking connector.
+      summary: Delete a DCT managed masking connector
       operationId: delete_connector
       responses:
         '200':
@@ -149,7 +149,7 @@ paths:
     get:
       tags:
       - Connectors
-      summary: Retrieve driver support tasks for a connector.
+      summary: Retrieve driver support tasks for a connector
       operationId: get_connector_driver_support_tasks
       responses:
         '200':
@@ -192,7 +192,7 @@ paths:
     get:
       tags:
       - Connectors
-      summary: Retrieve the combined properties from jdbc-driver and the properties-file of the connector.
+      summary: Retrieve the combined properties from jdbc-driver and the properties-file of…
       operationId: get_connection_properties
       responses:
         '200':
@@ -211,7 +211,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/connectorIdParam'
     post:
-      summary: Return the name of all tables accessible by the database user.
+      summary: Return the name of all tables accessible by the database user
       operationId: fetch_table_names
       tags:
       - Connectors
@@ -299,7 +299,7 @@ paths:
     post:
       tags:
       - Connectors
-      summary: Create tags for a Connector.
+      summary: Create tags for a Connector
       operationId: create_connector_tags
       requestBody:
         content:
@@ -319,7 +319,7 @@ paths:
     get:
       tags:
       - Connectors
-      summary: Get tags for a Connector.
+      summary: Get tags for a Connector
       operationId: get_connector_tags
       responses:
         '200':
@@ -334,7 +334,7 @@ paths:
     post:
       tags:
       - Connectors
-      summary: Delete tags for a Connector.
+      summary: Delete tags for a Connector
       operationId: delete_connector_tag
       requestBody:
         $ref: '#/components/requestBodies/DeleteTags'
@@ -344,7 +344,7 @@ paths:
           description: No Content
   /connectors/search:
     post:
-      summary: Search for masking Connectors.
+      summary: Search for masking Connectors
       operationId: search_connectors
       tags:
       - Connectors
@@ -448,87 +448,342 @@ paths:
                     $ref: '#/components/schemas/PaginatedResponseMetadata'
 components:
   schemas:
-    ConnectorTypeEnum:
-      type: string
-      enum:
-      - DATABASE
-      - FILE
-      - MAINFRAME_DATASET
-      example: DATABASE
-    Tag:
+    ConnectorUpdateParameters:
+      x-jackson-optional-nullable-helpers: true
+      description: Parameters used to update a Masking Connector.
       type: object
-      required:
-      - key
-      - value
       properties:
-        key:
-          description: Key of the tag
+        name:
+          description: The Connector name.
+          type: string
+        hostname:
+          description: The network hostname or IP address of the database server.
+          type:
+          - string
+          - 'null'
+          x-is-jackson-optional-nullable: true
+        port:
+          description: The TCP port of the server.
+          type:
+          - integer
+          - 'null'
+          format: int32
+          minimum: 1
+          maximum: 65535
+          x-is-jackson-optional-nullable: true
+        username:
+          description: The username this Connector will use to connect to the database.
+          type: string
+        password:
+          x-dct-toolkit-credential-field: true
+          description: The password this Connector will use to connect to the database.
+          type: string
+        jdbc_url:
+          description: The jdbc URL for this connector.
+          type:
+          - string
+          - 'null'
+          x-is-jackson-optional-nullable: true
+        schema_name:
+          description: The schema name for this connector
+          type: string
+        database_name:
+          description: The name of the database to connect to. This field is not valid for database types 'ORACLE'.
+          type:
+          - string
+          - 'null'
+          x-is-jackson-optional-nullable: true
+        instance_name:
+          description: The name of the database instance. Only used for database type 'MSSQL'.
+          type:
+          - string
+          - 'null'
+          x-is-jackson-optional-nullable: true
+        sid:
+          description: The SID value for this connector. This field is specific to Oracle database connectors
+          type:
+          - string
+          - 'null'
+          x-is-jackson-optional-nullable: true
+        job_orchestrator_id:
           type: string
           minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-    VirtualizationTaskEvent:
-      deprecated: true
-      properties:
-        message_details:
-          type: string
-    Engine:
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
-    MaskingJobWithConnectorRole:
-      description: A simplified job object combined with a connector ID and the connector's role in that job
+          description: The ID or name of the job orchestrator that is associated with this connector.
+        file_reference_id:
+          type:
+          - string
+          - 'null'
+          description: The reference ID of the connection-properties file to be used for the connector.
+          x-is-jackson-optional-nullable: true
+        kerberos_auth:
+          description: Whether to use kerberos to authenticate connections. When kerberos_auth is enabled, the username field is treated as the kerberos principal. Kerberos must be enabled on every compliance node in the connector's job orchestrator.
+          type: boolean
+        service_principal:
+          description: The service principal to use for kerberos authentication. This property is exclusive to Sybase connectors using Kerberos.
+          type:
+          - string
+          - 'null'
+          x-is-jackson-optional-nullable: true
+        connection_mode:
+          description: The connection mode for file connectors.
+          type:
+          - string
+          - 'null'
+          enum:
+          - FTP
+          - FTPS
+          - SFTP
+          - MOUNT
+          - AWS_S3
+          - S3_COMPATIBLE
+          - AZURE_BLOB_STORAGE
+          x-is-jackson-optional-nullable: true
+        path:
+          description: The path on the remote server for file connections.
+          type:
+          - string
+          - 'null'
+          x-is-jackson-optional-nullable: true
+        ssh_key:
+          description: 'The DCT SSH key UUID (from POST /ssh-keys) to use for SFTP connections. DCT pushes the key bytes to the engine filesystem before connector sync.
+
+            '
+          type:
+          - string
+          - 'null'
+          x-is-jackson-optional-nullable: true
+        user_dir_is_root:
+          description: For SFTP connections only, whether the user dir is set to root.
+          type:
+          - boolean
+          - 'null'
+          x-is-jackson-optional-nullable: true
+        mount_information_id:
+          description: The DCT UUID of the mount information record (MOUNT mode only).
+          type:
+          - string
+          - 'null'
+          x-is-jackson-optional-nullable: true
+        bucket_name:
+          description: The storage bucket name (AWS_S3 and S3_COMPATIBLE modes).
+          type:
+          - string
+          - 'null'
+          x-is-jackson-optional-nullable: true
+        region:
+          description: The cloud storage region (AWS_S3 and S3_COMPATIBLE modes).
+          type:
+          - string
+          - 'null'
+          x-is-jackson-optional-nullable: true
+        access_key:
+          x-dct-toolkit-credential-field: true
+          description: The access key for cloud storage authentication (AWS and AZURE modes).
+          type:
+          - string
+          - 'null'
+          x-is-jackson-optional-nullable: true
+        secret_key:
+          x-dct-toolkit-credential-field: true
+          description: The secret key for AWS storage authentication.
+          type:
+          - string
+          - 'null'
+          x-is-jackson-optional-nullable: true
+        auth_type:
+          description: 'The authentication type for cloud storage. For AWS_S3: AWS_ROLE or AWS_SECRET. For AZURE_BLOB_STORAGE: AZURE_MANAGED_IDENTITY or AZURE_SECRET.
+
+            '
+          type:
+          - string
+          - 'null'
+          enum:
+          - AWS_ROLE
+          - AWS_SECRET
+          - AZURE_MANAGED_IDENTITY
+          - AZURE_SECRET
+          x-is-jackson-optional-nullable: true
+        prefix:
+          description: The key prefix for cloud storage (AWS and AZURE modes).
+          type:
+          - string
+          - 'null'
+          x-is-jackson-optional-nullable: true
+        delimiter:
+          description: The key delimiter for cloud storage (AWS and AZURE modes).
+          type:
+          - string
+          - 'null'
+          x-is-jackson-optional-nullable: true
+        service_endpoint:
+          description: The service endpoint URL for S3_COMPATIBLE mode.
+          type:
+          - string
+          - 'null'
+          x-is-jackson-optional-nullable: true
+        azure_account_name:
+          description: The Azure storage account name (AZURE_BLOB_STORAGE mode).
+          type:
+          - string
+          - 'null'
+          x-is-jackson-optional-nullable: true
+        azure_container_name:
+          description: The Azure blob container name (AZURE_BLOB_STORAGE mode).
+          type:
+          - string
+          - 'null'
+          x-is-jackson-optional-nullable: true
+        credential_path_id:
+          description: The DCT UUID of the credential path record for password vault auth.
+          type:
+          - string
+          - 'null'
+          x-is-jackson-optional-nullable: true
+      example:
+        name: connector-name
+        hostname: database_server.mycompany.co
+        port: 4322
+        username: user-123
+        password: password123
+        schema_name: public
+        sid: ORCL
+        job_orchestrator_id: 1-job-orchestrator-123
+        kerberos_auth: false
+        service_principal: krbuser
+    Job:
+      description: An asynchronous task.
       type: object
       properties:
         id:
           description: The Job entity ID.
           type: string
           example: job-123
-        name:
-          description: The name of this Masking Job.
+        status:
+          description: The status of the job.
           type: string
-          example: My favorite MaskingJob
-        creation_date:
-          description: The date this MaskingJob was created.
-          type: string
-          format: date-time
-          example: '2022-11-30T08:51:34.148000+00:00'
-        is_on_the_fly_masking:
-          description: Whether the job is an on-the-fly masking job
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+          example: RUNNING
+        is_waiting_for_telemetry:
+          description: Indicates that the operations performed by this Job have completed successfully, but the object changes are not yet reflected. This is only set when when the JOB is in STARTED status, with the guarantee that the job will not transition to the FAILED status. Note that this flag will likely be replaced with a new status in future API versions and be deprecated.
           type: boolean
-        last_execution_time:
-          description: The start time of the most recent execution of this job, if available
+        type:
+          description: The type of job being done.
+          type: string
+          example: DB_REFRESH
+        localized_type:
+          description: The i18n translated type of job being done.
+          type: string
+          example: DB Refresh
+        error_details:
+          description: Details about the failure for FAILED jobs.
+          type: string
+          example: Unable to connect to the engine.
+        warning_message:
+          description: Warnings for the job.
+          type: string
+          example: 'Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.'
+        target_id:
+          description: A reference to the job's target.
+          type: string
+          example: vdb-123
+        target_name:
+          description: A reference to the job's target name.
+          type: string
+          example: vdb
+        start_time:
+          description: The time the job started executing.
           type: string
           format: date-time
-        last_execution_status:
-          $ref: '#/components/schemas/ExecutionStatus'
+          example: '2022-01-02T05:11:24.148000+00:00'
+        update_time:
+          description: The time the job was last updated.
+          type: string
+          format: date-time
+          example: '2022-01-02T06:11:24.148000+00:00'
+        trace_id:
+          description: traceId of the request which created this Job
+          type: string
+        engine_ids:
+          description: IDs of the engines this Job is executing on.
+          type: array
+          items:
+            type: string
+          deprecated: true
         tags:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
-        connector_id:
-          description: The ID of the connector this job is related to
+        engines:
+          type: array
+          items:
+            $ref: '#/components/schemas/Engine'
+        account_id:
+          description: The ID of the account who initiated this job.
+          type: integer
+          example: 1
+        account_name:
+          description: The account name which initiated this job. It can be either firstname and lastname combination or firstname or lastname or username or email address or Account-<id>.
           type: string
-          nullable: true
-        connector_role:
-          description: The role of the connector in the job
+          example: User 1
+        compliance_node_id:
+          type:
+          - string
+          - 'null'
+          description: The ID of the associated compliance node, if applicable.
+        compliance_node_name:
+          type:
+          - string
+          - 'null'
+          description: The name of the associated compliance node, if applicable.
+        percent_complete:
+          description: Completion percentage of the Job.
+          type: integer
+          minimum: 0
+          maximum: 100
+          example: '50'
+        virtualization_tasks:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTask'
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTask'
+        execution_id:
+          description: The ID of the associated masking execution, if any.
+          type:
+          - string
+          - 'null'
+        result_type:
+          description: The type of the job result. This is the type of the object present in the result.
           type: string
-          enum:
-          - SOURCE
-          - TARGET
-          nullable: false
+        result:
+          description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
+          type: object
+    ExecutionStatus:
+      description: The status of a masking or discovery job.
+      type: string
+      enum:
+      - PENDING
+      - QUEUED
+      - RUNNING
+      - CANCELLED
+      - FAILED
+      - SUCCEEDED
+      - WARNING
+      - WAITING
+      example: RUNNING
     PaginatedResponseMetadata:
       type: object
       properties:
@@ -542,9 +797,310 @@ components:
           description: The total number of results. This value may not be provided.
           type: integer
           format: int_64
+    ConnectionProperty:
+      description: Connection property.
+      type: object
+      properties:
+        name:
+          description: The property name.
+          type: string
+          example: oracle.jdbc.LoginTimeout
+        value:
+          description: The property value
+          type: string
+          example: '30'
+        description:
+          description: The property description.
+          type: string
+          example: Login timeout in seconds
+        edited:
+          description: Whether this property has been set through connection properties file.
+          type: boolean
+          example: true
     JobTaskEvent:
       properties:
         message_details:
+          type: string
+    VirtualizationTask:
+      deprecated: true
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    DeleteTag:
+      type: object
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        tags:
+          description: List of tags to be deleted
+          type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+    ConnectorTestResponse:
+      title: ConnectorTestResponse
+      type: object
+      description: The result of the masking connector test.
+      required:
+      - status
+      - message
+      properties:
+        status:
+          description: Connection status, SUCCEEDED or FAILED
+          type: string
+          enum:
+          - SUCCEEDED
+          - FAILED
+          example: SUCCEEDED
+        message:
+          description: A message describing the result of the masking connector test.
+          type: string
+          example: Connection Succeeded
+        job:
+          $ref: '#/components/schemas/Job'
+          description: The tested connector job.
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    ConnectorTypeEnum:
+      type: string
+      enum:
+      - DATABASE
+      - FILE
+      - MAINFRAME_DATASET
+      example: DATABASE
+    ConnectorTestRequest:
+      x-jackson-optional-nullable-helpers: true
+      title: ConnectorTestRequest
+      type: object
+      description: The details of the connector to be tested.
+      properties:
+        database_type:
+          description: The database variant. Currently supports [DB2, DB2_ISERIES, DB2_MAINFRAME, ORACLE, MSSQL, MYSQL, MARIADB, POSTGRES, AURORA_POSTGRES, COCKROACHDB_POSTGRES, RDS_POSTGRES, YUGABYTEDB_POSTGRES, SYBASE].
+          type:
+          - string
+          - 'null'
+          enum:
+          - DB2
+          - DB2_ISERIES
+          - DB2_MAINFRAME
+          - ORACLE
+          - MSSQL
+          - MYSQL
+          - MARIADB
+          - POSTGRES
+          - AURORA_POSTGRES
+          - COCKROACHDB_POSTGRES
+          - RDS_POSTGRES
+          - YUGABYTEDB_POSTGRES
+          - SYBASE
+          example: ORACLE
+          x-is-jackson-optional-nullable: true
+        hostname:
+          description: The network hostname or IP address of the database server.
+          type:
+          - string
+          - 'null'
+          example: database_server.mycompany.co
+          x-is-jackson-optional-nullable: true
+        port:
+          description: The TCP port of the server.
+          type:
+          - integer
+          - 'null'
+          format: int32
+          minimum: 1
+          maximum: 65535
+          example: 9100
+          x-is-jackson-optional-nullable: true
+        username:
+          description: The username this Connector will use to connect to the database.
+          type: string
+          example: my_username
+        password:
+          x-dct-toolkit-credential-field: true
+          description: The password this Connector will use to connect to the database.
+          type: string
+          example: my_password
+        jdbc_url:
+          description: The jdbc URL for this connector
+          type:
+          - string
+          - 'null'
+          example: jdbc:oracle:thin:@//localhost:1521/ORCL
+          x-is-jackson-optional-nullable: true
+        schema_name:
+          description: The schema name for this connector
+          type: string
+          example: public
+        sid:
+          description: The SID value for this connector. This field is specific to Oracle database connectors
+          type:
+          - string
+          - 'null'
+          example: ORCL
+          x-is-jackson-optional-nullable: true
+        database_name:
+          description: The name of the database to connect to. This field is not valid for database types 'ORACLE'.
+          type:
+          - string
+          - 'null'
+          example: my_database
+          x-is-jackson-optional-nullable: true
+        instance_name:
+          description: The name of the database instance. Only used for database type 'MSSQL'.
+          type:
+          - string
+          - 'null'
+          example: SQL2016
+          x-is-jackson-optional-nullable: true
+        job_orchestrator_id:
+          description: The ID or name of the job orchestrator that is associated with this connector.
+          type: string
+        file_reference_id:
+          description: The reference uri/id of the connection-properties file used by the connector.
+          type:
+          - string
+          - 'null'
+          x-is-jackson-optional-nullable: true
+        kerberos_auth:
+          description: Whether to use kerberos to authenticate connections. When kerberos_auth is enabled, the username field is treated as the kerberos principal. Kerberos must be enabled on every compliance node in the connector's job orchestrator.
+          type: boolean
+        service_principal:
+          description: The service principal to use for kerberos authentication. This property is exclusive to Sybase connectors using Kerberos.
+          type:
+          - string
+          - 'null'
+          x-is-jackson-optional-nullable: true
+        owning_entity_id:
+          description: The ID of the owning entity. When set, credentials and job orchestrator are retrieved from the entity.
+          type: string
+        owning_entity_type:
+          description: The type of the owning entity. Required when owning_entity_id is set.
+          type: string
+          enum:
+          - PAAS_INSTANCE
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    FetchTableNamesRequest:
+      description: Optional parameters used when fetching table names.
+      type: object
+      properties:
+        rule_set_id:
+          description: If present fetches only tables names that aren't part of the given rule set.
           type: string
     Connector:
       description: Connectors are the way users define the data sources to which the Masking Engine should connect.
@@ -787,299 +1343,6 @@ components:
         username: user-123
         kerberos_auth: false
         service_principal: krbuser
-    DeleteTag:
-      type: object
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-        tags:
-          description: List of tags to be deleted
-          type: array
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/Tag'
-    ConnectorUpdateParameters:
-      x-jackson-optional-nullable-helpers: true
-      description: Parameters used to update a Masking Connector.
-      type: object
-      properties:
-        name:
-          description: The Connector name.
-          type: string
-        hostname:
-          description: The network hostname or IP address of the database server.
-          type: string
-          nullable: true
-          x-is-jackson-optional-nullable: true
-        port:
-          description: The TCP port of the server.
-          type: integer
-          format: int32
-          nullable: true
-          minimum: 1
-          maximum: 65535
-          x-is-jackson-optional-nullable: true
-        username:
-          description: The username this Connector will use to connect to the database.
-          type: string
-        password:
-          x-dct-toolkit-credential-field: true
-          description: The password this Connector will use to connect to the database.
-          type: string
-        jdbc_url:
-          description: The jdbc URL for this connector.
-          type: string
-          nullable: true
-          x-is-jackson-optional-nullable: true
-        schema_name:
-          description: The schema name for this connector
-          type: string
-        database_name:
-          description: The name of the database to connect to. This field is not valid for database types 'ORACLE'.
-          type: string
-          nullable: true
-          x-is-jackson-optional-nullable: true
-        instance_name:
-          description: The name of the database instance. Only used for database type 'MSSQL'.
-          type: string
-          nullable: true
-          x-is-jackson-optional-nullable: true
-        sid:
-          description: The SID value for this connector. This field is specific to Oracle database connectors
-          type: string
-          nullable: true
-          x-is-jackson-optional-nullable: true
-        job_orchestrator_id:
-          type: string
-          minLength: 1
-          description: The ID or name of the job orchestrator that is associated with this connector.
-        file_reference_id:
-          type: string
-          description: The reference ID of the connection-properties file to be used for the connector.
-          nullable: true
-          x-is-jackson-optional-nullable: true
-        kerberos_auth:
-          description: Whether to use kerberos to authenticate connections. When kerberos_auth is enabled, the username field is treated as the kerberos principal. Kerberos must be enabled on every compliance node in the connector's job orchestrator.
-          type: boolean
-        service_principal:
-          description: The service principal to use for kerberos authentication. This property is exclusive to Sybase connectors using Kerberos.
-          type: string
-          nullable: true
-          x-is-jackson-optional-nullable: true
-        connection_mode:
-          description: The connection mode for file connectors.
-          type: string
-          enum:
-          - FTP
-          - FTPS
-          - SFTP
-          - MOUNT
-          - AWS_S3
-          - S3_COMPATIBLE
-          - AZURE_BLOB_STORAGE
-          nullable: true
-          x-is-jackson-optional-nullable: true
-        path:
-          description: The path on the remote server for file connections.
-          type: string
-          nullable: true
-          x-is-jackson-optional-nullable: true
-        ssh_key:
-          description: 'The DCT SSH key UUID (from POST /ssh-keys) to use for SFTP connections. DCT pushes the key bytes to the engine filesystem before connector sync.
-
-            '
-          type: string
-          nullable: true
-          x-is-jackson-optional-nullable: true
-        user_dir_is_root:
-          description: For SFTP connections only, whether the user dir is set to root.
-          type: boolean
-          nullable: true
-          x-is-jackson-optional-nullable: true
-        mount_information_id:
-          description: The DCT UUID of the mount information record (MOUNT mode only).
-          type: string
-          nullable: true
-          x-is-jackson-optional-nullable: true
-        bucket_name:
-          description: The storage bucket name (AWS_S3 and S3_COMPATIBLE modes).
-          type: string
-          nullable: true
-          x-is-jackson-optional-nullable: true
-        region:
-          description: The cloud storage region (AWS_S3 and S3_COMPATIBLE modes).
-          type: string
-          nullable: true
-          x-is-jackson-optional-nullable: true
-        access_key:
-          x-dct-toolkit-credential-field: true
-          description: The access key for cloud storage authentication (AWS and AZURE modes).
-          type: string
-          nullable: true
-          x-is-jackson-optional-nullable: true
-        secret_key:
-          x-dct-toolkit-credential-field: true
-          description: The secret key for AWS storage authentication.
-          type: string
-          nullable: true
-          x-is-jackson-optional-nullable: true
-        auth_type:
-          description: 'The authentication type for cloud storage. For AWS_S3: AWS_ROLE or AWS_SECRET. For AZURE_BLOB_STORAGE: AZURE_MANAGED_IDENTITY or AZURE_SECRET.
-
-            '
-          type: string
-          enum:
-          - AWS_ROLE
-          - AWS_SECRET
-          - AZURE_MANAGED_IDENTITY
-          - AZURE_SECRET
-          nullable: true
-          x-is-jackson-optional-nullable: true
-        prefix:
-          description: The key prefix for cloud storage (AWS and AZURE modes).
-          type: string
-          nullable: true
-          x-is-jackson-optional-nullable: true
-        delimiter:
-          description: The key delimiter for cloud storage (AWS and AZURE modes).
-          type: string
-          nullable: true
-          x-is-jackson-optional-nullable: true
-        service_endpoint:
-          description: The service endpoint URL for S3_COMPATIBLE mode.
-          type: string
-          nullable: true
-          x-is-jackson-optional-nullable: true
-        azure_account_name:
-          description: The Azure storage account name (AZURE_BLOB_STORAGE mode).
-          type: string
-          nullable: true
-          x-is-jackson-optional-nullable: true
-        azure_container_name:
-          description: The Azure blob container name (AZURE_BLOB_STORAGE mode).
-          type: string
-          nullable: true
-          x-is-jackson-optional-nullable: true
-        credential_path_id:
-          description: The DCT UUID of the credential path record for password vault auth.
-          type: string
-          nullable: true
-          x-is-jackson-optional-nullable: true
-      example:
-        name: connector-name
-        hostname: database_server.mycompany.co
-        port: 4322
-        username: user-123
-        password: password123
-        schema_name: public
-        sid: ORCL
-        job_orchestrator_id: 1-job-orchestrator-123
-        kerberos_auth: false
-        service_principal: krbuser
-    JobTask:
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    TagsRequest:
-      type: object
-      required:
-      - tags
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-    ExecutionStatus:
-      description: The status of a masking or discovery job.
-      type: string
-      enum:
-      - PENDING
-      - QUEUED
-      - RUNNING
-      - CANCELLED
-      - FAILED
-      - SUCCEEDED
-      - WARNING
-      - WAITING
-      example: RUNNING
-    ConnectorTestResponse:
-      title: ConnectorTestResponse
-      type: object
-      description: The result of the masking connector test.
-      required:
-      - status
-      - message
-      properties:
-        status:
-          description: Connection status, SUCCEEDED or FAILED
-          type: string
-          enum:
-          - SUCCEEDED
-          - FAILED
-          example: SUCCEEDED
-        message:
-          description: A message describing the result of the masking connector test.
-          type: string
-          example: Connection Succeeded
-        job:
-          $ref: '#/components/schemas/Job'
-          description: The tested connector job.
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
     ConnectorCreateRequest:
       x-jackson-optional-nullable-helpers: true
       description: Request body to create a Connector.
@@ -1218,18 +1481,21 @@ components:
           type: string
         database_name:
           description: The name of the database to connect to. This field is not valid for database types 'ORACLE'.
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           x-is-jackson-optional-nullable: true
         instance_name:
           description: The name of the database instance. Only used for database type 'MSSQL'.
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           x-is-jackson-optional-nullable: true
         sid:
           description: The SID value for this connector. This field is specific to Oracle database connectors
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           x-is-jackson-optional-nullable: true
         tags:
           type: array
@@ -1277,426 +1543,70 @@ components:
         file_reference_id: delphix-file://upload/f_92e8e86ec67b4559a4b002629c6c943d/companies.properties
         kerberos_auth: false
         service_principal: krbuser
-    VirtualizationTask:
+    VirtualizationTaskEvent:
       deprecated: true
       properties:
-        id:
+        message_details:
           type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualizationTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    ConnectorTestRequest:
-      x-jackson-optional-nullable-helpers: true
-      title: ConnectorTestRequest
-      type: object
-      description: The details of the connector to be tested.
-      properties:
-        database_type:
-          description: The database variant. Currently supports [DB2, DB2_ISERIES, DB2_MAINFRAME, ORACLE, MSSQL, MYSQL, MARIADB, POSTGRES, AURORA_POSTGRES, COCKROACHDB_POSTGRES, RDS_POSTGRES, YUGABYTEDB_POSTGRES, SYBASE].
-          type: string
-          enum:
-          - DB2
-          - DB2_ISERIES
-          - DB2_MAINFRAME
-          - ORACLE
-          - MSSQL
-          - MYSQL
-          - MARIADB
-          - POSTGRES
-          - AURORA_POSTGRES
-          - COCKROACHDB_POSTGRES
-          - RDS_POSTGRES
-          - YUGABYTEDB_POSTGRES
-          - SYBASE
-          example: ORACLE
-          nullable: true
-          x-is-jackson-optional-nullable: true
-        hostname:
-          description: The network hostname or IP address of the database server.
-          type: string
-          example: database_server.mycompany.co
-          nullable: true
-          x-is-jackson-optional-nullable: true
-        port:
-          description: The TCP port of the server.
-          type: integer
-          format: int32
-          minimum: 1
-          maximum: 65535
-          example: 9100
-          nullable: true
-          x-is-jackson-optional-nullable: true
-        username:
-          description: The username this Connector will use to connect to the database.
-          type: string
-          example: my_username
-        password:
-          x-dct-toolkit-credential-field: true
-          description: The password this Connector will use to connect to the database.
-          type: string
-          example: my_password
-        jdbc_url:
-          description: The jdbc URL for this connector
-          type: string
-          example: jdbc:oracle:thin:@//localhost:1521/ORCL
-          nullable: true
-          x-is-jackson-optional-nullable: true
-        schema_name:
-          description: The schema name for this connector
-          type: string
-          example: public
-        sid:
-          description: The SID value for this connector. This field is specific to Oracle database connectors
-          type: string
-          example: ORCL
-          nullable: true
-          x-is-jackson-optional-nullable: true
-        database_name:
-          description: The name of the database to connect to. This field is not valid for database types 'ORACLE'.
-          type: string
-          example: my_database
-          nullable: true
-          x-is-jackson-optional-nullable: true
-        instance_name:
-          description: The name of the database instance. Only used for database type 'MSSQL'.
-          type: string
-          example: SQL2016
-          nullable: true
-          x-is-jackson-optional-nullable: true
-        job_orchestrator_id:
-          description: The ID or name of the job orchestrator that is associated with this connector.
-          type: string
-        file_reference_id:
-          description: The reference uri/id of the connection-properties file used by the connector.
-          type: string
-          nullable: true
-          x-is-jackson-optional-nullable: true
-        kerberos_auth:
-          description: Whether to use kerberos to authenticate connections. When kerberos_auth is enabled, the username field is treated as the kerberos principal. Kerberos must be enabled on every compliance node in the connector's job orchestrator.
-          type: boolean
-        service_principal:
-          description: The service principal to use for kerberos authentication. This property is exclusive to Sybase connectors using Kerberos.
-          type: string
-          nullable: true
-          x-is-jackson-optional-nullable: true
-        owning_entity_id:
-          description: The ID of the owning entity. When set, credentials and job orchestrator are retrieved from the entity.
-          type: string
-        owning_entity_type:
-          description: The type of the owning entity. Required when owning_entity_id is set.
-          type: string
-          enum:
-          - PAAS_INSTANCE
-    TagsResponse:
-      type: object
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    FetchTableNamesRequest:
-      description: Optional parameters used when fetching table names.
-      type: object
-      properties:
-        rule_set_id:
-          description: If present fetches only tables names that aren't part of the given rule set.
-          type: string
-    Job:
-      description: An asynchronous task.
+    MaskingJobWithConnectorRole:
+      description: A simplified job object combined with a connector ID and the connector's role in that job
       type: object
       properties:
         id:
           description: The Job entity ID.
           type: string
           example: job-123
-        status:
-          description: The status of the job.
+        name:
+          description: The name of this Masking Job.
           type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-          example: RUNNING
-        is_waiting_for_telemetry:
-          description: Indicates that the operations performed by this Job have completed successfully, but the object changes are not yet reflected. This is only set when when the JOB is in STARTED status, with the guarantee that the job will not transition to the FAILED status. Note that this flag will likely be replaced with a new status in future API versions and be deprecated.
+          example: My favorite MaskingJob
+        creation_date:
+          description: The date this MaskingJob was created.
+          type: string
+          format: date-time
+          example: '2022-11-30T08:51:34.148000+00:00'
+        is_on_the_fly_masking:
+          description: Whether the job is an on-the-fly masking job
           type: boolean
-        type:
-          description: The type of job being done.
-          type: string
-          example: DB_REFRESH
-        localized_type:
-          description: The i18n translated type of job being done.
-          type: string
-          example: DB Refresh
-        error_details:
-          description: Details about the failure for FAILED jobs.
-          type: string
-          example: Unable to connect to the engine.
-        warning_message:
-          description: Warnings for the job.
-          type: string
-          example: 'Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.'
-        target_id:
-          description: A reference to the job's target.
-          type: string
-          example: vdb-123
-        target_name:
-          description: A reference to the job's target name.
-          type: string
-          example: vdb
-        start_time:
-          description: The time the job started executing.
+        last_execution_time:
+          description: The start time of the most recent execution of this job, if available
           type: string
           format: date-time
-          example: '2022-01-02T05:11:24.148000+00:00'
-        update_time:
-          description: The time the job was last updated.
-          type: string
-          format: date-time
-          example: '2022-01-02T06:11:24.148000+00:00'
-        trace_id:
-          description: traceId of the request which created this Job
-          type: string
-        engine_ids:
-          description: IDs of the engines this Job is executing on.
-          type: array
-          items:
-            type: string
-          deprecated: true
+        last_execution_status:
+          $ref: '#/components/schemas/ExecutionStatus'
         tags:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
-        engines:
-          type: array
-          items:
-            $ref: '#/components/schemas/Engine'
-        account_id:
-          description: The ID of the account who initiated this job.
-          type: integer
-          example: 1
-        account_name:
-          description: The account name which initiated this job. It can be either firstname and lastname combination or firstname or lastname or username or email address or Account-<id>.
+        connector_id:
+          description: The ID of the connector this job is related to
+          type:
+          - string
+          - 'null'
+        connector_role:
+          description: The role of the connector in the job
           type: string
-          example: User 1
-        compliance_node_id:
-          type: string
-          description: The ID of the associated compliance node, if applicable.
-          nullable: true
-        compliance_node_name:
-          type: string
-          description: The name of the associated compliance node, if applicable.
-          nullable: true
-        percent_complete:
-          description: Completion percentage of the Job.
-          type: integer
-          minimum: 0
-          maximum: 100
-          example: '50'
-        virtualization_tasks:
-          deprecated: true
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualizationTask'
-        tasks:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTask'
-        execution_id:
-          description: The ID of the associated masking execution, if any.
-          type: string
-          nullable: true
-        result_type:
-          description: The type of the job result. This is the type of the object present in the result.
-          type: string
-        result:
-          description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
-          type: object
-    ConnectionProperty:
-      description: Connection property.
+          enum:
+          - SOURCE
+          - TARGET
+    Tag:
       type: object
+      required:
+      - key
+      - value
       properties:
-        name:
-          description: The property name.
+        key:
+          description: Key of the tag
           type: string
-          example: oracle.jdbc.LoginTimeout
+          minLength: 1
+          maxLength: 4000
+          example: key-1
         value:
-          description: The property value
+          description: Value of the tag
           type: string
-          example: '30'
-        description:
-          description: The property description.
-          type: string
-          example: Login timeout in seconds
-        edited:
-          description: Whether this property has been set through connection properties file.
-          type: boolean
-          example: true
-  parameters:
-    connectorsSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
-      example: id
-      required: false
-      schema:
-        type: string
-        enum:
-        - id
-        - -id
-        - engine_id
-        - -engine_id
-        - engine_name
-        - -engine_name
-        - type
-        - -type
-        - database_type
-        - -database_type
-        - platform
-        - -platform
-        - name
-        - -name
-        - hostname
-        - -hostname
-        - username
-        - -username
-        - port
-        - -port
-        - auth_present
-        - -auth_present
-        - custom_driver_name
-        - -custom_driver_name
-        - database_name
-        - -database_name
-        - instance_name
-        - -instance_name
-        - jdbc
-        - -jdbc
-        - schema_name
-        - -schema_name
-        - sid
-        - -sid
-        - kerberos_auth
-        - -kerberos_auth
-        - service_principal
-        - -service_principal
-        - enable_logger
-        - -enable_logger
-        - file_type
-        - -file_type
-        - connection_mode
-        - -connection_mode
-        - path
-        - -path
-        - ssh_key
-        - -ssh_key
-        - user_dir_is_root
-        - -user_dir_is_root
-        - data_connection_id
-        - -data_connection_id
-        - account_id
-        - -account_id
-        - account_name
-        - -account_name
-        - dct_managed
-        - -dct_managed
-        - job_orchestrator_id
-        - -job_orchestrator_id
-        - job_orchestrator_name
-        - -job_orchestrator_name
-        - mount_information_id
-        - -mount_information_id
-        - credential_path_id
-        - -credential_path_id
-        nullable: true
-        example: name
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
-    jobWithConnectorSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
-      example: id
-      required: false
-      schema:
-        type: string
-        enum:
-        - id
-        - -id
-        - name
-        - -name
-        - connector_role
-        - -connector_role
-        - is_on_the_fly_masking
-        - -is_on_the_fly_masking
-        - last_execution_time
-        - -last_execution_time
-        - last_execution_status
-        - -last_execution_status
-        - creation_date
-        - -creation_date
-        nullable: true
-        example: name
-    connectorIdParam:
-      in: path
-      name: connectorId
-      schema:
-        type: string
-        minLength: 1
-      required: true
-      description: The ID of the Connector.
+          minLength: 1
+          maxLength: 4000
+          example: value-1
   requestBodies:
     SearchBody:
       x-skip-codegen-attr: description
@@ -1910,6 +1820,137 @@ components:
                   value: value-1
                 - key: key-2
                   value: value-2
+  parameters:
+    jobWithConnectorSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - connector_role
+        - -connector_role
+        - is_on_the_fly_masking
+        - -is_on_the_fly_masking
+        - last_execution_time
+        - -last_execution_time
+        - last_execution_status
+        - -last_execution_status
+        - creation_date
+        - -creation_date
+        example: name
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+    connectorIdParam:
+      in: path
+      name: connectorId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the Connector.
+    connectorsSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - engine_id
+        - -engine_id
+        - engine_name
+        - -engine_name
+        - type
+        - -type
+        - database_type
+        - -database_type
+        - platform
+        - -platform
+        - name
+        - -name
+        - hostname
+        - -hostname
+        - username
+        - -username
+        - port
+        - -port
+        - auth_present
+        - -auth_present
+        - custom_driver_name
+        - -custom_driver_name
+        - database_name
+        - -database_name
+        - instance_name
+        - -instance_name
+        - jdbc
+        - -jdbc
+        - schema_name
+        - -schema_name
+        - sid
+        - -sid
+        - kerberos_auth
+        - -kerberos_auth
+        - service_principal
+        - -service_principal
+        - enable_logger
+        - -enable_logger
+        - file_type
+        - -file_type
+        - connection_mode
+        - -connection_mode
+        - path
+        - -path
+        - ssh_key
+        - -ssh_key
+        - user_dir_is_root
+        - -user_dir_is_root
+        - data_connection_id
+        - -data_connection_id
+        - account_id
+        - -account_id
+        - account_name
+        - -account_name
+        - dct_managed
+        - -dct_managed
+        - job_orchestrator_id
+        - -job_orchestrator_id
+        - job_orchestrator_name
+        - -job_orchestrator_name
+        - mount_information_id
+        - -mount_information_id
+        - credential_path_id
+        - -credential_path_id
+        example: name
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

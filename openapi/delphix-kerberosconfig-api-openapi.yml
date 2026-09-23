@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Delphix DCT Algorithms KerberosConfig API
+  title: Delphix DCT Kerberos Config API
   version: 3.28.0
   description: Delphix DCT API
   contact:
@@ -18,7 +18,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/kerberosConfigIdParam'
     get:
-      summary: Get a kerberos config by ID or Name.
+      summary: Get a kerberos config by ID or Name
       operationId: get_kerberos_config_by_id
       tags:
       - KerberosConfig
@@ -31,7 +31,7 @@ paths:
                 $ref: '#/components/schemas/KerberosConfig'
   /kerberos-configs:
     get:
-      summary: List all kerberos configs.
+      summary: List all kerberos configs
       operationId: list_kerberos_configs
       tags:
       - KerberosConfig
@@ -56,7 +56,7 @@ paths:
                     $ref: '#/components/schemas/PaginatedResponseMetadata'
   /kerberos-configs/search:
     post:
-      summary: Search for Kerberos Configs.
+      summary: Search for Kerberos Configs
       operationId: search_kerberos_configs
       tags:
       - KerberosConfig
@@ -112,6 +112,14 @@ paths:
                     $ref: '#/components/schemas/PaginatedResponseMetadata'
 components:
   parameters:
+    kerberosConfigIdParam:
+      in: path
+      name: kerberosConfigId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the kerberos config.
     limit:
       name: limit
       in: query
@@ -122,14 +130,14 @@ components:
         minimum: 1
         maximum: 1000
         default: 100
-    kerberosConfigIdParam:
-      in: path
-      name: kerberosConfigId
-      required: true
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
       schema:
         type: string
         minLength: 1
-      description: The ID of the kerberos config.
+        maxLength: 4096
     kerberosConfigSortParam:
       name: sort
       in: query
@@ -137,7 +145,9 @@ components:
       example: id
       required: false
       schema:
-        type: string
+        type:
+        - string
+        - 'null'
         enum:
         - id
         - -id
@@ -157,27 +167,8 @@ components:
         - -principal
         - enabled
         - -enabled
-        nullable: true
         example: name
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
   schemas:
-    KDCServers:
-      properties:
-        hostname:
-          description: One of more KDC servers.
-          type: string
-          example: kerberos-02.delphix.com
-        port:
-          description: One of more KDC servers.
-          type: integer
-          example: 88
     PaginatedResponseMetadata:
       type: object
       properties:
@@ -233,8 +224,9 @@ components:
           example: sybase
         enabled:
           description: The kerberos is enabled or not.
-          type: boolean
-          nullable: true
+          type:
+          - boolean
+          - 'null'
         keytab:
           description: Kerberos keytab.
           type: string
@@ -253,6 +245,16 @@ components:
           minLength: 5
           maxLength: 50000
           example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    KDCServers:
+      properties:
+        hostname:
+          description: One of more KDC servers.
+          type: string
+          example: kerberos-02.delphix.com
+        port:
+          description: One of more KDC servers.
+          type: integer
+          example: 88
   requestBodies:
     SearchBody:
       x-skip-codegen-attr: description
