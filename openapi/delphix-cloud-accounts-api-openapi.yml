@@ -232,254 +232,7 @@ paths:
       summary: Delete cloud account
       x-summary-source: derived
 components:
-  schemas:
-    CloudAccount:
-      description: A Cloud Account.
-      type: object
-      properties:
-        id:
-          description: The Cloud Account object entity ID.
-          type: string
-          example: db-123
-        name:
-          description: The Cloud Account name.
-          type: string
-          example: my-db-123
-        region:
-          description: The PaaS provider region of the Cloud Account.
-          type: string
-          example: us-west-2
-        plugin_id:
-          description: Id of the PaaS plugin which manages this Environment.
-          type: string
-          example: my-db-123
-        plugin_name:
-          description: Name of the plugin.
-          type: string
-          example: AWS
-        connection_status:
-          description: The state of the connection to the Cloud Account.
-          type: string
-          enum:
-          - ONLINE
-          - CONNECTION_ERROR
-        connection_status_details:
-          description: If set, details about the status of the connection to the Cloud Account.
-          type: string
-        account_parameters:
-          description: 'The plugin parameters for this Cloud Account. Sensitive fields (marked x-sensitive in the plugin schema) are masked with ******.
-
-            '
-          type:
-          - object
-          - 'null'
-          additionalProperties: true
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    PaginatedResponseMetadata:
-      type: object
-      properties:
-        prev_cursor:
-          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        next_cursor:
-          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        total:
-          description: The total number of results. This value may not be provided.
-          type: integer
-          format: int_64
-    CreateCloudAccountParameters:
-      description: Parameters to create a Cloud Account.
-      type: object
-      required:
-      - name
-      - plugin_id
-      - account_parameters
-      - region
-      allOf:
-      - $ref: '#/components/schemas/CloudAccountParameters'
-      - type: object
-        properties:
-          make_current_account_owner:
-            type: boolean
-            default: true
-            description: Whether the account creating this environment must be configured as owner of the environment.
-          plugin_id:
-            description: The ID of the plugin for which to create the Environment.
-            type: string
-            example: plugin-123
-            minLength: 1
-            maxLength: 256
-          tags:
-            type: array
-            maxItems: 1000
-            description: The tags to be created for Cloud Account.
-            items:
-              $ref: '#/components/schemas/Tag'
-            minItems: 1
-    CloudAccountMetadataParameters:
-      description: Parameters to get metadata for a Cloud Account.
-      type: object
-      required:
-      - source_instance_id
-      properties:
-        target_cloud_account_id:
-          type: string
-          description: The ID of the Cloud Account to provision or refresh the instance into.
-        source_instance_id:
-          type: string
-          description: The ID of the source instance used to filter metadata.
-        operation_type:
-          description: optional operation type to filter the result for that operation only.
-          type: string
-          enum:
-          - PROVISION
-          - REFRESH
-    CloudAccountMetadata:
-      description: Cloud Account metadata parameters.
-      type: object
-      properties:
-        metadata:
-          description: metadata of Cloud Account.
-          type: string
-    DeleteTag:
-      type: object
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-        tags:
-          description: List of tags to be deleted
-          type: array
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/Tag'
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
-    CloudAccountDeleteParameters:
-      description: Parameters to delete a Cloud Account.
-      type: object
-      properties:
-        force_delete:
-          description: Whether to force delete the Cloud Account. Allows a Cloud Account to be deleted even in the presence of managed objects by not trying to delete them, at the risk of leaving the PaaS Databases and Instances orphaned.
-          type: boolean
-          default: false
-    UpdateCloudAccountParameters:
-      description: Parameters to update a Cloud Account.
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/CloudAccountParameters'
-    TagsRequest:
-      type: object
-      required:
-      - tags
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-    TagsResponse:
-      type: object
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    CloudAccountParameters:
-      description: Parameters to create a Cloud Account.
-      type: object
-      properties:
-        region:
-          description: The PaaS provider region of the environment. Each environment is restricted to managing PaaS Databases and snapshots in a single region.
-          type: string
-          example: us-west-2
-          minLength: 1
-          maxLength: 1024
-        name:
-          description: The Environment name.
-          type: string
-          example: my-env-123
-          minLength: 1
-          maxLength: 256
-        account_parameters:
-          description: The parameters specified by the plugin schema for Cloud Accounts.
-          type:
-          - object
-          - 'null'
-          additionalProperties: true
-          example:
-            foo: bar
-    Tag:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
   parameters:
-    cloudAccountIdParam:
-      in: path
-      name: cloudAccountId
-      required: true
-      schema:
-        type: string
-        minLength: 1
-      description: The ID of the Cloud Account.
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
     cloudAccountSortParam:
       name: sort
       in: query
@@ -507,7 +260,65 @@ components:
         - connection_status_details
         - -connection_status_details
         example: name
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    cloudAccountIdParam:
+      in: path
+      name: cloudAccountId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the Cloud Account.
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
   requestBodies:
+    DeleteTags:
+      description: The parameters to delete tags
+      content:
+        application/json:
+          schema:
+            x-body-name: environment
+            $ref: '#/components/schemas/DeleteTag'
+          examples:
+            delete_all_tags:
+              description: Delete all tags for given object - No request body required
+              summary: Delete all tags
+              value: {}
+            delete_tags_by_key:
+              description: Delete all tags for given object with matching key
+              summary: Delete tags by key
+              value:
+                key: key-1
+            delete_tags_by_key_value:
+              description: Delete tag for given object with matching key and value
+              summary: Delete a tag by key & value
+              value:
+                key: key-1
+                value: value-1
+            delete_multiple_tags_by_key_value:
+              description: Delete tags for given list of tags with matching key and value
+              summary: Delete multiple tags by key & value
+              value:
+                tags:
+                - key: key-1
+                  value: value-1
+                - key: key-2
+                  value: value-2
     SearchBody:
       x-skip-codegen-attr: description
       description: 'A request body containing a filter expression. This enables searching
@@ -688,38 +499,227 @@ components:
               summary: Overriding operator precedence
               value:
                 filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
-    DeleteTags:
-      description: The parameters to delete tags
-      content:
-        application/json:
-          schema:
-            x-body-name: environment
-            $ref: '#/components/schemas/DeleteTag'
-          examples:
-            delete_all_tags:
-              description: Delete all tags for given object - No request body required
-              summary: Delete all tags
-              value: {}
-            delete_tags_by_key:
-              description: Delete all tags for given object with matching key
-              summary: Delete tags by key
-              value:
-                key: key-1
-            delete_tags_by_key_value:
-              description: Delete tag for given object with matching key and value
-              summary: Delete a tag by key & value
-              value:
-                key: key-1
-                value: value-1
-            delete_multiple_tags_by_key_value:
-              description: Delete tags for given list of tags with matching key and value
-              summary: Delete multiple tags by key & value
-              value:
-                tags:
-                - key: key-1
-                  value: value-1
-                - key: key-2
-                  value: value-2
+  schemas:
+    CloudAccount:
+      description: A Cloud Account.
+      type: object
+      properties:
+        id:
+          description: The Cloud Account object entity ID.
+          type: string
+          example: db-123
+        name:
+          description: The Cloud Account name.
+          type: string
+          example: my-db-123
+        region:
+          description: The PaaS provider region of the Cloud Account.
+          type: string
+          example: us-west-2
+        plugin_id:
+          description: Id of the PaaS plugin which manages this Environment.
+          type: string
+          example: my-db-123
+        plugin_name:
+          description: Name of the plugin.
+          type: string
+          example: AWS
+        connection_status:
+          description: The state of the connection to the Cloud Account.
+          type: string
+          enum:
+          - ONLINE
+          - CONNECTION_ERROR
+        connection_status_details:
+          description: If set, details about the status of the connection to the Cloud Account.
+          type: string
+        account_parameters:
+          description: 'The plugin parameters for this Cloud Account. Sensitive fields (marked x-sensitive in the plugin schema) are masked with ******.
+
+            '
+          type:
+          - object
+          - 'null'
+          additionalProperties: true
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    DeleteTag:
+      type: object
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        tags:
+          description: List of tags to be deleted
+          type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    UpdateCloudAccountParameters:
+      description: Parameters to update a Cloud Account.
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/CloudAccountParameters'
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    CreateCloudAccountParameters:
+      description: Parameters to create a Cloud Account.
+      type: object
+      required:
+      - name
+      - plugin_id
+      - account_parameters
+      - region
+      allOf:
+      - $ref: '#/components/schemas/CloudAccountParameters'
+      - type: object
+        properties:
+          make_current_account_owner:
+            type: boolean
+            default: true
+            description: Whether the account creating this environment must be configured as owner of the environment.
+          plugin_id:
+            description: The ID of the plugin for which to create the Environment.
+            type: string
+            example: plugin-123
+            minLength: 1
+            maxLength: 256
+          tags:
+            type: array
+            maxItems: 1000
+            description: The tags to be created for Cloud Account.
+            items:
+              $ref: '#/components/schemas/Tag'
+            minItems: 1
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    CloudAccountMetadataParameters:
+      description: Parameters to get metadata for a Cloud Account.
+      type: object
+      required:
+      - source_instance_id
+      properties:
+        target_cloud_account_id:
+          type: string
+          description: The ID of the Cloud Account to provision or refresh the instance into.
+        source_instance_id:
+          type: string
+          description: The ID of the source instance used to filter metadata.
+        operation_type:
+          description: optional operation type to filter the result for that operation only.
+          type: string
+          enum:
+          - PROVISION
+          - REFRESH
+    CloudAccountDeleteParameters:
+      description: Parameters to delete a Cloud Account.
+      type: object
+      properties:
+        force_delete:
+          description: Whether to force delete the Cloud Account. Allows a Cloud Account to be deleted even in the presence of managed objects by not trying to delete them, at the risk of leaving the PaaS Databases and Instances orphaned.
+          type: boolean
+          default: false
+    CloudAccountParameters:
+      description: Parameters to create a Cloud Account.
+      type: object
+      properties:
+        region:
+          description: The PaaS provider region of the environment. Each environment is restricted to managing PaaS Databases and snapshots in a single region.
+          type: string
+          example: us-west-2
+          minLength: 1
+          maxLength: 1024
+        name:
+          description: The Environment name.
+          type: string
+          example: my-env-123
+          minLength: 1
+          maxLength: 256
+        account_parameters:
+          description: The parameters specified by the plugin schema for Cloud Accounts.
+          type:
+          - object
+          - 'null'
+          additionalProperties: true
+          example:
+            foo: bar
+    CloudAccountMetadata:
+      description: Cloud Account metadata parameters.
+      type: object
+      properties:
+        metadata:
+          description: metadata of Cloud Account.
+          type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

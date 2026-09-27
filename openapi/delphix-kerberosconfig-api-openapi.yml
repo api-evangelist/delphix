@@ -112,24 +112,6 @@ paths:
                     $ref: '#/components/schemas/PaginatedResponseMetadata'
 components:
   parameters:
-    kerberosConfigIdParam:
-      in: path
-      name: kerberosConfigId
-      required: true
-      schema:
-        type: string
-        minLength: 1
-      description: The ID of the kerberos config.
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
     cursor:
       name: cursor
       in: query
@@ -168,7 +150,34 @@ components:
         - enabled
         - -enabled
         example: name
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    kerberosConfigIdParam:
+      in: path
+      name: kerberosConfigId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the kerberos config.
   schemas:
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
     PaginatedResponseMetadata:
       type: object
       properties:
@@ -236,15 +245,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/KDCServers'
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
     KDCServers:
       properties:
         hostname:

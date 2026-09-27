@@ -126,48 +126,12 @@ paths:
                     $ref: '#/components/schemas/PaginatedResponseMetadata'
 components:
   schemas:
-    VirtualizationJobEvent:
-      description: An event associated with a virtualization engine job.
-      type: object
-      properties:
-        event_type:
-          description: The type of the event.
-          type: string
-          enum:
-          - INFO
-          - WARNING
-          - ERROR
-        event_timestamp:
-          description: The time the event occurred.
-          type: string
-          format: date-time
-        event_state:
-          description: The state of the event.
-          type: string
-          enum:
-          - INITIAL
-          - RUNNING
-          - SUSPENDED
-          - CANCELED
-          - COMPLETED
-          - RETRYABLE
-          - FAILED
-        percent_complete:
-          description: The percentage of the event that is complete.
-          type: integer
-          format: int32
-        message_code:
-          description: Message ID associated with the event.
-          type: string
-        message_details:
-          description: Localized message details.
-          type: string
-        message_action:
-          description: Localized message action.
-          type: string
-        message_command_output:
-          description: Command output associated with the event, if applicable.
-          type: string
+    TargetJobType:
+      description: A DCT specific job type
+      type: string
+      enum:
+      - REPLICATION_PROFILE_EXECUTE
+      - OFFLINE_REPLICATION_RECEIVE
     VirtualizationJob:
       description: A virtualization engine job.
       type: object
@@ -237,12 +201,57 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/VirtualizationJobEvent'
-    TargetJobType:
-      description: A DCT specific job type
-      type: string
-      enum:
-      - REPLICATION_PROFILE_EXECUTE
-      - OFFLINE_REPLICATION_RECEIVE
+    VirtualizationJobEvent:
+      description: An event associated with a virtualization engine job.
+      type: object
+      properties:
+        event_type:
+          description: The type of the event.
+          type: string
+          enum:
+          - INFO
+          - WARNING
+          - ERROR
+        event_timestamp:
+          description: The time the event occurred.
+          type: string
+          format: date-time
+        event_state:
+          description: The state of the event.
+          type: string
+          enum:
+          - INITIAL
+          - RUNNING
+          - SUSPENDED
+          - CANCELED
+          - COMPLETED
+          - RETRYABLE
+          - FAILED
+        percent_complete:
+          description: The percentage of the event that is complete.
+          type: integer
+          format: int32
+        message_code:
+          description: Message ID associated with the event.
+          type: string
+        message_details:
+          description: Localized message details.
+          type: string
+        message_action:
+          description: Localized message action.
+          type: string
+        message_command_output:
+          description: Command output associated with the event, if applicable.
+          type: string
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
     TargetObjectType:
       description: A DCT specific object type.
       type: string
@@ -261,26 +270,29 @@ components:
           description: The total number of results. This value may not be provided.
           type: integer
           format: int_64
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
   parameters:
-    limit:
-      name: limit
+    ObjectIdParam:
+      name: object_id
       in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
+      description: The object id to filter by.
+      required: false
       schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
+        type: string
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+    JobTypeParam:
+      name: job_type
+      in: query
+      description: The job type to filter by.
+      required: false
+      schema:
+        $ref: '#/components/schemas/TargetJobType'
     virtualizationJobsSortParam:
       name: sort
       in: query
@@ -319,6 +331,16 @@ components:
         - run_duration
         - -run_duration
         example: engine_id
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
     ObjectTypeParam:
       name: object_type
       in: query
@@ -326,28 +348,6 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/TargetObjectType'
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
-    ObjectIdParam:
-      name: object_id
-      in: query
-      description: The object id to filter by.
-      required: false
-      schema:
-        type: string
-    JobTypeParam:
-      name: job_type
-      in: query
-      description: The job type to filter by.
-      required: false
-      schema:
-        $ref: '#/components/schemas/TargetJobType'
   requestBodies:
     SearchBody:
       x-skip-codegen-attr: description

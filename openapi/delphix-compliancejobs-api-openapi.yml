@@ -501,119 +501,6 @@ components:
         result:
           description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
           type: object
-    ExecutionStatus:
-      description: The status of a masking or discovery job.
-      type: string
-      enum:
-      - PENDING
-      - QUEUED
-      - RUNNING
-      - CANCELLED
-      - FAILED
-      - SUCCEEDED
-      - WARNING
-      - WAITING
-      example: RUNNING
-    PaginatedResponseMetadata:
-      type: object
-      properties:
-        prev_cursor:
-          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        next_cursor:
-          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        total:
-          description: The total number of results. This value may not be provided.
-          type: integer
-          format: int_64
-    JobTaskEvent:
-      properties:
-        message_details:
-          type: string
-    ComplianceJobScript:
-      description: A SQL script to be run before or after a compliance job.
-      type: object
-      required:
-      - name
-      - contents
-      properties:
-        name:
-          description: The name of the SQL script.
-          type: string
-          example: pre_script.sql
-        contents:
-          description: The contents of the SQL script.
-          type: string
-          maxLength: 65535
-    VirtualizationTask:
-      deprecated: true
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualizationTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    DeleteTag:
-      type: object
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-        tags:
-          description: List of tags to be deleted
-          type: array
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/Tag'
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
     CreateComplianceJobRequest:
       description: Parameters to create a compliance job.
       type: object
@@ -812,74 +699,43 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
-    JobTask:
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    ConnectorTypeEnum:
+    ExecutionStatus:
+      description: The status of a masking or discovery job.
       type: string
       enum:
-      - DATABASE
-      - FILE
-      - MAINFRAME_DATASET
-      example: DATABASE
-    ExecuteComplianceJobRequest:
+      - PENDING
+      - QUEUED
+      - RUNNING
+      - CANCELLED
+      - FAILED
+      - SUCCEEDED
+      - WARNING
+      - WAITING
+      example: RUNNING
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    ComplianceJobScript:
+      description: A SQL script to be run before or after a compliance job.
       type: object
-      description: Parameters to execute a compliance job.
+      required:
+      - name
+      - contents
       properties:
-        target_connector_id:
-          description: The ID of the target connector. This field is only used for multi-tenant jobs.
-          type:
-          - string
-          - 'null'
-          example: 1-DATABASE-3
-        source_connector_id:
-          description: The ID of the source connector. This field is only used for multi-tenant and on-the-fly jobs.
-          type:
-          - string
-          - 'null'
-          example: 1-DATABASE-4
-    Engine:
+        name:
+          description: The name of the SQL script.
+          type: string
+          example: pre_script.sql
+        contents:
+          description: The contents of the SQL script.
+          type: string
+          maxLength: 65535
+    JobTaskEvent:
       properties:
-        engine_id:
+        message_details:
           type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
     TagsRequest:
       type: object
       required:
@@ -893,255 +749,29 @@ components:
           minItems: 1
           maxItems: 1000
           uniqueItems: true
-    TagsResponse:
+    DeleteTag:
       type: object
       properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
         tags:
-          description: Array of tags with key value pairs
+          description: List of tags to be deleted
           type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
           items:
             $ref: '#/components/schemas/Tag'
-    Connector:
-      description: Connectors are the way users define the data sources to which the Masking Engine should connect.
-      type: object
-      properties:
-        id:
-          description: The Connector entity ID.
-          type: string
-          example: 1-database-123
-        name:
-          description: The Connector name.
-          type: string
-          example: connector-name
-        engine_id:
-          description: The id of the Compliance Engine that this Connector belongs to.
-          type: string
-          example: '123'
-        engine_name:
-          description: The name of the Compliance Engine that this Connector belongs to.
-          type: string
-          example: my-compliance-engine-1
-        type:
-          description: The type of Connector. One of Database, File, or Mainframe.
-          $ref: '#/components/schemas/ConnectorTypeEnum'
-        hostname:
-          description: The network hostname or IP address of the database server.
-          type: string
-          example: database_server.mycompany.co
-        port:
-          description: The TCP port of the server.
-          type: integer
-          format: int32
-          minimum: 1
-          maximum: 65535
-          example: 9100
-        username:
-          description: The username this Connector will use to connect to the database.
-          type: string
-        password:
-          x-dct-toolkit-credential-field: true
-          description: The password this Connector will use to connect to the database.
-          type: string
-        auth_present:
-          description: Whether this connector has authentication credentials set
-          type: boolean
-        database_type:
-          description: The database variant, such as Oracle or MSSQL Server
-          type: string
-          enum:
-          - AURORA_POSTGRES
-          - DB2
-          - DB2_ISERIES
-          - DB2_MAINFRAME
-          - EXTENDED
-          - GENERIC
-          - MARIADB
-          - MSSQL
-          - MYSQL
-          - ORACLE
-          - POSTGRES
-          - RDS_POSTGRES
-          - SYBASE
-          - YUGABYTEDB_POSTGRES
-          - COCKROACHDB_POSTGRES
-          example: ORACLE
-        custom_driver_name:
-          description: The name of the custom JDBC driver for this connector
-          type: string
-        database_name:
-          description: The database name for this connector
-          type: string
-        instance_name:
-          description: The instance name for this connector
-          type: string
-        jdbc:
-          description: The jdbc URL for this connector
-          type: string
-        schema_name:
-          description: The schema name for this connector
-          type: string
-        sid:
-          description: The SID value for this connector. This field is specific to Oracle database connectors
-          type: string
-        kerberos_auth:
-          description: Whether kerberos authentication is enabled for this connector
-          type: boolean
-        service_principal:
-          description: The service principal to use for kerberos authentication
-          type: string
-        enable_logger:
-          description: Whether the logger is enable for this connector
-          type: boolean
-        file_type:
-          description: The type of file this connector is configured to access. Immutable after creation.
-          type: string
-          enum:
-          - DELIMITED
-          - FIXED_WIDTH
-          - XML
-          - JSON
-          - PARQUET
-          example: DELIMITED
-        connection_mode:
-          description: The connection mode for file connectors.
-          type: string
-          enum:
-          - FTP
-          - FTPS
-          - SFTP
-          - MOUNT
-          - AWS_S3
-          - S3_COMPATIBLE
-          - AZURE_BLOB_STORAGE
-          example: SFTP
-        path:
-          description: The path on the remote server for file connections.
-          type: string
-        ssh_key:
-          description: 'The DCT SSH key UUID (from POST /ssh-keys) to use for SFTP connections. DCT pushes the key bytes to the engine filesystem before connector sync.
-
-            '
-          type: string
-        user_dir_is_root:
-          description: For SFTP connections only, whether the user dir is set to root.
-          type: boolean
-          default: false
-        mount_information_id:
-          description: The DCT UUID of the mount information record (MOUNT mode only).
-          type: string
-        bucket_name:
-          description: The storage bucket name (AWS_S3 and S3_COMPATIBLE modes).
-          type: string
-        region:
-          description: The cloud storage region (AWS_S3 and S3_COMPATIBLE modes).
-          type: string
-        access_key:
-          x-dct-toolkit-credential-field: true
-          description: The access key for cloud storage authentication (AWS and AZURE modes).
-          type: string
-        secret_key:
-          x-dct-toolkit-credential-field: true
-          description: The secret key for AWS storage authentication.
-          type: string
-        auth_type:
-          description: 'The authentication type for cloud storage. For AWS_S3: AWS_ROLE or AWS_SECRET. For AZURE_BLOB_STORAGE: AZURE_MANAGED_IDENTITY or AZURE_SECRET.
-
-            '
-          type: string
-          enum:
-          - AWS_ROLE
-          - AWS_SECRET
-          - AZURE_MANAGED_IDENTITY
-          - AZURE_SECRET
-        prefix:
-          description: The key prefix for cloud storage (AWS and AZURE modes).
-          type: string
-        delimiter:
-          description: The key delimiter for cloud storage (AWS and AZURE modes).
-          type: string
-        service_endpoint:
-          description: The service endpoint URL for S3_COMPATIBLE mode.
-          type: string
-        azure_account_name:
-          description: The Azure storage account name (AZURE_BLOB_STORAGE mode).
-          type: string
-        azure_container_name:
-          description: The Azure blob container name (AZURE_BLOB_STORAGE mode).
-          type: string
-        is_mvs_storage:
-          description: Whether the mainframe connector uses MVS storage. Read-only.
-          type: boolean
-          readOnly: true
-        password_vault_auth:
-          description: Whether the connector uses password vault authentication. Read-only.
-          type: boolean
-          readOnly: true
-        credential_path_id:
-          description: The DCT UUID of the credential path record for password vault auth.
-          type: string
-        platform:
-          description: This database or file connection type associated with the connector
-          type: string
-          example: ORACLE
-        data_connection_id:
-          description: The ID of the associated DataConnection.
-          type: string
-          example: data-connection-1
-        account_id:
-          description: The ID of the account who created this connector.
-          type: integer
-          format: int64
-          readOnly: true
-          example: 1
-        account_name:
-          description: The account name of the DCT user who created this connector.
-          type: string
-          readOnly: true
-          example: John Doe
-        dct_managed:
-          description: Whether this connector is managed by DCT or not.
-          type: boolean
-          readOnly: true
-        job_orchestrator_id:
-          description: The ID of the job orchestrator that is associated with this connector.
-          type: string
-        job_orchestrator_name:
-          description: The name of the job orchestrator that is associated with this connector.
-          type: string
-        file_reference_id:
-          description: The reference uri/id of the connection-properties file used by the connector.
-          type: string
-        owning_entity_id:
-          description: The ID of the owning entity, if any.
-          type: string
-          readOnly: true
-        owning_entity_name:
-          description: The name of the owning entity, if any.
-          type: string
-          readOnly: true
-        owning_entity_type:
-          description: The type of the owning entity, if any.
-          type: string
-          enum:
-          - PAAS_INSTANCE
-          readOnly: true
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-      example:
-        id: 1-database-123
-        name: connector-name
-        engine_id: 123
-        type: DATABASE
-        hostname: database_server.example.com
-        database_type: POSTGRES
-        schema_name: public
-        database_name: public
-        port: 5432
-        username: user-123
-        kerberos_auth: false
-        service_principal: krbuser
     UpdateComplianceJobRequest:
       description: Parameters to update a compliance job.
       x-jackson-optional-nullable-helpers: true
@@ -1346,19 +976,106 @@ components:
           type: array
           items:
             type: string
-    ComplianceJobConnectorsResponse:
-      description: Connector(s) for a compliance job.
+    PaginatedResponseMetadata:
       type: object
       properties:
-        connector:
-          $ref: '#/components/schemas/Connector'
-        on_the_fly_connector:
-          $ref: '#/components/schemas/Connector'
-    VirtualizationTaskEvent:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    VirtualizationTask:
       deprecated: true
       properties:
-        message_details:
+        id:
           type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    ExecuteComplianceJobRequest:
+      type: object
+      description: Parameters to execute a compliance job.
+      properties:
+        target_connector_id:
+          description: The ID of the target connector. This field is only used for multi-tenant jobs.
+          type:
+          - string
+          - 'null'
+          example: 1-DATABASE-3
+        source_connector_id:
+          description: The ID of the source connector. This field is only used for multi-tenant and on-the-fly jobs.
+          type:
+          - string
+          - 'null'
+          example: 1-DATABASE-4
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
     ComplianceJob:
       description: A compliance job.
       type: object
@@ -1671,25 +1388,493 @@ components:
           type: array
           items:
             type: string
-    Tag:
-      type: object
-      required:
-      - key
-      - value
+    Engine:
       properties:
-        key:
-          description: Key of the tag
+        engine_id:
           type: string
           minLength: 1
           maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
+        engine_name:
           type: string
           minLength: 1
           maxLength: 4000
-          example: value-1
+    Connector:
+      description: Connectors are the way users define the data sources to which the Masking Engine should connect.
+      type: object
+      properties:
+        id:
+          description: The Connector entity ID.
+          type: string
+          example: 1-database-123
+        name:
+          description: The Connector name.
+          type: string
+          example: connector-name
+        engine_id:
+          description: The id of the Compliance Engine that this Connector belongs to.
+          type: string
+          example: '123'
+        engine_name:
+          description: The name of the Compliance Engine that this Connector belongs to.
+          type: string
+          example: my-compliance-engine-1
+        type:
+          description: The type of Connector. One of Database, File, or Mainframe.
+          $ref: '#/components/schemas/ConnectorTypeEnum'
+        hostname:
+          description: The network hostname or IP address of the database server.
+          type: string
+          example: database_server.mycompany.co
+        port:
+          description: The TCP port of the server.
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 65535
+          example: 9100
+        username:
+          description: The username this Connector will use to connect to the database.
+          type: string
+        password:
+          x-dct-toolkit-credential-field: true
+          description: The password this Connector will use to connect to the database.
+          type: string
+        auth_present:
+          description: Whether this connector has authentication credentials set
+          type: boolean
+        database_type:
+          description: The database variant, such as Oracle or MSSQL Server
+          type: string
+          enum:
+          - AURORA_POSTGRES
+          - DB2
+          - DB2_ISERIES
+          - DB2_MAINFRAME
+          - EXTENDED
+          - GENERIC
+          - MARIADB
+          - MSSQL
+          - MYSQL
+          - ORACLE
+          - POSTGRES
+          - RDS_POSTGRES
+          - SYBASE
+          - YUGABYTEDB_POSTGRES
+          - COCKROACHDB_POSTGRES
+          example: ORACLE
+        custom_driver_name:
+          description: The name of the custom JDBC driver for this connector
+          type: string
+        database_name:
+          description: The database name for this connector
+          type: string
+        instance_name:
+          description: The instance name for this connector
+          type: string
+        jdbc:
+          description: The jdbc URL for this connector
+          type: string
+        schema_name:
+          description: The schema name for this connector
+          type: string
+        sid:
+          description: The SID value for this connector. This field is specific to Oracle database connectors
+          type: string
+        kerberos_auth:
+          description: Whether kerberos authentication is enabled for this connector
+          type: boolean
+        service_principal:
+          description: The service principal to use for kerberos authentication
+          type: string
+        enable_logger:
+          description: Whether the logger is enable for this connector
+          type: boolean
+        file_type:
+          description: The type of file this connector is configured to access. Immutable after creation.
+          type: string
+          enum:
+          - DELIMITED
+          - FIXED_WIDTH
+          - XML
+          - JSON
+          - PARQUET
+          example: DELIMITED
+        connection_mode:
+          description: The connection mode for file connectors.
+          type: string
+          enum:
+          - FTP
+          - FTPS
+          - SFTP
+          - MOUNT
+          - AWS_S3
+          - S3_COMPATIBLE
+          - AZURE_BLOB_STORAGE
+          example: SFTP
+        path:
+          description: The path on the remote server for file connections.
+          type: string
+        ssh_key:
+          description: 'The DCT SSH key UUID (from POST /ssh-keys) to use for SFTP connections. DCT pushes the key bytes to the engine filesystem before connector sync.
+
+            '
+          type: string
+        user_dir_is_root:
+          description: For SFTP connections only, whether the user dir is set to root.
+          type: boolean
+          default: false
+        mount_information_id:
+          description: The DCT UUID of the mount information record (MOUNT mode only).
+          type: string
+        bucket_name:
+          description: The storage bucket name (AWS_S3 and S3_COMPATIBLE modes).
+          type: string
+        region:
+          description: The cloud storage region (AWS_S3 and S3_COMPATIBLE modes).
+          type: string
+        access_key:
+          x-dct-toolkit-credential-field: true
+          description: The access key for cloud storage authentication (AWS and AZURE modes).
+          type: string
+        secret_key:
+          x-dct-toolkit-credential-field: true
+          description: The secret key for AWS storage authentication.
+          type: string
+        auth_type:
+          description: 'The authentication type for cloud storage. For AWS_S3: AWS_ROLE or AWS_SECRET. For AZURE_BLOB_STORAGE: AZURE_MANAGED_IDENTITY or AZURE_SECRET.
+
+            '
+          type: string
+          enum:
+          - AWS_ROLE
+          - AWS_SECRET
+          - AZURE_MANAGED_IDENTITY
+          - AZURE_SECRET
+        prefix:
+          description: The key prefix for cloud storage (AWS and AZURE modes).
+          type: string
+        delimiter:
+          description: The key delimiter for cloud storage (AWS and AZURE modes).
+          type: string
+        service_endpoint:
+          description: The service endpoint URL for S3_COMPATIBLE mode.
+          type: string
+        azure_account_name:
+          description: The Azure storage account name (AZURE_BLOB_STORAGE mode).
+          type: string
+        azure_container_name:
+          description: The Azure blob container name (AZURE_BLOB_STORAGE mode).
+          type: string
+        is_mvs_storage:
+          description: Whether the mainframe connector uses MVS storage. Read-only.
+          type: boolean
+          readOnly: true
+        password_vault_auth:
+          description: Whether the connector uses password vault authentication. Read-only.
+          type: boolean
+          readOnly: true
+        credential_path_id:
+          description: The DCT UUID of the credential path record for password vault auth.
+          type: string
+        platform:
+          description: This database or file connection type associated with the connector
+          type: string
+          example: ORACLE
+        data_connection_id:
+          description: The ID of the associated DataConnection.
+          type: string
+          example: data-connection-1
+        account_id:
+          description: The ID of the account who created this connector.
+          type: integer
+          format: int64
+          readOnly: true
+          example: 1
+        account_name:
+          description: The account name of the DCT user who created this connector.
+          type: string
+          readOnly: true
+          example: John Doe
+        dct_managed:
+          description: Whether this connector is managed by DCT or not.
+          type: boolean
+          readOnly: true
+        job_orchestrator_id:
+          description: The ID of the job orchestrator that is associated with this connector.
+          type: string
+        job_orchestrator_name:
+          description: The name of the job orchestrator that is associated with this connector.
+          type: string
+        file_reference_id:
+          description: The reference uri/id of the connection-properties file used by the connector.
+          type: string
+        owning_entity_id:
+          description: The ID of the owning entity, if any.
+          type: string
+          readOnly: true
+        owning_entity_name:
+          description: The name of the owning entity, if any.
+          type: string
+          readOnly: true
+        owning_entity_type:
+          description: The type of the owning entity, if any.
+          type: string
+          enum:
+          - PAAS_INSTANCE
+          readOnly: true
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+      example:
+        id: 1-database-123
+        name: connector-name
+        engine_id: 123
+        type: DATABASE
+        hostname: database_server.example.com
+        database_type: POSTGRES
+        schema_name: public
+        database_name: public
+        port: 5432
+        username: user-123
+        kerberos_auth: false
+        service_principal: krbuser
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    ConnectorTypeEnum:
+      type: string
+      enum:
+      - DATABASE
+      - FILE
+      - MAINFRAME_DATASET
+      example: DATABASE
+    ComplianceJobConnectorsResponse:
+      description: Connector(s) for a compliance job.
+      type: object
+      properties:
+        connector:
+          $ref: '#/components/schemas/Connector'
+        on_the_fly_connector:
+          $ref: '#/components/schemas/Connector'
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    complianceJobIdParam:
+      in: path
+      name: complianceJobId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the compliance job.
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+    complianceJobsSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - is_on_the_fly_masking
+        - -is_on_the_fly_masking
+        - type
+        - -type
+        - execution_type
+        - -execution_type
+        - engine_job_id
+        - -engine_job_id
+        - creation_date
+        - -creation_date
+        - engine_id
+        - -engine_id
+        - engine_name
+        - -engine_name
+        - last_completed_execution_date
+        - -last_completed_execution_date
+        - last_execution_status
+        - -last_execution_status
+        - last_execution_id
+        - -last_execution_id
+        - last_execution_start_time
+        - -last_execution_start_time
+        - last_execution_run_time
+        - -last_execution_run_time
+        - rule_set_id
+        - -rule_set_id
+        - rule_set_name
+        - -rule_set_name
+        - pre_script.name
+        - -pre_script.name
+        - pre_script.contents
+        - -pre_script.contents
+        - post_script.name
+        - -post_script.name
+        - post_script.contents
+        - -post_script.contents
+        - connector_type
+        - -connector_type
+        - description
+        - -description
+        - dataset_id
+        - -dataset_id
+        - retain_execution_data
+        - -retain_execution_data
+        - parallelism_degree
+        - -parallelism_degree
+        - is_multi_tenant
+        - -is_multi_tenant
+        - auto_calculate_unload_split
+        - -auto_calculate_unload_split
+        - hyperscale_enabled
+        - -hyperscale_enabled
+        - consider_continuous_compliance_warning_event_as
+        - -consider_continuous_compliance_warning_event_as
+        - create_all_indexes_with_nologging
+        - -create_all_indexes_with_nologging
+        - disable_parallel_index_creation
+        - -disable_parallel_index_creation
+        - enable_all_constraints_with_novalidate
+        - -enable_all_constraints_with_novalidate
+        - max_parallel_connections_per_table
+        - -max_parallel_connections_per_table
+        - max_records_per_split
+        - -max_records_per_split
+        - max_split_per_connection
+        - -max_split_per_connection
+        - max_concurrent_target_connections
+        - -max_concurrent_target_connections
+        - max_concurrent_source_connections
+        - -max_concurrent_source_connections
+        - num_input_streams
+        - -num_input_streams
+        - stream_row_limit
+        - -stream_row_limit
+        - feedback_size
+        - -feedback_size
+        - min_memory
+        - -min_memory
+        - max_memory
+        - -max_memory
+        - discovery_policy_id
+        - -discovery_policy_id
+        - discovery_policy_name
+        - -discovery_policy_name
+        - account_id
+        - -account_id
+        - account_name
+        - -account_name
+        - dct_managed
+        - -dct_managed
+        - fail_immediately
+        - -fail_immediately
+        - batch_update
+        - -batch_update
+        - commit_size
+        - -commit_size
+        - num_output_threads_per_stream
+        - -num_output_threads_per_stream
+        - on_the_fly_source_connector_id
+        - -on_the_fly_source_connector_id
+        - reset_profiling_assignments
+        - -reset_profiling_assignments
+        - multiple_profiler_check
+        - -multiple_profiler_check
+        - truncate_tables
+        - -truncate_tables
+        - drop_indexes
+        - -drop_indexes
+        - hyperscale_state
+        - -hyperscale_state
+        example: name
   requestBodies:
+    DeleteTags:
+      description: The parameters to delete tags
+      content:
+        application/json:
+          schema:
+            x-body-name: environment
+            $ref: '#/components/schemas/DeleteTag'
+          examples:
+            delete_all_tags:
+              description: Delete all tags for given object - No request body required
+              summary: Delete all tags
+              value: {}
+            delete_tags_by_key:
+              description: Delete all tags for given object with matching key
+              summary: Delete tags by key
+              value:
+                key: key-1
+            delete_tags_by_key_value:
+              description: Delete tag for given object with matching key and value
+              summary: Delete a tag by key & value
+              value:
+                key: key-1
+                value: value-1
+            delete_multiple_tags_by_key_value:
+              description: Delete tags for given list of tags with matching key and value
+              summary: Delete multiple tags by key & value
+              value:
+                tags:
+                - key: key-1
+                  value: value-1
+                - key: key-2
+                  value: value-2
     SearchBody:
       x-skip-codegen-attr: description
       description: 'A request body containing a filter expression. This enables searching
@@ -1870,191 +2055,6 @@ components:
               summary: Overriding operator precedence
               value:
                 filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
-    DeleteTags:
-      description: The parameters to delete tags
-      content:
-        application/json:
-          schema:
-            x-body-name: environment
-            $ref: '#/components/schemas/DeleteTag'
-          examples:
-            delete_all_tags:
-              description: Delete all tags for given object - No request body required
-              summary: Delete all tags
-              value: {}
-            delete_tags_by_key:
-              description: Delete all tags for given object with matching key
-              summary: Delete tags by key
-              value:
-                key: key-1
-            delete_tags_by_key_value:
-              description: Delete tag for given object with matching key and value
-              summary: Delete a tag by key & value
-              value:
-                key: key-1
-                value: value-1
-            delete_multiple_tags_by_key_value:
-              description: Delete tags for given list of tags with matching key and value
-              summary: Delete multiple tags by key & value
-              value:
-                tags:
-                - key: key-1
-                  value: value-1
-                - key: key-2
-                  value: value-2
-  parameters:
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
-    complianceJobIdParam:
-      in: path
-      name: complianceJobId
-      schema:
-        type: string
-        minLength: 1
-      required: true
-      description: The ID of the compliance job.
-    complianceJobsSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
-      example: id
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - name
-        - -name
-        - is_on_the_fly_masking
-        - -is_on_the_fly_masking
-        - type
-        - -type
-        - execution_type
-        - -execution_type
-        - engine_job_id
-        - -engine_job_id
-        - creation_date
-        - -creation_date
-        - engine_id
-        - -engine_id
-        - engine_name
-        - -engine_name
-        - last_completed_execution_date
-        - -last_completed_execution_date
-        - last_execution_status
-        - -last_execution_status
-        - last_execution_id
-        - -last_execution_id
-        - last_execution_start_time
-        - -last_execution_start_time
-        - last_execution_run_time
-        - -last_execution_run_time
-        - rule_set_id
-        - -rule_set_id
-        - rule_set_name
-        - -rule_set_name
-        - pre_script.name
-        - -pre_script.name
-        - pre_script.contents
-        - -pre_script.contents
-        - post_script.name
-        - -post_script.name
-        - post_script.contents
-        - -post_script.contents
-        - connector_type
-        - -connector_type
-        - description
-        - -description
-        - dataset_id
-        - -dataset_id
-        - retain_execution_data
-        - -retain_execution_data
-        - parallelism_degree
-        - -parallelism_degree
-        - is_multi_tenant
-        - -is_multi_tenant
-        - auto_calculate_unload_split
-        - -auto_calculate_unload_split
-        - hyperscale_enabled
-        - -hyperscale_enabled
-        - consider_continuous_compliance_warning_event_as
-        - -consider_continuous_compliance_warning_event_as
-        - create_all_indexes_with_nologging
-        - -create_all_indexes_with_nologging
-        - disable_parallel_index_creation
-        - -disable_parallel_index_creation
-        - enable_all_constraints_with_novalidate
-        - -enable_all_constraints_with_novalidate
-        - max_parallel_connections_per_table
-        - -max_parallel_connections_per_table
-        - max_records_per_split
-        - -max_records_per_split
-        - max_split_per_connection
-        - -max_split_per_connection
-        - max_concurrent_target_connections
-        - -max_concurrent_target_connections
-        - max_concurrent_source_connections
-        - -max_concurrent_source_connections
-        - num_input_streams
-        - -num_input_streams
-        - stream_row_limit
-        - -stream_row_limit
-        - feedback_size
-        - -feedback_size
-        - min_memory
-        - -min_memory
-        - max_memory
-        - -max_memory
-        - discovery_policy_id
-        - -discovery_policy_id
-        - discovery_policy_name
-        - -discovery_policy_name
-        - account_id
-        - -account_id
-        - account_name
-        - -account_name
-        - dct_managed
-        - -dct_managed
-        - fail_immediately
-        - -fail_immediately
-        - batch_update
-        - -batch_update
-        - commit_size
-        - -commit_size
-        - num_output_threads_per_stream
-        - -num_output_threads_per_stream
-        - on_the_fly_source_connector_id
-        - -on_the_fly_source_connector_id
-        - reset_profiling_assignments
-        - -reset_profiling_assignments
-        - multiple_profiler_check
-        - -multiple_profiler_check
-        - truncate_tables
-        - -truncate_tables
-        - drop_indexes
-        - -drop_indexes
-        - hyperscale_state
-        - -hyperscale_state
-        example: name
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

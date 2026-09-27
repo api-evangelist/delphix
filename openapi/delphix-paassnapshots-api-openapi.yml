@@ -404,6 +404,15 @@ components:
           type: object
       discriminator:
         propertyName: class_type
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
     PaginatedResponseMetadata:
       type: object
       properties:
@@ -417,32 +426,19 @@ components:
           description: The total number of results. This value may not be provided.
           type: integer
           format: int_64
-    JobTaskEvent:
-      properties:
-        message_details:
-          type: string
-    CloudTag:
+    CloudTagsRequest:
       type: object
       required:
-      - key
-      - value
+      - tags
       properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-        mirror_on_cloud:
-          description: Whether this tag is mirrored from/to the Cloud Provider account hosting the PaaS Database or Instance. Not applicable to non PaaS objects.
-          type: boolean
-          default: false
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/CloudTag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
     VirtualizationTask:
       deprecated: true
       properties:
@@ -479,6 +475,46 @@ components:
           - WAITING
           - COMPLETED
           - ABANDONED
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    CloudTag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        mirror_on_cloud:
+          description: Whether this tag is mirrored from/to the Cloud Provider account hosting the PaaS Database or Instance. Not applicable to non PaaS objects.
+          type: boolean
+          default: false
     SearchBody:
       description: Search body.
       type: object
@@ -488,41 +524,19 @@ components:
           minLength: 5
           maxLength: 50000
           example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
-    JobTask:
+    PaaSSnapshotRequest:
+      type: object
       properties:
-        id:
+        is_public:
+          description: Whether to make the new snapshot public.
+          type: boolean
+          example: true
+        name:
+          description: The name of the PaaS Snapshot.
           type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
+          minLength: 1
+          maxLength: 128
+          example: my-snapshot-123
     Engine:
       properties:
         engine_id:
@@ -611,19 +625,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CloudTag'
-    CloudTagsRequest:
-      type: object
-      required:
-      - tags
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/CloudTag'
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
     CloudTagsResponse:
       type: object
       properties:
@@ -632,42 +633,41 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CloudTag'
-    VirtualizationTaskEvent:
-      deprecated: true
+    JobTask:
       properties:
-        message_details:
+        id:
           type: string
-    PaaSSnapshotRequest:
-      type: object
-      properties:
-        is_public:
-          description: Whether to make the new snapshot public.
-          type: boolean
-          example: true
-        name:
-          description: The name of the PaaS Snapshot.
+        parent_job_id:
           type: string
-          minLength: 1
-          maxLength: 128
-          example: my-snapshot-123
-    Tag:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          description: Key of the tag
+        start_time:
           type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
+          format: date-time
+        end_time:
           type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
     DeleteCloudTag:
       type: object
       properties:
@@ -691,7 +691,121 @@ components:
           uniqueItems: true
           items:
             $ref: '#/components/schemas/CloudTag'
+  parameters:
+    paaSDatabaseIdParam:
+      in: path
+      name: paaSDatabaseId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the PaaS Database.
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    paaSInstanceIdParam:
+      in: path
+      name: paaSInstanceId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the PaaS Instance.
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+    PaaSSnapshotSortParam:
+      name: sort
+      in: query
+      description: The field to sort snapshot results by. A field prefixed with `-` indicates descending order.
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - size
+        - -size
+        - snapshot_location
+        - -snapshot_location
+        - database_id
+        - -database_id
+        - database_name
+        - -database_name
+        - instance_id
+        - -instance_id
+        - instance_name
+        - -instance_name
+        - timestamp
+        - -timestamp
+        - end_timestamp
+        - -end_timestamp
+        - is_public
+        - -is_public
+        - cloud_account_id
+        - -cloud_account_id
+        - timeflow_id
+        - -timeflow_id
+        example: -timestamp
+    paaSSnapshotIdParam:
+      in: path
+      name: paaSSnapshotId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the PaaS Snapshot.
   requestBodies:
+    DeleteCloudTags:
+      description: The parameters to delete cloud tags
+      content:
+        application/json:
+          schema:
+            x-body-name: deleteCloudTag
+            $ref: '#/components/schemas/DeleteCloudTag'
+          examples:
+            delete_all_tags:
+              description: Delete all tags for given object - No request body required
+              summary: Delete all tags
+              value: {}
+            delete_tags_by_key:
+              description: Delete all tags for given object with matching key
+              summary: Delete tags by key
+              value:
+                key: key-1
+            delete_tags_by_key_value:
+              description: Delete tag for given object with matching key and value
+              summary: Delete a tag by key & value
+              value:
+                key: key-1
+                value: value-1
+            delete_multiple_tags_by_key_value:
+              description: Delete tags for given list of tags with matching key and value
+              summary: Delete multiple tags by key & value
+              value:
+                tags:
+                - key: key-1
+                  value: value-1
+                  mirror_on_cloud: true
+                - key: key-2
+                  value: value-2
+                  mirror_on_cloud: false
     SearchBody:
       x-skip-codegen-attr: description
       description: 'A request body containing a filter expression. This enables searching
@@ -872,120 +986,6 @@ components:
               summary: Overriding operator precedence
               value:
                 filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
-    DeleteCloudTags:
-      description: The parameters to delete cloud tags
-      content:
-        application/json:
-          schema:
-            x-body-name: deleteCloudTag
-            $ref: '#/components/schemas/DeleteCloudTag'
-          examples:
-            delete_all_tags:
-              description: Delete all tags for given object - No request body required
-              summary: Delete all tags
-              value: {}
-            delete_tags_by_key:
-              description: Delete all tags for given object with matching key
-              summary: Delete tags by key
-              value:
-                key: key-1
-            delete_tags_by_key_value:
-              description: Delete tag for given object with matching key and value
-              summary: Delete a tag by key & value
-              value:
-                key: key-1
-                value: value-1
-            delete_multiple_tags_by_key_value:
-              description: Delete tags for given list of tags with matching key and value
-              summary: Delete multiple tags by key & value
-              value:
-                tags:
-                - key: key-1
-                  value: value-1
-                  mirror_on_cloud: true
-                - key: key-2
-                  value: value-2
-                  mirror_on_cloud: false
-  parameters:
-    paaSSnapshotIdParam:
-      in: path
-      name: paaSSnapshotId
-      required: true
-      schema:
-        type: string
-        minLength: 1
-      description: The ID of the PaaS Snapshot.
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
-    paaSInstanceIdParam:
-      in: path
-      name: paaSInstanceId
-      required: true
-      schema:
-        type: string
-        minLength: 1
-      description: The ID of the PaaS Instance.
-    paaSDatabaseIdParam:
-      in: path
-      name: paaSDatabaseId
-      required: true
-      schema:
-        type: string
-        minLength: 1
-      description: The ID of the PaaS Database.
-    PaaSSnapshotSortParam:
-      name: sort
-      in: query
-      description: The field to sort snapshot results by. A field prefixed with `-` indicates descending order.
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - name
-        - -name
-        - size
-        - -size
-        - snapshot_location
-        - -snapshot_location
-        - database_id
-        - -database_id
-        - database_name
-        - -database_name
-        - instance_id
-        - -instance_id
-        - instance_name
-        - -instance_name
-        - timestamp
-        - -timestamp
-        - end_timestamp
-        - -end_timestamp
-        - is_public
-        - -is_public
-        - cloud_account_id
-        - -cloud_account_id
-        - timeflow_id
-        - -timeflow_id
-        example: -timestamp
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

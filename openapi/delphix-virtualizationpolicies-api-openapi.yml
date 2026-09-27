@@ -501,6 +501,70 @@ components:
           type: object
       discriminator:
         propertyName: class_type
+    PolicyTargetObject:
+      description: A policy target object to apply policy to.This contains values for which translation logic is in place and for which users can query virtualization-jobs history.
+      type: object
+      properties:
+        object_type:
+          type: string
+          $ref: '#/components/schemas/TargetPolicyObjectType'
+        object_id:
+          description: The ID of the object, the policy to be applied to.
+          type: string
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    VirtualizationSchedule:
+      required:
+      - cron_string
+      properties:
+        cron_string:
+          type: string
+        cutoff_time:
+          type: integer
+          format: int64
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    DeleteTag:
+      type: object
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        tags:
+          description: List of tags to be deleted
+          type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
     PolicyType:
       description: The type of a virtualization policy.
       type: string
@@ -524,138 +588,6 @@ components:
           description: The total number of results. This value may not be provided.
           type: integer
           format: int_64
-    TargetPolicyObjectType:
-      description: A DCT specific target policy object type.
-      type: string
-      enum:
-      - CDB
-      - DSOURCE
-      - VCDB
-      - VDB
-      - DATASET_GROUP
-      - REPLICATION_PROFILE
-      - NAMESPACE
-      - STAGING_CDB
-    JobTaskEvent:
-      properties:
-        message_details:
-          type: string
-    CreateVirtualizationPolicyParameters:
-      required:
-      - name
-      - policy_type
-      properties:
-        name:
-          description: The name of the virtualization policy.
-          type: string
-          minLength: 1
-          maxLength: 256
-          example: my-policy
-        policy_type:
-          description: The type of the virtualization policy.
-          type: string
-          $ref: '#/components/schemas/PolicyType'
-        policy_targets:
-          description: The target objects that will have this policy applied to them upon creation of the policy.
-          type: array
-          items:
-            $ref: '#/components/schemas/PolicyTargetObject'
-        provision_source:
-          description: The source of the data to provision from [Refresh Policy].
-          type: string
-          $ref: '#/components/schemas/ProvisionSource'
-        timezone_id:
-          description: The timezone to use for scheduling.
-          type: string
-          minLength: 1
-          maxLength: 256
-          example: America/Los_Angeles
-        data_duration:
-          description: Amount of time to keep source data [Retention Policy].
-          type: integer
-          format: int32
-          example: 1
-        data_unit:
-          description: Time unit for data_duration [Retention Policy].
-          type: string
-          enum:
-          - DAY
-          - WEEK
-          - MONTH
-          - QUARTER
-          - YEAR
-          example: DAY
-        log_duration:
-          description: Amount of time to keep log data [Retention Policy].
-          type: integer
-          format: int32
-          example: 1
-        log_unit:
-          description: Time unit for log_duration [Retention Policy].
-          type: string
-          enum:
-          - DAY
-          - WEEK
-          - MONTH
-          - QUARTER
-          - YEAR
-          example: DAY
-        num_of_daily:
-          description: Number of daily snapshots to keep [Retention Policy].
-          type: integer
-          format: int32
-          example: 1
-        num_of_weekly:
-          description: Number of weekly snapshots to keep [Retention Policy].
-          type: integer
-          format: int32
-          example: 1
-        day_of_week:
-          description: Day of week upon which to enforce weekly snapshot retention [Retention Policy].
-          type: string
-          enum:
-          - MONDAY
-          - TUESDAY
-          - WEDNESDAY
-          - THURSDAY
-          - FRIDAY
-          - SATURDAY
-          - SUNDAY
-          example: MONDAY
-        num_of_monthly:
-          description: Number of monthly snapshots to keep [Retention Policy].
-          type: integer
-          format: int32
-          example: 1
-        day_of_month:
-          description: Day of month upon which to enforce monthly snapshot retention [Retention Policy].
-          type: integer
-          format: int32
-          example: 1
-        num_of_yearly:
-          description: Number of yearly snapshots to keep [Retention Policy].
-          type: integer
-          format: int32
-          example: 1
-        day_of_year:
-          description: Day of year upon which to enforce yearly snapshot retention, expressed a month / day string (e.g., "Jan 1") [Retention Policy].
-          type: string
-          example: Jan 1
-        schedules:
-          description: The schedules for this policy.
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualizationSchedule'
-        size:
-          description: Size of the quota, in bytes. [Quota Policy].
-          type: integer
-          format: int64
-          example: 1
-        tags:
-          description: The tags to be created for the policy.
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
     VirtualizationTask:
       deprecated: true
       properties:
@@ -692,8 +624,11 @@ components:
           - WAITING
           - COMPLETED
           - ABANDONED
-    DeleteTag:
+    Tag:
       type: object
+      required:
+      - key
+      - value
       properties:
         key:
           description: Key of the tag
@@ -707,12 +642,18 @@ components:
           minLength: 1
           maxLength: 4000
           example: value-1
+    ProvisionSource:
+      description: The source of the data to provision from [Refresh Policy].
+      type: string
+      enum:
+      - LATEST_SNAPSHOT
+      - LATEST_TIME_FLOW_LOG
+    TagsResponse:
+      type: object
+      properties:
         tags:
-          description: List of tags to be deleted
+          description: Array of tags with key value pairs
           type: array
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
           items:
             $ref: '#/components/schemas/Tag'
     SearchBody:
@@ -724,77 +665,6 @@ components:
           minLength: 5
           maxLength: 50000
           example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
-    JobTask:
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    Engine:
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
-    TagsResponse:
-      type: object
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    TagsRequest:
-      type: object
-      required:
-      - tags
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-    VirtualizationPolicyApplyParams:
-      description: Params to apply virtualization policy to given policy objects.
-      type: array
-      items:
-        $ref: '#/components/schemas/PolicyTargetObject'
     VirtualizationPolicyTarget:
       properties:
         id:
@@ -820,116 +690,21 @@ components:
         target_name:
           description: The name of the target object.
           type: string
-    UpdateVirtualizationPolicyParameters:
+    Engine:
       properties:
-        name:
-          description: The name of the virtualization policy.
+        engine_id:
           type: string
           minLength: 1
-          maxLength: 256
-          example: my-policy
-        timezone_id:
-          description: The timezone to use for scheduling.
+          maxLength: 4000
+        engine_name:
           type: string
           minLength: 1
-          maxLength: 256
-          example: America/Los_Angeles
-        data_duration:
-          description: Amount of time to keep source data [Retention Policy].
-          type: integer
-          format: int32
-          example: 1
-        data_unit:
-          description: Time unit for data_duration [Retention Policy].
-          type: string
-          enum:
-          - DAY
-          - WEEK
-          - MONTH
-          - QUARTER
-          - YEAR
-          example: DAY
-        log_duration:
-          description: Amount of time to keep log data [Retention Policy].
-          type: integer
-          format: int32
-          example: 1
-        log_unit:
-          description: Time unit for log_duration [Retention Policy].
-          type: string
-          enum:
-          - DAY
-          - WEEK
-          - MONTH
-          - QUARTER
-          - YEAR
-          example: DAY
-        num_of_daily:
-          description: Number of daily snapshots to keep [Retention Policy].
-          type: integer
-          format: int32
-          example: 1
-        num_of_weekly:
-          description: Number of weekly snapshots to keep [Retention Policy].
-          type: integer
-          format: int32
-          example: 1
-        day_of_week:
-          description: Day of week upon which to enforce weekly snapshot retention [Retention Policy].
-          type: string
-          enum:
-          - MONDAY
-          - TUESDAY
-          - WEDNESDAY
-          - THURSDAY
-          - FRIDAY
-          - SATURDAY
-          - SUNDAY
-          example: MONDAY
-        num_of_monthly:
-          description: Number of monthly snapshots to keep [Retention Policy].
-          type: integer
-          format: int32
-          example: 1
-        day_of_month:
-          description: Day of month upon which to enforce monthly snapshot retention [Retention Policy].
-          type: integer
-          format: int32
-          example: 1
-        num_of_yearly:
-          description: Number of yearly snapshots to keep [Retention Policy].
-          type: integer
-          format: int32
-          example: 1
-        day_of_year:
-          description: Day of year upon which to enforce yearly snapshot retention, expressed a month / day string (e.g., "Jan 1") [Retention Policy].
-          type: string
-          example: Jan 1
-        schedules:
-          description: The schedules for this policy.
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualizationSchedule'
-        size:
-          description: Size of the quota, in bytes. (QUOTA_POLICY only).
-          type: integer
-          format: int64
-          example: 1
-        provision_source:
-          description: The source of the data to provision from [Refresh Policy].
-          type: string
-          $ref: '#/components/schemas/ProvisionSource'
-    ProvisionSource:
-      description: The source of the data to provision from [Refresh Policy].
-      type: string
-      enum:
-      - LATEST_SNAPSHOT
-      - LATEST_TIME_FLOW_LOG
-    VirtualizationTaskEvent:
-      deprecated: true
-      properties:
-        message_details:
-          type: string
+          maxLength: 4000
+    VirtualizationPolicyApplyParams:
+      description: Params to apply virtualization policy to given policy objects.
+      type: array
+      items:
+        $ref: '#/components/schemas/PolicyTargetObject'
     VirtualizationPolicy:
       properties:
         id:
@@ -1055,44 +830,287 @@ components:
           description: True if this policy is customized specifically for one object. Customized policies cannot be shared between objects.
           type: boolean
           default: false
-    VirtualizationSchedule:
-      required:
-      - cron_string
+    JobTask:
       properties:
-        cron_string:
+        id:
           type: string
-        cutoff_time:
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    CreateVirtualizationPolicyParameters:
+      required:
+      - name
+      - policy_type
+      properties:
+        name:
+          description: The name of the virtualization policy.
+          type: string
+          minLength: 1
+          maxLength: 256
+          example: my-policy
+        policy_type:
+          description: The type of the virtualization policy.
+          type: string
+          $ref: '#/components/schemas/PolicyType'
+        policy_targets:
+          description: The target objects that will have this policy applied to them upon creation of the policy.
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyTargetObject'
+        provision_source:
+          description: The source of the data to provision from [Refresh Policy].
+          type: string
+          $ref: '#/components/schemas/ProvisionSource'
+        timezone_id:
+          description: The timezone to use for scheduling.
+          type: string
+          minLength: 1
+          maxLength: 256
+          example: America/Los_Angeles
+        data_duration:
+          description: Amount of time to keep source data [Retention Policy].
+          type: integer
+          format: int32
+          example: 1
+        data_unit:
+          description: Time unit for data_duration [Retention Policy].
+          type: string
+          enum:
+          - DAY
+          - WEEK
+          - MONTH
+          - QUARTER
+          - YEAR
+          example: DAY
+        log_duration:
+          description: Amount of time to keep log data [Retention Policy].
+          type: integer
+          format: int32
+          example: 1
+        log_unit:
+          description: Time unit for log_duration [Retention Policy].
+          type: string
+          enum:
+          - DAY
+          - WEEK
+          - MONTH
+          - QUARTER
+          - YEAR
+          example: DAY
+        num_of_daily:
+          description: Number of daily snapshots to keep [Retention Policy].
+          type: integer
+          format: int32
+          example: 1
+        num_of_weekly:
+          description: Number of weekly snapshots to keep [Retention Policy].
+          type: integer
+          format: int32
+          example: 1
+        day_of_week:
+          description: Day of week upon which to enforce weekly snapshot retention [Retention Policy].
+          type: string
+          enum:
+          - MONDAY
+          - TUESDAY
+          - WEDNESDAY
+          - THURSDAY
+          - FRIDAY
+          - SATURDAY
+          - SUNDAY
+          example: MONDAY
+        num_of_monthly:
+          description: Number of monthly snapshots to keep [Retention Policy].
+          type: integer
+          format: int32
+          example: 1
+        day_of_month:
+          description: Day of month upon which to enforce monthly snapshot retention [Retention Policy].
+          type: integer
+          format: int32
+          example: 1
+        num_of_yearly:
+          description: Number of yearly snapshots to keep [Retention Policy].
+          type: integer
+          format: int32
+          example: 1
+        day_of_year:
+          description: Day of year upon which to enforce yearly snapshot retention, expressed a month / day string (e.g., "Jan 1") [Retention Policy].
+          type: string
+          example: Jan 1
+        schedules:
+          description: The schedules for this policy.
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationSchedule'
+        size:
+          description: Size of the quota, in bytes. [Quota Policy].
           type: integer
           format: int64
-    PolicyTargetObject:
-      description: A policy target object to apply policy to.This contains values for which translation logic is in place and for which users can query virtualization-jobs history.
-      type: object
+          example: 1
+        tags:
+          description: The tags to be created for the policy.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    TargetPolicyObjectType:
+      description: A DCT specific target policy object type.
+      type: string
+      enum:
+      - CDB
+      - DSOURCE
+      - VCDB
+      - VDB
+      - DATASET_GROUP
+      - REPLICATION_PROFILE
+      - NAMESPACE
+      - STAGING_CDB
+    UpdateVirtualizationPolicyParameters:
       properties:
-        object_type:
-          type: string
-          $ref: '#/components/schemas/TargetPolicyObjectType'
-        object_id:
-          description: The ID of the object, the policy to be applied to.
-          type: string
-    Tag:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          description: Key of the tag
+        name:
+          description: The name of the virtualization policy.
           type: string
           minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
+          maxLength: 256
+          example: my-policy
+        timezone_id:
+          description: The timezone to use for scheduling.
           type: string
           minLength: 1
-          maxLength: 4000
-          example: value-1
+          maxLength: 256
+          example: America/Los_Angeles
+        data_duration:
+          description: Amount of time to keep source data [Retention Policy].
+          type: integer
+          format: int32
+          example: 1
+        data_unit:
+          description: Time unit for data_duration [Retention Policy].
+          type: string
+          enum:
+          - DAY
+          - WEEK
+          - MONTH
+          - QUARTER
+          - YEAR
+          example: DAY
+        log_duration:
+          description: Amount of time to keep log data [Retention Policy].
+          type: integer
+          format: int32
+          example: 1
+        log_unit:
+          description: Time unit for log_duration [Retention Policy].
+          type: string
+          enum:
+          - DAY
+          - WEEK
+          - MONTH
+          - QUARTER
+          - YEAR
+          example: DAY
+        num_of_daily:
+          description: Number of daily snapshots to keep [Retention Policy].
+          type: integer
+          format: int32
+          example: 1
+        num_of_weekly:
+          description: Number of weekly snapshots to keep [Retention Policy].
+          type: integer
+          format: int32
+          example: 1
+        day_of_week:
+          description: Day of week upon which to enforce weekly snapshot retention [Retention Policy].
+          type: string
+          enum:
+          - MONDAY
+          - TUESDAY
+          - WEDNESDAY
+          - THURSDAY
+          - FRIDAY
+          - SATURDAY
+          - SUNDAY
+          example: MONDAY
+        num_of_monthly:
+          description: Number of monthly snapshots to keep [Retention Policy].
+          type: integer
+          format: int32
+          example: 1
+        day_of_month:
+          description: Day of month upon which to enforce monthly snapshot retention [Retention Policy].
+          type: integer
+          format: int32
+          example: 1
+        num_of_yearly:
+          description: Number of yearly snapshots to keep [Retention Policy].
+          type: integer
+          format: int32
+          example: 1
+        day_of_year:
+          description: Day of year upon which to enforce yearly snapshot retention, expressed a month / day string (e.g., "Jan 1") [Retention Policy].
+          type: string
+          example: Jan 1
+        schedules:
+          description: The schedules for this policy.
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationSchedule'
+        size:
+          description: Size of the quota, in bytes. (QUOTA_POLICY only).
+          type: integer
+          format: int64
+          example: 1
+        provision_source:
+          description: The source of the data to provision from [Refresh Policy].
+          type: string
+          $ref: '#/components/schemas/ProvisionSource'
   parameters:
+    virtualizationPolicyIdParam:
+      in: path
+      name: policyId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the Virtualization Policy.
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
     virtualizationPolicyTargetsSortParam:
       name: sort
       in: query
@@ -1117,24 +1135,6 @@ components:
         - target_name
         - -target_name
         example: name
-    virtualizationPolicyIdParam:
-      in: path
-      name: policyId
-      required: true
-      schema:
-        type: string
-        minLength: 1
-      description: The ID of the Virtualization Policy.
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
     cursor:
       name: cursor
       in: query
@@ -1208,6 +1208,86 @@ components:
         - -customized
         example: name
   requestBodies:
+    VirtualizationPolicyApplyBody:
+      description: The parameters to apply virtualization policy to a target.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/VirtualizationPolicyApplyParams'
+    DeleteTags:
+      description: The parameters to delete tags
+      content:
+        application/json:
+          schema:
+            x-body-name: environment
+            $ref: '#/components/schemas/DeleteTag'
+          examples:
+            delete_all_tags:
+              description: Delete all tags for given object - No request body required
+              summary: Delete all tags
+              value: {}
+            delete_tags_by_key:
+              description: Delete all tags for given object with matching key
+              summary: Delete tags by key
+              value:
+                key: key-1
+            delete_tags_by_key_value:
+              description: Delete tag for given object with matching key and value
+              summary: Delete a tag by key & value
+              value:
+                key: key-1
+                value: value-1
+            delete_multiple_tags_by_key_value:
+              description: Delete tags for given list of tags with matching key and value
+              summary: Delete multiple tags by key & value
+              value:
+                tags:
+                - key: key-1
+                  value: value-1
+                - key: key-2
+                  value: value-2
+    CreateVirtualizationPolicy:
+      description: The parameters to create a DCT-managed VirtualizationPolicy.
+      content:
+        application/json:
+          schema:
+            x-body-name: virtualization_policy
+            $ref: '#/components/schemas/CreateVirtualizationPolicyParameters'
+          examples:
+            VirtualizationPolicyCreate:
+              description: 'The request example is intended for creating a VirtualizationPolicy.
+
+                '
+              summary: VirtualizationPolicy create
+              value:
+                name: policy name
+                policy_type: SYNC_POLICY
+                policy_targets:
+                - object_type: DSOURCE
+                  object_id: 1-ORACLE_DB_CONTAINER-1
+                provision_source: LATEST_SNAPSHOT
+                timezone_id: America/Los_Angeles
+                data_duration: 1
+                data_unit: DAY
+                log_duration: 1
+                log_unit: DAY
+                num_of_daily: 1
+                num_of_weekly: 0
+                day_of_week: MONDAY
+                num_of_monthly: 0
+                day_of_month: 1
+                num_of_yearly: 0
+                day_of_year: Jan 1
+                schedules:
+                - cron_string: 0 30 3 ? * 1
+                  cutoff_time: 14400
+                size: 1
+                tags:
+                - key: key1
+                  value: value1
+                - key: key2
+                  value: value2
     SearchBody:
       x-skip-codegen-attr: description
       description: 'A request body containing a filter expression. This enables searching
@@ -1388,86 +1468,6 @@ components:
               summary: Overriding operator precedence
               value:
                 filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
-    VirtualizationPolicyApplyBody:
-      description: The parameters to apply virtualization policy to a target.
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/VirtualizationPolicyApplyParams'
-    CreateVirtualizationPolicy:
-      description: The parameters to create a DCT-managed VirtualizationPolicy.
-      content:
-        application/json:
-          schema:
-            x-body-name: virtualization_policy
-            $ref: '#/components/schemas/CreateVirtualizationPolicyParameters'
-          examples:
-            VirtualizationPolicyCreate:
-              description: 'The request example is intended for creating a VirtualizationPolicy.
-
-                '
-              summary: VirtualizationPolicy create
-              value:
-                name: policy name
-                policy_type: SYNC_POLICY
-                policy_targets:
-                - object_type: DSOURCE
-                  object_id: 1-ORACLE_DB_CONTAINER-1
-                provision_source: LATEST_SNAPSHOT
-                timezone_id: America/Los_Angeles
-                data_duration: 1
-                data_unit: DAY
-                log_duration: 1
-                log_unit: DAY
-                num_of_daily: 1
-                num_of_weekly: 0
-                day_of_week: MONDAY
-                num_of_monthly: 0
-                day_of_month: 1
-                num_of_yearly: 0
-                day_of_year: Jan 1
-                schedules:
-                - cron_string: 0 30 3 ? * 1
-                  cutoff_time: 14400
-                size: 1
-                tags:
-                - key: key1
-                  value: value1
-                - key: key2
-                  value: value2
-    DeleteTags:
-      description: The parameters to delete tags
-      content:
-        application/json:
-          schema:
-            x-body-name: environment
-            $ref: '#/components/schemas/DeleteTag'
-          examples:
-            delete_all_tags:
-              description: Delete all tags for given object - No request body required
-              summary: Delete all tags
-              value: {}
-            delete_tags_by_key:
-              description: Delete all tags for given object with matching key
-              summary: Delete tags by key
-              value:
-                key: key-1
-            delete_tags_by_key_value:
-              description: Delete tag for given object with matching key and value
-              summary: Delete a tag by key & value
-              value:
-                key: key-1
-                value: value-1
-            delete_multiple_tags_by_key_value:
-              description: Delete tags for given list of tags with matching key and value
-              summary: Delete multiple tags by key & value
-              value:
-                tags:
-                - key: key-1
-                  value: value-1
-                - key: key-2
-                  value: value-2
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

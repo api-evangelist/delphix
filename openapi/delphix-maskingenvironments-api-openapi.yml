@@ -97,6 +97,14 @@ paths:
                 $ref: '#/components/schemas/MaskingEnvironment'
 components:
   parameters:
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
     maskingEnvironmentsSortParam:
       name: sort
       in: query
@@ -121,6 +129,14 @@ components:
         - is_workflow_enabled
         - -is_workflow_enabled
         example: name
+    maskingEnvironmentId:
+      in: path
+      name: maskingEnvironmentId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the Masking Environment.
     limit:
       name: limit
       in: query
@@ -131,23 +147,16 @@ components:
         minimum: 1
         maximum: 1000
         default: 100
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
-    maskingEnvironmentId:
-      in: path
-      name: maskingEnvironmentId
-      schema:
-        type: string
-        minLength: 1
-      required: true
-      description: The ID of the Masking Environment.
   schemas:
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
     MaskingEnvironment:
       properties:
         id:
@@ -187,15 +196,6 @@ components:
           description: The total number of results. This value may not be provided.
           type: integer
           format: int_64
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
   requestBodies:
     SearchBody:
       x-skip-codegen-attr: description

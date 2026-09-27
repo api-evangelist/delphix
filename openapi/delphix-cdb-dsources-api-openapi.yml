@@ -362,102 +362,7 @@ paths:
         '204':
           description: No Content
 components:
-  parameters:
-    cdbDSourceIdParam:
-      in: path
-      name: cdbDSourceId
-      required: true
-      schema:
-        type: string
-        minLength: 1
-      description: The ID of the CDB DSource.
-    cdbDSourcesSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
-      example: id
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - name
-        - -name
-        - enabled
-        - -enabled
-        - status
-        - -status
-        - description
-        - -description
-        - cdb_source_id
-        - -cdb_source_id
-        - is_detached
-        - -is_detached
-        - logsync_enabled
-        - -logsync_enabled
-        - logsync_mode
-        - -logsync_mode
-        - logsync_interval
-        - -logsync_interval
-        - size
-        - -size
-        - namespace_id
-        - -namespace_id
-        - namespace_name
-        - -namespace_name
-        - is_replica
-        - -is_replica
-        - group_name
-        - -group_name
-        - diagnose_no_logging_faults
-        - -diagnose_no_logging_faults
-        - rman_channels
-        - -rman_channels
-        - files_per_set
-        - -files_per_set
-        - number_of_connections
-        - -number_of_connections
-        - bandwidth_limit
-        - -bandwidth_limit
-        - compressed_linking_enabled
-        - -compressed_linking_enabled
-        - encrypted_linking_enabled
-        - -encrypted_linking_enabled
-        - check_logical
-        - -check_logical
-        - backup_level_enabled
-        - -backup_level_enabled
-        example: name
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
   schemas:
-    DisableCDBParameters:
-      type: object
-      description: Parameters to disable a CDB.
-      properties:
-        attempt_cleanup:
-          type: boolean
-          description: Whether to attempt a cleanup of the CDB before the disable.
-          default: true
     Job:
       description: An asynchronous task.
       type: object
@@ -581,159 +486,6 @@ components:
           type: object
       discriminator:
         propertyName: class_type
-    PaginatedResponseMetadata:
-      type: object
-      properties:
-        prev_cursor:
-          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        next_cursor:
-          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        total:
-          description: The total number of results. This value may not be provided.
-          type: integer
-          format: int_64
-    JobTaskEvent:
-      properties:
-        message_details:
-          type: string
-    OracleAttachParameters:
-      type: object
-      properties:
-        backup_level_enabled:
-          description: Boolean value indicates whether LEVEL-based incremental backups can be used on the source database.
-          type: boolean
-        bandwidth_limit:
-          description: Bandwidth limit (MB/s) for SnapSync and LogSync network traffic. A value of 0 means no limit.
-          type: integer
-          default: 0
-        check_logical:
-          description: True if extended block checking should be used for this linked database.
-          type: boolean
-          default: false
-        compressed_linking_enabled:
-          description: True if SnapSync data from the source should be compressed over the network. Enabling this feature will reduce network bandwidth consumption and may significantly improve throughput, especially over slow network.
-          type: boolean
-          default: true
-        double_sync:
-          description: True if two SnapSyncs should be performed in immediate succession to reduce the number of logs required to provision the snapshot. This may significantly reduce the time necessary to provision from a snapshot.
-          type: boolean
-          default: false
-        encrypted_linking_enabled:
-          description: True if SnapSync data from the source should be retrieved through an encrypted connection. Enabling this feature can decrease the performance of SnapSync from the source but has no impact on the performance of VDBs created from the retrieved data.
-          type: boolean
-          default: false
-        environment_user:
-          description: Reference to the user that should be used in the host.
-          type: string
-        external_file_path:
-          description: External file path.
-          type: string
-          maxLength: 1024
-        files_per_set:
-          description: Number of data files to include in each RMAN backup set.
-          type: integer
-          minimum: 1
-          maximum: 64
-          default: 5
-        force:
-          description: If true, attach will succeed even if the resetlogs of the new database does not match the resetlogs information of the original database.
-          type: boolean
-          default: false
-        link_now:
-          description: True if initial load should be done immediately.
-          type: boolean
-          default: false
-        number_of_connections:
-          description: Total number of transport connections to use during SnapSync.
-          type: integer
-          default: 1
-        operations:
-          description: Operations to perform after syncing a created dSource and before running the LogSync.
-          type: array
-          items:
-            $ref: '#/components/schemas/SourceOperation'
-        oracle_fallback_user:
-          type: string
-          description: The database fallback username. Optional if bequeath connections are enabled (to be used in case of bequeath connection failures). Only required for username-password auth.
-          minLength: 1
-          maxLength: 256
-          example: oracle
-        oracle_fallback_credentials:
-          x-dct-toolkit-credential-field: true
-          type: string
-          description: Password for fallback username.
-          minLength: 1
-          maxLength: 256
-          example: oracle
-        rman_channels:
-          description: Number of parallel channels to use.
-          type: integer
-          minimum: 1
-          maximum: 32
-          default: 2
-      discriminator:
-        propertyName: class_type
-    VirtualizationTask:
-      deprecated: true
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualizationTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    DeleteTag:
-      type: object
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-        tags:
-          description: List of tags to be deleted
-          type: array
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/Tag'
     CdbDSource:
       description: The Delphix representation of an Oracle Container Database.
       type: object
@@ -845,102 +597,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
-    SourceOperation:
-      properties:
-        name:
-          type: string
-          minLength: 1
-          maxLength: 256
-        command:
-          type: string
-          minLength: 1
-          maxLength: 131072
-        shell:
-          type: string
-          enum:
-          - bash
-          - shell
-          - expect
-          - ps
-          - psd
-          default: bash
-        credentials_env_vars:
-          description: List of environment variables that will contain credentials for this operation.
-          type: array
-          items:
-            $ref: '#/components/schemas/CredentialsEnvVariable'
-        hook_template_id:
-          description: ID of the hook template
-          type: string
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
-    JobTask:
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    Engine:
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
-    UpgradeOracleContainerDatabaseParameters:
-      type: object
-      description: Parameters to upgrade CDB/vCDB.
-      required:
-      - repository_id
-      - environment_user_id
-      properties:
-        repository_id:
-          type: string
-          description: The id of the CDB/vCDB repository to upgrade to.
-          example: 1-ORACLE_INSTALL-4
-        environment_user_id:
-          type: string
-          description: Reference of the environment user to use for CDB/vCDB upgrade.
-          example: HOST_USER-4
     DeleteCDBParameters:
       type: object
       description: Parameters to delete a CDB.
@@ -953,42 +609,6 @@ components:
           type: boolean
           description: Whether to delete all dependent datasets of the CDB.
           default: false
-    EnableCDBParameters:
-      type: object
-      description: Parameters to enable a CDB.
-      properties:
-        attempt_start:
-          type: boolean
-          description: Whether to attempt a startup of the CDB after the enable.
-          default: true
-    OracleLogsyncModeTypeEnum:
-      type: string
-      description: LogSync operation mode for this dSource.
-      enum:
-      - ARCHIVE_ONLY_MODE
-      - ARCHIVE_REDO_MODE
-      - UNDEFINED
-    TagsRequest:
-      type: object
-      required:
-      - tags
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-    TagsResponse:
-      type: object
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
     CredentialsEnvVariable:
       required:
       - base_var_name
@@ -1083,11 +703,63 @@ components:
           minLength: 1
           maxLength: 256
           example: CredentialsEnvVars
+    OracleAttachDSourceParameters:
+      allOf:
+      - $ref: '#/components/schemas/OracleAttachParameters'
+      - type: object
+        required:
+        - source_id
+        properties:
+          source_id:
+            description: Id of the source to attach.
+            type: string
+            minLength: 1
+            maxLength: 256
     VirtualizationTaskEvent:
       deprecated: true
       properties:
         message_details:
           type: string
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    DeleteTag:
+      type: object
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        tags:
+          description: List of tags to be deleted
+          type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
     UpdateCdbDSourceParameters:
       type: object
       description: Parameters to update a CDB.
@@ -1170,18 +842,55 @@ components:
           type: string
           description: The username of a database user that does not have administrative privileges.
           minLength: 1
-    OracleAttachDSourceParameters:
-      allOf:
-      - $ref: '#/components/schemas/OracleAttachParameters'
-      - type: object
-        required:
-        - source_id
-        properties:
-          source_id:
-            description: Id of the source to attach.
-            type: string
-            minLength: 1
-            maxLength: 256
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    VirtualizationTask:
+      deprecated: true
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
     Tag:
       type: object
       required:
@@ -1200,7 +909,330 @@ components:
           minLength: 1
           maxLength: 4000
           example: value-1
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    SourceOperation:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 256
+        command:
+          type: string
+          minLength: 1
+          maxLength: 131072
+        shell:
+          type: string
+          enum:
+          - bash
+          - shell
+          - expect
+          - ps
+          - psd
+          default: bash
+        credentials_env_vars:
+          description: List of environment variables that will contain credentials for this operation.
+          type: array
+          items:
+            $ref: '#/components/schemas/CredentialsEnvVariable'
+        hook_template_id:
+          description: ID of the hook template
+          type: string
+    UpgradeOracleContainerDatabaseParameters:
+      type: object
+      description: Parameters to upgrade CDB/vCDB.
+      required:
+      - repository_id
+      - environment_user_id
+      properties:
+        repository_id:
+          type: string
+          description: The id of the CDB/vCDB repository to upgrade to.
+          example: 1-ORACLE_INSTALL-4
+        environment_user_id:
+          type: string
+          description: Reference of the environment user to use for CDB/vCDB upgrade.
+          example: HOST_USER-4
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    DisableCDBParameters:
+      type: object
+      description: Parameters to disable a CDB.
+      properties:
+        attempt_cleanup:
+          type: boolean
+          description: Whether to attempt a cleanup of the CDB before the disable.
+          default: true
+    EnableCDBParameters:
+      type: object
+      description: Parameters to enable a CDB.
+      properties:
+        attempt_start:
+          type: boolean
+          description: Whether to attempt a startup of the CDB after the enable.
+          default: true
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    OracleLogsyncModeTypeEnum:
+      type: string
+      description: LogSync operation mode for this dSource.
+      enum:
+      - ARCHIVE_ONLY_MODE
+      - ARCHIVE_REDO_MODE
+      - UNDEFINED
+    OracleAttachParameters:
+      type: object
+      properties:
+        backup_level_enabled:
+          description: Boolean value indicates whether LEVEL-based incremental backups can be used on the source database.
+          type: boolean
+        bandwidth_limit:
+          description: Bandwidth limit (MB/s) for SnapSync and LogSync network traffic. A value of 0 means no limit.
+          type: integer
+          default: 0
+        check_logical:
+          description: True if extended block checking should be used for this linked database.
+          type: boolean
+          default: false
+        compressed_linking_enabled:
+          description: True if SnapSync data from the source should be compressed over the network. Enabling this feature will reduce network bandwidth consumption and may significantly improve throughput, especially over slow network.
+          type: boolean
+          default: true
+        double_sync:
+          description: True if two SnapSyncs should be performed in immediate succession to reduce the number of logs required to provision the snapshot. This may significantly reduce the time necessary to provision from a snapshot.
+          type: boolean
+          default: false
+        encrypted_linking_enabled:
+          description: True if SnapSync data from the source should be retrieved through an encrypted connection. Enabling this feature can decrease the performance of SnapSync from the source but has no impact on the performance of VDBs created from the retrieved data.
+          type: boolean
+          default: false
+        environment_user:
+          description: Reference to the user that should be used in the host.
+          type: string
+        external_file_path:
+          description: External file path.
+          type: string
+          maxLength: 1024
+        files_per_set:
+          description: Number of data files to include in each RMAN backup set.
+          type: integer
+          minimum: 1
+          maximum: 64
+          default: 5
+        force:
+          description: If true, attach will succeed even if the resetlogs of the new database does not match the resetlogs information of the original database.
+          type: boolean
+          default: false
+        link_now:
+          description: True if initial load should be done immediately.
+          type: boolean
+          default: false
+        number_of_connections:
+          description: Total number of transport connections to use during SnapSync.
+          type: integer
+          default: 1
+        operations:
+          description: Operations to perform after syncing a created dSource and before running the LogSync.
+          type: array
+          items:
+            $ref: '#/components/schemas/SourceOperation'
+        oracle_fallback_user:
+          type: string
+          description: The database fallback username. Optional if bequeath connections are enabled (to be used in case of bequeath connection failures). Only required for username-password auth.
+          minLength: 1
+          maxLength: 256
+          example: oracle
+        oracle_fallback_credentials:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: Password for fallback username.
+          minLength: 1
+          maxLength: 256
+          example: oracle
+        rman_channels:
+          description: Number of parallel channels to use.
+          type: integer
+          minimum: 1
+          maximum: 32
+          default: 2
+      discriminator:
+        propertyName: class_type
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    cdbDSourceIdParam:
+      in: path
+      name: cdbDSourceId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the CDB DSource.
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+    cdbDSourcesSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - enabled
+        - -enabled
+        - status
+        - -status
+        - description
+        - -description
+        - cdb_source_id
+        - -cdb_source_id
+        - is_detached
+        - -is_detached
+        - logsync_enabled
+        - -logsync_enabled
+        - logsync_mode
+        - -logsync_mode
+        - logsync_interval
+        - -logsync_interval
+        - size
+        - -size
+        - namespace_id
+        - -namespace_id
+        - namespace_name
+        - -namespace_name
+        - is_replica
+        - -is_replica
+        - group_name
+        - -group_name
+        - diagnose_no_logging_faults
+        - -diagnose_no_logging_faults
+        - rman_channels
+        - -rman_channels
+        - files_per_set
+        - -files_per_set
+        - number_of_connections
+        - -number_of_connections
+        - bandwidth_limit
+        - -bandwidth_limit
+        - compressed_linking_enabled
+        - -compressed_linking_enabled
+        - encrypted_linking_enabled
+        - -encrypted_linking_enabled
+        - check_logical
+        - -check_logical
+        - backup_level_enabled
+        - -backup_level_enabled
+        example: name
   requestBodies:
+    DeleteTags:
+      description: The parameters to delete tags
+      content:
+        application/json:
+          schema:
+            x-body-name: environment
+            $ref: '#/components/schemas/DeleteTag'
+          examples:
+            delete_all_tags:
+              description: Delete all tags for given object - No request body required
+              summary: Delete all tags
+              value: {}
+            delete_tags_by_key:
+              description: Delete all tags for given object with matching key
+              summary: Delete tags by key
+              value:
+                key: key-1
+            delete_tags_by_key_value:
+              description: Delete tag for given object with matching key and value
+              summary: Delete a tag by key & value
+              value:
+                key: key-1
+                value: value-1
+            delete_multiple_tags_by_key_value:
+              description: Delete tags for given list of tags with matching key and value
+              summary: Delete multiple tags by key & value
+              value:
+                tags:
+                - key: key-1
+                  value: value-1
+                - key: key-2
+                  value: value-2
     SearchBody:
       x-skip-codegen-attr: description
       description: 'A request body containing a filter expression. This enables searching
@@ -1381,38 +1413,6 @@ components:
               summary: Overriding operator precedence
               value:
                 filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
-    DeleteTags:
-      description: The parameters to delete tags
-      content:
-        application/json:
-          schema:
-            x-body-name: environment
-            $ref: '#/components/schemas/DeleteTag'
-          examples:
-            delete_all_tags:
-              description: Delete all tags for given object - No request body required
-              summary: Delete all tags
-              value: {}
-            delete_tags_by_key:
-              description: Delete all tags for given object with matching key
-              summary: Delete tags by key
-              value:
-                key: key-1
-            delete_tags_by_key_value:
-              description: Delete tag for given object with matching key and value
-              summary: Delete a tag by key & value
-              value:
-                key: key-1
-                value: value-1
-            delete_multiple_tags_by_key_value:
-              description: Delete tags for given list of tags with matching key and value
-              summary: Delete multiple tags by key & value
-              value:
-                tags:
-                - key: key-1
-                  value: value-1
-                - key: key-2
-                  value: value-2
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

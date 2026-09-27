@@ -180,101 +180,7 @@ paths:
                   job:
                     $ref: '#/components/schemas/Job'
 components:
-  parameters:
-    virtualizationFaultsSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
-      example: id
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - engine_id
-        - -engine_id
-        - bundle_id
-        - -bundle_id
-        - target_name
-        - -target_name
-        - target_object_type
-        - -target_object_type
-        - target_object_id
-        - -target_object_id
-        - title
-        - -title
-        - description
-        - -description
-        - fault_action
-        - -fault_action
-        - response
-        - -response
-        - severity
-        - -severity
-        - status
-        - -status
-        - date_diagnosed
-        - -date_diagnosed
-        - date_resolved
-        - -date_resolved
-        - resolution_comments
-        - -resolution_comments
-        example: engine_id
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
-    engineIdParam:
-      in: path
-      name: engineId
-      schema:
-        type: string
-      required: true
-      description: The ID of the registered engine.
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
-    virtualizationFaultIdParam:
-      in: path
-      name: faultId
-      required: true
-      schema:
-        type: string
-        minLength: 1
-      description: The ID of the Virtualization Fault.
   schemas:
-    Tag:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
     Job:
       description: An asynchronous task.
       type: object
@@ -398,18 +304,11 @@ components:
           type: object
       discriminator:
         propertyName: class_type
-    Engine:
+    JobTaskEvent:
       properties:
-        engine_id:
+        message_details:
           type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
-    VirtualizationTask:
-      deprecated: true
+    JobTask:
       properties:
         id:
           type: string
@@ -430,7 +329,7 @@ components:
         events:
           type: array
           items:
-            $ref: '#/components/schemas/VirtualizationTaskEvent'
+            $ref: '#/components/schemas/JobTaskEvent'
         status:
           type: string
           enum:
@@ -444,40 +343,6 @@ components:
           - WAITING
           - COMPLETED
           - ABANDONED
-    VirtualizationTaskEvent:
-      deprecated: true
-      properties:
-        message_details:
-          type: string
-    PaginatedResponseMetadata:
-      type: object
-      properties:
-        prev_cursor:
-          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        next_cursor:
-          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        total:
-          description: The total number of results. This value may not be provided.
-          type: integer
-          format: int_64
-    VirtualizationFaultResolveOrIgnoreParameters:
-      description: Marks selected faults as resolved or ignored.
-      type: object
-      properties:
-        engine_id:
-          description: The ID of the engine that the faults belong to.
-          type: string
-        ignore:
-          description: Flag indicating whether to ignore the selected faults if they are detected on the same objects in the future.
-          type: boolean
-          default: false
-        fault_ids:
-          description: The IDs of the faults to resolve or ignore.
-          type: array
-          items:
-            type: string
     SearchBody:
       description: Search body.
       type: object
@@ -487,17 +352,6 @@ components:
           minLength: 5
           maxLength: 50000
           example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
-    VirtualizationFaultResolveParameters:
-      description: The parameters to use as input when marking a fault as resolved.
-      type: object
-      properties:
-        ignore:
-          description: Flag indicating whether to ignore this fault if it is detected on the same object in the future.
-          type: boolean
-          default: false
-        resolution_comments:
-          description: The comments describing the steps taken to resolve a fault.
-          type: string
     VirtualizationFault:
       description: A fault on a virtualization engine.
       type: object
@@ -556,7 +410,21 @@ components:
         resolution_comments:
           description: A comment that describes the fault resolution.
           type: string
-    JobTask:
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    VirtualizationTask:
+      deprecated: true
       properties:
         id:
           type: string
@@ -577,7 +445,7 @@ components:
         events:
           type: array
           items:
-            $ref: '#/components/schemas/JobTaskEvent'
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
         status:
           type: string
           enum:
@@ -591,10 +459,142 @@ components:
           - WAITING
           - COMPLETED
           - ABANDONED
-    JobTaskEvent:
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    VirtualizationFaultResolveOrIgnoreParameters:
+      description: Marks selected faults as resolved or ignored.
+      type: object
+      properties:
+        engine_id:
+          description: The ID of the engine that the faults belong to.
+          type: string
+        ignore:
+          description: Flag indicating whether to ignore the selected faults if they are detected on the same objects in the future.
+          type: boolean
+          default: false
+        fault_ids:
+          description: The IDs of the faults to resolve or ignore.
+          type: array
+          items:
+            type: string
+    VirtualizationFaultResolveParameters:
+      description: The parameters to use as input when marking a fault as resolved.
+      type: object
+      properties:
+        ignore:
+          description: Flag indicating whether to ignore this fault if it is detected on the same object in the future.
+          type: boolean
+          default: false
+        resolution_comments:
+          description: The comments describing the steps taken to resolve a fault.
+          type: string
+    VirtualizationTaskEvent:
+      deprecated: true
       properties:
         message_details:
           type: string
+  parameters:
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+    engineIdParam:
+      in: path
+      name: engineId
+      schema:
+        type: string
+      required: true
+      description: The ID of the registered engine.
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    virtualizationFaultsSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - engine_id
+        - -engine_id
+        - bundle_id
+        - -bundle_id
+        - target_name
+        - -target_name
+        - target_object_type
+        - -target_object_type
+        - target_object_id
+        - -target_object_id
+        - title
+        - -title
+        - description
+        - -description
+        - fault_action
+        - -fault_action
+        - response
+        - -response
+        - severity
+        - -severity
+        - status
+        - -status
+        - date_diagnosed
+        - -date_diagnosed
+        - date_resolved
+        - -date_resolved
+        - resolution_comments
+        - -resolution_comments
+        example: engine_id
+    virtualizationFaultIdParam:
+      in: path
+      name: faultId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the Virtualization Fault.
   requestBodies:
     SearchBody:
       x-skip-codegen-attr: description

@@ -122,16 +122,14 @@ paths:
                   '
 components:
   parameters:
-    limit:
-      name: limit
+    cursor:
+      name: cursor
       in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
       schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
+        type: string
+        minLength: 1
+        maxLength: 4096
     virtualizationActionsSortParam:
       name: sort
       in: query
@@ -180,14 +178,16 @@ components:
         - failure_message_code
         - -failure_message_code
         example: name
-    cursor:
-      name: cursor
+    limit:
+      name: limit
       in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
       schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
   schemas:
     VirtualizationAction:
       description: A virtualization engine action.
@@ -259,6 +259,15 @@ components:
         failure_message_code:
           description: Message ID associated with the event.
           type: string
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
     PaginatedResponseMetadata:
       type: object
       properties:
@@ -272,15 +281,6 @@ components:
           description: The total number of results. This value may not be provided.
           type: integer
           format: int_64
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
   requestBodies:
     SearchBody:
       x-skip-codegen-attr: description

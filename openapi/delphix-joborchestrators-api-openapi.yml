@@ -464,26 +464,6 @@ paths:
                 $ref: '#/components/schemas/MoveComplianceNodesResponse'
 components:
   schemas:
-    MoveComplianceNodesToHyperscaleRequest:
-      description: Parameters to move compliance nodes from a job orchestrator to a hyperscale orchestrator.
-      type: object
-      required:
-      - compliance_node_ids
-      - hyperscale_instance_id
-      properties:
-        compliance_node_ids:
-          description: List of compliance node IDs to move.
-          type: array
-          items:
-            type: string
-          example:
-          - node-101
-          - node-102
-          - node-103
-        hyperscale_instance_id:
-          description: The ID of the target hyperscale instance to move the compliance nodes to.
-          type: string
-          example: f8e7d6c5-b4a3-2109-8765-43210fedcba9
     Job:
       description: An asynchronous task.
       type: object
@@ -605,6 +585,94 @@ components:
         result:
           description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
           type: object
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    CreateJobOrchestratorRequest:
+      type: object
+      description: Parameters to create a job orchestrator.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: The name of the job orchestrator.
+          example: My favorite Job Orchestrator
+        description:
+          type: string
+          description: The description of the job orchestrator.
+          example: Job Orchestrator for US-west
+        tags:
+          description: The tags to be created for this compliance job collection.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        make_current_account_owner:
+          type: boolean
+          default: true
+          description: Whether the account creating this Job Orchestrator must be configured as its owner.
+    MoveComplianceNodesToHyperscaleRequest:
+      description: Parameters to move compliance nodes from a job orchestrator to a hyperscale orchestrator.
+      type: object
+      required:
+      - compliance_node_ids
+      - hyperscale_instance_id
+      properties:
+        compliance_node_ids:
+          description: List of compliance node IDs to move.
+          type: array
+          items:
+            type: string
+          example:
+          - node-101
+          - node-102
+          - node-103
+        hyperscale_instance_id:
+          description: The ID of the target hyperscale instance to move the compliance nodes to.
+          type: string
+          example: f8e7d6c5-b4a3-2109-8765-43210fedcba9
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    DeleteTag:
+      type: object
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        tags:
+          description: List of tags to be deleted
+          type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
     PaginatedResponseMetadata:
       type: object
       properties:
@@ -618,10 +686,60 @@ components:
           description: The total number of results. This value may not be provided.
           type: integer
           format: int_64
-    JobTaskEvent:
+    VirtualizationTask:
+      deprecated: true
       properties:
-        message_details:
+        id:
           type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
     QueuedOperation:
       description: A queued operation on a job orchestrator.
       type: object
@@ -674,6 +792,44 @@ components:
           type: string
           readOnly: true
           example: John Doe
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    ComplianceApplicationSettingUpdateRequest:
+      title: ComplianceApplicationSettingUpdateRequest
+      type: object
+      description: Request to update an application setting value.
+      required:
+      - setting_value
+      properties:
+        setting_value:
+          description: The new value for the application setting.
+          type: string
+          example: '10'
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
     JobOrchestrator:
       type: object
       description: A job orchestrator.
@@ -737,104 +893,6 @@ components:
           readOnly: true
           description: The ID of the hyperscale instance associated with this job orchestrator if applicable.
           example: hyperscale-instance-123
-    VirtualizationTask:
-      deprecated: true
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualizationTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    DeleteTag:
-      type: object
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-        tags:
-          description: List of tags to be deleted
-          type: array
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/Tag'
-    ComplianceApplicationSetting:
-      title: ComplianceApplicationSetting
-      type: object
-      description: An application setting of a compliance engine.
-      properties:
-        id:
-          description: The ID of the application setting.
-          type: string
-          example: 5835c60d-2155-1234-8c54-b4dff23d89c5
-        group:
-          description: The group of the application setting.
-          type: string
-          example: general
-        name:
-          description: The name of the application setting.
-          type: string
-          example: PasswordResetLinkDuration
-        value:
-          description: The value of the application setting.
-          type: string
-          example: '5'
-        value_type:
-          description: The type of the value of the application setting.
-          type: string
-          enum:
-          - string
-          - number
-          - boolean
-          - regular-expression
-          example: number
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
     JobTask:
       properties:
         id:
@@ -870,50 +928,6 @@ components:
           - WAITING
           - COMPLETED
           - ABANDONED
-    CreateJobOrchestratorRequest:
-      type: object
-      description: Parameters to create a job orchestrator.
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: The name of the job orchestrator.
-          example: My favorite Job Orchestrator
-        description:
-          type: string
-          description: The description of the job orchestrator.
-          example: Job Orchestrator for US-west
-        tags:
-          description: The tags to be created for this compliance job collection.
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-        make_current_account_owner:
-          type: boolean
-          default: true
-          description: Whether the account creating this Job Orchestrator must be configured as its owner.
-    Engine:
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
-    ComplianceApplicationSettingUpdateRequest:
-      title: ComplianceApplicationSettingUpdateRequest
-      type: object
-      description: Request to update an application setting value.
-      required:
-      - setting_value
-      properties:
-        setting_value:
-          description: The new value for the application setting.
-          type: string
-          example: '10'
     MoveComplianceNodesResponse:
       description: Response for compliance node movement operations.
       type: object
@@ -921,27 +935,6 @@ components:
         job:
           $ref: '#/components/schemas/Job'
           description: The Job tracking the compliance node movement.
-    TagsRequest:
-      type: object
-      required:
-      - tags
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-    TagsResponse:
-      type: object
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
     UpdateJobOrchestratorRequest:
       type: object
       description: Parameters to update a job orchestrator.
@@ -954,39 +947,38 @@ components:
           type: string
           description: The description of the job orchestrator.
           example: Job Orchestrator for US-west
-    VirtualizationTaskEvent:
-      deprecated: true
-      properties:
-        message_details:
-          type: string
-    Tag:
+    ComplianceApplicationSetting:
+      title: ComplianceApplicationSetting
       type: object
-      required:
-      - key
-      - value
+      description: An application setting of a compliance engine.
       properties:
-        key:
-          description: Key of the tag
+        id:
+          description: The ID of the application setting.
           type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
+          example: 5835c60d-2155-1234-8c54-b4dff23d89c5
+        group:
+          description: The group of the application setting.
+          type: string
+          example: general
+        name:
+          description: The name of the application setting.
+          type: string
+          example: PasswordResetLinkDuration
         value:
-          description: Value of the tag
+          description: The value of the application setting.
           type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
+          example: '5'
+        value_type:
+          description: The type of the value of the application setting.
+          type: string
+          enum:
+          - string
+          - number
+          - boolean
+          - regular-expression
+          example: number
   parameters:
-    applicationSettingsIdParam:
-      in: path
-      name: applicationSettingsId
-      schema:
-        type: string
-        minLength: 1
-      required: true
-      description: The ID of the application setting.
-    complianceApplicationSettingsSortParam:
+    queuedOperationsSortParam:
       name: sort
       in: query
       description: The field to sort results by. A property name with a prepended '-' signifies descending order.
@@ -999,14 +991,26 @@ components:
         enum:
         - id
         - -id
-        - group
-        - -group
-        - name
-        - -name
-        - value
-        - -value
-        - value_type
-        - -value_type
+        - job_orchestrator_id
+        - -job_orchestrator_id
+        - enqueued_date
+        - -enqueued_date
+        - job_type
+        - -job_type
+        - localized_job_type
+        - -localized_job_type
+        - job_id
+        - -job_id
+        - target_id
+        - -target_id
+        - target_name
+        - -target_name
+        - target_type
+        - -target_type
+        - account_id
+        - -account_id
+        - account_name
+        - -account_name
     limit:
       name: limit
       in: query
@@ -1017,6 +1021,14 @@ components:
         minimum: 1
         maximum: 1000
         default: 100
+    jobOrchestratorIdParam:
+      in: path
+      name: jobOrchestratorId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the job orchestrator.
     cursor:
       name: cursor
       in: query
@@ -1057,15 +1069,7 @@ components:
         - running_job_count
         - -running_job_count
         example: name
-    jobOrchestratorIdParam:
-      in: path
-      name: jobOrchestratorId
-      schema:
-        type: string
-        minLength: 1
-      required: true
-      description: The ID of the job orchestrator.
-    queuedOperationsSortParam:
+    complianceApplicationSettingsSortParam:
       name: sort
       in: query
       description: The field to sort results by. A property name with a prepended '-' signifies descending order.
@@ -1078,27 +1082,55 @@ components:
         enum:
         - id
         - -id
-        - job_orchestrator_id
-        - -job_orchestrator_id
-        - enqueued_date
-        - -enqueued_date
-        - job_type
-        - -job_type
-        - localized_job_type
-        - -localized_job_type
-        - job_id
-        - -job_id
-        - target_id
-        - -target_id
-        - target_name
-        - -target_name
-        - target_type
-        - -target_type
-        - account_id
-        - -account_id
-        - account_name
-        - -account_name
+        - group
+        - -group
+        - name
+        - -name
+        - value
+        - -value
+        - value_type
+        - -value_type
+    applicationSettingsIdParam:
+      in: path
+      name: applicationSettingsId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the application setting.
   requestBodies:
+    DeleteTags:
+      description: The parameters to delete tags
+      content:
+        application/json:
+          schema:
+            x-body-name: environment
+            $ref: '#/components/schemas/DeleteTag'
+          examples:
+            delete_all_tags:
+              description: Delete all tags for given object - No request body required
+              summary: Delete all tags
+              value: {}
+            delete_tags_by_key:
+              description: Delete all tags for given object with matching key
+              summary: Delete tags by key
+              value:
+                key: key-1
+            delete_tags_by_key_value:
+              description: Delete tag for given object with matching key and value
+              summary: Delete a tag by key & value
+              value:
+                key: key-1
+                value: value-1
+            delete_multiple_tags_by_key_value:
+              description: Delete tags for given list of tags with matching key and value
+              summary: Delete multiple tags by key & value
+              value:
+                tags:
+                - key: key-1
+                  value: value-1
+                - key: key-2
+                  value: value-2
     SearchBody:
       x-skip-codegen-attr: description
       description: 'A request body containing a filter expression. This enables searching
@@ -1279,38 +1311,6 @@ components:
               summary: Overriding operator precedence
               value:
                 filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
-    DeleteTags:
-      description: The parameters to delete tags
-      content:
-        application/json:
-          schema:
-            x-body-name: environment
-            $ref: '#/components/schemas/DeleteTag'
-          examples:
-            delete_all_tags:
-              description: Delete all tags for given object - No request body required
-              summary: Delete all tags
-              value: {}
-            delete_tags_by_key:
-              description: Delete all tags for given object with matching key
-              summary: Delete tags by key
-              value:
-                key: key-1
-            delete_tags_by_key_value:
-              description: Delete tag for given object with matching key and value
-              summary: Delete a tag by key & value
-              value:
-                key: key-1
-                value: value-1
-            delete_multiple_tags_by_key_value:
-              description: Delete tags for given list of tags with matching key and value
-              summary: Delete multiple tags by key & value
-              value:
-                tags:
-                - key: key-1
-                  value: value-1
-                - key: key-2
-                  value: value-2
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

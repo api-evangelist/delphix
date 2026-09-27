@@ -50,72 +50,16 @@ paths:
                     $ref: '#/components/schemas/Job'
                     description: The initiated job.
 components:
+  parameters:
+    heldspaceId:
+      name: heldspaceId
+      in: path
+      description: The heldspace id to filter by.
+      required: true
+      schema:
+        minLength: 1
+        type: string
   schemas:
-    DeletionDependencyObject:
-      description: Deletion dependency object.
-      type: object
-      properties:
-        object_id:
-          description: ID of the object.
-          type: string
-        object_type:
-          description: Type of the object.
-          $ref: '#/components/schemas/DeletionDependencyObjectType'
-        object_name:
-          description: Name of the object.
-          type: string
-        namespace_id:
-          description: ID of the namespace that this object belongs to.
-          type: string
-        storage_size:
-          description: Storage size of the object.
-          type: integer
-          format: int64
-        timeflow_vdb_id:
-          description: If the object is a Timeflow, then this is the ID of the VDB that is associated with the Timeflow.
-          type: string
-        timeflow_vdb_name:
-          description: If the object is a Timeflow, then this is the name of the VDB that is associated with the Timeflow.
-          type: string
-        timeflow_dsource_id:
-          description: If the object is a Timeflow, then this is the ID of the dSource that is associated with the Timeflow.
-          type: string
-        timeflow_dsource_name:
-          description: If the object is a Timeflow, then this is the name of the dSource that is associated with the Timeflow.
-          type: string
-        locked:
-          description: Whether the object is locked. If this is true then this object will not be deleted.
-          type: boolean
-        parent_object_id:
-          description: ID of the parent object.
-          type: string
-        parent_object_type:
-          description: Type of the parent object.
-          $ref: '#/components/schemas/DeletionDependencyObjectType'
-        timeflow_snapshot_count:
-          description: Total number of snapshots in the Timeflow if the object is a Timeflow otherwise -1.
-          type: integer
-          format: int64
-          default: -1
-        timeflow_bookmarks_count:
-          description: Total number of bookmarks associated with the Timeflow if the object is a Timeflow otherwise -1.
-          type: integer
-          default: -1
-    HeldSpaceDeletionDependenciesResponse:
-      description: The deletion dependencies of a held space.
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/BaseDeletetionDependenciesResponse'
-    Engine:
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
     Job:
       description: An asynchronous task.
       type: object
@@ -239,6 +183,60 @@ components:
           type: object
       discriminator:
         propertyName: class_type
+    DeletionDependencyObject:
+      description: Deletion dependency object.
+      type: object
+      properties:
+        object_id:
+          description: ID of the object.
+          type: string
+        object_type:
+          description: Type of the object.
+          $ref: '#/components/schemas/DeletionDependencyObjectType'
+        object_name:
+          description: Name of the object.
+          type: string
+        namespace_id:
+          description: ID of the namespace that this object belongs to.
+          type: string
+        storage_size:
+          description: Storage size of the object.
+          type: integer
+          format: int64
+        timeflow_vdb_id:
+          description: If the object is a Timeflow, then this is the ID of the VDB that is associated with the Timeflow.
+          type: string
+        timeflow_vdb_name:
+          description: If the object is a Timeflow, then this is the name of the VDB that is associated with the Timeflow.
+          type: string
+        timeflow_dsource_id:
+          description: If the object is a Timeflow, then this is the ID of the dSource that is associated with the Timeflow.
+          type: string
+        timeflow_dsource_name:
+          description: If the object is a Timeflow, then this is the name of the dSource that is associated with the Timeflow.
+          type: string
+        locked:
+          description: Whether the object is locked. If this is true then this object will not be deleted.
+          type: boolean
+        parent_object_id:
+          description: ID of the parent object.
+          type: string
+        parent_object_type:
+          description: Type of the parent object.
+          $ref: '#/components/schemas/DeletionDependencyObjectType'
+        timeflow_snapshot_count:
+          description: Total number of snapshots in the Timeflow if the object is a Timeflow otherwise -1.
+          type: integer
+          format: int64
+          default: -1
+        timeflow_bookmarks_count:
+          description: Total number of bookmarks associated with the Timeflow if the object is a Timeflow otherwise -1.
+          type: integer
+          default: -1
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
     DeletionDependenciesTreeResponse:
       description: The deletion dependencies of an object which occupies disk space.
       type: object
@@ -253,8 +251,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/DeletionDependencyObject'
-    VirtualizationTask:
-      deprecated: true
+    JobTask:
       properties:
         id:
           type: string
@@ -275,7 +272,7 @@ components:
         events:
           type: array
           items:
-            $ref: '#/components/schemas/VirtualizationTaskEvent'
+            $ref: '#/components/schemas/JobTaskEvent'
         status:
           type: string
           enum:
@@ -289,11 +286,30 @@ components:
           - WAITING
           - COMPLETED
           - ABANDONED
-    VirtualizationTaskEvent:
-      deprecated: true
+    HeldSpaceDeletionDependenciesResponse:
+      description: The deletion dependencies of a held space.
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/BaseDeletetionDependenciesResponse'
+    BaseDeletetionDependenciesResponse:
+      description: Base class for deletion dependencies response.
+      type: object
       properties:
-        message_details:
-          type: string
+        prerequisite_actions:
+          description: The pre-requisite actions to perform before deleting the snapshot.
+          type: array
+          items:
+            $ref: '#/components/schemas/DeletionDependencyPrerequisiteAction'
+        object_dependencies:
+          description: The object dependencies of the snapshot.
+          type: array
+          items:
+            $ref: '#/components/schemas/DeletionDependencyObject'
+        dependency_tree:
+          description: The dependency tree of the snapshot.
+          $ref: '#/components/schemas/DeletionDependenciesTreeResponse'
+      discriminator:
+        propertyName: class_type
     DeletionDependencyPrerequisiteAction:
       description: Deletion dependency prerequisite action.
       type: object
@@ -333,59 +349,8 @@ components:
         locked:
           description: Whether the prerequisite action is locked. If this is true then this action will be skipped.
           type: boolean
-    BaseDeletetionDependenciesResponse:
-      description: Base class for deletion dependencies response.
-      type: object
-      properties:
-        prerequisite_actions:
-          description: The pre-requisite actions to perform before deleting the snapshot.
-          type: array
-          items:
-            $ref: '#/components/schemas/DeletionDependencyPrerequisiteAction'
-        object_dependencies:
-          description: The object dependencies of the snapshot.
-          type: array
-          items:
-            $ref: '#/components/schemas/DeletionDependencyObject'
-        dependency_tree:
-          description: The dependency tree of the snapshot.
-          $ref: '#/components/schemas/DeletionDependenciesTreeResponse'
-      discriminator:
-        propertyName: class_type
-    Tag:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-    DeletionDependencyObjectType:
-      description: Deletion dependency object type.
-      type: string
-      enum:
-      - TIMEFLOW
-      - SNAPSHOT
-      - JSBOOKMARK
-      - JSBRANCH
-      - TIMEFLOWBOOKMARK
-      - HELDSPACE
-      - VDB
-      - DSOURCE
-      - UNKNOWN
-      - ALLSNAPSHOTS
-      - BOOKMARK
-    JobTask:
+    VirtualizationTask:
+      deprecated: true
       properties:
         id:
           type: string
@@ -406,7 +371,7 @@ components:
         events:
           type: array
           items:
-            $ref: '#/components/schemas/JobTaskEvent'
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
         status:
           type: string
           enum:
@@ -420,19 +385,54 @@ components:
           - WAITING
           - COMPLETED
           - ABANDONED
-    JobTaskEvent:
+    DeletionDependencyObjectType:
+      description: Deletion dependency object type.
+      type: string
+      enum:
+      - TIMEFLOW
+      - SNAPSHOT
+      - JSBOOKMARK
+      - JSBRANCH
+      - TIMEFLOWBOOKMARK
+      - HELDSPACE
+      - VDB
+      - DSOURCE
+      - UNKNOWN
+      - ALLSNAPSHOTS
+      - BOOKMARK
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    VirtualizationTaskEvent:
+      deprecated: true
       properties:
         message_details:
           type: string
-  parameters:
-    heldspaceId:
-      name: heldspaceId
-      in: path
-      description: The heldspace id to filter by.
-      required: true
-      schema:
-        minLength: 1
-        type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

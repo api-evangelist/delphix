@@ -431,56 +431,6 @@ paths:
                 $ref: '#/components/schemas/GetSnapshotDeletionDependenciesResponse'
 components:
   schemas:
-    DeletionDependencyObject:
-      description: Deletion dependency object.
-      type: object
-      properties:
-        object_id:
-          description: ID of the object.
-          type: string
-        object_type:
-          description: Type of the object.
-          $ref: '#/components/schemas/DeletionDependencyObjectType'
-        object_name:
-          description: Name of the object.
-          type: string
-        namespace_id:
-          description: ID of the namespace that this object belongs to.
-          type: string
-        storage_size:
-          description: Storage size of the object.
-          type: integer
-          format: int64
-        timeflow_vdb_id:
-          description: If the object is a Timeflow, then this is the ID of the VDB that is associated with the Timeflow.
-          type: string
-        timeflow_vdb_name:
-          description: If the object is a Timeflow, then this is the name of the VDB that is associated with the Timeflow.
-          type: string
-        timeflow_dsource_id:
-          description: If the object is a Timeflow, then this is the ID of the dSource that is associated with the Timeflow.
-          type: string
-        timeflow_dsource_name:
-          description: If the object is a Timeflow, then this is the name of the dSource that is associated with the Timeflow.
-          type: string
-        locked:
-          description: Whether the object is locked. If this is true then this object will not be deleted.
-          type: boolean
-        parent_object_id:
-          description: ID of the parent object.
-          type: string
-        parent_object_type:
-          description: Type of the parent object.
-          $ref: '#/components/schemas/DeletionDependencyObjectType'
-        timeflow_snapshot_count:
-          description: Total number of snapshots in the Timeflow if the object is a Timeflow otherwise -1.
-          type: integer
-          format: int64
-          default: -1
-        timeflow_bookmarks_count:
-          description: Total number of bookmarks associated with the Timeflow if the object is a Timeflow otherwise -1.
-          type: integer
-          default: -1
     Job:
       description: An asynchronous task.
       type: object
@@ -604,30 +554,129 @@ components:
           type: object
       discriminator:
         propertyName: class_type
-    SnapshotCapacityResponse:
-      description: Snapshot Capacity information
+    DeletionDependencyObject:
+      description: Deletion dependency object.
+      type: object
+      properties:
+        object_id:
+          description: ID of the object.
+          type: string
+        object_type:
+          description: Type of the object.
+          $ref: '#/components/schemas/DeletionDependencyObjectType'
+        object_name:
+          description: Name of the object.
+          type: string
+        namespace_id:
+          description: ID of the namespace that this object belongs to.
+          type: string
+        storage_size:
+          description: Storage size of the object.
+          type: integer
+          format: int64
+        timeflow_vdb_id:
+          description: If the object is a Timeflow, then this is the ID of the VDB that is associated with the Timeflow.
+          type: string
+        timeflow_vdb_name:
+          description: If the object is a Timeflow, then this is the name of the VDB that is associated with the Timeflow.
+          type: string
+        timeflow_dsource_id:
+          description: If the object is a Timeflow, then this is the ID of the dSource that is associated with the Timeflow.
+          type: string
+        timeflow_dsource_name:
+          description: If the object is a Timeflow, then this is the name of the dSource that is associated with the Timeflow.
+          type: string
+        locked:
+          description: Whether the object is locked. If this is true then this object will not be deleted.
+          type: boolean
+        parent_object_id:
+          description: ID of the parent object.
+          type: string
+        parent_object_type:
+          description: Type of the parent object.
+          $ref: '#/components/schemas/DeletionDependencyObjectType'
+        timeflow_snapshot_count:
+          description: Total number of snapshots in the Timeflow if the object is a Timeflow otherwise -1.
+          type: integer
+          format: int64
+          default: -1
+        timeflow_bookmarks_count:
+          description: Total number of bookmarks associated with the Timeflow if the object is a Timeflow otherwise -1.
+          type: integer
+          default: -1
+    DeletionDependenciesTreeResponse:
+      description: The deletion dependencies of an object which occupies disk space.
+      type: object
+      properties:
+        prerequisite_actions:
+          description: The pre-requisite actions to perform before deleting the object.
+          type: array
+          items:
+            $ref: '#/components/schemas/DeletionDependencyPrerequisiteAction'
+        object_dependencies:
+          description: The object dependencies of the object.
+          type: array
+          items:
+            $ref: '#/components/schemas/DeletionDependencyObject'
+    ListSnapshotsResponse:
       type: object
       properties:
         items:
-          description: Snapshot Capacity response.
           type: array
           items:
-            $ref: '#/components/schemas/SnapshotCapacity'
+            $ref: '#/components/schemas/Snapshot'
         response_metadata:
           $ref: '#/components/schemas/PaginatedResponseMetadata'
-    PaginatedResponseMetadata:
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    GetSnapshotDeletionDependenciesResponse:
+      description: The deletion dependencies of a snapshot.
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/BaseDeletetionDependenciesResponse'
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    DeleteTag:
       type: object
       properties:
-        prev_cursor:
-          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+        key:
+          description: Key of the tag
           type: string
-        next_cursor:
-          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
           type: string
-        total:
-          description: The total number of results. This value may not be provided.
-          type: integer
-          format: int_64
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        tags:
+          description: List of tags to be deleted
+          type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
     BaseDeletetionDependenciesResponse:
       description: Base class for deletion dependencies response.
       type: object
@@ -647,62 +696,182 @@ components:
           $ref: '#/components/schemas/DeletionDependenciesTreeResponse'
       discriminator:
         propertyName: class_type
-    DeletionDependencyPrerequisiteAction:
-      description: Deletion dependency prerequisite action.
+    PaginatedResponseMetadata:
       type: object
       properties:
-        object_id:
-          description: ID of the object.
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
           type: string
-        object_type:
-          description: Type of the object.
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
           type: string
-          enum:
-          - SNAPSHOT
-          - VDB
-          - DSOURCE
-          - DATALAYOUT_CONTAINER
-          - DATALAYOUT_TEMPLATE
-          - UNKNOWN
-        object_name:
-          description: Name of the object.
-          type: string
-        namespace_id:
-          description: ID of the namespace that this object belongs to.
-          type: string
-        action:
-          description: The action to perform.
-          type: string
-          enum:
-          - REMOVE_KEEP_FOR
-          - TAKE_SNAPSHOT
-          - REFRESH
-        linked_object_id:
-          description: ID of the deletion dependency object which is linked to this prerequisite action.
-          type: string
-        linked_object_type:
-          description: Type of the deletion dependency object which is linked to this prerequisite action.
-          $ref: '#/components/schemas/DeletionDependencyObjectType'
-        locked:
-          description: Whether the prerequisite action is locked. If this is true then this action will be skipped.
-          type: boolean
-    UpdateSnapshotParameters:
-      type: object
-      description: Parameters to update the expiration of a Snapshot.
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    VirtualizationTask:
+      deprecated: true
       properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    SnapshotMissingLog:
+      description: Missing Log information
+      type: object
+      properties:
+        type:
+          description: Type of the log
+          type: string
+          example: OracleLog
+        instanceNum:
+          description: Instance Number
+          type: integer
+          format: int32
+          example: 1
+        sequence:
+          description: Sequence number of the log file.
+          type: integer
+          format: int64
+          example: 217
+    DeletionDependencyObjectType:
+      description: Deletion dependency object type.
+      type: string
+      enum:
+      - TIMEFLOW
+      - SNAPSHOT
+      - JSBOOKMARK
+      - JSBRANCH
+      - TIMEFLOWBOOKMARK
+      - HELDSPACE
+      - VDB
+      - DSOURCE
+      - UNKNOWN
+      - ALLSNAPSHOTS
+      - BOOKMARK
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    SnapshotCapacityResponse:
+      description: Snapshot Capacity information
+      type: object
+      properties:
+        items:
+          description: Snapshot Capacity response.
+          type: array
+          items:
+            $ref: '#/components/schemas/SnapshotCapacity'
+        response_metadata:
+          $ref: '#/components/schemas/PaginatedResponseMetadata'
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    SnapshotCapacity:
+      description: Snapshot Capacity information
+      type: object
+      properties:
+        id:
+          description: Id of the snapshot
+          type: string
+          example: 1-ORACLE_SNAPSHOT-1
+        engine_id:
+          description: Id of the engine this snapshot is associated with.
+          type: string
+          example: 1
+        dataset_id:
+          description: DSource or VDB id this snapshot is associated with.
+          type: string
+          example: 1-ORACLE_DB_CONTAINER-32
+        timestamp:
+          type: string
+          description: Timestamp of the snapshot
+          format: date-time
+          example: '2021-05-01T08:51:34.148000+00:00'
         expiration:
-          description: The expiration for this snapshot. Mutually exclusive with retain_forever.
           type: string
+          description: Expiration date of the snapshot
           format: date
-          example: '2021-07-04'
-        retain_forever:
-          description: Indicates that the snapshot should be retained forever.
-          type: boolean
-          example: false
-    JobTaskEvent:
-      properties:
-        message_details:
+          example: '2021-05-01T08:51:34.148000+00:00'
+        size:
+          description: Space used by the snapshot.
+          type: integer
+          format: int64
+          example: 217
+        descendant_vbd_count:
+          description: descendant vbd count.
+          type: integer
+          format: int32
+          example: 2
+        timezone:
+          description: Timezone of the snapshot.
           type: string
+          example: America/New_York,EST-0500
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    DeleteSnapshotParameters:
+      description: Parameters to delete a snapshot.
+      type: object
+      properties:
+        delete_all_dependencies:
+          description: Whether to delete the snapshot along with all of its dependencies.
+          type: boolean
+          default: false
     Snapshot:
       description: Virtualization Engine Snapshot of a dSource or VDB.
       type: object
@@ -896,20 +1065,103 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
-    DeletionDependenciesTreeResponse:
-      description: The deletion dependencies of an object which occupies disk space.
+    DeletionDependencyPrerequisiteAction:
+      description: Deletion dependency prerequisite action.
       type: object
       properties:
-        prerequisite_actions:
-          description: The pre-requisite actions to perform before deleting the object.
+        object_id:
+          description: ID of the object.
+          type: string
+        object_type:
+          description: Type of the object.
+          type: string
+          enum:
+          - SNAPSHOT
+          - VDB
+          - DSOURCE
+          - DATALAYOUT_CONTAINER
+          - DATALAYOUT_TEMPLATE
+          - UNKNOWN
+        object_name:
+          description: Name of the object.
+          type: string
+        namespace_id:
+          description: ID of the namespace that this object belongs to.
+          type: string
+        action:
+          description: The action to perform.
+          type: string
+          enum:
+          - REMOVE_KEEP_FOR
+          - TAKE_SNAPSHOT
+          - REFRESH
+        linked_object_id:
+          description: ID of the deletion dependency object which is linked to this prerequisite action.
+          type: string
+        linked_object_type:
+          description: Type of the deletion dependency object which is linked to this prerequisite action.
+          $ref: '#/components/schemas/DeletionDependencyObjectType'
+        locked:
+          description: Whether the prerequisite action is locked. If this is true then this action will be skipped.
+          type: boolean
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
           type: array
           items:
-            $ref: '#/components/schemas/DeletionDependencyPrerequisiteAction'
-        object_dependencies:
-          description: The object dependencies of the object.
-          type: array
-          items:
-            $ref: '#/components/schemas/DeletionDependencyObject'
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    UpdateSnapshotParameters:
+      type: object
+      description: Parameters to update the expiration of a Snapshot.
+      properties:
+        expiration:
+          description: The expiration for this snapshot. Mutually exclusive with retain_forever.
+          type: string
+          format: date
+          example: '2021-07-04'
+        retain_forever:
+          description: Indicates that the snapshot should be retained forever.
+          type: boolean
+          example: false
     TimeflowRange:
       description: Represents a time range within a timeflow.
       type: object
@@ -948,235 +1200,6 @@ components:
           type: boolean
           description: true if timeflow range is found from nearest snapshot corresponding to provided timestamp, else false
           example: false
-    GetSnapshotDeletionDependenciesResponse:
-      description: The deletion dependencies of a snapshot.
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/BaseDeletetionDependenciesResponse'
-    DeleteTag:
-      type: object
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-        tags:
-          description: List of tags to be deleted
-          type: array
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/Tag'
-    SnapshotCapacity:
-      description: Snapshot Capacity information
-      type: object
-      properties:
-        id:
-          description: Id of the snapshot
-          type: string
-          example: 1-ORACLE_SNAPSHOT-1
-        engine_id:
-          description: Id of the engine this snapshot is associated with.
-          type: string
-          example: 1
-        dataset_id:
-          description: DSource or VDB id this snapshot is associated with.
-          type: string
-          example: 1-ORACLE_DB_CONTAINER-32
-        timestamp:
-          type: string
-          description: Timestamp of the snapshot
-          format: date-time
-          example: '2021-05-01T08:51:34.148000+00:00'
-        expiration:
-          type: string
-          description: Expiration date of the snapshot
-          format: date
-          example: '2021-05-01T08:51:34.148000+00:00'
-        size:
-          description: Space used by the snapshot.
-          type: integer
-          format: int64
-          example: 217
-        descendant_vbd_count:
-          description: descendant vbd count.
-          type: integer
-          format: int32
-          example: 2
-        timezone:
-          description: Timezone of the snapshot.
-          type: string
-          example: America/New_York,EST-0500
-    DeleteSnapshotParameters:
-      description: Parameters to delete a snapshot.
-      type: object
-      properties:
-        delete_all_dependencies:
-          description: Whether to delete the snapshot along with all of its dependencies.
-          type: boolean
-          default: false
-    VirtualizationTask:
-      deprecated: true
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualizationTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
-    JobTask:
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    Engine:
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
-    TagsRequest:
-      type: object
-      required:
-      - tags
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-    TagsResponse:
-      type: object
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    SnapshotMissingLog:
-      description: Missing Log information
-      type: object
-      properties:
-        type:
-          description: Type of the log
-          type: string
-          example: OracleLog
-        instanceNum:
-          description: Instance Number
-          type: integer
-          format: int32
-          example: 1
-        sequence:
-          description: Sequence number of the log file.
-          type: integer
-          format: int64
-          example: 217
-    DeletionDependencyObjectType:
-      description: Deletion dependency object type.
-      type: string
-      enum:
-      - TIMEFLOW
-      - SNAPSHOT
-      - JSBOOKMARK
-      - JSBRANCH
-      - TIMEFLOWBOOKMARK
-      - HELDSPACE
-      - VDB
-      - DSOURCE
-      - UNKNOWN
-      - ALLSNAPSHOTS
-      - BOOKMARK
-    ListSnapshotsResponse:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Snapshot'
-        response_metadata:
-          $ref: '#/components/schemas/PaginatedResponseMetadata'
     SnapshotRuntime:
       description: Snapshot Runtime information
       type: object
@@ -1240,30 +1263,156 @@ components:
           description: Whether this backup was a copy-only backup.
           type: boolean
           example: false
-    VirtualizationTaskEvent:
-      deprecated: true
-      properties:
-        message_details:
-          type: string
-    Tag:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
+  parameters:
+    snapshotIdParam:
+      in: path
+      name: snapshotId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the snapshot.
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+    snapshotsSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - engine_id
+        - -engine_id
+        - namespace
+        - -namespace
+        - name
+        - -name
+        - consistency
+        - -consistency
+        - missing_non_logged_data
+        - -missing_non_logged_data
+        - dataset_id
+        - -dataset_id
+        - creation_time
+        - -creation_time
+        - start_timestamp
+        - -start_timestamp
+        - start_location
+        - -start_location
+        - timestamp
+        - -timestamp
+        - location
+        - -location
+        - expiration
+        - -expiration
+        - retain_forever
+        - -retain_forever
+        - effective_expiration
+        - -effective_expiration
+        - effective_retain_forever
+        - -effective_retain_forever
+        - timeflow_id
+        - -timeflow_id
+        - timezone
+        - -timezone
+        - version
+        - -version
+        - temporary
+        - -temporary
+        - appdata_toolkit
+        - -appdata_toolkit
+        - appdata_metadata
+        - -appdata_metadata
+        - ase_db_encryption_key
+        - -ase_db_encryption_key
+        - mssql_internal_version
+        - -mssql_internal_version
+        - mssql_backup_set_uuid
+        - -mssql_backup_set_uuid
+        - mssql_backup_software_type
+        - -mssql_backup_software_type
+        - mssql_backup_location_type
+        - -mssql_backup_location_type
+        - mssql_empty_snapshot
+        - -mssql_empty_snapshot
+        - oracle_from_physical_standby_vdb
+        - -oracle_from_physical_standby_vdb
+        - oracle_redo_log_size_in_bytes
+        - -oracle_redo_log_size_in_bytes
+        example: name
+    datasetIdQueryParam:
+      in: query
+      required: true
+      name: dataset_id
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the dSource or VDB.
+      example: dataset-123
+    engineIdQueryParam:
+      in: query
+      name: engine_id
+      description: ID of a registered engine.
+      required: false
+      schema:
+        type: string
+        minLength: 1
+      example: 1
   requestBodies:
+    DeleteTags:
+      description: The parameters to delete tags
+      content:
+        application/json:
+          schema:
+            x-body-name: environment
+            $ref: '#/components/schemas/DeleteTag'
+          examples:
+            delete_all_tags:
+              description: Delete all tags for given object - No request body required
+              summary: Delete all tags
+              value: {}
+            delete_tags_by_key:
+              description: Delete all tags for given object with matching key
+              summary: Delete tags by key
+              value:
+                key: key-1
+            delete_tags_by_key_value:
+              description: Delete tag for given object with matching key and value
+              summary: Delete a tag by key & value
+              value:
+                key: key-1
+                value: value-1
+            delete_multiple_tags_by_key_value:
+              description: Delete tags for given list of tags with matching key and value
+              summary: Delete multiple tags by key & value
+              value:
+                tags:
+                - key: key-1
+                  value: value-1
+                - key: key-2
+                  value: value-2
     SearchBody:
       x-skip-codegen-attr: description
       description: 'A request body containing a filter expression. This enables searching
@@ -1444,155 +1593,6 @@ components:
               summary: Overriding operator precedence
               value:
                 filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
-    DeleteTags:
-      description: The parameters to delete tags
-      content:
-        application/json:
-          schema:
-            x-body-name: environment
-            $ref: '#/components/schemas/DeleteTag'
-          examples:
-            delete_all_tags:
-              description: Delete all tags for given object - No request body required
-              summary: Delete all tags
-              value: {}
-            delete_tags_by_key:
-              description: Delete all tags for given object with matching key
-              summary: Delete tags by key
-              value:
-                key: key-1
-            delete_tags_by_key_value:
-              description: Delete tag for given object with matching key and value
-              summary: Delete a tag by key & value
-              value:
-                key: key-1
-                value: value-1
-            delete_multiple_tags_by_key_value:
-              description: Delete tags for given list of tags with matching key and value
-              summary: Delete multiple tags by key & value
-              value:
-                tags:
-                - key: key-1
-                  value: value-1
-                - key: key-2
-                  value: value-2
-  parameters:
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
-    engineIdQueryParam:
-      in: query
-      name: engine_id
-      description: ID of a registered engine.
-      required: false
-      schema:
-        type: string
-        minLength: 1
-      example: 1
-    datasetIdQueryParam:
-      in: query
-      required: true
-      name: dataset_id
-      schema:
-        type: string
-        minLength: 1
-      description: The ID of the dSource or VDB.
-      example: dataset-123
-    snapshotsSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
-      example: id
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - engine_id
-        - -engine_id
-        - namespace
-        - -namespace
-        - name
-        - -name
-        - consistency
-        - -consistency
-        - missing_non_logged_data
-        - -missing_non_logged_data
-        - dataset_id
-        - -dataset_id
-        - creation_time
-        - -creation_time
-        - start_timestamp
-        - -start_timestamp
-        - start_location
-        - -start_location
-        - timestamp
-        - -timestamp
-        - location
-        - -location
-        - expiration
-        - -expiration
-        - retain_forever
-        - -retain_forever
-        - effective_expiration
-        - -effective_expiration
-        - effective_retain_forever
-        - -effective_retain_forever
-        - timeflow_id
-        - -timeflow_id
-        - timezone
-        - -timezone
-        - version
-        - -version
-        - temporary
-        - -temporary
-        - appdata_toolkit
-        - -appdata_toolkit
-        - appdata_metadata
-        - -appdata_metadata
-        - ase_db_encryption_key
-        - -ase_db_encryption_key
-        - mssql_internal_version
-        - -mssql_internal_version
-        - mssql_backup_set_uuid
-        - -mssql_backup_set_uuid
-        - mssql_backup_software_type
-        - -mssql_backup_software_type
-        - mssql_backup_location_type
-        - -mssql_backup_location_type
-        - mssql_empty_snapshot
-        - -mssql_empty_snapshot
-        - oracle_from_physical_standby_vdb
-        - -oracle_from_physical_standby_vdb
-        - oracle_redo_log_size_in_bytes
-        - -oracle_redo_log_size_in_bytes
-        example: name
-    snapshotIdParam:
-      in: path
-      name: snapshotId
-      schema:
-        type: string
-        minLength: 1
-      required: true
-      description: The ID of the snapshot.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

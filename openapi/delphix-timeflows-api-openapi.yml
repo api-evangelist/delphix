@@ -312,87 +312,6 @@ paths:
                     items:
                       $ref: '#/components/schemas/TimeflowSnapshotRange'
 components:
-  parameters:
-    timeflowsSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
-      example: id
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - engine_id
-        - -engine_id
-        - namespace
-        - -namespace
-        - name
-        - -name
-        - dataset_id
-        - -dataset_id
-        - creation_type
-        - -creation_type
-        - parent_snapshot_id
-        - -parent_snapshot_id
-        - parent_point_location
-        - -parent_point_location
-        - parent_point_timestamp
-        - -parent_point_timestamp
-        - parent_point_timeflow_id
-        - -parent_point_timeflow_id
-        - source_data_timestamp
-        - -source_data_timestamp
-        - oracle_incarnation_id
-        - -oracle_incarnation_id
-        - oracle_cdb_timeflow_id
-        - -oracle_cdb_timeflow_id
-        - oracle_tde_uuid
-        - -oracle_tde_uuid
-        - mssql_database_guid
-        - -mssql_database_guid
-        - creation_timestamp
-        - -creation_timestamp
-        - activation_timestamp
-        - -activation_timestamp
-        - parent_vdb_id
-        - -parent_vdb_id
-        - parent_dsource_id
-        - -parent_dsource_id
-        - source_vdb_id
-        - -source_vdb_id
-        - source_dsource_id
-        - -source_dsource_id
-        example: name
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
-    timeflowIdParam:
-      in: path
-      name: timeflowId
-      schema:
-        type: string
-        minLength: 1
-      required: true
-      description: The ID of the timeflow.
   schemas:
     Job:
       description: An asynchronous task.
@@ -517,13 +436,6 @@ components:
           type: object
       discriminator:
         propertyName: class_type
-    DeleteTimeflowParameters:
-      type: object
-      description: Parameters to delete a timeflow.
-      properties:
-        force_delete:
-          type: boolean
-          description: Whether to delete all the dependent Bookmarks.
     SnapshotDayRange:
       description: Count of TimeFlow snapshots aggregated by day.
       type: object
@@ -548,52 +460,6 @@ components:
           type: string
           format: date-time
           example: '2019-09-21T07:00:00.000Z'
-    PaginatedResponseMetadata:
-      type: object
-      properties:
-        prev_cursor:
-          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        next_cursor:
-          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        total:
-          description: The total number of results. This value may not be provided.
-          type: integer
-          format: int_64
-    JobTaskEvent:
-      properties:
-        message_details:
-          type: string
-    TimeflowSnapshotRange:
-      description: Represents a snapshot provisionable range.
-      properties:
-        start_point_location:
-          type: string
-          description: The starting location of this range.
-          example: '1178883'
-        start_point_timestamp:
-          type: string
-          description: The start timestamp of this range.
-          format: date-time
-          example: '2023-04-01T08:51:34.148000+00:00'
-        end_point_location:
-          type: string
-          description: The ending location of this range.
-          example: '1178884'
-        end_point_timestamp:
-          type: string
-          description: The end timestamp of this range.
-          format: date-time
-          example: '2023-04-01T09:51:34.148000+00:00'
-        provisionable:
-          type: boolean
-          description: Whether or not this snapshot is provisionable.
-          example: true
-        snapshot_id:
-          type: string
-          description: Id of the timeflow snapshot.
-          example: 1-ORACLE_SNAPSHOT-1
     Timeflow:
       description: Virtualization Engine Timeflow of a dSource or VDB.
       type: object
@@ -724,217 +590,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
-    VirtualizationTask:
-      deprecated: true
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualizationTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    DeleteTag:
-      type: object
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-        tags:
-          description: List of tags to be deleted
-          type: array
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/Tag'
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
-    JobTask:
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    SnapshotsDayRangesResponse:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/SnapshotDayRange'
-    Engine:
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
-    SSHVerificationStrategy:
-      description: Mechanism to use for ssh host verification.
-      required:
-      - name
-      properties:
-        name:
-          description: The name of the verification strategy.
-          type: string
-          enum:
-          - RAW_KEY
-          - FINGERPRINT
-          - ACCEPT_ALWAYS
-        key_type:
-          description: The type of SSH key.
-          type: string
-          enum:
-          - RSA
-          - DSA
-          - ECDSA
-          - ED25519
-        raw_key:
-          description: Base64-encoded ssh key of the host for RAW_KEY verification.
-          type: string
-          minLength: 1
-        fingerprint_type:
-          description: Hash function for the fingerprint for FINGERPRINT verification.
-          type: string
-          enum:
-          - SHA256
-          - SHA512
-        fingerprint:
-          description: Base-64 encoded fingerprint of the ssh key of the host for FINGERPRINT verification.
-          type: string
-          minLength: 1
-    TagsRequest:
-      type: object
-      required:
-      - tags
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-    TagsResponse:
-      type: object
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    TimeflowSnapshotRangesParameters:
-      type: object
-      properties:
-        start_date:
-          type: string
-          format: date-time
-          description: The start date to get the timeflow snapshot ranges
-          example: '2025-12-17T15:05:30+05:30'
-        end_date:
-          type: string
-          format: date-time
-          description: The end date to get the timeflow snapshot ranges.
-          example: '2025-12-18T15:05:30+05:30'
-    VirtualizationTaskEvent:
-      deprecated: true
-      properties:
-        message_details:
-          type: string
-    Tag:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
     TimeflowRepairRequest:
       type: object
       required:
@@ -1074,6 +729,11 @@ components:
           example: true
         sshVerificationStrategy:
           $ref: '#/components/schemas/SSHVerificationStrategy'
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
     UpdateTimeflowParameters:
       type: object
       description: Parameters to update a Timeflow.
@@ -1084,7 +744,379 @@ components:
           minLength: 1
           maxLength: 1024
           example: 'Latest on parent refresh #02'
+    SnapshotsDayRangesResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SnapshotDayRange'
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    DeleteTag:
+      type: object
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        tags:
+          description: List of tags to be deleted
+          type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+    TimeflowSnapshotRange:
+      description: Represents a snapshot provisionable range.
+      properties:
+        start_point_location:
+          type: string
+          description: The starting location of this range.
+          example: '1178883'
+        start_point_timestamp:
+          type: string
+          description: The start timestamp of this range.
+          format: date-time
+          example: '2023-04-01T08:51:34.148000+00:00'
+        end_point_location:
+          type: string
+          description: The ending location of this range.
+          example: '1178884'
+        end_point_timestamp:
+          type: string
+          description: The end timestamp of this range.
+          format: date-time
+          example: '2023-04-01T09:51:34.148000+00:00'
+        provisionable:
+          type: boolean
+          description: Whether or not this snapshot is provisionable.
+          example: true
+        snapshot_id:
+          type: string
+          description: Id of the timeflow snapshot.
+          example: 1-ORACLE_SNAPSHOT-1
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    VirtualizationTask:
+      deprecated: true
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    DeleteTimeflowParameters:
+      type: object
+      description: Parameters to delete a timeflow.
+      properties:
+        force_delete:
+          type: boolean
+          description: Whether to delete all the dependent Bookmarks.
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    SSHVerificationStrategy:
+      description: Mechanism to use for ssh host verification.
+      required:
+      - name
+      properties:
+        name:
+          description: The name of the verification strategy.
+          type: string
+          enum:
+          - RAW_KEY
+          - FINGERPRINT
+          - ACCEPT_ALWAYS
+        key_type:
+          description: The type of SSH key.
+          type: string
+          enum:
+          - RSA
+          - DSA
+          - ECDSA
+          - ED25519
+        raw_key:
+          description: Base64-encoded ssh key of the host for RAW_KEY verification.
+          type: string
+          minLength: 1
+        fingerprint_type:
+          description: Hash function for the fingerprint for FINGERPRINT verification.
+          type: string
+          enum:
+          - SHA256
+          - SHA512
+        fingerprint:
+          description: Base-64 encoded fingerprint of the ssh key of the host for FINGERPRINT verification.
+          type: string
+          minLength: 1
+    TimeflowSnapshotRangesParameters:
+      type: object
+      properties:
+        start_date:
+          type: string
+          format: date-time
+          description: The start date to get the timeflow snapshot ranges
+          example: '2025-12-17T15:05:30+05:30'
+        end_date:
+          type: string
+          format: date-time
+          description: The end date to get the timeflow snapshot ranges.
+          example: '2025-12-18T15:05:30+05:30'
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+  parameters:
+    timeflowsSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - engine_id
+        - -engine_id
+        - namespace
+        - -namespace
+        - name
+        - -name
+        - dataset_id
+        - -dataset_id
+        - creation_type
+        - -creation_type
+        - parent_snapshot_id
+        - -parent_snapshot_id
+        - parent_point_location
+        - -parent_point_location
+        - parent_point_timestamp
+        - -parent_point_timestamp
+        - parent_point_timeflow_id
+        - -parent_point_timeflow_id
+        - source_data_timestamp
+        - -source_data_timestamp
+        - oracle_incarnation_id
+        - -oracle_incarnation_id
+        - oracle_cdb_timeflow_id
+        - -oracle_cdb_timeflow_id
+        - oracle_tde_uuid
+        - -oracle_tde_uuid
+        - mssql_database_guid
+        - -mssql_database_guid
+        - creation_timestamp
+        - -creation_timestamp
+        - activation_timestamp
+        - -activation_timestamp
+        - parent_vdb_id
+        - -parent_vdb_id
+        - parent_dsource_id
+        - -parent_dsource_id
+        - source_vdb_id
+        - -source_vdb_id
+        - source_dsource_id
+        - -source_dsource_id
+        example: name
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+    timeflowIdParam:
+      in: path
+      name: timeflowId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the timeflow.
   requestBodies:
+    DeleteTags:
+      description: The parameters to delete tags
+      content:
+        application/json:
+          schema:
+            x-body-name: environment
+            $ref: '#/components/schemas/DeleteTag'
+          examples:
+            delete_all_tags:
+              description: Delete all tags for given object - No request body required
+              summary: Delete all tags
+              value: {}
+            delete_tags_by_key:
+              description: Delete all tags for given object with matching key
+              summary: Delete tags by key
+              value:
+                key: key-1
+            delete_tags_by_key_value:
+              description: Delete tag for given object with matching key and value
+              summary: Delete a tag by key & value
+              value:
+                key: key-1
+                value: value-1
+            delete_multiple_tags_by_key_value:
+              description: Delete tags for given list of tags with matching key and value
+              summary: Delete multiple tags by key & value
+              value:
+                tags:
+                - key: key-1
+                  value: value-1
+                - key: key-2
+                  value: value-2
     SearchBody:
       x-skip-codegen-attr: description
       description: 'A request body containing a filter expression. This enables searching
@@ -1265,38 +1297,6 @@ components:
               summary: Overriding operator precedence
               value:
                 filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
-    DeleteTags:
-      description: The parameters to delete tags
-      content:
-        application/json:
-          schema:
-            x-body-name: environment
-            $ref: '#/components/schemas/DeleteTag'
-          examples:
-            delete_all_tags:
-              description: Delete all tags for given object - No request body required
-              summary: Delete all tags
-              value: {}
-            delete_tags_by_key:
-              description: Delete all tags for given object with matching key
-              summary: Delete tags by key
-              value:
-                key: key-1
-            delete_tags_by_key_value:
-              description: Delete tag for given object with matching key and value
-              summary: Delete a tag by key & value
-              value:
-                key: key-1
-                value: value-1
-            delete_multiple_tags_by_key_value:
-              description: Delete tags for given list of tags with matching key and value
-              summary: Delete multiple tags by key & value
-              value:
-                tags:
-                - key: key-1
-                  value: value-1
-                - key: key-2
-                  value: value-2
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

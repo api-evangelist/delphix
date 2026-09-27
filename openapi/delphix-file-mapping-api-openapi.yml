@@ -92,98 +92,6 @@ paths:
                 $ref: '#/components/schemas/FileMappingResult'
 components:
   schemas:
-    FileMappingTimestampParameters:
-      description: Parameters to validate file mapping using timestamp.
-      type: object
-      required:
-      - source_data_id
-      - file_mapping_rules
-      - timestamps
-      properties:
-        source_data_id:
-          type: string
-          description: The ID of the source object (dSource or VDB) to provision from.
-          minLength: 1
-          maxLength: 256
-          example: 1-source-123
-        timestamps:
-          description: The list of timestamps to use for source files to be mapped.
-          type: array
-          items:
-            type: string
-            format: date-time
-            description: The timestamp for the timeflow point.
-            example: '2025-08-19T22:01:44.000Z'
-          minItems: 1
-        file_mapping_rules:
-          type: string
-          description: File mapping rules for the VDB provisioning.
-          minLength: 1
-        file_system_layout:
-          $ref: '#/components/schemas/FilesystemLayoutParameters'
-          description: The filesystem configuration of the MSSQL database.
-          x-dct-toolkit-subcommand: mssql
-    FileMappingBookmarkParameters:
-      description: Parameters to validate file mapping using bookmark.
-      type: object
-      required:
-      - bookmark_ids
-      - file_mapping_rules
-      properties:
-        bookmark_ids:
-          description: The list of bookmark IDs to use for file mapping.
-          type: array
-          items:
-            type: string
-          minItems: 1
-          example:
-          - 1-bookmark-123
-          - 1-bookmark-456
-        file_mapping_rules:
-          type: string
-          description: File mapping rules for the VDB provisioning.
-          minLength: 1
-        file_system_layout:
-          $ref: '#/components/schemas/FilesystemLayoutParameters'
-          description: The filesystem configuration of the MSSQL database.
-          x-dct-toolkit-subcommand: mssql
-    FileMappingResult:
-      description: Contains the file mapping information for database files.
-      type: object
-      properties:
-        mapped_files:
-          type: object
-          description: A mapping of source file paths to destination file paths.
-          additionalProperties:
-            type: string
-    FileMappingLocationParameters:
-      description: Parameters to validate file mapping using location.
-      type: object
-      required:
-      - source_data_id
-      - file_mapping_rules
-      - locations
-      properties:
-        source_data_id:
-          type: string
-          description: The ID of the source object (dSource or VDB) to provision from.
-          minLength: 1
-          maxLength: 256
-          example: 1-source-123
-        locations:
-          description: The list of locations to use for source files to be mapped.
-          type: array
-          items:
-            type: string
-          minItems: 1
-        file_mapping_rules:
-          type: string
-          description: File mapping rules for the VDB provisioning.
-          minLength: 1
-        file_system_layout:
-          $ref: '#/components/schemas/FilesystemLayoutParameters'
-          description: The filesystem configuration of the MSSQL database.
-          x-dct-toolkit-subcommand: mssql
     FilesystemLayoutParameters:
       type: object
       properties:
@@ -222,6 +130,58 @@ components:
           example: false
       discriminator:
         propertyName: class_type
+    FileMappingBookmarkParameters:
+      description: Parameters to validate file mapping using bookmark.
+      type: object
+      required:
+      - bookmark_ids
+      - file_mapping_rules
+      properties:
+        bookmark_ids:
+          description: The list of bookmark IDs to use for file mapping.
+          type: array
+          items:
+            type: string
+          minItems: 1
+          example:
+          - 1-bookmark-123
+          - 1-bookmark-456
+        file_mapping_rules:
+          type: string
+          description: File mapping rules for the VDB provisioning.
+          minLength: 1
+        file_system_layout:
+          $ref: '#/components/schemas/FilesystemLayoutParameters'
+          description: The filesystem configuration of the MSSQL database.
+          x-dct-toolkit-subcommand: mssql
+    FileMappingLocationParameters:
+      description: Parameters to validate file mapping using location.
+      type: object
+      required:
+      - source_data_id
+      - file_mapping_rules
+      - locations
+      properties:
+        source_data_id:
+          type: string
+          description: The ID of the source object (dSource or VDB) to provision from.
+          minLength: 1
+          maxLength: 256
+          example: 1-source-123
+        locations:
+          description: The list of locations to use for source files to be mapped.
+          type: array
+          items:
+            type: string
+          minItems: 1
+        file_mapping_rules:
+          type: string
+          description: File mapping rules for the VDB provisioning.
+          minLength: 1
+        file_system_layout:
+          $ref: '#/components/schemas/FilesystemLayoutParameters'
+          description: The filesystem configuration of the MSSQL database.
+          x-dct-toolkit-subcommand: mssql
     FileMappingSnapshotParameters:
       description: Parameters to validate file mapping using VDB snapshot.
       type: object
@@ -234,6 +194,46 @@ components:
           type: array
           items:
             type: string
+          minItems: 1
+        file_mapping_rules:
+          type: string
+          description: File mapping rules for the VDB provisioning.
+          minLength: 1
+        file_system_layout:
+          $ref: '#/components/schemas/FilesystemLayoutParameters'
+          description: The filesystem configuration of the MSSQL database.
+          x-dct-toolkit-subcommand: mssql
+    FileMappingResult:
+      description: Contains the file mapping information for database files.
+      type: object
+      properties:
+        mapped_files:
+          type: object
+          description: A mapping of source file paths to destination file paths.
+          additionalProperties:
+            type: string
+    FileMappingTimestampParameters:
+      description: Parameters to validate file mapping using timestamp.
+      type: object
+      required:
+      - source_data_id
+      - file_mapping_rules
+      - timestamps
+      properties:
+        source_data_id:
+          type: string
+          description: The ID of the source object (dSource or VDB) to provision from.
+          minLength: 1
+          maxLength: 256
+          example: 1-source-123
+        timestamps:
+          description: The list of timestamps to use for source files to be mapped.
+          type: array
+          items:
+            type: string
+            format: date-time
+            description: The timestamp for the timeflow point.
+            example: '2025-08-19T22:01:44.000Z'
           minItems: 1
         file_mapping_rules:
           type: string

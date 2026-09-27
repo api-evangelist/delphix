@@ -414,163 +414,6 @@ paths:
                 $ref: '#/components/schemas/ImportEngineBookmarkResponse'
 components:
   schemas:
-    BookmarkPaaSInstances:
-      description: PaaS Instance id and name associated with bookmark.
-      type: object
-      properties:
-        paas_instance_id:
-          description: The PaaS Instance id.
-          type: string
-          example: paas-instance-id-1
-        paas_instance_name:
-          description: The PaaS Instance name.
-          type: string
-          example: paas-instance-name
-        root_parent_id:
-          description: The root of the PaaS Instance.
-          type: string
-          example: paas-instance-root-id-1
-        paas_snapshot_id:
-          description: The PaaS Instance snapshot id.
-          type: string
-          example: 1-SNAP-1
-        data_timestamp:
-          description: The timestamp of the PaaS Instance snapshot.
-          type: string
-          format: date-time
-          example: '2021-05-01T08:51:34.148000+00:00'
-    BookmarkCreateParameters:
-      description: A Data Control Tower object that references points in time for one or more datasets.
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          description: The user-defined name of this bookmark.
-          type: string
-          minLength: 1
-          maxLength: 256
-          example: my-bookmark-123
-        vdb_ids:
-          description: The IDs of the VDBs to create the Bookmark on. This parameter is mutually exclusive with snapshot_ids and timeflow_ids.
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-          example:
-          - vdb-123
-          - vdb-456
-        vdb_group_id:
-          description: The ID of the VDB group to create the Bookmark on. This parameter is mutually exclusive with vdb_ids.
-          type: string
-          minLength: 1
-          maxLength: 256
-          example: vdb-group-123
-        snapshot_ids:
-          description: 'The IDs of the snapshots that will be part of the Bookmark. This parameter is mutually exclusive with vdb_ids, timestamp, timestamp_in_database_timezone, location and timeflow_ids.
-
-            '
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-          example:
-          - snapshot-1
-          - snapshot-2
-        timeflow_ids:
-          description: The array of timeflow Id. Only allowed to set when timestamp, timestamp_in_database_timezone or location is provided.
-          items:
-            type: string
-          uniqueItems: true
-          example:
-          - timeflow-1
-          - timeflow-2
-        timestamp:
-          type: string
-          format: date-time
-          description: The point in time from which to execute the operation. Mutually exclusive with snapshot_ids, timestamp_in_database_timezone and location.
-          example: '2021-05-01T08:51:34.148000+00:00'
-        timestamp_in_database_timezone:
-          description: The point in time from which to execute the operation, expressed as a date-time in the timezone of the source database. Mutually exclusive with snapshot_ids, timestamp and location.
-          type: string
-          pattern: '[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(.[0-9]{0,3})?'
-          example: '2021-08-14T14:55:20.507'
-        location:
-          type: string
-          description: The location to create bookmark from. Mutually exclusive with snapshot_ids, timestamp, and timestamp_in_database_timezone.
-          minLength: 1
-          maxLength: 256
-          example: 112233
-        paas_snapshot_ids:
-          description: The IDs of the PaaS snapshot to create the Bookmark on. This parameter is mutually exclusive with vdb_ids, snapshot_ids and timeflow_ids.
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-          example:
-          - pass-snapshot-123
-        paas_database_ids:
-          description: The IDs of the PaaS Database associated with the PaaS snapshot. This parameter is mutually exclusive with vdb_ids, snapshot_ids, timeflow_ids and paas_snapshot_ids.
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-          example:
-          - paas-database-123
-        paas_instance_ids:
-          description: The IDs of the PaaS Instance associated with the PaaS Database. This parameter is mutually exclusive with vdb_ids, snapshot_ids, timeflow_ids, paas_snapshot_ids and paas_database_ids.
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-          example:
-          - paas-instance-123
-        retention:
-          description: The retention policy for this bookmark, in days. A value of -1 indicates the bookmark should be kept forever. Deprecated in favor of expiration and retain_forever.
-          type: integer
-          format: int64
-          example: 365
-          deprecated: true
-        expiration:
-          description: The expiration for this bookmark. Mutually exclusive with retention and retain_forever.
-          type: string
-          format: date
-          example: '2021-07-04'
-        retain_forever:
-          description: Indicates that the bookmark should be retained forever.
-          type: boolean
-          example: false
-        tags:
-          description: The tags to be created for this Bookmark.
-          type: array
-          items:
-            $ref: '#/components/schemas/CloudTag'
-          example:
-          - key: key-1
-            value: value-1
-          - key: key-2
-            value: value-2
-        bookmark_type:
-          description: Type of the bookmark, either PUBLIC or PRIVATE.
-          type: string
-          enum:
-          - PUBLIC
-          - PRIVATE
-          default: PRIVATE
-          example: PUBLIC
-        make_current_account_owner:
-          type: boolean
-          default: true
-          description: Whether the account creating this bookmark must be configured as owner of the bookmark.
-        inherit_parent_vdb_tags:
-          type: boolean
-          deprecated: true
-          default: false
-          description: This field has been deprecated in favour of new field 'inherit_parent_tags'.
-        inherit_parent_tags:
-          type: boolean
-          default: false
-          description: Whether this bookmark should inherit tags from the parent dataset.
     Job:
       description: An asynchronous task.
       type: object
@@ -694,253 +537,6 @@ components:
           type: object
       discriminator:
         propertyName: class_type
-    ImportEngineBookmarkResponse:
-      type: object
-      properties:
-        job_id:
-          deprecated: true
-          description: DCT job-id of the job that import the engine bookmarks to DCT.
-          type: string
-          example: job-1
-        job:
-          description: The job object.
-          $ref: '#/components/schemas/Job'
-    PaginatedResponseMetadata:
-      type: object
-      properties:
-        prev_cursor:
-          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        next_cursor:
-          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        total:
-          description: The total number of results. This value may not be provided.
-          type: integer
-          format: int_64
-    VDBOrder:
-      allOf:
-      - $ref: '#/components/schemas/CreateVDBGroupOrder'
-      - type: object
-        properties:
-          vdb_name:
-            type: string
-          last_refresh_time_with_group_refresh:
-            description: The last time the VDB was successfully refreshed as a part of VDB Group refresh operation in UTC timezone.
-            type: string
-            format: date-time
-            example: '2022-05-29T15:00:00Z'
-          in_sync:
-            description: Indicates if the VDB is in sync with the VDB Group or not. If this VDB is was last refreshed as part of the VDB Group then this value will be true.
-            type: boolean
-    CreateVDBGroupOrder:
-      properties:
-        vdb_id:
-          description: Vdb id
-          type: string
-        order:
-          description: Dictates order of operations on VDBs. Operations can be performed in parallel <br> for all VDBs or sequentially. Below are possible valid and invalid orderings given an example <br> VDB group with 3 vdbs (A, B, and C).<br> Valid:<br> {"vdb_id":"vdb-1", "order":"1"} {"vdb_id":"vdb-2", order:"1"} {vdb_id:"vdb-3", order:"1"} (parallel)<br> {vdb_id:"vdb-1", order:"1"} {vdb_id:"vdb-2", order:"2"} {vdb_id:"vdb-3", order:"3"} (sequential)<br> Invalid:<br> {vdb_id:"vdb-1", order:"A"} {vdb_id:"vdb-2", order:"B"} {vdb_id:"vdb-3", order:"C"} (sequential)<br><br> In the sequential case the vdbs with priority 1 is the first to be started and the last to<br> be stopped. This value is set on creation of VDB groups.
-          type: integer
-          format: int32
-          default: 0
-      discriminator:
-        propertyName: class_type
-    JobTaskEvent:
-      properties:
-        message_details:
-          type: string
-    CloudTag:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-        mirror_on_cloud:
-          description: Whether this tag is mirrored from/to the Cloud Provider account hosting the PaaS Database or Instance. Not applicable to non PaaS objects.
-          type: boolean
-          default: false
-    VirtualizationTask:
-      deprecated: true
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualizationTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    DeleteTag:
-      type: object
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-        tags:
-          description: List of tags to be deleted
-          type: array
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/Tag'
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
-    JobTask:
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    BookmarkVDBs:
-      description: VDB id and name associated with bookmark.
-      type: object
-      properties:
-        vdb_id:
-          description: The VDB id.
-          type: string
-          example: vdb-id-1
-        vdb_name:
-          description: The VDB name.
-          type: string
-          example: vdb-name
-        snapshot_id:
-          description: The snapshot id.
-          type: string
-          example: 1-SNAP-1
-        source_data_timestamp:
-          description: The timestamp of origin timeline location.
-          type: string
-          format: date-time
-          example: '2021-05-01T08:51:34.148000+00:00'
-        root_parent_id:
-          description: The root of the VDB.
-          type: string
-          example: 1-DBCONTAINER-1
-        timeflow_id:
-          description: The timeflow id of the snapshot.
-          type: string
-        data_timestamp:
-          description: The bookmark timestamp of the VDB.
-          type: string
-          format: date-time
-    Engine:
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
-    UpdateBookmarkParameters:
-      type: object
-      description: Parameters to update a Bookmark.
-      properties:
-        name:
-          description: The user-defined name of this bookmark.
-          type: string
-          minLength: 1
-          maxLength: 256
-          example: my-bookmark-123
-        expiration:
-          description: The expiration for this Bookmark. Mutually exclusive with retain_forever.
-          type: string
-          format: date
-          example: '2021-07-04'
-        retain_forever:
-          description: Indicates that the Bookmark should be retained forever.
-          type: boolean
-          example: false
-        bookmark_type:
-          description: Type of the bookmark, either PUBLIC or PRIVATE.
-          type: string
-          enum:
-          - PUBLIC
-          - PRIVATE
     BookmarkPaaSDatabases:
       description: PaaS Database id and name associated with bookmark.
       type: object
@@ -966,14 +562,121 @@ components:
           type: string
           format: date-time
           example: '2021-05-01T08:51:34.148000+00:00'
-    TagsResponse:
+    VDBGroup:
+      description: A collection of virtual databases and datesets.
       type: object
+      required:
+      - id
+      - name
       properties:
+        id:
+          description: A unique identifier for the entity.
+          type: string
+          minLength: 1
+          maxLength: 256
+          readOnly: true
+          example: '123'
+        name:
+          description: A unique name for the entity.
+          type: string
+          minLength: 1
+          maxLength: 256
+          example: my-first-vdb-group
+        vdb_ids:
+          description: The list of VDB IDs in this VDB Group.
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 256
+          example:
+          - vdb-123
+          - vdb-456
+        is_locked:
+          description: Indicates whether the VDB Group is locked.
+          type: boolean
+          example: false
+        locked_by:
+          description: The Id of the account that locked the VDB Group.
+          type: integer
+          format: int64
+          example: 1
+        locked_by_name:
+          description: The name of the account that locked the VDB Group.
+          type: string
+          example: admin
+        vdb_group_source:
+          description: Source of the vdb group, default is DCT. In case of self-service container, this value would be ENGINE.
+          type: string
+          enum:
+          - DCT
+          - ENGINE
+        ss_data_layout_id:
+          description: Data-layout Id for engine-managed vdb groups.
+          type: string
+        vdbs:
+          type: array
+          description: Dictates order of operations on VDBs. Operations can be performed in parallel <br> for all VDBs or sequentially. Below are possible valid and invalid orderings given an example <br> VDB group with 3 vdbs (A, B, and C).<br> Valid:<br> {"vdb_id":"vdb-1", "order":"1"} {"vdb_id":"vdb-2", order:"1"} {vdb_id:"vdb-3", order:"1"} (parallel)<br> {vdb_id:"vdb-1", order:"1"} {vdb_id:"vdb-2", order:"2"} {vdb_id:"vdb-3", order:"3"} (sequential)<br> Invalid:<br> {vdb_id:"vdb-1", order:"A"} {vdb_id:"vdb-2", order:"B"} {vdb_id:"vdb-3", order:"C"} (sequential)<br><br> In the sequential case the vdbs with priority 1 is the first to be started and the last to<br> be stopped. This value is set on creation of VDB groups.
+          items:
+            $ref: '#/components/schemas/VDBOrder'
+        database_type:
+          description: The database type of the VDB Group. If all VDBs in the group are of the same database_type, this field will be set to that type. If the VDBs are of different database_type, this field will be set to 'Mixed'.
+          type: string
+          example: Oracle
+        status:
+          description: The status of the VDB Group. If all VDBs in the VDB Group have the same status, this field will be set to that status. If the VDBs have different statuses, this field will be set to 'Mixed'.
+          type: string
+          example: RUNNING
+        last_successful_refresh_to_bookmark_id:
+          description: The bookmark ID to which the VDB Group was last successfully refreshed.
+          type: string
+          example: bookmark-123
+        last_successful_refresh_time:
+          description: The time at which the VDB Group was last successfully refreshed.
+          type: string
+          format: date-time
+          example: '2021-05-01T08:51:34.148000Z'
+        logsync_enabled:
+          x-internal: true
+          description: True if LogSync is enabled for all of the VDBs.
+          type: boolean
+          example: true
         tags:
-          description: Array of tags with key value pairs
           type: array
           items:
             $ref: '#/components/schemas/Tag'
+      discriminator:
+        propertyName: class_type
+    BookmarkPaaSInstances:
+      description: PaaS Instance id and name associated with bookmark.
+      type: object
+      properties:
+        paas_instance_id:
+          description: The PaaS Instance id.
+          type: string
+          example: paas-instance-id-1
+        paas_instance_name:
+          description: The PaaS Instance name.
+          type: string
+          example: paas-instance-name
+        root_parent_id:
+          description: The root of the PaaS Instance.
+          type: string
+          example: paas-instance-root-id-1
+        paas_snapshot_id:
+          description: The PaaS Instance snapshot id.
+          type: string
+          example: 1-SNAP-1
+        data_timestamp:
+          description: The timestamp of the PaaS Instance snapshot.
+          type: string
+          format: date-time
+          example: '2021-05-01T08:51:34.148000+00:00'
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
     Bookmark:
       description: A Data Control Tower object that references points in time for one or more datasets.
       type: object
@@ -1150,104 +853,6 @@ components:
             value: value-1
           - key: key-2
             value: value-2
-    VDBGroup:
-      description: A collection of virtual databases and datesets.
-      type: object
-      required:
-      - id
-      - name
-      properties:
-        id:
-          description: A unique identifier for the entity.
-          type: string
-          minLength: 1
-          maxLength: 256
-          readOnly: true
-          example: '123'
-        name:
-          description: A unique name for the entity.
-          type: string
-          minLength: 1
-          maxLength: 256
-          example: my-first-vdb-group
-        vdb_ids:
-          description: The list of VDB IDs in this VDB Group.
-          type: array
-          items:
-            type: string
-            minLength: 1
-            maxLength: 256
-          example:
-          - vdb-123
-          - vdb-456
-        is_locked:
-          description: Indicates whether the VDB Group is locked.
-          type: boolean
-          example: false
-        locked_by:
-          description: The Id of the account that locked the VDB Group.
-          type: integer
-          format: int64
-          example: 1
-        locked_by_name:
-          description: The name of the account that locked the VDB Group.
-          type: string
-          example: admin
-        vdb_group_source:
-          description: Source of the vdb group, default is DCT. In case of self-service container, this value would be ENGINE.
-          type: string
-          enum:
-          - DCT
-          - ENGINE
-        ss_data_layout_id:
-          description: Data-layout Id for engine-managed vdb groups.
-          type: string
-        vdbs:
-          type: array
-          description: Dictates order of operations on VDBs. Operations can be performed in parallel <br> for all VDBs or sequentially. Below are possible valid and invalid orderings given an example <br> VDB group with 3 vdbs (A, B, and C).<br> Valid:<br> {"vdb_id":"vdb-1", "order":"1"} {"vdb_id":"vdb-2", order:"1"} {vdb_id:"vdb-3", order:"1"} (parallel)<br> {vdb_id:"vdb-1", order:"1"} {vdb_id:"vdb-2", order:"2"} {vdb_id:"vdb-3", order:"3"} (sequential)<br> Invalid:<br> {vdb_id:"vdb-1", order:"A"} {vdb_id:"vdb-2", order:"B"} {vdb_id:"vdb-3", order:"C"} (sequential)<br><br> In the sequential case the vdbs with priority 1 is the first to be started and the last to<br> be stopped. This value is set on creation of VDB groups.
-          items:
-            $ref: '#/components/schemas/VDBOrder'
-        database_type:
-          description: The database type of the VDB Group. If all VDBs in the group are of the same database_type, this field will be set to that type. If the VDBs are of different database_type, this field will be set to 'Mixed'.
-          type: string
-          example: Oracle
-        status:
-          description: The status of the VDB Group. If all VDBs in the VDB Group have the same status, this field will be set to that status. If the VDBs have different statuses, this field will be set to 'Mixed'.
-          type: string
-          example: RUNNING
-        last_successful_refresh_to_bookmark_id:
-          description: The bookmark ID to which the VDB Group was last successfully refreshed.
-          type: string
-          example: bookmark-123
-        last_successful_refresh_time:
-          description: The time at which the VDB Group was last successfully refreshed.
-          type: string
-          format: date-time
-          example: '2021-05-01T08:51:34.148000Z'
-        logsync_enabled:
-          x-internal: true
-          description: True if LogSync is enabled for all of the VDBs.
-          type: boolean
-          example: true
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-      discriminator:
-        propertyName: class_type
-    TagsRequest:
-      type: object
-      required:
-      - tags
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
     Replica:
       properties:
         replica_id:
@@ -1266,6 +871,69 @@ components:
           description: The namespace id of the replicated object.
           type: string
           example: namespace-1
+    ImportEngineBookmarkResponse:
+      type: object
+      properties:
+        job_id:
+          deprecated: true
+          description: DCT job-id of the job that import the engine bookmarks to DCT.
+          type: string
+          example: job-1
+        job:
+          description: The job object.
+          $ref: '#/components/schemas/Job'
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    CreateVDBGroupOrder:
+      properties:
+        vdb_id:
+          description: Vdb id
+          type: string
+        order:
+          description: Dictates order of operations on VDBs. Operations can be performed in parallel <br> for all VDBs or sequentially. Below are possible valid and invalid orderings given an example <br> VDB group with 3 vdbs (A, B, and C).<br> Valid:<br> {"vdb_id":"vdb-1", "order":"1"} {"vdb_id":"vdb-2", order:"1"} {vdb_id:"vdb-3", order:"1"} (parallel)<br> {vdb_id:"vdb-1", order:"1"} {vdb_id:"vdb-2", order:"2"} {vdb_id:"vdb-3", order:"3"} (sequential)<br> Invalid:<br> {vdb_id:"vdb-1", order:"A"} {vdb_id:"vdb-2", order:"B"} {vdb_id:"vdb-3", order:"C"} (sequential)<br><br> In the sequential case the vdbs with priority 1 is the first to be started and the last to<br> be stopped. This value is set on creation of VDB groups.
+          type: integer
+          format: int32
+          default: 0
+      discriminator:
+        propertyName: class_type
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    DeleteTag:
+      type: object
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        tags:
+          description: List of tags to be deleted
+          type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
     BookmarkDSources:
       description: dSource id and name associated with bookmark.
       type: object
@@ -1290,11 +958,187 @@ components:
           description: The bookmark timestamp of the dSource.
           type: string
           format: date-time
-    VirtualizationTaskEvent:
+    BookmarkCreateParameters:
+      description: A Data Control Tower object that references points in time for one or more datasets.
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          description: The user-defined name of this bookmark.
+          type: string
+          minLength: 1
+          maxLength: 256
+          example: my-bookmark-123
+        vdb_ids:
+          description: The IDs of the VDBs to create the Bookmark on. This parameter is mutually exclusive with snapshot_ids and timeflow_ids.
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+          example:
+          - vdb-123
+          - vdb-456
+        vdb_group_id:
+          description: The ID of the VDB group to create the Bookmark on. This parameter is mutually exclusive with vdb_ids.
+          type: string
+          minLength: 1
+          maxLength: 256
+          example: vdb-group-123
+        snapshot_ids:
+          description: 'The IDs of the snapshots that will be part of the Bookmark. This parameter is mutually exclusive with vdb_ids, timestamp, timestamp_in_database_timezone, location and timeflow_ids.
+
+            '
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+          example:
+          - snapshot-1
+          - snapshot-2
+        timeflow_ids:
+          description: The array of timeflow Id. Only allowed to set when timestamp, timestamp_in_database_timezone or location is provided.
+          items:
+            type: string
+          uniqueItems: true
+          example:
+          - timeflow-1
+          - timeflow-2
+        timestamp:
+          type: string
+          format: date-time
+          description: The point in time from which to execute the operation. Mutually exclusive with snapshot_ids, timestamp_in_database_timezone and location.
+          example: '2021-05-01T08:51:34.148000+00:00'
+        timestamp_in_database_timezone:
+          description: The point in time from which to execute the operation, expressed as a date-time in the timezone of the source database. Mutually exclusive with snapshot_ids, timestamp and location.
+          type: string
+          pattern: '[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(.[0-9]{0,3})?'
+          example: '2021-08-14T14:55:20.507'
+        location:
+          type: string
+          description: The location to create bookmark from. Mutually exclusive with snapshot_ids, timestamp, and timestamp_in_database_timezone.
+          minLength: 1
+          maxLength: 256
+          example: 112233
+        paas_snapshot_ids:
+          description: The IDs of the PaaS snapshot to create the Bookmark on. This parameter is mutually exclusive with vdb_ids, snapshot_ids and timeflow_ids.
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+          example:
+          - pass-snapshot-123
+        paas_database_ids:
+          description: The IDs of the PaaS Database associated with the PaaS snapshot. This parameter is mutually exclusive with vdb_ids, snapshot_ids, timeflow_ids and paas_snapshot_ids.
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+          example:
+          - paas-database-123
+        paas_instance_ids:
+          description: The IDs of the PaaS Instance associated with the PaaS Database. This parameter is mutually exclusive with vdb_ids, snapshot_ids, timeflow_ids, paas_snapshot_ids and paas_database_ids.
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+          example:
+          - paas-instance-123
+        retention:
+          description: The retention policy for this bookmark, in days. A value of -1 indicates the bookmark should be kept forever. Deprecated in favor of expiration and retain_forever.
+          type: integer
+          format: int64
+          example: 365
+          deprecated: true
+        expiration:
+          description: The expiration for this bookmark. Mutually exclusive with retention and retain_forever.
+          type: string
+          format: date
+          example: '2021-07-04'
+        retain_forever:
+          description: Indicates that the bookmark should be retained forever.
+          type: boolean
+          example: false
+        tags:
+          description: The tags to be created for this Bookmark.
+          type: array
+          items:
+            $ref: '#/components/schemas/CloudTag'
+          example:
+          - key: key-1
+            value: value-1
+          - key: key-2
+            value: value-2
+        bookmark_type:
+          description: Type of the bookmark, either PUBLIC or PRIVATE.
+          type: string
+          enum:
+          - PUBLIC
+          - PRIVATE
+          default: PRIVATE
+          example: PUBLIC
+        make_current_account_owner:
+          type: boolean
+          default: true
+          description: Whether the account creating this bookmark must be configured as owner of the bookmark.
+        inherit_parent_vdb_tags:
+          type: boolean
+          deprecated: true
+          default: false
+          description: This field has been deprecated in favour of new field 'inherit_parent_tags'.
+        inherit_parent_tags:
+          type: boolean
+          default: false
+          description: Whether this bookmark should inherit tags from the parent dataset.
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    VirtualizationTask:
       deprecated: true
       properties:
-        message_details:
+        id:
           type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
     Tag:
       type: object
       required:
@@ -1313,7 +1157,309 @@ components:
           minLength: 1
           maxLength: 4000
           example: value-1
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    CloudTag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        mirror_on_cloud:
+          description: Whether this tag is mirrored from/to the Cloud Provider account hosting the PaaS Database or Instance. Not applicable to non PaaS objects.
+          type: boolean
+          default: false
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    BookmarkVDBs:
+      description: VDB id and name associated with bookmark.
+      type: object
+      properties:
+        vdb_id:
+          description: The VDB id.
+          type: string
+          example: vdb-id-1
+        vdb_name:
+          description: The VDB name.
+          type: string
+          example: vdb-name
+        snapshot_id:
+          description: The snapshot id.
+          type: string
+          example: 1-SNAP-1
+        source_data_timestamp:
+          description: The timestamp of origin timeline location.
+          type: string
+          format: date-time
+          example: '2021-05-01T08:51:34.148000+00:00'
+        root_parent_id:
+          description: The root of the VDB.
+          type: string
+          example: 1-DBCONTAINER-1
+        timeflow_id:
+          description: The timeflow id of the snapshot.
+          type: string
+        data_timestamp:
+          description: The bookmark timestamp of the VDB.
+          type: string
+          format: date-time
+    UpdateBookmarkParameters:
+      type: object
+      description: Parameters to update a Bookmark.
+      properties:
+        name:
+          description: The user-defined name of this bookmark.
+          type: string
+          minLength: 1
+          maxLength: 256
+          example: my-bookmark-123
+        expiration:
+          description: The expiration for this Bookmark. Mutually exclusive with retain_forever.
+          type: string
+          format: date
+          example: '2021-07-04'
+        retain_forever:
+          description: Indicates that the Bookmark should be retained forever.
+          type: boolean
+          example: false
+        bookmark_type:
+          description: Type of the bookmark, either PUBLIC or PRIVATE.
+          type: string
+          enum:
+          - PUBLIC
+          - PRIVATE
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    VDBOrder:
+      allOf:
+      - $ref: '#/components/schemas/CreateVDBGroupOrder'
+      - type: object
+        properties:
+          vdb_name:
+            type: string
+          last_refresh_time_with_group_refresh:
+            description: The last time the VDB was successfully refreshed as a part of VDB Group refresh operation in UTC timezone.
+            type: string
+            format: date-time
+            example: '2022-05-29T15:00:00Z'
+          in_sync:
+            description: Indicates if the VDB is in sync with the VDB Group or not. If this VDB is was last refreshed as part of the VDB Group then this value will be true.
+            type: boolean
+  parameters:
+    bookmarkIdParam:
+      in: path
+      name: bookmarkId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the Bookmark.
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    vdbGroupsSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - locked_by
+        - -locked_by
+        - locked_by_name
+        - -locked_by_name
+        - database_type
+        - -database_type
+        - status
+        - -status
+        - last_successful_refresh_to_bookmark_id
+        - -last_successful_refresh_to_bookmark_id
+        - last_successful_refresh_time
+        - -last_successful_refresh_time
+        example: name
+    bookmarksSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - creation_date
+        - -creation_date
+        - vdb_ids
+        - -vdb_ids
+        - retention
+        - -retention
+        - expiration
+        - -expiration
+        - data_timestamp
+        - -data_timestamp
+        - timeflow_id
+        - -timeflow_id
+        - location
+        - -location
+        - vdb_group_name
+        - -vdb_group_name
+        - namespace_id
+        - -namespace_id
+        - namespace_name
+        - -namespace_name
+        - primary_object_id
+        - -primary_object_id
+        - primary_engine_id
+        - -primary_engine_id
+        - primary_engine_name
+        - -primary_engine_name
+        - primary_bookmark_expiration
+        - -primary_bookmark_expiration
+        example: name
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+    engineIdParam:
+      in: path
+      name: engineId
+      schema:
+        type: string
+      required: true
+      description: The ID of the registered engine.
   requestBodies:
+    DeleteTags:
+      description: The parameters to delete tags
+      content:
+        application/json:
+          schema:
+            x-body-name: environment
+            $ref: '#/components/schemas/DeleteTag'
+          examples:
+            delete_all_tags:
+              description: Delete all tags for given object - No request body required
+              summary: Delete all tags
+              value: {}
+            delete_tags_by_key:
+              description: Delete all tags for given object with matching key
+              summary: Delete tags by key
+              value:
+                key: key-1
+            delete_tags_by_key_value:
+              description: Delete tag for given object with matching key and value
+              summary: Delete a tag by key & value
+              value:
+                key: key-1
+                value: value-1
+            delete_multiple_tags_by_key_value:
+              description: Delete tags for given list of tags with matching key and value
+              summary: Delete multiple tags by key & value
+              value:
+                tags:
+                - key: key-1
+                  value: value-1
+                - key: key-2
+                  value: value-2
+    CreateBookmark:
+      description: The parameters to create a bookmark.
+      content:
+        application/json:
+          schema:
+            x-body-name: bookmark
+            $ref: '#/components/schemas/BookmarkCreateParameters'
+      required: true
     SearchBody:
       x-skip-codegen-attr: description
       description: 'A request body containing a filter expression. This enables searching
@@ -1494,152 +1640,6 @@ components:
               summary: Overriding operator precedence
               value:
                 filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
-    CreateBookmark:
-      description: The parameters to create a bookmark.
-      content:
-        application/json:
-          schema:
-            x-body-name: bookmark
-            $ref: '#/components/schemas/BookmarkCreateParameters'
-      required: true
-    DeleteTags:
-      description: The parameters to delete tags
-      content:
-        application/json:
-          schema:
-            x-body-name: environment
-            $ref: '#/components/schemas/DeleteTag'
-          examples:
-            delete_all_tags:
-              description: Delete all tags for given object - No request body required
-              summary: Delete all tags
-              value: {}
-            delete_tags_by_key:
-              description: Delete all tags for given object with matching key
-              summary: Delete tags by key
-              value:
-                key: key-1
-            delete_tags_by_key_value:
-              description: Delete tag for given object with matching key and value
-              summary: Delete a tag by key & value
-              value:
-                key: key-1
-                value: value-1
-            delete_multiple_tags_by_key_value:
-              description: Delete tags for given list of tags with matching key and value
-              summary: Delete multiple tags by key & value
-              value:
-                tags:
-                - key: key-1
-                  value: value-1
-                - key: key-2
-                  value: value-2
-  parameters:
-    bookmarksSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
-      example: id
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - name
-        - -name
-        - creation_date
-        - -creation_date
-        - vdb_ids
-        - -vdb_ids
-        - retention
-        - -retention
-        - expiration
-        - -expiration
-        - data_timestamp
-        - -data_timestamp
-        - timeflow_id
-        - -timeflow_id
-        - location
-        - -location
-        - vdb_group_name
-        - -vdb_group_name
-        - namespace_id
-        - -namespace_id
-        - namespace_name
-        - -namespace_name
-        - primary_object_id
-        - -primary_object_id
-        - primary_engine_id
-        - -primary_engine_id
-        - primary_engine_name
-        - -primary_engine_name
-        - primary_bookmark_expiration
-        - -primary_bookmark_expiration
-        example: name
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
-    engineIdParam:
-      in: path
-      name: engineId
-      schema:
-        type: string
-      required: true
-      description: The ID of the registered engine.
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
-    bookmarkIdParam:
-      in: path
-      name: bookmarkId
-      schema:
-        type: string
-        minLength: 1
-      required: true
-      description: The ID of the Bookmark.
-    vdbGroupsSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
-      example: id
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - name
-        - -name
-        - locked_by
-        - -locked_by
-        - locked_by_name
-        - -locked_by_name
-        - database_type
-        - -database_type
-        - status
-        - -status
-        - last_successful_refresh_to_bookmark_id
-        - -last_successful_refresh_to_bookmark_id
-        - last_successful_refresh_time
-        - -last_successful_refresh_time
-        example: name
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

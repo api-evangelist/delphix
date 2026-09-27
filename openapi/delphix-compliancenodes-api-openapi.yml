@@ -254,65 +254,107 @@ paths:
                     items:
                       type: string
 components:
+  parameters:
+    timestampParam:
+      name: timestamp
+      in: query
+      required: false
+      schema:
+        type: string
+        format: date-time
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    complianceNodesSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - hostname
+        - -hostname
+        - insecure_ssl
+        - -insecure_ssl
+        - unsafe_ssl_hostname_check
+        - -unsafe_ssl_hostname_check
+        - username
+        - -username
+        - creation_date
+        - -creation_date
+        - account_id
+        - -account_id
+        - account_name
+        - -account_name
+        - status
+        - -status
+        - status_details
+        - -status_details
+        - job_orchestrator_id
+        - -job_orchestrator_id
+        - job_orchestrator_name
+        - -job_orchestrator_name
+        - core_count
+        - -core_count
+        - memory_for_jobs
+        - -memory_for_jobs
+        - version
+        - -version
+        - hyperscale_instance_id
+        - -hyperscale_instance_id
+        - hyperscale_instance_name
+        - -hyperscale_instance_name
+        example: name
+    complianceNodeIdParam:
+      in: path
+      name: complianceNodeId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the Compliance Node.
+    pageSizeParam:
+      name: pageSize
+      in: query
+      required: false
+      schema:
+        type: integer
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+    logFileNumberParam:
+      name: logFileNumber
+      in: query
+      required: false
+      schema:
+        type: integer
+    offsetParam:
+      name: offset
+      in: query
+      required: false
+      schema:
+        type: integer
   schemas:
-    ComplianceNodeLogFileDetails:
-      description: Details of a compliance node log file.
-      type: object
-      properties:
-        file_name:
-          description: The name of the log file.
-          type: string
-          example: 6a88560a-7acb-409b-a0d1-341a2d273489.1768936684438.log
-        file_download_id:
-          description: The file download id used to download the log file.
-          type: string
-    ComplianceNodeUpdateRequest:
-      description: Parameters to update a compliance node.
-      type: object
-      properties:
-        name:
-          description: The name of the compliance node.
-          type: string
-          example: My Compliance Node
-        hostname:
-          description: The hostname of the compliance node.
-          type: string
-          example: compliance.example.com
-        username:
-          description: The username for connecting to the compliance node.
-          type: string
-          example: user1
-        password:
-          x-dct-toolkit-credential-field: true
-          description: The password for connecting to the compliance node.
-          type: string
-          example: secret
-        insecure_ssl:
-          description: 'Allow connections to the compliance node over HTTPs without validating the TLS certificate. Even though
-
-            the connection to the compliance node might be performed over HTTPs, setting this property eliminates
-
-            the protection against a man-in-the-middle attach for connections to this node. Instead,
-
-            consider configuring DCT with Certificate Authority certificates.
-
-            '
-          type: boolean
-          example: false
-        unsafe_ssl_hostname_check:
-          description: 'Ignore validation of the name associated to the TLS certificate when connecting to the compliance node over HTTPs.
-
-            Setting this value must only be done if the TLS certificate of the compliance node does not match the hostname,
-
-            and the TLS configuration of the compliance node cannot be fixed. Setting this property reduces the protection
-
-            against a man-in-the-middle attack for connections to this compliance node.
-
-            This is ignored if insecure_ssl is set.
-
-            '
-          type: boolean
-          example: false
     Job:
       description: An asynchronous task.
       type: object
@@ -434,19 +476,6 @@ components:
         result:
           description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
           type: object
-    PaginatedResponseMetadata:
-      type: object
-      properties:
-        prev_cursor:
-          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        next_cursor:
-          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        total:
-          description: The total number of results. This value may not be provided.
-          type: integer
-          format: int_64
     ComplianceNodeRegisterRequest:
       description: Parameters to register a compliance node.
       type: object
@@ -510,10 +539,86 @@ components:
           description: The ID of the Hyperscale Instance to associate the compliance node with. Must belong to the same Job Orchestrator.
           type: string
           example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    ComplianceNodeLogFileDetails:
+      description: Details of a compliance node log file.
+      type: object
+      properties:
+        file_name:
+          description: The name of the log file.
+          type: string
+          example: 6a88560a-7acb-409b-a0d1-341a2d273489.1768936684438.log
+        file_download_id:
+          description: The file download id used to download the log file.
+          type: string
+    ComplianceNodeUpdateRequest:
+      description: Parameters to update a compliance node.
+      type: object
+      properties:
+        name:
+          description: The name of the compliance node.
+          type: string
+          example: My Compliance Node
+        hostname:
+          description: The hostname of the compliance node.
+          type: string
+          example: compliance.example.com
+        username:
+          description: The username for connecting to the compliance node.
+          type: string
+          example: user1
+        password:
+          x-dct-toolkit-credential-field: true
+          description: The password for connecting to the compliance node.
+          type: string
+          example: secret
+        insecure_ssl:
+          description: 'Allow connections to the compliance node over HTTPs without validating the TLS certificate. Even though
+
+            the connection to the compliance node might be performed over HTTPs, setting this property eliminates
+
+            the protection against a man-in-the-middle attach for connections to this node. Instead,
+
+            consider configuring DCT with Certificate Authority certificates.
+
+            '
+          type: boolean
+          example: false
+        unsafe_ssl_hostname_check:
+          description: 'Ignore validation of the name associated to the TLS certificate when connecting to the compliance node over HTTPs.
+
+            Setting this value must only be done if the TLS certificate of the compliance node does not match the hostname,
+
+            and the TLS configuration of the compliance node cannot be fixed. Setting this property reduces the protection
+
+            against a man-in-the-middle attack for connections to this compliance node.
+
+            This is ignored if insecure_ssl is set.
+
+            '
+          type: boolean
+          example: false
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
     JobTaskEvent:
       properties:
         message_details:
           type: string
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
     VirtualizationTask:
       deprecated: true
       properties:
@@ -550,15 +655,24 @@ components:
           - WAITING
           - COMPLETED
           - ABANDONED
-    ListComplianceNodesResponse:
+    Tag:
       type: object
+      required:
+      - key
+      - value
       properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ComplianceNode'
-        response_metadata:
-          $ref: '#/components/schemas/PaginatedResponseMetadata'
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
     SearchBody:
       description: Search body.
       type: object
@@ -568,51 +682,6 @@ components:
           minLength: 5
           maxLength: 50000
           example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
-    JobTask:
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    Engine:
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
     ComplianceNode:
       description: A compliance node.
       type: object
@@ -737,29 +806,60 @@ components:
           - string
           - 'null'
           example: Hyperscale Orchestrator
-    VirtualizationTaskEvent:
-      deprecated: true
+    Engine:
       properties:
-        message_details:
+        engine_id:
           type: string
-    Tag:
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    ListComplianceNodesResponse:
       type: object
-      required:
-      - key
-      - value
       properties:
-        key:
-          description: Key of the tag
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComplianceNode'
+        response_metadata:
+          $ref: '#/components/schemas/PaginatedResponseMetadata'
+    JobTask:
+      properties:
+        id:
           type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
+        parent_job_id:
           type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
   requestBodies:
     SearchBody:
       x-skip-codegen-attr: description
@@ -941,106 +1041,6 @@ components:
               summary: Overriding operator precedence
               value:
                 filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
-  parameters:
-    timestampParam:
-      name: timestamp
-      in: query
-      required: false
-      schema:
-        type: string
-        format: date-time
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
-    pageSizeParam:
-      name: pageSize
-      in: query
-      required: false
-      schema:
-        type: integer
-    logFileNumberParam:
-      name: logFileNumber
-      in: query
-      required: false
-      schema:
-        type: integer
-    complianceNodeIdParam:
-      in: path
-      name: complianceNodeId
-      schema:
-        type: string
-        minLength: 1
-      required: true
-      description: The ID of the Compliance Node.
-    complianceNodesSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
-      example: id
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - name
-        - -name
-        - hostname
-        - -hostname
-        - insecure_ssl
-        - -insecure_ssl
-        - unsafe_ssl_hostname_check
-        - -unsafe_ssl_hostname_check
-        - username
-        - -username
-        - creation_date
-        - -creation_date
-        - account_id
-        - -account_id
-        - account_name
-        - -account_name
-        - status
-        - -status
-        - status_details
-        - -status_details
-        - job_orchestrator_id
-        - -job_orchestrator_id
-        - job_orchestrator_name
-        - -job_orchestrator_name
-        - core_count
-        - -core_count
-        - memory_for_jobs
-        - -memory_for_jobs
-        - version
-        - -version
-        - hyperscale_instance_id
-        - -hyperscale_instance_id
-        - hyperscale_instance_name
-        - -hyperscale_instance_name
-        example: name
-    offsetParam:
-      name: offset
-      in: query
-      required: false
-      schema:
-        type: integer
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

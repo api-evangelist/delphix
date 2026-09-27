@@ -123,21 +123,24 @@ paths:
                     items:
                       $ref: '#/components/schemas/EngineHistoricalStorageSummary'
 components:
+  parameters:
+    endDate:
+      name: end_date
+      in: query
+      description: Report end date/time. Defaults to current time.
+      example: '2022-06-07T15:10:00-04:00'
+      schema:
+        type: string
+        format: date-time
+    startDate:
+      name: start_date
+      in: query
+      description: Report start date/time. Defaults to first API request.
+      example: '2022-05-29T15:00:00-04:00'
+      schema:
+        type: string
+        format: date-time
   schemas:
-    EngineHistoricalStorageSummary:
-      properties:
-        engine_id:
-          type: string
-        engine_name:
-          type: string
-        historical_data_points:
-          type: array
-          items:
-            $ref: '#/components/schemas/StorageSummaryHistoricalDataPoint'
-        projected_data_points:
-          type: array
-          items:
-            $ref: '#/components/schemas/StorageSummaryProjectedDataPoint'
     StorageSummaryHistoricalDataPoint:
       type: object
       properties:
@@ -252,6 +255,20 @@ components:
           type: integer
           format: int64
           description: Total amount of space used by deleted dataset snapshots.
+    EngineHistoricalStorageSummary:
+      properties:
+        engine_id:
+          type: string
+        engine_name:
+          type: string
+        historical_data_points:
+          type: array
+          items:
+            $ref: '#/components/schemas/StorageSummaryHistoricalDataPoint'
+        projected_data_points:
+          type: array
+          items:
+            $ref: '#/components/schemas/StorageSummaryProjectedDataPoint'
     StorageSummaryProjectedDataPoint:
       type: object
       properties:
@@ -350,23 +367,6 @@ components:
           type: integer
           format: int64
           description: Total amount of space used by Heldspace snapshots.
-  parameters:
-    endDate:
-      name: end_date
-      in: query
-      description: Report end date/time. Defaults to current time.
-      example: '2022-06-07T15:10:00-04:00'
-      schema:
-        type: string
-        format: date-time
-    startDate:
-      name: start_date
-      in: query
-      description: Report start date/time. Defaults to first API request.
-      example: '2022-05-29T15:00:00-04:00'
-      schema:
-        type: string
-        format: date-time
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

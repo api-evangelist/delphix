@@ -91,6 +91,160 @@ paths:
           description: OK
 components:
   schemas:
+    CommvaultConnectivityCheckParameters:
+      required:
+      - environment_id
+      - environment_user_id
+      - commserve_host_name
+      - source_client_name
+      - staging_client_name
+      title: CommvaultConnectivityCheckParameters
+      type: object
+      description: Parameters to Tests CommServe host and staging client connectivity on an environment.
+      properties:
+        environment_id:
+          type: string
+          description: Id of the target environment to test Commvault connectivity from.
+          minLength: 1
+          maxLength: 256
+          example: 1-ENVIRONMENT-1
+        environment_user_id:
+          type: string
+          description: Id of the environment user.
+          minLength: 1
+          maxLength: 256
+          example: USER-1
+        commserve_host_name:
+          type: string
+          description: The hostname of the CommServe server to connect to.
+          minLength: 1
+          maxLength: 256
+          example: commserve.delphix.com
+        source_client_name:
+          type: string
+          description: The name of the Source Client in CommServe.
+          minLength: 1
+          maxLength: 256
+          example: source_client.delphix.com
+        staging_client_name:
+          type: string
+          description: The name of the Staging Client in CommServe.
+          minLength: 1
+          maxLength: 256
+          example: staging_client.delphix.com
+    DatabaseConnectivityCheckParameters:
+      required:
+      - credentials_type
+      - source_id
+      title: DatabaseConnectivityCheckParameters
+      type: object
+      description: Parameters to test JDBC connectivity to source configs.
+      properties:
+        credentials_type:
+          description: The type of credentials.
+          type: string
+          enum:
+          - MSSQL_ENVIRONMENT_USER
+          - MSSQL_DOMAIN_USER
+          - MSSQL_DATABASE_USER
+          - ORACLE
+          - ASE
+          - SOURCE_CONFIG
+        source_id:
+          description: Source database config Id.
+          type: string
+          example: 1-SOURCE-CONFIG-1
+        username:
+          description: Database username (Not applicable for MSSQL_ENVIRONMENT_USER).
+          type: string
+          example: username
+        password:
+          x-dct-toolkit-credential-field: true
+          description: Database password (Not applicable for MSSQL_ENVIRONMENT_USER and mutually exclusive with vault attributes).
+          type: string
+          example: password
+        vault:
+          type: string
+          description: The name or reference of the vault from which to read the database credentials (ORACLE, ASE and MSSQL_DOMAIN_USER only).
+          minLength: 1
+          maxLength: 256
+          example: my-vault
+        hashicorp_vault_engine:
+          type: string
+          description: Vault engine name where the credential is stored (ORACLE, ASE and MSSQL_DOMAIN_USER only).
+          minLength: 1
+          maxLength: 256
+          example: kv
+        hashicorp_vault_secret_path:
+          type: string
+          description: Path in the vault engine where the credential is stored (ORACLE, ASE and MSSQL_DOMAIN_USER only).
+          minLength: 1
+          maxLength: 256
+          example: oracle-env
+        hashicorp_vault_username_key:
+          type: string
+          description: Hashicorp vault key for the username in the key-value store (ORACLE, ASE and MSSQL_DOMAIN_USER only).
+          minLength: 1
+          maxLength: 256
+          example: username
+        hashicorp_vault_secret_key:
+          type: string
+          description: Hashicorp vault key for the password in the key-value store (ORACLE, ASE and MSSQL_DOMAIN_USER only).
+          minLength: 1
+          maxLength: 256
+          example: secret
+        azure_vault_name:
+          type: string
+          description: Azure key vault name (ORACLE, ASE and MSSQL_DOMAIN_USER only).
+          minLength: 1
+          maxLength: 256
+          example: azure_vault
+        azure_vault_username_key:
+          type: string
+          description: Azure vault key for the username in the key-value store (ORACLE, ASE and MSSQL_DOMAIN_USER only).
+          minLength: 1
+          maxLength: 256
+          example: username
+        azure_vault_secret_key:
+          type: string
+          description: Azure vault key for the password in the key-value store (ORACLE, ASE and MSSQL_DOMAIN_USER only).
+          minLength: 1
+          maxLength: 256
+          example: secret
+        cyberark_vault_query_string:
+          type: string
+          description: Query to find a credential in the CyberArk vault (ORACLE, ASE and MSSQL_DOMAIN_USER only).
+          minLength: 1
+          maxLength: 256
+          example: Safe=Test;Folder=Test;Object=Test
+        environment_id:
+          type: string
+          description: Id of the environment to which environment user belongs (MSSQL_ENVIRONMENT_USER only).
+          minLength: 1
+          maxLength: 256
+        environment_user:
+          type: string
+          description: Reference to the environment user (MSSQL_ENVIRONMENT_USER only).
+          minLength: 1
+          maxLength: 256
+    ConnectivityCheckResponse:
+      title: ConnectivityResponse
+      type: object
+      description: The result of the connectivity check.
+      required:
+      - message
+      properties:
+        message:
+          description: A message describing the result of the connectivity check.
+          type: string
+          example: Success!
+        status:
+          description: A status describing the status of the connectivity check.
+          type: string
+          enum:
+          - SUCCESS
+          - FAILED
+          example: SUCCESS
     ConnectivityCheckParameters:
       title: ConnectivityCheckParameters
       type: object
@@ -225,160 +379,6 @@ components:
           minLength: 1
           maxLength: 6000
           example: ssh custom_public_key
-    DatabaseConnectivityCheckParameters:
-      required:
-      - credentials_type
-      - source_id
-      title: DatabaseConnectivityCheckParameters
-      type: object
-      description: Parameters to test JDBC connectivity to source configs.
-      properties:
-        credentials_type:
-          description: The type of credentials.
-          type: string
-          enum:
-          - MSSQL_ENVIRONMENT_USER
-          - MSSQL_DOMAIN_USER
-          - MSSQL_DATABASE_USER
-          - ORACLE
-          - ASE
-          - SOURCE_CONFIG
-        source_id:
-          description: Source database config Id.
-          type: string
-          example: 1-SOURCE-CONFIG-1
-        username:
-          description: Database username (Not applicable for MSSQL_ENVIRONMENT_USER).
-          type: string
-          example: username
-        password:
-          x-dct-toolkit-credential-field: true
-          description: Database password (Not applicable for MSSQL_ENVIRONMENT_USER and mutually exclusive with vault attributes).
-          type: string
-          example: password
-        vault:
-          type: string
-          description: The name or reference of the vault from which to read the database credentials (ORACLE, ASE and MSSQL_DOMAIN_USER only).
-          minLength: 1
-          maxLength: 256
-          example: my-vault
-        hashicorp_vault_engine:
-          type: string
-          description: Vault engine name where the credential is stored (ORACLE, ASE and MSSQL_DOMAIN_USER only).
-          minLength: 1
-          maxLength: 256
-          example: kv
-        hashicorp_vault_secret_path:
-          type: string
-          description: Path in the vault engine where the credential is stored (ORACLE, ASE and MSSQL_DOMAIN_USER only).
-          minLength: 1
-          maxLength: 256
-          example: oracle-env
-        hashicorp_vault_username_key:
-          type: string
-          description: Hashicorp vault key for the username in the key-value store (ORACLE, ASE and MSSQL_DOMAIN_USER only).
-          minLength: 1
-          maxLength: 256
-          example: username
-        hashicorp_vault_secret_key:
-          type: string
-          description: Hashicorp vault key for the password in the key-value store (ORACLE, ASE and MSSQL_DOMAIN_USER only).
-          minLength: 1
-          maxLength: 256
-          example: secret
-        azure_vault_name:
-          type: string
-          description: Azure key vault name (ORACLE, ASE and MSSQL_DOMAIN_USER only).
-          minLength: 1
-          maxLength: 256
-          example: azure_vault
-        azure_vault_username_key:
-          type: string
-          description: Azure vault key for the username in the key-value store (ORACLE, ASE and MSSQL_DOMAIN_USER only).
-          minLength: 1
-          maxLength: 256
-          example: username
-        azure_vault_secret_key:
-          type: string
-          description: Azure vault key for the password in the key-value store (ORACLE, ASE and MSSQL_DOMAIN_USER only).
-          minLength: 1
-          maxLength: 256
-          example: secret
-        cyberark_vault_query_string:
-          type: string
-          description: Query to find a credential in the CyberArk vault (ORACLE, ASE and MSSQL_DOMAIN_USER only).
-          minLength: 1
-          maxLength: 256
-          example: Safe=Test;Folder=Test;Object=Test
-        environment_id:
-          type: string
-          description: Id of the environment to which environment user belongs (MSSQL_ENVIRONMENT_USER only).
-          minLength: 1
-          maxLength: 256
-        environment_user:
-          type: string
-          description: Reference to the environment user (MSSQL_ENVIRONMENT_USER only).
-          minLength: 1
-          maxLength: 256
-    ConnectivityCheckResponse:
-      title: ConnectivityResponse
-      type: object
-      description: The result of the connectivity check.
-      required:
-      - message
-      properties:
-        message:
-          description: A message describing the result of the connectivity check.
-          type: string
-          example: Success!
-        status:
-          description: A status describing the status of the connectivity check.
-          type: string
-          enum:
-          - SUCCESS
-          - FAILED
-          example: SUCCESS
-    CommvaultConnectivityCheckParameters:
-      required:
-      - environment_id
-      - environment_user_id
-      - commserve_host_name
-      - source_client_name
-      - staging_client_name
-      title: CommvaultConnectivityCheckParameters
-      type: object
-      description: Parameters to Tests CommServe host and staging client connectivity on an environment.
-      properties:
-        environment_id:
-          type: string
-          description: Id of the target environment to test Commvault connectivity from.
-          minLength: 1
-          maxLength: 256
-          example: 1-ENVIRONMENT-1
-        environment_user_id:
-          type: string
-          description: Id of the environment user.
-          minLength: 1
-          maxLength: 256
-          example: USER-1
-        commserve_host_name:
-          type: string
-          description: The hostname of the CommServe server to connect to.
-          minLength: 1
-          maxLength: 256
-          example: commserve.delphix.com
-        source_client_name:
-          type: string
-          description: The name of the Source Client in CommServe.
-          minLength: 1
-          maxLength: 256
-          example: source_client.delphix.com
-        staging_client_name:
-          type: string
-          description: The name of the Staging Client in CommServe.
-          minLength: 1
-          maxLength: 256
-          example: staging_client.delphix.com
     NetbackupConnectivityCheckParameters:
       required:
       - environment_id

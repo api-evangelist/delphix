@@ -700,25 +700,190 @@ paths:
                   response_metadata:
                     $ref: '#/components/schemas/PaginatedResponseMetadata'
 components:
+  parameters:
+    hyperscaleConnectorIdParam:
+      in: path
+      name: hyperscaleConnectorId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the Hyperscale Connector.
+    hyperscaleDatasetTablesOrFilesSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - schema_name
+        - -schema_name
+        - table_name
+        - -table_name
+        - database_name
+        - -database_name
+        - collection_name
+        - -collection_name
+        - filter_key
+        - -filter_key
+        - column_array_rows
+        - -column_array_rows
+        - unload_split
+        - -unload_split
+        - stream_size
+        - -stream_size
+        example: table_name
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    hyperscaleMountPointIdParam:
+      in: path
+      name: hyperscaleMountPointId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the Hyperscale Mount Point.
+    hyperscaleMountPointsSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - hostname
+        - -hostname
+        - mount_type
+        - -mount_type
+        - options
+        - -options
+        - mount_path
+        - -mount_path
+        - staging_storage_type
+        - -staging_storage_type
+        - auth_mechanism
+        - -auth_mechanism
+        - aws_bucket_name
+        - -aws_bucket_name
+        - aws_bucket_region
+        - -aws_bucket_region
+        - aws_bucket_prefix
+        - -aws_bucket_prefix
+        - aws_bucket_delimiter
+        - -aws_bucket_delimiter
+        - blob_auth_type
+        - -blob_auth_type
+        - blob_account_name
+        - -blob_account_name
+        - blob_container_name
+        - -blob_container_name
+        - blob_container_prefix
+        - -blob_container_prefix
+        - blob_container_delimiter
+        - -blob_container_delimiter
+        - hyperscale_instance_id
+        - -hyperscale_instance_id
+        example: name
+    hyperscaleDatasetTableOrFileIdParam:
+      in: path
+      name: hyperscaleDatasetTableOrFileId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the Hyperscale Dataset table or file.
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+    hyperscaleConnectorsSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - hyperscale_instance_id
+        - -hyperscale_instance_id
+        - data_type
+        - -data_type
+        - source_username
+        - -source_username
+        - source_jdbc_url
+        - -source_jdbc_url
+        - source_mongo_url
+        - -source_mongo_url
+        - target_username
+        - -target_username
+        - target_jdbc_url
+        - -target_jdbc_url
+        - target_mongo_url
+        - -target_mongo_url
+        example: source_username
+    hyperscaleDatasetsSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - hyperscale_instance_id
+        - -hyperscale_instance_id
+        - data_type
+        - -data_type
+        - connector_id
+        - -connector_id
+        - mount_point_id
+        - -mount_point_id
+        example: id
+    hyperscaleDatasetIdParam:
+      in: path
+      name: hyperscaleDatasetId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the Hyperscale Dataset.
   schemas:
-    Tag:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
     Job:
       description: An asynchronous task.
       type: object
@@ -840,6 +1005,270 @@ components:
         result:
           description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
           type: object
+    HyperscaleConnector:
+      title: HyperscaleConnector
+      type: object
+      description: A Hyperscale connector to read/write data from/to a datasource.
+      properties:
+        id:
+          description: The ID of the Hyperscale Connector.
+          type: string
+          readOnly: true
+        hyperscale_instance_id:
+          description: The ID of the Hyperscale instance of this Connector.
+          type: string
+        data_type:
+          $ref: '#/components/schemas/HyperscaleDataTypeEnum'
+        name:
+          type: string
+        source_username:
+          description: The username this Connector will use to connect to the source database.
+          type: string
+        source_password:
+          x-dct-toolkit-credential-field: true
+          description: The password this Connector will use to connect to the source database.
+          type: string
+        source_jdbc_url:
+          description: The JDBC URL used to connect to the source database.
+          type: string
+        source_mongo_url:
+          description: The MongoDB URL used to connect to the source database.
+          type: string
+          example: mongodb://host:27017
+        source_filesystem_path:
+          description: The path on the filesystem where source files must be read (Delimited files Only).
+          type: string
+        source_connection_properties:
+          additionalProperties:
+            type: string
+        target_username:
+          description: The username this Connector will use to connect to the target database.
+          type: string
+        target_password:
+          x-dct-toolkit-credential-field: true
+          description: The username this Connector will use to connect to the target database.
+          type: string
+        target_jdbc_url:
+          description: The JDBC URL used to connect to the target database.
+          type: string
+        target_mongo_url:
+          description: The MongoDB URL used to connect to the target database.
+          type: string
+          example: mongodb://host:27017
+        target_filesystem_path:
+          description: The path on the filesystem where target files must be written (Delimited files Only).
+          type: string
+        target_connection_properties:
+          additionalProperties:
+            type: string
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    HyperscaleConnectorCreateParameters:
+      title: HyperscaleConnectorCreateParameters
+      type: object
+      description: Parameters to create a Hyperscale Connector.
+      properties:
+        hyperscale_instance_id:
+          description: The ID of the Hyperscale instance of this Connector.
+          type: string
+        data_type:
+          $ref: '#/components/schemas/HyperscaleDataTypeEnum'
+        name:
+          type: string
+        source_username:
+          description: The username this Connector will use to connect to the source database.
+          type: string
+        source_password:
+          x-dct-toolkit-credential-field: true
+          description: The password this Connector will use to connect to the source database.
+          type: string
+        source_jdbc_url:
+          description: The JDBC URL used to connect to the source database.
+          type: string
+        source_mongo_url:
+          description: The MongoDB URL used to connect to the source database.
+          type: string
+          example: mongodb://host:27017
+        source_filesystem_path:
+          description: The path on the filesystem where source files must be read (Delimited files Only).
+          type: string
+        source_connection_properties:
+          additionalProperties:
+            type: string
+        target_username:
+          description: The username this Connector will use to connect to the target database.
+          type: string
+        target_password:
+          x-dct-toolkit-credential-field: true
+          description: The username this Connector will use to connect to the target database.
+          type: string
+        target_jdbc_url:
+          description: The JDBC URL used to connect to the target database.
+          type: string
+        target_mongo_url:
+          description: The MongoDB URL used to connect to the target database.
+          type: string
+          example: mongodb://host:27017
+        target_filesystem_path:
+          description: The path on the filesystem where target files must be written (Delimited files Only).
+          type: string
+        target_connection_properties:
+          additionalProperties:
+            type: string
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        make_current_account_owner:
+          type: boolean
+          default: true
+          description: Whether the account creating this Hyperscale Connector must be configured as owner of it.
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    HyperscaleMountPoint:
+      title: HyperscaleMountPoint
+      type: object
+      description: A Mount Point for the Hyperscale instance to write to a staging area and engines to read from.
+      required:
+      - hyperscale_instance_id
+      properties:
+        id:
+          description: The ID of the Hyperscale Mount Point.
+          type: string
+          readOnly: true
+        hyperscale_instance_id:
+          description: The ID of the Hyperscale instance of this Mount Point.
+          type: string
+        name:
+          description: Name of the mount, unique for a hyperscale instance. This name will be used as a directory name by the Hyperscale instance.
+          type: string
+        hostname:
+          description: The host name of the server.
+          type: string
+        mount_path:
+          description: The path to the directory on the filesystem to mount.
+          type: string
+        mount_type:
+          description: The type of mount filesystem. Enum having values- CIFS, NFS3, NFS4.
+          type: string
+          enum:
+          - CIFS
+          - NFS3
+          - NFS4
+        options:
+          type: string
+          description: The options for mount. The endpoint will return all default options and user specified options.
+        staging_storage_type:
+          description: The type of staging storage.
+          type: string
+          enum:
+          - MOUNT
+          - AWS_S3
+          - AZURE_BLOB_STORAGE
+        auth_mechanism:
+          description: The authentication mechanism for AWS_S3 storage.
+          type: string
+          enum:
+          - AWS_ROLE
+          - AWS_SECRET
+        aws_bucket_name:
+          type: string
+          description: The aws bucket name for AWS_S3 storage.
+        aws_bucket_region:
+          type: string
+          description: The aws bucket region for AWS_S3 storage.
+        aws_bucket_prefix:
+          type: string
+          description: The aws bucket prefix for AWS_S3 storage.
+        aws_bucket_delimiter:
+          type: string
+          description: The aws bucket delimiter for AWS_S3 storage.
+        blob_auth_type:
+          description: The authentication type for Azure blob storage.
+          type: string
+          enum:
+          - AZURE_SECRET
+          - AZURE_MANAGED_IDENTITY
+        blob_account_name:
+          type: string
+          description: The storage account name for Azure blob storage.
+        blob_container_name:
+          type: string
+          description: The blob container name for Azure blob storage.
+        blob_container_prefix:
+          type: string
+          description: The blob container prefix for Azure blob storage.
+        blob_container_delimiter:
+          type: string
+          description: The blob container delimiter for Azure blob storage.
+    HyperscaleDataset:
+      title: HyperscaleDataset
+      type: object
+      description: A Hyperscale Dataset.
+      properties:
+        id:
+          description: The ID of the Hyperscale Dataset.
+          type: string
+        hyperscale_instance_id:
+          description: The ID of the Hyperscale instance of this Dataset.
+          type: string
+        data_type:
+          $ref: '#/components/schemas/HyperscaleDataTypeEnum'
+        mount_point_id:
+          description: The Id of the Hyperscale Mount Point used for this Dataset.
+          type: string
+        connector_id:
+          description: Id the Hyperscale Connector used to read sensitive data and write masked data.
+          type: string
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    DeleteTag:
+      type: object
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        tags:
+          description: List of tags to be deleted
+          type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
     HyperscaleDatasetUpdateParameters:
       title: HyperscaleDatasetUpdateParameters
       type: object
@@ -864,10 +1293,110 @@ components:
           description: The total number of results. This value may not be provided.
           type: integer
           format: int_64
-    JobTaskEvent:
+    VirtualizationTask:
+      deprecated: true
       properties:
-        message_details:
+        id:
           type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    HyperscaleMountPointUpdateParameters:
+      title: HyperscaleMountPointUpdateParameters
+      type: object
+      description: The updatable properties of a Hyperscale Mount Point.
+      properties:
+        name:
+          description: Name of the mount, unique for a hyperscale instance.
+          type: string
+        hostname:
+          description: The host name of the server.
+          type: string
+        mount_path:
+          description: The path to the directory on the filesystem to mount.
+          type: string
+        mount_type:
+          description: The type of filesystem.
+          type: string
+          enum:
+          - CIFS
+          - NFS3
+          - NFS4
+        options:
+          type: string
+          description: The mount options.
+    HyperscaleDataTypeEnum:
+      type: string
+      description: The data type designation for the hyperscale deployment.
+      enum:
+      - ORACLE
+      - MSSQL
+      - DELIMITED_FILES
+      - MONGO_DB
+      example: ORACLE
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
     HyperscaleDatasetTableOrFile:
       title: HyperscaleDatasetTableOrFile
       type: object
@@ -958,74 +1487,27 @@ components:
                 description: The group number of the algorithm to identify a set of columns associated with one instance of algorithm.
                 type: integer
                 format: int64
-    VirtualizationTask:
-      deprecated: true
+    Engine:
       properties:
-        id:
+        engine_id:
           type: string
-        parent_job_id:
+          minLength: 1
+          maxLength: 4000
+        engine_name:
           type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualizationTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    DeleteTag:
+          minLength: 1
+          maxLength: 4000
+    ValidateHyperscaleMountPointResponse:
+      title: ValidateHyperscaleMountPointResponse
       type: object
+      description: Mount File system permissions validation.
       properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-        tags:
-          description: List of tags to be deleted
-          type: array
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/Tag'
-    HyperscaleDataTypeEnum:
-      type: string
-      description: The data type designation for the hyperscale deployment.
-      enum:
-      - ORACLE
-      - MSSQL
-      - DELIMITED_FILES
-      - MONGO_DB
-      example: ORACLE
+        isValid:
+          description: The flag to validate whether a file mount is valid.
+          type: boolean
+          default: false
+      example:
+        isValid: true
     HyperscaleConnectorUpdateParameters:
       title: HyperscaleConnectorUpdateParameters
       type: object
@@ -1073,15 +1555,6 @@ components:
         target_connection_properties:
           additionalProperties:
             type: string
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
     JobTask:
       properties:
         id:
@@ -1166,480 +1639,39 @@ components:
         perform_join:
           description: Whether the split files must be joined (Delimited files only).
           type: boolean
-    Engine:
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
-    TagsResponse:
-      type: object
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    TagsRequest:
-      type: object
-      required:
-      - tags
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-    ValidateHyperscaleMountPointResponse:
-      title: ValidateHyperscaleMountPointResponse
-      type: object
-      description: Mount File system permissions validation.
-      properties:
-        isValid:
-          description: The flag to validate whether a file mount is valid.
-          type: boolean
-          default: false
-      example:
-        isValid: true
-    HyperscaleDataset:
-      title: HyperscaleDataset
-      type: object
-      description: A Hyperscale Dataset.
-      properties:
-        id:
-          description: The ID of the Hyperscale Dataset.
-          type: string
-        hyperscale_instance_id:
-          description: The ID of the Hyperscale instance of this Dataset.
-          type: string
-        data_type:
-          $ref: '#/components/schemas/HyperscaleDataTypeEnum'
-        mount_point_id:
-          description: The Id of the Hyperscale Mount Point used for this Dataset.
-          type: string
-        connector_id:
-          description: Id the Hyperscale Connector used to read sensitive data and write masked data.
-          type: string
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    VirtualizationTaskEvent:
-      deprecated: true
-      properties:
-        message_details:
-          type: string
-    HyperscaleConnectorCreateParameters:
-      title: HyperscaleConnectorCreateParameters
-      type: object
-      description: Parameters to create a Hyperscale Connector.
-      properties:
-        hyperscale_instance_id:
-          description: The ID of the Hyperscale instance of this Connector.
-          type: string
-        data_type:
-          $ref: '#/components/schemas/HyperscaleDataTypeEnum'
-        name:
-          type: string
-        source_username:
-          description: The username this Connector will use to connect to the source database.
-          type: string
-        source_password:
-          x-dct-toolkit-credential-field: true
-          description: The password this Connector will use to connect to the source database.
-          type: string
-        source_jdbc_url:
-          description: The JDBC URL used to connect to the source database.
-          type: string
-        source_mongo_url:
-          description: The MongoDB URL used to connect to the source database.
-          type: string
-          example: mongodb://host:27017
-        source_filesystem_path:
-          description: The path on the filesystem where source files must be read (Delimited files Only).
-          type: string
-        source_connection_properties:
-          additionalProperties:
-            type: string
-        target_username:
-          description: The username this Connector will use to connect to the target database.
-          type: string
-        target_password:
-          x-dct-toolkit-credential-field: true
-          description: The username this Connector will use to connect to the target database.
-          type: string
-        target_jdbc_url:
-          description: The JDBC URL used to connect to the target database.
-          type: string
-        target_mongo_url:
-          description: The MongoDB URL used to connect to the target database.
-          type: string
-          example: mongodb://host:27017
-        target_filesystem_path:
-          description: The path on the filesystem where target files must be written (Delimited files Only).
-          type: string
-        target_connection_properties:
-          additionalProperties:
-            type: string
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-        make_current_account_owner:
-          type: boolean
-          default: true
-          description: Whether the account creating this Hyperscale Connector must be configured as owner of it.
-    HyperscaleMountPoint:
-      title: HyperscaleMountPoint
-      type: object
-      description: A Mount Point for the Hyperscale instance to write to a staging area and engines to read from.
-      required:
-      - hyperscale_instance_id
-      properties:
-        id:
-          description: The ID of the Hyperscale Mount Point.
-          type: string
-          readOnly: true
-        hyperscale_instance_id:
-          description: The ID of the Hyperscale instance of this Mount Point.
-          type: string
-        name:
-          description: Name of the mount, unique for a hyperscale instance. This name will be used as a directory name by the Hyperscale instance.
-          type: string
-        hostname:
-          description: The host name of the server.
-          type: string
-        mount_path:
-          description: The path to the directory on the filesystem to mount.
-          type: string
-        mount_type:
-          description: The type of mount filesystem. Enum having values- CIFS, NFS3, NFS4.
-          type: string
-          enum:
-          - CIFS
-          - NFS3
-          - NFS4
-        options:
-          type: string
-          description: The options for mount. The endpoint will return all default options and user specified options.
-        staging_storage_type:
-          description: The type of staging storage.
-          type: string
-          enum:
-          - MOUNT
-          - AWS_S3
-          - AZURE_BLOB_STORAGE
-        auth_mechanism:
-          description: The authentication mechanism for AWS_S3 storage.
-          type: string
-          enum:
-          - AWS_ROLE
-          - AWS_SECRET
-        aws_bucket_name:
-          type: string
-          description: The aws bucket name for AWS_S3 storage.
-        aws_bucket_region:
-          type: string
-          description: The aws bucket region for AWS_S3 storage.
-        aws_bucket_prefix:
-          type: string
-          description: The aws bucket prefix for AWS_S3 storage.
-        aws_bucket_delimiter:
-          type: string
-          description: The aws bucket delimiter for AWS_S3 storage.
-        blob_auth_type:
-          description: The authentication type for Azure blob storage.
-          type: string
-          enum:
-          - AZURE_SECRET
-          - AZURE_MANAGED_IDENTITY
-        blob_account_name:
-          type: string
-          description: The storage account name for Azure blob storage.
-        blob_container_name:
-          type: string
-          description: The blob container name for Azure blob storage.
-        blob_container_prefix:
-          type: string
-          description: The blob container prefix for Azure blob storage.
-        blob_container_delimiter:
-          type: string
-          description: The blob container delimiter for Azure blob storage.
-    HyperscaleMountPointUpdateParameters:
-      title: HyperscaleMountPointUpdateParameters
-      type: object
-      description: The updatable properties of a Hyperscale Mount Point.
-      properties:
-        name:
-          description: Name of the mount, unique for a hyperscale instance.
-          type: string
-        hostname:
-          description: The host name of the server.
-          type: string
-        mount_path:
-          description: The path to the directory on the filesystem to mount.
-          type: string
-        mount_type:
-          description: The type of filesystem.
-          type: string
-          enum:
-          - CIFS
-          - NFS3
-          - NFS4
-        options:
-          type: string
-          description: The mount options.
-    HyperscaleConnector:
-      title: HyperscaleConnector
-      type: object
-      description: A Hyperscale connector to read/write data from/to a datasource.
-      properties:
-        id:
-          description: The ID of the Hyperscale Connector.
-          type: string
-          readOnly: true
-        hyperscale_instance_id:
-          description: The ID of the Hyperscale instance of this Connector.
-          type: string
-        data_type:
-          $ref: '#/components/schemas/HyperscaleDataTypeEnum'
-        name:
-          type: string
-        source_username:
-          description: The username this Connector will use to connect to the source database.
-          type: string
-        source_password:
-          x-dct-toolkit-credential-field: true
-          description: The password this Connector will use to connect to the source database.
-          type: string
-        source_jdbc_url:
-          description: The JDBC URL used to connect to the source database.
-          type: string
-        source_mongo_url:
-          description: The MongoDB URL used to connect to the source database.
-          type: string
-          example: mongodb://host:27017
-        source_filesystem_path:
-          description: The path on the filesystem where source files must be read (Delimited files Only).
-          type: string
-        source_connection_properties:
-          additionalProperties:
-            type: string
-        target_username:
-          description: The username this Connector will use to connect to the target database.
-          type: string
-        target_password:
-          x-dct-toolkit-credential-field: true
-          description: The username this Connector will use to connect to the target database.
-          type: string
-        target_jdbc_url:
-          description: The JDBC URL used to connect to the target database.
-          type: string
-        target_mongo_url:
-          description: The MongoDB URL used to connect to the target database.
-          type: string
-          example: mongodb://host:27017
-        target_filesystem_path:
-          description: The path on the filesystem where target files must be written (Delimited files Only).
-          type: string
-        target_connection_properties:
-          additionalProperties:
-            type: string
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-  parameters:
-    hyperscaleConnectorIdParam:
-      in: path
-      name: hyperscaleConnectorId
-      required: true
-      schema:
-        type: string
-        minLength: 1
-      description: The ID of the Hyperscale Connector.
-    hyperscaleDatasetTablesOrFilesSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
-      example: id
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - schema_name
-        - -schema_name
-        - table_name
-        - -table_name
-        - database_name
-        - -database_name
-        - collection_name
-        - -collection_name
-        - filter_key
-        - -filter_key
-        - column_array_rows
-        - -column_array_rows
-        - unload_split
-        - -unload_split
-        - stream_size
-        - -stream_size
-        example: table_name
-    hyperscaleMountPointIdParam:
-      in: path
-      name: hyperscaleMountPointId
-      required: true
-      schema:
-        type: string
-        minLength: 1
-      description: The ID of the Hyperscale Mount Point.
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
-    hyperscaleMountPointsSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
-      example: id
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - name
-        - -name
-        - hostname
-        - -hostname
-        - mount_type
-        - -mount_type
-        - options
-        - -options
-        - mount_path
-        - -mount_path
-        - staging_storage_type
-        - -staging_storage_type
-        - auth_mechanism
-        - -auth_mechanism
-        - aws_bucket_name
-        - -aws_bucket_name
-        - aws_bucket_region
-        - -aws_bucket_region
-        - aws_bucket_prefix
-        - -aws_bucket_prefix
-        - aws_bucket_delimiter
-        - -aws_bucket_delimiter
-        - blob_auth_type
-        - -blob_auth_type
-        - blob_account_name
-        - -blob_account_name
-        - blob_container_name
-        - -blob_container_name
-        - blob_container_prefix
-        - -blob_container_prefix
-        - blob_container_delimiter
-        - -blob_container_delimiter
-        - hyperscale_instance_id
-        - -hyperscale_instance_id
-        example: name
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
-    hyperscaleDatasetsSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
-      example: id
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - hyperscale_instance_id
-        - -hyperscale_instance_id
-        - data_type
-        - -data_type
-        - connector_id
-        - -connector_id
-        - mount_point_id
-        - -mount_point_id
-        example: id
-    hyperscaleDatasetIdParam:
-      in: path
-      name: hyperscaleDatasetId
-      required: true
-      schema:
-        type: string
-        minLength: 1
-      description: The ID of the Hyperscale Dataset.
-    hyperscaleConnectorsSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
-      example: id
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - name
-        - -name
-        - hyperscale_instance_id
-        - -hyperscale_instance_id
-        - data_type
-        - -data_type
-        - source_username
-        - -source_username
-        - source_jdbc_url
-        - -source_jdbc_url
-        - source_mongo_url
-        - -source_mongo_url
-        - target_username
-        - -target_username
-        - target_jdbc_url
-        - -target_jdbc_url
-        - target_mongo_url
-        - -target_mongo_url
-        example: source_username
-    hyperscaleDatasetTableOrFileIdParam:
-      in: path
-      name: hyperscaleDatasetTableOrFileId
-      required: true
-      schema:
-        type: string
-        minLength: 1
-      description: The ID of the Hyperscale Dataset table or file.
   requestBodies:
+    DeleteTags:
+      description: The parameters to delete tags
+      content:
+        application/json:
+          schema:
+            x-body-name: environment
+            $ref: '#/components/schemas/DeleteTag'
+          examples:
+            delete_all_tags:
+              description: Delete all tags for given object - No request body required
+              summary: Delete all tags
+              value: {}
+            delete_tags_by_key:
+              description: Delete all tags for given object with matching key
+              summary: Delete tags by key
+              value:
+                key: key-1
+            delete_tags_by_key_value:
+              description: Delete tag for given object with matching key and value
+              summary: Delete a tag by key & value
+              value:
+                key: key-1
+                value: value-1
+            delete_multiple_tags_by_key_value:
+              description: Delete tags for given list of tags with matching key and value
+              summary: Delete multiple tags by key & value
+              value:
+                tags:
+                - key: key-1
+                  value: value-1
+                - key: key-2
+                  value: value-2
     SearchBody:
       x-skip-codegen-attr: description
       description: 'A request body containing a filter expression. This enables searching
@@ -1820,38 +1852,6 @@ components:
               summary: Overriding operator precedence
               value:
                 filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
-    DeleteTags:
-      description: The parameters to delete tags
-      content:
-        application/json:
-          schema:
-            x-body-name: environment
-            $ref: '#/components/schemas/DeleteTag'
-          examples:
-            delete_all_tags:
-              description: Delete all tags for given object - No request body required
-              summary: Delete all tags
-              value: {}
-            delete_tags_by_key:
-              description: Delete all tags for given object with matching key
-              summary: Delete tags by key
-              value:
-                key: key-1
-            delete_tags_by_key_value:
-              description: Delete tag for given object with matching key and value
-              summary: Delete a tag by key & value
-              value:
-                key: key-1
-                value: value-1
-            delete_multiple_tags_by_key_value:
-              description: Delete tags for given list of tags with matching key and value
-              summary: Delete multiple tags by key & value
-              value:
-                tags:
-                - key: key-1
-                  value: value-1
-                - key: key-2
-                  value: value-2
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
