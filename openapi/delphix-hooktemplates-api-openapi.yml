@@ -241,18 +241,53 @@ paths:
           description: No Content
 components:
   schemas:
-    HookTemplate:
+    DeleteTag:
       type: object
       properties:
-        id:
+        key:
+          description: Key of the tag
           type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        tags:
+          description: List of tags to be deleted
+          type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    CreateHookTemplateParameters:
+      type: object
+      required:
+      - name
+      - command
+      properties:
         name:
           type: string
-        dct_managed:
-          description: Whether this hook template is managed by DCT or by an individual Delphix Engine.
-          type: boolean
+          description: Name of the hook template.
+          minLength: 1
+          maxLength: 256
+          example: Hook Template 1
         description:
           type: string
+          description: Description of the hook template.
         shell:
           type: string
           enum:
@@ -264,20 +299,84 @@ components:
           default: bash
         command:
           type: string
+          minLength: 1
+          maxLength: 131072
         credentials_env_vars:
           description: List of environment variables that will contain credentials for this operation.
           type: array
           items:
             $ref: '#/components/schemas/CredentialsEnvVariable'
-        engine_id:
-          type: string
-        compatible_engine_id:
-          type: string
         tags:
-          description: The tags that are applied to this hook template.
+          description: The tags to be created for the hook template.
           type: array
           items:
             $ref: '#/components/schemas/Tag'
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
     Job:
       description: An asynchronous task.
       type: object
@@ -401,41 +500,6 @@ components:
           type: object
       discriminator:
         propertyName: class_type
-    VirtualizationTaskEvent:
-      deprecated: true
-      properties:
-        message_details:
-          type: string
-    UpdateHookTemplateParameters:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the hook template.
-          minLength: 1
-          maxLength: 256
-          example: Hook Template 1
-        description:
-          type: string
-          description: Description of the hook template.
-        shell:
-          type: string
-          enum:
-          - bash
-          - shell
-          - expect
-          - ps
-          - psd
-          default: bash
-        command:
-          type: string
-          minLength: 1
-          maxLength: 131072
-        credentials_env_vars:
-          description: List of environment variables that will contain credentials for this operation.
-          type: array
-          items:
-            $ref: '#/components/schemas/CredentialsEnvVariable'
     CredentialsEnvVariable:
       required:
       - base_var_name
@@ -530,25 +594,11 @@ components:
           minLength: 1
           maxLength: 256
           example: CredentialsEnvVars
-    JobTaskEvent:
-      properties:
-        message_details:
-          type: string
-    TagsRequest:
+    Tag:
       type: object
       required:
-      - tags
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-    DeleteTag:
-      type: object
+      - key
+      - value
       properties:
         key:
           description: Key of the tag
@@ -562,27 +612,6 @@ components:
           minLength: 1
           maxLength: 4000
           example: value-1
-        tags:
-          description: List of tags to be deleted
-          type: array
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/Tag'
-    PaginatedResponseMetadata:
-      type: object
-      properties:
-        prev_cursor:
-          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        next_cursor:
-          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        total:
-          description: The total number of results. This value may not be provided.
-          type: integer
-          format: int_64
     VirtualizationTask:
       deprecated: true
       properties:
@@ -619,56 +648,8 @@ components:
           - WAITING
           - COMPLETED
           - ABANDONED
-    Tag:
+    UpdateHookTemplateParameters:
       type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-    TagsResponse:
-      type: object
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
-    Engine:
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
-    CreateHookTemplateParameters:
-      type: object
-      required:
-      - name
-      - command
       properties:
         name:
           type: string
@@ -697,47 +678,74 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CredentialsEnvVariable'
-        tags:
-          description: The tags to be created for the hook template.
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    JobTask:
+    HookTemplate:
+      type: object
       properties:
         id:
           type: string
-        parent_job_id:
+        name:
           type: string
-        start_time:
+        dct_managed:
+          description: Whether this hook template is managed by DCT or by an individual Delphix Engine.
+          type: boolean
+        description:
           type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTaskEvent'
-        status:
+        shell:
           type: string
           enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
+          - bash
+          - shell
+          - expect
+          - ps
+          - psd
+          default: bash
+        command:
+          type: string
+        credentials_env_vars:
+          description: List of environment variables that will contain credentials for this operation.
+          type: array
+          items:
+            $ref: '#/components/schemas/CredentialsEnvVariable'
+        engine_id:
+          type: string
+        compatible_engine_id:
+          type: string
+        tags:
+          description: The tags that are applied to this hook template.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
   parameters:
+    hookTemplateIdParam:
+      in: path
+      name: hookTemplateId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the Hook Template.
     limit:
       name: limit
       in: query
@@ -748,14 +756,6 @@ components:
         minimum: 1
         maximum: 1000
         default: 100
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
     hookTemplatesSortParam:
       name: sort
       in: query
@@ -776,14 +776,14 @@ components:
         - engine_id
         - -engine_id
         example: name
-    hookTemplateIdParam:
-      in: path
-      name: hookTemplateId
-      required: true
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
       schema:
         type: string
         minLength: 1
-      description: The ID of the Hook Template.
+        maxLength: 4096
   requestBodies:
     DeleteTags:
       description: The parameters to delete tags

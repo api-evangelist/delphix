@@ -89,64 +89,6 @@ paths:
           description: No Content
 components:
   schemas:
-    PaaSPlugin:
-      description: A plugin to manage PaaS Databases.
-      type: object
-      properties:
-        id:
-          description: The PaaS Plugin object entity ID.
-          type: string
-          example: db-123
-        unique_identifier:
-          description: A unique identifier for this plugin type.
-          type: string
-          example: my-db-123
-        name:
-          description: A user friendly name describing this plugin type.
-          type: string
-          example: my-db-123
-        schema:
-          description: The JSON schema of this plugin optional parameters and properties.
-          type: string
-          example: my-db-123
-        version:
-          description: The version of the currently installed instance of this plugin.
-          type: string
-          example: my-db-123
-        operation_target:
-          description: Whether this Instance's PaaS plugin operates at the instance or database level for operations such as snapshotting, provisioning and refresh.
-          type: string
-          enum:
-          - PAAS_INSTANCE
-          - PAAS_DATABASE
-        regions:
-          description: The list of cloud regions where this plugin can operate.
-          type: array
-          items:
-            $ref: '#/components/schemas/PluginRegion'
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    PluginRegion:
-      description: A cloud region where a PaaS plugin can operate.
-      type: object
-      required:
-      - value
-      - label
-      properties:
-        value:
-          description: The unique identifier for the region (e.g., "us-west-2", "eastus").
-          type: string
-          minLength: 1
-          maxLength: 256
-          example: us-west-2
-        label:
-          description: The human-readable label for the region (e.g., "US West Oregon", "East US").
-          type: string
-          minLength: 1
-          maxLength: 256
-          example: US West Oregon
     TagsRequest:
       type: object
       required:
@@ -196,6 +138,64 @@ components:
           description: The total number of results. This value may not be provided.
           type: integer
           format: int_64
+    PluginRegion:
+      description: A cloud region where a PaaS plugin can operate.
+      type: object
+      required:
+      - value
+      - label
+      properties:
+        value:
+          description: The unique identifier for the region (e.g., "us-west-2", "eastus").
+          type: string
+          minLength: 1
+          maxLength: 256
+          example: us-west-2
+        label:
+          description: The human-readable label for the region (e.g., "US West Oregon", "East US").
+          type: string
+          minLength: 1
+          maxLength: 256
+          example: US West Oregon
+    PaaSPlugin:
+      description: A plugin to manage PaaS Databases.
+      type: object
+      properties:
+        id:
+          description: The PaaS Plugin object entity ID.
+          type: string
+          example: db-123
+        unique_identifier:
+          description: A unique identifier for this plugin type.
+          type: string
+          example: my-db-123
+        name:
+          description: A user friendly name describing this plugin type.
+          type: string
+          example: my-db-123
+        schema:
+          description: The JSON schema of this plugin optional parameters and properties.
+          type: string
+          example: my-db-123
+        version:
+          description: The version of the currently installed instance of this plugin.
+          type: string
+          example: my-db-123
+        operation_target:
+          description: Whether this Instance's PaaS plugin operates at the instance or database level for operations such as snapshotting, provisioning and refresh.
+          type: string
+          enum:
+          - PAAS_INSTANCE
+          - PAAS_DATABASE
+        regions:
+          description: The list of cloud regions where this plugin can operate.
+          type: array
+          items:
+            $ref: '#/components/schemas/PluginRegion'
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
     Tag:
       type: object
       required:
@@ -223,6 +223,24 @@ components:
           items:
             $ref: '#/components/schemas/Tag'
   parameters:
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    paaSPluginIdParam:
+      in: path
+      name: paaSPluginId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the PaaS Plugin.
     paasPluginSortParam:
       name: sort
       in: query
@@ -252,24 +270,6 @@ components:
         type: string
         minLength: 1
         maxLength: 4096
-    paaSPluginIdParam:
-      in: path
-      name: paaSPluginId
-      required: true
-      schema:
-        type: string
-        minLength: 1
-      description: The ID of the PaaS Plugin.
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
   requestBodies:
     DeleteTags:
       description: The parameters to delete tags

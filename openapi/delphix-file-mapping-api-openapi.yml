@@ -92,44 +92,6 @@ paths:
                 $ref: '#/components/schemas/FileMappingResult'
 components:
   schemas:
-    FilesystemLayoutParameters:
-      type: object
-      properties:
-        type:
-          x-internal: true
-          type: string
-          description: The type of the filesystem layout.
-          example: OracleFilesystemLayout
-        targetDirectory:
-          type: string
-          description: The base directory to use for the exported database.
-          example: /work/v2pdb
-        dataDirectory:
-          type: string
-          description: The directory for data files.
-          example: /work/v2pdb/data
-        archiveDirectory:
-          type: string
-          description: The directory for archive files.
-          example: /work/v2pdb/archive
-        externalDirectory:
-          type: string
-          description: The directory for external files.
-          example: /work/v2pdb/external
-        tempDirectory:
-          type: string
-          description: The directory for temporary files.
-          example: /work/v2pdb/temp
-        scriptDirectory:
-          type: string
-          description: The directory for script files.
-          example: /work/v2pdb/script
-        useAbsolutePathForDataFiles:
-          type: boolean
-          description: Whether to use absolute path for data files (Oracle only).
-          example: false
-      discriminator:
-        propertyName: class_type
     FileMappingBookmarkParameters:
       description: Parameters to validate file mapping using bookmark.
       type: object
@@ -154,6 +116,46 @@ components:
           $ref: '#/components/schemas/FilesystemLayoutParameters'
           description: The filesystem configuration of the MSSQL database.
           x-dct-toolkit-subcommand: mssql
+    FileMappingTimestampParameters:
+      description: Parameters to validate file mapping using timestamp.
+      type: object
+      required:
+      - source_data_id
+      - file_mapping_rules
+      - timestamps
+      properties:
+        source_data_id:
+          type: string
+          description: The ID of the source object (dSource or VDB) to provision from.
+          minLength: 1
+          maxLength: 256
+          example: 1-source-123
+        timestamps:
+          description: The list of timestamps to use for source files to be mapped.
+          type: array
+          items:
+            type: string
+            format: date-time
+            description: The timestamp for the timeflow point.
+            example: '2025-08-19T22:01:44.000Z'
+          minItems: 1
+        file_mapping_rules:
+          type: string
+          description: File mapping rules for the VDB provisioning.
+          minLength: 1
+        file_system_layout:
+          $ref: '#/components/schemas/FilesystemLayoutParameters'
+          description: The filesystem configuration of the MSSQL database.
+          x-dct-toolkit-subcommand: mssql
+    FileMappingResult:
+      description: Contains the file mapping information for database files.
+      type: object
+      properties:
+        mapped_files:
+          type: object
+          description: A mapping of source file paths to destination file paths.
+          additionalProperties:
+            type: string
     FileMappingLocationParameters:
       description: Parameters to validate file mapping using location.
       type: object
@@ -203,46 +205,44 @@ components:
           $ref: '#/components/schemas/FilesystemLayoutParameters'
           description: The filesystem configuration of the MSSQL database.
           x-dct-toolkit-subcommand: mssql
-    FileMappingResult:
-      description: Contains the file mapping information for database files.
+    FilesystemLayoutParameters:
       type: object
       properties:
-        mapped_files:
-          type: object
-          description: A mapping of source file paths to destination file paths.
-          additionalProperties:
-            type: string
-    FileMappingTimestampParameters:
-      description: Parameters to validate file mapping using timestamp.
-      type: object
-      required:
-      - source_data_id
-      - file_mapping_rules
-      - timestamps
-      properties:
-        source_data_id:
+        type:
+          x-internal: true
           type: string
-          description: The ID of the source object (dSource or VDB) to provision from.
-          minLength: 1
-          maxLength: 256
-          example: 1-source-123
-        timestamps:
-          description: The list of timestamps to use for source files to be mapped.
-          type: array
-          items:
-            type: string
-            format: date-time
-            description: The timestamp for the timeflow point.
-            example: '2025-08-19T22:01:44.000Z'
-          minItems: 1
-        file_mapping_rules:
+          description: The type of the filesystem layout.
+          example: OracleFilesystemLayout
+        targetDirectory:
           type: string
-          description: File mapping rules for the VDB provisioning.
-          minLength: 1
-        file_system_layout:
-          $ref: '#/components/schemas/FilesystemLayoutParameters'
-          description: The filesystem configuration of the MSSQL database.
-          x-dct-toolkit-subcommand: mssql
+          description: The base directory to use for the exported database.
+          example: /work/v2pdb
+        dataDirectory:
+          type: string
+          description: The directory for data files.
+          example: /work/v2pdb/data
+        archiveDirectory:
+          type: string
+          description: The directory for archive files.
+          example: /work/v2pdb/archive
+        externalDirectory:
+          type: string
+          description: The directory for external files.
+          example: /work/v2pdb/external
+        tempDirectory:
+          type: string
+          description: The directory for temporary files.
+          example: /work/v2pdb/temp
+        scriptDirectory:
+          type: string
+          description: The directory for script files.
+          example: /work/v2pdb/script
+        useAbsolutePathForDataFiles:
+          type: boolean
+          description: Whether to use absolute path for data files (Oracle only).
+          example: false
+      discriminator:
+        propertyName: class_type
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

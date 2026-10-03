@@ -398,382 +398,7 @@ paths:
         '204':
           description: No Content
 components:
-  parameters:
-    complianceJobCollectionIdParam:
-      in: path
-      name: complianceJobCollectionId
-      schema:
-        type: string
-        minLength: 1
-      required: true
-      description: The ID of the compliance job collection.
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
-    complianceJobCollectionsSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
-      example: id
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - name
-        - -name
-        - description
-        - -description
-        - creation_date
-        - -creation_date
-        - job_count
-        - -job_count
-        - last_execution_id
-        - -last_execution_id
-        - failure_handling
-        - -failure_handling
-        example: name
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
-    complianceJobsSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
-      example: id
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - name
-        - -name
-        - is_on_the_fly_masking
-        - -is_on_the_fly_masking
-        - type
-        - -type
-        - execution_type
-        - -execution_type
-        - engine_job_id
-        - -engine_job_id
-        - creation_date
-        - -creation_date
-        - engine_id
-        - -engine_id
-        - engine_name
-        - -engine_name
-        - last_completed_execution_date
-        - -last_completed_execution_date
-        - last_execution_status
-        - -last_execution_status
-        - last_execution_id
-        - -last_execution_id
-        - last_execution_start_time
-        - -last_execution_start_time
-        - last_execution_run_time
-        - -last_execution_run_time
-        - rule_set_id
-        - -rule_set_id
-        - rule_set_name
-        - -rule_set_name
-        - pre_script.name
-        - -pre_script.name
-        - pre_script.contents
-        - -pre_script.contents
-        - post_script.name
-        - -post_script.name
-        - post_script.contents
-        - -post_script.contents
-        - connector_type
-        - -connector_type
-        - description
-        - -description
-        - dataset_id
-        - -dataset_id
-        - retain_execution_data
-        - -retain_execution_data
-        - parallelism_degree
-        - -parallelism_degree
-        - is_multi_tenant
-        - -is_multi_tenant
-        - auto_calculate_unload_split
-        - -auto_calculate_unload_split
-        - hyperscale_enabled
-        - -hyperscale_enabled
-        - consider_continuous_compliance_warning_event_as
-        - -consider_continuous_compliance_warning_event_as
-        - create_all_indexes_with_nologging
-        - -create_all_indexes_with_nologging
-        - disable_parallel_index_creation
-        - -disable_parallel_index_creation
-        - enable_all_constraints_with_novalidate
-        - -enable_all_constraints_with_novalidate
-        - max_parallel_connections_per_table
-        - -max_parallel_connections_per_table
-        - max_records_per_split
-        - -max_records_per_split
-        - max_split_per_connection
-        - -max_split_per_connection
-        - max_concurrent_target_connections
-        - -max_concurrent_target_connections
-        - max_concurrent_source_connections
-        - -max_concurrent_source_connections
-        - num_input_streams
-        - -num_input_streams
-        - stream_row_limit
-        - -stream_row_limit
-        - feedback_size
-        - -feedback_size
-        - min_memory
-        - -min_memory
-        - max_memory
-        - -max_memory
-        - discovery_policy_id
-        - -discovery_policy_id
-        - discovery_policy_name
-        - -discovery_policy_name
-        - account_id
-        - -account_id
-        - account_name
-        - -account_name
-        - dct_managed
-        - -dct_managed
-        - fail_immediately
-        - -fail_immediately
-        - batch_update
-        - -batch_update
-        - commit_size
-        - -commit_size
-        - num_output_threads_per_stream
-        - -num_output_threads_per_stream
-        - on_the_fly_source_connector_id
-        - -on_the_fly_source_connector_id
-        - reset_profiling_assignments
-        - -reset_profiling_assignments
-        - multiple_profiler_check
-        - -multiple_profiler_check
-        - truncate_tables
-        - -truncate_tables
-        - drop_indexes
-        - -drop_indexes
-        - hyperscale_state
-        - -hyperscale_state
-        example: name
   schemas:
-    Job:
-      description: An asynchronous task.
-      type: object
-      properties:
-        id:
-          description: The Job entity ID.
-          type: string
-          example: job-123
-        status:
-          description: The status of the job.
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-          example: RUNNING
-        is_waiting_for_telemetry:
-          description: Indicates that the operations performed by this Job have completed successfully, but the object changes are not yet reflected. This is only set when when the JOB is in STARTED status, with the guarantee that the job will not transition to the FAILED status. Note that this flag will likely be replaced with a new status in future API versions and be deprecated.
-          type: boolean
-        type:
-          description: The type of job being done.
-          type: string
-          example: DB_REFRESH
-        localized_type:
-          description: The i18n translated type of job being done.
-          type: string
-          example: DB Refresh
-        error_details:
-          description: Details about the failure for FAILED jobs.
-          type: string
-          example: Unable to connect to the engine.
-        warning_message:
-          description: Warnings for the job.
-          type: string
-          example: 'Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.'
-        target_id:
-          description: A reference to the job's target.
-          type: string
-          example: vdb-123
-        target_name:
-          description: A reference to the job's target name.
-          type: string
-          example: vdb
-        start_time:
-          description: The time the job started executing.
-          type: string
-          format: date-time
-          example: '2022-01-02T05:11:24.148000+00:00'
-        update_time:
-          description: The time the job was last updated.
-          type: string
-          format: date-time
-          example: '2022-01-02T06:11:24.148000+00:00'
-        trace_id:
-          description: traceId of the request which created this Job
-          type: string
-        engine_ids:
-          description: IDs of the engines this Job is executing on.
-          type: array
-          items:
-            type: string
-          deprecated: true
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-        engines:
-          type: array
-          items:
-            $ref: '#/components/schemas/Engine'
-        account_id:
-          description: The ID of the account who initiated this job.
-          type: integer
-          example: 1
-        account_name:
-          description: The account name which initiated this job. It can be either firstname and lastname combination or firstname or lastname or username or email address or Account-<id>.
-          type: string
-          example: User 1
-        compliance_node_id:
-          type:
-          - string
-          - 'null'
-          description: The ID of the associated compliance node, if applicable.
-        compliance_node_name:
-          type:
-          - string
-          - 'null'
-          description: The name of the associated compliance node, if applicable.
-        percent_complete:
-          description: Completion percentage of the Job.
-          type: integer
-          minimum: 0
-          maximum: 100
-          example: '50'
-        virtualization_tasks:
-          deprecated: true
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualizationTask'
-        tasks:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTask'
-        execution_id:
-          description: The ID of the associated masking execution, if any.
-          type:
-          - string
-          - 'null'
-        result_type:
-          description: The type of the job result. This is the type of the object present in the result.
-          type: string
-        result:
-          description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
-          type: object
-    ExecutionStatus:
-      description: The status of a masking or discovery job.
-      type: string
-      enum:
-      - PENDING
-      - QUEUED
-      - RUNNING
-      - CANCELLED
-      - FAILED
-      - SUCCEEDED
-      - WARNING
-      - WAITING
-      example: RUNNING
-    VirtualizationTaskEvent:
-      deprecated: true
-      properties:
-        message_details:
-          type: string
-    UpdateComplianceJobCollectionRequest:
-      type: object
-      description: Parameters to update a compliance job collection.
-      properties:
-        name:
-          type: string
-          description: The name of the compliance job collection.
-          example: My favorite Compliance Job Collection
-        description:
-          type: string
-          description: The description of the compliance job collection.
-          example: Compliance Job Collection for app finance
-        failure_handling:
-          type:
-          - string
-          - 'null'
-          description: The failure handling settings for the compliance job collection.
-          $ref: '#/components/schemas/JobCollectionFailureHandlingEnum'
-        members:
-          type: array
-          description: The list of compliance job IDs and their collection sequence to be included in the collection.
-          items:
-            $ref: '#/components/schemas/ComplianceJobCollectionMembers'
-          maxItems: 100
-          uniqueItems: true
-    ComplianceJobScript:
-      description: A SQL script to be run before or after a compliance job.
-      type: object
-      required:
-      - name
-      - contents
-      properties:
-        name:
-          description: The name of the SQL script.
-          type: string
-          example: pre_script.sql
-        contents:
-          description: The contents of the SQL script.
-          type: string
-          maxLength: 65535
-    JobTaskEvent:
-      properties:
-        message_details:
-          type: string
-    TagsRequest:
-      type: object
-      required:
-      - tags
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
     DeleteTag:
       type: object
       properties:
@@ -797,65 +422,23 @@ components:
           uniqueItems: true
           items:
             $ref: '#/components/schemas/Tag'
-    ComplianceJobCollectionMembers:
+    SearchBody:
+      description: Search body.
       type: object
       properties:
-        sequence:
-          type: integer
-          minimum: 1
-          maximum: 100
-          default: 1
-          description: The sequence number of the job in the collection.
-        compliance_job_id:
+        filter_expression:
           type: string
-          description: The ID of the compliance job.
-    PaginatedResponseMetadata:
-      type: object
-      properties:
-        prev_cursor:
-          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        next_cursor:
-          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        total:
-          description: The total number of results. This value may not be provided.
-          type: integer
-          format: int_64
-    CreateComplianceJobCollectionRequest:
-      type: object
-      description: Parameters to create a compliance job collection.
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: The name of the compliance job collection.
-          example: My favorite Compliance Job Collection
-        description:
-          type: string
-          description: The description of the compliance job collection.
-          example: Compliance Job Collection for app finance
-        failure_handling:
-          type:
-          - string
-          - 'null'
-          description: The failure handling settings for the compliance job collection.
-          $ref: '#/components/schemas/JobCollectionFailureHandlingEnum'
-        members:
-          type: array
-          description: The list of compliance job IDs and their collection sequence to be included in the collection.
-          items:
-            $ref: '#/components/schemas/ComplianceJobCollectionMembers'
-          maxItems: 100
-          uniqueItems: true
-        tags:
-          description: The tags to be created for this compliance job collection.
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    VirtualizationTask:
-      deprecated: true
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    JobCollectionFailureHandlingEnum:
+      type: string
+      enum:
+      - IGNORE
+      - CANCEL_ALL
+      - CANCEL_SUBSEQUENT
+      example: IGNORE
+    JobTask:
       properties:
         id:
           type: string
@@ -876,7 +459,7 @@ components:
         events:
           type: array
           items:
-            $ref: '#/components/schemas/VirtualizationTaskEvent'
+            $ref: '#/components/schemas/JobTaskEvent'
         status:
           type: string
           enum:
@@ -890,31 +473,16 @@ components:
           - WAITING
           - COMPLETED
           - ABANDONED
-    Tag:
-      type: object
-      required:
-      - key
-      - value
+    Engine:
       properties:
-        key:
-          description: Key of the tag
+        engine_id:
           type: string
           minLength: 1
           maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
+        engine_name:
           type: string
           minLength: 1
           maxLength: 4000
-          example: value-1
-    JobCollectionFailureHandlingEnum:
-      type: string
-      enum:
-      - IGNORE
-      - CANCEL_ALL
-      - CANCEL_SUBSEQUENT
-      example: IGNORE
     TagsResponse:
       type: object
       properties:
@@ -923,70 +491,19 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
-    SearchBody:
-      description: Search body.
+    TagsRequest:
       type: object
+      required:
+      - tags
       properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
-    ComplianceJobCollection:
-      type: object
-      description: A compliance job collection.
-      properties:
-        id:
-          description: The Compliance Job Collection entity ID.
-          type: string
-          readOnly: true
-          example: compliance-job-collection-1
-        name:
-          type: string
-          description: The name of the compliance job collection.
-          example: My favorite Compliance Job Collection
-        description:
-          type: string
-          description: The description of the compliance job collection.
-          example: Compliance Job Collection for app finance
-        creation_date:
-          type: string
-          readOnly: true
-          description: The date this compliance job collection was created.
-          format: date-time
-          example: '2022-11-30T08:51:34.148000+00:00'
-        job_count:
-          type: integer
-          readOnly: true
-          description: The number of jobs in this compliance job collection.
-          example: 10
-        last_execution_id:
-          type: string
-          readOnly: true
-          description: The ID of the last execution of this compliance job collection if exists.
-          example: 414ed52c-fa89-455d-9fb9-9c2fa5115f80
-        failure_handling:
-          type:
-          - string
-          - 'null'
-          description: The failure handling settings for the compliance job collection.
-          $ref: '#/components/schemas/JobCollectionFailureHandlingEnum'
-        job_missing:
-          type: boolean
-          readOnly: true
-          description: Whether any jobs in the collection are missing.
-        members:
-          type: array
-          description: The list of compliance job IDs and their collection sequence to be included in the collection.
-          items:
-            $ref: '#/components/schemas/ComplianceJobCollectionMembers'
-          maxItems: 100
-          uniqueItems: true
         tags:
-          description: The tags of this compliance job collection.
+          description: Array of tags with key value pairs
           type: array
           items:
             $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
     ComplianceJob:
       description: A compliance job.
       type: object
@@ -1299,17 +816,259 @@ components:
           type: array
           items:
             type: string
-    Engine:
+    ComplianceJobScript:
+      description: A SQL script to be run before or after a compliance job.
+      type: object
+      required:
+      - name
+      - contents
       properties:
-        engine_id:
+        name:
+          description: The name of the SQL script.
           type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
+          example: pre_script.sql
+        contents:
+          description: The contents of the SQL script.
           type: string
-          minLength: 1
-          maxLength: 4000
-    JobTask:
+          maxLength: 65535
+    ExecutionStatus:
+      description: The status of a masking or discovery job.
+      type: string
+      enum:
+      - PENDING
+      - QUEUED
+      - RUNNING
+      - CANCELLED
+      - FAILED
+      - SUCCEEDED
+      - WARNING
+      - WAITING
+      example: RUNNING
+    Job:
+      description: An asynchronous task.
+      type: object
+      properties:
+        id:
+          description: The Job entity ID.
+          type: string
+          example: job-123
+        status:
+          description: The status of the job.
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+          example: RUNNING
+        is_waiting_for_telemetry:
+          description: Indicates that the operations performed by this Job have completed successfully, but the object changes are not yet reflected. This is only set when when the JOB is in STARTED status, with the guarantee that the job will not transition to the FAILED status. Note that this flag will likely be replaced with a new status in future API versions and be deprecated.
+          type: boolean
+        type:
+          description: The type of job being done.
+          type: string
+          example: DB_REFRESH
+        localized_type:
+          description: The i18n translated type of job being done.
+          type: string
+          example: DB Refresh
+        error_details:
+          description: Details about the failure for FAILED jobs.
+          type: string
+          example: Unable to connect to the engine.
+        warning_message:
+          description: Warnings for the job.
+          type: string
+          example: 'Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.'
+        target_id:
+          description: A reference to the job's target.
+          type: string
+          example: vdb-123
+        target_name:
+          description: A reference to the job's target name.
+          type: string
+          example: vdb
+        start_time:
+          description: The time the job started executing.
+          type: string
+          format: date-time
+          example: '2022-01-02T05:11:24.148000+00:00'
+        update_time:
+          description: The time the job was last updated.
+          type: string
+          format: date-time
+          example: '2022-01-02T06:11:24.148000+00:00'
+        trace_id:
+          description: traceId of the request which created this Job
+          type: string
+        engine_ids:
+          description: IDs of the engines this Job is executing on.
+          type: array
+          items:
+            type: string
+          deprecated: true
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        engines:
+          type: array
+          items:
+            $ref: '#/components/schemas/Engine'
+        account_id:
+          description: The ID of the account who initiated this job.
+          type: integer
+          example: 1
+        account_name:
+          description: The account name which initiated this job. It can be either firstname and lastname combination or firstname or lastname or username or email address or Account-<id>.
+          type: string
+          example: User 1
+        compliance_node_id:
+          type:
+          - string
+          - 'null'
+          description: The ID of the associated compliance node, if applicable.
+        compliance_node_name:
+          type:
+          - string
+          - 'null'
+          description: The name of the associated compliance node, if applicable.
+        percent_complete:
+          description: Completion percentage of the Job.
+          type: integer
+          minimum: 0
+          maximum: 100
+          example: '50'
+        virtualization_tasks:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTask'
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTask'
+        execution_id:
+          description: The ID of the associated masking execution, if any.
+          type:
+          - string
+          - 'null'
+        result_type:
+          description: The type of the job result. This is the type of the object present in the result.
+          type: string
+        result:
+          description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
+          type: object
+    ComplianceJobCollection:
+      type: object
+      description: A compliance job collection.
+      properties:
+        id:
+          description: The Compliance Job Collection entity ID.
+          type: string
+          readOnly: true
+          example: compliance-job-collection-1
+        name:
+          type: string
+          description: The name of the compliance job collection.
+          example: My favorite Compliance Job Collection
+        description:
+          type: string
+          description: The description of the compliance job collection.
+          example: Compliance Job Collection for app finance
+        creation_date:
+          type: string
+          readOnly: true
+          description: The date this compliance job collection was created.
+          format: date-time
+          example: '2022-11-30T08:51:34.148000+00:00'
+        job_count:
+          type: integer
+          readOnly: true
+          description: The number of jobs in this compliance job collection.
+          example: 10
+        last_execution_id:
+          type: string
+          readOnly: true
+          description: The ID of the last execution of this compliance job collection if exists.
+          example: 414ed52c-fa89-455d-9fb9-9c2fa5115f80
+        failure_handling:
+          type:
+          - string
+          - 'null'
+          description: The failure handling settings for the compliance job collection.
+          $ref: '#/components/schemas/JobCollectionFailureHandlingEnum'
+        job_missing:
+          type: boolean
+          readOnly: true
+          description: Whether any jobs in the collection are missing.
+        members:
+          type: array
+          description: The list of compliance job IDs and their collection sequence to be included in the collection.
+          items:
+            $ref: '#/components/schemas/ComplianceJobCollectionMembers'
+          maxItems: 100
+          uniqueItems: true
+        tags:
+          description: The tags of this compliance job collection.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    ComplianceJobCollectionMembers:
+      type: object
+      properties:
+        sequence:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 1
+          description: The sequence number of the job in the collection.
+        compliance_job_id:
+          type: string
+          description: The ID of the compliance job.
+    CreateComplianceJobCollectionRequest:
+      type: object
+      description: Parameters to create a compliance job collection.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: The name of the compliance job collection.
+          example: My favorite Compliance Job Collection
+        description:
+          type: string
+          description: The description of the compliance job collection.
+          example: Compliance Job Collection for app finance
+        failure_handling:
+          type:
+          - string
+          - 'null'
+          description: The failure handling settings for the compliance job collection.
+          $ref: '#/components/schemas/JobCollectionFailureHandlingEnum'
+        members:
+          type: array
+          description: The list of compliance job IDs and their collection sequence to be included in the collection.
+          items:
+            $ref: '#/components/schemas/ComplianceJobCollectionMembers'
+          maxItems: 100
+          uniqueItems: true
+        tags:
+          description: The tags to be created for this compliance job collection.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    ExecuteComplianceJobCollectionRequest:
+      type: object
+      description: Parameters to execute a compliance job collection.
+    VirtualizationTask:
+      deprecated: true
       properties:
         id:
           type: string
@@ -1330,7 +1089,7 @@ components:
         events:
           type: array
           items:
-            $ref: '#/components/schemas/JobTaskEvent'
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
         status:
           type: string
           enum:
@@ -1344,9 +1103,250 @@ components:
           - WAITING
           - COMPLETED
           - ABANDONED
-    ExecuteComplianceJobCollectionRequest:
+    UpdateComplianceJobCollectionRequest:
       type: object
-      description: Parameters to execute a compliance job collection.
+      description: Parameters to update a compliance job collection.
+      properties:
+        name:
+          type: string
+          description: The name of the compliance job collection.
+          example: My favorite Compliance Job Collection
+        description:
+          type: string
+          description: The description of the compliance job collection.
+          example: Compliance Job Collection for app finance
+        failure_handling:
+          type:
+          - string
+          - 'null'
+          description: The failure handling settings for the compliance job collection.
+          $ref: '#/components/schemas/JobCollectionFailureHandlingEnum'
+        members:
+          type: array
+          description: The list of compliance job IDs and their collection sequence to be included in the collection.
+          items:
+            $ref: '#/components/schemas/ComplianceJobCollectionMembers'
+          maxItems: 100
+          uniqueItems: true
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+  parameters:
+    complianceJobCollectionsSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - description
+        - -description
+        - creation_date
+        - -creation_date
+        - job_count
+        - -job_count
+        - last_execution_id
+        - -last_execution_id
+        - failure_handling
+        - -failure_handling
+        example: name
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    complianceJobCollectionIdParam:
+      in: path
+      name: complianceJobCollectionId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the compliance job collection.
+    complianceJobsSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - is_on_the_fly_masking
+        - -is_on_the_fly_masking
+        - type
+        - -type
+        - execution_type
+        - -execution_type
+        - engine_job_id
+        - -engine_job_id
+        - creation_date
+        - -creation_date
+        - engine_id
+        - -engine_id
+        - engine_name
+        - -engine_name
+        - last_completed_execution_date
+        - -last_completed_execution_date
+        - last_execution_status
+        - -last_execution_status
+        - last_execution_id
+        - -last_execution_id
+        - last_execution_start_time
+        - -last_execution_start_time
+        - last_execution_run_time
+        - -last_execution_run_time
+        - rule_set_id
+        - -rule_set_id
+        - rule_set_name
+        - -rule_set_name
+        - pre_script.name
+        - -pre_script.name
+        - pre_script.contents
+        - -pre_script.contents
+        - post_script.name
+        - -post_script.name
+        - post_script.contents
+        - -post_script.contents
+        - connector_type
+        - -connector_type
+        - description
+        - -description
+        - dataset_id
+        - -dataset_id
+        - retain_execution_data
+        - -retain_execution_data
+        - parallelism_degree
+        - -parallelism_degree
+        - is_multi_tenant
+        - -is_multi_tenant
+        - auto_calculate_unload_split
+        - -auto_calculate_unload_split
+        - hyperscale_enabled
+        - -hyperscale_enabled
+        - consider_continuous_compliance_warning_event_as
+        - -consider_continuous_compliance_warning_event_as
+        - create_all_indexes_with_nologging
+        - -create_all_indexes_with_nologging
+        - disable_parallel_index_creation
+        - -disable_parallel_index_creation
+        - enable_all_constraints_with_novalidate
+        - -enable_all_constraints_with_novalidate
+        - max_parallel_connections_per_table
+        - -max_parallel_connections_per_table
+        - max_records_per_split
+        - -max_records_per_split
+        - max_split_per_connection
+        - -max_split_per_connection
+        - max_concurrent_target_connections
+        - -max_concurrent_target_connections
+        - max_concurrent_source_connections
+        - -max_concurrent_source_connections
+        - num_input_streams
+        - -num_input_streams
+        - stream_row_limit
+        - -stream_row_limit
+        - feedback_size
+        - -feedback_size
+        - min_memory
+        - -min_memory
+        - max_memory
+        - -max_memory
+        - discovery_policy_id
+        - -discovery_policy_id
+        - discovery_policy_name
+        - -discovery_policy_name
+        - account_id
+        - -account_id
+        - account_name
+        - -account_name
+        - dct_managed
+        - -dct_managed
+        - fail_immediately
+        - -fail_immediately
+        - batch_update
+        - -batch_update
+        - commit_size
+        - -commit_size
+        - num_output_threads_per_stream
+        - -num_output_threads_per_stream
+        - on_the_fly_source_connector_id
+        - -on_the_fly_source_connector_id
+        - reset_profiling_assignments
+        - -reset_profiling_assignments
+        - multiple_profiler_check
+        - -multiple_profiler_check
+        - truncate_tables
+        - -truncate_tables
+        - drop_indexes
+        - -drop_indexes
+        - hyperscale_state
+        - -hyperscale_state
+        example: name
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
   requestBodies:
     DeleteTags:
       description: The parameters to delete tags

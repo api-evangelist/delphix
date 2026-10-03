@@ -263,6 +263,115 @@ paths:
                     description: The initiated job.
 components:
   schemas:
+    DeleteTag:
+      type: object
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        tags:
+          description: List of tags to be deleted
+          type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    ToolkitSchemaDefinitions:
+      description: Delphix plugin platform schema definitions.
+      type: object
+      properties:
+        id:
+          type: string
+        description:
+          type: string
+        definitions:
+          type: object
+          additionalProperties: true
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
     Job:
       description: An asynchronous task.
       type: object
@@ -386,6 +495,65 @@ components:
           type: object
       discriminator:
         propertyName: class_type
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    VirtualizationTask:
+      deprecated: true
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
     Toolkit:
       description: A toolkit or plugin.
       type: object
@@ -472,62 +640,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
-    VirtualizationTaskEvent:
-      deprecated: true
-      properties:
-        message_details:
-          type: string
-    ToolkitSchemaDefinitions:
-      description: Delphix plugin platform schema definitions.
-      type: object
-      properties:
-        id:
-          type: string
-        description:
-          type: string
-        definitions:
-          type: object
-          additionalProperties: true
     JobTaskEvent:
       properties:
         message_details:
           type: string
-    TagsRequest:
-      type: object
-      required:
-      - tags
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-    DeleteTag:
-      type: object
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-        tags:
-          description: List of tags to be deleted
-          type: array
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/Tag'
     PaginatedResponseMetadata:
       type: object
       properties:
@@ -541,141 +657,7 @@ components:
           description: The total number of results. This value may not be provided.
           type: integer
           format: int_64
-    VirtualizationTask:
-      deprecated: true
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualizationTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    Tag:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-    TagsResponse:
-      type: object
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
-    Engine:
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
-    JobTask:
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
   parameters:
-    toolkitIdParam:
-      in: path
-      name: toolkitId
-      required: true
-      schema:
-        type: string
-        minLength: 1
-      description: The ID of the toolkit.
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
     toolkitSortParam:
       name: sort
       in: query
@@ -722,6 +704,24 @@ components:
         - -lua_name
         - -minimum_lua_version
         example: name
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    toolkitIdParam:
+      in: path
+      name: toolkitId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the toolkit.
     cursor:
       name: cursor
       in: query

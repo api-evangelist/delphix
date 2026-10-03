@@ -935,6 +935,15 @@ paths:
     - url: /dct/v3
 components:
   schemas:
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
     EngineGlobalObjectStateData:
       properties:
         engine_id:
@@ -964,6 +973,127 @@ components:
           description: The revisionHash of the GLOBAL_OBJECT.
           type: string
           example: dfb515e3d9727eebf499cb252b417efc926bad0b
+    MaskingExecutionMetrics:
+      description: Metrics for a masking job.
+      type: object
+      properties:
+        id:
+          description: The MaskingJob entity ID.
+          type: string
+          example: masking-job-1
+        masking_job_name:
+          description: The name of the MaskingJob.
+          type: string
+          example: My favorite MaskingJob
+        masking_job_type:
+          type: string
+          description: The type of the Masking job.
+          enum:
+          - STANDARD
+          - HYPERSCALE
+          example: STANDARD
+        connector_type:
+          type: string
+          description: The type of data being masked by this Job. If the Masking Job is masking a database this is the type of the database, otherwise "FILE" or "MAINFRAME_DATASET".
+          example: MARIADB
+        dct_managed:
+          description: Whether or not this execution is managed by DCT.
+          type: boolean
+          example: false
+        ruleset_name:
+          type: string
+          description: Name of the ruleset for the Masking job.
+          example: my-ruleset
+        rows_masked:
+          description: The number of rows masked. This is not applicable for JSON file type.
+          type: integer
+          format: int64
+          example: 1000
+        rows_total:
+          description: The total number of rows. This is not applicable for JSON file type.
+          type: integer
+          format: int64
+          example: 5000
+        bytes_masked:
+          description: The number of bytes masked. This is only applicable for JSON file type.
+          type: integer
+          format: int64
+          example: 500
+        bytes_total:
+          description: The total number of bytes. This is only applicable for JSON file type.
+          type: integer
+          format: int64
+          example: 5000000
+        duration:
+          description: The time taken by the execution in ms.
+          type: integer
+          format: int64
+          example: 5000000
+        tables_files_count:
+          description: The number of tables or files in the ruleset associated to the Masking job.
+          type: integer
+          format: int64
+          example: 5000000
+        masked_tables_files_count:
+          description: The number of tables or files in the ruleset associated to the Masking job for which at least one column or field is masked.
+          type: integer
+          format: int64
+          example: 5000000
+        columns_fields_count:
+          description: The number of columns or fields across all tables or files in the ruleset associated to the Masking job.
+          type: integer
+          format: int64
+          example: 5000000
+        masked_columns_fields_count:
+          description: The number of columns or fields across all tables or files in the ruleset associated to the Masking job which are masked.
+          type: integer
+          format: int64
+          example: 5000000
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
     Job:
       description: An asynchronous task.
       type: object
@@ -1085,28 +1215,24 @@ components:
         result:
           description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
           type: object
-    VirtualizationTaskEvent:
-      deprecated: true
-      properties:
-        message_details:
-          type: string
-    JobTaskEvent:
-      properties:
-        message_details:
-          type: string
-    PaginatedResponseMetadata:
+    Tag:
       type: object
+      required:
+      - key
+      - value
       properties:
-        prev_cursor:
-          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+        key:
+          description: Key of the tag
           type: string
-        next_cursor:
-          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
           type: string
-        total:
-          description: The total number of results. This value may not be provided.
-          type: integer
-          format: int_64
+          minLength: 1
+          maxLength: 4000
+          example: value-1
     VirtualizationTask:
       deprecated: true
       properties:
@@ -1143,100 +1269,100 @@ components:
           - WAITING
           - COMPLETED
           - ABANDONED
-    Tag:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-    MaskingExecutionMetrics:
-      description: Metrics for a masking job.
+    DataRiskReportTotals:
+      description: The global totals of masking data risk metrics across all connectors.
       type: object
       properties:
-        id:
-          description: The MaskingJob entity ID.
-          type: string
-          example: masking-job-1
-        masking_job_name:
-          description: The name of the MaskingJob.
-          type: string
-          example: My favorite MaskingJob
-        masking_job_type:
-          type: string
-          description: The type of the Masking job.
-          enum:
-          - STANDARD
-          - HYPERSCALE
-          example: STANDARD
-        connector_type:
-          type: string
-          description: The type of data being masked by this Job. If the Masking Job is masking a database this is the type of the database, otherwise "FILE" or "MAINFRAME_DATASET".
-          example: MARIADB
-        dct_managed:
-          description: Whether or not this execution is managed by DCT.
-          type: boolean
-          example: false
-        ruleset_name:
-          type: string
-          description: Name of the ruleset for the Masking job.
-          example: my-ruleset
-        rows_masked:
-          description: The number of rows masked. This is not applicable for JSON file type.
+        connector_total:
+          description: The total number of connectors.
+          type: integer
+          format: int64
+          example: 10
+        profiled_connector_count:
+          description: The number of connectors that have been profiled.
+          type: integer
+          format: int64
+          example: 8
+        sensitive_connector_count:
+          description: The number of connectors found to have sensitive data.
+          type: integer
+          format: int64
+          example: 5
+        masked_connector_count:
+          description: The number of connectors having had a successfully run masking job.
+          type: integer
+          format: int64
+          example: 3
+        at_risk_connector_count:
+          description: The number of connectors with sensitive data that have not been masked.
+          type: integer
+          format: int64
+          example: 2
+        data_elements_total:
+          description: The total number of data elements across connectors.
           type: integer
           format: int64
           example: 1000
-        rows_total:
-          description: The total number of rows. This is not applicable for JSON file type.
+        data_elements_not_sensitive:
+          description: The number of data elements categorized as not sensitive.
           type: integer
           format: int64
-          example: 5000
-        bytes_masked:
-          description: The number of bytes masked. This is only applicable for JSON file type.
+          example: 400
+        data_elements_sensitive_masked:
+          description: The number of sensitive data elements that have been masked.
           type: integer
           format: int64
           example: 500
-        bytes_total:
-          description: The total number of bytes. This is only applicable for JSON file type.
+        data_elements_sensitive_unmasked:
+          description: The number of sensitive data elements that have not been masked.
           type: integer
           format: int64
-          example: 5000000
-        duration:
-          description: The time taken by the execution in ms.
+          example: 100
+        records_total:
+          description: The total number of records across connectors.
           type: integer
           format: int64
-          example: 5000000
-        tables_files_count:
-          description: The number of tables or files in the ruleset associated to the Masking job.
+          example: 10000
+        records_not_sensitive:
+          description: The number of records found to be not sensitive.
           type: integer
           format: int64
-          example: 5000000
-        masked_tables_files_count:
-          description: The number of tables or files in the ruleset associated to the Masking job for which at least one column or field is masked.
+          example: 4000
+        records_sensitive_masked:
+          description: The number of sensitive records that have been masked.
           type: integer
           format: int64
-          example: 5000000
-        columns_fields_count:
-          description: The number of columns or fields across all tables or files in the ruleset associated to the Masking job.
+          example: 5000
+        records_sensitive_unmasked:
+          description: The number of sensitive records that have not been masked.
           type: integer
           format: int64
-          example: 5000000
-        masked_columns_fields_count:
-          description: The number of columns or fields across all tables or files in the ruleset associated to the Masking job which are masked.
+          example: 1000
+        records_coverage_missing_reason:
+          description: An explanation if the records coverage is not provided.
+          type: string
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
           type: integer
-          format: int64
-          example: 5000000
+          format: int_64
     DataRiskData:
       properties:
         connector_id:
@@ -1342,141 +1468,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
-    Engine:
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
-    JobTask:
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    DataRiskReportTotals:
-      description: The global totals of masking data risk metrics across all connectors.
-      type: object
-      properties:
-        connector_total:
-          description: The total number of connectors.
-          type: integer
-          format: int64
-          example: 10
-        profiled_connector_count:
-          description: The number of connectors that have been profiled.
-          type: integer
-          format: int64
-          example: 8
-        sensitive_connector_count:
-          description: The number of connectors found to have sensitive data.
-          type: integer
-          format: int64
-          example: 5
-        masked_connector_count:
-          description: The number of connectors having had a successfully run masking job.
-          type: integer
-          format: int64
-          example: 3
-        at_risk_connector_count:
-          description: The number of connectors with sensitive data that have not been masked.
-          type: integer
-          format: int64
-          example: 2
-        data_elements_total:
-          description: The total number of data elements across connectors.
-          type: integer
-          format: int64
-          example: 1000
-        data_elements_not_sensitive:
-          description: The number of data elements categorized as not sensitive.
-          type: integer
-          format: int64
-          example: 400
-        data_elements_sensitive_masked:
-          description: The number of sensitive data elements that have been masked.
-          type: integer
-          format: int64
-          example: 500
-        data_elements_sensitive_unmasked:
-          description: The number of sensitive data elements that have not been masked.
-          type: integer
-          format: int64
-          example: 100
-        records_total:
-          description: The total number of records across connectors.
-          type: integer
-          format: int64
-          example: 10000
-        records_not_sensitive:
-          description: The number of records found to be not sensitive.
-          type: integer
-          format: int64
-          example: 4000
-        records_sensitive_masked:
-          description: The number of sensitive records that have been masked.
-          type: integer
-          format: int64
-          example: 5000
-        records_sensitive_unmasked:
-          description: The number of sensitive records that have not been masked.
-          type: integer
-          format: int64
-          example: 1000
-        records_coverage_missing_reason:
-          description: An explanation if the records coverage is not provided.
-          type: string
-    EngineStorageDatasetType:
-      type: string
-      description: Type of the dataset.
-      enum:
-      - VDB
-      - DSOURCE
-      - CDB
-      - VCDB
-      - HELDSPACE
     DatasetPerformanceAnalytics:
       type: object
       properties:
@@ -1491,6 +1482,204 @@ components:
           items:
             $ref: '#/components/schemas/PerformanceAnalytics'
           description: performance analytics of dataset
+    VDBInventoryData:
+      properties:
+        vdb_id:
+          description: The VDB id.
+          type: string
+          example: vdb-id-1
+        engine_name:
+          description: The name of the engine the VDB belongs to.
+          type: string
+          example: My favorite engine
+        name:
+          description: The name of the VDB.
+          type: string
+          example: prod01-copy01
+        type:
+          description: The database type of the VDB.
+          type: string
+          example: Oracle
+        version:
+          description: The database version of the VDB.
+          type: string
+          example: 10.2.0.5.0
+        parent_name:
+          description: The name of the VDB's parent dataset.
+          type: string
+          example: prod01-main
+        parent_id:
+          description: A reference to the parent dataset of the VDB.
+          type: string
+          example: 1-DB_CONTAINER-1
+        creation_date:
+          description: The date the VDB was created.
+          type: string
+          format: date-time
+          example: '2023-04-15T08:51:34.148000+00:00'
+        last_refreshed_date:
+          description: The date the VDB was last refreshed.
+          type: string
+          format: date-time
+          example: '2023-04-15T10:49:34.148000+00:00'
+        parent_timeflow_location:
+          description: The location for the VDB's parent timeflow.
+          type: string
+          example: '1178883'
+        parent_timeflow_timestamp:
+          description: The timestamp for the VDB's parent timeflow.
+          type: string
+          format: date-time
+          example: '2021-05-01T08:51:34.148000+00:00'
+        parent_timeflow_timezone:
+          description: The timezone for the VDB's parent timeflow.
+          type: string
+          example: America/Los_Angeles
+        enabled:
+          description: Whether the VDB is enabled
+          type: boolean
+          example: true
+        status:
+          description: The runtime status of the VDB. 'Unknown' if all attempts to connect to the dataset failed.
+          type: string
+          example: RUNNING
+        storage_size:
+          description: The actual space used by the VDB, in bytes.
+          type: integer
+          format: int64
+          example: 12345678
+    PerformanceAnalytics:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          description: Starting time of the interval.
+        average_throughput:
+          type: number
+          description: Average throughput for the interval.
+    DSourceConsumptionData:
+      properties:
+        dsource_id:
+          description: The dSource id.
+          type: string
+          example: dsource-id-1
+        name:
+          description: The name of the dSource
+          type: string
+          example: prod01-main
+        status:
+          description: The status of the dSource
+          type: string
+          example: Running
+        database_type:
+          description: The type of the dSource
+          type: string
+          example: Oracle
+        engine_id:
+          description: The id of the engine the dSource belongs to.
+          type: string
+          minLength: 1
+          example: '1'
+        engine_name:
+          description: The name of the engine the dSource belongs to
+          type: string
+          example: My favorite engine
+        last_consumption_date:
+          description: The most recent date where consumption data was captured for this dSource.
+          type: string
+          format: date-time
+          example: 2022-01-07T12:06:59.157Z,54321
+        ingested_size:
+          description: The ingested size of the dSource
+          type: integer
+          format: int64
+          minimum: 0
+          example: 12345
+    DatasetPerformanceAnalyticsRequest:
+      type: object
+      required:
+      - dataset_ids
+      - start
+      - end
+      - interval
+      properties:
+        dataset_ids:
+          description: List of dataset ids for which dataset performance analytics should be fetched.
+          type: array
+          items:
+            type: string
+          example:
+          - 2-ORACLE_DB_CONTAINER-3
+          - 1-ORACLE_SINGLE_CONFIG-2
+        start:
+          description: Start time in UTC from which to fetch analytics data.
+          type: string
+          format: date-time
+          example: '2021-07-04 08:51:34.148'
+        end:
+          description: End time in UTC up to which analytics data will be fetched.
+          type: string
+          format: date-time
+          example: '2021-07-04 08:51:34.148'
+        interval:
+          type: integer
+          description: Desired time interval in timestamp format.
+          example: 10
+    DatasetPerformanceAnalyticsSummary:
+      type: object
+      properties:
+        dataset_id:
+          type: string
+          description: ID of the dataset.
+        dataset_name:
+          type: string
+          description: Name of the dataset.
+        dataset_type:
+          description: Type of the dataset.
+          $ref: '#/components/schemas/EngineStorageDatasetType'
+        is_replica:
+          type: boolean
+          description: Flag to specify if this object is a replica.
+        environment_id:
+          type: string
+          description: A reference to the Environment that hosts this source database.
+        environment_name:
+          type: string
+          description: Name of the Environment that hosts this source database.
+        average_throughput_of_1_h:
+          type: number
+          format: float
+          description: Average throughput of last 1 hour.
+        average_throughput_of_6_h:
+          type: number
+          format: float
+          description: Average throughput of last 6 hours.
+        average_throughput_of_24_h:
+          type: number
+          format: float
+          description: Average throughput of last 24 hours.
+        current_throughput_of_1_h:
+          type: number
+          format: float
+          description: The most recent throughput record from the past hour.
+        current_throughput_of_6_h:
+          type: number
+          format: float
+          description: The most recent throughput record from the 6 hours.
+        current_throughput_of_24_h:
+          type: number
+          format: float
+          description: The most recent throughput record from the past 24 hours.
+        percentile:
+          type: number
+          format: float
+          description: Percentile of average throughput among all datasets in the past 24 hours.
+        tags:
+          description: The tags that are applied to dataset.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
     DSourceUsageData:
       properties:
         dsource_id:
@@ -1519,6 +1708,42 @@ components:
           description: The number of VDBs that are dependant on this dSource. This includes all VDB descendants that have this dSource as an ancestor.
           type: integer
           example: 25
+    StorageSavingsReportSummarizedData:
+      type: object
+      properties:
+        vdb_count:
+          type: integer
+          description: The total VDB count
+        dsource_count:
+          type: integer
+          description: The total dSource count
+        virtualized_space:
+          type: integer
+          format: int64
+          description: Total Virtualized Space. This is the sum of storage size from dSources and their dependant VDBs.
+        unvirtualized_space:
+          type: integer
+          format: int64
+          description: Total disk space, in bytes, that it would take to store the filtered list of dSources and their descandant VDBs without Delphix, counting each of their timeflows as separate copy of the source data.
+        current_timeflows_unvirtualized_space:
+          type: integer
+          format: int64
+          description: Total disk space, in bytes, that it would take to store the filtered list of dSources and their descandant VDBs without Delphix, counting only their current (active) timeflows.
+        estimated_savings:
+          type: integer
+          description: Total disk space that has been saved by using Delphix virtualization for all timeflows, in bytes.
+          format: int64
+          example: 109242677
+        estimated_savings_perc:
+          description: Total disk space that has been saved by using Delphix virtualization for all timeflows, in percentage.
+          type: number
+        estimated_current_timeflows_savings:
+          type: integer
+          description: Total disk space that has been saved by using Delphix virtualization for only the current (active) timeflows, in bytes.
+          format: int64
+        estimated_current_timeflows_savings_perc:
+          type: number
+          description: Total disk space that has been saved by using Delphix virtualization for only the current (active) timeflows, in percentage.
     EngineStorageCapacityData:
       properties:
         engine_id:
@@ -1595,148 +1820,15 @@ components:
             $ref: '#/components/schemas/Tag'
       discriminator:
         propertyName: class_type
-    VDBInventoryData:
-      properties:
-        vdb_id:
-          description: The VDB id.
-          type: string
-          example: vdb-id-1
-        engine_name:
-          description: The name of the engine the VDB belongs to.
-          type: string
-          example: My favorite engine
-        name:
-          description: The name of the VDB.
-          type: string
-          example: prod01-copy01
-        type:
-          description: The database type of the VDB.
-          type: string
-          example: Oracle
-        version:
-          description: The database version of the VDB.
-          type: string
-          example: 10.2.0.5.0
-        parent_name:
-          description: The name of the VDB's parent dataset.
-          type: string
-          example: prod01-main
-        parent_id:
-          description: A reference to the parent dataset of the VDB.
-          type: string
-          example: 1-DB_CONTAINER-1
-        creation_date:
-          description: The date the VDB was created.
-          type: string
-          format: date-time
-          example: '2023-04-15T08:51:34.148000+00:00'
-        last_refreshed_date:
-          description: The date the VDB was last refreshed.
-          type: string
-          format: date-time
-          example: '2023-04-15T10:49:34.148000+00:00'
-        parent_timeflow_location:
-          description: The location for the VDB's parent timeflow.
-          type: string
-          example: '1178883'
-        parent_timeflow_timestamp:
-          description: The timestamp for the VDB's parent timeflow.
-          type: string
-          format: date-time
-          example: '2021-05-01T08:51:34.148000+00:00'
-        parent_timeflow_timezone:
-          description: The timezone for the VDB's parent timeflow.
-          type: string
-          example: America/Los_Angeles
-        enabled:
-          description: Whether the VDB is enabled
-          type: boolean
-          example: true
-        status:
-          description: The runtime status of the VDB. 'Unknown' if all attempts to connect to the dataset failed.
-          type: string
-          example: RUNNING
-        storage_size:
-          description: The actual space used by the VDB, in bytes.
-          type: integer
-          format: int64
-          example: 12345678
-    DatasetPerformanceAnalyticsRequest:
-      type: object
-      required:
-      - dataset_ids
-      - start
-      - end
-      - interval
-      properties:
-        dataset_ids:
-          description: List of dataset ids for which dataset performance analytics should be fetched.
-          type: array
-          items:
-            type: string
-          example:
-          - 2-ORACLE_DB_CONTAINER-3
-          - 1-ORACLE_SINGLE_CONFIG-2
-        start:
-          description: Start time in UTC from which to fetch analytics data.
-          type: string
-          format: date-time
-          example: '2021-07-04 08:51:34.148'
-        end:
-          description: End time in UTC up to which analytics data will be fetched.
-          type: string
-          format: date-time
-          example: '2021-07-04 08:51:34.148'
-        interval:
-          type: integer
-          description: Desired time interval in timestamp format.
-          example: 10
-    PerformanceAnalytics:
-      type: object
-      properties:
-        timestamp:
-          type: string
-          format: date-time
-          description: Starting time of the interval.
-        average_throughput:
-          type: number
-          description: Average throughput for the interval.
-    StorageSavingsReportSummarizedData:
-      type: object
-      properties:
-        vdb_count:
-          type: integer
-          description: The total VDB count
-        dsource_count:
-          type: integer
-          description: The total dSource count
-        virtualized_space:
-          type: integer
-          format: int64
-          description: Total Virtualized Space. This is the sum of storage size from dSources and their dependant VDBs.
-        unvirtualized_space:
-          type: integer
-          format: int64
-          description: Total disk space, in bytes, that it would take to store the filtered list of dSources and their descandant VDBs without Delphix, counting each of their timeflows as separate copy of the source data.
-        current_timeflows_unvirtualized_space:
-          type: integer
-          format: int64
-          description: Total disk space, in bytes, that it would take to store the filtered list of dSources and their descandant VDBs without Delphix, counting only their current (active) timeflows.
-        estimated_savings:
-          type: integer
-          description: Total disk space that has been saved by using Delphix virtualization for all timeflows, in bytes.
-          format: int64
-          example: 109242677
-        estimated_savings_perc:
-          description: Total disk space that has been saved by using Delphix virtualization for all timeflows, in percentage.
-          type: number
-        estimated_current_timeflows_savings:
-          type: integer
-          description: Total disk space that has been saved by using Delphix virtualization for only the current (active) timeflows, in bytes.
-          format: int64
-        estimated_current_timeflows_savings_perc:
-          type: number
-          description: Total disk space that has been saved by using Delphix virtualization for only the current (active) timeflows, in percentage.
+    EngineStorageDatasetType:
+      type: string
+      description: Type of the dataset.
+      enum:
+      - VDB
+      - DSOURCE
+      - CDB
+      - VCDB
+      - HELDSPACE
     StorageSavingsSummaryData:
       properties:
         dsource_id:
@@ -1791,98 +1883,6 @@ components:
         is_replica:
           description: Indicates if the dSource is a replica
           type: boolean
-    DSourceConsumptionData:
-      properties:
-        dsource_id:
-          description: The dSource id.
-          type: string
-          example: dsource-id-1
-        name:
-          description: The name of the dSource
-          type: string
-          example: prod01-main
-        status:
-          description: The status of the dSource
-          type: string
-          example: Running
-        database_type:
-          description: The type of the dSource
-          type: string
-          example: Oracle
-        engine_id:
-          description: The id of the engine the dSource belongs to.
-          type: string
-          minLength: 1
-          example: '1'
-        engine_name:
-          description: The name of the engine the dSource belongs to
-          type: string
-          example: My favorite engine
-        last_consumption_date:
-          description: The most recent date where consumption data was captured for this dSource.
-          type: string
-          format: date-time
-          example: 2022-01-07T12:06:59.157Z,54321
-        ingested_size:
-          description: The ingested size of the dSource
-          type: integer
-          format: int64
-          minimum: 0
-          example: 12345
-    DatasetPerformanceAnalyticsSummary:
-      type: object
-      properties:
-        dataset_id:
-          type: string
-          description: ID of the dataset.
-        dataset_name:
-          type: string
-          description: Name of the dataset.
-        dataset_type:
-          description: Type of the dataset.
-          $ref: '#/components/schemas/EngineStorageDatasetType'
-        is_replica:
-          type: boolean
-          description: Flag to specify if this object is a replica.
-        environment_id:
-          type: string
-          description: A reference to the Environment that hosts this source database.
-        environment_name:
-          type: string
-          description: Name of the Environment that hosts this source database.
-        average_throughput_of_1_h:
-          type: number
-          format: float
-          description: Average throughput of last 1 hour.
-        average_throughput_of_6_h:
-          type: number
-          format: float
-          description: Average throughput of last 6 hours.
-        average_throughput_of_24_h:
-          type: number
-          format: float
-          description: Average throughput of last 24 hours.
-        current_throughput_of_1_h:
-          type: number
-          format: float
-          description: The most recent throughput record from the past hour.
-        current_throughput_of_6_h:
-          type: number
-          format: float
-          description: The most recent throughput record from the 6 hours.
-        current_throughput_of_24_h:
-          type: number
-          format: float
-          description: The most recent throughput record from the past 24 hours.
-        percentile:
-          type: number
-          format: float
-          description: Percentile of average throughput among all datasets in the past 24 hours.
-        tags:
-          description: The tags that are applied to dataset.
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
   parameters:
     maskingExecutionMetricsSortParam:
       name: sort
@@ -2030,11 +2030,43 @@ components:
         minLength: 1
       required: true
       description: The ID of the Execution.
-    engineIdQueryParamRequired:
+    dSourceUsageReportSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: name
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - name
+        - -name
+        - unvirtualized_space
+        - -unvirtualized_space
+        - actual_space
+        - -actual_space
+        - dependant_vdbs
+        - -dependant_vdbs
+        - engine_name
+        - -engine_name
+        example: name
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    engineIdQueryParam:
       in: query
       name: engine_id
       description: ID of a registered engine.
-      required: true
+      required: false
       schema:
         type: string
         minLength: 1
@@ -2115,16 +2147,53 @@ components:
         - is_replica
         - -is_replica
         example: dependant_vdbs
-    limit:
-      name: limit
+    engineIdQueryParamRequired:
       in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
+      name: engine_id
+      description: ID of a registered engine.
+      required: true
       schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
+        type: string
+        minLength: 1
+      example: 1
+    datasetPerformanceAnalyticsSummarySortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - dataset_id
+        - -dataset_id
+        - dataset_name
+        - -dataset_name
+        - dataset_type
+        - -dataset_type
+        - is_replica
+        - -is_replica
+        - environment_id
+        - -environment_id
+        - environment_name
+        - -environment_name
+        - average_throughput_of_1_h
+        - -average_throughput_of_1_h
+        - average_throughput_of_6_h
+        - -average_throughput_of_6_h
+        - average_throughput_of_24_h
+        - -average_throughput_of_24_h
+        - current_throughput_of_1_h
+        - -current_throughput_of_1_h
+        - current_throughput_of_6_h
+        - -current_throughput_of_6_h
+        - current_throughput_of_24_h
+        - -current_throughput_of_24_h
+        - percentile
+        - -percentile
+        example: object_id
     dSourceConsumptionReportSortParam:
       name: sort
       in: query
@@ -2198,75 +2267,6 @@ components:
         - -unowned_snapshot_size
         - ingested_size
         - -ingested_size
-        example: object_id
-    dSourceUsageReportSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
-      example: name
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - name
-        - -name
-        - unvirtualized_space
-        - -unvirtualized_space
-        - actual_space
-        - -actual_space
-        - dependant_vdbs
-        - -dependant_vdbs
-        - engine_name
-        - -engine_name
-        example: name
-    engineIdQueryParam:
-      in: query
-      name: engine_id
-      description: ID of a registered engine.
-      required: false
-      schema:
-        type: string
-        minLength: 1
-      example: 1
-    datasetPerformanceAnalyticsSummarySortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
-      example: id
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - dataset_id
-        - -dataset_id
-        - dataset_name
-        - -dataset_name
-        - dataset_type
-        - -dataset_type
-        - is_replica
-        - -is_replica
-        - environment_id
-        - -environment_id
-        - environment_name
-        - -environment_name
-        - average_throughput_of_1_h
-        - -average_throughput_of_1_h
-        - average_throughput_of_6_h
-        - -average_throughput_of_6_h
-        - average_throughput_of_24_h
-        - -average_throughput_of_24_h
-        - current_throughput_of_1_h
-        - -current_throughput_of_1_h
-        - current_throughput_of_6_h
-        - -current_throughput_of_6_h
-        - current_throughput_of_24_h
-        - -current_throughput_of_24_h
-        - percentile
-        - -percentile
         example: object_id
   requestBodies:
     SearchBody:

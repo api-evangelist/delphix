@@ -50,16 +50,76 @@ paths:
                     $ref: '#/components/schemas/Job'
                     description: The initiated job.
 components:
-  parameters:
-    heldspaceId:
-      name: heldspaceId
-      in: path
-      description: The heldspace id to filter by.
-      required: true
-      schema:
-        minLength: 1
-        type: string
   schemas:
+    BaseDeletetionDependenciesResponse:
+      description: Base class for deletion dependencies response.
+      type: object
+      properties:
+        prerequisite_actions:
+          description: The pre-requisite actions to perform before deleting the snapshot.
+          type: array
+          items:
+            $ref: '#/components/schemas/DeletionDependencyPrerequisiteAction'
+        object_dependencies:
+          description: The object dependencies of the snapshot.
+          type: array
+          items:
+            $ref: '#/components/schemas/DeletionDependencyObject'
+        dependency_tree:
+          description: The dependency tree of the snapshot.
+          $ref: '#/components/schemas/DeletionDependenciesTreeResponse'
+      discriminator:
+        propertyName: class_type
+    DeletionDependencyObjectType:
+      description: Deletion dependency object type.
+      type: string
+      enum:
+      - TIMEFLOW
+      - SNAPSHOT
+      - JSBOOKMARK
+      - JSBRANCH
+      - TIMEFLOWBOOKMARK
+      - HELDSPACE
+      - VDB
+      - DSOURCE
+      - UNKNOWN
+      - ALLSNAPSHOTS
+      - BOOKMARK
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
     Job:
       description: An asynchronous task.
       type: object
@@ -233,83 +293,16 @@ components:
           description: Total number of bookmarks associated with the Timeflow if the object is a Timeflow otherwise -1.
           type: integer
           default: -1
-    JobTaskEvent:
+    VirtualizationTaskEvent:
+      deprecated: true
       properties:
         message_details:
           type: string
-    DeletionDependenciesTreeResponse:
-      description: The deletion dependencies of an object which occupies disk space.
-      type: object
-      properties:
-        prerequisite_actions:
-          description: The pre-requisite actions to perform before deleting the object.
-          type: array
-          items:
-            $ref: '#/components/schemas/DeletionDependencyPrerequisiteAction'
-        object_dependencies:
-          description: The object dependencies of the object.
-          type: array
-          items:
-            $ref: '#/components/schemas/DeletionDependencyObject'
-    JobTask:
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
     HeldSpaceDeletionDependenciesResponse:
       description: The deletion dependencies of a held space.
       type: object
       allOf:
       - $ref: '#/components/schemas/BaseDeletetionDependenciesResponse'
-    BaseDeletetionDependenciesResponse:
-      description: Base class for deletion dependencies response.
-      type: object
-      properties:
-        prerequisite_actions:
-          description: The pre-requisite actions to perform before deleting the snapshot.
-          type: array
-          items:
-            $ref: '#/components/schemas/DeletionDependencyPrerequisiteAction'
-        object_dependencies:
-          description: The object dependencies of the snapshot.
-          type: array
-          items:
-            $ref: '#/components/schemas/DeletionDependencyObject'
-        dependency_tree:
-          description: The dependency tree of the snapshot.
-          $ref: '#/components/schemas/DeletionDependenciesTreeResponse'
-      discriminator:
-        propertyName: class_type
     DeletionDependencyPrerequisiteAction:
       description: Deletion dependency prerequisite action.
       type: object
@@ -349,6 +342,10 @@ components:
         locked:
           description: Whether the prerequisite action is locked. If this is true then this action will be skipped.
           type: boolean
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
     VirtualizationTask:
       deprecated: true
       properties:
@@ -385,21 +382,6 @@ components:
           - WAITING
           - COMPLETED
           - ABANDONED
-    DeletionDependencyObjectType:
-      description: Deletion dependency object type.
-      type: string
-      enum:
-      - TIMEFLOW
-      - SNAPSHOT
-      - JSBOOKMARK
-      - JSBRANCH
-      - TIMEFLOWBOOKMARK
-      - HELDSPACE
-      - VDB
-      - DSOURCE
-      - UNKNOWN
-      - ALLSNAPSHOTS
-      - BOOKMARK
     Tag:
       type: object
       required:
@@ -418,6 +400,20 @@ components:
           minLength: 1
           maxLength: 4000
           example: value-1
+    DeletionDependenciesTreeResponse:
+      description: The deletion dependencies of an object which occupies disk space.
+      type: object
+      properties:
+        prerequisite_actions:
+          description: The pre-requisite actions to perform before deleting the object.
+          type: array
+          items:
+            $ref: '#/components/schemas/DeletionDependencyPrerequisiteAction'
+        object_dependencies:
+          description: The object dependencies of the object.
+          type: array
+          items:
+            $ref: '#/components/schemas/DeletionDependencyObject'
     Engine:
       properties:
         engine_id:
@@ -428,11 +424,15 @@ components:
           type: string
           minLength: 1
           maxLength: 4000
-    VirtualizationTaskEvent:
-      deprecated: true
-      properties:
-        message_details:
-          type: string
+  parameters:
+    heldspaceId:
+      name: heldspaceId
+      in: path
+      description: The heldspace id to filter by.
+      required: true
+      schema:
+        minLength: 1
+        type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

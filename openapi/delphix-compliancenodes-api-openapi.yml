@@ -255,13 +255,20 @@ paths:
                       type: string
 components:
   parameters:
-    timestampParam:
-      name: timestamp
+    complianceNodeIdParam:
+      in: path
+      name: complianceNodeId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the Compliance Node.
+    logFileNumberParam:
+      name: logFileNumber
       in: query
       required: false
       schema:
-        type: string
-        format: date-time
+        type: integer
     limit:
       name: limit
       in: query
@@ -272,6 +279,33 @@ components:
         minimum: 1
         maximum: 1000
         default: 100
+    pageSizeParam:
+      name: pageSize
+      in: query
+      required: false
+      schema:
+        type: integer
+    timestampParam:
+      name: timestamp
+      in: query
+      required: false
+      schema:
+        type: string
+        format: date-time
+    offsetParam:
+      name: offset
+      in: query
+      required: false
+      schema:
+        type: integer
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
     complianceNodesSortParam:
       name: sort
       in: query
@@ -320,162 +354,7 @@ components:
         - hyperscale_instance_name
         - -hyperscale_instance_name
         example: name
-    complianceNodeIdParam:
-      in: path
-      name: complianceNodeId
-      schema:
-        type: string
-        minLength: 1
-      required: true
-      description: The ID of the Compliance Node.
-    pageSizeParam:
-      name: pageSize
-      in: query
-      required: false
-      schema:
-        type: integer
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
-    logFileNumberParam:
-      name: logFileNumber
-      in: query
-      required: false
-      schema:
-        type: integer
-    offsetParam:
-      name: offset
-      in: query
-      required: false
-      schema:
-        type: integer
   schemas:
-    Job:
-      description: An asynchronous task.
-      type: object
-      properties:
-        id:
-          description: The Job entity ID.
-          type: string
-          example: job-123
-        status:
-          description: The status of the job.
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-          example: RUNNING
-        is_waiting_for_telemetry:
-          description: Indicates that the operations performed by this Job have completed successfully, but the object changes are not yet reflected. This is only set when when the JOB is in STARTED status, with the guarantee that the job will not transition to the FAILED status. Note that this flag will likely be replaced with a new status in future API versions and be deprecated.
-          type: boolean
-        type:
-          description: The type of job being done.
-          type: string
-          example: DB_REFRESH
-        localized_type:
-          description: The i18n translated type of job being done.
-          type: string
-          example: DB Refresh
-        error_details:
-          description: Details about the failure for FAILED jobs.
-          type: string
-          example: Unable to connect to the engine.
-        warning_message:
-          description: Warnings for the job.
-          type: string
-          example: 'Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.'
-        target_id:
-          description: A reference to the job's target.
-          type: string
-          example: vdb-123
-        target_name:
-          description: A reference to the job's target name.
-          type: string
-          example: vdb
-        start_time:
-          description: The time the job started executing.
-          type: string
-          format: date-time
-          example: '2022-01-02T05:11:24.148000+00:00'
-        update_time:
-          description: The time the job was last updated.
-          type: string
-          format: date-time
-          example: '2022-01-02T06:11:24.148000+00:00'
-        trace_id:
-          description: traceId of the request which created this Job
-          type: string
-        engine_ids:
-          description: IDs of the engines this Job is executing on.
-          type: array
-          items:
-            type: string
-          deprecated: true
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-        engines:
-          type: array
-          items:
-            $ref: '#/components/schemas/Engine'
-        account_id:
-          description: The ID of the account who initiated this job.
-          type: integer
-          example: 1
-        account_name:
-          description: The account name which initiated this job. It can be either firstname and lastname combination or firstname or lastname or username or email address or Account-<id>.
-          type: string
-          example: User 1
-        compliance_node_id:
-          type:
-          - string
-          - 'null'
-          description: The ID of the associated compliance node, if applicable.
-        compliance_node_name:
-          type:
-          - string
-          - 'null'
-          description: The name of the associated compliance node, if applicable.
-        percent_complete:
-          description: Completion percentage of the Job.
-          type: integer
-          minimum: 0
-          maximum: 100
-          example: '50'
-        virtualization_tasks:
-          deprecated: true
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualizationTask'
-        tasks:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTask'
-        execution_id:
-          description: The ID of the associated masking execution, if any.
-          type:
-          - string
-          - 'null'
-        result_type:
-          description: The type of the job result. This is the type of the object present in the result.
-          type: string
-        result:
-          description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
-          type: object
     ComplianceNodeRegisterRequest:
       description: Parameters to register a compliance node.
       type: object
@@ -539,17 +418,24 @@ components:
           description: The ID of the Hyperscale Instance to associate the compliance node with. Must belong to the same Job Orchestrator.
           type: string
           example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-    ComplianceNodeLogFileDetails:
-      description: Details of a compliance node log file.
+    SearchBody:
+      description: Search body.
       type: object
       properties:
-        file_name:
-          description: The name of the log file.
+        filter_expression:
           type: string
-          example: 6a88560a-7acb-409b-a0d1-341a2d273489.1768936684438.log
-        file_download_id:
-          description: The file download id used to download the log file.
-          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    ListComplianceNodesResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComplianceNode'
+        response_metadata:
+          $ref: '#/components/schemas/PaginatedResponseMetadata'
     ComplianceNodeUpdateRequest:
       description: Parameters to update a compliance node.
       type: object
@@ -597,30 +483,7 @@ components:
             '
           type: boolean
           example: false
-    VirtualizationTaskEvent:
-      deprecated: true
-      properties:
-        message_details:
-          type: string
-    JobTaskEvent:
-      properties:
-        message_details:
-          type: string
-    PaginatedResponseMetadata:
-      type: object
-      properties:
-        prev_cursor:
-          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        next_cursor:
-          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        total:
-          description: The total number of results. This value may not be provided.
-          type: integer
-          format: int_64
-    VirtualizationTask:
-      deprecated: true
+    JobTask:
       properties:
         id:
           type: string
@@ -641,7 +504,7 @@ components:
         events:
           type: array
           items:
-            $ref: '#/components/schemas/VirtualizationTaskEvent'
+            $ref: '#/components/schemas/JobTaskEvent'
         status:
           type: string
           enum:
@@ -655,33 +518,6 @@ components:
           - WAITING
           - COMPLETED
           - ABANDONED
-    Tag:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
     ComplianceNode:
       description: A compliance node.
       type: object
@@ -816,16 +652,158 @@ components:
           type: string
           minLength: 1
           maxLength: 4000
-    ListComplianceNodesResponse:
+    ComplianceNodeLogFileDetails:
+      description: Details of a compliance node log file.
       type: object
       properties:
-        items:
+        file_name:
+          description: The name of the log file.
+          type: string
+          example: 6a88560a-7acb-409b-a0d1-341a2d273489.1768936684438.log
+        file_download_id:
+          description: The file download id used to download the log file.
+          type: string
+    Job:
+      description: An asynchronous task.
+      type: object
+      properties:
+        id:
+          description: The Job entity ID.
+          type: string
+          example: job-123
+        status:
+          description: The status of the job.
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+          example: RUNNING
+        is_waiting_for_telemetry:
+          description: Indicates that the operations performed by this Job have completed successfully, but the object changes are not yet reflected. This is only set when when the JOB is in STARTED status, with the guarantee that the job will not transition to the FAILED status. Note that this flag will likely be replaced with a new status in future API versions and be deprecated.
+          type: boolean
+        type:
+          description: The type of job being done.
+          type: string
+          example: DB_REFRESH
+        localized_type:
+          description: The i18n translated type of job being done.
+          type: string
+          example: DB Refresh
+        error_details:
+          description: Details about the failure for FAILED jobs.
+          type: string
+          example: Unable to connect to the engine.
+        warning_message:
+          description: Warnings for the job.
+          type: string
+          example: 'Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.'
+        target_id:
+          description: A reference to the job's target.
+          type: string
+          example: vdb-123
+        target_name:
+          description: A reference to the job's target name.
+          type: string
+          example: vdb
+        start_time:
+          description: The time the job started executing.
+          type: string
+          format: date-time
+          example: '2022-01-02T05:11:24.148000+00:00'
+        update_time:
+          description: The time the job was last updated.
+          type: string
+          format: date-time
+          example: '2022-01-02T06:11:24.148000+00:00'
+        trace_id:
+          description: traceId of the request which created this Job
+          type: string
+        engine_ids:
+          description: IDs of the engines this Job is executing on.
           type: array
           items:
-            $ref: '#/components/schemas/ComplianceNode'
-        response_metadata:
-          $ref: '#/components/schemas/PaginatedResponseMetadata'
-    JobTask:
+            type: string
+          deprecated: true
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        engines:
+          type: array
+          items:
+            $ref: '#/components/schemas/Engine'
+        account_id:
+          description: The ID of the account who initiated this job.
+          type: integer
+          example: 1
+        account_name:
+          description: The account name which initiated this job. It can be either firstname and lastname combination or firstname or lastname or username or email address or Account-<id>.
+          type: string
+          example: User 1
+        compliance_node_id:
+          type:
+          - string
+          - 'null'
+          description: The ID of the associated compliance node, if applicable.
+        compliance_node_name:
+          type:
+          - string
+          - 'null'
+          description: The name of the associated compliance node, if applicable.
+        percent_complete:
+          description: Completion percentage of the Job.
+          type: integer
+          minimum: 0
+          maximum: 100
+          example: '50'
+        virtualization_tasks:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTask'
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTask'
+        execution_id:
+          description: The ID of the associated masking execution, if any.
+          type:
+          - string
+          - 'null'
+        result_type:
+          description: The type of the job result. This is the type of the object present in the result.
+          type: string
+        result:
+          description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
+          type: object
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    VirtualizationTask:
+      deprecated: true
       properties:
         id:
           type: string
@@ -846,7 +824,7 @@ components:
         events:
           type: array
           items:
-            $ref: '#/components/schemas/JobTaskEvent'
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
         status:
           type: string
           enum:
@@ -860,6 +838,28 @@ components:
           - WAITING
           - COMPLETED
           - ABANDONED
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
   requestBodies:
     SearchBody:
       x-skip-codegen-attr: description

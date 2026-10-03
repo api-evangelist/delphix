@@ -96,57 +96,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/MaskingEnvironment'
 components:
-  parameters:
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
-    maskingEnvironmentsSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
-      example: id
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - name
-        - -name
-        - engine_id
-        - -engine_id
-        - engine_name
-        - -engine_name
-        - purpose
-        - -purpose
-        - is_workflow_enabled
-        - -is_workflow_enabled
-        example: name
-    maskingEnvironmentId:
-      in: path
-      name: maskingEnvironmentId
-      schema:
-        type: string
-        minLength: 1
-      required: true
-      description: The ID of the Masking Environment.
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
   schemas:
     SearchBody:
       description: Search body.
@@ -377,6 +326,57 @@ components:
               summary: Overriding operator precedence
               value:
                 filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
+  parameters:
+    maskingEnvironmentsSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - engine_id
+        - -engine_id
+        - engine_name
+        - -engine_name
+        - purpose
+        - -purpose
+        - is_workflow_enabled
+        - -is_workflow_enabled
+        example: name
+    maskingEnvironmentId:
+      in: path
+      name: maskingEnvironmentId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the Masking Environment.
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

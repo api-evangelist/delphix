@@ -101,6 +101,14 @@ paths:
                 $ref: '#/components/schemas/DatasetGroup'
 components:
   parameters:
+    groupIdParam:
+      in: path
+      name: groupId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the dataset group.
     groupSortParam:
       name: sort
       in: query
@@ -123,22 +131,6 @@ components:
         - engine_name
         - -engine_name
         example: name
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
-    groupIdParam:
-      in: path
-      name: groupId
-      required: true
-      schema:
-        type: string
-        minLength: 1
-      description: The ID of the dataset group.
     limit:
       name: limit
       in: query
@@ -149,6 +141,14 @@ components:
         minimum: 1
         maximum: 1000
         default: 100
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
   schemas:
     SearchBody:
       description: Search body.

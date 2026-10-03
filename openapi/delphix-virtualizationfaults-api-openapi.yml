@@ -181,6 +181,51 @@ paths:
                     $ref: '#/components/schemas/Job'
 components:
   schemas:
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
     Job:
       description: An asynchronous task.
       type: object
@@ -304,54 +349,6 @@ components:
           type: object
       discriminator:
         propertyName: class_type
-    JobTaskEvent:
-      properties:
-        message_details:
-          type: string
-    JobTask:
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
     VirtualizationFault:
       description: A fault on a virtualization engine.
       type: object
@@ -410,6 +407,58 @@ components:
         resolution_comments:
           description: A comment that describes the fault resolution.
           type: string
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    VirtualizationFaultResolveOrIgnoreParameters:
+      description: Marks selected faults as resolved or ignored.
+      type: object
+      properties:
+        engine_id:
+          description: The ID of the engine that the faults belong to.
+          type: string
+        ignore:
+          description: Flag indicating whether to ignore the selected faults if they are detected on the same objects in the future.
+          type: boolean
+          default: false
+        fault_ids:
+          description: The IDs of the faults to resolve or ignore.
+          type: array
+          items:
+            type: string
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
     PaginatedResponseMetadata:
       type: object
       properties:
@@ -459,50 +508,6 @@ components:
           - WAITING
           - COMPLETED
           - ABANDONED
-    Engine:
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
-    Tag:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-    VirtualizationFaultResolveOrIgnoreParameters:
-      description: Marks selected faults as resolved or ignored.
-      type: object
-      properties:
-        engine_id:
-          description: The ID of the engine that the faults belong to.
-          type: string
-        ignore:
-          description: Flag indicating whether to ignore the selected faults if they are detected on the same objects in the future.
-          type: boolean
-          default: false
-        fault_ids:
-          description: The IDs of the faults to resolve or ignore.
-          type: array
-          items:
-            type: string
     VirtualizationFaultResolveParameters:
       description: The parameters to use as input when marking a fault as resolved.
       type: object
@@ -514,37 +519,15 @@ components:
         resolution_comments:
           description: The comments describing the steps taken to resolve a fault.
           type: string
-    VirtualizationTaskEvent:
-      deprecated: true
-      properties:
-        message_details:
-          type: string
   parameters:
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+    virtualizationFaultIdParam:
+      in: path
+      name: faultId
+      required: true
       schema:
         type: string
         minLength: 1
-        maxLength: 4096
-    engineIdParam:
-      in: path
-      name: engineId
-      schema:
-        type: string
-      required: true
-      description: The ID of the registered engine.
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
+      description: The ID of the Virtualization Fault.
     virtualizationFaultsSortParam:
       name: sort
       in: query
@@ -587,14 +570,31 @@ components:
         - resolution_comments
         - -resolution_comments
         example: engine_id
-    virtualizationFaultIdParam:
+    engineIdParam:
       in: path
-      name: faultId
+      name: engineId
+      schema:
+        type: string
       required: true
+      description: The ID of the registered engine.
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
       schema:
         type: string
         minLength: 1
-      description: The ID of the Virtualization Fault.
+        maxLength: 4096
   requestBodies:
     SearchBody:
       x-skip-codegen-attr: description

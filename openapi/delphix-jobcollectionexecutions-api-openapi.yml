@@ -154,6 +154,65 @@ paths:
                     description: The finished cancel job.
 components:
   schemas:
+    ExecutionStatusReason:
+      description: The reason for the status of a compliance job collection execution.
+      type: string
+      enum:
+      - NONE
+      - JOB_FAILURE
+      - RESOURCE_UNREACHABLE
+      - DCT_JOB_CANCEL
+      - ENGINE_JOB_CANCEL
+      - JOB_MISSING
+      example: JOB_MISSING
+    ExecutionStatus:
+      description: The status of a masking or discovery job.
+      type: string
+      enum:
+      - PENDING
+      - QUEUED
+      - RUNNING
+      - CANCELLED
+      - FAILED
+      - SUCCEEDED
+      - WARNING
+      - WAITING
+      example: RUNNING
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
     Job:
       description: An asynchronous task.
       type: object
@@ -275,6 +334,94 @@ components:
         result:
           description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
           type: object
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    CancelJobCollectionExecutionRequest:
+      type: object
+      description: Parameters to execute a compliance job collection.
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    VirtualizationTask:
+      deprecated: true
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
     JobCollectionExecution:
       description: The execution of a compliance job collection.
       type: object
@@ -383,148 +530,6 @@ components:
           description: The account name of the DCT user who cancelled this job collection execution.
           type: string
           example: John Doe
-    JobTaskEvent:
-      properties:
-        message_details:
-          type: string
-    JobTask:
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
-    CancelJobCollectionExecutionRequest:
-      type: object
-      description: Parameters to execute a compliance job collection.
-    PaginatedResponseMetadata:
-      type: object
-      properties:
-        prev_cursor:
-          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        next_cursor:
-          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        total:
-          description: The total number of results. This value may not be provided.
-          type: integer
-          format: int_64
-    ExecutionStatusReason:
-      description: The reason for the status of a compliance job collection execution.
-      type: string
-      enum:
-      - NONE
-      - JOB_FAILURE
-      - RESOURCE_UNREACHABLE
-      - DCT_JOB_CANCEL
-      - ENGINE_JOB_CANCEL
-      - JOB_MISSING
-      example: JOB_MISSING
-    VirtualizationTask:
-      deprecated: true
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualizationTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    Tag:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-    ExecutionStatus:
-      description: The status of a masking or discovery job.
-      type: string
-      enum:
-      - PENDING
-      - QUEUED
-      - RUNNING
-      - CANCELLED
-      - FAILED
-      - SUCCEEDED
-      - WARNING
-      - WAITING
-      example: RUNNING
     Engine:
       properties:
         engine_id:
@@ -535,93 +540,6 @@ components:
           type: string
           minLength: 1
           maxLength: 4000
-    VirtualizationTaskEvent:
-      deprecated: true
-      properties:
-        message_details:
-          type: string
-  parameters:
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
-    jobCollectionExecutionsSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - compliance_job_collection_id
-        - -compliance_job_collection_id
-        - compliance_job_collection_name
-        - -compliance_job_collection_name
-        - status
-        - -status
-        - status_reason
-        - -status_reason
-        - start_time
-        - -start_time
-        - end_time
-        - -end_time
-        - run_duration
-        - -run_duration
-        - actual_execution_count
-        - -actual_execution_count
-        - planned_execution_count
-        - -planned_execution_count
-        - rows_processed
-        - -rows_processed
-        - rows_total
-        - -rows_total
-        - bytes_processed
-        - -bytes_processed
-        - bytes_total
-        - -bytes_total
-        - processed_tables_files_count
-        - -processed_tables_files_count
-        - tables_files_count
-        - -tables_files_count
-        - processed_columns_fields_count
-        - -processed_columns_fields_count
-        - columns_fields_count
-        - -columns_fields_count
-        - execute_account_id
-        - -execute_account_id
-        - execute_account_name
-        - -execute_account_name
-        - cancel_account_id
-        - -cancel_account_id
-        - cancel_account_name
-        - -cancel_account_name
-        example: start_time
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
-    jobCollectionExecutionIdParam:
-      in: path
-      name: jobCollectionExecutionId
-      schema:
-        type: string
-        minLength: 1
-      required: true
-      description: The ID of the job collection execution.
   requestBodies:
     SearchBody:
       x-skip-codegen-attr: description
@@ -803,6 +721,88 @@ components:
               summary: Overriding operator precedence
               value:
                 filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
+  parameters:
+    jobCollectionExecutionsSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - compliance_job_collection_id
+        - -compliance_job_collection_id
+        - compliance_job_collection_name
+        - -compliance_job_collection_name
+        - status
+        - -status
+        - status_reason
+        - -status_reason
+        - start_time
+        - -start_time
+        - end_time
+        - -end_time
+        - run_duration
+        - -run_duration
+        - actual_execution_count
+        - -actual_execution_count
+        - planned_execution_count
+        - -planned_execution_count
+        - rows_processed
+        - -rows_processed
+        - rows_total
+        - -rows_total
+        - bytes_processed
+        - -bytes_processed
+        - bytes_total
+        - -bytes_total
+        - processed_tables_files_count
+        - -processed_tables_files_count
+        - tables_files_count
+        - -tables_files_count
+        - processed_columns_fields_count
+        - -processed_columns_fields_count
+        - columns_fields_count
+        - -columns_fields_count
+        - execute_account_id
+        - -execute_account_id
+        - execute_account_name
+        - -execute_account_name
+        - cancel_account_id
+        - -cancel_account_id
+        - cancel_account_name
+        - -cancel_account_name
+        example: start_time
+    jobCollectionExecutionIdParam:
+      in: path
+      name: jobCollectionExecutionId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the job collection execution.
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

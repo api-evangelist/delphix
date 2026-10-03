@@ -317,6 +317,200 @@ paths:
           description: No Content
 components:
   schemas:
+    DeleteTag:
+      type: object
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        tags:
+          description: List of tags to be deleted
+          type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    ClassifierUpdateRequest:
+      description: Parameters used to update a classifier.
+      type: object
+      properties:
+        name:
+          description: The name of this classifier.
+          type: string
+        framework:
+          description: The framework of this classifier.
+          type: string
+          enum:
+          - REGEX
+          - PATH
+          - LIST
+          - DATA_TYPE
+        description:
+          description: Classifier description.
+          type: string
+        config:
+          description: The configuration of this classifier.
+          type: object
+          additionalProperties: true
+        data_class_id:
+          description: The ID of the data class associated with this classifier.
+          type: string
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    Classifier:
+      description: A classifier.
+      type: object
+      properties:
+        id:
+          description: The classifier ID.
+          type: string
+          example: a638d976-6b7e-43f4-9212-90f4dc6d405c
+        name:
+          description: The name of this classifier.
+          type: string
+          example: City
+        framework:
+          description: The framework of this classifier.
+          type: string
+          enum:
+          - REGEX
+          - LIST
+          - PATH
+          - DATA_TYPE
+          example: REGEX
+        description:
+          description: A description of this classifier.
+          type:
+          - string
+          - 'null'
+        dct_managed:
+          description: Whether or not this classifier is managed by DCT.
+          type: boolean
+          readOnly: true
+        account_id:
+          description: The ID of the account who created this classifier.
+          type: integer
+          format: int64
+          readOnly: true
+        account_name:
+          description: The account name of the DCT user who created this classifier.
+          type: string
+          readOnly: true
+          example: username
+        data_class_id:
+          description: The id of the data class associated with this classifier.
+          type: string
+          example: 6b5c4d3e-2a1b-4c3d-5e6f-7a8b9c0d1e2f
+        data_class_name:
+          description: The name of the data class associated with this classifier.
+          type: string
+          example: My Domain
+        config:
+          description: The configuration of this algorithm.
+          type: object
+          additionalProperties: true
+        engine_id:
+          description: The ID of the engine this classifier originated from.
+          type:
+          - string
+          - 'null'
+        engine_name:
+          description: The name of the engine this classifier originated from.
+          type:
+          - string
+          - 'null'
+        built_in:
+          description: Whether this classifier is built-in or user-defined.
+          type: boolean
+          readOnly: true
+        tags:
+          description: The tags of this classifier.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
     Job:
       description: An asynchronous task.
       type: object
@@ -438,315 +632,6 @@ components:
         result:
           description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
           type: object
-    ClassifierUpdateRequest:
-      description: Parameters used to update a classifier.
-      type: object
-      properties:
-        name:
-          description: The name of this classifier.
-          type: string
-        framework:
-          description: The framework of this classifier.
-          type: string
-          enum:
-          - REGEX
-          - PATH
-          - LIST
-          - DATA_TYPE
-        description:
-          description: Classifier description.
-          type: string
-        config:
-          description: The configuration of this classifier.
-          type: object
-          additionalProperties: true
-        data_class_id:
-          description: The ID of the data class associated with this classifier.
-          type: string
-    Classifier:
-      description: A classifier.
-      type: object
-      properties:
-        id:
-          description: The classifier ID.
-          type: string
-          example: a638d976-6b7e-43f4-9212-90f4dc6d405c
-        name:
-          description: The name of this classifier.
-          type: string
-          example: City
-        framework:
-          description: The framework of this classifier.
-          type: string
-          enum:
-          - REGEX
-          - LIST
-          - PATH
-          - DATA_TYPE
-          example: REGEX
-        description:
-          description: A description of this classifier.
-          type:
-          - string
-          - 'null'
-        dct_managed:
-          description: Whether or not this classifier is managed by DCT.
-          type: boolean
-          readOnly: true
-        account_id:
-          description: The ID of the account who created this classifier.
-          type: integer
-          format: int64
-          readOnly: true
-        account_name:
-          description: The account name of the DCT user who created this classifier.
-          type: string
-          readOnly: true
-          example: username
-        data_class_id:
-          description: The id of the data class associated with this classifier.
-          type: string
-          example: 6b5c4d3e-2a1b-4c3d-5e6f-7a8b9c0d1e2f
-        data_class_name:
-          description: The name of the data class associated with this classifier.
-          type: string
-          example: My Domain
-        config:
-          description: The configuration of this algorithm.
-          type: object
-          additionalProperties: true
-        engine_id:
-          description: The ID of the engine this classifier originated from.
-          type:
-          - string
-          - 'null'
-        engine_name:
-          description: The name of the engine this classifier originated from.
-          type:
-          - string
-          - 'null'
-        built_in:
-          description: Whether this classifier is built-in or user-defined.
-          type: boolean
-          readOnly: true
-        tags:
-          description: The tags of this classifier.
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    VirtualizationTaskEvent:
-      deprecated: true
-      properties:
-        message_details:
-          type: string
-    ClassifierCreateRequest:
-      description: Parameters used to create a classifier.
-      type: object
-      required:
-      - name
-      - framework
-      - config
-      - data_class_id
-      properties:
-        name:
-          description: The name of this classifier.
-          type: string
-        framework:
-          description: The framework of this classifier.
-          type: string
-          enum:
-          - REGEX
-          - PATH
-          - LIST
-          - DATA_TYPE
-        description:
-          description: Classifier description.
-          type: string
-        config:
-          description: The configuration of this classifier.
-          type: object
-          additionalProperties: true
-        data_class_id:
-          description: The ID of the data class associated with this classifier.
-          type: string
-        make_current_account_owner:
-          description: Whether the account creating this classifier must be configured as owner of it.
-          type: boolean
-          default: true
-        tags:
-          description: The tags for this classifier.
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    JobTaskEvent:
-      properties:
-        message_details:
-          type: string
-    TagsRequest:
-      type: object
-      required:
-      - tags
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-    DeleteTag:
-      type: object
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-        tags:
-          description: List of tags to be deleted
-          type: array
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/Tag'
-    PaginatedResponseMetadata:
-      type: object
-      properties:
-        prev_cursor:
-          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        next_cursor:
-          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        total:
-          description: The total number of results. This value may not be provided.
-          type: integer
-          format: int_64
-    VirtualizationTask:
-      deprecated: true
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualizationTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    Tag:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-    TagsResponse:
-      type: object
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
-    Engine:
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
-    JobTask:
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
     DiscoveryPolicy:
       description: A discovery policy.
       type: object
@@ -809,6 +694,121 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    VirtualizationTask:
+      deprecated: true
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    ClassifierCreateRequest:
+      description: Parameters used to create a classifier.
+      type: object
+      required:
+      - name
+      - framework
+      - config
+      - data_class_id
+      properties:
+        name:
+          description: The name of this classifier.
+          type: string
+        framework:
+          description: The framework of this classifier.
+          type: string
+          enum:
+          - REGEX
+          - PATH
+          - LIST
+          - DATA_TYPE
+        description:
+          description: Classifier description.
+          type: string
+        config:
+          description: The configuration of this classifier.
+          type: object
+          additionalProperties: true
+        data_class_id:
+          description: The ID of the data class associated with this classifier.
+          type: string
+        make_current_account_owner:
+          description: Whether the account creating this classifier must be configured as owner of it.
+          type: boolean
+          default: true
+        tags:
+          description: The tags for this classifier.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
   parameters:
     limit:
       name: limit

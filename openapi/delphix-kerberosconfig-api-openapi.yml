@@ -112,14 +112,6 @@ paths:
                     $ref: '#/components/schemas/PaginatedResponseMetadata'
 components:
   parameters:
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
     kerberosConfigSortParam:
       name: sort
       in: query
@@ -150,6 +142,14 @@ components:
         - enabled
         - -enabled
         example: name
+    kerberosConfigIdParam:
+      in: path
+      name: kerberosConfigId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the kerberos config.
     limit:
       name: limit
       in: query
@@ -160,14 +160,14 @@ components:
         minimum: 1
         maximum: 1000
         default: 100
-    kerberosConfigIdParam:
-      in: path
-      name: kerberosConfigId
-      required: true
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
       schema:
         type: string
         minLength: 1
-      description: The ID of the kerberos config.
+        maxLength: 4096
   schemas:
     SearchBody:
       description: Search body.
@@ -178,19 +178,16 @@ components:
           minLength: 5
           maxLength: 50000
           example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
-    PaginatedResponseMetadata:
-      type: object
+    KDCServers:
       properties:
-        prev_cursor:
-          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+        hostname:
+          description: One of more KDC servers.
           type: string
-        next_cursor:
-          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        total:
-          description: The total number of results. This value may not be provided.
+          example: kerberos-02.delphix.com
+        port:
+          description: One of more KDC servers.
           type: integer
-          format: int_64
+          example: 88
     KerberosConfig:
       description: A Kerberos config object.
       type: object
@@ -245,16 +242,19 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/KDCServers'
-    KDCServers:
+    PaginatedResponseMetadata:
+      type: object
       properties:
-        hostname:
-          description: One of more KDC servers.
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
           type: string
-          example: kerberos-02.delphix.com
-        port:
-          description: One of more KDC servers.
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
           type: integer
-          example: 88
+          format: int_64
   requestBodies:
     SearchBody:
       x-skip-codegen-attr: description

@@ -259,87 +259,219 @@ paths:
               schema:
                 $ref: '#/components/schemas/Framework'
 components:
-  parameters:
-    algorithmFrameworkIdParam:
-      in: path
-      name: algorithmFrameworkId
-      schema:
-        type: string
-        minLength: 1
-      required: true
-      description: The ID of the algorithm framework.
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
-    maskingPluginsSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
-      example: id
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - name
-        - -name
-        - plugin_type
-        - -plugin_type
-        - description
-        - -description
-        - install_date
-        - -install_date
-        - built_in
-        - -built_in
-        - sdk_version
-        - -sdk_version
-        - version
-        - -version
-        - author
-        - -author
-        - account_id
-        - -account_id
-        - account_name
-        - -account_name
-        - dct_managed
-        - -dct_managed
-        example: name
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
-    maskingPluginDeleteForceParam:
-      in: query
-      name: force
-      required: false
-      description: If true, replace all algorithm usages with NullValueLookup before deleting the plugin. Default is false.
-      schema:
-        type: boolean
-        default: false
-      example: false
-    maskingPluginIdParam:
-      in: path
-      name: maskingPluginId
-      schema:
-        type: string
-        minLength: 1
-      required: true
-      description: The ID of the masking plugin.
   schemas:
+    DeleteTag:
+      type: object
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        tags:
+          description: List of tags to be deleted
+          type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    MaskingTypeEnum:
+      type: string
+      enum:
+      - STRING
+      - DATE
+      - LOCAL_DATE_TIME
+      - BIG_DECIMAL
+      - BYTE_BUFFER
+      - GENERIC_DATA_ROW
+      - ADVANCED_OBJECT
+    MaskingPlugin:
+      description: A masking plugin.
+      type: object
+      properties:
+        id:
+          description: The masking plugin entity ID.
+          type: string
+          example: dc91e41c-aade-4404-9084-179cb90d07c6
+        name:
+          description: The name of this plugin.
+          type: string
+          example: dlpx-core
+        plugin_type:
+          description: The plugin type.
+          $ref: '#/components/schemas/PluginTypeEnum'
+        description:
+          description: A description of this plugin.
+          type:
+          - string
+          - 'null'
+          example: Delphix Core Masking Algorithm Plugin
+        install_date:
+          description: The date and time when this plugin is installed.
+          type: string
+          format: date-time
+        built_in:
+          description: Whether this plugin is a built-in plugin.
+          type: boolean
+        sdk_version:
+          description: The masking SDK version that this plugin is built from.
+          type: string
+          example: 1.20.0
+        version:
+          description: The version of this plugin.
+          type: string
+          example: 1.20.0
+        author:
+          description: The author of this plugin.
+          type: string
+          example: Delphix
+        account_id:
+          description: The ID of the account who created this plugin.
+          type: integer
+          format: int64
+          readOnly: true
+          example: 1
+        account_name:
+          description: The account name of the DCT user who created this plugin.
+          type: string
+          readOnly: true
+          example: John Doe
+        dct_managed:
+          description: Whether this plugin is managed by DCT or not.
+          type: boolean
+          readOnly: true
+        frameworks:
+          description: The list of frameworks for this plugin.
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Framework'
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    Framework:
+      description: A masking algorithm framework.
+      type: object
+      properties:
+        id:
+          description: The masking framework entity ID.
+          type: string
+          example: dc91e41c-aade-4404-9084-179cb90d07c6
+        name:
+          description: The name of this framework.
+          type: string
+          example: Secure Lookup
+        description:
+          description: A description of this framework.
+          type:
+          - string
+          - 'null'
+          example: Secure Lookup Framework
+        framework_schema:
+          description: Schema for this framework. Only set when explicitly getting this framework by ID or name.
+          type:
+          - object
+          - 'null'
+          additionalProperties: true
+        masking_type:
+          description: The masking type of this framework.
+          $ref: '#/components/schemas/MaskingTypeEnum'
+        default_config:
+          description: The default config for this framework. Only set when explicitly getting this framework by ID or name.
+          type:
+          - object
+          - 'null'
+          additionalProperties: true
+        fields:
+          description: The list of fields if it is a multi-column/multi-condition framework.
+          type: array
+          items:
+            $ref: '#/components/schemas/AlgorithmField'
     Job:
       description: An asynchronous task.
       type: object
@@ -461,122 +593,6 @@ components:
         result:
           description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
           type: object
-    VirtualizationTaskEvent:
-      deprecated: true
-      properties:
-        message_details:
-          type: string
-    MaskingPluginUpdateRequest:
-      description: Parameters to update a Masking Plugin.
-      type: object
-      x-jackson-optional-nullable-helpers: true
-      properties:
-        name:
-          description: The name of this Masking Plugin. Set to null to use the name defined in the plugin manifest.
-          type:
-          - string
-          - 'null'
-          example: dlpx-core
-          x-is-jackson-optional-nullable: true
-        file_id:
-          description: The file upload ID or file reference ID of the uploaded plugin file.
-          type: string
-          example: f_78ef5075c85f43d398e75b77051b265f
-        description:
-          description: A description of this Masking Plugin. Set to null to use the description defined in the plugin manifest.
-          type:
-          - string
-          - 'null'
-          x-is-jackson-optional-nullable: true
-    JobTaskEvent:
-      properties:
-        message_details:
-          type: string
-    TagsRequest:
-      type: object
-      required:
-      - tags
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-    DeleteTag:
-      type: object
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-        tags:
-          description: List of tags to be deleted
-          type: array
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/Tag'
-    PaginatedResponseMetadata:
-      type: object
-      properties:
-        prev_cursor:
-          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        next_cursor:
-          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        total:
-          description: The total number of results. This value may not be provided.
-          type: integer
-          format: int_64
-    VirtualizationTask:
-      deprecated: true
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualizationTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
     Tag:
       type: object
       required:
@@ -595,187 +611,6 @@ components:
           minLength: 1
           maxLength: 4000
           example: value-1
-    Framework:
-      description: A masking algorithm framework.
-      type: object
-      properties:
-        id:
-          description: The masking framework entity ID.
-          type: string
-          example: dc91e41c-aade-4404-9084-179cb90d07c6
-        name:
-          description: The name of this framework.
-          type: string
-          example: Secure Lookup
-        description:
-          description: A description of this framework.
-          type:
-          - string
-          - 'null'
-          example: Secure Lookup Framework
-        framework_schema:
-          description: Schema for this framework. Only set when explicitly getting this framework by ID or name.
-          type:
-          - object
-          - 'null'
-          additionalProperties: true
-        masking_type:
-          description: The masking type of this framework.
-          $ref: '#/components/schemas/MaskingTypeEnum'
-        default_config:
-          description: The default config for this framework. Only set when explicitly getting this framework by ID or name.
-          type:
-          - object
-          - 'null'
-          additionalProperties: true
-        fields:
-          description: The list of fields if it is a multi-column/multi-condition framework.
-          type: array
-          items:
-            $ref: '#/components/schemas/AlgorithmField'
-    TagsResponse:
-      type: object
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
-    MaskingTypeEnum:
-      type: string
-      enum:
-      - STRING
-      - DATE
-      - LOCAL_DATE_TIME
-      - BIG_DECIMAL
-      - BYTE_BUFFER
-      - GENERIC_DATA_ROW
-      - ADVANCED_OBJECT
-    Engine:
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
-    JobTask:
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    MaskingPlugin:
-      description: A masking plugin.
-      type: object
-      properties:
-        id:
-          description: The masking plugin entity ID.
-          type: string
-          example: dc91e41c-aade-4404-9084-179cb90d07c6
-        name:
-          description: The name of this plugin.
-          type: string
-          example: dlpx-core
-        plugin_type:
-          description: The plugin type.
-          $ref: '#/components/schemas/PluginTypeEnum'
-        description:
-          description: A description of this plugin.
-          type:
-          - string
-          - 'null'
-          example: Delphix Core Masking Algorithm Plugin
-        install_date:
-          description: The date and time when this plugin is installed.
-          type: string
-          format: date-time
-        built_in:
-          description: Whether this plugin is a built-in plugin.
-          type: boolean
-        sdk_version:
-          description: The masking SDK version that this plugin is built from.
-          type: string
-          example: 1.20.0
-        version:
-          description: The version of this plugin.
-          type: string
-          example: 1.20.0
-        author:
-          description: The author of this plugin.
-          type: string
-          example: Delphix
-        account_id:
-          description: The ID of the account who created this plugin.
-          type: integer
-          format: int64
-          readOnly: true
-          example: 1
-        account_name:
-          description: The account name of the DCT user who created this plugin.
-          type: string
-          readOnly: true
-          example: John Doe
-        dct_managed:
-          description: Whether this plugin is managed by DCT or not.
-          type: boolean
-          readOnly: true
-        frameworks:
-          description: The list of frameworks for this plugin.
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Framework'
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    PluginTypeEnum:
-      type: string
-      enum:
-      - EXTENDED_ALGORITHM
-      - JDBC_DRIVER
     AlgorithmField:
       description: The algorithm field details for a multi-column/multi-condition algorithm
       type: object
@@ -812,6 +647,52 @@ components:
           description: The description of the algorithm field.
           type: string
           readOnly: true
+    VirtualizationTask:
+      deprecated: true
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    PluginTypeEnum:
+      type: string
+      enum:
+      - EXTENDED_ALGORITHM
+      - JDBC_DRIVER
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
     MaskingPluginCreateRequest:
       description: Parameters used to install a Masking Plugin.
       type: object
@@ -847,6 +728,125 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
+    MaskingPluginUpdateRequest:
+      description: Parameters to update a Masking Plugin.
+      type: object
+      x-jackson-optional-nullable-helpers: true
+      properties:
+        name:
+          description: The name of this Masking Plugin. Set to null to use the name defined in the plugin manifest.
+          type:
+          - string
+          - 'null'
+          example: dlpx-core
+          x-is-jackson-optional-nullable: true
+        file_id:
+          description: The file upload ID or file reference ID of the uploaded plugin file.
+          type: string
+          example: f_78ef5075c85f43d398e75b77051b265f
+        description:
+          description: A description of this Masking Plugin. Set to null to use the description defined in the plugin manifest.
+          type:
+          - string
+          - 'null'
+          x-is-jackson-optional-nullable: true
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    maskingPluginDeleteForceParam:
+      in: query
+      name: force
+      required: false
+      description: If true, replace all algorithm usages with NullValueLookup before deleting the plugin. Default is false.
+      schema:
+        type: boolean
+        default: false
+      example: false
+    algorithmFrameworkIdParam:
+      in: path
+      name: algorithmFrameworkId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the algorithm framework.
+    maskingPluginsSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - plugin_type
+        - -plugin_type
+        - description
+        - -description
+        - install_date
+        - -install_date
+        - built_in
+        - -built_in
+        - sdk_version
+        - -sdk_version
+        - version
+        - -version
+        - author
+        - -author
+        - account_id
+        - -account_id
+        - account_name
+        - -account_name
+        - dct_managed
+        - -dct_managed
+        example: name
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+    maskingPluginIdParam:
+      in: path
+      name: maskingPluginId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the masking plugin.
   requestBodies:
     DeleteTags:
       description: The parameters to delete tags

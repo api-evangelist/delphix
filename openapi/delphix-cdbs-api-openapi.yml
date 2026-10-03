@@ -455,15 +455,355 @@ paths:
                 $ref: '#/components/schemas/ConnectivityCheckResponse'
 components:
   schemas:
-    EngineStorageDatasetType:
-      type: string
-      description: Type of the dataset.
-      enum:
-      - VDB
-      - DSOURCE
-      - CDB
-      - VCDB
-      - HELDSPACE
+    DeleteTag:
+      type: object
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        tags:
+          description: List of tags to be deleted
+          type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    EngineStorageCapacityDependencyData:
+      description: Engine storage capacity dependency data.
+      allOf:
+      - $ref: '#/components/schemas/EngineStorageCapacityData'
+      - type: object
+        properties:
+          parent_id:
+            type: string
+            description: ID of the parent dataset.
+    ConnectivityCheckResponse:
+      title: ConnectivityResponse
+      type: object
+      description: The result of the connectivity check.
+      required:
+      - message
+      properties:
+        message:
+          description: A message describing the result of the connectivity check.
+          type: string
+          example: Success!
+        status:
+          description: A status describing the status of the connectivity check.
+          type: string
+          enum:
+          - SUCCESS
+          - FAILED
+          example: SUCCESS
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    OracleVerifyJdbcConnectionStringParams:
+      type: object
+      required:
+      - database_username
+      - database_password
+      - jdbc_connection_string
+      properties:
+        database_username:
+          type: string
+          description: oracle database username.
+          example: oracle
+        database_password:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: oracle database password.
+          example: oracle
+        jdbc_connection_string:
+          type: string
+          description: Oracle jdbc connection string to validate.
+          example: jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.110.219.71)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=CDOMLOSR25E9PDB1)))
+    SourceOperation:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 256
+        command:
+          type: string
+          minLength: 1
+          maxLength: 131072
+        shell:
+          type: string
+          enum:
+          - bash
+          - shell
+          - expect
+          - ps
+          - psd
+          default: bash
+        credentials_env_vars:
+          description: List of environment variables that will contain credentials for this operation.
+          type: array
+          items:
+            $ref: '#/components/schemas/CredentialsEnvVariable'
+        hook_template_id:
+          description: ID of the hook template
+          type: string
+    DisableCDBParameters:
+      type: object
+      description: Parameters to disable a CDB.
+      properties:
+        attempt_cleanup:
+          type: boolean
+          description: Whether to attempt a cleanup of the CDB before the disable.
+          default: true
+    UpdateCDBParameters:
+      type: object
+      description: Parameters to update a CDB.
+      properties:
+        oracle_services:
+          type: array
+          items:
+            type: string
+          description: List of jdbc connection strings which are used to connect with the database.
+          example:
+          - jdbc:oracle:thin:@hostname:port/service_name
+          - jdbc:oracle:thin:@hostname:port:SID
+        logsync_enabled:
+          deprecated: true
+          description: True if LogSync is enabled for this CDB.
+          type: boolean
+        logsync_mode:
+          deprecated: true
+          description: LogSync operation mode for this CDB.
+          $ref: '#/components/schemas/OracleLogsyncModeTypeEnum'
+        logsync_interval:
+          deprecated: true
+          description: Interval between LogSync requests, in seconds.
+          type: integer
+          format: int64
+        tde_keystore_password:
+          x-dct-toolkit-credential-field: true
+          description: For a CDB using software keystore, this is the password of the software keystore used by this database. For a CDB using OKV, this is the password for the endpoint provided during the installation of the Oracle Key Vault client library (i.e., okvclient.jar) on the host where this database runs. For a CDB using HSM, this is the credential of the external key manager which is managing master encryption keys of this database. A blank string will unset the existing tde keystore password.
+          type: string
+          maxLength: 128
+          example: password
+        tde_keystore_config_type:
+          description: The TDE keystore configuration type of this database.
+          $ref: '#/components/schemas/OracleTdeKeystoreConfigTypeEnum'
+          example: OKV
+        tde_kms_pkcs11_config_path:
+          description: Path to the PKCS#11 configuration file for TDE KMS. A blank string will unset the existing PKCS#11 config path.
+          type: string
+          example: /etc/oracle/tde/kms_pkcs11.conf
+        description:
+          deprecated: true
+          description: The container description of this Linked CDB.
+          type: string
+          example: Updated Linked CDB description.
+        diagnose_no_logging_faults:
+          deprecated: true
+          type: boolean
+          example: true
+        environment_user_id:
+          description: The environment user ID to use to connect to the environment.
+          type: string
+          example: ENV_USER-1
+        rman_channels:
+          deprecated: true
+          type: integer
+          format: int32
+          description: Number of parallel channels to use.
+        files_per_set:
+          deprecated: true
+          type: integer
+          format: int32
+          description: Number of data files to include in each RMAN backup set.
+        encrypted_linking_enabled:
+          deprecated: true
+          type: boolean
+          description: True if SnapSync data from the source should be retrieved through an encrypted connection. Enabling this feature can decrease the performance of SnapSync from the source but has no impact on the performance of VDBs created from the retrieved data.
+        compressed_linking_enabled:
+          deprecated: true
+          type: boolean
+          description: True if SnapSync data from the source should be compressed over the network. Enabling this feature will reduce network bandwidth consumption and may significantly improve throughput, especially over slow network.
+        bandwidth_limit:
+          deprecated: true
+          type: integer
+          format: int32
+          description: Bandwidth limit (MB/s) for SnapSync and LogSync network traffic. A value of 0 means no limit.
+        number_of_connections:
+          deprecated: true
+          type: integer
+          format: int32
+          description: Total number of transport connections to use during SnapSync.
+        backup_level_enabled:
+          deprecated: true
+          type: boolean
+          description: Boolean value indicates whether LEVEL-based incremental backups can be used on the source db.
+        check_logical:
+          deprecated: true
+          type: boolean
+          description: True if extended block checking should be used for this linked database.
+        db_username:
+          type: string
+          description: The name of the database user.
+          minLength: 1
+          maxLength: 30
+          example: db-username
+        db_password:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: The password of the database user.
+          minLength: 1
+          example: db-password
+        non_sys_username:
+          description: The username of a database user that does not have administrative privileges.
+          type: string
+          minLength: 1
+          maxLength: 256
+        non_sys_password:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: The username of a database user that does not have administrative privileges.
+          minLength: 1
+        okv_client_id:
+          description: The id of the OKV client used for TDE keystore access. A blank string will unset the existing OKV client id.
+          type: string
+          example: 1-ORACLE_OKV_CLIENT-1
+        instance_name:
+          description: The instance name of this single instance CDB. Must contain at least one non-whitespace character.
+          type: string
+          minLength: 1
+          pattern: .*\S.*
+          example: CDBSID
+        instance_number:
+          description: The instance number of this single instance CDB.
+          type: integer
+          minimum: 1
+          example: 1
+        instances:
+          type: array
+          description: The instances of this RAC database.
+          items:
+            $ref: '#/components/schemas/OracleRACDatabaseInstance'
+          minItems: 1
+          example:
+          - instance_name: instance1
+            instance_number: 1
+            node_reference: ORACLE_CLUSTER_NODE-1
+            okv_client_id: 1-ORACLE_OKV_CLIENT-1
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    OracleService:
+      properties:
+        discovered:
+          description: Represents whether this jdbc connection string is auto discovered or not.
+          type: boolean
+        jdbc_connection_string:
+          description: The jdbc connection string used to connect with the database.
+          type: string
+          example: jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.110.230.197)(PORT=1521))(CONNECT_DATA=(UR=A)(SERVICE_NAME=VDBOMSRBBDC6C_UJG)))
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    DeleteCDBParameters:
+      type: object
+      description: Parameters to delete a CDB.
+      properties:
+        force:
+          type: boolean
+          description: Whether to continue the operation upon failures.
+          default: false
+        delete_all_dependent_datasets:
+          type: boolean
+          description: Whether to delete all dependent datasets of the CDB.
+          default: false
+    OracleAttachCdbParameters:
+      allOf:
+      - $ref: '#/components/schemas/OracleAttachParameters'
+      - type: object
+        required:
+        - dsource_id
+        properties:
+          dsource_id:
+            description: Id of the dsource to attach.
+            type: string
+            minLength: 1
+            maxLength: 256
     Job:
       description: An asynchronous task.
       type: object
@@ -587,27 +927,6 @@ components:
           type: object
       discriminator:
         propertyName: class_type
-    OracleService:
-      properties:
-        discovered:
-          description: Represents whether this jdbc connection string is auto discovered or not.
-          type: boolean
-        jdbc_connection_string:
-          description: The jdbc connection string used to connect with the database.
-          type: string
-          example: jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.110.230.197)(PORT=1521))(CONNECT_DATA=(UR=A)(SERVICE_NAME=VDBOMSRBBDC6C_UJG)))
-    DeleteCDBParameters:
-      type: object
-      description: Parameters to delete a CDB.
-      properties:
-        force:
-          type: boolean
-          description: Whether to continue the operation upon failures.
-          default: false
-        delete_all_dependent_datasets:
-          type: boolean
-          description: Whether to delete all dependent datasets of the CDB.
-          default: false
     CredentialsEnvVariable:
       required:
       - base_var_name
@@ -702,30 +1021,11 @@ components:
           minLength: 1
           maxLength: 256
           example: CredentialsEnvVars
-    VirtualizationTaskEvent:
-      deprecated: true
-      properties:
-        message_details:
-          type: string
-    JobTaskEvent:
-      properties:
-        message_details:
-          type: string
-    TagsRequest:
+    Tag:
       type: object
       required:
-      - tags
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-    DeleteTag:
-      type: object
+      - key
+      - value
       properties:
         key:
           description: Key of the tag
@@ -739,27 +1039,48 @@ components:
           minLength: 1
           maxLength: 4000
           example: value-1
-        tags:
-          description: List of tags to be deleted
-          type: array
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/Tag'
-    PaginatedResponseMetadata:
+    OracleRACDatabaseInstance:
       type: object
+      required:
+      - instance_name
+      - instance_number
+      - node_reference
       properties:
-        prev_cursor:
-          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+        instance_name:
           type: string
-        next_cursor:
-          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        total:
-          description: The total number of results. This value may not be provided.
+          description: The name of this instance. Must contain at least one non-whitespace character.
+          minLength: 1
+          pattern: .*\S.*
+        instance_number:
           type: integer
-          format: int_64
+          description: The number of this instance.
+          minimum: 1
+        node_reference:
+          type: string
+          description: The reference to the cluster node which the instance is running on. Must contain at least one non-whitespace character.
+          minLength: 1
+          pattern: .*\S.*
+        okv_client_id:
+          description: The id of the OKV client used for TDE keystore access. If provided, it must include at least one non-whitespace character; if omitted, the existing OKV client will be cleared.
+          type: string
+          minLength: 1
+          pattern: .*\S.*
+          example: 1-ORACLE_OKV_CLIENT-1
+    UpgradeOracleContainerDatabaseParameters:
+      type: object
+      description: Parameters to upgrade CDB/vCDB.
+      required:
+      - repository_id
+      - environment_user_id
+      properties:
+        repository_id:
+          type: string
+          description: The id of the CDB/vCDB repository to upgrade to.
+          example: 1-ORACLE_INSTALL-4
+        environment_user_id:
+          type: string
+          description: Reference of the environment user to use for CDB/vCDB upgrade.
+          example: HOST_USER-4
     VirtualizationTask:
       deprecated: true
       properties:
@@ -796,6 +1117,92 @@ components:
           - WAITING
           - COMPLETED
           - ABANDONED
+    DeletionDependenciesResponse:
+      description: The deletion dependencies of a dataset.
+      type: object
+      properties:
+        items:
+          description: The deletion dependencies of a dataset. These are presented in reverse order of deletion meaning that the last item in the list is the first item that needs to be deleted.
+          type: array
+          items:
+            $ref: '#/components/schemas/EngineStorageCapacityDependencyData'
+    OracleAttachParameters:
+      type: object
+      properties:
+        backup_level_enabled:
+          description: Boolean value indicates whether LEVEL-based incremental backups can be used on the source database.
+          type: boolean
+        bandwidth_limit:
+          description: Bandwidth limit (MB/s) for SnapSync and LogSync network traffic. A value of 0 means no limit.
+          type: integer
+          default: 0
+        check_logical:
+          description: True if extended block checking should be used for this linked database.
+          type: boolean
+          default: false
+        compressed_linking_enabled:
+          description: True if SnapSync data from the source should be compressed over the network. Enabling this feature will reduce network bandwidth consumption and may significantly improve throughput, especially over slow network.
+          type: boolean
+          default: true
+        double_sync:
+          description: True if two SnapSyncs should be performed in immediate succession to reduce the number of logs required to provision the snapshot. This may significantly reduce the time necessary to provision from a snapshot.
+          type: boolean
+          default: false
+        encrypted_linking_enabled:
+          description: True if SnapSync data from the source should be retrieved through an encrypted connection. Enabling this feature can decrease the performance of SnapSync from the source but has no impact on the performance of VDBs created from the retrieved data.
+          type: boolean
+          default: false
+        environment_user:
+          description: Reference to the user that should be used in the host.
+          type: string
+        external_file_path:
+          description: External file path.
+          type: string
+          maxLength: 1024
+        files_per_set:
+          description: Number of data files to include in each RMAN backup set.
+          type: integer
+          minimum: 1
+          maximum: 64
+          default: 5
+        force:
+          description: If true, attach will succeed even if the resetlogs of the new database does not match the resetlogs information of the original database.
+          type: boolean
+          default: false
+        link_now:
+          description: True if initial load should be done immediately.
+          type: boolean
+          default: false
+        number_of_connections:
+          description: Total number of transport connections to use during SnapSync.
+          type: integer
+          default: 1
+        operations:
+          description: Operations to perform after syncing a created dSource and before running the LogSync.
+          type: array
+          items:
+            $ref: '#/components/schemas/SourceOperation'
+        oracle_fallback_user:
+          type: string
+          description: The database fallback username. Optional if bequeath connections are enabled (to be used in case of bequeath connection failures). Only required for username-password auth.
+          minLength: 1
+          maxLength: 256
+          example: oracle
+        oracle_fallback_credentials:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: Password for fallback username.
+          minLength: 1
+          maxLength: 256
+          example: oracle
+        rman_channels:
+          description: Number of parallel channels to use.
+          type: integer
+          minimum: 1
+          maximum: 32
+          default: 2
+      discriminator:
+        propertyName: class_type
     EngineStorageCapacityData:
       properties:
         engine_id:
@@ -872,32 +1279,39 @@ components:
             $ref: '#/components/schemas/Tag'
       discriminator:
         propertyName: class_type
-    Tag:
-      type: object
-      required:
-      - key
-      - value
+    EngineStorageDatasetType:
+      type: string
+      description: Type of the dataset.
+      enum:
+      - VDB
+      - DSOURCE
+      - CDB
+      - VCDB
+      - HELDSPACE
+    OracleLogsyncModeTypeEnum:
+      type: string
+      description: LogSync operation mode for this dSource.
+      enum:
+      - ARCHIVE_ONLY_MODE
+      - ARCHIVE_REDO_MODE
+      - UNDEFINED
+    VirtualizationTaskEvent:
+      deprecated: true
       properties:
-        key:
-          description: Key of the tag
+        message_details:
           type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-    TagsResponse:
-      type: object
+    JobTaskEvent:
       properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
+        message_details:
+          type: string
+    EnableCDBParameters:
+      type: object
+      description: Parameters to enable a CDB.
+      properties:
+        attempt_start:
+          type: boolean
+          description: Whether to attempt a startup of the CDB after the enable.
+          default: true
     OracleTdeKeystoreConfigTypeEnum:
       type: string
       description: Oracle TDE keystore configuration type.
@@ -911,191 +1325,19 @@ components:
       - FILE|HSM
       - OCI_VAULT
       - UNSET
-    SourceOperation:
-      properties:
-        name:
-          type: string
-          minLength: 1
-          maxLength: 256
-        command:
-          type: string
-          minLength: 1
-          maxLength: 131072
-        shell:
-          type: string
-          enum:
-          - bash
-          - shell
-          - expect
-          - ps
-          - psd
-          default: bash
-        credentials_env_vars:
-          description: List of environment variables that will contain credentials for this operation.
-          type: array
-          items:
-            $ref: '#/components/schemas/CredentialsEnvVariable'
-        hook_template_id:
-          description: ID of the hook template
-          type: string
-    EngineStorageCapacityDependencyData:
-      description: Engine storage capacity dependency data.
-      allOf:
-      - $ref: '#/components/schemas/EngineStorageCapacityData'
-      - type: object
-        properties:
-          parent_id:
-            type: string
-            description: ID of the parent dataset.
-    OracleLogsyncModeTypeEnum:
-      type: string
-      description: LogSync operation mode for this dSource.
-      enum:
-      - ARCHIVE_ONLY_MODE
-      - ARCHIVE_REDO_MODE
-      - UNDEFINED
-    OracleRACDatabaseInstance:
+    PaginatedResponseMetadata:
       type: object
-      required:
-      - instance_name
-      - instance_number
-      - node_reference
       properties:
-        instance_name:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
           type: string
-          description: The name of this instance. Must contain at least one non-whitespace character.
-          minLength: 1
-          pattern: .*\S.*
-        instance_number:
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
           type: integer
-          description: The number of this instance.
-          minimum: 1
-        node_reference:
-          type: string
-          description: The reference to the cluster node which the instance is running on. Must contain at least one non-whitespace character.
-          minLength: 1
-          pattern: .*\S.*
-        okv_client_id:
-          description: The id of the OKV client used for TDE keystore access. If provided, it must include at least one non-whitespace character; if omitted, the existing OKV client will be cleared.
-          type: string
-          minLength: 1
-          pattern: .*\S.*
-          example: 1-ORACLE_OKV_CLIENT-1
-    UpgradeOracleContainerDatabaseParameters:
-      type: object
-      description: Parameters to upgrade CDB/vCDB.
-      required:
-      - repository_id
-      - environment_user_id
-      properties:
-        repository_id:
-          type: string
-          description: The id of the CDB/vCDB repository to upgrade to.
-          example: 1-ORACLE_INSTALL-4
-        environment_user_id:
-          type: string
-          description: Reference of the environment user to use for CDB/vCDB upgrade.
-          example: HOST_USER-4
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
-    DisableCDBParameters:
-      type: object
-      description: Parameters to disable a CDB.
-      properties:
-        attempt_cleanup:
-          type: boolean
-          description: Whether to attempt a cleanup of the CDB before the disable.
-          default: true
-    ConnectivityCheckResponse:
-      title: ConnectivityResponse
-      type: object
-      description: The result of the connectivity check.
-      required:
-      - message
-      properties:
-        message:
-          description: A message describing the result of the connectivity check.
-          type: string
-          example: Success!
-        status:
-          description: A status describing the status of the connectivity check.
-          type: string
-          enum:
-          - SUCCESS
-          - FAILED
-          example: SUCCESS
-    EnableCDBParameters:
-      type: object
-      description: Parameters to enable a CDB.
-      properties:
-        attempt_start:
-          type: boolean
-          description: Whether to attempt a startup of the CDB after the enable.
-          default: true
-    Engine:
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
-    OracleAttachCdbParameters:
-      allOf:
-      - $ref: '#/components/schemas/OracleAttachParameters'
-      - type: object
-        required:
-        - dsource_id
-        properties:
-          dsource_id:
-            description: Id of the dsource to attach.
-            type: string
-            minLength: 1
-            maxLength: 256
-    JobTask:
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
+          format: int_64
     CDB:
       description: The Delphix representation of an Oracle Container Database.
       type: object
@@ -1273,248 +1515,6 @@ components:
           description: The id of the OKV client used for TDE keystore access.
           type: string
           example: 1-ORACLE_OKV_CLIENT-1
-    OracleVerifyJdbcConnectionStringParams:
-      type: object
-      required:
-      - database_username
-      - database_password
-      - jdbc_connection_string
-      properties:
-        database_username:
-          type: string
-          description: oracle database username.
-          example: oracle
-        database_password:
-          x-dct-toolkit-credential-field: true
-          type: string
-          description: oracle database password.
-          example: oracle
-        jdbc_connection_string:
-          type: string
-          description: Oracle jdbc connection string to validate.
-          example: jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.110.219.71)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=CDOMLOSR25E9PDB1)))
-    DeletionDependenciesResponse:
-      description: The deletion dependencies of a dataset.
-      type: object
-      properties:
-        items:
-          description: The deletion dependencies of a dataset. These are presented in reverse order of deletion meaning that the last item in the list is the first item that needs to be deleted.
-          type: array
-          items:
-            $ref: '#/components/schemas/EngineStorageCapacityDependencyData'
-    OracleAttachParameters:
-      type: object
-      properties:
-        backup_level_enabled:
-          description: Boolean value indicates whether LEVEL-based incremental backups can be used on the source database.
-          type: boolean
-        bandwidth_limit:
-          description: Bandwidth limit (MB/s) for SnapSync and LogSync network traffic. A value of 0 means no limit.
-          type: integer
-          default: 0
-        check_logical:
-          description: True if extended block checking should be used for this linked database.
-          type: boolean
-          default: false
-        compressed_linking_enabled:
-          description: True if SnapSync data from the source should be compressed over the network. Enabling this feature will reduce network bandwidth consumption and may significantly improve throughput, especially over slow network.
-          type: boolean
-          default: true
-        double_sync:
-          description: True if two SnapSyncs should be performed in immediate succession to reduce the number of logs required to provision the snapshot. This may significantly reduce the time necessary to provision from a snapshot.
-          type: boolean
-          default: false
-        encrypted_linking_enabled:
-          description: True if SnapSync data from the source should be retrieved through an encrypted connection. Enabling this feature can decrease the performance of SnapSync from the source but has no impact on the performance of VDBs created from the retrieved data.
-          type: boolean
-          default: false
-        environment_user:
-          description: Reference to the user that should be used in the host.
-          type: string
-        external_file_path:
-          description: External file path.
-          type: string
-          maxLength: 1024
-        files_per_set:
-          description: Number of data files to include in each RMAN backup set.
-          type: integer
-          minimum: 1
-          maximum: 64
-          default: 5
-        force:
-          description: If true, attach will succeed even if the resetlogs of the new database does not match the resetlogs information of the original database.
-          type: boolean
-          default: false
-        link_now:
-          description: True if initial load should be done immediately.
-          type: boolean
-          default: false
-        number_of_connections:
-          description: Total number of transport connections to use during SnapSync.
-          type: integer
-          default: 1
-        operations:
-          description: Operations to perform after syncing a created dSource and before running the LogSync.
-          type: array
-          items:
-            $ref: '#/components/schemas/SourceOperation'
-        oracle_fallback_user:
-          type: string
-          description: The database fallback username. Optional if bequeath connections are enabled (to be used in case of bequeath connection failures). Only required for username-password auth.
-          minLength: 1
-          maxLength: 256
-          example: oracle
-        oracle_fallback_credentials:
-          x-dct-toolkit-credential-field: true
-          type: string
-          description: Password for fallback username.
-          minLength: 1
-          maxLength: 256
-          example: oracle
-        rman_channels:
-          description: Number of parallel channels to use.
-          type: integer
-          minimum: 1
-          maximum: 32
-          default: 2
-      discriminator:
-        propertyName: class_type
-    UpdateCDBParameters:
-      type: object
-      description: Parameters to update a CDB.
-      properties:
-        oracle_services:
-          type: array
-          items:
-            type: string
-          description: List of jdbc connection strings which are used to connect with the database.
-          example:
-          - jdbc:oracle:thin:@hostname:port/service_name
-          - jdbc:oracle:thin:@hostname:port:SID
-        logsync_enabled:
-          deprecated: true
-          description: True if LogSync is enabled for this CDB.
-          type: boolean
-        logsync_mode:
-          deprecated: true
-          description: LogSync operation mode for this CDB.
-          $ref: '#/components/schemas/OracleLogsyncModeTypeEnum'
-        logsync_interval:
-          deprecated: true
-          description: Interval between LogSync requests, in seconds.
-          type: integer
-          format: int64
-        tde_keystore_password:
-          x-dct-toolkit-credential-field: true
-          description: For a CDB using software keystore, this is the password of the software keystore used by this database. For a CDB using OKV, this is the password for the endpoint provided during the installation of the Oracle Key Vault client library (i.e., okvclient.jar) on the host where this database runs. For a CDB using HSM, this is the credential of the external key manager which is managing master encryption keys of this database. A blank string will unset the existing tde keystore password.
-          type: string
-          maxLength: 128
-          example: password
-        tde_keystore_config_type:
-          description: The TDE keystore configuration type of this database.
-          $ref: '#/components/schemas/OracleTdeKeystoreConfigTypeEnum'
-          example: OKV
-        tde_kms_pkcs11_config_path:
-          description: Path to the PKCS#11 configuration file for TDE KMS. A blank string will unset the existing PKCS#11 config path.
-          type: string
-          example: /etc/oracle/tde/kms_pkcs11.conf
-        description:
-          deprecated: true
-          description: The container description of this Linked CDB.
-          type: string
-          example: Updated Linked CDB description.
-        diagnose_no_logging_faults:
-          deprecated: true
-          type: boolean
-          example: true
-        environment_user_id:
-          description: The environment user ID to use to connect to the environment.
-          type: string
-          example: ENV_USER-1
-        rman_channels:
-          deprecated: true
-          type: integer
-          format: int32
-          description: Number of parallel channels to use.
-        files_per_set:
-          deprecated: true
-          type: integer
-          format: int32
-          description: Number of data files to include in each RMAN backup set.
-        encrypted_linking_enabled:
-          deprecated: true
-          type: boolean
-          description: True if SnapSync data from the source should be retrieved through an encrypted connection. Enabling this feature can decrease the performance of SnapSync from the source but has no impact on the performance of VDBs created from the retrieved data.
-        compressed_linking_enabled:
-          deprecated: true
-          type: boolean
-          description: True if SnapSync data from the source should be compressed over the network. Enabling this feature will reduce network bandwidth consumption and may significantly improve throughput, especially over slow network.
-        bandwidth_limit:
-          deprecated: true
-          type: integer
-          format: int32
-          description: Bandwidth limit (MB/s) for SnapSync and LogSync network traffic. A value of 0 means no limit.
-        number_of_connections:
-          deprecated: true
-          type: integer
-          format: int32
-          description: Total number of transport connections to use during SnapSync.
-        backup_level_enabled:
-          deprecated: true
-          type: boolean
-          description: Boolean value indicates whether LEVEL-based incremental backups can be used on the source db.
-        check_logical:
-          deprecated: true
-          type: boolean
-          description: True if extended block checking should be used for this linked database.
-        db_username:
-          type: string
-          description: The name of the database user.
-          minLength: 1
-          maxLength: 30
-          example: db-username
-        db_password:
-          x-dct-toolkit-credential-field: true
-          type: string
-          description: The password of the database user.
-          minLength: 1
-          example: db-password
-        non_sys_username:
-          description: The username of a database user that does not have administrative privileges.
-          type: string
-          minLength: 1
-          maxLength: 256
-        non_sys_password:
-          x-dct-toolkit-credential-field: true
-          type: string
-          description: The username of a database user that does not have administrative privileges.
-          minLength: 1
-        okv_client_id:
-          description: The id of the OKV client used for TDE keystore access. A blank string will unset the existing OKV client id.
-          type: string
-          example: 1-ORACLE_OKV_CLIENT-1
-        instance_name:
-          description: The instance name of this single instance CDB. Must contain at least one non-whitespace character.
-          type: string
-          minLength: 1
-          pattern: .*\S.*
-          example: CDBSID
-        instance_number:
-          description: The instance number of this single instance CDB.
-          type: integer
-          minimum: 1
-          example: 1
-        instances:
-          type: array
-          description: The instances of this RAC database.
-          items:
-            $ref: '#/components/schemas/OracleRACDatabaseInstance'
-          minItems: 1
-          example:
-          - instance_name: instance1
-            instance_number: 1
-            node_reference: ORACLE_CLUSTER_NODE-1
-            okv_client_id: 1-ORACLE_OKV_CLIENT-1
   parameters:
     limit:
       name: limit
@@ -1526,14 +1526,6 @@ components:
         minimum: 1
         maximum: 1000
         default: 100
-    cdbIdParam:
-      in: path
-      name: cdbId
-      required: true
-      schema:
-        type: string
-        minLength: 1
-      description: The ID of the CDB.
     cursor:
       name: cursor
       in: query
@@ -1542,6 +1534,14 @@ components:
         type: string
         minLength: 1
         maxLength: 4096
+    cdbIdParam:
+      in: path
+      name: cdbId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the CDB.
     cdbsSortParam:
       name: sort
       in: query
@@ -1647,14 +1647,6 @@ components:
                   value: value-1
                 - key: key-2
                   value: value-2
-    OracleAttachCdbBody:
-      description: The parameters to attach an Oracle CDB.
-      required: true
-      content:
-        application/json:
-          schema:
-            x-body-name: OracleAttachCdbParameters
-            $ref: '#/components/schemas/OracleAttachCdbParameters'
     SearchBody:
       x-skip-codegen-attr: description
       description: 'A request body containing a filter expression. This enables searching
@@ -1842,6 +1834,14 @@ components:
           schema:
             x-body-name: oracle_verify_jdbc_connection_parameters
             $ref: '#/components/schemas/OracleVerifyJdbcConnectionStringParams'
+    OracleAttachCdbBody:
+      description: The parameters to attach an Oracle CDB.
+      required: true
+      content:
+        application/json:
+          schema:
+            x-body-name: OracleAttachCdbParameters
+            $ref: '#/components/schemas/OracleAttachCdbParameters'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

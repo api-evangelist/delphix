@@ -238,6 +238,41 @@ paths:
                     $ref: '#/components/schemas/Job'
 components:
   schemas:
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
     Job:
       description: An asynchronous task.
       type: object
@@ -361,54 +396,6 @@ components:
           type: object
       discriminator:
         propertyName: class_type
-    JobTaskEvent:
-      properties:
-        message_details:
-          type: string
-    JobTask:
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
     Namespace:
       description: A namespace represents an alternative namespace for objects and data within a Delphix engine.
       type: object
@@ -488,6 +475,15 @@ components:
         source_engine_name:
           description: The name of the source engine that the ReplicationProfile that created the Namespace belongs to.
           type: string
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
     FailoverNamespaceParameters:
       description: The parameters to failover a Namespace.
       type: object
@@ -496,6 +492,33 @@ components:
           description: Whether to enable failback for the datasets being failed over.
           type: boolean
           default: false
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
     UpdateNamespaceParameters:
       description: The parameters to update a Namespace.
       type: object
@@ -555,24 +578,6 @@ components:
           - WAITING
           - COMPLETED
           - ABANDONED
-    Tag:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
     Engine:
       properties:
         engine_id:
@@ -583,80 +588,6 @@ components:
           type: string
           minLength: 1
           maxLength: 4000
-    VirtualizationTaskEvent:
-      deprecated: true
-      properties:
-        message_details:
-          type: string
-  parameters:
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
-    namespaceIdParam:
-      in: path
-      name: namespaceId
-      required: true
-      schema:
-        type: string
-        minLength: 1
-      description: The ID of the namespace.
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
-    namespacesSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
-      example: id
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - name
-        - -name
-        - tag
-        - -tag
-        - engine_id
-        - -engine_id
-        - secure_namespace
-        - -secure_namespace
-        - failed_over
-        - -failed_over
-        - locked
-        - -locked
-        - failback_possible
-        - -failback_possible
-        - failback_capability
-        - -failback_capability
-        - failback_incapability_reason
-        - -failback_incapability_reason
-        - replication_mode
-        - -replication_mode
-        - last_execution_status
-        - -last_execution_status
-        - last_execution_status_timestamp
-        - -last_execution_status_timestamp
-        - source_engine_id
-        - -source_engine_id
-        - source_engine_name
-        - -source_engine_name
-        example: name
   requestBodies:
     SearchBody:
       x-skip-codegen-attr: description
@@ -838,6 +769,75 @@ components:
               summary: Overriding operator precedence
               value:
                 filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
+  parameters:
+    namespacesSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - tag
+        - -tag
+        - engine_id
+        - -engine_id
+        - secure_namespace
+        - -secure_namespace
+        - failed_over
+        - -failed_over
+        - locked
+        - -locked
+        - failback_possible
+        - -failback_possible
+        - failback_capability
+        - -failback_capability
+        - failback_incapability_reason
+        - -failback_incapability_reason
+        - replication_mode
+        - -replication_mode
+        - last_execution_status
+        - -last_execution_status
+        - last_execution_status_timestamp
+        - -last_execution_status_timestamp
+        - source_engine_id
+        - -source_engine_id
+        - source_engine_name
+        - -source_engine_name
+        example: name
+    namespaceIdParam:
+      in: path
+      name: namespaceId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the namespace.
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

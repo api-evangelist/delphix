@@ -110,14 +110,16 @@ paths:
                   '
 components:
   parameters:
-    cursor:
-      name: cursor
+    limit:
+      name: limit
       in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
       schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
     virtualizationAlertsSortParam:
       name: sort
       in: query
@@ -156,16 +158,14 @@ components:
         - event_command_output
         - -event_command_output
         example: engine_id
-    limit:
-      name: limit
+    cursor:
+      name: cursor
       in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
       schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
+        type: string
+        minLength: 1
+        maxLength: 4096
   schemas:
     SearchBody:
       description: Search body.
@@ -176,19 +176,6 @@ components:
           minLength: 5
           maxLength: 50000
           example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
-    PaginatedResponseMetadata:
-      type: object
-      properties:
-        prev_cursor:
-          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        next_cursor:
-          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        total:
-          description: The total number of results. This value may not be provided.
-          type: integer
-          format: int_64
     VirtualizationAlert:
       description: An alert on a virtualization engine.
       type: object
@@ -238,6 +225,19 @@ components:
         target_name:
           description: The name of the target object.
           type: string
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
   requestBodies:
     SearchBody:
       x-skip-codegen-attr: description

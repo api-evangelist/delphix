@@ -175,69 +175,6 @@ paths:
         '204':
           description: No Content
 components:
-  parameters:
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
-    discoveryExpressionIdParam:
-      in: path
-      name: expressionId
-      schema:
-        type: string
-        minLength: 1
-      required: true
-      description: The ID of the discovery expression.
-    discoveryExpressionsSortParam:
-      name: sort
-      in: query
-      description: The
-      example: id
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - name
-        - -name
-        - regular_expression
-        - -regular_expression
-        - data_level_profiling
-        - -data_level_profiling
-        - min_data_length
-        - -min_data_length
-        - engine_id
-        - -engine_id
-        - engine_name
-        - -engine_name
-        - data_class_id
-        - -data_class_id
-        - data_class_name
-        - -data_class_name
-        - data_type
-        - -data_type
-        - expression_type
-        - -expression_type
-        - level
-        - -level
-        example: name
   schemas:
     TagsRequest:
       type: object
@@ -275,15 +212,6 @@ components:
           uniqueItems: true
           items:
             $ref: '#/components/schemas/Tag'
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
     PaginatedResponseMetadata:
       type: object
       properties:
@@ -297,24 +225,15 @@ components:
           description: The total number of results. This value may not be provided.
           type: integer
           format: int_64
-    Tag:
+    SearchBody:
+      description: Search body.
       type: object
-      required:
-      - key
-      - value
       properties:
-        key:
-          description: Key of the tag
+        filter_expression:
           type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
     DiscoveryExpression:
       type: object
       properties:
@@ -383,6 +302,24 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
     TagsResponse:
       type: object
       properties:
@@ -604,6 +541,69 @@ components:
                   value: value-1
                 - key: key-2
                   value: value-2
+  parameters:
+    discoveryExpressionsSortParam:
+      name: sort
+      in: query
+      description: The
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - regular_expression
+        - -regular_expression
+        - data_level_profiling
+        - -data_level_profiling
+        - min_data_length
+        - -min_data_length
+        - engine_id
+        - -engine_id
+        - engine_name
+        - -engine_name
+        - data_class_id
+        - -data_class_id
+        - data_class_name
+        - -data_class_name
+        - data_type
+        - -data_type
+        - expression_type
+        - -expression_type
+        - level
+        - -level
+        example: name
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+    discoveryExpressionIdParam:
+      in: path
+      name: expressionId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the discovery expression.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
