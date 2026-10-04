@@ -419,6 +419,14 @@ paths:
                     description: The error message if the configuration is invalid.
 components:
   schemas:
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
     DeleteTag:
       type: object
       properties:
@@ -442,219 +450,6 @@ components:
           uniqueItems: true
           items:
             $ref: '#/components/schemas/Tag'
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
-    AlgorithmConfigValidateRequest:
-      description: Parameters to validate a masking algorithm configuration of a given framework.
-      type: object
-      required:
-      - name
-      - config
-      - framework_id
-      properties:
-        name:
-          description: The name of this Algorithm.
-          type: string
-          example: Address
-        config:
-          description: The configuration of this algorithm.
-          type: object
-          additionalProperties: true
-        framework_id:
-          description: Id for the framework of this algorithm.
-          type: string
-        algorithm_id:
-          description: The ID or name of an existing mapping algorithm to be updated. This is only needed when validating an existing mapping algorithm with new configuration, and can be omitted when validating non-mapping algorithms or when validating a new algorithm prior to creation.
-          type: string
-    Algorithm:
-      description: A masking algorithm.
-      type: object
-      properties:
-        id:
-          description: The algorithm entity ID.
-          type: string
-          example: a638d976-6b7e-43f4-9212-90f4dc6d405c
-        name:
-          description: The name of this algorithm.
-          type: string
-          example: Address
-        description:
-          description: A description of this algorithm.
-          type:
-          - string
-          - 'null'
-        plugin_name:
-          description: The name of the plugin that this algorithm belongs to.
-          type: string
-          example: dlpx-core
-        plugin_id:
-          description: The id of the plugin that this algorithm belongs to.
-          type: string
-          example: a638d976-6b7e-43f4-9212-90f4dc6d405c
-        framework_name:
-          description: The name of the framework that this algorithm belongs to.
-          type: string
-          example: Secure Lookup
-        framework_id:
-          description: The id of the framework that this algorithm belongs to.
-          type: string
-          example: a638d976-6b7e-43f4-9212-90f4dc6d405c
-        engine_name:
-          description: The name of the origin engine that this algorithm belongs to.
-          type: string
-          example: Compliance Engine 1
-        engine_id:
-          description: The id of the origin engine that this algorithm belongs to.
-          type: string
-          example: a638d976-6b7e-43f4-9212-90f4dc6d405c
-        revision_hash:
-          description: The export revision hash of this algorithm from the source engine.
-          type: string
-          example: 90f4dc6d405c
-        config:
-          description: The configuration of this algorithm.
-          type: object
-          additionalProperties: true
-        create_date:
-          description: The date and time this algorithm was created.
-          type: string
-          format: date-time
-          example: '2022-11-30T08:51:34.148000+00:00'
-        account_id:
-          description: The ID of the account who created this algorithm.
-          type: integer
-          format: int64
-          readOnly: true
-          example: 1
-        account_name:
-          description: The account name of the DCT user who created this algorithm.
-          type: string
-          readOnly: true
-          example: John Doe
-        dct_managed:
-          description: Whether this algorithm is managed by DCT or not.
-          type: boolean
-          readOnly: true
-        config_invalid:
-          description: Whether this algorithm has invalid configuration. Config may become invalid following a DCT upgrade due to changes in the plugin. This field is only applicable to DCT managed algorithms.
-          type: boolean
-          readOnly: true
-        is_default_instance:
-          description: Whether this algorithm is defined in the plugin.
-          type: boolean
-          readOnly: true
-        is_tokenization_supported:
-          description: Whether this algorithm supports tokenization (re-identification). Depends on the algorithm configuration.
-          type:
-          - boolean
-          - 'null'
-          readOnly: true
-        fields:
-          description: The list of fields if it is a multi-column/multi-condition algorithm.
-          type: array
-          items:
-            $ref: '#/components/schemas/AlgorithmField'
-        tags:
-          description: The tags of this algorithm.
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    JobTask:
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    AlgorithmMappingsImportRequest:
-      description: Parameters to import algorithm mappings from a file.
-      type: object
-      required:
-      - fileReferenceId
-      - mappingFileType
-      properties:
-        fileReferenceId:
-          description: The reference URI of the uploaded file to be installed. This file should have been uploaded via the /fileUpload endpoint.
-          type: string
-        passphrase:
-          description: The passphrase that an exported CSV mapping file was encrypted with. This is only needed if adding mappings that were previously exported.
-          type: string
-        mappingFileType:
-          description: The type of the file provided. If PLAINTEXT is chosen, the file is expected to contain newline delimited outputs. If CSV is chosen, the file is expected to conform to RFC4180. Additionally, 2 columns are expected - input and output. The first row of the CSV must be a header.
-          type: string
-          $ref: '#/components/schemas/MappingFileType'
-    MappingFileType:
-      description: The type of mapping file.
-      type: string
-      enum:
-      - PLAINTEXT
-      - CSV
-    Engine:
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
-    TagsResponse:
-      type: object
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    TagsRequest:
-      type: object
-      required:
-      - tags
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
     Job:
       description: An asynchronous task.
       type: object
@@ -776,74 +571,6 @@ components:
         result:
           description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
           type: object
-    AlgorithmCreateRequest:
-      description: Parameters to create a masking algorithm.
-      type: object
-      required:
-      - name
-      - config
-      - framework_id
-      properties:
-        name:
-          description: The name of this Algorithm.
-          type: string
-          example: Address
-        description:
-          description: A description of this algorithm.
-          type: string
-        config:
-          description: The configuration of this algorithm.
-          type: object
-          additionalProperties: true
-        framework_id:
-          description: Id for the framework of this algorithm.
-          type: string
-        data_class_ids:
-          description: The data classes this algorithm to be associated with.
-          type: array
-          items:
-            type: string
-        make_current_account_owner:
-          type: boolean
-          default: true
-          description: Whether the account creating this algorithm must be configured as owner of it.
-        tags:
-          description: The tags of this algorithm.
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    MappingsStats:
-      description: Statistics of the mappings.
-      type: object
-      properties:
-        total_mappings:
-          description: The total number of mappings.
-          type: integer
-          format: int64
-          example: 1000
-        unused_mappings:
-          description: The number of unused mappings.
-          type: integer
-          format: int64
-          example: 100
-    Tag:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
     AlgorithmField:
       description: The algorithm field details for a multi-column/multi-condition algorithm
       type: object
@@ -880,6 +607,41 @@ components:
           description: The description of the algorithm field.
           type: string
           readOnly: true
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    AlgorithmConfigValidateRequest:
+      description: Parameters to validate a masking algorithm configuration of a given framework.
+      type: object
+      required:
+      - name
+      - config
+      - framework_id
+      properties:
+        name:
+          description: The name of this Algorithm.
+          type: string
+          example: Address
+        config:
+          description: The configuration of this algorithm.
+          type: object
+          additionalProperties: true
+        framework_id:
+          description: Id for the framework of this algorithm.
+          type: string
+        algorithm_id:
+          description: The ID or name of an existing mapping algorithm to be updated. This is only needed when validating an existing mapping algorithm with new configuration, and can be omitted when validating non-mapping algorithms or when validating a new algorithm prior to creation.
+          type: string
     VirtualizationTask:
       deprecated: true
       properties:
@@ -916,6 +678,248 @@ components:
           - WAITING
           - COMPLETED
           - ABANDONED
+    Algorithm:
+      description: A masking algorithm.
+      type: object
+      properties:
+        id:
+          description: The algorithm entity ID.
+          type: string
+          example: a638d976-6b7e-43f4-9212-90f4dc6d405c
+        name:
+          description: The name of this algorithm.
+          type: string
+          example: Address
+        description:
+          description: A description of this algorithm.
+          type:
+          - string
+          - 'null'
+        plugin_name:
+          description: The name of the plugin that this algorithm belongs to.
+          type: string
+          example: dlpx-core
+        plugin_id:
+          description: The id of the plugin that this algorithm belongs to.
+          type: string
+          example: a638d976-6b7e-43f4-9212-90f4dc6d405c
+        framework_name:
+          description: The name of the framework that this algorithm belongs to.
+          type: string
+          example: Secure Lookup
+        framework_id:
+          description: The id of the framework that this algorithm belongs to.
+          type: string
+          example: a638d976-6b7e-43f4-9212-90f4dc6d405c
+        engine_name:
+          description: The name of the origin engine that this algorithm belongs to.
+          type: string
+          example: Compliance Engine 1
+        engine_id:
+          description: The id of the origin engine that this algorithm belongs to.
+          type: string
+          example: a638d976-6b7e-43f4-9212-90f4dc6d405c
+        revision_hash:
+          description: The export revision hash of this algorithm from the source engine.
+          type: string
+          example: 90f4dc6d405c
+        config:
+          description: The configuration of this algorithm.
+          type: object
+          additionalProperties: true
+        create_date:
+          description: The date and time this algorithm was created.
+          type: string
+          format: date-time
+          example: '2022-11-30T08:51:34.148000+00:00'
+        account_id:
+          description: The ID of the account who created this algorithm.
+          type: integer
+          format: int64
+          readOnly: true
+          example: 1
+        account_name:
+          description: The account name of the DCT user who created this algorithm.
+          type: string
+          readOnly: true
+          example: John Doe
+        dct_managed:
+          description: Whether this algorithm is managed by DCT or not.
+          type: boolean
+          readOnly: true
+        config_invalid:
+          description: Whether this algorithm has invalid configuration. Config may become invalid following a DCT upgrade due to changes in the plugin. This field is only applicable to DCT managed algorithms.
+          type: boolean
+          readOnly: true
+        is_default_instance:
+          description: Whether this algorithm is defined in the plugin.
+          type: boolean
+          readOnly: true
+        is_tokenization_supported:
+          description: Whether this algorithm supports tokenization (re-identification). Depends on the algorithm configuration.
+          type:
+          - boolean
+          - 'null'
+          readOnly: true
+        fields:
+          description: The list of fields if it is a multi-column/multi-condition algorithm.
+          type: array
+          items:
+            $ref: '#/components/schemas/AlgorithmField'
+        tags:
+          description: The tags of this algorithm.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    AlgorithmCreateRequest:
+      description: Parameters to create a masking algorithm.
+      type: object
+      required:
+      - name
+      - config
+      - framework_id
+      properties:
+        name:
+          description: The name of this Algorithm.
+          type: string
+          example: Address
+        description:
+          description: A description of this algorithm.
+          type: string
+        config:
+          description: The configuration of this algorithm.
+          type: object
+          additionalProperties: true
+        framework_id:
+          description: Id for the framework of this algorithm.
+          type: string
+        data_class_ids:
+          description: The data classes this algorithm to be associated with.
+          type: array
+          items:
+            type: string
+        make_current_account_owner:
+          type: boolean
+          default: true
+          description: Whether the account creating this algorithm must be configured as owner of it.
+        tags:
+          description: The tags of this algorithm.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    AlgorithmUpdateRequest:
+      description: Parameters to update a masking algorithm.
+      type: object
+      properties:
+        name:
+          description: The name of this Algorithm.
+          type: string
+          example: Address
+        description:
+          description: A description of this algorithm.
+          type: string
+        config:
+          description: The configuration of this algorithm.
+          type: object
+          additionalProperties: true
+    AlgorithmMappingsImportRequest:
+      description: Parameters to import algorithm mappings from a file.
+      type: object
+      required:
+      - fileReferenceId
+      - mappingFileType
+      properties:
+        fileReferenceId:
+          description: The reference URI of the uploaded file to be installed. This file should have been uploaded via the /fileUpload endpoint.
+          type: string
+        passphrase:
+          description: The passphrase that an exported CSV mapping file was encrypted with. This is only needed if adding mappings that were previously exported.
+          type: string
+        mappingFileType:
+          description: The type of the file provided. If PLAINTEXT is chosen, the file is expected to contain newline delimited outputs. If CSV is chosen, the file is expected to conform to RFC4180. Additionally, 2 columns are expected - input and output. The first row of the CSV must be a header.
+          type: string
+          $ref: '#/components/schemas/MappingFileType'
+    MappingFileType:
+      description: The type of mapping file.
+      type: string
+      enum:
+      - PLAINTEXT
+      - CSV
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
     Dependency:
       description: A dependency relationship.
       type: object
@@ -935,130 +939,39 @@ components:
           description: The type of the child entity.
           type: string
           example: MASKING_FILE_UPLOAD
-    AlgorithmUpdateRequest:
-      description: Parameters to update a masking algorithm.
+    MappingsStats:
+      description: Statistics of the mappings.
       type: object
       properties:
-        name:
-          description: The name of this Algorithm.
-          type: string
-          example: Address
-        description:
-          description: A description of this algorithm.
-          type: string
-        config:
-          description: The configuration of this algorithm.
-          type: object
-          additionalProperties: true
-    VirtualizationTaskEvent:
-      deprecated: true
-      properties:
-        message_details:
-          type: string
-    JobTaskEvent:
-      properties:
-        message_details:
-          type: string
-    PaginatedResponseMetadata:
-      type: object
-      properties:
-        prev_cursor:
-          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        next_cursor:
-          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        total:
-          description: The total number of results. This value may not be provided.
+        total_mappings:
+          description: The total number of mappings.
           type: integer
-          format: int_64
-  parameters:
-    dependenciesSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
-      example: id
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - child_id
-        - -child_id
-        - child_name
-        - -child_name
-        - child_type
-        - -child_type
-        example: child_id
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
-    algorithmIdParam:
-      in: path
-      name: algorithmId
-      schema:
-        type: string
-        minLength: 1
-      required: true
-      description: The ID of the Algorithm.
-    algorithmsSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
-      example: id
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - name
-        - -name
-        - description
-        - -description
-        - plugin_name
-        - -plugin_name
-        - framework_name
-        - -framework_name
-        - create_date
-        - -create_date
-        - engine_name
-        - -engine_name
-        - engine_id
-        - -engine_id
-        - revision_hash
-        - -revision_hash
-        - account_id
-        - -account_id
-        - account_name
-        - -account_name
-        - dct_managed
-        - -dct_managed
-        - config_invalid
-        - -config_invalid
-        - is_default_instance
-        - -is_default_instance
-        - is_tokenization_supported
-        - -is_tokenization_supported
-        example: name
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
+          format: int64
+          example: 1000
+        unused_mappings:
+          description: The number of unused mappings.
+          type: integer
+          format: int64
+          example: 100
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
   requestBodies:
     DeleteTags:
       description: The parameters to delete tags
@@ -1272,6 +1185,93 @@ components:
               summary: Overriding operator precedence
               value:
                 filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
+  parameters:
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+    algorithmsSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - description
+        - -description
+        - plugin_name
+        - -plugin_name
+        - framework_name
+        - -framework_name
+        - create_date
+        - -create_date
+        - engine_name
+        - -engine_name
+        - engine_id
+        - -engine_id
+        - revision_hash
+        - -revision_hash
+        - account_id
+        - -account_id
+        - account_name
+        - -account_name
+        - dct_managed
+        - -dct_managed
+        - config_invalid
+        - -config_invalid
+        - is_default_instance
+        - -is_default_instance
+        - is_tokenization_supported
+        - -is_tokenization_supported
+        example: name
+    dependenciesSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - child_id
+        - -child_id
+        - child_name
+        - -child_name
+        - child_type
+        - -child_type
+        example: child_id
+    algorithmIdParam:
+      in: path
+      name: algorithmId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the Algorithm.
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

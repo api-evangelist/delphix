@@ -51,25 +51,25 @@ paths:
                     description: The initiated job.
 components:
   schemas:
-    BaseDeletetionDependenciesResponse:
-      description: Base class for deletion dependencies response.
+    HeldSpaceDeletionDependenciesResponse:
+      description: The deletion dependencies of a held space.
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/BaseDeletetionDependenciesResponse'
+    DeletionDependenciesTreeResponse:
+      description: The deletion dependencies of an object which occupies disk space.
       type: object
       properties:
         prerequisite_actions:
-          description: The pre-requisite actions to perform before deleting the snapshot.
+          description: The pre-requisite actions to perform before deleting the object.
           type: array
           items:
             $ref: '#/components/schemas/DeletionDependencyPrerequisiteAction'
         object_dependencies:
-          description: The object dependencies of the snapshot.
+          description: The object dependencies of the object.
           type: array
           items:
             $ref: '#/components/schemas/DeletionDependencyObject'
-        dependency_tree:
-          description: The dependency tree of the snapshot.
-          $ref: '#/components/schemas/DeletionDependenciesTreeResponse'
-      discriminator:
-        propertyName: class_type
     DeletionDependencyObjectType:
       description: Deletion dependency object type.
       type: string
@@ -85,7 +85,8 @@ components:
       - UNKNOWN
       - ALLSNAPSHOTS
       - BOOKMARK
-    JobTask:
+    VirtualizationTask:
+      deprecated: true
       properties:
         id:
           type: string
@@ -106,7 +107,7 @@ components:
         events:
           type: array
           items:
-            $ref: '#/components/schemas/JobTaskEvent'
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
         status:
           type: string
           enum:
@@ -120,6 +121,55 @@ components:
           - WAITING
           - COMPLETED
           - ABANDONED
+    DeletionDependencyPrerequisiteAction:
+      description: Deletion dependency prerequisite action.
+      type: object
+      properties:
+        object_id:
+          description: ID of the object.
+          type: string
+        object_type:
+          description: Type of the object.
+          type: string
+          enum:
+          - SNAPSHOT
+          - VDB
+          - DSOURCE
+          - DATALAYOUT_CONTAINER
+          - DATALAYOUT_TEMPLATE
+          - UNKNOWN
+        object_name:
+          description: Name of the object.
+          type: string
+        namespace_id:
+          description: ID of the namespace that this object belongs to.
+          type: string
+        action:
+          description: The action to perform.
+          type: string
+          enum:
+          - REMOVE_KEEP_FOR
+          - TAKE_SNAPSHOT
+          - REFRESH
+        linked_object_id:
+          description: ID of the deletion dependency object which is linked to this prerequisite action.
+          type: string
+        linked_object_type:
+          description: Type of the deletion dependency object which is linked to this prerequisite action.
+          $ref: '#/components/schemas/DeletionDependencyObjectType'
+        locked:
+          description: Whether the prerequisite action is locked. If this is true then this action will be skipped.
+          type: boolean
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
     Job:
       description: An asynchronous task.
       type: object
@@ -243,6 +293,28 @@ components:
           type: object
       discriminator:
         propertyName: class_type
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
     DeletionDependencyObject:
       description: Deletion dependency object.
       type: object
@@ -298,56 +370,7 @@ components:
       properties:
         message_details:
           type: string
-    HeldSpaceDeletionDependenciesResponse:
-      description: The deletion dependencies of a held space.
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/BaseDeletetionDependenciesResponse'
-    DeletionDependencyPrerequisiteAction:
-      description: Deletion dependency prerequisite action.
-      type: object
-      properties:
-        object_id:
-          description: ID of the object.
-          type: string
-        object_type:
-          description: Type of the object.
-          type: string
-          enum:
-          - SNAPSHOT
-          - VDB
-          - DSOURCE
-          - DATALAYOUT_CONTAINER
-          - DATALAYOUT_TEMPLATE
-          - UNKNOWN
-        object_name:
-          description: Name of the object.
-          type: string
-        namespace_id:
-          description: ID of the namespace that this object belongs to.
-          type: string
-        action:
-          description: The action to perform.
-          type: string
-          enum:
-          - REMOVE_KEEP_FOR
-          - TAKE_SNAPSHOT
-          - REFRESH
-        linked_object_id:
-          description: ID of the deletion dependency object which is linked to this prerequisite action.
-          type: string
-        linked_object_type:
-          description: Type of the deletion dependency object which is linked to this prerequisite action.
-          $ref: '#/components/schemas/DeletionDependencyObjectType'
-        locked:
-          description: Whether the prerequisite action is locked. If this is true then this action will be skipped.
-          type: boolean
-    JobTaskEvent:
-      properties:
-        message_details:
-          type: string
-    VirtualizationTask:
-      deprecated: true
+    JobTask:
       properties:
         id:
           type: string
@@ -368,7 +391,7 @@ components:
         events:
           type: array
           items:
-            $ref: '#/components/schemas/VirtualizationTaskEvent'
+            $ref: '#/components/schemas/JobTaskEvent'
         status:
           type: string
           enum:
@@ -382,48 +405,25 @@ components:
           - WAITING
           - COMPLETED
           - ABANDONED
-    Tag:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-    DeletionDependenciesTreeResponse:
-      description: The deletion dependencies of an object which occupies disk space.
+    BaseDeletetionDependenciesResponse:
+      description: Base class for deletion dependencies response.
       type: object
       properties:
         prerequisite_actions:
-          description: The pre-requisite actions to perform before deleting the object.
+          description: The pre-requisite actions to perform before deleting the snapshot.
           type: array
           items:
             $ref: '#/components/schemas/DeletionDependencyPrerequisiteAction'
         object_dependencies:
-          description: The object dependencies of the object.
+          description: The object dependencies of the snapshot.
           type: array
           items:
             $ref: '#/components/schemas/DeletionDependencyObject'
-    Engine:
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
+        dependency_tree:
+          description: The dependency tree of the snapshot.
+          $ref: '#/components/schemas/DeletionDependenciesTreeResponse'
+      discriminator:
+        propertyName: class_type
   parameters:
     heldspaceId:
       name: heldspaceId

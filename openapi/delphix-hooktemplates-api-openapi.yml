@@ -241,38 +241,14 @@ paths:
           description: No Content
 components:
   schemas:
-    DeleteTag:
+    TagsResponse:
       type: object
       properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
         tags:
-          description: List of tags to be deleted
+          description: Array of tags with key value pairs
           type: array
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
           items:
             $ref: '#/components/schemas/Tag'
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
     CreateHookTemplateParameters:
       type: object
       required:
@@ -311,72 +287,29 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
-    JobTask:
+    DeleteTag:
+      type: object
       properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    Engine:
-      properties:
-        engine_id:
+        key:
+          description: Key of the tag
           type: string
           minLength: 1
           maxLength: 4000
-        engine_name:
+          example: key-1
+        value:
+          description: Value of the tag
           type: string
           minLength: 1
           maxLength: 4000
-    TagsResponse:
-      type: object
-      properties:
+          example: value-1
         tags:
-          description: Array of tags with key value pairs
+          description: List of tags to be deleted
           type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    TagsRequest:
-      type: object
-      required:
-      - tags
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
           minItems: 1
           maxItems: 1000
           uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
     Job:
       description: An asynchronous task.
       type: object
@@ -500,6 +433,19 @@ components:
           type: object
       discriminator:
         propertyName: class_type
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
     CredentialsEnvVariable:
       required:
       - base_var_name
@@ -594,24 +540,6 @@ components:
           minLength: 1
           maxLength: 256
           example: CredentialsEnvVars
-    Tag:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
     VirtualizationTask:
       deprecated: true
       properties:
@@ -648,36 +576,81 @@ components:
           - WAITING
           - COMPLETED
           - ABANDONED
-    UpdateHookTemplateParameters:
+    Tag:
       type: object
+      required:
+      - key
+      - value
       properties:
-        name:
-          type: string
-          description: Name of the hook template.
-          minLength: 1
-          maxLength: 256
-          example: Hook Template 1
-        description:
-          type: string
-          description: Description of the hook template.
-        shell:
-          type: string
-          enum:
-          - bash
-          - shell
-          - expect
-          - ps
-          - psd
-          default: bash
-        command:
+        key:
+          description: Key of the tag
           type: string
           minLength: 1
-          maxLength: 131072
-        credentials_env_vars:
-          description: List of environment variables that will contain credentials for this operation.
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
           type: array
           items:
-            $ref: '#/components/schemas/CredentialsEnvVariable'
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
     HookTemplate:
       type: object
       properties:
@@ -715,75 +688,55 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
-    VirtualizationTaskEvent:
-      deprecated: true
-      properties:
-        message_details:
-          type: string
-    JobTaskEvent:
-      properties:
-        message_details:
-          type: string
-    PaginatedResponseMetadata:
+    SearchBody:
+      description: Search body.
       type: object
       properties:
-        prev_cursor:
-          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+        filter_expression:
           type: string
-        next_cursor:
-          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    UpdateHookTemplateParameters:
+      type: object
+      properties:
+        name:
           type: string
-        total:
-          description: The total number of results. This value may not be provided.
-          type: integer
-          format: int_64
-  parameters:
-    hookTemplateIdParam:
-      in: path
-      name: hookTemplateId
-      required: true
-      schema:
-        type: string
-        minLength: 1
-      description: The ID of the Hook Template.
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
-    hookTemplatesSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
-      example: id
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - name
-        - -name
-        - dct_managed
-        - -dct_managed
-        - engine_id
-        - -engine_id
-        example: name
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
+          description: Name of the hook template.
+          minLength: 1
+          maxLength: 256
+          example: Hook Template 1
+        description:
+          type: string
+          description: Description of the hook template.
+        shell:
+          type: string
+          enum:
+          - bash
+          - shell
+          - expect
+          - ps
+          - psd
+          default: bash
+        command:
+          type: string
+          minLength: 1
+          maxLength: 131072
+        credentials_env_vars:
+          description: List of environment variables that will contain credentials for this operation.
+          type: array
+          items:
+            $ref: '#/components/schemas/CredentialsEnvVariable'
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
   requestBodies:
     DeleteTags:
       description: The parameters to delete tags
@@ -997,6 +950,53 @@ components:
               summary: Overriding operator precedence
               value:
                 filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
+  parameters:
+    hookTemplateIdParam:
+      in: path
+      name: hookTemplateId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the Hook Template.
+    hookTemplatesSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - dct_managed
+        - -dct_managed
+        - engine_id
+        - -engine_id
+        example: name
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

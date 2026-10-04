@@ -212,6 +212,25 @@ paths:
           description: No Content
 components:
   schemas:
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          readOnly: true
+          description: Message providing more detail about the error that occurred, if available.
+        object_name:
+          type: string
+          readOnly: true
+          description: Name of the object affected by the error.
     DeleteTag:
       type: object
       properties:
@@ -235,92 +254,6 @@ components:
           uniqueItems: true
           items:
             $ref: '#/components/schemas/Tag'
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
-    Errors:
-      description: Sadly, sometimes requests to the API are not successful. Failures can occur for a wide range of reasons. The Errors object contains information about full or partial failures which might have occurred during the request.
-      type: array
-      items:
-        $ref: '#/components/schemas/Error'
-    UpdateStagingSourceParameters:
-      type: object
-      description: Parameters to update a Staging Source.
-      properties:
-        oracle_services:
-          type: array
-          items:
-            type: string
-          description: List of jdbc connection strings which are used to connect with the database.
-          example:
-          - jdbc:oracle:thin:@hostname:port/service_name
-          - jdbc:oracle:thin:@hostname:port:SID
-    NfsVersionReasonEnum:
-      type: string
-      description: The reason why the source is being mounted with nfsVersion.
-      enum:
-      - DEFAULT
-      - OLD_REDHAT
-      - UNSUPPORTED_OS
-      - DNFS
-      - TUNABLE_OVERRIDE
-      - NO_RECOVER_LOST_LOCKS
-      - UNSUPPORTED_DATA_PLATFORM
-      - INCOMPLETE_V4_CONFIG
-      - DNFS_UNSUPPORTED_ORACLE_VERSIONS_1912_1915
-      - DNFS_UNSUPPORTED_ORACLE_VERSIONS_211_216
-      - DNFS_UNSUPPORTED_ORACLE_VERSIONS_LESS_THAN_12C
-    JobTask:
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    Engine:
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
     OracleCustomEnvVar:
       type: object
       properties:
@@ -336,36 +269,6 @@ components:
         var_value:
           description: The value of the environment variable.
           type: string
-    OracleService:
-      properties:
-        discovered:
-          description: Represents whether this jdbc connection string is auto discovered or not.
-          type: boolean
-        jdbc_connection_string:
-          description: The jdbc connection string used to connect with the database.
-          type: string
-          example: jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.110.230.197)(PORT=1521))(CONNECT_DATA=(UR=A)(SERVICE_NAME=VDBOMSRBBDC6C_UJG)))
-    TagsResponse:
-      type: object
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    TagsRequest:
-      type: object
-      required:
-      - tags
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
     Job:
       description: An asynchronous task.
       type: object
@@ -638,31 +541,31 @@ components:
         nfs_version: 3
         nfs_version_reason: DEFAULT
         nfs_encryption_enabled: true
-    OracleConfigTypeEnum:
-      type: string
-      enum:
-      - OracleRACConfig
-      - OracleSIConfig
-      - OraclePDBConfig
-      example: OracleSIConfig
-    Tag:
+    PaginatedResponseMetadata:
       type: object
-      required:
-      - key
-      - value
       properties:
-        key:
-          description: Key of the tag
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
           type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
           type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    UpdateStagingSourceParameters:
+      type: object
+      description: Parameters to update a Staging Source.
+      properties:
+        oracle_services:
+          type: array
+          items:
+            type: string
+          description: List of jdbc connection strings which are used to connect with the database.
+          example:
+          - jdbc:oracle:thin:@hostname:port/service_name
+          - jdbc:oracle:thin:@hostname:port:SID
     VirtualizationTask:
       deprecated: true
       properties:
@@ -699,128 +602,136 @@ components:
           - WAITING
           - COMPLETED
           - ABANDONED
-    Error:
+    NfsVersionReasonEnum:
+      type: string
+      description: The reason why the source is being mounted with nfsVersion.
+      enum:
+      - DEFAULT
+      - OLD_REDHAT
+      - UNSUPPORTED_OS
+      - DNFS
+      - TUNABLE_OVERRIDE
+      - NO_RECOVER_LOST_LOCKS
+      - UNSUPPORTED_DATA_PLATFORM
+      - INCOMPLETE_V4_CONFIG
+      - DNFS_UNSUPPORTED_ORACLE_VERSIONS_1912_1915
+      - DNFS_UNSUPPORTED_ORACLE_VERSIONS_211_216
+      - DNFS_UNSUPPORTED_ORACLE_VERSIONS_LESS_THAN_12C
+    Tag:
       type: object
+      required:
+      - key
+      - value
       properties:
-        message:
+        key:
+          description: Key of the tag
           type: string
-          readOnly: true
-          description: Message providing more detail about the error that occurred, if available.
-        object_name:
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
           type: string
-          readOnly: true
-          description: Name of the object affected by the error.
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    OracleConfigTypeEnum:
+      type: string
+      enum:
+      - OracleRACConfig
+      - OracleSIConfig
+      - OraclePDBConfig
+      example: OracleSIConfig
     VirtualizationTaskEvent:
       deprecated: true
       properties:
         message_details:
           type: string
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
     JobTaskEvent:
       properties:
         message_details:
           type: string
-    PaginatedResponseMetadata:
+    SearchBody:
+      description: Search body.
       type: object
       properties:
-        prev_cursor:
-          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+        filter_expression:
           type: string
-        next_cursor:
-          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    Errors:
+      description: Sadly, sometimes requests to the API are not successful. Failures can occur for a wide range of reasons. The Errors object contains information about full or partial failures which might have occurred during the request.
+      type: array
+      items:
+        $ref: '#/components/schemas/Error'
+    OracleService:
+      properties:
+        discovered:
+          description: Represents whether this jdbc connection string is auto discovered or not.
+          type: boolean
+        jdbc_connection_string:
+          description: The jdbc connection string used to connect with the database.
           type: string
-        total:
-          description: The total number of results. This value may not be provided.
-          type: integer
-          format: int_64
-  parameters:
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
-    stagingSourceIdParam:
-      in: path
-      name: stagingSourceId
-      required: true
-      schema:
-        type: string
-        minLength: 1
-      description: The ID of the staging Source.
-    stagingSourcesSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
-      example: id
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - name
-        - -name
-        - database_type
-        - -database_type
-        - database_name
-        - -database_name
-        - database_version
-        - -database_version
-        - environment_id
-        - -environment_id
-        - data_uuid
-        - -data_uuid
-        - ip_address
-        - -ip_address
-        - fqdn
-        - -fqdn
-        - repository
-        - -repository
-        - oracle_config_type
-        - -oracle_config_type
-        - cdb_type
-        - -cdb_type
-        - dsource_id
-        - -dsource_id
-        - type
-        - -type
-        - environment_user_ref
-        - -environment_user_ref
-        - recovery_model
-        - -recovery_model
-        - mount_base
-        - -mount_base
-        - data_connection_id
-        - -data_connection_id
-        - datafile_mount_path
-        - -datafile_mount_path
-        - archive_mount_path
-        - -archive_mount_path
-        - database_unique_name
-        - -database_unique_name
-        - size
-        - -size
-        - nfs_version
-        - -nfs_version
-        - nfs_version_reason
-        - -nfs_version_reason
-        - nfs_encryption_enabled
-        - -nfs_encryption_enabled
-        example: name
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
+          example: jdbc:oracle:thin:@(DESCRIPTION=(ENABLE=broken)(ADDRESS=(PROTOCOL=tcp)(HOST=10.110.230.197)(PORT=1521))(CONNECT_DATA=(UR=A)(SERVICE_NAME=VDBOMSRBBDC6C_UJG)))
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
   requestBodies:
     DeleteTags:
       description: The parameters to delete tags
@@ -1034,6 +945,95 @@ components:
               summary: Overriding operator precedence
               value:
                 filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
+  parameters:
+    stagingSourceIdParam:
+      in: path
+      name: stagingSourceId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the staging Source.
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+    stagingSourcesSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - database_type
+        - -database_type
+        - database_name
+        - -database_name
+        - database_version
+        - -database_version
+        - environment_id
+        - -environment_id
+        - data_uuid
+        - -data_uuid
+        - ip_address
+        - -ip_address
+        - fqdn
+        - -fqdn
+        - repository
+        - -repository
+        - oracle_config_type
+        - -oracle_config_type
+        - cdb_type
+        - -cdb_type
+        - dsource_id
+        - -dsource_id
+        - type
+        - -type
+        - environment_user_ref
+        - -environment_user_ref
+        - recovery_model
+        - -recovery_model
+        - mount_base
+        - -mount_base
+        - data_connection_id
+        - -data_connection_id
+        - datafile_mount_path
+        - -datafile_mount_path
+        - archive_mount_path
+        - -archive_mount_path
+        - database_unique_name
+        - -database_unique_name
+        - size
+        - -size
+        - nfs_version
+        - -nfs_version
+        - nfs_version_reason
+        - -nfs_version_reason
+        - nfs_encryption_enabled
+        - -nfs_encryption_enabled
+        example: name
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

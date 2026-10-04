@@ -171,13 +171,6 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/TargetJobType'
-    ObjectIdParam:
-      name: object_id
-      in: query
-      description: The object id to filter by.
-      required: false
-      schema:
-        type: string
     limit:
       name: limit
       in: query
@@ -188,6 +181,20 @@ components:
         minimum: 1
         maximum: 1000
         default: 100
+    ObjectIdParam:
+      name: object_id
+      in: query
+      description: The object id to filter by.
+      required: false
+      schema:
+        type: string
+    ObjectTypeParam:
+      name: object_type
+      in: query
+      description: The object type to filter by.
+      required: false
+      schema:
+        $ref: '#/components/schemas/TargetObjectType'
     cursor:
       name: cursor
       in: query
@@ -196,14 +203,27 @@ components:
         type: string
         minLength: 1
         maxLength: 4096
-    ObjectTypeParam:
-      name: object_type
-      in: query
-      description: The object type to filter by.
-      required: false
-      schema:
-        $ref: '#/components/schemas/TargetObjectType'
   schemas:
+    TargetObjectType:
+      description: A DCT specific object type.
+      type: string
+      enum:
+      - REPLICATION_PROFILE
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    TargetJobType:
+      description: A DCT specific job type
+      type: string
+      enum:
+      - REPLICATION_PROFILE_EXECUTE
+      - OFFLINE_REPLICATION_RECEIVE
     VirtualizationJob:
       description: A virtualization engine job.
       type: object
@@ -273,39 +293,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/VirtualizationJobEvent'
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
-    TargetJobType:
-      description: A DCT specific job type
-      type: string
-      enum:
-      - REPLICATION_PROFILE_EXECUTE
-      - OFFLINE_REPLICATION_RECEIVE
-    TargetObjectType:
-      description: A DCT specific object type.
-      type: string
-      enum:
-      - REPLICATION_PROFILE
-    PaginatedResponseMetadata:
-      type: object
-      properties:
-        prev_cursor:
-          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        next_cursor:
-          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        total:
-          description: The total number of results. This value may not be provided.
-          type: integer
-          format: int_64
     VirtualizationJobEvent:
       description: An event associated with a virtualization engine job.
       type: object
@@ -348,6 +335,19 @@ components:
         message_command_output:
           description: Command output associated with the event, if applicable.
           type: string
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
   requestBodies:
     SearchBody:
       x-skip-codegen-attr: description

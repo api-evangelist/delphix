@@ -153,18 +153,202 @@ paths:
                     $ref: '#/components/schemas/Job'
                     description: The finished cancel job.
 components:
+  parameters:
+    jobCollectionExecutionIdParam:
+      in: path
+      name: jobCollectionExecutionId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the job collection execution.
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    jobCollectionExecutionsSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - compliance_job_collection_id
+        - -compliance_job_collection_id
+        - compliance_job_collection_name
+        - -compliance_job_collection_name
+        - status
+        - -status
+        - status_reason
+        - -status_reason
+        - start_time
+        - -start_time
+        - end_time
+        - -end_time
+        - run_duration
+        - -run_duration
+        - actual_execution_count
+        - -actual_execution_count
+        - planned_execution_count
+        - -planned_execution_count
+        - rows_processed
+        - -rows_processed
+        - rows_total
+        - -rows_total
+        - bytes_processed
+        - -bytes_processed
+        - bytes_total
+        - -bytes_total
+        - processed_tables_files_count
+        - -processed_tables_files_count
+        - tables_files_count
+        - -tables_files_count
+        - processed_columns_fields_count
+        - -processed_columns_fields_count
+        - columns_fields_count
+        - -columns_fields_count
+        - execute_account_id
+        - -execute_account_id
+        - execute_account_name
+        - -execute_account_name
+        - cancel_account_id
+        - -cancel_account_id
+        - cancel_account_name
+        - -cancel_account_name
+        example: start_time
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
   schemas:
-    ExecutionStatusReason:
-      description: The reason for the status of a compliance job collection execution.
-      type: string
-      enum:
-      - NONE
-      - JOB_FAILURE
-      - RESOURCE_UNREACHABLE
-      - DCT_JOB_CANCEL
-      - ENGINE_JOB_CANCEL
-      - JOB_MISSING
-      example: JOB_MISSING
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    JobCollectionExecution:
+      description: The execution of a compliance job collection.
+      type: object
+      properties:
+        id:
+          description: The job collection execution ID.
+          type: string
+          example: 414ed52c-fa89-455d-9fb9-9c2fa5115f80
+        compliance_job_collection_id:
+          description: The ID of the compliance job collection executed.
+          type: string
+          example: 5ed2357d-21a7-310c-b951-a0f0edc1a0f6
+        compliance_job_collection_name:
+          description: The name of the compliance job collection executed.
+          type: string
+          example: My Job Collection
+        status:
+          $ref: '#/components/schemas/ExecutionStatus'
+        status_reason:
+          $ref: '#/components/schemas/ExecutionStatusReason'
+        start_time:
+          description: The date and time that this job collection execution started.
+          type: string
+          format: date-time
+          example: '2021-05-01T09:51:34.148000+00:00'
+        end_time:
+          description: The date and time that this job collection execution completed.
+          type: string
+          format: date-time
+          example: '2021-05-01T09:55:34.148000+00:00'
+        run_duration:
+          description: The time this job collection execution spent running, in milliseconds.
+          type: integer
+          format: int64
+          example: 4000
+        actual_execution_count:
+          description: The number of compliance jobs that were actually executed.
+          type: integer
+          format: int32
+          example: 5
+        planned_execution_count:
+          description: The number of compliance jobs that were planned to be executed.
+          type: integer
+          format: int32
+          example: 7
+        rows_processed:
+          description: The number of rows processed so far by this job collection execution. This is not applicable for JSON file type.
+          type: integer
+          format: int64
+          example: 1000
+        rows_total:
+          description: The total number of rows for this job collection execution. This value is set after the job collection execution has completed successfully. This is not applicable for JSON file type.
+          type: integer
+          format: int64
+          example: 5000
+        bytes_processed:
+          description: The number of bytes processed so far by this job collection execution. This is only applicable for JSON file type.
+          type: integer
+          format: int64
+          example: 500
+        bytes_total:
+          description: The total number of bytes for this job collection execution. This value is set after the job collectione execution has completed successfully. This is only applicable for JSON file type.
+          type: integer
+          format: int64
+          example: 5000000
+        processed_tables_files_count:
+          description: The number of tables or files processed so far by this job collection execution.
+          type: integer
+          format: int64
+          example: 5
+        tables_files_count:
+          description: The total number of tables or files for this job collection execution.
+          type: integer
+          format: int64
+          example: 10
+        processed_columns_fields_count:
+          description: The number of columns or fields processed so far by this job collection execution.
+          type: integer
+          format: int64
+          example: 50
+        columns_fields_count:
+          description: The total number of columns or fields for this job collection execution.
+          type: integer
+          format: int64
+          example: 100
+        percent_complete:
+          description: The percentage of completion of this job collection execution.
+          type: integer
+          format: int32
+          example: 20
+        execute_account_id:
+          description: The account id of the DCT user who started this job collection execution.
+          type: integer
+          format: int64
+          example: 3
+        execute_account_name:
+          description: The account name of the DCT user who started this job collection execution.
+          type: string
+          example: John Doe
+        cancel_account_id:
+          description: The account id of the DCT user who cancelled this job collection execution.
+          type: integer
+          format: int64
+          example: 3
+        cancel_account_name:
+          description: The account name of the DCT user who cancelled this job collection execution.
+          type: string
+          example: John Doe
     ExecutionStatus:
       description: The status of a masking or discovery job.
       type: string
@@ -178,6 +362,15 @@ components:
       - WARNING
       - WAITING
       example: RUNNING
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
     JobTask:
       properties:
         id:
@@ -213,6 +406,52 @@ components:
           - WAITING
           - COMPLETED
           - ABANDONED
+    VirtualizationTask:
+      deprecated: true
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
     Job:
       description: An asynchronous task.
       type: object
@@ -334,20 +573,7 @@ components:
         result:
           description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
           type: object
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
-    CancelJobCollectionExecutionRequest:
-      type: object
-      description: Parameters to execute a compliance job collection.
-    VirtualizationTaskEvent:
-      deprecated: true
+    JobTaskEvent:
       properties:
         message_details:
           type: string
@@ -369,46 +595,9 @@ components:
           minLength: 1
           maxLength: 4000
           example: value-1
-    JobTaskEvent:
-      properties:
-        message_details:
-          type: string
-    VirtualizationTask:
-      deprecated: true
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualizationTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
+    CancelJobCollectionExecutionRequest:
+      type: object
+      description: Parameters to execute a compliance job collection.
     PaginatedResponseMetadata:
       type: object
       properties:
@@ -422,124 +611,17 @@ components:
           description: The total number of results. This value may not be provided.
           type: integer
           format: int_64
-    JobCollectionExecution:
-      description: The execution of a compliance job collection.
-      type: object
-      properties:
-        id:
-          description: The job collection execution ID.
-          type: string
-          example: 414ed52c-fa89-455d-9fb9-9c2fa5115f80
-        compliance_job_collection_id:
-          description: The ID of the compliance job collection executed.
-          type: string
-          example: 5ed2357d-21a7-310c-b951-a0f0edc1a0f6
-        compliance_job_collection_name:
-          description: The name of the compliance job collection executed.
-          type: string
-          example: My Job Collection
-        status:
-          $ref: '#/components/schemas/ExecutionStatus'
-        status_reason:
-          $ref: '#/components/schemas/ExecutionStatusReason'
-        start_time:
-          description: The date and time that this job collection execution started.
-          type: string
-          format: date-time
-          example: '2021-05-01T09:51:34.148000+00:00'
-        end_time:
-          description: The date and time that this job collection execution completed.
-          type: string
-          format: date-time
-          example: '2021-05-01T09:55:34.148000+00:00'
-        run_duration:
-          description: The time this job collection execution spent running, in milliseconds.
-          type: integer
-          format: int64
-          example: 4000
-        actual_execution_count:
-          description: The number of compliance jobs that were actually executed.
-          type: integer
-          format: int32
-          example: 5
-        planned_execution_count:
-          description: The number of compliance jobs that were planned to be executed.
-          type: integer
-          format: int32
-          example: 7
-        rows_processed:
-          description: The number of rows processed so far by this job collection execution. This is not applicable for JSON file type.
-          type: integer
-          format: int64
-          example: 1000
-        rows_total:
-          description: The total number of rows for this job collection execution. This value is set after the job collection execution has completed successfully. This is not applicable for JSON file type.
-          type: integer
-          format: int64
-          example: 5000
-        bytes_processed:
-          description: The number of bytes processed so far by this job collection execution. This is only applicable for JSON file type.
-          type: integer
-          format: int64
-          example: 500
-        bytes_total:
-          description: The total number of bytes for this job collection execution. This value is set after the job collectione execution has completed successfully. This is only applicable for JSON file type.
-          type: integer
-          format: int64
-          example: 5000000
-        processed_tables_files_count:
-          description: The number of tables or files processed so far by this job collection execution.
-          type: integer
-          format: int64
-          example: 5
-        tables_files_count:
-          description: The total number of tables or files for this job collection execution.
-          type: integer
-          format: int64
-          example: 10
-        processed_columns_fields_count:
-          description: The number of columns or fields processed so far by this job collection execution.
-          type: integer
-          format: int64
-          example: 50
-        columns_fields_count:
-          description: The total number of columns or fields for this job collection execution.
-          type: integer
-          format: int64
-          example: 100
-        percent_complete:
-          description: The percentage of completion of this job collection execution.
-          type: integer
-          format: int32
-          example: 20
-        execute_account_id:
-          description: The account id of the DCT user who started this job collection execution.
-          type: integer
-          format: int64
-          example: 3
-        execute_account_name:
-          description: The account name of the DCT user who started this job collection execution.
-          type: string
-          example: John Doe
-        cancel_account_id:
-          description: The account id of the DCT user who cancelled this job collection execution.
-          type: integer
-          format: int64
-          example: 3
-        cancel_account_name:
-          description: The account name of the DCT user who cancelled this job collection execution.
-          type: string
-          example: John Doe
-    Engine:
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
+    ExecutionStatusReason:
+      description: The reason for the status of a compliance job collection execution.
+      type: string
+      enum:
+      - NONE
+      - JOB_FAILURE
+      - RESOURCE_UNREACHABLE
+      - DCT_JOB_CANCEL
+      - ENGINE_JOB_CANCEL
+      - JOB_MISSING
+      example: JOB_MISSING
   requestBodies:
     SearchBody:
       x-skip-codegen-attr: description
@@ -721,88 +803,6 @@ components:
               summary: Overriding operator precedence
               value:
                 filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
-  parameters:
-    jobCollectionExecutionsSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - compliance_job_collection_id
-        - -compliance_job_collection_id
-        - compliance_job_collection_name
-        - -compliance_job_collection_name
-        - status
-        - -status
-        - status_reason
-        - -status_reason
-        - start_time
-        - -start_time
-        - end_time
-        - -end_time
-        - run_duration
-        - -run_duration
-        - actual_execution_count
-        - -actual_execution_count
-        - planned_execution_count
-        - -planned_execution_count
-        - rows_processed
-        - -rows_processed
-        - rows_total
-        - -rows_total
-        - bytes_processed
-        - -bytes_processed
-        - bytes_total
-        - -bytes_total
-        - processed_tables_files_count
-        - -processed_tables_files_count
-        - tables_files_count
-        - -tables_files_count
-        - processed_columns_fields_count
-        - -processed_columns_fields_count
-        - columns_fields_count
-        - -columns_fields_count
-        - execute_account_id
-        - -execute_account_id
-        - execute_account_name
-        - -execute_account_name
-        - cancel_account_id
-        - -cancel_account_id
-        - cancel_account_name
-        - -cancel_account_name
-        example: start_time
-    jobCollectionExecutionIdParam:
-      in: path
-      name: jobCollectionExecutionId
-      schema:
-        type: string
-        minLength: 1
-      required: true
-      description: The ID of the job collection execution.
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

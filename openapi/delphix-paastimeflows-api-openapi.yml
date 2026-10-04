@@ -177,42 +177,23 @@ paths:
                       $ref: '#/components/schemas/PaaSTimeflow'
 components:
   schemas:
-    TagsRequest:
+    TagsResponse:
       type: object
-      required:
-      - tags
       properties:
         tags:
           description: Array of tags with key value pairs
           type: array
           items:
             $ref: '#/components/schemas/Tag'
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-    DeleteTag:
+    SearchBody:
+      description: Search body.
       type: object
       properties:
-        key:
-          description: Key of the tag
+        filter_expression:
           type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-        tags:
-          description: List of tags to be deleted
-          type: array
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/Tag'
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
     PaaSTimeflow:
       description: A PaaS Timeflow represents a single continuous cloud existence of a PaaS Instance or PaaS Database. Each time an instance/database is provisioned or reprovisioned, a new timeflow is created. Deprovisioning deactivates the current timeflow. Historical timeflows retain their snapshots, which can be used for historical auditing.
       type: object
@@ -255,23 +236,29 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
-    TagsResponse:
+    DeleteTag:
       type: object
       properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
         tags:
-          description: Array of tags with key value pairs
+          description: List of tags to be deleted
           type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
           items:
             $ref: '#/components/schemas/Tag'
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
     Tag:
       type: object
       required:
@@ -290,6 +277,19 @@ components:
           minLength: 1
           maxLength: 4000
           example: value-1
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
     PaginatedResponseMetadata:
       type: object
       properties:
@@ -304,22 +304,6 @@ components:
           type: integer
           format: int_64
   parameters:
-    paaSDatabaseIdParam:
-      in: path
-      name: paaSDatabaseId
-      required: true
-      schema:
-        type: string
-        minLength: 1
-      description: The ID of the PaaS Database.
-    paaSInstanceIdParam:
-      in: path
-      name: paaSInstanceId
-      required: true
-      schema:
-        type: string
-        minLength: 1
-      description: The ID of the PaaS Instance.
     limit:
       name: limit
       in: query
@@ -330,14 +314,30 @@ components:
         minimum: 1
         maximum: 1000
         default: 100
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+    paaSInstanceIdParam:
+      in: path
+      name: paaSInstanceId
+      required: true
       schema:
         type: string
         minLength: 1
-        maxLength: 4096
+      description: The ID of the PaaS Instance.
+    paaSDatabaseIdParam:
+      in: path
+      name: paaSDatabaseId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the PaaS Database.
+    paaSTimeflowIdParam:
+      in: path
+      name: paaSTimeflowId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the PaaS Timeflow.
     PaaSTimeflowSortParam:
       name: sort
       in: query
@@ -361,14 +361,14 @@ components:
         - deactivation_timestamp
         - -deactivation_timestamp
         example: -creation_timestamp
-    paaSTimeflowIdParam:
-      in: path
-      name: paaSTimeflowId
-      required: true
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
       schema:
         type: string
         minLength: 1
-      description: The ID of the PaaS Timeflow.
+        maxLength: 4096
   requestBodies:
     DeleteTags:
       description: The parameters to delete tags

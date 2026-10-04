@@ -91,40 +91,6 @@ paths:
           description: OK
 components:
   schemas:
-    NetbackupConnectivityCheckParameters:
-      required:
-      - environment_id
-      - environment_user_id
-      - master_server_name
-      - source_client_name
-      title: NetbackupConnectivityCheckParameters
-      type: object
-      description: Parameters to test NetBackup master server and client connectivity on an environment.
-      properties:
-        environment_id:
-          type: string
-          description: Id of the target environment to test NetBackup connectivity from.
-          minLength: 1
-          maxLength: 256
-          example: 1-ENVIRONMENT-1
-        environment_user_id:
-          type: string
-          description: Id of the environment user.
-          minLength: 1
-          maxLength: 256
-          example: USER-1
-        master_server_name:
-          type: string
-          description: The name of the NetBackup master server to attempt to connect to.
-          minLength: 1
-          maxLength: 256
-          example: master_server.delphix.com
-        source_client_name:
-          type: string
-          description: The name of the NetBackup client to attempt to connect with.
-          minLength: 1
-          maxLength: 256
-          example: source_client.delphix.com
     ConnectivityCheckParameters:
       title: ConnectivityCheckParameters
       type: object
@@ -259,6 +225,81 @@ components:
           minLength: 1
           maxLength: 6000
           example: ssh custom_public_key
+    NetbackupConnectivityCheckParameters:
+      required:
+      - environment_id
+      - environment_user_id
+      - master_server_name
+      - source_client_name
+      title: NetbackupConnectivityCheckParameters
+      type: object
+      description: Parameters to test NetBackup master server and client connectivity on an environment.
+      properties:
+        environment_id:
+          type: string
+          description: Id of the target environment to test NetBackup connectivity from.
+          minLength: 1
+          maxLength: 256
+          example: 1-ENVIRONMENT-1
+        environment_user_id:
+          type: string
+          description: Id of the environment user.
+          minLength: 1
+          maxLength: 256
+          example: USER-1
+        master_server_name:
+          type: string
+          description: The name of the NetBackup master server to attempt to connect to.
+          minLength: 1
+          maxLength: 256
+          example: master_server.delphix.com
+        source_client_name:
+          type: string
+          description: The name of the NetBackup client to attempt to connect with.
+          minLength: 1
+          maxLength: 256
+          example: source_client.delphix.com
+    CommvaultConnectivityCheckParameters:
+      required:
+      - environment_id
+      - environment_user_id
+      - commserve_host_name
+      - source_client_name
+      - staging_client_name
+      title: CommvaultConnectivityCheckParameters
+      type: object
+      description: Parameters to Tests CommServe host and staging client connectivity on an environment.
+      properties:
+        environment_id:
+          type: string
+          description: Id of the target environment to test Commvault connectivity from.
+          minLength: 1
+          maxLength: 256
+          example: 1-ENVIRONMENT-1
+        environment_user_id:
+          type: string
+          description: Id of the environment user.
+          minLength: 1
+          maxLength: 256
+          example: USER-1
+        commserve_host_name:
+          type: string
+          description: The hostname of the CommServe server to connect to.
+          minLength: 1
+          maxLength: 256
+          example: commserve.delphix.com
+        source_client_name:
+          type: string
+          description: The name of the Source Client in CommServe.
+          minLength: 1
+          maxLength: 256
+          example: source_client.delphix.com
+        staging_client_name:
+          type: string
+          description: The name of the Staging Client in CommServe.
+          minLength: 1
+          maxLength: 256
+          example: staging_client.delphix.com
     DatabaseConnectivityCheckParameters:
       required:
       - credentials_type
@@ -354,47 +395,6 @@ components:
           description: Reference to the environment user (MSSQL_ENVIRONMENT_USER only).
           minLength: 1
           maxLength: 256
-    CommvaultConnectivityCheckParameters:
-      required:
-      - environment_id
-      - environment_user_id
-      - commserve_host_name
-      - source_client_name
-      - staging_client_name
-      title: CommvaultConnectivityCheckParameters
-      type: object
-      description: Parameters to Tests CommServe host and staging client connectivity on an environment.
-      properties:
-        environment_id:
-          type: string
-          description: Id of the target environment to test Commvault connectivity from.
-          minLength: 1
-          maxLength: 256
-          example: 1-ENVIRONMENT-1
-        environment_user_id:
-          type: string
-          description: Id of the environment user.
-          minLength: 1
-          maxLength: 256
-          example: USER-1
-        commserve_host_name:
-          type: string
-          description: The hostname of the CommServe server to connect to.
-          minLength: 1
-          maxLength: 256
-          example: commserve.delphix.com
-        source_client_name:
-          type: string
-          description: The name of the Source Client in CommServe.
-          minLength: 1
-          maxLength: 256
-          example: source_client.delphix.com
-        staging_client_name:
-          type: string
-          description: The name of the Staging Client in CommServe.
-          minLength: 1
-          maxLength: 256
-          example: staging_client.delphix.com
     ConnectivityCheckResponse:
       title: ConnectivityResponse
       type: object

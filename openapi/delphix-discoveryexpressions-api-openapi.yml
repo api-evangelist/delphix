@@ -175,20 +175,87 @@ paths:
         '204':
           description: No Content
 components:
+  parameters:
+    discoveryExpressionIdParam:
+      in: path
+      name: expressionId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the discovery expression.
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+    discoveryExpressionsSortParam:
+      name: sort
+      in: query
+      description: The
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - regular_expression
+        - -regular_expression
+        - data_level_profiling
+        - -data_level_profiling
+        - min_data_length
+        - -min_data_length
+        - engine_id
+        - -engine_id
+        - engine_name
+        - -engine_name
+        - data_class_id
+        - -data_class_id
+        - data_class_name
+        - -data_class_name
+        - data_type
+        - -data_type
+        - expression_type
+        - -expression_type
+        - level
+        - -level
+        example: name
   schemas:
-    TagsRequest:
+    TagsResponse:
       type: object
-      required:
-      - tags
       properties:
         tags:
           description: Array of tags with key value pairs
           type: array
           items:
             $ref: '#/components/schemas/Tag'
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
     DeleteTag:
       type: object
       properties:
@@ -212,6 +279,37 @@ components:
           uniqueItems: true
           items:
             $ref: '#/components/schemas/Tag'
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
     PaginatedResponseMetadata:
       type: object
       properties:
@@ -225,15 +323,6 @@ components:
           description: The total number of results. This value may not be provided.
           type: integer
           format: int_64
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
     DiscoveryExpression:
       type: object
       properties:
@@ -302,33 +391,39 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
-    Tag:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-    TagsResponse:
-      type: object
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
   requestBodies:
+    DeleteTags:
+      description: The parameters to delete tags
+      content:
+        application/json:
+          schema:
+            x-body-name: environment
+            $ref: '#/components/schemas/DeleteTag'
+          examples:
+            delete_all_tags:
+              description: Delete all tags for given object - No request body required
+              summary: Delete all tags
+              value: {}
+            delete_tags_by_key:
+              description: Delete all tags for given object with matching key
+              summary: Delete tags by key
+              value:
+                key: key-1
+            delete_tags_by_key_value:
+              description: Delete tag for given object with matching key and value
+              summary: Delete a tag by key & value
+              value:
+                key: key-1
+                value: value-1
+            delete_multiple_tags_by_key_value:
+              description: Delete tags for given list of tags with matching key and value
+              summary: Delete multiple tags by key & value
+              value:
+                tags:
+                - key: key-1
+                  value: value-1
+                - key: key-2
+                  value: value-2
     SearchBody:
       x-skip-codegen-attr: description
       description: 'A request body containing a filter expression. This enables searching
@@ -509,101 +604,6 @@ components:
               summary: Overriding operator precedence
               value:
                 filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
-    DeleteTags:
-      description: The parameters to delete tags
-      content:
-        application/json:
-          schema:
-            x-body-name: environment
-            $ref: '#/components/schemas/DeleteTag'
-          examples:
-            delete_all_tags:
-              description: Delete all tags for given object - No request body required
-              summary: Delete all tags
-              value: {}
-            delete_tags_by_key:
-              description: Delete all tags for given object with matching key
-              summary: Delete tags by key
-              value:
-                key: key-1
-            delete_tags_by_key_value:
-              description: Delete tag for given object with matching key and value
-              summary: Delete a tag by key & value
-              value:
-                key: key-1
-                value: value-1
-            delete_multiple_tags_by_key_value:
-              description: Delete tags for given list of tags with matching key and value
-              summary: Delete multiple tags by key & value
-              value:
-                tags:
-                - key: key-1
-                  value: value-1
-                - key: key-2
-                  value: value-2
-  parameters:
-    discoveryExpressionsSortParam:
-      name: sort
-      in: query
-      description: The
-      example: id
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - name
-        - -name
-        - regular_expression
-        - -regular_expression
-        - data_level_profiling
-        - -data_level_profiling
-        - min_data_length
-        - -min_data_length
-        - engine_id
-        - -engine_id
-        - engine_name
-        - -engine_name
-        - data_class_id
-        - -data_class_id
-        - data_class_name
-        - -data_class_name
-        - data_type
-        - -data_type
-        - expression_type
-        - -expression_type
-        - level
-        - -level
-        example: name
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
-    discoveryExpressionIdParam:
-      in: path
-      name: expressionId
-      schema:
-        type: string
-        minLength: 1
-      required: true
-      description: The ID of the discovery expression.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

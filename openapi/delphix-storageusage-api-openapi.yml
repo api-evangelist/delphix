@@ -124,6 +124,104 @@ paths:
                       $ref: '#/components/schemas/EngineHistoricalStorageSummary'
 components:
   schemas:
+    StorageSummaryProjectedDataPoint:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date
+        free_storage:
+          description: The projected amount of available storage, in bytes.
+          type: integer
+          format: int64
+        used_storage:
+          description: The projected amount of storage used by engine objects and reserved space, in bytes.
+          type: integer
+          format: int64
+        reserved_storage:
+          description: The projected amount of reserved space, in bytes.
+          type: integer
+          format: int64
+        dsource_total_size:
+          type: integer
+          format: int64
+          description: Total actual space used by the dSources.
+        dsource_base_size:
+          type: integer
+          format: int64
+          description: Total amount of space used for the active copy of the dSources.
+        dsource_logs_size:
+          type: integer
+          format: int64
+          description: Total amount of space used by dSource logs.
+        dsource_snapshot_size:
+          type: integer
+          format: int64
+          description: Total amount of space used by dSource snapshots.
+        vdb_total_size:
+          type: integer
+          format: int64
+          description: Total actual space used by the VDBs.
+        vdb_base_size:
+          type: integer
+          format: int64
+          description: Total amount of space used for the active copy of the VDBs.
+        vdb_logs_size:
+          type: integer
+          format: int64
+          description: Total amount of space used by VDB logs.
+        vdb_snapshot_size:
+          type: integer
+          format: int64
+          description: Total amount of space used by VDB snapshots.
+        cdb_total_size:
+          type: integer
+          format: int64
+          description: Total actual space used by the CDBs.
+        cdb_base_size:
+          type: integer
+          format: int64
+          description: Total amount of space used for the active copy of the CDBs.
+        cdb_logs_size:
+          type: integer
+          format: int64
+          description: Total amount of space used by CDB logs.
+        cdb_snapshot_size:
+          type: integer
+          format: int64
+          description: Total amount of space used by CDB snapshots.
+        vcdb_total_size:
+          type: integer
+          format: int64
+          description: Total actual space used by the VCDBs.
+        vcdb_base_size:
+          type: integer
+          format: int64
+          description: Total amount of space used for the active copy of the VCDBs.
+        vcdb_logs_size:
+          type: integer
+          format: int64
+          description: Total amount of space used by VCDB logs.
+        vcdb_snapshot_size:
+          type: integer
+          format: int64
+          description: Total amount of space used by VCDB snapshots.
+        heldspace_total_size:
+          type: integer
+          format: int64
+          description: Total actual space used by the Heldspace.
+        heldspace_base_size:
+          type: integer
+          format: int64
+          description: Total amount of space used for the copy of the Heldspace.
+        heldspace_logs_size:
+          type: integer
+          format: int64
+          description: Total amount of space used by Heldspace logs.
+        heldspace_snapshot_size:
+          type: integer
+          format: int64
+          description: Total amount of space used by Heldspace snapshots.
     EngineHistoricalStorageSummary:
       properties:
         engine_id:
@@ -252,118 +350,20 @@ components:
           type: integer
           format: int64
           description: Total amount of space used by deleted dataset snapshots.
-    StorageSummaryProjectedDataPoint:
-      type: object
-      properties:
-        timestamp:
-          type: string
-          format: date
-        free_storage:
-          description: The projected amount of available storage, in bytes.
-          type: integer
-          format: int64
-        used_storage:
-          description: The projected amount of storage used by engine objects and reserved space, in bytes.
-          type: integer
-          format: int64
-        reserved_storage:
-          description: The projected amount of reserved space, in bytes.
-          type: integer
-          format: int64
-        dsource_total_size:
-          type: integer
-          format: int64
-          description: Total actual space used by the dSources.
-        dsource_base_size:
-          type: integer
-          format: int64
-          description: Total amount of space used for the active copy of the dSources.
-        dsource_logs_size:
-          type: integer
-          format: int64
-          description: Total amount of space used by dSource logs.
-        dsource_snapshot_size:
-          type: integer
-          format: int64
-          description: Total amount of space used by dSource snapshots.
-        vdb_total_size:
-          type: integer
-          format: int64
-          description: Total actual space used by the VDBs.
-        vdb_base_size:
-          type: integer
-          format: int64
-          description: Total amount of space used for the active copy of the VDBs.
-        vdb_logs_size:
-          type: integer
-          format: int64
-          description: Total amount of space used by VDB logs.
-        vdb_snapshot_size:
-          type: integer
-          format: int64
-          description: Total amount of space used by VDB snapshots.
-        cdb_total_size:
-          type: integer
-          format: int64
-          description: Total actual space used by the CDBs.
-        cdb_base_size:
-          type: integer
-          format: int64
-          description: Total amount of space used for the active copy of the CDBs.
-        cdb_logs_size:
-          type: integer
-          format: int64
-          description: Total amount of space used by CDB logs.
-        cdb_snapshot_size:
-          type: integer
-          format: int64
-          description: Total amount of space used by CDB snapshots.
-        vcdb_total_size:
-          type: integer
-          format: int64
-          description: Total actual space used by the VCDBs.
-        vcdb_base_size:
-          type: integer
-          format: int64
-          description: Total amount of space used for the active copy of the VCDBs.
-        vcdb_logs_size:
-          type: integer
-          format: int64
-          description: Total amount of space used by VCDB logs.
-        vcdb_snapshot_size:
-          type: integer
-          format: int64
-          description: Total amount of space used by VCDB snapshots.
-        heldspace_total_size:
-          type: integer
-          format: int64
-          description: Total actual space used by the Heldspace.
-        heldspace_base_size:
-          type: integer
-          format: int64
-          description: Total amount of space used for the copy of the Heldspace.
-        heldspace_logs_size:
-          type: integer
-          format: int64
-          description: Total amount of space used by Heldspace logs.
-        heldspace_snapshot_size:
-          type: integer
-          format: int64
-          description: Total amount of space used by Heldspace snapshots.
   parameters:
-    endDate:
-      name: end_date
-      in: query
-      description: Report end date/time. Defaults to current time.
-      example: '2022-06-07T15:10:00-04:00'
-      schema:
-        type: string
-        format: date-time
     startDate:
       name: start_date
       in: query
       description: Report start date/time. Defaults to first API request.
       example: '2022-05-29T15:00:00-04:00'
+      schema:
+        type: string
+        format: date-time
+    endDate:
+      name: end_date
+      in: query
+      description: Report end date/time. Defaults to current time.
+      example: '2022-06-07T15:10:00-04:00'
       schema:
         type: string
         format: date-time

@@ -111,73 +111,7 @@ paths:
                   response_metadata:
                     $ref: '#/components/schemas/PaginatedResponseMetadata'
 components:
-  parameters:
-    kerberosConfigSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
-      example: id
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - engine_id
-        - -engine_id
-        - engine_name
-        - -engine_name
-        - namespace_id
-        - -namespace_id
-        - namespace_name
-        - -namespace_name
-        - name
-        - -name
-        - realm
-        - -realm
-        - principal
-        - -principal
-        - enabled
-        - -enabled
-        example: name
-    kerberosConfigIdParam:
-      in: path
-      name: kerberosConfigId
-      required: true
-      schema:
-        type: string
-        minLength: 1
-      description: The ID of the kerberos config.
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
   schemas:
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
     KDCServers:
       properties:
         hostname:
@@ -188,6 +122,15 @@ components:
           description: One of more KDC servers.
           type: integer
           example: 88
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
     KerberosConfig:
       description: A Kerberos config object.
       type: object
@@ -255,6 +198,63 @@ components:
           description: The total number of results. This value may not be provided.
           type: integer
           format: int_64
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    kerberosConfigIdParam:
+      in: path
+      name: kerberosConfigId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the kerberos config.
+    kerberosConfigSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - engine_id
+        - -engine_id
+        - engine_name
+        - -engine_name
+        - namespace_id
+        - -namespace_id
+        - namespace_name
+        - -namespace_name
+        - name
+        - -name
+        - realm
+        - -realm
+        - principal
+        - -principal
+        - enabled
+        - -enabled
+        example: name
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
   requestBodies:
     SearchBody:
       x-skip-codegen-attr: description

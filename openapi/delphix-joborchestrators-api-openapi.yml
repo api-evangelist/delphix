@@ -464,6 +464,14 @@ paths:
                 $ref: '#/components/schemas/MoveComplianceNodesResponse'
 components:
   schemas:
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
     DeleteTag:
       type: object
       properties:
@@ -487,216 +495,6 @@ components:
           uniqueItems: true
           items:
             $ref: '#/components/schemas/Tag'
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
-    JobOrchestrator:
-      type: object
-      description: A job orchestrator.
-      properties:
-        id:
-          description: The Job Orchestrator entity ID.
-          type: string
-          readOnly: true
-          example: 414ed52c-abed-455d-9fb9-9c2fa5115f80
-        name:
-          type: string
-          description: The name of the job orchestrator.
-          example: My favorite Job Orchestrator
-        description:
-          type: string
-          description: The description of the job orchestrator.
-          example: Job Orchestrator for US-west
-        creation_date:
-          type: string
-          readOnly: true
-          description: The date this job orchestrator was created.
-          format: date-time
-          example: '2022-11-30T08:51:34.148000+00:00'
-        account_id:
-          description: The ID of the account who created this job orchestrator.
-          type: integer
-          format: int64
-          readOnly: true
-          example: 1
-        account_name:
-          description: The account name of the DCT user who created this job orchestrator.
-          type: string
-          example: username
-        node_count:
-          type: integer
-          readOnly: true
-          description: The number of compliance nodes registered with this Job Orchestrator that are not bound to a Hyperscale Instance.
-          example: 10
-        total_core_count:
-          type: integer
-          readOnly: true
-          description: The total number of cores across compliance nodes registered with this Job Orchestrator that are not bound to a Hyperscale Instance.
-          example: 10
-        queued_operation_count:
-          type: integer
-          readOnly: true
-          description: The number of operations currently queued on this job orchestrator.
-          example: 10
-        running_job_count:
-          type: integer
-          readOnly: true
-          description: The number of jobs currently running on this job orchestrator.
-          example: 10
-        tags:
-          description: The tags of this job orchestrator.
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-        hyperscale_instance_id:
-          type: string
-          readOnly: true
-          description: The ID of the hyperscale instance associated with this job orchestrator if applicable.
-          example: hyperscale-instance-123
-    CreateJobOrchestratorRequest:
-      type: object
-      description: Parameters to create a job orchestrator.
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: The name of the job orchestrator.
-          example: My favorite Job Orchestrator
-        description:
-          type: string
-          description: The description of the job orchestrator.
-          example: Job Orchestrator for US-west
-        tags:
-          description: The tags to be created for this compliance job collection.
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-        make_current_account_owner:
-          type: boolean
-          default: true
-          description: Whether the account creating this Job Orchestrator must be configured as its owner.
-    JobTask:
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    UpdateJobOrchestratorRequest:
-      type: object
-      description: Parameters to update a job orchestrator.
-      properties:
-        name:
-          type: string
-          description: The name of the job orchestrator.
-          example: My favorite Job Orchestrator
-        description:
-          type: string
-          description: The description of the job orchestrator.
-          example: Job Orchestrator for US-west
-    Engine:
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
-    TagsResponse:
-      type: object
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    ComplianceApplicationSetting:
-      title: ComplianceApplicationSetting
-      type: object
-      description: An application setting of a compliance engine.
-      properties:
-        id:
-          description: The ID of the application setting.
-          type: string
-          example: 5835c60d-2155-1234-8c54-b4dff23d89c5
-        group:
-          description: The group of the application setting.
-          type: string
-          example: general
-        name:
-          description: The name of the application setting.
-          type: string
-          example: PasswordResetLinkDuration
-        value:
-          description: The value of the application setting.
-          type: string
-          example: '5'
-        value_type:
-          description: The type of the value of the application setting.
-          type: string
-          enum:
-          - string
-          - number
-          - boolean
-          - regular-expression
-          example: number
-    TagsRequest:
-      type: object
-      required:
-      - tags
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-    MoveComplianceNodesResponse:
-      description: Response for compliance node movement operations.
-      type: object
-      properties:
-        job:
-          $ref: '#/components/schemas/Job'
-          description: The Job tracking the compliance node movement.
     Job:
       description: An asynchronous task.
       type: object
@@ -818,53 +616,6 @@ components:
         result:
           description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
           type: object
-    ComplianceApplicationSettingUpdateRequest:
-      title: ComplianceApplicationSettingUpdateRequest
-      type: object
-      description: Request to update an application setting value.
-      required:
-      - setting_value
-      properties:
-        setting_value:
-          description: The new value for the application setting.
-          type: string
-          example: '10'
-    VirtualizationTask:
-      deprecated: true
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualizationTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
     PaginatedResponseMetadata:
       type: object
       properties:
@@ -878,31 +629,6 @@ components:
           description: The total number of results. This value may not be provided.
           type: integer
           format: int_64
-    MoveComplianceNodesToHyperscaleRequest:
-      description: Parameters to move compliance nodes from a job orchestrator to a hyperscale orchestrator.
-      type: object
-      required:
-      - compliance_node_ids
-      - hyperscale_instance_id
-      properties:
-        compliance_node_ids:
-          description: List of compliance node IDs to move.
-          type: array
-          items:
-            type: string
-          example:
-          - node-101
-          - node-102
-          - node-103
-        hyperscale_instance_id:
-          description: The ID of the target hyperscale instance to move the compliance nodes to.
-          type: string
-          example: f8e7d6c5-b4a3-2109-8765-43210fedcba9
-    VirtualizationTaskEvent:
-      deprecated: true
-      properties:
-        message_details:
-          type: string
     QueuedOperation:
       description: A queued operation on a job orchestrator.
       type: object
@@ -955,10 +681,53 @@ components:
           type: string
           readOnly: true
           example: John Doe
-    JobTaskEvent:
+    VirtualizationTask:
+      deprecated: true
       properties:
-        message_details:
+        id:
           type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    ComplianceApplicationSettingUpdateRequest:
+      title: ComplianceApplicationSettingUpdateRequest
+      type: object
+      description: Request to update an application setting value.
+      required:
+      - setting_value
+      properties:
+        setting_value:
+          description: The new value for the application setting.
+          type: string
+          example: '10'
     Tag:
       type: object
       required:
@@ -977,7 +746,286 @@ components:
           minLength: 1
           maxLength: 4000
           example: value-1
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    UpdateJobOrchestratorRequest:
+      type: object
+      description: Parameters to update a job orchestrator.
+      properties:
+        name:
+          type: string
+          description: The name of the job orchestrator.
+          example: My favorite Job Orchestrator
+        description:
+          type: string
+          description: The description of the job orchestrator.
+          example: Job Orchestrator for US-west
+    CreateJobOrchestratorRequest:
+      type: object
+      description: Parameters to create a job orchestrator.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: The name of the job orchestrator.
+          example: My favorite Job Orchestrator
+        description:
+          type: string
+          description: The description of the job orchestrator.
+          example: Job Orchestrator for US-west
+        tags:
+          description: The tags to be created for this compliance job collection.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        make_current_account_owner:
+          type: boolean
+          default: true
+          description: Whether the account creating this Job Orchestrator must be configured as its owner.
+    MoveComplianceNodesResponse:
+      description: Response for compliance node movement operations.
+      type: object
+      properties:
+        job:
+          $ref: '#/components/schemas/Job'
+          description: The Job tracking the compliance node movement.
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    JobOrchestrator:
+      type: object
+      description: A job orchestrator.
+      properties:
+        id:
+          description: The Job Orchestrator entity ID.
+          type: string
+          readOnly: true
+          example: 414ed52c-abed-455d-9fb9-9c2fa5115f80
+        name:
+          type: string
+          description: The name of the job orchestrator.
+          example: My favorite Job Orchestrator
+        description:
+          type: string
+          description: The description of the job orchestrator.
+          example: Job Orchestrator for US-west
+        creation_date:
+          type: string
+          readOnly: true
+          description: The date this job orchestrator was created.
+          format: date-time
+          example: '2022-11-30T08:51:34.148000+00:00'
+        account_id:
+          description: The ID of the account who created this job orchestrator.
+          type: integer
+          format: int64
+          readOnly: true
+          example: 1
+        account_name:
+          description: The account name of the DCT user who created this job orchestrator.
+          type: string
+          example: username
+        node_count:
+          type: integer
+          readOnly: true
+          description: The number of compliance nodes registered with this Job Orchestrator that are not bound to a Hyperscale Instance.
+          example: 10
+        total_core_count:
+          type: integer
+          readOnly: true
+          description: The total number of cores across compliance nodes registered with this Job Orchestrator that are not bound to a Hyperscale Instance.
+          example: 10
+        queued_operation_count:
+          type: integer
+          readOnly: true
+          description: The number of operations currently queued on this job orchestrator.
+          example: 10
+        running_job_count:
+          type: integer
+          readOnly: true
+          description: The number of jobs currently running on this job orchestrator.
+          example: 10
+        tags:
+          description: The tags of this job orchestrator.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        hyperscale_instance_id:
+          type: string
+          readOnly: true
+          description: The ID of the hyperscale instance associated with this job orchestrator if applicable.
+          example: hyperscale-instance-123
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    ComplianceApplicationSetting:
+      title: ComplianceApplicationSetting
+      type: object
+      description: An application setting of a compliance engine.
+      properties:
+        id:
+          description: The ID of the application setting.
+          type: string
+          example: 5835c60d-2155-1234-8c54-b4dff23d89c5
+        group:
+          description: The group of the application setting.
+          type: string
+          example: general
+        name:
+          description: The name of the application setting.
+          type: string
+          example: PasswordResetLinkDuration
+        value:
+          description: The value of the application setting.
+          type: string
+          example: '5'
+        value_type:
+          description: The type of the value of the application setting.
+          type: string
+          enum:
+          - string
+          - number
+          - boolean
+          - regular-expression
+          example: number
+    MoveComplianceNodesToHyperscaleRequest:
+      description: Parameters to move compliance nodes from a job orchestrator to a hyperscale orchestrator.
+      type: object
+      required:
+      - compliance_node_ids
+      - hyperscale_instance_id
+      properties:
+        compliance_node_ids:
+          description: List of compliance node IDs to move.
+          type: array
+          items:
+            type: string
+          example:
+          - node-101
+          - node-102
+          - node-103
+        hyperscale_instance_id:
+          description: The ID of the target hyperscale instance to move the compliance nodes to.
+          type: string
+          example: f8e7d6c5-b4a3-2109-8765-43210fedcba9
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
   parameters:
+    jobOrchestratorsSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - description
+        - -description
+        - creation_date
+        - -creation_date
+        - account_id
+        - -account_id
+        - account_name
+        - -account_name
+        - node_count
+        - -node_count
+        - total_core_count
+        - -total_core_count
+        - queued_operation_count
+        - -queued_operation_count
+        - running_job_count
+        - -running_job_count
+        example: name
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+    applicationSettingsIdParam:
+      in: path
+      name: applicationSettingsId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the application setting.
     complianceApplicationSettingsSortParam:
       name: sort
       in: query
@@ -999,16 +1047,6 @@ components:
         - -value
         - value_type
         - -value_type
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
     queuedOperationsSortParam:
       name: sort
       in: query
@@ -1042,14 +1080,6 @@ components:
         - -account_id
         - account_name
         - -account_name
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
     jobOrchestratorIdParam:
       in: path
       name: jobOrchestratorId
@@ -1058,46 +1088,16 @@ components:
         minLength: 1
       required: true
       description: The ID of the job orchestrator.
-    applicationSettingsIdParam:
-      in: path
-      name: applicationSettingsId
-      schema:
-        type: string
-        minLength: 1
-      required: true
-      description: The ID of the application setting.
-    jobOrchestratorsSortParam:
-      name: sort
+    limit:
+      name: limit
       in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
-      example: id
-      required: false
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
       schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - name
-        - -name
-        - description
-        - -description
-        - creation_date
-        - -creation_date
-        - account_id
-        - -account_id
-        - account_name
-        - -account_name
-        - node_count
-        - -node_count
-        - total_core_count
-        - -total_core_count
-        - queued_operation_count
-        - -queued_operation_count
-        - running_job_count
-        - -running_job_count
-        example: name
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
   requestBodies:
     DeleteTags:
       description: The parameters to delete tags
