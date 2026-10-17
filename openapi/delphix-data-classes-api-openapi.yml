@@ -392,7 +392,250 @@ paths:
         '204':
           description: No Content
 components:
+  parameters:
+    dataClassIdParam:
+      name: dataClassId
+      in: path
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the Data Class.
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    dataClassesSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - default_algorithm_id
+        - -default_algorithm_id
+        - default_algorithm_name
+        - -default_algorithm_name
+        - default_token_algorithm_id
+        - -default_token_algorithm_id
+        - default_token_algorithm_name
+        - -default_token_algorithm_name
+        - description
+        - -description
+        - example
+        - -example
+        - revision_hash
+        - -revision_hash
+        - engine_id
+        - -engine_id
+        - engine_name
+        - -engine_name
+        - creation_date
+        - -creation_date
+        - account_id
+        - -account_id
+        - account_name
+        - -account_name
+        - dct_managed
+        - -dct_managed
+        example: name
+    algorithmsSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - description
+        - -description
+        - plugin_name
+        - -plugin_name
+        - framework_name
+        - -framework_name
+        - create_date
+        - -create_date
+        - engine_name
+        - -engine_name
+        - engine_id
+        - -engine_id
+        - revision_hash
+        - -revision_hash
+        - account_id
+        - -account_id
+        - account_name
+        - -account_name
+        - dct_managed
+        - -dct_managed
+        - config_invalid
+        - -config_invalid
+        - is_default_instance
+        - -is_default_instance
+        - is_tokenization_supported
+        - -is_tokenization_supported
+        example: name
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
   schemas:
+    DataClassRemoveAlgorithmsRequest:
+      description: Remove algorithms from a Data Class.
+      type: object
+      required:
+      - algorithm_ids
+      properties:
+        algorithm_ids:
+          description: The list of algorithm IDs to add to this data class.
+          type: array
+          maxItems: 500
+          uniqueItems: true
+          items:
+            type: string
+          example:
+          - a638d976-6b7e-43f4-9212-90f4dc6d405c
+          - 414ed52c-fa89-455d-9fb9-9c2fa5115f80
+    DataClass:
+      description: A data class.
+      type: object
+      properties:
+        id:
+          description: The data class ID.
+          type: string
+          example: a638d976-6b7e-43f4-9212-90f4dc6d405c
+        name:
+          description: The name of this data class.
+          type: string
+          example: Account Number
+        description:
+          description: A description of this data class.
+          type:
+          - string
+          - 'null'
+        default_algorithm_id:
+          description: The ID of the default masking algorithm for this data class.
+          type:
+          - string
+          - 'null'
+          example: a638d976-6b7e-43f4-9212-90f4dc6d405c
+        default_algorithm_name:
+          description: The name of the default masking algorithm for this data class.
+          type:
+          - string
+          - 'null'
+          example: alg1
+        default_token_algorithm_id:
+          description: The ID of the default tokenization algorithm for this data class.
+          type:
+          - string
+          - 'null'
+          example: a638d976-6b7e-43f4-9212-90f4dc6d405c
+        default_token_algorithm_name:
+          description: The default tokenization algorithm for this data class.
+          type:
+          - string
+          - 'null'
+          example: alg2
+        algorithm_ids:
+          deprecated: true
+          description: The list of algorithm IDs available for this data class.
+          type: array
+          items:
+            type: string
+          example:
+          - a638d976-6b7e-43f4-9212-90f4dc6d405c
+          - 414ed52c-fa89-455d-9fb9-9c2fa5115f80
+        algorithms:
+          description: The list of algorithm IDs and names available for this data class.
+          type: array
+          items:
+            $ref: '#/components/schemas/DataClassAlgorithmInfo'
+        example:
+          description: An example data value for this data class.
+          type:
+          - string
+          - 'null'
+          maxLength: 200
+        revision_hash:
+          description: The export revision hash of this data class from the source engine.
+          type:
+          - string
+          - 'null'
+          example: 6e0509df463cf714b2697ccf2f8ac972970021d1
+        engine_id:
+          description: The ID of the engine that this data class originated from.
+          type:
+          - string
+          - 'null'
+        engine_name:
+          description: The name of the engine that this data class originated from.
+          type:
+          - string
+          - 'null'
+        creation_date:
+          type: string
+          readOnly: true
+          description: The date this data class was created.
+          format: date-time
+          example: '2022-11-30T08:51:34.148000+00:00'
+        account_id:
+          description: The ID of the account who created this data class.
+          type: integer
+          format: int64
+          readOnly: true
+          example: 1
+        account_name:
+          description: The account name of the DCT user who created this data class.
+          type: string
+          readOnly: true
+          example: username
+        dct_managed:
+          description: Whether this data class is managed by DCT or not.
+          type: boolean
+          readOnly: true
+        built_in:
+          description: Whether this data class is built-in or user-defined.
+          type: boolean
+          readOnly: true
+        tags:
+          description: The tags of this data class.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    MaskingTypeEnum:
+      type: string
+      enum:
+      - STRING
+      - DATE
+      - LOCAL_DATE_TIME
+      - BIG_DECIMAL
+      - BYTE_BUFFER
+      - GENERIC_DATA_ROW
+      - ADVANCED_OBJECT
     TagsResponse:
       type: object
       properties:
@@ -401,6 +644,103 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    DataClassCreateRequest:
+      description: Parameters used to create a Data Class.
+      type: object
+      properties:
+        name:
+          description: The name of this data class.
+          type: string
+          example: Account Number
+        default_algorithm_id:
+          description: The ID of the default masking algorithm for this data class.
+          type: string
+          example: a638d976-6b7e-43f4-9212-90f4dc6d405c
+        default_token_algorithm_id:
+          description: The ID of the default tokenization algorithm for this data class.
+          type:
+          - string
+          - 'null'
+          example: a638d976-6b7e-43f4-9212-90f4dc6d405c
+        algorithm_ids:
+          description: The list of algorithm IDs available for this data class.
+          type: array
+          maxItems: 500
+          uniqueItems: true
+          items:
+            type: string
+          example:
+          - a638d976-6b7e-43f4-9212-90f4dc6d405c
+          - 414ed52c-fa89-455d-9fb9-9c2fa5115f80
+        description:
+          description: A description of this data class.
+          type:
+          - string
+          - 'null'
+          example: This data class is used for account numbers.
+        example:
+          description: An example data value for this data class.
+          type:
+          - string
+          - 'null'
+          maxLength: 200
+          example: abc-123
+        tags:
+          description: The tags for this data class.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        make_current_account_owner:
+          type: boolean
+          default: true
+          description: Whether the account creating this data class must be configured as owner of it.
+    DataClassAddAlgorithmsRequest:
+      description: Algorithms to add to a Data Class.
+      type: object
+      required:
+      - algorithm_ids
+      properties:
+        algorithm_ids:
+          description: The list of algorithm IDs to remove from this data class.
+          type: array
+          maxItems: 500
+          uniqueItems: true
+          items:
+            type: string
+          example:
+          - a638d976-6b7e-43f4-9212-90f4dc6d405c
+          - 414ed52c-fa89-455d-9fb9-9c2fa5115f80
     DeleteTag:
       type: object
       properties:
@@ -424,178 +764,7 @@ components:
           uniqueItems: true
           items:
             $ref: '#/components/schemas/Tag'
-    Job:
-      description: An asynchronous task.
-      type: object
-      properties:
-        id:
-          description: The Job entity ID.
-          type: string
-          example: job-123
-        status:
-          description: The status of the job.
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-          example: RUNNING
-        is_waiting_for_telemetry:
-          description: Indicates that the operations performed by this Job have completed successfully, but the object changes are not yet reflected. This is only set when when the JOB is in STARTED status, with the guarantee that the job will not transition to the FAILED status. Note that this flag will likely be replaced with a new status in future API versions and be deprecated.
-          type: boolean
-        type:
-          description: The type of job being done.
-          type: string
-          example: DB_REFRESH
-        localized_type:
-          description: The i18n translated type of job being done.
-          type: string
-          example: DB Refresh
-        error_details:
-          description: Details about the failure for FAILED jobs.
-          type: string
-          example: Unable to connect to the engine.
-        warning_message:
-          description: Warnings for the job.
-          type: string
-          example: 'Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.'
-        target_id:
-          description: A reference to the job's target.
-          type: string
-          example: vdb-123
-        target_name:
-          description: A reference to the job's target name.
-          type: string
-          example: vdb
-        start_time:
-          description: The time the job started executing.
-          type: string
-          format: date-time
-          example: '2022-01-02T05:11:24.148000+00:00'
-        update_time:
-          description: The time the job was last updated.
-          type: string
-          format: date-time
-          example: '2022-01-02T06:11:24.148000+00:00'
-        trace_id:
-          description: traceId of the request which created this Job
-          type: string
-        engine_ids:
-          description: IDs of the engines this Job is executing on.
-          type: array
-          items:
-            type: string
-          deprecated: true
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-        engines:
-          type: array
-          items:
-            $ref: '#/components/schemas/Engine'
-        account_id:
-          description: The ID of the account who initiated this job.
-          type: integer
-          example: 1
-        account_name:
-          description: The account name which initiated this job. It can be either firstname and lastname combination or firstname or lastname or username or email address or Account-<id>.
-          type: string
-          example: User 1
-        compliance_node_id:
-          type:
-          - string
-          - 'null'
-          description: The ID of the associated compliance node, if applicable.
-        compliance_node_name:
-          type:
-          - string
-          - 'null'
-          description: The name of the associated compliance node, if applicable.
-        percent_complete:
-          description: Completion percentage of the Job.
-          type: integer
-          minimum: 0
-          maximum: 100
-          example: '50'
-        virtualization_tasks:
-          deprecated: true
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualizationTask'
-        tasks:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTask'
-        execution_id:
-          description: The ID of the associated masking execution, if any.
-          type:
-          - string
-          - 'null'
-        result_type:
-          description: The type of the job result. This is the type of the object present in the result.
-          type: string
-        result:
-          description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
-          type: object
-    AlgorithmField:
-      description: The algorithm field details for a multi-column/multi-condition algorithm
-      type: object
-      properties:
-        id:
-          description: The id of the algorithm field.
-          type: string
-          example: 20b4692e-381d-40a0-a46e-0ba7658acaf3
-          readOnly: true
-        name:
-          description: The name of the algorithm field.
-          type: string
-          example: ADDRESS_LINE1
-          readOnly: true
-        type:
-          description: The type of algorithm field.
-          type: string
-          enum:
-          - BIG_DECIMAL
-          - LOCAL_DATE_TIME
-          - STRING
-          - BYTE_BUFFER
-          example: STRING
-          readOnly: true
-        is_read_only:
-          description: Indicates whether the field is read-only. Read-only fields are taken as input by the masking algorithm but not masked.
-          type: boolean
-          readOnly: true
-        is_optional:
-          description: Indicates whether the field is optional. Optional fields do not have to be assigned to a real data field or column in order for a masking assignment to be considered valid.
-          type: boolean
-          readOnly: true
-        description:
-          description: The description of the algorithm field.
-          type: string
-          readOnly: true
-    PaginatedResponseMetadata:
-      type: object
-      properties:
-        prev_cursor:
-          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        next_cursor:
-          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        total:
-          description: The total number of results. This value may not be provided.
-          type: integer
-          format: int_64
-    VirtualizationTask:
-      deprecated: true
+    JobTask:
       properties:
         id:
           type: string
@@ -616,7 +785,7 @@ components:
         events:
           type: array
           items:
-            $ref: '#/components/schemas/VirtualizationTaskEvent'
+            $ref: '#/components/schemas/JobTaskEvent'
         status:
           type: string
           enum:
@@ -741,19 +910,186 @@ components:
           minLength: 1
           maxLength: 4000
           example: value-1
-    TagsRequest:
-      type: object
-      required:
-      - tags
+    Engine:
       properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    AlgorithmField:
+      description: The algorithm field details for a multi-column/multi-condition algorithm
+      type: object
+      properties:
+        id:
+          description: The id of the algorithm field.
+          type: string
+          example: 20b4692e-381d-40a0-a46e-0ba7658acaf3
+          readOnly: true
+        name:
+          description: The name of the algorithm field.
+          type: string
+          example: ADDRESS_LINE1
+          readOnly: true
+        type:
+          description: The type of algorithm field.
+          type: string
+          enum:
+          - BIG_DECIMAL
+          - LOCAL_DATE_TIME
+          - STRING
+          - BYTE_BUFFER
+          example: STRING
+          readOnly: true
+        is_read_only:
+          description: Indicates whether the field is read-only. Read-only fields are taken as input by the masking algorithm but not masked.
+          type: boolean
+          readOnly: true
+        is_optional:
+          description: Indicates whether the field is optional. Optional fields do not have to be assigned to a real data field or column in order for a masking assignment to be considered valid.
+          type: boolean
+          readOnly: true
+        description:
+          description: The description of the algorithm field.
+          type: string
+          readOnly: true
+    Job:
+      description: An asynchronous task.
+      type: object
+      properties:
+        id:
+          description: The Job entity ID.
+          type: string
+          example: job-123
+        status:
+          description: The status of the job.
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+          example: RUNNING
+        is_waiting_for_telemetry:
+          description: Indicates that the operations performed by this Job have completed successfully, but the object changes are not yet reflected. This is only set when when the JOB is in STARTED status, with the guarantee that the job will not transition to the FAILED status. Note that this flag will likely be replaced with a new status in future API versions and be deprecated.
+          type: boolean
+        type:
+          description: The type of job being done.
+          type: string
+          example: DB_REFRESH
+        localized_type:
+          description: The i18n translated type of job being done.
+          type: string
+          example: DB Refresh
+        error_details:
+          description: Details about the failure for FAILED jobs.
+          type: string
+          example: Unable to connect to the engine.
+        warning_message:
+          description: Warnings for the job.
+          type: string
+          example: 'Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.'
+        target_id:
+          description: A reference to the job's target.
+          type: string
+          example: vdb-123
+        target_name:
+          description: A reference to the job's target name.
+          type: string
+          example: vdb
+        start_time:
+          description: The time the job started executing.
+          type: string
+          format: date-time
+          example: '2022-01-02T05:11:24.148000+00:00'
+        update_time:
+          description: The time the job was last updated.
+          type: string
+          format: date-time
+          example: '2022-01-02T06:11:24.148000+00:00'
+        trace_id:
+          description: traceId of the request which created this Job
+          type: string
+        engine_ids:
+          description: IDs of the engines this Job is executing on.
+          type: array
+          items:
+            type: string
+          deprecated: true
         tags:
-          description: Array of tags with key value pairs
           type: array
           items:
             $ref: '#/components/schemas/Tag'
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
+        engines:
+          type: array
+          items:
+            $ref: '#/components/schemas/Engine'
+        account_id:
+          description: The ID of the account who initiated this job.
+          type: integer
+          example: 1
+        account_name:
+          description: The account name which initiated this job. It can be either firstname and lastname combination or firstname or lastname or username or email address or Account-<id>.
+          type: string
+          example: User 1
+        compliance_node_id:
+          type:
+          - string
+          - 'null'
+          description: The ID of the associated compliance node, if applicable.
+        compliance_node_name:
+          type:
+          - string
+          - 'null'
+          description: The name of the associated compliance node, if applicable.
+        percent_complete:
+          description: Completion percentage of the Job.
+          type: integer
+          minimum: 0
+          maximum: 100
+          example: '50'
+        virtualization_tasks:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTask'
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTask'
+        execution_id:
+          description: The ID of the associated masking execution, if any.
+          type:
+          - string
+          - 'null'
+        result_type:
+          description: The type of the job result. This is the type of the object present in the result.
+          type: string
+        result:
+          description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
+          type: object
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
     DataClassUpdateRequest:
       description: Parameters used to update a Data Class.
       type: object
@@ -785,208 +1121,6 @@ components:
           - 'null'
           maxLength: 200
           example: abc-123
-    DataClassRemoveAlgorithmsRequest:
-      description: Remove algorithms from a Data Class.
-      type: object
-      required:
-      - algorithm_ids
-      properties:
-        algorithm_ids:
-          description: The list of algorithm IDs to add to this data class.
-          type: array
-          maxItems: 500
-          uniqueItems: true
-          items:
-            type: string
-          example:
-          - a638d976-6b7e-43f4-9212-90f4dc6d405c
-          - 414ed52c-fa89-455d-9fb9-9c2fa5115f80
-    VirtualizationTaskEvent:
-      deprecated: true
-      properties:
-        message_details:
-          type: string
-    JobTask:
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    JobTaskEvent:
-      properties:
-        message_details:
-          type: string
-    DataClass:
-      description: A data class.
-      type: object
-      properties:
-        id:
-          description: The data class ID.
-          type: string
-          example: a638d976-6b7e-43f4-9212-90f4dc6d405c
-        name:
-          description: The name of this data class.
-          type: string
-          example: Account Number
-        description:
-          description: A description of this data class.
-          type:
-          - string
-          - 'null'
-        default_algorithm_id:
-          description: The ID of the default masking algorithm for this data class.
-          type:
-          - string
-          - 'null'
-          example: a638d976-6b7e-43f4-9212-90f4dc6d405c
-        default_algorithm_name:
-          description: The name of the default masking algorithm for this data class.
-          type:
-          - string
-          - 'null'
-          example: alg1
-        default_token_algorithm_id:
-          description: The ID of the default tokenization algorithm for this data class.
-          type:
-          - string
-          - 'null'
-          example: a638d976-6b7e-43f4-9212-90f4dc6d405c
-        default_token_algorithm_name:
-          description: The default tokenization algorithm for this data class.
-          type:
-          - string
-          - 'null'
-          example: alg2
-        algorithm_ids:
-          deprecated: true
-          description: The list of algorithm IDs available for this data class.
-          type: array
-          items:
-            type: string
-          example:
-          - a638d976-6b7e-43f4-9212-90f4dc6d405c
-          - 414ed52c-fa89-455d-9fb9-9c2fa5115f80
-        algorithms:
-          description: The list of algorithm IDs and names available for this data class.
-          type: array
-          items:
-            $ref: '#/components/schemas/DataClassAlgorithmInfo'
-        example:
-          description: An example data value for this data class.
-          type:
-          - string
-          - 'null'
-          maxLength: 200
-        revision_hash:
-          description: The export revision hash of this data class from the source engine.
-          type:
-          - string
-          - 'null'
-          example: 6e0509df463cf714b2697ccf2f8ac972970021d1
-        engine_id:
-          description: The ID of the engine that this data class originated from.
-          type:
-          - string
-          - 'null'
-        engine_name:
-          description: The name of the engine that this data class originated from.
-          type:
-          - string
-          - 'null'
-        creation_date:
-          type: string
-          readOnly: true
-          description: The date this data class was created.
-          format: date-time
-          example: '2022-11-30T08:51:34.148000+00:00'
-        account_id:
-          description: The ID of the account who created this data class.
-          type: integer
-          format: int64
-          readOnly: true
-          example: 1
-        account_name:
-          description: The account name of the DCT user who created this data class.
-          type: string
-          readOnly: true
-          example: username
-        dct_managed:
-          description: Whether this data class is managed by DCT or not.
-          type: boolean
-          readOnly: true
-        built_in:
-          description: Whether this data class is built-in or user-defined.
-          type: boolean
-          readOnly: true
-        tags:
-          description: The tags of this data class.
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    MaskingTypeEnum:
-      type: string
-      enum:
-      - STRING
-      - DATE
-      - LOCAL_DATE_TIME
-      - BIG_DECIMAL
-      - BYTE_BUFFER
-      - GENERIC_DATA_ROW
-      - ADVANCED_OBJECT
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
-    DataClassAddAlgorithmsRequest:
-      description: Algorithms to add to a Data Class.
-      type: object
-      required:
-      - algorithm_ids
-      properties:
-        algorithm_ids:
-          description: The list of algorithm IDs to remove from this data class.
-          type: array
-          maxItems: 500
-          uniqueItems: true
-          items:
-            type: string
-          example:
-          - a638d976-6b7e-43f4-9212-90f4dc6d405c
-          - 414ed52c-fa89-455d-9fb9-9c2fa5115f80
     DataClassAlgorithmInfo:
       description: Information about a data class algorithm.
       type: object
@@ -1007,66 +1141,42 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AlgorithmField'
-    DataClassCreateRequest:
-      description: Parameters used to create a Data Class.
-      type: object
+    VirtualizationTask:
+      deprecated: true
       properties:
-        name:
-          description: The name of this data class.
+        id:
           type: string
-          example: Account Number
-        default_algorithm_id:
-          description: The ID of the default masking algorithm for this data class.
+        parent_job_id:
           type: string
-          example: a638d976-6b7e-43f4-9212-90f4dc6d405c
-        default_token_algorithm_id:
-          description: The ID of the default tokenization algorithm for this data class.
-          type:
-          - string
-          - 'null'
-          example: a638d976-6b7e-43f4-9212-90f4dc6d405c
-        algorithm_ids:
-          description: The list of algorithm IDs available for this data class.
-          type: array
-          maxItems: 500
-          uniqueItems: true
-          items:
-            type: string
-          example:
-          - a638d976-6b7e-43f4-9212-90f4dc6d405c
-          - 414ed52c-fa89-455d-9fb9-9c2fa5115f80
-        description:
-          description: A description of this data class.
-          type:
-          - string
-          - 'null'
-          example: This data class is used for account numbers.
-        example:
-          description: An example data value for this data class.
-          type:
-          - string
-          - 'null'
-          maxLength: 200
-          example: abc-123
-        tags:
-          description: The tags for this data class.
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
           type: array
           items:
-            $ref: '#/components/schemas/Tag'
-        make_current_account_owner:
-          type: boolean
-          default: true
-          description: Whether the account creating this data class must be configured as owner of it.
-    Engine:
-      properties:
-        engine_id:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
           type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
   requestBodies:
     DeleteTags:
       description: The parameters to delete tags
@@ -1280,116 +1390,6 @@ components:
               summary: Overriding operator precedence
               value:
                 filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
-  parameters:
-    dataClassesSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - name
-        - -name
-        - default_algorithm_id
-        - -default_algorithm_id
-        - default_algorithm_name
-        - -default_algorithm_name
-        - default_token_algorithm_id
-        - -default_token_algorithm_id
-        - default_token_algorithm_name
-        - -default_token_algorithm_name
-        - description
-        - -description
-        - example
-        - -example
-        - revision_hash
-        - -revision_hash
-        - engine_id
-        - -engine_id
-        - engine_name
-        - -engine_name
-        - creation_date
-        - -creation_date
-        - account_id
-        - -account_id
-        - account_name
-        - -account_name
-        - dct_managed
-        - -dct_managed
-        example: name
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
-    algorithmsSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
-      example: id
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - name
-        - -name
-        - description
-        - -description
-        - plugin_name
-        - -plugin_name
-        - framework_name
-        - -framework_name
-        - create_date
-        - -create_date
-        - engine_name
-        - -engine_name
-        - engine_id
-        - -engine_id
-        - revision_hash
-        - -revision_hash
-        - account_id
-        - -account_id
-        - account_name
-        - -account_name
-        - dct_managed
-        - -dct_managed
-        - config_invalid
-        - -config_invalid
-        - is_default_instance
-        - -is_default_instance
-        - is_tokenization_supported
-        - -is_tokenization_supported
-        example: name
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
-    dataClassIdParam:
-      name: dataClassId
-      in: path
-      schema:
-        type: string
-        minLength: 1
-      required: true
-      description: The ID of the Data Class.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

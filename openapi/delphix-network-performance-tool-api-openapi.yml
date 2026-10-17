@@ -121,34 +121,16 @@ paths:
                 $ref: '#/components/schemas/NetworkThroughputTestResult'
 components:
   schemas:
-    LatencyTestRequest:
+    NetworkTestResponse:
+      type: object
+      properties:
+        job:
+          $ref: '#/components/schemas/Job'
+          description: The initiated job.
+    NetworkDSPTestRequest:
       allOf:
       - $ref: '#/components/schemas/NetworkTestParametersRequest'
       - type: object
-        description: The parameters to create Latency Test Request
-        required:
-        - host_id
-        properties:
-          request_count:
-            description: Number of requests to send.
-            minimum: 1
-            maximum: 3600
-            type: integer
-            default: 20
-            example: 20
-          request_size:
-            description: The size of requests to send (bytes).
-            minimum: 16
-            maximum: 65507
-            type: integer
-            default: 16
-            example: 16
-    NetworkThroughputTestRequest:
-      allOf:
-      - $ref: '#/components/schemas/NetworkTestParametersRequest'
-      - type: object
-        required:
-        - host_id
         properties:
           direction:
             description: Whether the test is a transmit or receive test.
@@ -172,129 +154,76 @@ components:
             type: integer
             default: 30
             example: 30
-          port:
-            description: The TCP port number that the server (the receiver) will be listening on.
-            minimum: 0
-            maximum: 65535
+          destination_type:
+            type: string
+            enum:
+            - REMOTE_HOST
+            - DELPHIX_ENGINE
+            description: Whether the test is testing connectivity to a Delphix Engine or remote host.
+            default: REMOTE_HOST
+            example: REMOTE_HOST
+          compression:
+            type: boolean
+            description: Whether or not compression is used for the test.
+            default: false
+            example: false
+          encryption:
+            type: boolean
+            description: Whether or not encryption is used for the test.
+            default: false
+            example: false
+          queue_depth:
             type: integer
+            description: The queue depth used for the DSP throughput test.
+            minimum: 0
+            maximum: 4096
+            default: 64
+            example: 64
           block_size:
+            type: integer
             description: The size of each transmit request in bytes.
             minimum: 0
             maximum: 1048576
-            default: 16384
-            type: integer
-            example: 16384
+            default: 1048576
+            example: 1048576
           send_socket_buffer:
-            description: The size of the send socket buffer in bytes.
+            type: integer
             minimum: 0
             maximum: 16777216
+            description: The size of the send socket buffer in bytes.
+            default: 1048576
+            example: 1048576
+          receive_socket_buffer:
             type: integer
-            default: 4194304
-            example: 4194304
-    NetworkThroughputTestResult:
-      allOf:
-      - $ref: '#/components/schemas/NetworkTestBaseResult'
-      - $ref: '#/components/schemas/NetworkThroughputTestRequest'
-      - type: object
-        properties:
-          throughput:
-            type: integer
-            format: int64
-            description: Average network throughput measured in bits per second (bps). Uses base 1024 for unit scaling (e.g., Kbps, Mbps).
-          num_connections:
-            type: integer
-            description: Number of connections used to achieve maximum sustained throughput.
-    NetworkLatencyTestResult:
-      allOf:
-      - $ref: '#/components/schemas/NetworkTestBaseResult'
-      - $ref: '#/components/schemas/LatencyTestRequest'
-      - type: object
-        properties:
-          minimum:
-            type: integer
-            description: Minimum measured round-trip time (usec).
-          maximum:
-            type: integer
-            description: Maximum measured round-trip time (usec).
-          average:
-            type: integer
-            description: Average measured round-trip time (usec).
-          stddev:
-            type: integer
-            description: Standard deviation (usec).
-          loss:
-            type: integer
-            description: Percentage of requests or replies lost.
-    NetworkTestBaseResult:
-      type: object
-      properties:
-        dct_job_id:
-          type: string
-          description: Unique identifier for the network performance test job.
-        name:
-          type: string
-          description: Object name.
-        remote_address:
-          type: string
-          description: The remote IP address used for the test.
-        remote_host:
-          type: string
-        state:
-          type: string
-          description: The state of the test. [RUNNING, COMPLETED, FAILED, CANCELED]
-          example: COMPLETED
-        start_time:
-          type: string
-          description: Time when the test was started.
-        end_time:
-          type: string
-          description: Time when the test ended.
-    VirtualizationTask:
-      deprecated: true
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualizationTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    Engine:
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
+            minimum: 0
+            maximum: 16777216
+            description: The size of the receive socket buffer in bytes.
+            default: 1048576
+            example: 1048576
+          xport_scheduler:
+            type: string
+            enum:
+            - ROUND_ROBIN
+            - LEAST_QUEUE
+            description: The transport scheduler to use.
+            default: ROUND_ROBIN
+            example: ROUND_ROBIN
+          target_engine_id:
+            type: string
+            description: engine id which test exc
+            example: 2
+          target_engine_address:
+            type: string
+            description: Address of other target Delphix Engine.
+            example: example.engine.co
+          target_engine_user:
+            type: string
+            description: Username for the other target Delphix Engine.
+            example: admin
+          target_engine_password:
+            x-dct-toolkit-credential-field: true
+            type: string
+            description: Password for the other target Delphix Engine.
     NetworkTestParametersRequest:
       description: Parameters used when creating a network test.
       type: object
@@ -310,6 +239,19 @@ components:
           pattern: ^[a-zA-Z0-9_.-]+$
           maxLength: 256
           minLength: 1
+    NetworkThroughputTestResult:
+      allOf:
+      - $ref: '#/components/schemas/NetworkTestBaseResult'
+      - $ref: '#/components/schemas/NetworkThroughputTestRequest'
+      - type: object
+        properties:
+          throughput:
+            type: integer
+            format: int64
+            description: Average network throughput measured in bits per second (bps). Uses base 1024 for unit scaling (e.g., Kbps, Mbps).
+          num_connections:
+            type: integer
+            description: Number of connections used to achieve maximum sustained throughput.
     Job:
       description: An asynchronous task.
       type: object
@@ -433,39 +375,6 @@ components:
           type: object
       discriminator:
         propertyName: class_type
-    NetworkTestResponse:
-      type: object
-      properties:
-        job:
-          $ref: '#/components/schemas/Job'
-          description: The initiated job.
-    JobTaskEvent:
-      properties:
-        message_details:
-          type: string
-    Tag:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-    VirtualizationTaskEvent:
-      deprecated: true
-      properties:
-        message_details:
-          type: string
     JobTask:
       properties:
         id:
@@ -501,10 +410,92 @@ components:
           - WAITING
           - COMPLETED
           - ABANDONED
-    NetworkDSPTestRequest:
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    NetworkLatencyTestResult:
+      allOf:
+      - $ref: '#/components/schemas/NetworkTestBaseResult'
+      - $ref: '#/components/schemas/LatencyTestRequest'
+      - type: object
+        properties:
+          minimum:
+            type: integer
+            description: Minimum measured round-trip time (usec).
+          maximum:
+            type: integer
+            description: Maximum measured round-trip time (usec).
+          average:
+            type: integer
+            description: Average measured round-trip time (usec).
+          stddev:
+            type: integer
+            description: Standard deviation (usec).
+          loss:
+            type: integer
+            description: Percentage of requests or replies lost.
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    LatencyTestRequest:
       allOf:
       - $ref: '#/components/schemas/NetworkTestParametersRequest'
       - type: object
+        description: The parameters to create Latency Test Request
+        required:
+        - host_id
+        properties:
+          request_count:
+            description: Number of requests to send.
+            minimum: 1
+            maximum: 3600
+            type: integer
+            default: 20
+            example: 20
+          request_size:
+            description: The size of requests to send (bytes).
+            minimum: 16
+            maximum: 65507
+            type: integer
+            default: 16
+            example: 16
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    NetworkThroughputTestRequest:
+      allOf:
+      - $ref: '#/components/schemas/NetworkTestParametersRequest'
+      - type: object
+        required:
+        - host_id
         properties:
           direction:
             description: Whether the test is a transmit or receive test.
@@ -528,76 +519,85 @@ components:
             type: integer
             default: 30
             example: 30
-          destination_type:
-            type: string
-            enum:
-            - REMOTE_HOST
-            - DELPHIX_ENGINE
-            description: Whether the test is testing connectivity to a Delphix Engine or remote host.
-            default: REMOTE_HOST
-            example: REMOTE_HOST
-          compression:
-            type: boolean
-            description: Whether or not compression is used for the test.
-            default: false
-            example: false
-          encryption:
-            type: boolean
-            description: Whether or not encryption is used for the test.
-            default: false
-            example: false
-          queue_depth:
-            type: integer
-            description: The queue depth used for the DSP throughput test.
+          port:
+            description: The TCP port number that the server (the receiver) will be listening on.
             minimum: 0
-            maximum: 4096
-            default: 64
-            example: 64
-          block_size:
+            maximum: 65535
             type: integer
+          block_size:
             description: The size of each transmit request in bytes.
             minimum: 0
             maximum: 1048576
-            default: 1048576
-            example: 1048576
+            default: 16384
+            type: integer
+            example: 16384
           send_socket_buffer:
-            type: integer
-            minimum: 0
-            maximum: 16777216
             description: The size of the send socket buffer in bytes.
-            default: 1048576
-            example: 1048576
-          receive_socket_buffer:
-            type: integer
             minimum: 0
             maximum: 16777216
-            description: The size of the receive socket buffer in bytes.
-            default: 1048576
-            example: 1048576
-          xport_scheduler:
-            type: string
-            enum:
-            - ROUND_ROBIN
-            - LEAST_QUEUE
-            description: The transport scheduler to use.
-            default: ROUND_ROBIN
-            example: ROUND_ROBIN
-          target_engine_id:
-            type: string
-            description: engine id which test exc
-            example: 2
-          target_engine_address:
-            type: string
-            description: Address of other target Delphix Engine.
-            example: example.engine.co
-          target_engine_user:
-            type: string
-            description: Username for the other target Delphix Engine.
-            example: admin
-          target_engine_password:
-            x-dct-toolkit-credential-field: true
-            type: string
-            description: Password for the other target Delphix Engine.
+            type: integer
+            default: 4194304
+            example: 4194304
+    VirtualizationTask:
+      deprecated: true
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    NetworkTestBaseResult:
+      type: object
+      properties:
+        dct_job_id:
+          type: string
+          description: Unique identifier for the network performance test job.
+        name:
+          type: string
+          description: Object name.
+        remote_address:
+          type: string
+          description: The remote IP address used for the test.
+        remote_host:
+          type: string
+        state:
+          type: string
+          description: The state of the test. [RUNNING, COMPLETED, FAILED, CANCELED]
+          example: COMPLETED
+        start_time:
+          type: string
+          description: Time when the test was started.
+        end_time:
+          type: string
+          description: Time when the test ended.
     NetworkDSPTestResult:
       allOf:
       - $ref: '#/components/schemas/NetworkTestBaseResult'

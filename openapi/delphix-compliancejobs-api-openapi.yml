@@ -388,354 +388,37 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
-    UpdateComplianceJobRequest:
-      description: Parameters to update a compliance job.
-      x-jackson-optional-nullable-helpers: true
+    TagsRequest:
       type: object
+      required:
+      - tags
       properties:
-        name:
-          description: The name of this compliance job.
-          type: string
-          example: My favorite ComplianceJob
-        description:
-          description: A description of the compliance job.
-          type: string
-          example: Job for app finance
-          x-is-jackson-optional-nullable: true
-        rule_set_id:
-          description: The ID of the Rule Set used by this compliance job.
-          type: string
-          example: uuid
-        discovery_policy_id:
-          description: The ID of the discovery policy to use for this compliance job. This is only applicable for DISCOVERY jobs.
-          type: string
-          example: uuid
-        max_memory:
-          description: The maximum amount of memory, in MB, that the compliance job can consume during execution. A value of 0 uses the default max memory set in application settings.
-          type: integer
-          format: int32
-          minimum: 0
-          example: 1024
-          x-is-jackson-optional-nullable: true
-        min_memory:
-          description: The minimum amount of memory, in MB, that the compliance job can consume during execution.
-          type: integer
-          format: int32
-          minimum: 0
-          example: 1024
-          x-is-jackson-optional-nullable: true
-        feedback_size:
-          description: The granularity with which the system provides updates on the progress of the compliance job. For instance, a feedback size of 50000 results in log updates whenever 50000 rows are processed during the masking phase.
-          type: integer
-          format: int32
-          minimum: 1
-          example: 50000
-          x-is-jackson-optional-nullable: true
-        stream_row_limit:
-          description: This value constrains the total number of rows that may enter the job for each masking stream. A value of 0 means unlimited. A value of -1 selects the default value. The minimum explicit value allowed is 20.
-          type: integer
-          format: int32
-          minimum: -1
-          example: 20000
-          x-is-jackson-optional-nullable: true
-        num_input_streams:
-          description: This field controls the amount of parallelism that the masking job uses to extract out the data to be masked. For instance, when masking a database, specifying 5 input streams results in the compliance job reading up to 5 database tables in parallel and then masking those 5 streams of data in parallel. The higher the value of this field, the more potential parallelism there will be in the job, but the masking job will consume more memory. If the number of input streams exceeds the number of units being masked (e.g. tables or files), then the excess streams will do nothing.
-          type: integer
-          format: int32
-          minimum: 1
-          example: 4
-        max_concurrent_source_connections:
-          description: Maximum number of parallel connection that the Hyperscale instance can have with the source datasource (Hyperscale Job only).
-          type: integer
-          format: int32
-          minimum: 1
-          example: 32
-          x-is-jackson-optional-nullable: true
-        max_concurrent_target_connections:
-          description: Maximum number of parallel connection that the Hyperscale instance can have with the target datasource (Hyperscale Job only).
-          type: integer
-          format: int32
-          minimum: 1
-          example: 32
-          x-is-jackson-optional-nullable: true
-        hyperscale_enabled:
-          type: boolean
-          example: true
-          description: This flag indicates if this compliance job is enabled for Hyperscale processing.
-        auto_calculate_unload_split:
-          type: boolean
-          example: true
-          description: If set, hyperscale will auto calculate the no of splits required for masking job.
-        consider_continuous_compliance_warning_event_as:
-          type: string
-          enum:
-          - SUCCESS
-          - FAILURE
-          example: SUCCESS
-          description: The flag to control behavior of Hyperscale Job execution on warning event in Continuous Compliance Job execution. Default behavior of Hyperscale Job on the WARNING status of Continuous Compliance Job execution, is to consider it as SUCCESS. One example of warning event in Continuous Compliance is masking non conformant data.
-          x-is-jackson-optional-nullable: true
-        create_all_indexes_with_nologging:
-          type: boolean
-          example: false
-          description: Add all indexes with NOLOGGING as part of post load.
-        disable_parallel_index_creation:
-          type: boolean
-          example: false
-          description: Exclude indexes from combining with constraint and trigger groups as part of pre load.
-        enable_all_constraints_with_novalidate:
-          type: boolean
-          example: false
-          description: Enable all constraints with NOVALIDATE as part of post load.
-        max_parallel_connections_per_table:
-          type: integer
-          minimum: 1
-          maximum: 32767
-          example: 16
-          description: Maximum number of parallel connection that per table per masking job.
-          x-is-jackson-optional-nullable: true
-        max_records_per_split:
-          type: integer
-          format: int64
-          minimum: 1
-          example: 100000000
-          description: Maximum number of rows allowed per split file for job execution.
-          x-is-jackson-optional-nullable: true
-        max_split_per_connection:
-          type: integer
-          minimum: 1
-          maximum: 32767
-          example: 4
-          description: Maximum number of split files allowed per connection for job execution.
-          x-is-jackson-optional-nullable: true
-        parallelism_degree:
-          description: The degree of parallelism (DOP) per Oracle job to recreate the index in the post-load process (Hyperscale Job only).
-          type: integer
-          format: int32
-          minimum: -1
-          maximum: 32767
-          example: 4
-          x-is-jackson-optional-nullable: true
-        retain_execution_data:
-          description: Defines whether execution data will be stored after execution is complete (Hyperscale Job only).
-          type: string
-          enum:
-          - 'NO'
-          - ON_ERROR
-          - ALWAYS
-          example: false
-          x-is-jackson-optional-nullable: true
-        fail_immediately:
-          description: Whether to fail immediately or delay failure until job completion when a masking algorithm fails to mask its data.
-          type: boolean
-          example: false
-        batch_update:
-          description: Whether the database load phase to output the masked data will be performed in batches. The size of the batches is determined by the field 'commit_size'.
-          type: boolean
-          example: true
-        commit_size:
-          description: The size of the database commits when performing batch updates.
-          type: integer
-          format: int32
-          minimum: 1
-          example: 20000
-          x-is-jackson-optional-nullable: true
-        num_output_threads_per_stream:
-          description: The amount of parallelism, per input stream, that the job uses to load back the masked data. For example, specifying 4 output threads per stream with 5 input streams results in a total of 20 output threads for the whole job.
-          type: integer
-          format: int32
-          minimum: 1
-          example: 10
-          x-is-jackson-optional-nullable: true
-        is_multi_tenant:
-          description: If true, this job must be executed using a connector that is different from the underlying connector associated with its ruleset.
-          type: boolean
-          example: false
-        on_the_fly_source_connector_id:
-          type:
-          - string
-          - 'null'
-          description: The ID of the OTF source connector for this job.
-          x-is-jackson-optional-nullable: true
-        reset_profiling_assignments:
-          description: Determines whether the ruleset assignments for the previous profiling execution need to be cleared before this job gets executed.
-          type: boolean
-          example: true
-        multiple_profiler_check:
-          description: When enabled, assigns a default algorithm if multiple classifiers match across different data classes above the threshold.
-          type: boolean
-          example: true
-        truncate_tables:
-          description: Whether to truncate target database tables before loading masked data. Only applies to database on-the-fly masking jobs.
-          type: boolean
-          example: false
-        drop_indexes:
-          description: Whether to temporarily drop indexes prior to masking. This only applies to MySQL/MariaDB masking jobs. Other platforms should use enabled_tasks.
-          type: boolean
-          example: false
-        pre_script:
-          x-is-jackson-optional-nullable: true
-          allOf:
-          - $ref: '#/components/schemas/ComplianceJobScript'
-          title: UpdateComplianceJobScript
-        post_script:
-          x-is-jackson-optional-nullable: true
-          allOf:
-          - $ref: '#/components/schemas/ComplianceJobScript'
-          title: UpdateComplianceJobScript
-        enabled_tasks:
-          description: Tasks to perform before/after a job from a set of available driver support tasks as indicated by the target rule-set's connector.
-          type: array
-          items:
-            type: string
-        engine_ids:
-          description: List of compliance node IDs that this Hyperscale job can run on (Hyperscale Job only).
-          type: array
-          items:
-            type: string
-    DeleteTag:
-      type: object
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
         tags:
-          description: List of tags to be deleted
+          description: Array of tags with key value pairs
           type: array
+          items:
+            $ref: '#/components/schemas/Tag'
           minItems: 1
           maxItems: 1000
           uniqueItems: true
-          items:
-            $ref: '#/components/schemas/Tag'
-    Job:
-      description: An asynchronous task.
+    PaginatedResponseMetadata:
       type: object
       properties:
-        id:
-          description: The Job entity ID.
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
           type: string
-          example: job-123
-        status:
-          description: The status of the job.
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
           type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-          example: RUNNING
-        is_waiting_for_telemetry:
-          description: Indicates that the operations performed by this Job have completed successfully, but the object changes are not yet reflected. This is only set when when the JOB is in STARTED status, with the guarantee that the job will not transition to the FAILED status. Note that this flag will likely be replaced with a new status in future API versions and be deprecated.
-          type: boolean
-        type:
-          description: The type of job being done.
-          type: string
-          example: DB_REFRESH
-        localized_type:
-          description: The i18n translated type of job being done.
-          type: string
-          example: DB Refresh
-        error_details:
-          description: Details about the failure for FAILED jobs.
-          type: string
-          example: Unable to connect to the engine.
-        warning_message:
-          description: Warnings for the job.
-          type: string
-          example: 'Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.'
-        target_id:
-          description: A reference to the job's target.
-          type: string
-          example: vdb-123
-        target_name:
-          description: A reference to the job's target name.
-          type: string
-          example: vdb
-        start_time:
-          description: The time the job started executing.
-          type: string
-          format: date-time
-          example: '2022-01-02T05:11:24.148000+00:00'
-        update_time:
-          description: The time the job was last updated.
-          type: string
-          format: date-time
-          example: '2022-01-02T06:11:24.148000+00:00'
-        trace_id:
-          description: traceId of the request which created this Job
-          type: string
-        engine_ids:
-          description: IDs of the engines this Job is executing on.
-          type: array
-          items:
-            type: string
-          deprecated: true
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-        engines:
-          type: array
-          items:
-            $ref: '#/components/schemas/Engine'
-        account_id:
-          description: The ID of the account who initiated this job.
+        total:
+          description: The total number of results. This value may not be provided.
           type: integer
-          example: 1
-        account_name:
-          description: The account name which initiated this job. It can be either firstname and lastname combination or firstname or lastname or username or email address or Account-<id>.
+          format: int_64
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
           type: string
-          example: User 1
-        compliance_node_id:
-          type:
-          - string
-          - 'null'
-          description: The ID of the associated compliance node, if applicable.
-        compliance_node_name:
-          type:
-          - string
-          - 'null'
-          description: The name of the associated compliance node, if applicable.
-        percent_complete:
-          description: Completion percentage of the Job.
-          type: integer
-          minimum: 0
-          maximum: 100
-          example: '50'
-        virtualization_tasks:
-          deprecated: true
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualizationTask'
-        tasks:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTask'
-        execution_id:
-          description: The ID of the associated masking execution, if any.
-          type:
-          - string
-          - 'null'
-        result_type:
-          description: The type of the job result. This is the type of the object present in the result.
-          type: string
-        result:
-          description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
-          type: object
     ComplianceJob:
       description: A compliance job.
       type: object
@@ -1048,86 +731,6 @@ components:
           type: array
           items:
             type: string
-    PaginatedResponseMetadata:
-      type: object
-      properties:
-        prev_cursor:
-          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        next_cursor:
-          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        total:
-          description: The total number of results. This value may not be provided.
-          type: integer
-          format: int_64
-    VirtualizationTask:
-      deprecated: true
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualizationTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    Tag:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-    TagsRequest:
-      type: object
-      required:
-      - tags
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
     ExecuteComplianceJobRequest:
       type: object
       description: Parameters to execute a compliance job.
@@ -1144,19 +747,6 @@ components:
           - string
           - 'null'
           example: 1-DATABASE-4
-    ExecutionStatus:
-      description: The status of a masking or discovery job.
-      type: string
-      enum:
-      - PENDING
-      - QUEUED
-      - RUNNING
-      - CANCELLED
-      - FAILED
-      - SUCCEEDED
-      - WARNING
-      - WAITING
-      example: RUNNING
     CreateComplianceJobRequest:
       description: Parameters to create a compliance job.
       type: object
@@ -1355,6 +945,458 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
+    UpdateComplianceJobRequest:
+      description: Parameters to update a compliance job.
+      x-jackson-optional-nullable-helpers: true
+      type: object
+      properties:
+        name:
+          description: The name of this compliance job.
+          type: string
+          example: My favorite ComplianceJob
+        description:
+          description: A description of the compliance job.
+          type: string
+          example: Job for app finance
+          x-is-jackson-optional-nullable: true
+        rule_set_id:
+          description: The ID of the Rule Set used by this compliance job.
+          type: string
+          example: uuid
+        discovery_policy_id:
+          description: The ID of the discovery policy to use for this compliance job. This is only applicable for DISCOVERY jobs.
+          type: string
+          example: uuid
+        max_memory:
+          description: The maximum amount of memory, in MB, that the compliance job can consume during execution. A value of 0 uses the default max memory set in application settings.
+          type: integer
+          format: int32
+          minimum: 0
+          example: 1024
+          x-is-jackson-optional-nullable: true
+        min_memory:
+          description: The minimum amount of memory, in MB, that the compliance job can consume during execution.
+          type: integer
+          format: int32
+          minimum: 0
+          example: 1024
+          x-is-jackson-optional-nullable: true
+        feedback_size:
+          description: The granularity with which the system provides updates on the progress of the compliance job. For instance, a feedback size of 50000 results in log updates whenever 50000 rows are processed during the masking phase.
+          type: integer
+          format: int32
+          minimum: 1
+          example: 50000
+          x-is-jackson-optional-nullable: true
+        stream_row_limit:
+          description: This value constrains the total number of rows that may enter the job for each masking stream. A value of 0 means unlimited. A value of -1 selects the default value. The minimum explicit value allowed is 20.
+          type: integer
+          format: int32
+          minimum: -1
+          example: 20000
+          x-is-jackson-optional-nullable: true
+        num_input_streams:
+          description: This field controls the amount of parallelism that the masking job uses to extract out the data to be masked. For instance, when masking a database, specifying 5 input streams results in the compliance job reading up to 5 database tables in parallel and then masking those 5 streams of data in parallel. The higher the value of this field, the more potential parallelism there will be in the job, but the masking job will consume more memory. If the number of input streams exceeds the number of units being masked (e.g. tables or files), then the excess streams will do nothing.
+          type: integer
+          format: int32
+          minimum: 1
+          example: 4
+        max_concurrent_source_connections:
+          description: Maximum number of parallel connection that the Hyperscale instance can have with the source datasource (Hyperscale Job only).
+          type: integer
+          format: int32
+          minimum: 1
+          example: 32
+          x-is-jackson-optional-nullable: true
+        max_concurrent_target_connections:
+          description: Maximum number of parallel connection that the Hyperscale instance can have with the target datasource (Hyperscale Job only).
+          type: integer
+          format: int32
+          minimum: 1
+          example: 32
+          x-is-jackson-optional-nullable: true
+        hyperscale_enabled:
+          type: boolean
+          example: true
+          description: This flag indicates if this compliance job is enabled for Hyperscale processing.
+        auto_calculate_unload_split:
+          type: boolean
+          example: true
+          description: If set, hyperscale will auto calculate the no of splits required for masking job.
+        consider_continuous_compliance_warning_event_as:
+          type: string
+          enum:
+          - SUCCESS
+          - FAILURE
+          example: SUCCESS
+          description: The flag to control behavior of Hyperscale Job execution on warning event in Continuous Compliance Job execution. Default behavior of Hyperscale Job on the WARNING status of Continuous Compliance Job execution, is to consider it as SUCCESS. One example of warning event in Continuous Compliance is masking non conformant data.
+          x-is-jackson-optional-nullable: true
+        create_all_indexes_with_nologging:
+          type: boolean
+          example: false
+          description: Add all indexes with NOLOGGING as part of post load.
+        disable_parallel_index_creation:
+          type: boolean
+          example: false
+          description: Exclude indexes from combining with constraint and trigger groups as part of pre load.
+        enable_all_constraints_with_novalidate:
+          type: boolean
+          example: false
+          description: Enable all constraints with NOVALIDATE as part of post load.
+        max_parallel_connections_per_table:
+          type: integer
+          minimum: 1
+          maximum: 32767
+          example: 16
+          description: Maximum number of parallel connection that per table per masking job.
+          x-is-jackson-optional-nullable: true
+        max_records_per_split:
+          type: integer
+          format: int64
+          minimum: 1
+          example: 100000000
+          description: Maximum number of rows allowed per split file for job execution.
+          x-is-jackson-optional-nullable: true
+        max_split_per_connection:
+          type: integer
+          minimum: 1
+          maximum: 32767
+          example: 4
+          description: Maximum number of split files allowed per connection for job execution.
+          x-is-jackson-optional-nullable: true
+        parallelism_degree:
+          description: The degree of parallelism (DOP) per Oracle job to recreate the index in the post-load process (Hyperscale Job only).
+          type: integer
+          format: int32
+          minimum: -1
+          maximum: 32767
+          example: 4
+          x-is-jackson-optional-nullable: true
+        retain_execution_data:
+          description: Defines whether execution data will be stored after execution is complete (Hyperscale Job only).
+          type: string
+          enum:
+          - 'NO'
+          - ON_ERROR
+          - ALWAYS
+          example: false
+          x-is-jackson-optional-nullable: true
+        fail_immediately:
+          description: Whether to fail immediately or delay failure until job completion when a masking algorithm fails to mask its data.
+          type: boolean
+          example: false
+        batch_update:
+          description: Whether the database load phase to output the masked data will be performed in batches. The size of the batches is determined by the field 'commit_size'.
+          type: boolean
+          example: true
+        commit_size:
+          description: The size of the database commits when performing batch updates.
+          type: integer
+          format: int32
+          minimum: 1
+          example: 20000
+          x-is-jackson-optional-nullable: true
+        num_output_threads_per_stream:
+          description: The amount of parallelism, per input stream, that the job uses to load back the masked data. For example, specifying 4 output threads per stream with 5 input streams results in a total of 20 output threads for the whole job.
+          type: integer
+          format: int32
+          minimum: 1
+          example: 10
+          x-is-jackson-optional-nullable: true
+        is_multi_tenant:
+          description: If true, this job must be executed using a connector that is different from the underlying connector associated with its ruleset.
+          type: boolean
+          example: false
+        on_the_fly_source_connector_id:
+          type:
+          - string
+          - 'null'
+          description: The ID of the OTF source connector for this job.
+          x-is-jackson-optional-nullable: true
+        reset_profiling_assignments:
+          description: Determines whether the ruleset assignments for the previous profiling execution need to be cleared before this job gets executed.
+          type: boolean
+          example: true
+        multiple_profiler_check:
+          description: When enabled, assigns a default algorithm if multiple classifiers match across different data classes above the threshold.
+          type: boolean
+          example: true
+        truncate_tables:
+          description: Whether to truncate target database tables before loading masked data. Only applies to database on-the-fly masking jobs.
+          type: boolean
+          example: false
+        drop_indexes:
+          description: Whether to temporarily drop indexes prior to masking. This only applies to MySQL/MariaDB masking jobs. Other platforms should use enabled_tasks.
+          type: boolean
+          example: false
+        pre_script:
+          x-is-jackson-optional-nullable: true
+          allOf:
+          - $ref: '#/components/schemas/ComplianceJobScript'
+          title: UpdateComplianceJobScript
+        post_script:
+          x-is-jackson-optional-nullable: true
+          allOf:
+          - $ref: '#/components/schemas/ComplianceJobScript'
+          title: UpdateComplianceJobScript
+        enabled_tasks:
+          description: Tasks to perform before/after a job from a set of available driver support tasks as indicated by the target rule-set's connector.
+          type: array
+          items:
+            type: string
+        engine_ids:
+          description: List of compliance node IDs that this Hyperscale job can run on (Hyperscale Job only).
+          type: array
+          items:
+            type: string
+    DeleteTag:
+      type: object
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        tags:
+          description: List of tags to be deleted
+          type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    ComplianceJobConnectorsResponse:
+      description: Connector(s) for a compliance job.
+      type: object
+      properties:
+        connector:
+          $ref: '#/components/schemas/Connector'
+        on_the_fly_connector:
+          $ref: '#/components/schemas/Connector'
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    Job:
+      description: An asynchronous task.
+      type: object
+      properties:
+        id:
+          description: The Job entity ID.
+          type: string
+          example: job-123
+        status:
+          description: The status of the job.
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+          example: RUNNING
+        is_waiting_for_telemetry:
+          description: Indicates that the operations performed by this Job have completed successfully, but the object changes are not yet reflected. This is only set when when the JOB is in STARTED status, with the guarantee that the job will not transition to the FAILED status. Note that this flag will likely be replaced with a new status in future API versions and be deprecated.
+          type: boolean
+        type:
+          description: The type of job being done.
+          type: string
+          example: DB_REFRESH
+        localized_type:
+          description: The i18n translated type of job being done.
+          type: string
+          example: DB Refresh
+        error_details:
+          description: Details about the failure for FAILED jobs.
+          type: string
+          example: Unable to connect to the engine.
+        warning_message:
+          description: Warnings for the job.
+          type: string
+          example: 'Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.'
+        target_id:
+          description: A reference to the job's target.
+          type: string
+          example: vdb-123
+        target_name:
+          description: A reference to the job's target name.
+          type: string
+          example: vdb
+        start_time:
+          description: The time the job started executing.
+          type: string
+          format: date-time
+          example: '2022-01-02T05:11:24.148000+00:00'
+        update_time:
+          description: The time the job was last updated.
+          type: string
+          format: date-time
+          example: '2022-01-02T06:11:24.148000+00:00'
+        trace_id:
+          description: traceId of the request which created this Job
+          type: string
+        engine_ids:
+          description: IDs of the engines this Job is executing on.
+          type: array
+          items:
+            type: string
+          deprecated: true
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        engines:
+          type: array
+          items:
+            $ref: '#/components/schemas/Engine'
+        account_id:
+          description: The ID of the account who initiated this job.
+          type: integer
+          example: 1
+        account_name:
+          description: The account name which initiated this job. It can be either firstname and lastname combination or firstname or lastname or username or email address or Account-<id>.
+          type: string
+          example: User 1
+        compliance_node_id:
+          type:
+          - string
+          - 'null'
+          description: The ID of the associated compliance node, if applicable.
+        compliance_node_name:
+          type:
+          - string
+          - 'null'
+          description: The name of the associated compliance node, if applicable.
+        percent_complete:
+          description: Completion percentage of the Job.
+          type: integer
+          minimum: 0
+          maximum: 100
+          example: '50'
+        virtualization_tasks:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTask'
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTask'
+        execution_id:
+          description: The ID of the associated masking execution, if any.
+          type:
+          - string
+          - 'null'
+        result_type:
+          description: The type of the job result. This is the type of the object present in the result.
+          type: string
+        result:
+          description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
+          type: object
+    JobTaskEvent:
+      properties:
+        message_details:
+          type: string
+    ConnectorTypeEnum:
+      type: string
+      enum:
+      - DATABASE
+      - FILE
+      - MAINFRAME_DATASET
+      example: DATABASE
+    ExecutionStatus:
+      description: The status of a masking or discovery job.
+      type: string
+      enum:
+      - PENDING
+      - QUEUED
+      - RUNNING
+      - CANCELLED
+      - FAILED
+      - SUCCEEDED
+      - WARNING
+      - WAITING
+      example: RUNNING
     ComplianceJobScript:
       description: A SQL script to be run before or after a compliance job.
       type: object
@@ -1611,20 +1653,8 @@ components:
         username: user-123
         kerberos_auth: false
         service_principal: krbuser
-    ComplianceJobConnectorsResponse:
-      description: Connector(s) for a compliance job.
-      type: object
-      properties:
-        connector:
-          $ref: '#/components/schemas/Connector'
-        on_the_fly_connector:
-          $ref: '#/components/schemas/Connector'
-    VirtualizationTaskEvent:
+    VirtualizationTask:
       deprecated: true
-      properties:
-        message_details:
-          type: string
-    JobTask:
       properties:
         id:
           type: string
@@ -1645,7 +1675,7 @@ components:
         events:
           type: array
           items:
-            $ref: '#/components/schemas/JobTaskEvent'
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
         status:
           type: string
           enum:
@@ -1659,36 +1689,159 @@ components:
           - WAITING
           - COMPLETED
           - ABANDONED
-    JobTaskEvent:
-      properties:
-        message_details:
-          type: string
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
-    ConnectorTypeEnum:
-      type: string
-      enum:
-      - DATABASE
-      - FILE
-      - MAINFRAME_DATASET
-      example: DATABASE
-    Engine:
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    complianceJobsSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - is_on_the_fly_masking
+        - -is_on_the_fly_masking
+        - type
+        - -type
+        - execution_type
+        - -execution_type
+        - engine_job_id
+        - -engine_job_id
+        - creation_date
+        - -creation_date
+        - engine_id
+        - -engine_id
+        - engine_name
+        - -engine_name
+        - last_completed_execution_date
+        - -last_completed_execution_date
+        - last_execution_status
+        - -last_execution_status
+        - last_execution_id
+        - -last_execution_id
+        - last_execution_start_time
+        - -last_execution_start_time
+        - last_execution_run_time
+        - -last_execution_run_time
+        - rule_set_id
+        - -rule_set_id
+        - rule_set_name
+        - -rule_set_name
+        - pre_script.name
+        - -pre_script.name
+        - pre_script.contents
+        - -pre_script.contents
+        - post_script.name
+        - -post_script.name
+        - post_script.contents
+        - -post_script.contents
+        - connector_type
+        - -connector_type
+        - description
+        - -description
+        - dataset_id
+        - -dataset_id
+        - retain_execution_data
+        - -retain_execution_data
+        - parallelism_degree
+        - -parallelism_degree
+        - is_multi_tenant
+        - -is_multi_tenant
+        - auto_calculate_unload_split
+        - -auto_calculate_unload_split
+        - hyperscale_enabled
+        - -hyperscale_enabled
+        - consider_continuous_compliance_warning_event_as
+        - -consider_continuous_compliance_warning_event_as
+        - create_all_indexes_with_nologging
+        - -create_all_indexes_with_nologging
+        - disable_parallel_index_creation
+        - -disable_parallel_index_creation
+        - enable_all_constraints_with_novalidate
+        - -enable_all_constraints_with_novalidate
+        - max_parallel_connections_per_table
+        - -max_parallel_connections_per_table
+        - max_records_per_split
+        - -max_records_per_split
+        - max_split_per_connection
+        - -max_split_per_connection
+        - max_concurrent_target_connections
+        - -max_concurrent_target_connections
+        - max_concurrent_source_connections
+        - -max_concurrent_source_connections
+        - num_input_streams
+        - -num_input_streams
+        - stream_row_limit
+        - -stream_row_limit
+        - feedback_size
+        - -feedback_size
+        - min_memory
+        - -min_memory
+        - max_memory
+        - -max_memory
+        - discovery_policy_id
+        - -discovery_policy_id
+        - discovery_policy_name
+        - -discovery_policy_name
+        - account_id
+        - -account_id
+        - account_name
+        - -account_name
+        - dct_managed
+        - -dct_managed
+        - fail_immediately
+        - -fail_immediately
+        - batch_update
+        - -batch_update
+        - commit_size
+        - -commit_size
+        - num_output_threads_per_stream
+        - -num_output_threads_per_stream
+        - on_the_fly_source_connector_id
+        - -on_the_fly_source_connector_id
+        - reset_profiling_assignments
+        - -reset_profiling_assignments
+        - multiple_profiler_check
+        - -multiple_profiler_check
+        - truncate_tables
+        - -truncate_tables
+        - drop_indexes
+        - -drop_indexes
+        - hyperscale_state
+        - -hyperscale_state
+        example: name
+    complianceJobIdParam:
+      in: path
+      name: complianceJobId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the compliance job.
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
   requestBodies:
     DeleteTags:
       description: The parameters to delete tags
@@ -1902,159 +2055,6 @@ components:
               summary: Overriding operator precedence
               value:
                 filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
-  parameters:
-    complianceJobIdParam:
-      in: path
-      name: complianceJobId
-      schema:
-        type: string
-        minLength: 1
-      required: true
-      description: The ID of the compliance job.
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
-    complianceJobsSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
-      example: id
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - name
-        - -name
-        - is_on_the_fly_masking
-        - -is_on_the_fly_masking
-        - type
-        - -type
-        - execution_type
-        - -execution_type
-        - engine_job_id
-        - -engine_job_id
-        - creation_date
-        - -creation_date
-        - engine_id
-        - -engine_id
-        - engine_name
-        - -engine_name
-        - last_completed_execution_date
-        - -last_completed_execution_date
-        - last_execution_status
-        - -last_execution_status
-        - last_execution_id
-        - -last_execution_id
-        - last_execution_start_time
-        - -last_execution_start_time
-        - last_execution_run_time
-        - -last_execution_run_time
-        - rule_set_id
-        - -rule_set_id
-        - rule_set_name
-        - -rule_set_name
-        - pre_script.name
-        - -pre_script.name
-        - pre_script.contents
-        - -pre_script.contents
-        - post_script.name
-        - -post_script.name
-        - post_script.contents
-        - -post_script.contents
-        - connector_type
-        - -connector_type
-        - description
-        - -description
-        - dataset_id
-        - -dataset_id
-        - retain_execution_data
-        - -retain_execution_data
-        - parallelism_degree
-        - -parallelism_degree
-        - is_multi_tenant
-        - -is_multi_tenant
-        - auto_calculate_unload_split
-        - -auto_calculate_unload_split
-        - hyperscale_enabled
-        - -hyperscale_enabled
-        - consider_continuous_compliance_warning_event_as
-        - -consider_continuous_compliance_warning_event_as
-        - create_all_indexes_with_nologging
-        - -create_all_indexes_with_nologging
-        - disable_parallel_index_creation
-        - -disable_parallel_index_creation
-        - enable_all_constraints_with_novalidate
-        - -enable_all_constraints_with_novalidate
-        - max_parallel_connections_per_table
-        - -max_parallel_connections_per_table
-        - max_records_per_split
-        - -max_records_per_split
-        - max_split_per_connection
-        - -max_split_per_connection
-        - max_concurrent_target_connections
-        - -max_concurrent_target_connections
-        - max_concurrent_source_connections
-        - -max_concurrent_source_connections
-        - num_input_streams
-        - -num_input_streams
-        - stream_row_limit
-        - -stream_row_limit
-        - feedback_size
-        - -feedback_size
-        - min_memory
-        - -min_memory
-        - max_memory
-        - -max_memory
-        - discovery_policy_id
-        - -discovery_policy_id
-        - discovery_policy_name
-        - -discovery_policy_name
-        - account_id
-        - -account_id
-        - account_name
-        - -account_name
-        - dct_managed
-        - -dct_managed
-        - fail_immediately
-        - -fail_immediately
-        - batch_update
-        - -batch_update
-        - commit_size
-        - -commit_size
-        - num_output_threads_per_stream
-        - -num_output_threads_per_stream
-        - on_the_fly_source_connector_id
-        - -on_the_fly_source_connector_id
-        - reset_profiling_assignments
-        - -reset_profiling_assignments
-        - multiple_profiler_check
-        - -multiple_profiler_check
-        - truncate_tables
-        - -truncate_tables
-        - drop_indexes
-        - -drop_indexes
-        - hyperscale_state
-        - -hyperscale_state
-        example: name
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

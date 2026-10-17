@@ -427,6 +427,85 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    MappingsStats:
+      description: Statistics of the mappings.
+      type: object
+      properties:
+        total_mappings:
+          description: The total number of mappings.
+          type: integer
+          format: int64
+          example: 1000
+        unused_mappings:
+          description: The number of unused mappings.
+          type: integer
+          format: int64
+          example: 100
+    AlgorithmUpdateRequest:
+      description: Parameters to update a masking algorithm.
+      type: object
+      properties:
+        name:
+          description: The name of this Algorithm.
+          type: string
+          example: Address
+        description:
+          description: A description of this algorithm.
+          type: string
+        config:
+          description: The configuration of this algorithm.
+          type: object
+          additionalProperties: true
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    Dependency:
+      description: A dependency relationship.
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID for this Dependency.
+        child_id:
+          description: The ID of the child entity.
+          type: string
+          example: aec2d976-6b7e-43f4-9212-90f4dc6e324fff
+        child_name:
+          description: The name of the child entity.
+          type: string
+          example: My File
+        child_type:
+          description: The type of the child entity.
+          type: string
+          example: MASKING_FILE_UPLOAD
     DeleteTag:
       type: object
       properties:
@@ -450,200 +529,7 @@ components:
           uniqueItems: true
           items:
             $ref: '#/components/schemas/Tag'
-    Job:
-      description: An asynchronous task.
-      type: object
-      properties:
-        id:
-          description: The Job entity ID.
-          type: string
-          example: job-123
-        status:
-          description: The status of the job.
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-          example: RUNNING
-        is_waiting_for_telemetry:
-          description: Indicates that the operations performed by this Job have completed successfully, but the object changes are not yet reflected. This is only set when when the JOB is in STARTED status, with the guarantee that the job will not transition to the FAILED status. Note that this flag will likely be replaced with a new status in future API versions and be deprecated.
-          type: boolean
-        type:
-          description: The type of job being done.
-          type: string
-          example: DB_REFRESH
-        localized_type:
-          description: The i18n translated type of job being done.
-          type: string
-          example: DB Refresh
-        error_details:
-          description: Details about the failure for FAILED jobs.
-          type: string
-          example: Unable to connect to the engine.
-        warning_message:
-          description: Warnings for the job.
-          type: string
-          example: 'Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.'
-        target_id:
-          description: A reference to the job's target.
-          type: string
-          example: vdb-123
-        target_name:
-          description: A reference to the job's target name.
-          type: string
-          example: vdb
-        start_time:
-          description: The time the job started executing.
-          type: string
-          format: date-time
-          example: '2022-01-02T05:11:24.148000+00:00'
-        update_time:
-          description: The time the job was last updated.
-          type: string
-          format: date-time
-          example: '2022-01-02T06:11:24.148000+00:00'
-        trace_id:
-          description: traceId of the request which created this Job
-          type: string
-        engine_ids:
-          description: IDs of the engines this Job is executing on.
-          type: array
-          items:
-            type: string
-          deprecated: true
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-        engines:
-          type: array
-          items:
-            $ref: '#/components/schemas/Engine'
-        account_id:
-          description: The ID of the account who initiated this job.
-          type: integer
-          example: 1
-        account_name:
-          description: The account name which initiated this job. It can be either firstname and lastname combination or firstname or lastname or username or email address or Account-<id>.
-          type: string
-          example: User 1
-        compliance_node_id:
-          type:
-          - string
-          - 'null'
-          description: The ID of the associated compliance node, if applicable.
-        compliance_node_name:
-          type:
-          - string
-          - 'null'
-          description: The name of the associated compliance node, if applicable.
-        percent_complete:
-          description: Completion percentage of the Job.
-          type: integer
-          minimum: 0
-          maximum: 100
-          example: '50'
-        virtualization_tasks:
-          deprecated: true
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualizationTask'
-        tasks:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTask'
-        execution_id:
-          description: The ID of the associated masking execution, if any.
-          type:
-          - string
-          - 'null'
-        result_type:
-          description: The type of the job result. This is the type of the object present in the result.
-          type: string
-        result:
-          description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
-          type: object
-    AlgorithmField:
-      description: The algorithm field details for a multi-column/multi-condition algorithm
-      type: object
-      properties:
-        id:
-          description: The id of the algorithm field.
-          type: string
-          example: 20b4692e-381d-40a0-a46e-0ba7658acaf3
-          readOnly: true
-        name:
-          description: The name of the algorithm field.
-          type: string
-          example: ADDRESS_LINE1
-          readOnly: true
-        type:
-          description: The type of algorithm field.
-          type: string
-          enum:
-          - BIG_DECIMAL
-          - LOCAL_DATE_TIME
-          - STRING
-          - BYTE_BUFFER
-          example: STRING
-          readOnly: true
-        is_read_only:
-          description: Indicates whether the field is read-only. Read-only fields are taken as input by the masking algorithm but not masked.
-          type: boolean
-          readOnly: true
-        is_optional:
-          description: Indicates whether the field is optional. Optional fields do not have to be assigned to a real data field or column in order for a masking assignment to be considered valid.
-          type: boolean
-          readOnly: true
-        description:
-          description: The description of the algorithm field.
-          type: string
-          readOnly: true
-    PaginatedResponseMetadata:
-      type: object
-      properties:
-        prev_cursor:
-          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        next_cursor:
-          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        total:
-          description: The total number of results. This value may not be provided.
-          type: integer
-          format: int_64
-    AlgorithmConfigValidateRequest:
-      description: Parameters to validate a masking algorithm configuration of a given framework.
-      type: object
-      required:
-      - name
-      - config
-      - framework_id
-      properties:
-        name:
-          description: The name of this Algorithm.
-          type: string
-          example: Address
-        config:
-          description: The configuration of this algorithm.
-          type: object
-          additionalProperties: true
-        framework_id:
-          description: Id for the framework of this algorithm.
-          type: string
-        algorithm_id:
-          description: The ID or name of an existing mapping algorithm to be updated. This is only needed when validating an existing mapping algorithm with new configuration, and can be omitted when validating non-mapping algorithms or when validating a new algorithm prior to creation.
-          type: string
-    VirtualizationTask:
-      deprecated: true
+    JobTask:
       properties:
         id:
           type: string
@@ -664,7 +550,7 @@ components:
         events:
           type: array
           items:
-            $ref: '#/components/schemas/VirtualizationTaskEvent'
+            $ref: '#/components/schemas/JobTaskEvent'
         status:
           type: string
           enum:
@@ -789,19 +675,61 @@ components:
           minLength: 1
           maxLength: 4000
           example: value-1
-    TagsRequest:
-      type: object
-      required:
-      - tags
+    Engine:
       properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    AlgorithmField:
+      description: The algorithm field details for a multi-column/multi-condition algorithm
+      type: object
+      properties:
+        id:
+          description: The id of the algorithm field.
+          type: string
+          example: 20b4692e-381d-40a0-a46e-0ba7658acaf3
+          readOnly: true
+        name:
+          description: The name of the algorithm field.
+          type: string
+          example: ADDRESS_LINE1
+          readOnly: true
+        type:
+          description: The type of algorithm field.
+          type: string
+          enum:
+          - BIG_DECIMAL
+          - LOCAL_DATE_TIME
+          - STRING
+          - BYTE_BUFFER
+          example: STRING
+          readOnly: true
+        is_read_only:
+          description: Indicates whether the field is read-only. Read-only fields are taken as input by the masking algorithm but not masked.
+          type: boolean
+          readOnly: true
+        is_optional:
+          description: Indicates whether the field is optional. Optional fields do not have to be assigned to a real data field or column in order for a masking assignment to be considered valid.
+          type: boolean
+          readOnly: true
+        description:
+          description: The description of the algorithm field.
+          type: string
+          readOnly: true
     AlgorithmCreateRequest:
       description: Parameters to create a masking algorithm.
       type: object
@@ -838,50 +766,161 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
-    AlgorithmUpdateRequest:
-      description: Parameters to update a masking algorithm.
+    Job:
+      description: An asynchronous task.
       type: object
       properties:
-        name:
-          description: The name of this Algorithm.
+        id:
+          description: The Job entity ID.
           type: string
-          example: Address
-        description:
-          description: A description of this algorithm.
+          example: job-123
+        status:
+          description: The status of the job.
           type: string
-        config:
-          description: The configuration of this algorithm.
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+          example: RUNNING
+        is_waiting_for_telemetry:
+          description: Indicates that the operations performed by this Job have completed successfully, but the object changes are not yet reflected. This is only set when when the JOB is in STARTED status, with the guarantee that the job will not transition to the FAILED status. Note that this flag will likely be replaced with a new status in future API versions and be deprecated.
+          type: boolean
+        type:
+          description: The type of job being done.
+          type: string
+          example: DB_REFRESH
+        localized_type:
+          description: The i18n translated type of job being done.
+          type: string
+          example: DB Refresh
+        error_details:
+          description: Details about the failure for FAILED jobs.
+          type: string
+          example: Unable to connect to the engine.
+        warning_message:
+          description: Warnings for the job.
+          type: string
+          example: 'Failed to remove local MaskingJob, engineId: 3 localMaskingJobId: 7.'
+        target_id:
+          description: A reference to the job's target.
+          type: string
+          example: vdb-123
+        target_name:
+          description: A reference to the job's target name.
+          type: string
+          example: vdb
+        start_time:
+          description: The time the job started executing.
+          type: string
+          format: date-time
+          example: '2022-01-02T05:11:24.148000+00:00'
+        update_time:
+          description: The time the job was last updated.
+          type: string
+          format: date-time
+          example: '2022-01-02T06:11:24.148000+00:00'
+        trace_id:
+          description: traceId of the request which created this Job
+          type: string
+        engine_ids:
+          description: IDs of the engines this Job is executing on.
+          type: array
+          items:
+            type: string
+          deprecated: true
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        engines:
+          type: array
+          items:
+            $ref: '#/components/schemas/Engine'
+        account_id:
+          description: The ID of the account who initiated this job.
+          type: integer
+          example: 1
+        account_name:
+          description: The account name which initiated this job. It can be either firstname and lastname combination or firstname or lastname or username or email address or Account-<id>.
+          type: string
+          example: User 1
+        compliance_node_id:
+          type:
+          - string
+          - 'null'
+          description: The ID of the associated compliance node, if applicable.
+        compliance_node_name:
+          type:
+          - string
+          - 'null'
+          description: The name of the associated compliance node, if applicable.
+        percent_complete:
+          description: Completion percentage of the Job.
+          type: integer
+          minimum: 0
+          maximum: 100
+          example: '50'
+        virtualization_tasks:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualizationTask'
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTask'
+        execution_id:
+          description: The ID of the associated masking execution, if any.
+          type:
+          - string
+          - 'null'
+        result_type:
+          description: The type of the job result. This is the type of the object present in the result.
+          type: string
+        result:
+          description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
           type: object
-          additionalProperties: true
-    AlgorithmMappingsImportRequest:
-      description: Parameters to import algorithm mappings from a file.
-      type: object
-      required:
-      - fileReferenceId
-      - mappingFileType
+    JobTaskEvent:
       properties:
-        fileReferenceId:
-          description: The reference URI of the uploaded file to be installed. This file should have been uploaded via the /fileUpload endpoint.
+        message_details:
           type: string
-        passphrase:
-          description: The passphrase that an exported CSV mapping file was encrypted with. This is only needed if adding mappings that were previously exported.
-          type: string
-        mappingFileType:
-          description: The type of the file provided. If PLAINTEXT is chosen, the file is expected to contain newline delimited outputs. If CSV is chosen, the file is expected to conform to RFC4180. Additionally, 2 columns are expected - input and output. The first row of the CSV must be a header.
-          type: string
-          $ref: '#/components/schemas/MappingFileType'
     MappingFileType:
       description: The type of mapping file.
       type: string
       enum:
       - PLAINTEXT
       - CSV
-    VirtualizationTaskEvent:
-      deprecated: true
+    AlgorithmConfigValidateRequest:
+      description: Parameters to validate a masking algorithm configuration of a given framework.
+      type: object
+      required:
+      - name
+      - config
+      - framework_id
       properties:
-        message_details:
+        name:
+          description: The name of this Algorithm.
           type: string
-    JobTask:
+          example: Address
+        config:
+          description: The configuration of this algorithm.
+          type: object
+          additionalProperties: true
+        framework_id:
+          description: Id for the framework of this algorithm.
+          type: string
+        algorithm_id:
+          description: The ID or name of an existing mapping algorithm to be updated. This is only needed when validating an existing mapping algorithm with new configuration, and can be omitted when validating non-mapping algorithms or when validating a new algorithm prior to creation.
+          type: string
+    VirtualizationTask:
+      deprecated: true
       properties:
         id:
           type: string
@@ -902,7 +941,7 @@ components:
         events:
           type: array
           items:
-            $ref: '#/components/schemas/JobTaskEvent'
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
         status:
           type: string
           enum:
@@ -916,62 +955,110 @@ components:
           - WAITING
           - COMPLETED
           - ABANDONED
-    JobTaskEvent:
-      properties:
-        message_details:
-          type: string
-    Dependency:
-      description: A dependency relationship.
+    AlgorithmMappingsImportRequest:
+      description: Parameters to import algorithm mappings from a file.
       type: object
+      required:
+      - fileReferenceId
+      - mappingFileType
       properties:
-        id:
+        fileReferenceId:
+          description: The reference URI of the uploaded file to be installed. This file should have been uploaded via the /fileUpload endpoint.
           type: string
-          description: Unique ID for this Dependency.
-        child_id:
-          description: The ID of the child entity.
+        passphrase:
+          description: The passphrase that an exported CSV mapping file was encrypted with. This is only needed if adding mappings that were previously exported.
           type: string
-          example: aec2d976-6b7e-43f4-9212-90f4dc6e324fff
-        child_name:
-          description: The name of the child entity.
+        mappingFileType:
+          description: The type of the file provided. If PLAINTEXT is chosen, the file is expected to contain newline delimited outputs. If CSV is chosen, the file is expected to conform to RFC4180. Additionally, 2 columns are expected - input and output. The first row of the CSV must be a header.
           type: string
-          example: My File
-        child_type:
-          description: The type of the child entity.
-          type: string
-          example: MASKING_FILE_UPLOAD
-    MappingsStats:
-      description: Statistics of the mappings.
-      type: object
-      properties:
-        total_mappings:
-          description: The total number of mappings.
-          type: integer
-          format: int64
-          example: 1000
-        unused_mappings:
-          description: The number of unused mappings.
-          type: integer
-          format: int64
-          example: 100
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
-    Engine:
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
+          $ref: '#/components/schemas/MappingFileType'
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    dependenciesSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - child_id
+        - -child_id
+        - child_name
+        - -child_name
+        - child_type
+        - -child_type
+        example: child_id
+    algorithmsSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - description
+        - -description
+        - plugin_name
+        - -plugin_name
+        - framework_name
+        - -framework_name
+        - create_date
+        - -create_date
+        - engine_name
+        - -engine_name
+        - engine_id
+        - -engine_id
+        - revision_hash
+        - -revision_hash
+        - account_id
+        - -account_id
+        - account_name
+        - -account_name
+        - dct_managed
+        - -dct_managed
+        - config_invalid
+        - -config_invalid
+        - is_default_instance
+        - -is_default_instance
+        - is_tokenization_supported
+        - -is_tokenization_supported
+        example: name
+    algorithmIdParam:
+      in: path
+      name: algorithmId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the Algorithm.
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
   requestBodies:
     DeleteTags:
       description: The parameters to delete tags
@@ -1185,93 +1272,6 @@ components:
               summary: Overriding operator precedence
               value:
                 filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
-  parameters:
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
-    algorithmsSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
-      example: id
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - name
-        - -name
-        - description
-        - -description
-        - plugin_name
-        - -plugin_name
-        - framework_name
-        - -framework_name
-        - create_date
-        - -create_date
-        - engine_name
-        - -engine_name
-        - engine_id
-        - -engine_id
-        - revision_hash
-        - -revision_hash
-        - account_id
-        - -account_id
-        - account_name
-        - -account_name
-        - dct_managed
-        - -dct_managed
-        - config_invalid
-        - -config_invalid
-        - is_default_instance
-        - -is_default_instance
-        - is_tokenization_supported
-        - -is_tokenization_supported
-        example: name
-    dependenciesSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
-      example: id
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - child_id
-        - -child_id
-        - child_name
-        - -child_name
-        - child_type
-        - -child_type
-        example: child_id
-    algorithmIdParam:
-      in: path
-      name: algorithmId
-      schema:
-        type: string
-        minLength: 1
-      required: true
-      description: The ID of the Algorithm.
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

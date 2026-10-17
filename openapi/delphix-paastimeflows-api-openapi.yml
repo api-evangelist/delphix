@@ -177,65 +177,6 @@ paths:
                       $ref: '#/components/schemas/PaaSTimeflow'
 components:
   schemas:
-    TagsResponse:
-      type: object
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
-    PaaSTimeflow:
-      description: A PaaS Timeflow represents a single continuous cloud existence of a PaaS Instance or PaaS Database. Each time an instance/database is provisioned or reprovisioned, a new timeflow is created. Deprovisioning deactivates the current timeflow. Historical timeflows retain their snapshots, which can be used for historical auditing.
-      type: object
-      properties:
-        id:
-          description: The PaaS Timeflow object entity ID.
-          type: string
-          example: paas-timeflow-abc123
-        instance_id:
-          description: The ID of the PaaS Instance this timeflow belongs to. Null for database timeflows.
-          type: string
-          example: instance-123
-        database_id:
-          description: The ID of the PaaS Database this timeflow belongs to. Null for instance timeflows.
-          type: string
-          example: db-123
-        is_active:
-          description: Whether this timeflow is currently active. Only one timeflow per instance or database can be active at a time.
-          type: boolean
-          example: true
-        creation_timestamp:
-          description: The timestamp when this timeflow was created (when the instance or database was provisioned).
-          type: string
-          format: date-time
-          example: '2025-01-01T00:00:00.000000+00:00'
-        deactivation_timestamp:
-          description: The timestamp when this timeflow was deactivated (when the instance or database was deprovisioned). Null for active timeflows.
-          type: string
-          format: date-time
-          example: '2025-06-01T00:00:00.000000+00:00'
-        masked_by_execution_id:
-          description: The ID of the compliance job collection execution that masked this timeflow, if any.
-          type: string
-          readOnly: true
-        masked_by_collection_id:
-          description: The ID of the compliance job collection that masked this timeflow, if any.
-          type: string
-          readOnly: true
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
     DeleteTag:
       type: object
       properties:
@@ -303,33 +244,66 @@ components:
           description: The total number of results. This value may not be provided.
           type: integer
           format: int_64
+    PaaSTimeflow:
+      description: A PaaS Timeflow represents a single continuous cloud existence of a PaaS Instance or PaaS Database. Each time an instance/database is provisioned or reprovisioned, a new timeflow is created. Deprovisioning deactivates the current timeflow. Historical timeflows retain their snapshots, which can be used for historical auditing.
+      type: object
+      properties:
+        id:
+          description: The PaaS Timeflow object entity ID.
+          type: string
+          example: paas-timeflow-abc123
+        instance_id:
+          description: The ID of the PaaS Instance this timeflow belongs to. Null for database timeflows.
+          type: string
+          example: instance-123
+        database_id:
+          description: The ID of the PaaS Database this timeflow belongs to. Null for instance timeflows.
+          type: string
+          example: db-123
+        is_active:
+          description: Whether this timeflow is currently active. Only one timeflow per instance or database can be active at a time.
+          type: boolean
+          example: true
+        creation_timestamp:
+          description: The timestamp when this timeflow was created (when the instance or database was provisioned).
+          type: string
+          format: date-time
+          example: '2025-01-01T00:00:00.000000+00:00'
+        deactivation_timestamp:
+          description: The timestamp when this timeflow was deactivated (when the instance or database was deprovisioned). Null for active timeflows.
+          type: string
+          format: date-time
+          example: '2025-06-01T00:00:00.000000+00:00'
+        masked_by_execution_id:
+          description: The ID of the compliance job collection execution that masked this timeflow, if any.
+          type: string
+          readOnly: true
+        masked_by_collection_id:
+          description: The ID of the compliance job collection that masked this timeflow, if any.
+          type: string
+          readOnly: true
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
   parameters:
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
-    paaSInstanceIdParam:
-      in: path
-      name: paaSInstanceId
-      required: true
-      schema:
-        type: string
-        minLength: 1
-      description: The ID of the PaaS Instance.
-    paaSDatabaseIdParam:
-      in: path
-      name: paaSDatabaseId
-      required: true
-      schema:
-        type: string
-        minLength: 1
-      description: The ID of the PaaS Database.
     paaSTimeflowIdParam:
       in: path
       name: paaSTimeflowId
@@ -361,6 +335,24 @@ components:
         - deactivation_timestamp
         - -deactivation_timestamp
         example: -creation_timestamp
+    paaSInstanceIdParam:
+      in: path
+      name: paaSInstanceId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the PaaS Instance.
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
     cursor:
       name: cursor
       in: query
@@ -369,6 +361,14 @@ components:
         type: string
         minLength: 1
         maxLength: 4096
+    paaSDatabaseIdParam:
+      in: path
+      name: paaSDatabaseId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the PaaS Database.
   requestBodies:
     DeleteTags:
       description: The parameters to delete tags

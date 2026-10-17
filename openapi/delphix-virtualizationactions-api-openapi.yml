@@ -122,16 +122,6 @@ paths:
                   '
 components:
   parameters:
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
     virtualizationActionsSortParam:
       name: sort
       in: query
@@ -180,6 +170,16 @@ components:
         - failure_message_code
         - -failure_message_code
         example: name
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
     cursor:
       name: cursor
       in: query
@@ -189,15 +189,6 @@ components:
         minLength: 1
         maxLength: 4096
   schemas:
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
     VirtualizationAction:
       description: A virtualization engine action.
       type: object
@@ -281,6 +272,15 @@ components:
           description: The total number of results. This value may not be provided.
           type: integer
           format: int_64
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
   requestBodies:
     SearchBody:
       x-skip-codegen-attr: description

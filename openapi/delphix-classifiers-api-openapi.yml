@@ -317,6 +317,68 @@ paths:
           description: No Content
 components:
   schemas:
+    DiscoveryPolicy:
+      description: A discovery policy.
+      type: object
+      properties:
+        id:
+          description: The discovery policy ID.
+          type: string
+          example: a638d976-6b7e-43f4-9212-90f4dc6d405c
+        name:
+          description: The name of this discovery policy.
+          type: string
+          example: ASDD Standard
+        description:
+          description: A description of this discovery policy.
+          type:
+          - string
+          - 'null'
+        dct_managed:
+          description: Whether or not this discovery policy is managed by DCT.
+          type: boolean
+          readOnly: true
+        account_id:
+          description: The ID of the account who created this discovery policy.
+          type: integer
+          format: int64
+          readOnly: true
+        account_name:
+          description: The account name of the DCT user who created this discovery policy.
+          type: string
+          readOnly: true
+          example: username
+        discovery_method:
+          description: The method used to discover sensitive data.
+          type: string
+          enum:
+          - CLASSIFIERS
+          - EXPRESSIONS
+          example: CLASSIFIERS
+        assignment_threshold:
+          description: The confidence threshold that must be met or exceeded to make an assignment. This is an integer from 1-100.
+          type: integer
+          format: int32
+          example: 80
+        engine_id:
+          description: The ID of the engine that this discovery policy originated from.
+          type:
+          - string
+          - 'null'
+        engine_name:
+          description: The name of the engine that this discovery policy originated from.
+          type:
+          - string
+          - 'null'
+        built_in:
+          description: Whether this discovery policy is built-in or user-defined.
+          type: boolean
+          readOnly: true
+        tags:
+          description: The tags of this discovery policy.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
     TagsResponse:
       type: object
       properties:
@@ -325,6 +387,37 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
     ClassifierCreateRequest:
       description: Parameters used to create a classifier.
       type: object
@@ -412,6 +505,149 @@ components:
         data_class_id:
           description: The ID of the data class associated with this classifier.
           type: string
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    Classifier:
+      description: A classifier.
+      type: object
+      properties:
+        id:
+          description: The classifier ID.
+          type: string
+          example: a638d976-6b7e-43f4-9212-90f4dc6d405c
+        name:
+          description: The name of this classifier.
+          type: string
+          example: City
+        framework:
+          description: The framework of this classifier.
+          type: string
+          enum:
+          - REGEX
+          - LIST
+          - PATH
+          - DATA_TYPE
+          example: REGEX
+        description:
+          description: A description of this classifier.
+          type:
+          - string
+          - 'null'
+        dct_managed:
+          description: Whether or not this classifier is managed by DCT.
+          type: boolean
+          readOnly: true
+        account_id:
+          description: The ID of the account who created this classifier.
+          type: integer
+          format: int64
+          readOnly: true
+        account_name:
+          description: The account name of the DCT user who created this classifier.
+          type: string
+          readOnly: true
+          example: username
+        data_class_id:
+          description: The id of the data class associated with this classifier.
+          type: string
+          example: 6b5c4d3e-2a1b-4c3d-5e6f-7a8b9c0d1e2f
+        data_class_name:
+          description: The name of the data class associated with this classifier.
+          type: string
+          example: My Domain
+        config:
+          description: The configuration of this algorithm.
+          type: object
+          additionalProperties: true
+        engine_id:
+          description: The ID of the engine this classifier originated from.
+          type:
+          - string
+          - 'null'
+        engine_name:
+          description: The name of the engine this classifier originated from.
+          type:
+          - string
+          - 'null'
+        built_in:
+          description: Whether this classifier is built-in or user-defined.
+          type: boolean
+          readOnly: true
+        tags:
+          description: The tags of this classifier.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
     Job:
       description: An asynchronous task.
       type: object
@@ -533,19 +769,10 @@ components:
         result:
           description: The result of the job execution. This is JSON serialized string of the result object whose type is specified by result_type property.
           type: object
-    PaginatedResponseMetadata:
-      type: object
+    JobTaskEvent:
       properties:
-        prev_cursor:
-          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+        message_details:
           type: string
-        next_cursor:
-          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        total:
-          description: The total number of results. This value may not be provided.
-          type: integer
-          format: int_64
     VirtualizationTask:
       deprecated: true
       properties:
@@ -582,233 +809,99 @@ components:
           - WAITING
           - COMPLETED
           - ABANDONED
-    Tag:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-    TagsRequest:
-      type: object
-      required:
-      - tags
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-    DiscoveryPolicy:
-      description: A discovery policy.
-      type: object
-      properties:
-        id:
-          description: The discovery policy ID.
-          type: string
-          example: a638d976-6b7e-43f4-9212-90f4dc6d405c
-        name:
-          description: The name of this discovery policy.
-          type: string
-          example: ASDD Standard
-        description:
-          description: A description of this discovery policy.
-          type:
-          - string
-          - 'null'
-        dct_managed:
-          description: Whether or not this discovery policy is managed by DCT.
-          type: boolean
-          readOnly: true
-        account_id:
-          description: The ID of the account who created this discovery policy.
-          type: integer
-          format: int64
-          readOnly: true
-        account_name:
-          description: The account name of the DCT user who created this discovery policy.
-          type: string
-          readOnly: true
-          example: username
-        discovery_method:
-          description: The method used to discover sensitive data.
-          type: string
-          enum:
-          - CLASSIFIERS
-          - EXPRESSIONS
-          example: CLASSIFIERS
-        assignment_threshold:
-          description: The confidence threshold that must be met or exceeded to make an assignment. This is an integer from 1-100.
-          type: integer
-          format: int32
-          example: 80
-        engine_id:
-          description: The ID of the engine that this discovery policy originated from.
-          type:
-          - string
-          - 'null'
-        engine_name:
-          description: The name of the engine that this discovery policy originated from.
-          type:
-          - string
-          - 'null'
-        built_in:
-          description: Whether this discovery policy is built-in or user-defined.
-          type: boolean
-          readOnly: true
-        tags:
-          description: The tags of this discovery policy.
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    VirtualizationTaskEvent:
-      deprecated: true
-      properties:
-        message_details:
-          type: string
-    JobTask:
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    JobTaskEvent:
-      properties:
-        message_details:
-          type: string
-    Classifier:
-      description: A classifier.
-      type: object
-      properties:
-        id:
-          description: The classifier ID.
-          type: string
-          example: a638d976-6b7e-43f4-9212-90f4dc6d405c
-        name:
-          description: The name of this classifier.
-          type: string
-          example: City
-        framework:
-          description: The framework of this classifier.
-          type: string
-          enum:
-          - REGEX
-          - LIST
-          - PATH
-          - DATA_TYPE
-          example: REGEX
-        description:
-          description: A description of this classifier.
-          type:
-          - string
-          - 'null'
-        dct_managed:
-          description: Whether or not this classifier is managed by DCT.
-          type: boolean
-          readOnly: true
-        account_id:
-          description: The ID of the account who created this classifier.
-          type: integer
-          format: int64
-          readOnly: true
-        account_name:
-          description: The account name of the DCT user who created this classifier.
-          type: string
-          readOnly: true
-          example: username
-        data_class_id:
-          description: The id of the data class associated with this classifier.
-          type: string
-          example: 6b5c4d3e-2a1b-4c3d-5e6f-7a8b9c0d1e2f
-        data_class_name:
-          description: The name of the data class associated with this classifier.
-          type: string
-          example: My Domain
-        config:
-          description: The configuration of this algorithm.
-          type: object
-          additionalProperties: true
-        engine_id:
-          description: The ID of the engine this classifier originated from.
-          type:
-          - string
-          - 'null'
-        engine_name:
-          description: The name of the engine this classifier originated from.
-          type:
-          - string
-          - 'null'
-        built_in:
-          description: Whether this classifier is built-in or user-defined.
-          type: boolean
-          readOnly: true
-        tags:
-          description: The tags of this classifier.
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
-    Engine:
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    discoveryPoliciesSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - description
+        - -description
+        - account_id
+        - -account_id
+        - account_name
+        - -account_name
+        - dct_managed
+        - -dct_managed
+        - discovery_method
+        - -discovery_method
+        - assignment_threshold
+        - -assignment_threshold
+        - engine_id
+        - -engine_id
+        - engine_name
+        - -engine_name
+        example: name
+    classifiersSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: name
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - framework
+        - -framework
+        - description
+        - -description
+        - account_id
+        - -account_id
+        - account_name
+        - -account_name
+        - dct_managed
+        - -dct_managed
+        - data_class_id
+        - -data_class_id
+        - data_class_name
+        - -data_class_name
+        - engine_id
+        - -engine_id
+        - engine_name
+        - -engine_name
+        example: name
+    classifierIdParam:
+      in: path
+      name: classifierId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the Classifier.
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
   requestBodies:
     DeleteTags:
       description: The parameters to delete tags
@@ -1022,99 +1115,6 @@ components:
               summary: Overriding operator precedence
               value:
                 filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
-  parameters:
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
-    classifierIdParam:
-      in: path
-      name: classifierId
-      schema:
-        type: string
-        minLength: 1
-      required: true
-      description: The ID of the Classifier.
-    discoveryPoliciesSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
-      example: id
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - name
-        - -name
-        - description
-        - -description
-        - account_id
-        - -account_id
-        - account_name
-        - -account_name
-        - dct_managed
-        - -dct_managed
-        - discovery_method
-        - -discovery_method
-        - assignment_threshold
-        - -assignment_threshold
-        - engine_id
-        - -engine_id
-        - engine_name
-        - -engine_name
-        example: name
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
-    classifiersSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
-      example: name
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - name
-        - -name
-        - framework
-        - -framework
-        - description
-        - -description
-        - account_id
-        - -account_id
-        - account_name
-        - -account_name
-        - dct_managed
-        - -dct_managed
-        - data_class_id
-        - -data_class_id
-        - data_class_name
-        - -data_class_name
-        - engine_id
-        - -engine_id
-        - engine_name
-        - -engine_name
-        example: name
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

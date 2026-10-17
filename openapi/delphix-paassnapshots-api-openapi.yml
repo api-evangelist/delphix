@@ -281,6 +281,145 @@ paths:
                     $ref: '#/components/schemas/Job'
 components:
   schemas:
+    CloudTag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        mirror_on_cloud:
+          description: Whether this tag is mirrored from/to the Cloud Provider account hosting the PaaS Database or Instance. Not applicable to non PaaS objects.
+          type: boolean
+          default: false
+    CloudTagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/CloudTag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    DeleteCloudTag:
+      type: object
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        tags:
+          description: List of tags to be deleted
+          type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/CloudTag'
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    Tag:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
     CloudTagsResponse:
       type: object
       properties:
@@ -289,6 +428,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CloudTag'
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
     Job:
       description: An asynchronous task.
       type: object
@@ -412,100 +560,10 @@ components:
           type: object
       discriminator:
         propertyName: class_type
-    PaginatedResponseMetadata:
-      type: object
+    JobTaskEvent:
       properties:
-        prev_cursor:
-          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+        message_details:
           type: string
-        next_cursor:
-          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        total:
-          description: The total number of results. This value may not be provided.
-          type: integer
-          format: int_64
-    DeleteCloudTag:
-      type: object
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-        tags:
-          description: List of tags to be deleted
-          type: array
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/CloudTag'
-    CloudTag:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-        mirror_on_cloud:
-          description: Whether this tag is mirrored from/to the Cloud Provider account hosting the PaaS Database or Instance. Not applicable to non PaaS objects.
-          type: boolean
-          default: false
-    VirtualizationTask:
-      deprecated: true
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualizationTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
     PaaSSnapshotRequest:
       type: object
       properties:
@@ -519,37 +577,6 @@ components:
           minLength: 1
           maxLength: 128
           example: my-snapshot-123
-    Tag:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-    CloudTagsRequest:
-      type: object
-      required:
-      - tags
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/CloudTag'
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
     PaaSSnapshot:
       description: A PaaS Snapshot.
       type: object
@@ -628,12 +655,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CloudTag'
-    VirtualizationTaskEvent:
+    VirtualizationTask:
       deprecated: true
-      properties:
-        message_details:
-          type: string
-    JobTask:
       properties:
         id:
           type: string
@@ -654,7 +677,7 @@ components:
         events:
           type: array
           items:
-            $ref: '#/components/schemas/JobTaskEvent'
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
         status:
           type: string
           enum:
@@ -668,30 +691,33 @@ components:
           - WAITING
           - COMPLETED
           - ABANDONED
-    JobTaskEvent:
-      properties:
-        message_details:
-          type: string
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
-    Engine:
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
   parameters:
+    paaSInstanceIdParam:
+      in: path
+      name: paaSInstanceId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the PaaS Instance.
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    paaSSnapshotIdParam:
+      in: path
+      name: paaSSnapshotId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the PaaS Snapshot.
     paaSDatabaseIdParam:
       in: path
       name: paaSDatabaseId
@@ -745,33 +771,41 @@ components:
         type: string
         minLength: 1
         maxLength: 4096
-    paaSInstanceIdParam:
-      in: path
-      name: paaSInstanceId
-      required: true
-      schema:
-        type: string
-        minLength: 1
-      description: The ID of the PaaS Instance.
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
-    paaSSnapshotIdParam:
-      in: path
-      name: paaSSnapshotId
-      required: true
-      schema:
-        type: string
-        minLength: 1
-      description: The ID of the PaaS Snapshot.
   requestBodies:
+    DeleteCloudTags:
+      description: The parameters to delete cloud tags
+      content:
+        application/json:
+          schema:
+            x-body-name: deleteCloudTag
+            $ref: '#/components/schemas/DeleteCloudTag'
+          examples:
+            delete_all_tags:
+              description: Delete all tags for given object - No request body required
+              summary: Delete all tags
+              value: {}
+            delete_tags_by_key:
+              description: Delete all tags for given object with matching key
+              summary: Delete tags by key
+              value:
+                key: key-1
+            delete_tags_by_key_value:
+              description: Delete tag for given object with matching key and value
+              summary: Delete a tag by key & value
+              value:
+                key: key-1
+                value: value-1
+            delete_multiple_tags_by_key_value:
+              description: Delete tags for given list of tags with matching key and value
+              summary: Delete multiple tags by key & value
+              value:
+                tags:
+                - key: key-1
+                  value: value-1
+                  mirror_on_cloud: true
+                - key: key-2
+                  value: value-2
+                  mirror_on_cloud: false
     SearchBody:
       x-skip-codegen-attr: description
       description: 'A request body containing a filter expression. This enables searching
@@ -952,40 +986,6 @@ components:
               summary: Overriding operator precedence
               value:
                 filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
-    DeleteCloudTags:
-      description: The parameters to delete cloud tags
-      content:
-        application/json:
-          schema:
-            x-body-name: deleteCloudTag
-            $ref: '#/components/schemas/DeleteCloudTag'
-          examples:
-            delete_all_tags:
-              description: Delete all tags for given object - No request body required
-              summary: Delete all tags
-              value: {}
-            delete_tags_by_key:
-              description: Delete all tags for given object with matching key
-              summary: Delete tags by key
-              value:
-                key: key-1
-            delete_tags_by_key_value:
-              description: Delete tag for given object with matching key and value
-              summary: Delete a tag by key & value
-              value:
-                key: key-1
-                value: value-1
-            delete_multiple_tags_by_key_value:
-              description: Delete tags for given list of tags with matching key and value
-              summary: Delete multiple tags by key & value
-              value:
-                tags:
-                - key: key-1
-                  value: value-1
-                  mirror_on_cloud: true
-                - key: key-2
-                  value: value-2
-                  mirror_on_cloud: false
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

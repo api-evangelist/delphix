@@ -91,140 +91,6 @@ paths:
           description: OK
 components:
   schemas:
-    ConnectivityCheckParameters:
-      title: ConnectivityCheckParameters
-      type: object
-      description: Parameters to check connectivity between engine and remote host.
-      required:
-      - engine_id
-      - host
-      - port
-      properties:
-        engine_id:
-          description: The ID of the engine to check.
-          type: string
-          example: engine-123
-        use_engine_public_key:
-          type: boolean
-          description: Whether to use public key authentication.
-          example: true
-        os_name:
-          type: string
-          description: Operating system type of the environment.
-          enum:
-          - UNIX
-          - WINDOWS
-          example: UNIX
-        staging_environment:
-          type: string
-          description: Id of the connector environment which is used to connect to this source environment.
-          minLength: 1
-          maxLength: 256
-          example: 1-WINDOWS_HOST-1
-        host:
-          description: The hostname of the remote host machine to check.
-          type: string
-          example: test.host.com
-        port:
-          description: The port of the remote host machine to check. For Windows, port on which Delphix connector is running.
-          type:
-          - integer
-          - 'null'
-          minimum: 0
-          maximum: 65535
-          example: 22
-        username:
-          description: The username of the remote host machine to check. Username is mandatory input with password/use_engine_public_key/kerberos_authentication.
-          type: string
-          minLength: 1
-          maxLength: 255
-          example: username
-        password:
-          x-dct-toolkit-credential-field: true
-          description: The password of the remote host machine to check.
-          type: string
-          minLength: 1
-          maxLength: 255
-          example: password
-        vault_id:
-          type: string
-          description: The DCT id or name of the vault from which to read the host credentials.
-          minLength: 1
-          maxLength: 256
-          example: my-vault
-        hashicorp_vault_engine:
-          x-dct-toolkit-credential-field: true
-          type: string
-          description: Vault engine name where the credential is stored.
-          minLength: 1
-          maxLength: 256
-          example: kv
-        hashicorp_vault_secret_path:
-          x-dct-toolkit-credential-field: true
-          type: string
-          description: Path in the vault engine where the credential is stored.
-          minLength: 1
-          maxLength: 256
-          example: oracle-env
-        hashicorp_vault_username_key:
-          x-dct-toolkit-credential-field: true
-          type: string
-          description: Key for the username in the key-value store.
-          minLength: 1
-          maxLength: 256
-          example: username
-        hashicorp_vault_secret_key:
-          x-dct-toolkit-credential-field: true
-          type: string
-          description: Key for the password in the key-value store.
-          minLength: 1
-          maxLength: 256
-          example: secret
-        azure_vault_name:
-          x-dct-toolkit-credential-field: true
-          type: string
-          description: Azure key vault name (ORACLE, ASE and MSSQL_DOMAIN_USER only).
-          minLength: 1
-          maxLength: 256
-          example: azure_vault
-        azure_vault_username_key:
-          x-dct-toolkit-credential-field: true
-          type: string
-          description: Azure vault key for the username in the key-value store (ORACLE, ASE and MSSQL_DOMAIN_USER only).
-          minLength: 1
-          maxLength: 256
-          example: username
-        azure_vault_secret_key:
-          x-dct-toolkit-credential-field: true
-          type: string
-          description: Azure vault key for the password in the key-value store (ORACLE, ASE and MSSQL_DOMAIN_USER only).
-          minLength: 1
-          maxLength: 256
-          example: secret
-        cyberark_vault_query_string:
-          x-dct-toolkit-credential-field: true
-          type: string
-          description: Query to find a credential in the CyberArk vault.
-          minLength: 1
-          maxLength: 256
-          example: Safe=Test;Folder=Test;Object=Test
-        use_kerberos_authentication:
-          type: boolean
-          description: Whether to use kerberos authentication.
-          example: true
-        custom_private_key:
-          x-dct-toolkit-credential-field: true
-          type: string
-          description: SSH Private key to be used for authentication
-          minLength: 1
-          maxLength: 6000
-          example: ssh custom_private_key
-        custom_public_key:
-          type: string
-          description: SSH Public key to be used for authentication
-          minLength: 1
-          maxLength: 6000
-          example: ssh custom_public_key
     NetbackupConnectivityCheckParameters:
       required:
       - environment_id
@@ -413,6 +279,140 @@ components:
           - SUCCESS
           - FAILED
           example: SUCCESS
+    ConnectivityCheckParameters:
+      title: ConnectivityCheckParameters
+      type: object
+      description: Parameters to check connectivity between engine and remote host.
+      required:
+      - engine_id
+      - host
+      - port
+      properties:
+        engine_id:
+          description: The ID of the engine to check.
+          type: string
+          example: engine-123
+        use_engine_public_key:
+          type: boolean
+          description: Whether to use public key authentication.
+          example: true
+        os_name:
+          type: string
+          description: Operating system type of the environment.
+          enum:
+          - UNIX
+          - WINDOWS
+          example: UNIX
+        staging_environment:
+          type: string
+          description: Id of the connector environment which is used to connect to this source environment.
+          minLength: 1
+          maxLength: 256
+          example: 1-WINDOWS_HOST-1
+        host:
+          description: The hostname of the remote host machine to check.
+          type: string
+          example: test.host.com
+        port:
+          description: The port of the remote host machine to check. For Windows, port on which Delphix connector is running.
+          type:
+          - integer
+          - 'null'
+          minimum: 0
+          maximum: 65535
+          example: 22
+        username:
+          description: The username of the remote host machine to check. Username is mandatory input with password/use_engine_public_key/kerberos_authentication.
+          type: string
+          minLength: 1
+          maxLength: 255
+          example: username
+        password:
+          x-dct-toolkit-credential-field: true
+          description: The password of the remote host machine to check.
+          type: string
+          minLength: 1
+          maxLength: 255
+          example: password
+        vault_id:
+          type: string
+          description: The DCT id or name of the vault from which to read the host credentials.
+          minLength: 1
+          maxLength: 256
+          example: my-vault
+        hashicorp_vault_engine:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: Vault engine name where the credential is stored.
+          minLength: 1
+          maxLength: 256
+          example: kv
+        hashicorp_vault_secret_path:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: Path in the vault engine where the credential is stored.
+          minLength: 1
+          maxLength: 256
+          example: oracle-env
+        hashicorp_vault_username_key:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: Key for the username in the key-value store.
+          minLength: 1
+          maxLength: 256
+          example: username
+        hashicorp_vault_secret_key:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: Key for the password in the key-value store.
+          minLength: 1
+          maxLength: 256
+          example: secret
+        azure_vault_name:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: Azure key vault name (ORACLE, ASE and MSSQL_DOMAIN_USER only).
+          minLength: 1
+          maxLength: 256
+          example: azure_vault
+        azure_vault_username_key:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: Azure vault key for the username in the key-value store (ORACLE, ASE and MSSQL_DOMAIN_USER only).
+          minLength: 1
+          maxLength: 256
+          example: username
+        azure_vault_secret_key:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: Azure vault key for the password in the key-value store (ORACLE, ASE and MSSQL_DOMAIN_USER only).
+          minLength: 1
+          maxLength: 256
+          example: secret
+        cyberark_vault_query_string:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: Query to find a credential in the CyberArk vault.
+          minLength: 1
+          maxLength: 256
+          example: Safe=Test;Folder=Test;Object=Test
+        use_kerberos_authentication:
+          type: boolean
+          description: Whether to use kerberos authentication.
+          example: true
+        custom_private_key:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: SSH Private key to be used for authentication
+          minLength: 1
+          maxLength: 6000
+          example: ssh custom_private_key
+        custom_public_key:
+          type: string
+          description: SSH Public key to be used for authentication
+          minLength: 1
+          maxLength: 6000
+          example: ssh custom_public_key
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

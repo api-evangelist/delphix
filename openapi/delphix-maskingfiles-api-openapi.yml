@@ -291,65 +291,103 @@ paths:
                     type: string
                     description: The download URL for the masking file.
 components:
+  parameters:
+    maskingFilesSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - filename
+        - -filename
+        - created_date
+        - -created_date
+        - file_size
+        - -file_size
+        - file_checksum
+        - -file_checksum
+        - description
+        - -description
+        - file_reference_id
+        - -file_reference_id
+        example: name
+    fileDownloadId:
+      in: path
+      name: fileDownloadId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID of the FileDownload.
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+    ConsumersSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: parent_id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - parent_id
+        - -parent_id
+        - parent_type
+        - -parent_type
+        - parent_name
+        - -parent_name
+        example: name
+    maskingFileIdParam:
+      in: path
+      name: maskingFileId
+      schema:
+        type: string
+        minLength: 1
+      required: true
+      description: The ID or name of the masking file.
   schemas:
-    TagsResponse:
-      type: object
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    MaskingFileUpload:
-      description: An uploaded file.
+    Consumer:
+      description: Consumer object.
       type: object
       properties:
         id:
           type: string
-          description: ID of file.
-        description:
+          description: Unique ID for this Consumer.
+        parent_id:
           type: string
-          description: A description of this file.
-        filename:
+          description: ID of the parent object.
+        parent_name:
           type: string
-          description: Name of this file.
-        file_checksum:
+          description: The name of the parent object.
+        parent_type:
           type: string
-          description: Checksum of this file.
-        file_size:
-          type: integer
-          format: int64
-          description: Size of this file in bytes.
-        created_date:
-          type: string
-          format: date-time
-          description: Date that this file was created.
-        file_reference_id:
-          type: string
-          description: A reference to this file.
-        tags:
-          type: array
-          description: Tags of this file.
-          items:
-            $ref: '#/components/schemas/Tag'
-    MaskingFileUploadUpdateParameters:
-      description: Parameters to update a masking engine
-      type: object
-      required:
-      - description
-      properties:
-        description:
-          description: A description for this masking file.
-          type: string
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
+          description: The type of the object.
+          example: algorithm
     DeleteTag:
       type: object
       properties:
@@ -371,6 +409,23 @@ components:
           minItems: 1
           maxItems: 1000
           uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+    MaskingFileUploadUpdateParameters:
+      description: Parameters to update a masking engine
+      type: object
+      required:
+      - description
+      properties:
+        description:
+          description: A description for this masking file.
+          type: string
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
           items:
             $ref: '#/components/schemas/Tag'
     Tag:
@@ -404,6 +459,47 @@ components:
           minItems: 1
           maxItems: 1000
           uniqueItems: true
+    MaskingFileUpload:
+      description: An uploaded file.
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of file.
+        description:
+          type: string
+          description: A description of this file.
+        filename:
+          type: string
+          description: Name of this file.
+        file_checksum:
+          type: string
+          description: Checksum of this file.
+        file_size:
+          type: integer
+          format: int64
+          description: Size of this file in bytes.
+        created_date:
+          type: string
+          format: date-time
+          description: Date that this file was created.
+        file_reference_id:
+          type: string
+          description: A reference to this file.
+        tags:
+          type: array
+          description: Tags of this file.
+          items:
+            $ref: '#/components/schemas/Tag'
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
     PaginatedResponseMetadata:
       type: object
       properties:
@@ -417,102 +513,6 @@ components:
           description: The total number of results. This value may not be provided.
           type: integer
           format: int_64
-    Consumer:
-      description: Consumer object.
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique ID for this Consumer.
-        parent_id:
-          type: string
-          description: ID of the parent object.
-        parent_name:
-          type: string
-          description: The name of the parent object.
-        parent_type:
-          type: string
-          description: The type of the object.
-          example: algorithm
-  parameters:
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
-    maskingFileIdParam:
-      in: path
-      name: maskingFileId
-      schema:
-        type: string
-        minLength: 1
-      required: true
-      description: The ID or name of the masking file.
-    fileDownloadId:
-      in: path
-      name: fileDownloadId
-      schema:
-        type: string
-        minLength: 1
-      required: true
-      description: The ID of the FileDownload.
-    maskingFilesSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
-      example: id
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - filename
-        - -filename
-        - created_date
-        - -created_date
-        - file_size
-        - -file_size
-        - file_checksum
-        - -file_checksum
-        - description
-        - -description
-        - file_reference_id
-        - -file_reference_id
-        example: name
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
-    ConsumersSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
-      example: parent_id
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - parent_id
-        - -parent_id
-        - parent_type
-        - -parent_type
-        - parent_name
-        - -parent_name
-        example: name
   requestBodies:
     DeleteTags:
       description: The parameters to delete tags

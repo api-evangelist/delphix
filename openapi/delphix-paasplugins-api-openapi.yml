@@ -88,63 +88,7 @@ paths:
         '204':
           description: No Content
 components:
-  parameters:
-    paaSPluginIdParam:
-      in: path
-      name: paaSPluginId
-      required: true
-      schema:
-        type: string
-        minLength: 1
-      description: The ID of the PaaS Plugin.
-    paasPluginSortParam:
-      name: sort
-      in: query
-      description: 'The field to sort results by. A property name with a prepended ''-'' signifies descending order.
-
-        '
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - unique_identifier
-        - -unique_identifier
-        - name
-        - -name
-        - version
-        - -version
-        example: name
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
   schemas:
-    TagsResponse:
-      type: object
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
     PaaSPlugin:
       description: A plugin to manage PaaS Databases.
       type: object
@@ -205,6 +149,14 @@ components:
           minItems: 1
           maxItems: 1000
           uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+    TagsResponse:
+      type: object
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
           items:
             $ref: '#/components/schemas/Tag'
     Tag:
@@ -270,6 +222,54 @@ components:
           minLength: 1
           maxLength: 256
           example: US West Oregon
+  parameters:
+    paaSPluginIdParam:
+      in: path
+      name: paaSPluginId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the PaaS Plugin.
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
+    paasPluginSortParam:
+      name: sort
+      in: query
+      description: 'The field to sort results by. A property name with a prepended ''-'' signifies descending order.
+
+        '
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - unique_identifier
+        - -unique_identifier
+        - name
+        - -name
+        - version
+        - -version
+        example: name
   requestBodies:
     DeleteTags:
       description: The parameters to delete tags

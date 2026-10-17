@@ -241,12 +241,190 @@ paths:
           description: No Content
 components:
   schemas:
+    UpdateHookTemplateParameters:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the hook template.
+          minLength: 1
+          maxLength: 256
+          example: Hook Template 1
+        description:
+          type: string
+          description: Description of the hook template.
+        shell:
+          type: string
+          enum:
+          - bash
+          - shell
+          - expect
+          - ps
+          - psd
+          default: bash
+        command:
+          type: string
+          minLength: 1
+          maxLength: 131072
+        credentials_env_vars:
+          description: List of environment variables that will contain credentials for this operation.
+          type: array
+          items:
+            $ref: '#/components/schemas/CredentialsEnvVariable'
     TagsResponse:
       type: object
       properties:
         tags:
           description: Array of tags with key value pairs
           type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    TagsRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          description: Array of tags with key value pairs
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
+    PaginatedResponseMetadata:
+      type: object
+      properties:
+        prev_cursor:
+          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        next_cursor:
+          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+          type: string
+        total:
+          description: The total number of results. This value may not be provided.
+          type: integer
+          format: int_64
+    VirtualizationTaskEvent:
+      deprecated: true
+      properties:
+        message_details:
+          type: string
+    CredentialsEnvVariable:
+      required:
+      - base_var_name
+      properties:
+        base_var_name:
+          type: string
+          description: Base name of the environment variables. Variables are named by appending '_USER', '_PASSWORD', '_PUBKEY' and '_PRIVKEY' to this base name, respectively. Variables whose values are not entered or are not present in the type of credential or vault selected, will not be set.
+          minLength: 1
+          maxLength: 256
+        password:
+          x-dct-toolkit-credential-field: true
+          type: string
+          description: Password to assign to the environment variables.
+          minLength: 1
+          maxLength: 256
+          example: password
+        vault_username:
+          type: string
+          description: Delphix display name for the vault user.
+          minLength: 1
+          maxLength: 256
+          example: my-vault
+        vault:
+          type: string
+          description: The name or reference of the vault to assign to the environment variables.
+          minLength: 1
+          maxLength: 256
+          example: 1-VAULT-1
+        hashicorp_vault_engine:
+          type: string
+          description: Vault engine name where the credential is stored.
+          minLength: 1
+          maxLength: 256
+          example: kv
+        hashicorp_vault_secret_path:
+          type: string
+          description: Path in the vault engine where the credential is stored.
+          minLength: 1
+          maxLength: 256
+          example: oracle-env
+        hashicorp_vault_username_key:
+          type: string
+          description: Hashicorp vault key for the username in the key-value store.
+          minLength: 1
+          maxLength: 256
+          example: username
+        hashicorp_vault_secret_key:
+          type: string
+          description: Hashicorp vault key for the password in the key-value store.
+          minLength: 1
+          maxLength: 256
+          example: secret
+        azure_vault_name:
+          type: string
+          description: Azure key vault name.
+          minLength: 1
+          maxLength: 256
+          example: azure_vault
+        azure_vault_username_key:
+          type: string
+          description: Azure vault key in the key-value store.
+          minLength: 1
+          maxLength: 256
+          example: username
+        azure_vault_secret_key:
+          type: string
+          description: Azure vault key in the key-value store.
+          minLength: 1
+          maxLength: 256
+          example: secret
+        cyberark_vault_query_string:
+          type: string
+          description: Query to find a credential in the CyberArk vault.
+          minLength: 1
+          maxLength: 256
+          example: Safe=Test;Folder=Test;Object=Test
+        credential_type:
+          type: string
+          description: Credential type of the credential environment variable
+          minLength: 1
+          maxLength: 256
+          example: PasswordCredential
+        element_id:
+          type: string
+          description: Element ID of the credential environment variable. Omit to create a new credential. Include an existing element_id to update that credential. Any existing credential whose element_id is omitted from the request will be deleted. An element_id that does not match any existing credential is silently ignored.
+          minLength: 1
+          maxLength: 256
+          example: 35
+        type:
+          type: string
+          description: Type of the credential environment variable
+          minLength: 1
+          maxLength: 256
+          example: CredentialsEnvVars
+    DeleteTag:
+      type: object
+      properties:
+        key:
+          description: Key of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: key-1
+        value:
+          description: Value of the tag
+          type: string
+          minLength: 1
+          maxLength: 4000
+          example: value-1
+        tags:
+          description: List of tags to be deleted
+          type: array
+          minItems: 1
+          maxItems: 1000
+          uniqueItems: true
           items:
             $ref: '#/components/schemas/Tag'
     CreateHookTemplateParameters:
@@ -287,8 +465,83 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
-    DeleteTag:
+    JobTask:
+      properties:
+        id:
+          type: string
+        parent_job_id:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        title:
+          type: string
+        percent_complete:
+          type: integer
+          minimum: 0
+          maximum: 100
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTaskEvent'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - STARTED
+          - TIMEDOUT
+          - RUNNING
+          - CANCELED
+          - FAILED
+          - SUSPENDED
+          - WAITING
+          - COMPLETED
+          - ABANDONED
+    HookTemplate:
       type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        dct_managed:
+          description: Whether this hook template is managed by DCT or by an individual Delphix Engine.
+          type: boolean
+        description:
+          type: string
+        shell:
+          type: string
+          enum:
+          - bash
+          - shell
+          - expect
+          - ps
+          - psd
+          default: bash
+        command:
+          type: string
+        credentials_env_vars:
+          description: List of environment variables that will contain credentials for this operation.
+          type: array
+          items:
+            $ref: '#/components/schemas/CredentialsEnvVariable'
+        engine_id:
+          type: string
+        compatible_engine_id:
+          type: string
+        tags:
+          description: The tags that are applied to this hook template.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    Tag:
+      type: object
+      required:
+      - key
+      - value
       properties:
         key:
           description: Key of the tag
@@ -302,14 +555,25 @@ components:
           minLength: 1
           maxLength: 4000
           example: value-1
-        tags:
-          description: List of tags to be deleted
-          type: array
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/Tag'
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    SearchBody:
+      description: Search body.
+      type: object
+      properties:
+        filter_expression:
+          type: string
+          minLength: 5
+          maxLength: 50000
+          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
     Job:
       description: An asynchronous task.
       type: object
@@ -433,113 +697,10 @@ components:
           type: object
       discriminator:
         propertyName: class_type
-    PaginatedResponseMetadata:
-      type: object
+    JobTaskEvent:
       properties:
-        prev_cursor:
-          description: Pointer to the previous page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
+        message_details:
           type: string
-        next_cursor:
-          description: Pointer to the next page of results. Use this value as a cursor query parameter in a subsequent request, along with limit, to navigate through the collection by virtual page.
-          type: string
-        total:
-          description: The total number of results. This value may not be provided.
-          type: integer
-          format: int_64
-    CredentialsEnvVariable:
-      required:
-      - base_var_name
-      properties:
-        base_var_name:
-          type: string
-          description: Base name of the environment variables. Variables are named by appending '_USER', '_PASSWORD', '_PUBKEY' and '_PRIVKEY' to this base name, respectively. Variables whose values are not entered or are not present in the type of credential or vault selected, will not be set.
-          minLength: 1
-          maxLength: 256
-        password:
-          x-dct-toolkit-credential-field: true
-          type: string
-          description: Password to assign to the environment variables.
-          minLength: 1
-          maxLength: 256
-          example: password
-        vault_username:
-          type: string
-          description: Delphix display name for the vault user.
-          minLength: 1
-          maxLength: 256
-          example: my-vault
-        vault:
-          type: string
-          description: The name or reference of the vault to assign to the environment variables.
-          minLength: 1
-          maxLength: 256
-          example: 1-VAULT-1
-        hashicorp_vault_engine:
-          type: string
-          description: Vault engine name where the credential is stored.
-          minLength: 1
-          maxLength: 256
-          example: kv
-        hashicorp_vault_secret_path:
-          type: string
-          description: Path in the vault engine where the credential is stored.
-          minLength: 1
-          maxLength: 256
-          example: oracle-env
-        hashicorp_vault_username_key:
-          type: string
-          description: Hashicorp vault key for the username in the key-value store.
-          minLength: 1
-          maxLength: 256
-          example: username
-        hashicorp_vault_secret_key:
-          type: string
-          description: Hashicorp vault key for the password in the key-value store.
-          minLength: 1
-          maxLength: 256
-          example: secret
-        azure_vault_name:
-          type: string
-          description: Azure key vault name.
-          minLength: 1
-          maxLength: 256
-          example: azure_vault
-        azure_vault_username_key:
-          type: string
-          description: Azure vault key in the key-value store.
-          minLength: 1
-          maxLength: 256
-          example: username
-        azure_vault_secret_key:
-          type: string
-          description: Azure vault key in the key-value store.
-          minLength: 1
-          maxLength: 256
-          example: secret
-        cyberark_vault_query_string:
-          type: string
-          description: Query to find a credential in the CyberArk vault.
-          minLength: 1
-          maxLength: 256
-          example: Safe=Test;Folder=Test;Object=Test
-        credential_type:
-          type: string
-          description: Credential type of the credential environment variable
-          minLength: 1
-          maxLength: 256
-          example: PasswordCredential
-        element_id:
-          type: string
-          description: Element ID of the credential environment variable. Omit to create a new credential. Include an existing element_id to update that credential. Any existing credential whose element_id is omitted from the request will be deleted. An element_id that does not match any existing credential is silently ignored.
-          minLength: 1
-          maxLength: 256
-          example: 35
-        type:
-          type: string
-          description: Type of the credential environment variable
-          minLength: 1
-          maxLength: 256
-          example: CredentialsEnvVars
     VirtualizationTask:
       deprecated: true
       properties:
@@ -576,167 +737,53 @@ components:
           - WAITING
           - COMPLETED
           - ABANDONED
-    Tag:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          description: Key of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: key-1
-        value:
-          description: Value of the tag
-          type: string
-          minLength: 1
-          maxLength: 4000
-          example: value-1
-    TagsRequest:
-      type: object
-      required:
-      - tags
-      properties:
-        tags:
-          description: Array of tags with key value pairs
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-          minItems: 1
-          maxItems: 1000
-          uniqueItems: true
-    VirtualizationTaskEvent:
-      deprecated: true
-      properties:
-        message_details:
-          type: string
-    JobTask:
-      properties:
-        id:
-          type: string
-        parent_job_id:
-          type: string
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        title:
-          type: string
-        percent_complete:
-          type: integer
-          minimum: 0
-          maximum: 100
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobTaskEvent'
-        status:
-          type: string
-          enum:
-          - PENDING
-          - STARTED
-          - TIMEDOUT
-          - RUNNING
-          - CANCELED
-          - FAILED
-          - SUSPENDED
-          - WAITING
-          - COMPLETED
-          - ABANDONED
-    JobTaskEvent:
-      properties:
-        message_details:
-          type: string
-    HookTemplate:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        dct_managed:
-          description: Whether this hook template is managed by DCT or by an individual Delphix Engine.
-          type: boolean
-        description:
-          type: string
-        shell:
-          type: string
-          enum:
-          - bash
-          - shell
-          - expect
-          - ps
-          - psd
-          default: bash
-        command:
-          type: string
-        credentials_env_vars:
-          description: List of environment variables that will contain credentials for this operation.
-          type: array
-          items:
-            $ref: '#/components/schemas/CredentialsEnvVariable'
-        engine_id:
-          type: string
-        compatible_engine_id:
-          type: string
-        tags:
-          description: The tags that are applied to this hook template.
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    SearchBody:
-      description: Search body.
-      type: object
-      properties:
-        filter_expression:
-          type: string
-          minLength: 5
-          maxLength: 50000
-          example: string_field CONTAINS "over" AND numberic_field GT 9000 OR string_field2 EQ "Goku"
-    UpdateHookTemplateParameters:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the hook template.
-          minLength: 1
-          maxLength: 256
-          example: Hook Template 1
-        description:
-          type: string
-          description: Description of the hook template.
-        shell:
-          type: string
-          enum:
-          - bash
-          - shell
-          - expect
-          - ps
-          - psd
-          default: bash
-        command:
-          type: string
-          minLength: 1
-          maxLength: 131072
-        credentials_env_vars:
-          description: List of environment variables that will contain credentials for this operation.
-          type: array
-          items:
-            $ref: '#/components/schemas/CredentialsEnvVariable'
-    Engine:
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+    hookTemplateIdParam:
+      in: path
+      name: hookTemplateId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+      description: The ID of the Hook Template.
+    hookTemplatesSortParam:
+      name: sort
+      in: query
+      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
+      example: id
+      required: false
+      schema:
+        type:
+        - string
+        - 'null'
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - dct_managed
+        - -dct_managed
+        - engine_id
+        - -engine_id
+        example: name
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 4096
   requestBodies:
     DeleteTags:
       description: The parameters to delete tags
@@ -950,53 +997,6 @@ components:
               summary: Overriding operator precedence
               value:
                 filter_expression: field1 LT 1234 AND (field2 CONTAINS 'foo' OR field3 CONTAINS 'bar')
-  parameters:
-    hookTemplateIdParam:
-      in: path
-      name: hookTemplateId
-      required: true
-      schema:
-        type: string
-        minLength: 1
-      description: The ID of the Hook Template.
-    hookTemplatesSortParam:
-      name: sort
-      in: query
-      description: The field to sort results by. A property name with a prepended '-' signifies a descending order.
-      example: id
-      required: false
-      schema:
-        type:
-        - string
-        - 'null'
-        enum:
-        - id
-        - -id
-        - name
-        - -name
-        - dct_managed
-        - -dct_managed
-        - engine_id
-        - -engine_id
-        example: name
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to fetch the next or previous page of results. The value of this property must be extracted from the 'prev_cursor' or 'next_cursor' property of a PaginatedResponseMetadata which is contained in the response of list and search API endpoints.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 4096
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of objects to return per query. The value must be between 1 and 1000. Default is 100.
-      example: 50
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 100
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

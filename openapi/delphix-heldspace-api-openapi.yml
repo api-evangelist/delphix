@@ -51,42 +51,7 @@ paths:
                     description: The initiated job.
 components:
   schemas:
-    HeldSpaceDeletionDependenciesResponse:
-      description: The deletion dependencies of a held space.
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/BaseDeletetionDependenciesResponse'
-    DeletionDependenciesTreeResponse:
-      description: The deletion dependencies of an object which occupies disk space.
-      type: object
-      properties:
-        prerequisite_actions:
-          description: The pre-requisite actions to perform before deleting the object.
-          type: array
-          items:
-            $ref: '#/components/schemas/DeletionDependencyPrerequisiteAction'
-        object_dependencies:
-          description: The object dependencies of the object.
-          type: array
-          items:
-            $ref: '#/components/schemas/DeletionDependencyObject'
-    DeletionDependencyObjectType:
-      description: Deletion dependency object type.
-      type: string
-      enum:
-      - TIMEFLOW
-      - SNAPSHOT
-      - JSBOOKMARK
-      - JSBRANCH
-      - TIMEFLOWBOOKMARK
-      - HELDSPACE
-      - VDB
-      - DSOURCE
-      - UNKNOWN
-      - ALLSNAPSHOTS
-      - BOOKMARK
-    VirtualizationTask:
-      deprecated: true
+    JobTask:
       properties:
         id:
           type: string
@@ -107,7 +72,7 @@ components:
         events:
           type: array
           items:
-            $ref: '#/components/schemas/VirtualizationTaskEvent'
+            $ref: '#/components/schemas/JobTaskEvent'
         status:
           type: string
           enum:
@@ -121,55 +86,6 @@ components:
           - WAITING
           - COMPLETED
           - ABANDONED
-    DeletionDependencyPrerequisiteAction:
-      description: Deletion dependency prerequisite action.
-      type: object
-      properties:
-        object_id:
-          description: ID of the object.
-          type: string
-        object_type:
-          description: Type of the object.
-          type: string
-          enum:
-          - SNAPSHOT
-          - VDB
-          - DSOURCE
-          - DATALAYOUT_CONTAINER
-          - DATALAYOUT_TEMPLATE
-          - UNKNOWN
-        object_name:
-          description: Name of the object.
-          type: string
-        namespace_id:
-          description: ID of the namespace that this object belongs to.
-          type: string
-        action:
-          description: The action to perform.
-          type: string
-          enum:
-          - REMOVE_KEEP_FOR
-          - TAKE_SNAPSHOT
-          - REFRESH
-        linked_object_id:
-          description: ID of the deletion dependency object which is linked to this prerequisite action.
-          type: string
-        linked_object_type:
-          description: Type of the deletion dependency object which is linked to this prerequisite action.
-          $ref: '#/components/schemas/DeletionDependencyObjectType'
-        locked:
-          description: Whether the prerequisite action is locked. If this is true then this action will be skipped.
-          type: boolean
-    Engine:
-      properties:
-        engine_id:
-          type: string
-          minLength: 1
-          maxLength: 4000
-        engine_name:
-          type: string
-          minLength: 1
-          maxLength: 4000
     Job:
       description: An asynchronous task.
       type: object
@@ -297,6 +213,88 @@ components:
       properties:
         message_details:
           type: string
+    BaseDeletetionDependenciesResponse:
+      description: Base class for deletion dependencies response.
+      type: object
+      properties:
+        prerequisite_actions:
+          description: The pre-requisite actions to perform before deleting the snapshot.
+          type: array
+          items:
+            $ref: '#/components/schemas/DeletionDependencyPrerequisiteAction'
+        object_dependencies:
+          description: The object dependencies of the snapshot.
+          type: array
+          items:
+            $ref: '#/components/schemas/DeletionDependencyObject'
+        dependency_tree:
+          description: The dependency tree of the snapshot.
+          $ref: '#/components/schemas/DeletionDependenciesTreeResponse'
+      discriminator:
+        propertyName: class_type
+    DeletionDependenciesTreeResponse:
+      description: The deletion dependencies of an object which occupies disk space.
+      type: object
+      properties:
+        prerequisite_actions:
+          description: The pre-requisite actions to perform before deleting the object.
+          type: array
+          items:
+            $ref: '#/components/schemas/DeletionDependencyPrerequisiteAction'
+        object_dependencies:
+          description: The object dependencies of the object.
+          type: array
+          items:
+            $ref: '#/components/schemas/DeletionDependencyObject'
+    DeletionDependencyPrerequisiteAction:
+      description: Deletion dependency prerequisite action.
+      type: object
+      properties:
+        object_id:
+          description: ID of the object.
+          type: string
+        object_type:
+          description: Type of the object.
+          type: string
+          enum:
+          - SNAPSHOT
+          - VDB
+          - DSOURCE
+          - DATALAYOUT_CONTAINER
+          - DATALAYOUT_TEMPLATE
+          - UNKNOWN
+        object_name:
+          description: Name of the object.
+          type: string
+        namespace_id:
+          description: ID of the namespace that this object belongs to.
+          type: string
+        action:
+          description: The action to perform.
+          type: string
+          enum:
+          - REMOVE_KEEP_FOR
+          - TAKE_SNAPSHOT
+          - REFRESH
+        linked_object_id:
+          description: ID of the deletion dependency object which is linked to this prerequisite action.
+          type: string
+        linked_object_type:
+          description: Type of the deletion dependency object which is linked to this prerequisite action.
+          $ref: '#/components/schemas/DeletionDependencyObjectType'
+        locked:
+          description: Whether the prerequisite action is locked. If this is true then this action will be skipped.
+          type: boolean
+    Engine:
+      properties:
+        engine_id:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        engine_name:
+          type: string
+          minLength: 1
+          maxLength: 4000
     Tag:
       type: object
       required:
@@ -370,7 +368,13 @@ components:
       properties:
         message_details:
           type: string
-    JobTask:
+    HeldSpaceDeletionDependenciesResponse:
+      description: The deletion dependencies of a held space.
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/BaseDeletetionDependenciesResponse'
+    VirtualizationTask:
+      deprecated: true
       properties:
         id:
           type: string
@@ -391,7 +395,7 @@ components:
         events:
           type: array
           items:
-            $ref: '#/components/schemas/JobTaskEvent'
+            $ref: '#/components/schemas/VirtualizationTaskEvent'
         status:
           type: string
           enum:
@@ -405,25 +409,21 @@ components:
           - WAITING
           - COMPLETED
           - ABANDONED
-    BaseDeletetionDependenciesResponse:
-      description: Base class for deletion dependencies response.
-      type: object
-      properties:
-        prerequisite_actions:
-          description: The pre-requisite actions to perform before deleting the snapshot.
-          type: array
-          items:
-            $ref: '#/components/schemas/DeletionDependencyPrerequisiteAction'
-        object_dependencies:
-          description: The object dependencies of the snapshot.
-          type: array
-          items:
-            $ref: '#/components/schemas/DeletionDependencyObject'
-        dependency_tree:
-          description: The dependency tree of the snapshot.
-          $ref: '#/components/schemas/DeletionDependenciesTreeResponse'
-      discriminator:
-        propertyName: class_type
+    DeletionDependencyObjectType:
+      description: Deletion dependency object type.
+      type: string
+      enum:
+      - TIMEFLOW
+      - SNAPSHOT
+      - JSBOOKMARK
+      - JSBRANCH
+      - TIMEFLOWBOOKMARK
+      - HELDSPACE
+      - VDB
+      - DSOURCE
+      - UNKNOWN
+      - ALLSNAPSHOTS
+      - BOOKMARK
   parameters:
     heldspaceId:
       name: heldspaceId
